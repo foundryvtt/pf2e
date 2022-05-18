@@ -110,7 +110,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -168,7 +167,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "property1": {
                     "critDamage": "",
@@ -296,7 +295,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -419,7 +420,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -535,7 +538,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -624,7 +630,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spear",
             "sort": 500000,
@@ -670,7 +675,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sling",
             "sort": 600000,
@@ -714,7 +718,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spear",
             "sort": 700000,
@@ -818,7 +821,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hurried Retreat",
             "sort": 900000,
@@ -850,12 +852,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -910,7 +921,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1100000,
@@ -957,7 +967,6 @@
                     }
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 1200000,
@@ -986,7 +995,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1300000,

@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-06: The Crashing Wave"
             }
         },
         "resources": {},
@@ -93,7 +93,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "Shark Commune (150ft)",
+                "custom": "Shark Commune 150 feet",
                 "selected": [],
                 "value": [
                     "aquan"
@@ -101,7 +101,7 @@
             },
             "rarity": "uncommon",
             "senses": {
-                "value": "darkvision, wavesense 30ft"
+                "value": "darkvision, wavesense 30 feet"
             },
             "size": {
                 "value": "med"
@@ -175,7 +175,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -301,7 +303,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -377,6 +381,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -422,6 +427,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -465,6 +471,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -506,6 +513,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -554,6 +562,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -599,6 +608,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The sea devil can communicate telepathically with sharks within range. It can communicate only simple concepts like \"come,\" \"guard,\" or \"attack.\"</p>"
                 },
@@ -626,7 +636,7 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shark Commune",
+            "name": "Shark Commune 150 feet",
             "sort": 800000,
             "type": "action"
         },
@@ -642,6 +652,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
                 },
@@ -671,12 +682,12 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wavesense",
+            "name": "Wavesense 30 feet",
             "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "IXTvncC4IXwo9AA5",
+            "_id": "EmD03mNByZaPyAab",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -687,36 +698,22 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The sea devil is not fatigued or already in a frenzy.</p>\n<p><strong>Trigger</strong> The sea devil deals bleed damage to a living creature.</p>\n<p><strong>Effect</strong> The sea devil flies into a frenzy that lasts 1 minute. While frenzied, the sea devil gains a +1 status bonus to attack rolls with its claws and jaws, gains a +4 status bonus to damage rolls with its claws and jaws, gains 11 temporary HP until the end of the frenzy, and takes a -2 status penalty to AC. The sea devil can't voluntarily stop its frenzy. After its frenzy, the sea devil is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+                    "value": "<p><strong>Requirements</strong> The sea devil is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or already in a frenzy</p>\n<p><strong>Trigger</strong> The sea devil deals bleed damage to a living creature.</p>\n<p><strong>Effect</strong> The sea devil flies into a frenzy that lasts 1 minute. While frenzied, the sea devil gains a +1 status bonus to attack rolls with its claws and jaws, gains a +4 status bonus to damage rolls with its claws and jaws, gains 11 temporary HP until the end of the frenzy, and takes a -2 status penalty to AC. The sea devil can't voluntarily stop its frenzy. After its frenzy, the sea devil is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Blood Frenzy]{Effect: Blood Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "blood-frenzy",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "TempHP",
-                        "predicate": {
-                            "all": [
-                                "blood-frenzy"
-                            ]
-                        },
-                        "value": 11
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
                             ]
                         },
-                        "selector": "attack",
+                        "selector": "claw-attack",
                         "type": "status",
                         "value": 1
                     },
@@ -724,18 +721,18 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
                             ]
                         },
-                        "selector": "jaws-damage",
+                        "selector": "jaws-attack",
                         "type": "status",
-                        "value": 4
+                        "value": 1
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
                             ]
                         },
                         "selector": "claw-damage",
@@ -746,7 +743,24 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
+                            ]
+                        },
+                        "selector": "jaws-damage",
+                        "type": "status",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.custom.modifiers.frenzyMod",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "self:effect:blood-frenzy"
                             ]
                         },
                         "selector": "ac",
@@ -779,7 +793,7 @@
             "type": "action"
         },
         {
-            "_id": "JvRIHya9f8NVg95E",
+            "_id": "TV0WjqqG67mx00yL",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -790,13 +804,38 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} if the target was @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
+                    "value": "<p>When the sea devil deals piercing or slashing damage, it also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] if the target was @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "target:condition:flat-footed"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "not": [
+                                "target:condition:flat-footed"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

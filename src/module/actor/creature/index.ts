@@ -10,9 +10,8 @@ import {
 } from "@actor/modifiers";
 import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
 import { RuleElementSynthetics } from "@module/rules";
-import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e, CheckRollContext } from "@system/rolls";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -34,8 +33,7 @@ import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
-import { extractModifiers } from "@module/rules/util";
-import { DeferredModifier } from "@module/rules/rule-element/data";
+import { extractModifiers, extractRollTwice } from "@module/rules/util";
 import { DamageType } from "@system/damage";
 import { StrikeData } from "@actor/data/base";
 import {
@@ -66,7 +64,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const longForm = skill.name;
             const skillName = game.i18n.localize(CONFIG.PF2E.skills[shortForm]) || skill.name;
             const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
-            const domains = ["all", "skill-check", longForm, `${skill.ability}-based`];
+            const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
             current[shortForm] = new Statistic(this, {
                 slug: longForm,
@@ -416,10 +414,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         this.rollOptions.all[`self:level:${this.level}`] = true; // `;
     }
 
-    protected prepareInitiative(
-        statisticsModifiers: Record<string, DeferredModifier[]>,
-        rollNotes: Record<string, RollNotePF2e[] | undefined>
-    ): void {
+    protected prepareInitiative(): void {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
 
         const systemData = this.data.data;
@@ -435,9 +430,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
                       CONFIG.PF2E.skills[checkType],
                   ] as const);
 
-        const rollOptions = [proficiency, ...this.getRollOptions([proficiency, `${ability}-based`, "all"])];
-        const modifiers = extractModifiers(statisticsModifiers, ["initiative"], { test: rollOptions });
-
+        const { statisticsModifiers, rollNotes } = this.synthetics;
+        const domains = ["all", "initiative", `${ability}-based`, proficiency];
+        const modifiers = extractModifiers(statisticsModifiers, domains, {
+            test: [proficiency, ...this.getRollOptions(domains)],
+        });
         const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
@@ -446,16 +443,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
             roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
                 if (!("initiative" in this.data.data.attributes)) return null;
-
-                const options = Array.from(
-                    new Set([
-                        ...this.getRollOptions(["all", "initiative", `${ability}-based`, proficiency]),
-                        ...(args.options ?? []),
-                        proficiency,
-                    ])
+                const rollOptions = Array.from(
+                    new Set([...this.getRollOptions(domains), ...(args.options ?? []), proficiency])
                 );
 
-                if (this.data.type === "character") ensureProficiencyOption(options, initStat.rank ?? -1);
+                if (this.data.type === "character") ensureProficiencyOption(rollOptions, initStat.rank ?? -1);
 
                 // Get or create the combatant
                 const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
@@ -477,12 +469,30 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 })();
                 if (!combatant) return null;
 
+                const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                const context: CheckRollContext = {
+                    actor: this,
+                    type: "initiative",
+                    options: rollOptions,
+                    notes,
+                    dc: args.dc,
+                    rollTwice,
+                    skipDialog: args.skipDialog,
+                };
+                if (combatant.hidden) {
+                    context.rollMode = CONST.DICE_ROLL_MODES.PRIVATE;
+                }
+
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, systemData.attributes.initiative, args.modifiers),
-                    { actor: this, type: "initiative", options, notes, dc: args.dc, skipDialog: args.skipDialog },
+                    context,
                     args.event
                 );
                 if (!roll) return null;
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                }
 
                 // Update the tracker unless requested not to
                 const updateTracker = args.updateTracker ?? true;
@@ -544,15 +554,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     ): Promise<void> {
         const { usage } = item.data.data;
         if (carryType === "stowed") {
-            // since there's still an "items need to be in a tree" view, we
-            // need to actually put the item in a container when it's stowed.
-            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
-            await item.update({
-                "data.containerId": container?.id ?? "",
-                "data.equipped.carryType": "stowed",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": usage.type === "worn" && usage.where ? false : undefined,
-            });
+            const container = item.actor.itemTypes.backpack.find((c) => c !== item.container && !isCycle(item, c));
+            if (container) await item.actor.stowOrUnstow(item, container);
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,

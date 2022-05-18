@@ -130,7 +130,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -237,7 +236,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
             "sort": 100000,
@@ -347,7 +345,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
             "sort": 200000,
@@ -2050,7 +2047,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Norn Shears",
             "sort": 1800000,
@@ -2098,7 +2094,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Of Fate",
             "sort": 1900000,
@@ -2116,6 +2111,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -2161,6 +2157,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -2206,13 +2203,20 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>A norn automatically rolls a 20 when she rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "<p><strong>{item|name}</strong></p><p>{item|data.description.value}</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2231,7 +2235,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sense Fate",
             "sort": 2200000,
@@ -2249,6 +2252,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>This functions as the @Compendium[pf2e.bestiary-ability-glossary-srd.Coven]{Coven} ability, except only norns can join a triumvirate, and it functions only as long as exactly three norns are part of the triumvirate. A triumvirate grants the following spells: <em>@Compendium[pf2e.spells-srd.Alter Reality]{Alter Reality}</em> (once per day), <em>@Compendium[pf2e.spells-srd.Cataclysm]{Cataclysm}</em>, <em>@Compendium[pf2e.spells-srd.Discern Location]{Discern Location}</em>, <em>@Compendium[pf2e.spells-srd.Foresight]{Foresight}</em>, and <em>@Compendium[pf2e.spells-srd.Revival]{Revival}</em>.</p>"
                 },
@@ -2272,7 +2276,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Triumvirate",
             "sort": 2300000,
@@ -2290,6 +2293,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -2335,6 +2339,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2380,6 +2385,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": ""
                 },
@@ -2418,7 +2424,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 2600000,
@@ -2436,6 +2441,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
@@ -2481,6 +2487,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When a creature is subject to a fortune effect from a norn and a misfortune effect from any source other than a norn (or vice versa), the norn's effect automatically counteracts the other effect and then takes place normally, rather than the two effects canceling each other out. If both the fortune and misfortune effect are from a norn, then the two cancel each other out as normal. At the GM's discretion, powerful entities related to fate or luck, like Desna, Magdh, or Pharasma, count as a norn for the purpose of this ability.</p>"
                 },
@@ -2507,7 +2514,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fated",
             "sort": 2800000,
@@ -2525,6 +2531,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When a norn deals negative damage with a Strike, she regains 10 Hit Points. The target must succeed at a @Check[type:fortitude|dc:39] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1} (@Compendium[pf2e.conditionitems.Drained]{Drained 2} on a critical failure).</p>\n<p>Further negative damage dealt by the norn increases the drained condition value by 1 on a failed save (or by 2 on a critical failure), to a maximum of drained 4.</p>"
                 },
@@ -2551,7 +2558,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sever Fate",
             "sort": 2900000,
@@ -2569,6 +2575,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within 120 feet attempts a saving throw</p>\n<p><strong>Effect</strong> The creature rolls the saving throw twice, and then the norn decides which result applies. If the norn chooses the lower roll, this is a misfortune effect; if she chooses the higher roll, it's a fortune effect; if they're the same, she decides which trait to apply.</p>"
                 },
@@ -2597,7 +2604,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shift Fate",
             "sort": 3000000,
@@ -2615,6 +2621,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Effect</strong> The norn produces a golden thread linked to the fate of a creature within 100 feet of her, then snips it short with her shears. The target takes [[/r {100}[negative]]]{100 negative damage} (@Check[type:fortitude|dc:42|basic:true] save). If the target is reduced to 0 Hit Points from this damage, the thread is completely severed and the creature dies immediately. A creature slain by Snip Thread can't be restored to life except by <em>@Compendium[pf2e.spells-srd.Miracle]{Miracle}</em>, <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em>, or similarly powerful magic; or by divine intervention. Regardless of the outcome of their saving throw, a creature targeted by Snip Thread then becomes temporarily immune for 24 hours. The norn can't use Snip Thread again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
@@ -2643,7 +2650,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Snip Thread",
             "sort": 3100000,
@@ -2672,7 +2678,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 3200000,
@@ -2701,7 +2706,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 3300000,
@@ -2730,7 +2734,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 3400000,
@@ -2759,7 +2762,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Lore (All)",
             "sort": 3500000,
@@ -2788,7 +2790,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
             "sort": 3600000,
@@ -2817,7 +2818,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
             "sort": 3700000,
@@ -2846,7 +2846,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
             "sort": 3800000,
@@ -2875,7 +2874,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
             "sort": 3900000,

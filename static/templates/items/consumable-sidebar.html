@@ -76,8 +76,13 @@
     <!-- Price -->
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String" />
+        <div class="price-fields">
+            <input type="text" name="data.price.value" value="{{priceString}}" data-dtype="String" />
+            /
+            <input type="text" name="data.price.per" value="{{data.price.per}}" data-dtype="String" />
+        </div>
     </div>
+
     <!-- Charges -->
     <div class="form-group consumable-details">
         <label>{{localize "PF2E.ConsumableChargesLabel"}}</label>
@@ -88,7 +93,7 @@
     <!-- Traits -->
     <ol class="item-tags tags">
         {{#each traits as |trait|}}
-            <li class="tag tag_transparent">{{localize trait.label}}</li>
+            <li class="tag tag_transparent">{{trait.label}}</li>
         {{/each}}
     </ol>
 </div>

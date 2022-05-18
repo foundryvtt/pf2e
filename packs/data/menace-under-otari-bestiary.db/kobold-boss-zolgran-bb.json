@@ -117,7 +117,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -254,7 +253,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Wizard Spells",
             "sort": 100000,
@@ -1006,7 +1004,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "property1": {
                     "critDamage": "",
@@ -1069,7 +1067,6 @@
                     "value": "1"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/weapons/staff.webp",
             "name": "Staff",
             "sort": 800000,
@@ -1111,7 +1108,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1133,7 +1130,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/consumables/talismans/swift-block-cabochon.webp",
             "name": "Eggshell Necklace",
             "sort": 900000,
@@ -1175,7 +1171,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1197,7 +1193,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/held-items/skeleton-key.webp",
             "name": "Iron Key",
             "sort": 1000000,
@@ -1241,7 +1236,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 1100000,
@@ -1282,7 +1276,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
             "sort": 1200000,
@@ -1358,12 +1351,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1418,7 +1420,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
             "sort": 1500000,
@@ -1447,7 +1448,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1600000,
@@ -1476,7 +1476,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
             "sort": 1700000,
@@ -1505,7 +1504,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Dragon Lore",
             "sort": 1800000,
@@ -1534,7 +1532,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1900000,
@@ -1563,7 +1560,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2000000,

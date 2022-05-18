@@ -114,7 +114,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -221,7 +220,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Spells Known",
             "sort": 100000,
@@ -727,7 +725,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -857,7 +857,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -981,7 +983,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "500 gp"
+                    "value": {
+                        "gp": 500
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1069,7 +1073,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "250 gp"
+                    "value": {
+                        "gp": 250
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1164,7 +1170,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "per": 10,
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -1280,7 +1289,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "7 gp"
+                    "value": {
+                        "gp": 7
+                    }
                 },
                 "quantity": 4,
                 "range": {
@@ -1403,7 +1414,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "500 gp"
+                    "value": {
+                        "gp": 500
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -1466,9 +1479,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -1497,7 +1507,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {
+                        "gp": 100
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1514,9 +1526,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 100
                 },
                 "weight": {
                     "value": "-"
@@ -1571,7 +1580,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rapier",
             "sort": 1400000,
@@ -1618,7 +1626,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Blowgun",
             "sort": 1500000,
@@ -1659,7 +1666,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Efficient Capture",
             "sort": 1600000,
@@ -1708,7 +1714,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Precise Debilitations",
             "sort": 1700000,
@@ -1740,12 +1745,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1836,7 +1850,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Weapon Trick",
             "sort": 1900000,
@@ -1865,7 +1878,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 2000000,
@@ -1894,7 +1906,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
             "sort": 2100000,
@@ -1923,7 +1934,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 2200000,
@@ -1952,7 +1962,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 2300000,
@@ -1981,7 +1990,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
             "sort": 2400000,
@@ -2010,7 +2018,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2500000,
@@ -2039,7 +2046,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 2600000,

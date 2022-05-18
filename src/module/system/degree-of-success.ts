@@ -25,7 +25,11 @@ class DegreeOfSuccess {
 
     constructor(roll: Rolled<Roll<RollDataPF2e>> | RollBrief, dc: CheckDC | number) {
         if (roll instanceof Roll) {
-            this.dieResult = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20)?.total ?? 1;
+            this.dieResult =
+                (roll.isDeterministic
+                    ? roll.terms.find((t): t is NumericTerm => t instanceof NumericTerm)
+                    : roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20)
+                )?.total ?? 1;
             this.rollTotal = roll.total;
         } else {
             this.dieResult = roll.dieValue;

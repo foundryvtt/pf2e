@@ -3,6 +3,7 @@ import { ItemSummaryRendererPF2e } from "@actor/sheet/item-summary-renderer";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
 import { SpellcastingEntryPF2e } from ".";
+import { SpellcastingEntryListData } from "./data";
 
 class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
     /** Implementation used to handle the toggling and rendering of item summaries */
@@ -27,7 +28,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
     }
 
     override get title() {
-        return game.i18n.format("PF2E.UnpreparedSpellsLabel", { label: this.actor.name });
+        return game.i18n.format("PF2E.Actor.Creature.SpellPreparation.Title", { actor: this.actor.name });
     }
 
     /**
@@ -47,13 +48,11 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         return buttons;
     }
 
-    override getData() {
-        const entry = this.item.getSpellData();
-
+    override async getData(): Promise<SpellPreparationSheetData> {
         return {
-            ...super.getData(),
+            ...(await super.getData()),
             owner: this.actor.isOwner,
-            entry,
+            entry: this.item.getSpellData(),
         };
     }
 
@@ -108,10 +107,10 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         });
     }
 
-    private getItemFromEvent(event: JQuery.TriggeredEvent) {
+    private getItemFromEvent(event: JQuery.TriggeredEvent): Embedded<ItemPF2e> {
         const $li = $(event.currentTarget).closest("li[data-item-id]");
         const itemId = $li.attr("data-item-id") ?? "";
-        return this.actor.items.get(itemId);
+        return this.actor.items.get(itemId, { strict: true });
     }
 
     /** Allow adding new spells to the shortlist by dragging directly into the window */
@@ -125,12 +124,31 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         return super._onDropItemCreate(spellSources);
     }
 
+    /** Allow transferring spells between open windows */
+    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        if (itemData.type !== "spell") return [];
+
+        const spell = this.actor.items.get(itemData._id);
+        if (itemData.data.location.value !== this.item.id && spell instanceof SpellPF2e) {
+            const addedSpell = await this.item.addSpell(spell);
+            return [addedSpell ?? []].flat();
+        }
+
+        return super._onSortItem(event, itemData);
+    }
+
     /** Override of inner render function to maintain item summary state */
-    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
+    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery> {
         return this.itemRenderer.saveAndRestoreState(() => {
             return super._renderInner(data, options);
         });
     }
+}
+
+interface SpellPreparationSheetData extends ActorSheetData<ActorPF2e> {
+    actor: ActorPF2e;
+    owner: boolean;
+    entry: SpellcastingEntryListData;
 }
 
 export { SpellPreparationSheet };

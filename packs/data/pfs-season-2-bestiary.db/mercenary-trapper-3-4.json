@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario #2-13: A Gilded Test"
             }
         },
         "resources": {},
@@ -114,7 +114,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Fjw9lCEx16fPYT7D",
+            "_id": "O2UJaDPlKO9oGdx6",
             "data": {
                 "MAP": {
                     "value": ""
@@ -168,7 +168,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -196,7 +198,7 @@
                 "propertyRune4": {
                     "value": ""
                 },
-                "quantity": 3,
+                "quantity": 1,
                 "range": 30,
                 "reload": {
                     "value": "-"
@@ -205,7 +207,7 @@
                 "size": "med",
                 "slug": "javelin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -242,7 +244,7 @@
             "type": "weapon"
         },
         {
-            "_id": "Uqom5t7TuVPtomKk",
+            "_id": "XH08tuh9nV9O6YAg",
             "data": {
                 "MAP": {
                     "value": ""
@@ -296,7 +298,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "9 sp"
+                    "value": {
+                        "sp": 9
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -333,7 +337,7 @@
                 "size": "med",
                 "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -372,7 +376,7 @@
             "type": "weapon"
         },
         {
-            "_id": "wgOXclaBRiog7uQn",
+            "_id": "fzhMGlcdJ9P8QdRb",
             "data": {
                 "MAP": {
                     "value": ""
@@ -393,7 +397,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, [[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and 1 fire splash damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, 1 persistent fire damage, and 1 fire splash damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -426,7 +430,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -459,11 +465,28 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.criticalSuccess]</p>"
+                    }
+                ],
                 "size": "med",
                 "slug": "alchemists-fire-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -504,7 +527,7 @@
             "type": "weapon"
         },
         {
-            "_id": "JIggHIQ6DmTe6hCg",
+            "_id": "4ke2gYu4HVNTxaBo",
             "data": {
                 "armor": {
                     "value": 1
@@ -523,7 +546,6 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -553,7 +575,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -575,7 +599,7 @@
                 "size": "med",
                 "slug": "padded-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -696,51 +720,6 @@
             "type": "melee"
         },
         {
-            "_id": "ZRysf6oZKVi1COfK",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
             "_id": "MwXTBFWH78hOkqqZ",
             "data": {
                 "actionCategory": {
@@ -752,6 +731,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The mercenary trapper's attacks deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} to creatures that are @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} by a mechanical jaws trap.</p>"
                 },
@@ -798,6 +778,49 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Trapped Prey",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "CuQGYfGgXXpATv1C",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p>You lash out at a foe that leaves an opening. Make a melee Strike against the triggering creature. If your attack is a critical hit and the trigger was a manipulate action, you disrupt that action. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.KAVf7AmRnbCAHrkT"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
             "sort": 800000,
             "type": "action"
         },

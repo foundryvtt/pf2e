@@ -204,12 +204,13 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not.
      */
-    async addSpell(spell: SpellPF2e, targetLevel: number): Promise<SpellPF2e | null> {
+    async addSpell(spell: SpellPF2e, targetLevel?: number): Promise<SpellPF2e | null> {
         const actor = this.actor;
         if (!(actor instanceof CreaturePF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
 
+        targetLevel ??= spell.level;
         const spellcastingEntryId = spell.data.data.location.value;
         if (spellcastingEntryId === this.id && spell.level === targetLevel) {
             return null;

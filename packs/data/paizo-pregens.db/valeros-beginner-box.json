@@ -130,11 +130,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -238,7 +238,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/iconics/ValerosFull.webp",
     "items": [
         {
@@ -264,7 +263,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Farming Lore",
             "sort": 700000,
@@ -275,9 +273,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -306,7 +301,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -324,9 +321,6 @@
                 "usage": {
                     "value": ""
                 },
-                "value": {
-                    "value": 1
-                },
                 "weight": {
                     "value": 0
                 }
@@ -340,53 +334,6 @@
             "name": "Gold Pieces",
             "sort": 2300000,
             "type": "treasure"
-        },
-        {
-            "_id": "16tjaq2ws1mhSalC",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You are wielding a shield</p>\n<hr />\n<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "raise-a-shield",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.xjGwis0uaC2305pm"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Raise a Shield",
-            "sort": 2500000,
-            "type": "action"
         },
         {
             "_id": "814d8nfekmqwk7w7",
@@ -1083,6 +1030,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "athletics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -1149,7 +1116,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1216,7 +1185,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1282,7 +1253,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1348,7 +1321,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 10,
                 "rules": [],
@@ -1414,7 +1389,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1508,7 +1485,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4 sp"
+                    "value": {
+                        "sp": 4
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1595,7 +1574,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 5,
                 "rules": [],
@@ -1661,7 +1642,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1727,7 +1710,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1784,11 +1769,6 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.uuHds4R9gkoW97fI"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/heritage.svg",
@@ -1851,7 +1831,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1979,7 +1961,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2106,7 +2090,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "8 gp"
+                    "value": {
+                        "gp": 8
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2193,7 +2179,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2280,7 +2268,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2416,7 +2406,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 60,
                 "range": {
@@ -2519,7 +2512,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2630,6 +2625,53 @@
             "name": "Sudden Charge",
             "sort": 0,
             "type": "feat"
+        },
+        {
+            "_id": "tVpi39Ukfxu1JqoQ",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are wielding a shield</p>\n<hr />\n<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Raise a Shield]{Effect: Raise a Shield}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "raise-a-shield",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.xjGwis0uaC2305pm"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Raise a Shield",
+            "sort": 0,
+            "type": "action"
         }
     ],
     "name": "Valeros (Beginner Box)",

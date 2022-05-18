@@ -24,20 +24,7 @@
             "selectable": true,
             "statusName": "stupefied"
         },
-        "modifiers": [
-            {
-                "group": "int-based",
-                "type": "status"
-            },
-            {
-                "group": "wis-based",
-                "type": "status"
-            },
-            {
-                "group": "cha-based",
-                "type": "status"
-            }
-        ],
+        "modifiers": [],
         "overrides": [],
         "references": {
             "children": [],
@@ -46,7 +33,26 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "int-based",
+                "type": "status",
+                "value": "-@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "wis-based",
+                "type": "status",
+                "value": "-@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "cha-based",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
         "source": {
             "value": ""
         },

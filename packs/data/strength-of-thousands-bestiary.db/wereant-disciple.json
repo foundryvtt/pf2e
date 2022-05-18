@@ -127,7 +127,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -139,7 +138,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "curse-of-the-wereant"
+                        "werecreature-curse-of-the-werecreature"
                     ]
                 },
                 "bonus": {
@@ -154,19 +153,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Moon Frenzy",
-                        "predicate": {
-                            "all": [
-                                "moon-frenzy"
-                            ]
-                        },
-                        "selector": "{item|_id}-damage",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -180,7 +167,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 100000,
@@ -227,7 +213,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Carapace Fist",
             "sort": 200000,
@@ -373,6 +358,54 @@
             "type": "action"
         },
         {
+            "_id": "RGtBKNN4KKbuVOt9",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The wereant can communicate with insects.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "werecreature-animal-empathy",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.iAXHLkxuuCUOwqkN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Insect Empathy",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
             "_id": "35g2fh9fmfp3anxh",
             "data": {
                 "actionCategory": {
@@ -385,7 +418,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Trigger</strong> A creature adjacent to the wereant critically misses the wereant with a melee Strike\n<hr />\n<p><strong>Effect</strong> The wereant makes a mandibles Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature adjacent to the wereant critically misses the wereant with a melee Strike</p><hr />\n<p><strong>Effect</strong> The wereant makes a mandibles Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -404,10 +437,9 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Gnawing Retort",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -486,50 +518,8 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hive Mind",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "5cqcwxvs49m7409c",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>The wereant can communicate with insects.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divination",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Insect Empathy",
             "sort": 800000,
             "type": "action"
         },
@@ -557,11 +547,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "[magical tradition]",
+                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
                         "polymorph",
+                        "primal",
                         "transmutation"
                     ]
                 },
@@ -583,7 +574,7 @@
             "type": "action"
         },
         {
-            "_id": "2fbwrz59o3okt5yt",
+            "_id": "dLLXCoWbblalgqjW",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -595,15 +586,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34].</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a wereant until dawn. The creature is under the GM's control and goes on a rampage for half the night before falling @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} until dawn.</p>"
+                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34].</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a wereant until dawn.</p>\n<p>The creature is under the GM's control and goes on a rampage for half the night before falling @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} until dawn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "werecreature-curse-of-the-werecreature",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -616,9 +607,16 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ICnpftxZEilrYjn0"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Wereant",
             "sort": 1000000,
@@ -637,7 +635,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<strong>Frequency</strong> once per round\n<hr />\n<p><strong>Effect</strong> The wereant disciple Flies and makes two Strikes against different targets at any point during that movement. These Strikes deal an additional [[/r {2d6}[precision]]]{2d6 precision damage} if the disciple is above the target. If the wereant began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, they remain hidden until after this ability's Strikes. Both attacks count toward the disciple's multiple attack penalty, but the penalty doesn't increase until after both Strikes.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr />\n<p><strong>Effect</strong> The wereant disciple Flies and makes two Strikes against different targets at any point during that movement. These Strikes deal an additional [[/r {2d6}[precision]]]{2d6 precision damage} if the disciple is above the target. If the wereant began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, they remain hidden until after this ability's Strikes. Both attacks count toward the disciple's multiple attack penalty, but the penalty doesn't increase until after both Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -675,14 +673,13 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flying Leap",
             "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "j9fbslz8gtb7sjrt",
+            "_id": "o5kYgNvC941Wm7mn",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -694,22 +691,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a full moon appears in the night sky, the wereant must enter hybrid form, can't Change Shape, becomes one size larger, increases their reach by 5 feet, and increases the damage of their mandibles Strike by 2. When the moon sets or the sun rises, the wereant returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/r 2d4 #hours]]{2d4 hours}.</p>"
+                    "value": "<p>When a full moon appears in the night sky, the wereant must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of their mandibles Strike by 2.</p>\n<p>When the moon sets or the sun rises, the werecreature returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Moon Frenzy]{Effect: Moon Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "moon-frenzy",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
+                "rules": [],
+                "slug": "werecreature-moon-frenzy",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -722,9 +712,16 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FA0ri2fAcMa1HgZe"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
             "sort": 1200000,
@@ -762,7 +759,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Staggering Blow",
             "sort": 1300000,
@@ -791,7 +787,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1400000,
@@ -820,7 +815,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1500000,
@@ -849,7 +843,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1600000,
@@ -878,7 +871,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 1700000,

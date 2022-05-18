@@ -116,7 +116,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -223,7 +222,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
@@ -603,19 +601,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -632,7 +617,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "20 gp"
+                    "value": {
+                        "gp": 20
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -746,19 +733,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -775,7 +749,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -881,19 +857,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -911,7 +874,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1017,19 +982,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1043,7 +995,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -1134,7 +1089,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 900000,
@@ -1182,7 +1136,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
             "sort": 1000000,
@@ -1480,7 +1433,7 @@
                             "success"
                         ],
                         "selector": "reflex",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
                     }
                 ],
                 "slug": null,
@@ -1499,7 +1452,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deft Evasion",
             "sort": 1600000,
@@ -1519,7 +1471,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Prerequisites</strong> The hunter is wielding a ranged weapon with a reload of 0</p>\n</div>\n<p><strong>Effect</strong> The hunter makes two ranged Strikes against their prey. If both hit and deal damage, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed1d8.success].</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Prerequisites</strong> The hunter is wielding a ranged weapon with a reload of 0</p>\n<p><strong>Effect</strong> The hunter makes two ranged Strikes against their prey. If both hit and deal damage, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed1d8.success].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1541,7 +1493,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunter's Wound",
             "sort": 1700000,
@@ -1583,7 +1534,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Skirmish Strike",
             "sort": 1800000,
@@ -1612,7 +1562,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1900000,
@@ -1641,7 +1590,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
             "sort": 2000000,
@@ -1670,7 +1618,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2100000,
@@ -1717,7 +1664,6 @@
                     }
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2200000,

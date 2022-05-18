@@ -112,7 +112,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -154,19 +153,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -183,7 +169,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -278,19 +266,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -304,7 +279,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -326,7 +301,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Projectile Launcher",
             "sort": 200000,
@@ -354,19 +328,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -380,7 +341,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 5,
                 "rules": [],
@@ -402,7 +363,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/earthquake.webp",
             "name": "Handful of Junk",
             "sort": 300000,
@@ -446,7 +406,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Warhammer",
             "sort": 400000,
@@ -490,7 +449,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 500000,
@@ -537,7 +495,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Projectile Launcher",
             "sort": 600000,
@@ -726,7 +683,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Improvised Projectile",
             "sort": 1000000,
@@ -758,12 +714,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -848,7 +813,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swarming Stance",
             "sort": 1200000,
@@ -867,7 +831,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The morlock engineer tinkers with an adjacent construct or mechanical hazard. They attempt a Crafting check against the construct's or hazard's Fortitude DC. The morlock can't get an outcome better than failure if the target's level is more than double the morlock's.</p>\n<p>This ability reflects hasty battlefield repairs; once a construct or hazard regains Hit Points from this ability, it can't do so again until it's been @Compendium[pf2e.actionspf2e.Repair]{Repaired}.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target regains [[/r {8d6}[healing]]]{8d6 Hit Points} and a +1 circumstance bonus to attack rolls for 1 minute. Alternately, the morlock can deal [[/r {8d6}]]{8d6 damage} (bludgeoning, piercing, or slashing, as chosen by the morlock engineer) to the construct or hazard.</p>\n<p><strong>Success</strong> As critical success, but the target regains [[/r {4d6}[healing]]]{4d6 Hit Points} or the morlock deals [[/r {4d6}]]{4d6 damage}.</p>\n<p><strong>Critical Failure</strong> The morlock injures themself, taking [[/r {3d6}]]{3d6 damage} (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Uncanny Tinker]{Effect: Uncanny Tinker}</p>\n</div>"
+                    "value": "<p>The morlock engineer tinkers with an adjacent construct or mechanical hazard. They attempt a Crafting check against the construct's or hazard's Fortitude DC. The morlock can't get an outcome better than failure if the target's level is more than double the morlock's.</p>\n<p>This ability reflects hasty battlefield repairs; once a construct or hazard regains Hit Points from this ability, it can't do so again until it's been @Compendium[pf2e.actionspf2e.Repair]{Repaired}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target regains [[/r {8d6}[healing]]]{8d6 Hit Points} and a +1 circumstance bonus to attack rolls for 1 minute. Alternately, the morlock can deal [[/r {8d6}]]{8d6 damage} (bludgeoning, piercing, or slashing, as chosen by the morlock engineer) to the construct or hazard.</p>\n<p><strong>Success</strong> As critical success, but the target regains [[/r {4d6}[healing]]]{4d6 Hit Points} or the morlock deals [[/r {4d6}]]{4d6 damage}.</p>\n<p><strong>Critical Failure</strong> The morlock injures themself, taking [[/r {3d6}]]{3d6 damage} (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Uncanny Tinker]{Effect: Uncanny Tinker}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -889,7 +853,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Uncanny Tinker",
             "sort": 1300000,
@@ -918,7 +881,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1400000,
@@ -965,7 +927,6 @@
                     }
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1500000,
@@ -994,7 +955,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 1600000,
@@ -1023,7 +983,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1700000,

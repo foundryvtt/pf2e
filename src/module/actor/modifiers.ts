@@ -85,6 +85,7 @@ export interface ModifierAdjustment {
     predicate: PredicatePF2e;
     damageType?: DamageType;
     relabel?: string;
+    suppress: boolean;
     getNewValue(current: number): number;
     getDamageType(current: DamageType | null): DamageType | null;
 }
@@ -180,6 +181,24 @@ export class ModifierPF2e implements RawModifier {
         return clone;
     }
 
+    /**
+     * Get roll options for this modifier. The current data structure makes for occasional inability to distinguish
+     * bonuses and penalties.
+     */
+    getRollOptions(): string[] {
+        const isBonus =
+            (this.modifier > 0 || this.type === "proficiency") && !["ability", "untyped"].includes(this.type);
+        const isPenalty = this.modifier < 0 && !["ability", "proficiency"].includes(this.type);
+        const prefix = isBonus ? "bonus:" : isPenalty ? "penalty" : "modifier";
+
+        const options = [`${prefix}type:${this.type}`];
+        if (this.type === "ability" && this.ability) {
+            options.push(`modifier:ability:${this.ability}`);
+        }
+
+        return options;
+    }
+
     /** Sets the ignored property after testing the predicate */
     test(options: string[]): void {
         this.ignored = !this.predicate.test(options);
@@ -220,6 +239,7 @@ export const AbilityModifier = {
      */
     fromScore: (ability: AbilityString, score: number) => {
         return new ModifierPF2e({
+            slug: ability,
             label: `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
             modifier: Math.floor((score - 10) / 2),
             type: MODIFIER_TYPE.ABILITY,
@@ -471,14 +491,15 @@ export class StatisticModifier {
     }
 
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
-    calculateTotal(rollOptions?: string[]): void {
-        if (rollOptions) {
+    calculateTotal(rollOptions: string[] = []): void {
+        if (rollOptions.length > 0) {
             for (const modifier of this._modifiers) {
                 modifier.test(rollOptions);
             }
+
+            this.applyAdjustments(rollOptions);
         }
 
-        if (rollOptions) this.applyAdjustments(rollOptions);
         applyStackingRules(this._modifiers);
 
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
@@ -487,7 +508,14 @@ export class StatisticModifier {
     private applyAdjustments(rollOptions: string[]): void {
         const modifiers = this._modifiers.filter((m) => !m.ignored);
         for (const modifier of modifiers) {
-            const adjustments = modifier.adjustments.filter((a) => a.predicate.test(rollOptions));
+            const adjustments = modifier.adjustments.filter((a) =>
+                a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
+            );
+
+            if (adjustments.some((a) => a.suppress)) {
+                modifier.ignored = true;
+                continue;
+            }
 
             type ResolvedAdjustment = { value: number; relabel: string | null };
             const resolvedAdjustment = adjustments.reduce(
@@ -502,6 +530,7 @@ export class StatisticModifier {
                 { value: modifier.modifier, relabel: null }
             );
             modifier.modifier = resolvedAdjustment.value;
+
             if (resolvedAdjustment.relabel) {
                 modifier.label = game.i18n.localize(resolvedAdjustment.relabel);
             }

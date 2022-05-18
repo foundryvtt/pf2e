@@ -14,7 +14,7 @@ import {
     WeaponSource,
     WeaponTrait,
 } from "./data";
-import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
+import { coinValueInCopper, noCoins } from "@item/treasure/helpers";
 import { ErrorPF2e, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
@@ -233,7 +233,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
             return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
         })();
-        const magicTraits: "magical"[] = hasRunes ? ["magical"] : [];
+        const magicTraits: ("evocation" | "magical")[] = hasRunes ? ["evocation", "magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
@@ -244,20 +244,19 @@ class WeaponPF2e extends PhysicalItemPF2e {
         if (!(this.isMagical || materialData) || this.isSpecific) return;
 
         // Adjust the weapon price according to precious material and runes
+        // Base Prices are not included in these cases
         // https://2e.aonprd.com/Rules.aspx?ID=731
+        // https://2e.aonprd.com/Equipment.aspx?ID=380
         const materialPrice = materialData?.price ?? 0;
         const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this.data).bulk.normal), 1);
-        const materialValue = toCoins("gp", materialPrice + (bulk * materialPrice) / 10);
+        const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-        const withRunes = extractPriceFromItem({
-            data: { quantity: 1, price: { value: `${runeValue} gp` } },
-        });
-        const modifiedPrice = combineCoins(withRunes, materialValue);
+        const modifiedPrice = mergeObject(noCoins(), { gp: runeValue + materialValue });
 
-        const basePrice = extractPriceFromItem(this.data, 1);
-        const highestPrice =
-            coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice) ? modifiedPrice : basePrice;
-        systemData.price.value = coinsToString(highestPrice);
+        const basePrice = this.price.value;
+        const modifiedIsHigher = coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice);
+        const highestPrice = modifiedIsHigher ? modifiedPrice : basePrice;
+        systemData.price.value = highestPrice;
 
         const baseLevel = this.level;
         systemData.level.value = runesData

@@ -111,7 +111,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -169,7 +168,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "6 sp"
+                    "value": {
+                        "sp": 6
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -301,7 +302,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -431,7 +434,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -555,7 +560,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "500 gp"
+                    "value": {
+                        "gp": 500
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -650,7 +657,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sai",
             "sort": 500000,
@@ -694,7 +700,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Halberd",
             "sort": 600000,
@@ -740,7 +745,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shuriken",
             "sort": 700000,
@@ -799,7 +803,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Dodge",
             "sort": 800000,
@@ -855,11 +858,6 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.LDICCpy7gURprIf5"
-                }
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deadly Disarm",
             "sort": 900000,
@@ -891,12 +889,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -963,7 +970,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Tumbling Attack",
             "sort": 1100000,
@@ -992,7 +998,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1200000,
@@ -1021,7 +1026,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Any One Terrain Lore",
             "sort": 1300000,
@@ -1050,7 +1054,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1400000,
@@ -1079,7 +1082,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1500000,
@@ -1108,7 +1110,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1600000,

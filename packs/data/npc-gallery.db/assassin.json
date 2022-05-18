@@ -107,7 +107,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -165,7 +164,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "14 gp"
+                    "value": {
+                        "gp": 14
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -294,7 +295,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -419,7 +422,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -535,7 +540,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -651,7 +659,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "6 gp"
+                    "value": {
+                        "gp": 6
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -771,7 +781,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "4 gp"
+                    "value": {
+                        "gp": 4
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -892,7 +904,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "20 gp"
+                    "value": {
+                        "gp": 20
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -1013,7 +1027,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 8,
                 "range": {
@@ -1061,7 +1077,6 @@
                     "value": "L"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/spear-frog-poison.webp",
             "name": "Simple Injury Poison",
             "sort": 800000,
@@ -1130,7 +1145,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1178,7 +1195,6 @@
                     "value": "L"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/spear-frog-poison.webp",
             "name": "Sleep Poison",
             "sort": 900000,
@@ -1224,7 +1240,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rapier",
             "sort": 1000000,
@@ -1271,7 +1286,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
             "sort": 1100000,
@@ -1313,7 +1327,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swift Sneak",
             "sort": 1200000,
@@ -1362,7 +1375,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deny Advantage",
             "sort": 1300000,
@@ -1404,7 +1416,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Dodge",
             "sort": 1400000,
@@ -1448,7 +1459,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Poison Weapon",
             "sort": 1500000,
@@ -1490,7 +1500,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Draw",
             "sort": 1600000,
@@ -1522,12 +1531,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1595,7 +1613,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attack",
             "sort": 1800000,
@@ -1624,7 +1641,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1900000,
@@ -1653,7 +1669,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 2000000,
@@ -1682,7 +1697,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 2100000,
@@ -1711,7 +1725,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
             "sort": 2200000,
@@ -1740,7 +1753,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 2300000,
@@ -1769,7 +1781,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
             "sort": 2400000,
@@ -1798,7 +1809,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
             "sort": 2500000,
@@ -1827,7 +1837,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2600000,
@@ -1856,7 +1865,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2700000,
@@ -1885,7 +1893,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 2800000,
@@ -1914,7 +1921,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
             "sort": 2900000,

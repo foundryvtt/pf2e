@@ -145,3 +145,8 @@ export { Migration742RMAbilityBoostLevels } from "./742-rm-class-ability-boost-l
 export { Migration743FixWeaknessStructure } from "./743-fix-weakness-structure";
 export { Migration744MigrateSpellHeighten } from "./744-migrate-spell-heighten";
 export { Migration745EffectTargetToChoiceSet } from "./745-effect-target-to-choice-set";
+export { Migration746StandardizePricing } from "./746-standardize-pricing";
+export { Migration747FixedHeightening } from "./747-fixed-heightening";
+export { Migration748BatchConsumablePricing } from "./748-batch-consumable-pricing";
+export { Migration749AssuranceREs } from "./749-assurance-res";
+export { Migration750FixCorruptedPrice } from "./750-fix-corrupted-price";

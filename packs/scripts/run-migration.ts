@@ -31,6 +31,9 @@ import { Migration742RMAbilityBoostLevels } from "@module/migration/migrations/7
 import { Migration743FixWeaknessStructure } from "@module/migration/migrations/743-fix-weakness-structure";
 import { Migration744MigrateSpellHeighten } from "@module/migration/migrations/744-migrate-spell-heighten";
 import { Migration745EffectTargetToChoiceSet } from "@module/migration/migrations/745-effect-target-to-choice-set";
+import { Migration746StandardizePricing } from "@module/migration/migrations/746-standardize-pricing";
+import { Migration748BatchConsumablePricing } from "@module/migration/migrations/748-batch-consumable-pricing";
+import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -58,6 +61,9 @@ const migrations: MigrationBase[] = [
     new Migration743FixWeaknessStructure(),
     new Migration744MigrateSpellHeighten(),
     new Migration745EffectTargetToChoiceSet(),
+    new Migration746StandardizePricing(),
+    new Migration748BatchConsumablePricing(),
+    new Migration749AssuranceREs(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -196,12 +202,18 @@ async function migrate() {
         const updated = await (async (): Promise<
             ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource
         > => {
+            source.flags ??= {};
             try {
                 if (isActorData(source)) {
+                    for (const embedded of source.items) {
+                        embedded.flags ??= {};
+                    }
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     delete (updatedActor.data as { schema?: unknown }).schema;
+                    pruneFlags(updatedActor);
                     for (const updatedItem of updatedActor.items) {
                         delete (updatedItem.data as { schema?: unknown }).schema;
+                        pruneFlags(updatedItem);
                     }
                     return updatedActor;
                 } else if (isItemData(source)) {
@@ -209,13 +221,17 @@ async function migrate() {
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (updatedItem.data as { schema?: unknown }).schema;
                     delete (updatedItem.data as { slug?: unknown }).slug;
-                    delete (source.data as { slug?: unknown }).slug;
+                    pruneFlags(updatedItem);
 
                     return updatedItem;
                 } else if (isMacroData(source)) {
-                    return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                    const updated = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                    pruneFlags(updated);
+                    return updated;
                 } else if (isTableData(source)) {
-                    return await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                    const updated = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                    pruneFlags(updated);
+                    return updated;
                 } else {
                     return source;
                 }
@@ -238,6 +254,15 @@ async function migrate() {
                 }
             }
         }
+    }
+}
+
+function pruneFlags(source: { flags?: Record<string, Record<string, unknown> | undefined> }): void {
+    if (source.flags && Object.keys(source.flags.pf2e ?? {}).length === 0) {
+        delete source.flags.pf2e;
+    }
+    if (Object.keys(source.flags ?? {}).length === 0) {
+        delete (source as { flags?: object }).flags;
     }
 }
 

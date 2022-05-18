@@ -1,0 +1,125 @@
+{
+    "_id": "jONy6jEyCGSUxj0k",
+    "data": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "hardness": 8,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "stealth": {
+                "details": "<p>(trained) to find the desk switch; @Check[type:perception|dc:28|traits:action:seek] (expert) to find the trapdoor and charge</p>",
+                "value": 10
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A black‑powder charge fastened to a trapdoor (marked with a \"T\" on the map) blows a hole in a steam tunnel, filling the room with superheated steam.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18|traits:action:disable-a-device] (trained) to disarm the desk switch; @Check[type:thievery|dc:28|traits:action:disable-a-device] (expert) to disarm the trapdoor charge</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The trapdoor emits a jet of superheated steam. Each creature in the room must attempt a @Check[type:fortitude|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {1d10+3}[fire]]]{1d10+3 fire damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {2d10+6}[fire]]]{2d10+6 fire damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {2d10+6}[fire]]]{2d10+6 fire damage}, is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, and is blinded for 1 round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": "Pathfinder #179: Cradle of Quartz"
+        },
+        "statusEffects": [],
+        "traits": {
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "critical-hits",
+                    "object-immunities",
+                    "precision"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical",
+                    "trap"
+                ]
+            }
+        }
+    },
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "WCnAJvdEq4GmtjBi",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The desk switch is pressed or the trapdoor is opened</p>\n<hr />\n<p><strong>Effect</strong> The charge on the door explodes. All creatures within 10 feet take [[/r {2d10+6}[fire]+{1d10+3}[piercing]]]{2d10+6 fire damage and 1d10+3 piercing damage}, and @Localize[PF2E.PersistentDamage.Bleed1d6.success] (@Check[type:reflex|dc:22|basic:true]). The room is filled with steam, making all creatures within the room @Compendium[pf2e.conditionitems.Concealed]{Concealed}. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Explosive Charge",
+            "sort": 0,
+            "type": "action"
+        }
+    ],
+    "name": "Explosive Steam Trap",
+    "token": {
+        "disposition": 0,
+        "height": 1,
+        "img": "systems/pf2e/icons/default-icons/hazard.svg",
+        "name": "Explosive Steam Trap",
+        "width": 1
+    },
+    "type": "hazard"
+}

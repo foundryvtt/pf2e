@@ -203,7 +203,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/iconics/ValerosFull.webp",
     "items": [
         {
@@ -932,6 +931,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "athletics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -981,7 +1000,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Farming Lore",
             "sort": 0,
@@ -1234,7 +1252,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1330,7 +1350,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4 sp"
+                    "value": {
+                        "sp": 4
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1417,7 +1439,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1483,7 +1507,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 10,
                 "rules": [],
@@ -1549,7 +1575,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1615,7 +1643,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 2,
                 "rules": [],
@@ -1681,7 +1711,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 5,
                 "rules": [],
@@ -1747,7 +1779,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1813,7 +1847,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1879,7 +1915,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1945,7 +1983,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2032,7 +2072,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2160,7 +2202,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2297,7 +2341,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -2405,7 +2452,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2484,9 +2533,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "sp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -2515,7 +2561,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 7,
                 "rules": [],
@@ -2532,9 +2580,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 1
                 },
                 "weight": {
                     "value": 0
@@ -2840,7 +2885,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "18 gp"
+                    "value": {
+                        "gp": 18
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2955,7 +3002,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "12 gp"
+                    "value": {
+                        "gp": 12
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3065,7 +3114,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -3152,7 +3203,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3189,9 +3242,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -3220,7 +3270,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "quantity": 13,
                 "rules": [],
@@ -3237,9 +3289,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 1
                 },
                 "weight": {
                     "value": 0
@@ -3278,7 +3327,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
             "sort": 0,

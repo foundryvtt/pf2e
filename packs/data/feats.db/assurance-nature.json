@@ -27,7 +27,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "SubstituteRoll",
+                "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                "selector": "nature",
+                "slug": "assurance",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": {
+                    "all": [
+                        "substitute:assurance"
+                    ],
+                    "not": [
+                        "bonus:type:proficiency"
+                    ]
+                },
+                "selector": "nature",
+                "suppress": true
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -41,7 +62,6 @@
             ]
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Assurance (Nature)",
     "type": "feat"

@@ -129,7 +129,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -254,7 +253,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
@@ -378,14 +376,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
-                },
-                "pf2e": {}
+                }
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Burning Hands",
             "sort": 200000,
             "type": "spell"
@@ -622,14 +615,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.vLzFcIaSXs7YTIqJ"
-                },
-                "pf2e": {}
+                }
             },
             "img": "systems/pf2e/icons/spells/message.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Message",
             "sort": 400000,
             "type": "spell"
@@ -738,14 +726,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.TVKNbcgTee19PXZR"
-                },
-                "pf2e": {}
+                }
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Shield",
             "sort": 500000,
             "type": "spell"
@@ -855,14 +838,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.AUctDF2fqPZN2w4W"
-                },
-                "pf2e": {}
+                }
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Sigil",
             "sort": 600000,
             "type": "spell"
@@ -922,7 +900,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1033,7 +1013,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1110,7 +1092,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
             "sort": 900000,
@@ -1161,7 +1142,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 1000000,
@@ -1212,7 +1192,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
             "sort": 1100000,
@@ -1352,7 +1331,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Burning Sacrifice",
             "sort": 1400000,
@@ -1371,7 +1349,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Trigger</strong> The sun hunter is targeted with a melee or ranged attack by an attacker they can see <hr /><p><strong>Effect</strong> The sun hunter gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> The sun hunter is targeted with a melee or ranged attack by an attacker they can see</p><hr /><p><strong>Effect</strong> The sun hunter gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1409,7 +1387,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Dodge",
             "sort": 1500000,
@@ -1441,12 +1418,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1510,7 +1496,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Study Foe",
             "sort": 1700000,
@@ -1539,7 +1524,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1800000,
@@ -1568,7 +1552,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1900000,
@@ -1597,7 +1580,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
             "sort": 2000000,
@@ -1626,7 +1608,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2100000,
@@ -1655,7 +1636,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2200000,

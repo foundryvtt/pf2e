@@ -136,7 +136,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -243,7 +242,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
@@ -336,7 +334,6 @@
                     ]
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/blink.webp",
             "name": "Blink",
             "sort": 200000,
@@ -430,7 +427,6 @@
                     ]
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
             "sort": 300000,
@@ -523,7 +519,6 @@
                     ]
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door",
             "sort": 400000,
@@ -616,7 +611,6 @@
                     ]
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/enlarge.webp",
             "name": "Enlarge",
             "sort": 500000,
@@ -707,7 +701,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/levitate.webp",
             "name": "Levitate",
             "sort": 600000,
@@ -798,7 +791,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/invisibility.webp",
             "name": "Invisibility",
             "sort": 700000,
@@ -894,7 +886,6 @@
                     ]
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
             "sort": 800000,
@@ -924,9 +915,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Poison1d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Poison1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Poison1d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -940,7 +948,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 900000,
@@ -983,7 +990,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 1000000,
@@ -1024,7 +1030,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
             "sort": 1100000,
@@ -1070,7 +1075,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
             "sort": 1200000,
@@ -1089,7 +1093,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The process of consuming corpses to evolve into a greater barghest results in odd and unpredictable physiological changes. A greater barghest has one mutation, typically chosen from the following options.</p>\n<p><strong>Fangs</strong> The barghest grows elongated fangs that seep poison. Its jaws deal [[/r {1d6}[poison]]]{1d6 additional poison damage} and [[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p>"
+                    "value": "<p>The process of consuming corpses to evolve into a greater barghest results in odd and unpredictable physiological changes. A greater barghest has one mutation, typically chosen from the following options.</p>\n<p><strong>Fangs</strong> The barghest grows elongated fangs that seep poison. Its jaws deal [[/r {1d6}[poison]]]{1d6 additional poison damage} and @Localize[PF2E.PersistentDamage.Poison1d6.success].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1111,7 +1115,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mutations",
             "sort": 1300000,
@@ -1140,7 +1143,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1400000,
@@ -1169,7 +1171,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1500000,
@@ -1198,7 +1199,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1600000,
@@ -1227,7 +1227,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
             "sort": 1700000,
@@ -1256,7 +1255,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1800000,
@@ -1285,7 +1283,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1900000,
@@ -1314,7 +1311,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2000000,

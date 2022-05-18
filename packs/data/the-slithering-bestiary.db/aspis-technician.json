@@ -119,7 +119,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -177,7 +176,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -307,7 +308,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "10 gp"
+                    "value": {
+                        "gp": 10
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -439,7 +442,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "10 gp"
+                    "value": {
+                        "gp": 10
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -566,7 +571,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -654,7 +661,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -721,7 +730,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -743,7 +752,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Bronze Aspis Consortium Badge",
             "sort": 600000,
@@ -812,7 +820,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "14 gp"
+                    "value": {
+                        "gp": 14
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -932,7 +942,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "25 gp"
+                    "value": {
+                        "gp": 25
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -1052,7 +1064,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "25 gp"
+                    "value": {
+                        "gp": 25
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1173,7 +1187,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1293,7 +1309,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "30 gp"
+                    "value": {
+                        "gp": 30
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1393,7 +1411,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rapier",
             "sort": 1200000,
@@ -1437,7 +1454,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Acid Flask",
             "sort": 1300000,
@@ -1481,7 +1497,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Alchemist's Fire",
             "sort": 1400000,
@@ -1567,7 +1582,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infused Items",
             "sort": 1600000,
@@ -1610,7 +1624,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Poison Weapon",
             "sort": 1700000,
@@ -1651,7 +1664,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
             "sort": 1800000,
@@ -1683,12 +1695,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1743,7 +1764,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 2000000,
@@ -1772,7 +1792,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
             "sort": 2100000,
@@ -1801,7 +1820,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Aspis Consortium Lore",
             "sort": 2200000,
@@ -1830,7 +1848,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 2300000,
@@ -1859,7 +1876,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2400000,
@@ -1888,7 +1904,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 2500000,

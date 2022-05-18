@@ -1,7 +1,7 @@
-import { Coins } from "@item/treasure/helpers";
-import { ActorPF2e } from "../../base";
+import { Coins } from "@item/physical/data";
+import { ActorPF2e } from "@actor";
 
-interface PopupFormData extends Coins {
+interface PopupFormData extends Partial<Coins> {
     removeByValue: boolean;
 }
 
@@ -28,7 +28,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
             cp: formData.cp,
         };
 
-        if (!(await actor.removeCoins(coinsToRemove, { byValue: formData.removeByValue }))) {
+        if (!(await actor.inventory.removeCoins(coinsToRemove, { byValue: formData.removeByValue }))) {
             ui.notifications.warn("PF2E.ErrorMessage.NotEnoughCoins", { localize: true });
         }
     }

@@ -11,6 +11,7 @@ declare module foundry {
          * @property name               The name of this RollTable
          * @property [img]              An image file path which provides the thumbnail artwork for this RollTable
          * @property [description]      The HTML text description for this RollTable document
+         * @property [results=[]]       A Collection of TableResult embedded documents which belong to this RollTable
          * @property formula            The Roll formula which determines the results chosen from the table
          * @property [replacement=true] Are results from this table drawn with replacement?
          * @property [displayRoll=true] Is the Roll result used to draw from this RollTable displayed in chat?
@@ -31,7 +32,7 @@ declare module foundry {
             folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class RollTableData<

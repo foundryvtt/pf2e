@@ -1,6 +1,7 @@
 <form>
     <header class="sheet-header">
         <h1>{{entry.name}}</h1>
+        <p class="hint">{{localize "PF2E.Actor.Creature.SpellPreparation.Hint"}}</p>
         {{#if entry.flexibleAvailable}}
             <div class="item-controls flexible-available">
                 {{#with entry.flexibleAvailable}}
@@ -11,7 +12,6 @@
     </header>
     <section class="sheet-content">
         <ol class="directory-list item-list spell-list">
-            {{log entry.spellPrepList}}
             {{#unless entry.spellPrepList}}
                 {{#if @root.owner}}
                     <li class="spellbook-header spellbook-empty">

@@ -110,7 +110,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -168,7 +167,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "20 gp"
+                    "value": {
+                        "gp": 20
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -298,7 +299,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "7 sp"
+                    "value": {
+                        "sp": 7
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -421,7 +424,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "160 gp"
+                    "value": {
+                        "gp": 160
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -509,7 +514,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "250 gp"
+                    "value": {
+                        "gp": 250
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -576,7 +583,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -598,7 +605,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
             "name": "Keys to Manacles",
             "sort": 500000,
@@ -667,7 +673,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 40,
                 "range": {
@@ -758,7 +767,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pick",
             "sort": 700000,
@@ -805,7 +813,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
             "sort": 800000,
@@ -908,7 +915,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Backshot",
             "sort": 1000000,
@@ -949,7 +955,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Rain of Arrows",
             "sort": 1100000,
@@ -981,12 +986,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1053,7 +1067,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swiftness",
             "sort": 1300000,
@@ -1082,7 +1095,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1400000,
@@ -1111,7 +1123,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1500000,
@@ -1140,7 +1151,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1600000,
@@ -1169,7 +1179,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 1700000,

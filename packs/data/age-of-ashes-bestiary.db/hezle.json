@@ -111,7 +111,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -169,7 +168,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -295,7 +296,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -426,7 +429,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "450 gp"
+                    "value": {
+                        "gp": 450
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -552,7 +557,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -668,7 +675,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "160 gp"
+                    "value": {
+                        "gp": 160
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -789,7 +798,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -905,7 +917,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "80 gp"
+                    "value": {
+                        "gp": 80
+                    }
                 },
                 "quantity": 4,
                 "range": {
@@ -1026,7 +1040,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "50 gp"
+                    "value": {
+                        "gp": 50
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1149,7 +1165,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 5,
                 "range": {
@@ -1192,7 +1208,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/equipment/consumables/oils/salve-of-antiparalysis.webp",
             "name": "Infused Reagents",
             "sort": 900000,
@@ -1238,7 +1253,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
             "sort": 1000000,
@@ -1303,7 +1317,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff of Fire",
             "sort": 1100000,
@@ -1351,7 +1364,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Crossbow",
             "sort": 1200000,
@@ -1398,7 +1410,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
             "sort": 1300000,
@@ -1488,7 +1499,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Kobold Explosives",
             "sort": 1500000,
@@ -1531,7 +1541,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Smoky Retreat",
             "sort": 1600000,
@@ -1563,12 +1572,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1635,7 +1653,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Staff Mastery",
             "sort": 1800000,
@@ -1664,7 +1681,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
             "sort": 1900000,
@@ -1693,7 +1709,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 2000000,
@@ -1722,7 +1737,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Mining Lore",
             "sort": 2100000,
@@ -1751,7 +1765,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
             "sort": 2200000,
@@ -1780,7 +1793,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2300000,
@@ -1809,7 +1821,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2400000,

@@ -81,10 +81,34 @@
                 "selector": "ac",
                 "slug": "mage-armor",
                 "value": 4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:shove"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:trip"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -100,7 +124,6 @@
             "value": []
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/features/feats/mountain-stance.webp",
     "name": "Stance: Mountain Stance",
     "type": "effect"

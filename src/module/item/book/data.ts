@@ -4,14 +4,14 @@ import type { BookPF2e } from "./document";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 
-type BookData = Omit<BookSource, "effects" | "flags"> &
+type BookData = Omit<BookSource, "data" | "effects" | "flags"> &
     BasePhysicalItemData<BookPF2e, "book", BookSystemData, BookSource>;
 
 type BookSystemSource = EquipmentSystemSource & {
     capacity: number;
 } & (FormulaBookData | SpellBookData);
 
-type BookSystemData = BookSystemSource & EquipmentSystemData;
+type BookSystemData = Omit<BookSystemSource, "price"> & EquipmentSystemData;
 
 interface FormulaBookData {
     subtype: "formula";

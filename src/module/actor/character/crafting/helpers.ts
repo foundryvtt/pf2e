@@ -1,26 +1,21 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import {
-    Coins,
-    coinsToString,
-    coinValueInCopper,
-    extractPriceFromItem,
-    multiplyCoinValue,
-} from "@module/item/treasure/helpers";
+import { coinsToString, coinValueInCopper, multiplyCoins, multiplyPrice } from "@module/item/treasure/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
+import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { Coins } from "@item/physical/data";
 
 interface Costs {
-    reductionPerDay: Coins;
-    materials: Coins;
-    itemPrice: Coins;
-    lostMaterials: Coins;
+    reductionPerDay: Partial<Coins>;
+    materials: Partial<Coins>;
+    itemPrice: Partial<Coins>;
+    lostMaterials: Partial<Coins>;
 }
 
 function calculateDaysToNoCost(costs: Costs): number {
@@ -53,11 +48,9 @@ function calculateCosts(
     quantity: number,
     actor: CharacterPF2e,
     degreeOfSuccess: number
-): Costs | undefined {
-    const itemPrice = extractPriceFromItem({
-        data: { quantity, price: item.data.data.price },
-    });
-    const materialCosts = multiplyCoinValue(itemPrice, 0.5);
+): Costs | null {
+    const itemPrice = multiplyPrice(item.price, quantity);
+    const materialCosts = multiplyCoins(itemPrice, 0.5);
 
     const lostMaterials: Coins = {
         pp: 0,
@@ -74,17 +67,14 @@ function calculateCosts(
     };
 
     const proficiency = skillRankToProficiency(actor.data.data.skills.cra.rank);
-
-    if (!proficiency) {
-        return;
-    }
+    if (!proficiency) return null;
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
         Object.assign(reductionPerDay, getIncomeForLevel(actor.level + 1).rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         Object.assign(reductionPerDay, getIncomeForLevel(actor.level).rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
-        Object.assign(lostMaterials, multiplyCoinValue(materialCosts, 0.1));
+        Object.assign(lostMaterials, multiplyCoins(materialCosts, 0.1));
     }
 
     return {
@@ -95,10 +85,10 @@ function calculateCosts(
     };
 }
 
-function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefined {
+function skillRankToProficiency(rank: ZeroToFour): TrainedProficiency | null {
     switch (rank) {
         case 0:
-            return;
+            return null;
         case 1:
             return "trained";
         case 2:
@@ -107,10 +97,17 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
             return "master";
         case 4:
             return "legendary";
+        default:
+            return null;
     }
 }
 
-export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e, infused?: boolean) {
+export async function craftItem(
+    item: PhysicalItemPF2e,
+    itemQuantity: number,
+    actor: ActorPF2e,
+    infused?: boolean
+): Promise<void> {
     const itemSource = item.toObject();
     itemSource.data.quantity = itemQuantity;
     const itemTraits = item.traits;
@@ -136,7 +133,11 @@ export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, ac
     });
 }
 
-export async function craftSpellConsumable(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e) {
+export async function craftSpellConsumable(
+    item: PhysicalItemPF2e,
+    itemQuantity: number,
+    actor: ActorPF2e
+): Promise<void> {
     const consumableType = (item as ConsumablePF2e).consumableType;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
     const spellLevel = consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2);
@@ -179,13 +180,12 @@ export async function renderCraftingInline(
     roll: Rolled<Roll<RollDataPF2e>>,
     quantity: number,
     actor: ActorPF2e
-) {
-    if (!(actor instanceof CharacterPF2e)) return;
+): Promise<string | null> {
+    if (!(actor instanceof CharacterPF2e)) return null;
 
     const degreeOfSuccess = roll.data.degreeOfSuccess || 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);
-
-    if (!costs) return;
+    if (!costs) return null;
 
     const daysForZeroCost = degreeOfSuccess > 1 ? calculateDaysToNoCost(costs) : 0;
 

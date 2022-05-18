@@ -1,6 +1,8 @@
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { Coins, PhysicalSystemSource } from "@item/physical/data";
+import { coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 /** Normalize stringy level and price values */
@@ -18,16 +20,34 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
             return;
         }
 
-        const price = itemData.data.price;
-        try {
+        const system: PhysicalDataOld = itemData.data;
+        const price = system.price;
+
+        // This is new data being run through an old migration, shouldn't happen but we should appease typescript
+        if (typeof price.value !== "string" && isObject(price.value)) {
+            return;
+        }
+
+        if (price.value) {
             price.value = price.value.trim();
-        } catch {
+        } else {
             price.value = "0 gp";
         }
+
         if (/^[0-9]+$/.test(price.value)) {
             price.value = `${price.value} gp`;
-        } else if (coinValueInCopper(extractPriceFromItem(itemData)) === 0) {
-            price.value = "0 gp";
+        } else {
+            const quantity = system.quantity;
+            const priceValue = price.value;
+            if (!coinValueInCopper(coinStringToCoins(priceValue, quantity))) {
+                price.value = "0 gp";
+            }
         }
     }
+}
+
+interface PhysicalDataOld extends Omit<PhysicalSystemSource, "price"> {
+    price: {
+        value?: string | Partial<Coins>;
+    };
 }

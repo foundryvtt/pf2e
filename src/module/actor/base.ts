@@ -1,9 +1,9 @@
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e, TreasurePF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
 import { ArmorPF2e, type ConditionPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, groupBy, isObject, objectHasKey } from "@util";
+import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -30,14 +30,7 @@ import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 import { preImportJSON } from "@module/doc-helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
-import {
-    coinCompendiumIds,
-    Coins,
-    coinValueInCopper,
-    combineCoins,
-    DENOMINATIONS,
-    noCoins,
-} from "@item/treasure/helpers";
+import { ActorInventory } from "./inventory";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -54,7 +47,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     private initialized?: true;
 
     /** A separate collection of owned physical items for convenient access */
-    physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
+    inventory!: ActorInventory;
 
     /** A separate collection of owned spellcasting entries for convenience */
     spellcasting!: ActorSpellcasting;
@@ -178,11 +171,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return true;
     }
 
-    get coins(): Coins {
-        return this.physicalItems
-            .filter((i) => i.isOfType("treasure") && i.isCoinage)
-            .map((item) => item.stackPrice)
-            .reduce(combineCoins, noCoins());
+    /** @deprecated */
+    get physicalItems() {
+        console.warn("ActorPF2e#physicalItems is deprecated: use ActorPF2e#inventory instead");
+        return this.inventory;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -241,143 +233,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
-    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
-        const topLevelCoins = this.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
-        const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
-
-        for (const denomination of DENOMINATIONS) {
-            const quantity = coins[denomination] ?? 0;
-            if (quantity > 0) {
-                const item = coinsByDenomination.get(denomination)?.[0];
-                if (item) {
-                    await item.update({ "data.quantity": item.quantity + quantity });
-                } else {
-                    const compendiumId = coinCompendiumIds[denomination];
-                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
-                        (p) => p.collection === "pf2e.equipment-srd"
-                    );
-                    if (!pack) {
-                        throw Error("unable to get pack!");
-                    }
-                    const item = await pack.getDocument(compendiumId);
-                    if (item?.data.type === "treasure") {
-                        item.data.update({ "data.quantity": quantity });
-                        await this.createEmbeddedDocuments("Item", [item.toObject()]);
-                    }
-                }
-            }
-        }
-    }
-
-    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
-        const coinsToRemove = mergeObject(noCoins(), coins);
-        const actorCoins = mergeObject(noCoins(), this.coins);
-        const coinsToAdd = noCoins();
-
-        if (byValue) {
-            let valueToRemoveInCopper = coinValueInCopper(coinsToRemove);
-            if (valueToRemoveInCopper > coinValueInCopper(this.coins)) {
-                return false;
-            }
-
-            //  Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation where we need to break a coin that has already been "removed"
-            if (valueToRemoveInCopper % 10 > actorCoins.cp) {
-                coinsToAdd.cp = 10;
-                coinsToRemove.cp = valueToRemoveInCopper % 10;
-                valueToRemoveInCopper += 10 - coinsToRemove.cp;
-            } else {
-                coinsToRemove.cp = valueToRemoveInCopper % 10; //  remove the units that other coins can't handle first
-                valueToRemoveInCopper -= coinsToRemove.cp;
-                const newCopper = actorCoins.cp - coinsToRemove.cp;
-                const extraCopper = Math.min(valueToRemoveInCopper / 10, Math.trunc(newCopper / 10)) * 10;
-                coinsToRemove.cp += extraCopper;
-                valueToRemoveInCopper -= extraCopper;
-            }
-
-            if ((valueToRemoveInCopper / 10) % 10 > actorCoins.sp) {
-                coinsToAdd.sp = 10;
-                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10;
-                valueToRemoveInCopper += 100 - coinsToRemove.sp * 10;
-            } else {
-                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10; //  remove the units that other coins can't handle first
-                valueToRemoveInCopper -= coinsToRemove.sp * 10;
-                const newSilver = actorCoins.sp - coinsToRemove.sp;
-                const extraSilver = Math.min(valueToRemoveInCopper / 100, Math.trunc(newSilver / 10)) * 10;
-                coinsToRemove.sp += extraSilver;
-                valueToRemoveInCopper -= extraSilver * 10;
-            }
-
-            if ((valueToRemoveInCopper / 100) % 10 > actorCoins.gp) {
-                coinsToAdd.gp = 10;
-                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10;
-                valueToRemoveInCopper += 1000 - coinsToRemove.gp * 100;
-            } else {
-                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10; //  remove the units that other coins can't handle first
-                valueToRemoveInCopper -= coinsToRemove.gp * 100;
-                const newGold = actorCoins.gp - coinsToRemove.gp;
-                const extraGold = Math.min(valueToRemoveInCopper / 1000, Math.trunc(newGold / 10)) * 10;
-                coinsToRemove.gp += extraGold;
-                valueToRemoveInCopper -= extraGold * 100;
-            }
-
-            coinsToRemove.pp = valueToRemoveInCopper / 1000;
-        }
-
-        // Test if the actor has enough coins to pull
-        const coinsToPull = combineCoins(actorCoins, coinsToAdd);
-        const sufficient =
-            coinsToRemove.pp <= coinsToPull.pp &&
-            coinsToRemove.gp <= coinsToPull.gp &&
-            coinsToRemove.sp <= coinsToPull.sp &&
-            coinsToRemove.cp <= coinsToPull.cp;
-        if (!sufficient) {
-            return false;
-        }
-
-        // If there are coins to add (because of rollover), add them first
-        if (Object.values(coinsToAdd).some((value) => value !== 0)) {
-            await this.addCoins(coinsToAdd);
-        }
-
-        // Begin reducing item quantities and deleting coinage
-        const topLevelCoins = this.itemTypes.treasure.filter((item) => item.isCoinage);
-        const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
-        for (const denomination of DENOMINATIONS) {
-            let quantityToRemove = coinsToRemove[denomination];
-            const coinItems = coinsByDenomination.get(denomination);
-            if (!!quantityToRemove && coinItems) {
-                const itemsToUpdate: EmbeddedDocumentUpdateData<TreasurePF2e>[] = [];
-                const itemsToDelete: string[] = [];
-                for (const item of coinItems) {
-                    if (quantityToRemove === 0) break;
-                    if (item.quantity > quantityToRemove) {
-                        itemsToUpdate.push({ _id: item.id, "data.quantity": item.quantity - quantityToRemove });
-                        quantityToRemove = 0;
-                        break;
-                    } else {
-                        quantityToRemove -= item.quantity;
-                        itemsToDelete.push(item.id);
-                    }
-                }
-
-                if (itemsToUpdate.length > 0) {
-                    await this.updateEmbeddedDocuments("Item", itemsToUpdate);
-                }
-
-                if (itemsToDelete.length > 0) {
-                    await this.deleteEmbeddedDocuments("Item", itemsToDelete);
-                }
-
-                // If there any remaining, show a warning. This should probably be validated in a future version
-                if (quantityToRemove > 0) {
-                    console.warn("Attempted to remove more coinage than exists");
-                }
-            }
-        }
-
-        return true;
-    }
-
     /**
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
@@ -402,7 +257,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
 
             // Set default token dimensions for familiars and vehicles
-            const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
+            const dimensionMap: { [K in ActorType]?: number } = { familiar: 0.5, vehicle: 2 };
             merged.token.height ??= dimensionMap[datum.type] ?? 1;
             merged.token.width ??= merged.token.height;
 
@@ -412,22 +267,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.token.actorLink = true;
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
                     merged.token.vision = true;
                     break;
                 case "loot":
-                    // Make loot actors linked, interactable and neutral disposition
+                    // Make loot actors linked and interactable
                     merged.token.actorLink = true;
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                     break;
-                case "npc":
-                    if (!merged.flags?.core?.sourceId) {
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
-                    }
-                    break;
-                default:
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
             }
         }
 
@@ -436,6 +282,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     protected override _initialize(): void {
         super._initialize();
+        this.rules = [];
         this.initialized = true;
 
         // Send any accrued warnings to the console
@@ -482,6 +329,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
+            rollSubstitutions: {},
+            rollTwice: {},
             senses: [],
             statisticsModifiers: {},
             strikeAdjustments: [],
@@ -506,7 +355,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e
         );
-        this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
+        this.inventory = new ActorInventory(this, physicalItems);
 
         const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
             (item) => item instanceof SpellcastingEntryPF2e
@@ -563,9 +412,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Set defaults for this actor's prototype token */
-    private preparePrototypeToken() {
+    private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.webp`;
+        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.svg`;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
@@ -626,12 +475,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
-    getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
+    getModifierAdjustments(selectors: string[], slug: string): ModifierAdjustment[] {
         return Array.from(
             new Set(
                 selectors
                     .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
-                    .filter((a) => [a.slug, null].includes(slug))
+                    .filter((a) => [slug, null].includes(a.slug))
             )
         );
     }
@@ -871,7 +720,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (!(item instanceof PhysicalItemPF2e)) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
-        const container = targetActor.physicalItems.get(containerId ?? "");
+        const container = targetActor.inventory.get(containerId ?? "");
         if (!(!container || container instanceof ContainerPF2e)) {
             throw ErrorPF2e("containerId refers to a non-container");
         }
@@ -940,7 +789,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (!result) {
             return null;
         }
-        const movedItem = this.physicalItems.get(result.id);
+        const movedItem = this.inventory.get(result.id);
         if (!movedItem) return null;
         await this.stowOrUnstow(movedItem, container);
 
@@ -950,7 +799,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
     findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         const testItem = new ItemPF2e(itemData);
-        const stackCandidates = actor.physicalItems.filter(
+        const stackCandidates = actor.inventory.filter(
             (stackCandidate) =>
                 !stackCandidate.isInContainer &&
                 testItem instanceof PhysicalItemPF2e &&
@@ -974,18 +823,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param containerId Id of the container that will contain the item.
      */
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
-        if (container && !isCycle(item.id, container.id, [item.data])) {
+        if (!container) {
+            await item.update({
+                "data.containerId": null,
+                "data.equipped.carryType": "worn",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
+            });
+        } else if (!isCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "data.containerId": container.id,
                 "data.equipped.carryType": carryType,
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
-            });
-        } else {
-            await item.update({
-                "data.containerId": null,
-                "data.equipped.carryType": "worn",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });
@@ -1185,17 +1034,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported actors are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Set default portrait and token images
         if (this.data._source.img === "icons/svg/mystery-man.svg") {
-            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+            this.data._source.img =
+                this.data._source.token.img =
+                data.img =
+                data.token.img =
+                    `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
         await super._preCreate(data, options, user);
+
+        // Ensure imported actors are current on their schema version
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }

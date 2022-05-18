@@ -1,5 +1,132 @@
 # Changelog
 
+## Version 3.10.2
+
+### Bugfixes
+* (Cerapter) Fix reagent number reacting to formula quantity adjustments, make quantity adjustments more responsive
+* (stwlam) Fix display of attack roll modifiers on PC sheets when Devise a Stratagem is enabled
+* (stwlam) Fix temporary-item deletion in Rest for the Night macro
+* (stwlam) Fix issue causing @Check prompts sent to chat to not display proper DC
+* (stwlam) Hide price of unidentified items on loot actor sheets
+* (stwlam) Fix setting of purchase price when buying from merchants
+* (Supe) Fix migration of Acid Splash spell damage
+
+### Data Updates
+* (Abaddon) Update Cornugon (Bestiary 2)
+* (Delzoun) Add automation to most ancestry weapon expertise feats
+* (InfamousSky) Add icons to all SoM items, several Guns & Gears items
+* (Kuroni Kobayakawa) Fix formatting errors on a handful of feat descriptions
+* (SpartanCPA) Make a few magical staves into weapon items
+* (SpartanCPA) Localize Persistent Bleed d4-d8 (Part 1)
+* (SpartanCPA) Make corrections to Boots of Dancing
+* (stwlam) Add appropriate predicates to Animal Skin feat REs
+* (TMun) Add/update NPCs from PFS 2-10, PFS 2-11, PFS 2-17, PFS 2-13, PFS 3-04
+* (TMun) Add sources and missing states to actions
+* (TMun) Add missing GMG subsystem actions
+
+
+## Version 3.10.1
+
+### Bugfixes
+* (JDCalvert) Fix parsing of die size on NPC attacks with the Deadly trait
+* (stwlam) Fix issue causing incorrect degree of success to be reported with substituted rolls (e.g., Assurance)
+* (stwlam) Fix issue causing infused reagents remaining to not be changeable
+* (Supe) Fix updating weapon price
+* (Supe) Fix taking and purchasing items from third party compendiums
+
+### Data Updates
+* (NullWolf) Update NPCs from Troubles in Otari and add Hypnotic Stare Bestiary Effect
+* (SpartanCPA) Localize Persistent Poison notes
+* (stwlam) Fix CHA penalty on stupefied condition
+
+
+## Version 3.10.0
+
+### New Features
+* (stwlam) Add new "Roll Twice" and "Substitute Roll" rule elements, implementing effects like True Spike and Assurance, respectively
+* (Supe) Implement fixed level spell heightening (e.g., Acid Splash)
+
+### Core System Improvements
+* (In3luki) Improve Compendium Browser filters
+* (In3luki) Support PF2e inline links in all chat messages
+* (nikolaj-a) Add flag to suppress damage buttons on chat cards
+* (stwlam) Add ability to set an NPC's alliance, appropriate token disposition property for visual display
+* (stwlam) Retire Effect Target rule element, with Choice Set taking over its features
+* (Supe) Add edit button to rule elements for pretty printed JSON editing
+* (Supe) Add support for batch pricing such as for arrows
+* (Supe) Move spell preparation to separate application window
+* (Supe) Show coinage and total wealth for NPC and Loot sheets
+* (Tikael) Add (name)-inline-dc as a selector for inline check DCs
+
+### Bugfixes
+* (Supe) Always show spontaneous spell levels that have at least one non-signature spell
+* (Supe) Hide mystified items in total wealth calculations for players
+* (Supe) Persist crafting known formula quantities across sheet updates
+* (Supe) Show cost for entire batch in crafting tab
+* (stwlam) Send NPC death notes out only once
+* (stwlam) Fix functionality of deadly trait on battle-form attacks
+* (Vyklade) Maintain backwards compatibility for actor.toggleRollOption()
+
+### Data Updates
+* (Abaddon) Review AV3 bestiary
+* (Delzoun) Add Automation for Elemental Heart and OathKeeper dwarf heritages
+* (Delzoun) Add proficiency increase with Clan Pistol Feat
+* (Delzoun) Add an effect for the Heroes' Call Feat
+* (Gronex) Add check-dialog handling for backswing and sweep weapon traits
+* (InfamousSky) Add fixed level spell heightening data
+* (InfamousSky) Add several spell icons, Repeating Cross, Grim Sandglass
+* (InfamousSky) Review FotRP book 2 chapters 1 & 2
+* (JDCalvert) Fix Double-Barreled Musket's name and trait description
+* (JDCalvert) Grant Juggle feat with Juggler Dedication
+* (JDCalvert) Fix capacity traits on Pepperbox and Slide Pistol
+* (kageru) Fix typos in several item descriptions
+* (nikolaj-a) Add Command an Animal, Sense Direction, and Track action macros
+* (NullWolf) Add Unarmored proficiency increase to Animal Skin feat
+* (putty) Fix candle and chalk prices by using charges instead of quantity
+* (redeux) Add actors from PFS 3-12
+* (Shandyan) Add description to Skeleton ancestry
+* (Shandyan) Automate Conrasu, Elf, Fetchling, Fleshwarp, and Ganzi feats and heritages
+* (Shandyan) Correct Catfolk Lore skill
+* (silvative) Add Wasul Reed Mask from AV Adventure Toolbox to equipment compendium
+* (SoldierC4) Add more NPC death notes
+* (SoldierC4) Add hazards and make QA pass on Book of the Dead
+* (SpartanCPA) Add BattleForms to Rampaging Form
+* (SpartanCPA) Add FlatModifier and Icon to Fleshwarp "Unusual Anatomy" Feature
+* (SpartanCPA) Add initiative REs to Norns
+* (SpartanCPA) Add Resistances to "Sky and Heaven Stance"
+* (SpartanCPA) Add real equipment to NPC from PFS 1-01 through 1-04
+* (SpartanCPA) Add spell icons for spells C-G
+* (SpartanCPA) Correct name of Groetan Candle
+* (SpartanCPA) Add Circus Actions (Extinction Curse)
+* (SpartanCPA) Fix Drunken Brawler NPC
+* (SpartanCPA) Fix typo in Acid Arrow description
+* (SpartanCPA) Normalize formatting of NPC damage weaknesses/resistances
+* (SpartanCPA) Run Sneak Attack Tweaks on AV and extractPacks formatting
+* (SpartanCPA) Standardize notes for missing DCs
+* (SpartanCPA) Update Sneak Attack rule elements
+* (stwlam) Add Skeleton trait to Skeleton ancestry feats
+* (stwlam) Add rule elements to Wrestler Dedication
+* (stwlam) Prune redundant Assurance feats with no other compendium references
+* (stwlam) Register a keybinding to cycle a mouse-hovered token stack
+* (stwlam) Sort localized sheet tags
+* (telekenunes) Add Automation for the Martial Experience Feat
+* (telekenunes) Added Energize Wings effect
+* (TMun) Correct heightening on Hallowed Ground spell
+* (TMun) Correct text for voidworm Confounding Lash ability
+* (TMun) Update OGL license text to present release
+* (TMun) Update or add PFS 1-18, 1-24, 2-06, 2-07, 2-09, 3-10, 3-15 NPCs
+* (TMun) Add influence subsystem actions
+* (Tikael) Add effects for Shield Ally, Faerie Dust spell, Fortune/Misfortune NPC abilities
+* (Tikael) Automate Dragonslayer's Shield
+* (Tikael) Fix linking in Flames Oracle Mystery
+* (Tikael) Fix source of Dragon's Blood Pudding
+* (Tikael) Fix spells of scarlet triad mage
+* (Tikael) Mark some bestiary glossary abilities as death notes.
+* (Tikael) Remove all gm visibility tags from compendiums and en.json
+* (Tikael) Remove origin from predicates of DC improving feats
+* (VestOfHolding) Adding Evolution Feat choice and note about link cantrips.
+
+
 ## Version 3.9.2
 
 ### Data Updates

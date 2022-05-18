@@ -1,17 +1,9 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import {
-    calculateTotalWealth,
-    calculateValueOfCurrency,
-    Coins,
-    coinValueInCopper,
-    DENOMINATIONS,
-    sellAllTreasure,
-    sellTreasure,
-} from "@item/treasure/helpers";
+import { coinValueInCopper, sellAllTreasure } from "@item/treasure/helpers";
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
@@ -46,6 +38,8 @@ import { CreaturePF2e } from "@actor/creature";
 import { createSheetTags } from "@module/sheet/helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -86,11 +80,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         // Calculate financial and total wealth
-        const coins = calculateValueOfCurrency(inventoryItems);
+        const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
         const totalCoinageGold = (coinValueInCopper(coins) / 100).toFixed(2);
 
-        const totalWealth = calculateTotalWealth(inventoryItems);
+        const totalWealth = this.actor.inventory.totalWealth;
         const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
 
         // IWR
@@ -147,7 +141,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return (this.element as JQuery).find(".tab.active .directory-list");
     }
 
-    protected static coinsToSheetData(coins: Coins): CoinageSummary {
+    protected static coinsToSheetData(coins: Partial<Coins>): CoinageSummary {
         return DENOMINATIONS.reduce(
             (accumulated, denomination) => ({
                 ...accumulated,
@@ -328,9 +322,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         $html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
 
         // Sell treasure item
-        $html.find(".item-sell-treasure").on("click", (event) => {
+        $html.find(".item-sell-treasure").on("click", async (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            sellTreasure(this.actor, itemId);
+            const item = this.actor.inventory.get(itemId);
+            if (item instanceof TreasurePF2e && !item.isCoinage) {
+                await item.delete();
+                await this.actor.inventory.addCoins(item.assetValue);
+            }
         });
 
         // Update an embedded item
@@ -420,14 +418,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Update max slots for Spell Items
         $html.find(".prepared-toggle").on("click", async (event) => {
             event.preventDefault();
-
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const entry = this.actor.items.get(itemId);
-
-            if (entry instanceof SpellcastingEntryPF2e) {
-                const sheet = new SpellPreparationSheet(entry, { top: event.clientY - 80, left: event.clientX + 200 });
-                sheet.render(true);
-            }
+            this.openSpellPreparationSheet(itemId);
         });
 
         $html.find(".slotless-level-toggle").on("click", async (event) => {
@@ -459,6 +451,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (match) target.value = match[0];
             else target.value = "";
         });
+    }
+
+    /** Opens the spell preparation sheet, but only if its a prepared entry */
+    openSpellPreparationSheet(entryId: string) {
+        const entry = this.actor.items.get(entryId);
+        if (entry instanceof SpellcastingEntryPF2e && entry.isPrepared) {
+            const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
+            const offset = $book.offset() ?? { left: 0, top: 0 };
+            const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
+            sheet.render(true);
+        }
     }
 
     async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
@@ -673,6 +676,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (dropSlotType === "spellLevel") {
                 const { level } = $dropItemEl.data();
                 const spell = await entry.addSpell(item, level);
+                this.openSpellPreparationSheet(entry.id);
                 return [spell ?? []].flat();
             } else if ($dropItemEl.attr("data-slot-id")) {
                 const dropId = Number($dropItemEl.attr("data-slot-id"));
@@ -704,6 +708,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         return [target];
                     } else {
                         const spell = await entry.addSpell(item, target.level);
+                        this.openSpellPreparationSheet(entry.id);
                         return [spell ?? []].flat();
                     }
                 }
@@ -734,7 +739,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (item instanceof PhysicalItemPF2e) {
             const $target = $(event.target).closest("[data-item-id]");
             const targetId = $target.attr("data-item-id") ?? "";
-            const target = this.actor.physicalItems.get(targetId);
+            const target = this.actor.inventory.get(targetId);
 
             if (target && item.isStackableWith(target)) {
                 const stackQuantity = item.quantity + target.quantity;
@@ -747,7 +752,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
             const $container = $(event.target).closest('[data-item-is-container="true"]');
             const containerId = $container.attr("data-item-id") ?? "";
-            const container = this.actor.physicalItems.get(containerId);
+            const container = this.actor.inventory.get(containerId);
             const pullingOutOfContainer = item.isInContainer && !container;
             const puttingIntoContainer = container?.isOfType("backpack") && item.container?.id !== container.id;
             if (pullingOutOfContainer || puttingIntoContainer) {
@@ -832,6 +837,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
 
                 const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
+                this.openSpellPreparationSheet(entry.id);
                 return [(await entry.addSpell(item, level)) ?? []].flat();
             } else if (dropContainerType === "actorInventory" && itemSource.data.level.value > 0) {
                 const popup = new ScrollWandPopup(

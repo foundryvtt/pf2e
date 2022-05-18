@@ -336,6 +336,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
         delete formData["data.attributes.shield.hp.value"];
 
-        await super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

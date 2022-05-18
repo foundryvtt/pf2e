@@ -43,7 +43,9 @@
             "value": null
         },
         "price": {
-            "value": "670 gp"
+            "value": {
+                "gp": 670
+            }
         },
         "propertyRune1": {
             "value": ""
@@ -61,7 +63,20 @@
         "resiliencyRune": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:frightful-presence",
+                        "origin:trait:dragon"
+                    ]
+                },
+                "selector": "will",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"
@@ -88,7 +103,6 @@
             "value": "1"
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/equipment/shields/specific-shields/dragonslayers-shield.webp",
     "name": "Dragonslayer's Shield",
     "type": "armor"

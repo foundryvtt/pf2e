@@ -122,7 +122,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -180,7 +179,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "6 sp"
+                    "value": {
+                        "sp": 6
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -264,7 +265,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "curse-of-the-wereant"
+                        "werecreature-curse-of-the-werecreature"
                     ]
                 },
                 "bonus": {
@@ -277,7 +278,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Plus [[/r {2d6}[persistent,poison]]]</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Poison2d6.success]</p>"
                 },
                 "rules": [
                     {
@@ -310,7 +311,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 200000,
@@ -336,7 +336,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Plus [[/r {2d6}[persistent,poison]]]</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Poison2d6.success]</p>"
                 },
                 "rules": [
                     {
@@ -374,7 +374,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Kukri",
             "sort": 300000,
@@ -520,6 +519,54 @@
             "type": "action"
         },
         {
+            "_id": "8K5uLz57NoezXB6P",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The wereant can communicate with insects.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "werecreature-animal-empathy",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.iAXHLkxuuCUOwqkN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Insect Empathy",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "GyOwwVWZBfQazotf",
             "data": {
                 "actionCategory": {
@@ -532,7 +579,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Trigger</strong> A creature adjacent to the wereant critically misses the wereant with a melee Strike\n<hr />\n<p><strong>Effect</strong> The wereant makes a mandibles Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature adjacent to the wereant critically misses the wereant with a melee Strike</p><hr />\n<p><strong>Effect</strong> The wereant makes a mandibles Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -551,14 +598,9 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.35g2fh9fmfp3anxh"
-                }
-            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Gnawing Retort",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -637,58 +679,8 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.fnmutsbmx35qyk3d"
-                }
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hive Mind",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "DRhv9m62nyqmVo69",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>The wereant can communicate with insects.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divination",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.5cqcwxvs49m7409c"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Insect Empathy",
             "sort": 900000,
             "type": "action"
         },
@@ -716,11 +708,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "[magical tradition]",
+                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
                         "polymorph",
+                        "primal",
                         "transmutation"
                     ]
                 },
@@ -742,7 +735,7 @@
             "type": "action"
         },
         {
-            "_id": "2Yaz4lqKeSvVIUEH",
+            "_id": "vCBcq5X4CA3AdJAt",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -754,15 +747,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34].</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a wereant until dawn. The creature is under the GM's control and goes on a rampage for half the night before falling @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} until dawn.</p>"
+                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34].</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a wereant until dawn.</p>\n<p>The creature is under the GM's control and goes on a rampage for half the night before falling @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} until dawn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "werecreature-curse-of-the-werecreature",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -775,11 +768,14 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
             "flags": {
                 "core": {
-                    "sourceId": "Item.2fbwrz59o3okt5yt"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ICnpftxZEilrYjn0"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
@@ -800,7 +796,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Weapons the wereant poisoner holds deal an additional [[/r {2d6}[persistent,poison]]]{2d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent poison Damage} as poison seeps from the wereant's hands onto the weapon. Weapons cease to deal this persistent poison damage once the wereant lets them go. The kukri Strikes above include this persistent poison damage.</p>"
+                    "value": "<p>Weapons the wereant poisoner holds deal an additional @Localize[PF2E.PersistentDamage.Poison2d6.success] as poison seeps from the wereant's hands onto the weapon. Weapons cease to deal this persistent poison damage once the wereant lets them go. The kukri Strikes above include this persistent poison damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -819,14 +815,13 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Envenomed Weapons",
             "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "3Vr38oGeQw5JKdcJ",
+            "_id": "c1Uo44lQWgOcY82g",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -838,22 +833,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a full moon appears in the night sky, the wereant must enter hybrid form, can't Change Shape, becomes one size larger, increases their reach by 5 feet, and increases the damage of their mandibles Strike by 2. When the moon sets or the sun rises, the wereant returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/r 2d4 #hours]]{2d4 hours}.</p>"
+                    "value": "<p>When a full moon appears in the night sky, the wereant must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of their mandibles Strike by 2.</p>\n<p>When the moon sets or the sun rises, the werecreature returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Moon Frenzy]{Effect: Moon Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "moon-frenzy",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
+                "rules": [],
+                "slug": "werecreature-moon-frenzy",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -866,11 +854,14 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
             "flags": {
                 "core": {
-                    "sourceId": "Item.j9fbslz8gtb7sjrt"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FA0ri2fAcMa1HgZe"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
@@ -910,7 +901,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Poisonous Flurry",
             "sort": 1400000,
@@ -948,7 +938,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vitriolic Strikes",
             "sort": 1500000,
@@ -977,7 +966,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1600000,
@@ -1006,7 +994,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1700000,
@@ -1035,7 +1022,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1800000,
@@ -1064,7 +1050,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
             "sort": 1900000,
@@ -1093,7 +1078,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2000000,
@@ -1122,7 +1106,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2100000,
@@ -1151,7 +1134,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 2200000,

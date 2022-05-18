@@ -19,4 +19,6 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
 
 const PRECIOUS_MATERIAL_GRADES = new Set(["low", "standard", "high"] as const);
 
-export { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES };
+const DENOMINATIONS = ["pp", "gp", "sp", "cp"] as const;
+
+export { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES, DENOMINATIONS };

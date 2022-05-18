@@ -11,9 +11,10 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue } from "@util";
 import { ItemSheetDataPF2e } from "./data-types";
 import Tagify from "@yaireo/tagify";
+import type * as TinyMCE from "tinymce";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -46,13 +47,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     private editingRuleElementIndex: number | null = null;
 
     override async getData(options?: Partial<DocumentSheetOptions>) {
-        const data: any = this.getBaseData(options);
-        data.abilities = CONFIG.PF2E.abilities;
-        data.saves = CONFIG.PF2E.saves;
+        const sheetData: any = this.getBaseData(options);
+        sheetData.abilities = CONFIG.PF2E.abilities;
+        sheetData.saves = CONFIG.PF2E.saves;
 
-        const itemData: ItemDataPF2e = data.item;
+        const itemData: ItemDataPF2e = sheetData.item;
 
-        mergeObject(data, {
+        mergeObject(sheetData, {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
@@ -75,58 +76,58 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === "spell") mergeObject(dt, CONFIG.PF2E.healingTypes);
-        data.damageTypes = dt;
+        sheetData.damageTypes = dt;
 
         // do not let user set bulk if in a stack group because the group determines bulk
-        const stackGroup = data.data?.stackGroup?.value;
-        data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== "";
-        data.rarity = CONFIG.PF2E.rarityTraits;
-        data.usage = CONFIG.PF2E.usageTraits; // usage data
-        data.stackGroups = CONFIG.PF2E.stackGroups;
+        const stackGroup = sheetData.data?.stackGroup?.value;
+        sheetData.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== "";
+        sheetData.rarity = CONFIG.PF2E.rarityTraits;
+        sheetData.usage = CONFIG.PF2E.usageTraits; // usage data
+        sheetData.stackGroups = CONFIG.PF2E.stackGroups;
 
         if (itemData.type === "treasure") {
-            data.currencies = CONFIG.PF2E.currencies;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.currencies = CONFIG.PF2E.currencies;
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "consumable") {
-            data.consumableTypes = CONFIG.PF2E.consumableTypes;
-            data.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.data.traits);
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.stackGroups = CONFIG.PF2E.stackGroups;
-            data.consumableTraits = CONFIG.PF2E.consumableTraits;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.consumableTypes = CONFIG.PF2E.consumableTypes;
+            sheetData.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.data.traits);
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.stackGroups = CONFIG.PF2E.stackGroups;
+            sheetData.consumableTraits = CONFIG.PF2E.consumableTraits;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "melee") {
             // Melee Data
-            data.hasSidebar = false;
-            data.detailsActive = true;
-            data.damageTypes = CONFIG.PF2E.damageTypes;
+            sheetData.hasSidebar = false;
+            sheetData.detailsActive = true;
+            sheetData.damageTypes = CONFIG.PF2E.damageTypes;
 
-            data.attackEffects = createSheetOptions(this.getAttackEffectOptions(), data.data.attackEffects);
-            data.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, data.data.traits);
+            sheetData.attackEffects = createSheetOptions(this.getAttackEffectOptions(), sheetData.data.attackEffects);
+            sheetData.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, sheetData.data.traits);
         } else if (itemData.type === "condition") {
             // Condition types
 
-            data.conditions = [];
+            sheetData.conditions = [];
         } else if (itemData.type === "equipment") {
             // Equipment data
-            data.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.stackGroups = CONFIG.PF2E.stackGroups;
-            data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.stackGroups = CONFIG.PF2E.stackGroups;
+            sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "backpack") {
             // Backpack data
-            data.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "lore") {
             // Lore-specific data
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+            sheetData.proficiencies = CONFIG.PF2E.proficiencyLevels;
         }
 
         const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-        data.ruleLabels = itemData.data.rules.map((ruleData: RuleElementSource) => {
+        sheetData.ruleLabels = itemData.data.rules.map((ruleData: RuleElementSource) => {
             const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
             const label = translations[key] ?? translations.Unrecognized;
             const recognized = label !== translations.Unrecognized;
@@ -136,7 +137,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             };
         });
 
-        return data;
+        return sheetData;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
@@ -170,11 +171,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ruleEditing: editingRule ? JSON.stringify(editingRule, null, 2) : null,
             ruleSelection: {
                 selected: this.selectedRuleElement,
-                types: Object.keys(RuleElements.all).reduce((result, key) => {
-                    const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                    result[key] = translations[key] ?? key;
-                    return result;
-                }, {} as Record<string, string>),
+                types: sortStringRecord(
+                    Object.keys(RuleElements.all).reduce((result: Record<string, string>, key) => {
+                        const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                        result[key] = game.i18n.localize(translations[key] ?? key);
+                        return result;
+                    }, {})
+                ),
             },
         };
     }
@@ -256,7 +259,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        $html.find('li.trait-item input[type="checkbox"]').on("click", (event) => {
+        $html.find("li.trait-item input[type=checkbox]").on("click", (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
             }
@@ -274,7 +277,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.deleteDamageRoll(ev);
         });
 
-        $html.find('[data-action="select-rule-element"]').on("change", async (event) => {
+        $html.find("[data-action=select-rule-element]").on("change", async (event) => {
             event.preventDefault();
             event.stopPropagation();
             this.selectedRuleElement = (event.target as HTMLSelectElement).value;
@@ -309,13 +312,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
-        $html.find('.rule-editing [data-action="close"]').on("click", (event) => {
+        $html.find(".rule-editing [data-action=close]").on("click", (event) => {
             event.preventDefault();
             this.editingRuleElementIndex = null;
             this.render(true);
         });
 
-        $html.find('.rule-editing [data-action="apply"]').on("click", (event) => {
+        $html.find(".rule-editing [data-action=apply]").on("click", (event) => {
             event.preventDefault();
             const value = $html.find(".rule-editing textarea").val();
 
@@ -372,6 +375,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollLinks.listen($html);
+    }
+
+    /** Ensure the source description is edited rather than a prepared one */
+    override activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, initialContent?: string): void {
+        super.activateEditor(
+            name,
+            options,
+            name === "data.description.value" ? this.item.data._source.data.description.value : initialContent
+        );
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
@@ -450,6 +462,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         }
 
-        super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

@@ -107,7 +107,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -165,7 +164,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -314,7 +315,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "6 gp"
+                    "value": {
+                        "gp": 6
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -437,7 +440,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -552,7 +557,10 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -608,7 +616,7 @@
             "type": "consumable"
         },
         {
-            "_id": "QT4edGBm4Ewd3eO6",
+            "_id": "hRdqGbLS3yjyl01v",
             "data": {
                 "activation": {
                     "condition": "",
@@ -669,7 +677,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -679,7 +689,7 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "searing-suture-lesser",
                 "source": {
                     "value": "Pathfinder #178: Punks in a Powder Keg"
                 },
@@ -718,10 +728,10 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Item.dymL1IbxU5zR9fqo"
+                    "sourceId": "Compendium.pf2e.equipment-srd.dymL1IbxU5zR9fqo"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/consumable.svg",
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/searning-suture.webp",
             "name": "Searing Suture (Lesser)",
             "sort": 500000,
             "type": "consumable"
@@ -766,7 +776,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
             "sort": 600000,
@@ -812,7 +821,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flintlock Pistol",
             "sort": 700000,
@@ -830,6 +838,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Trigger</strong> The Powderkeg Punk takes fire damage</p>\n<p>The Powderkeg Punk @Compendium[pf2e.actionspf2e.Demoralize]{Demoralizes} the creature that dealt the fire damage. Demoralize loses the auditory trait and gains the visual trait, and the Powderkeg Punk doesn't take a penalty if the creature doesn't understand their language. The Powderkeg Punk can use this reaction even if the triggering damage reduced the Punk to 0 Hit Points.</p>"
                 },
@@ -856,11 +865,6 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.22y41h6m56jctiax"
-                }
-            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Blaze of Glory",
             "sort": 800000,
@@ -878,8 +882,9 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<strong>Frequency</strong> once per round\n<p><strong>Requirements</strong> The gunner is flanked by two or more creatures and the gunner's pistol is loaded</p>\n<p><strong>Effect</strong> The gunner turns their pistol on themself and pulls the trigger, firing through their own gut to catch the foe behind them unawares. The gunner makes a flintlock pistol Strike against an adjacent creature, who becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike. The gunner takes [[/r {1d4}[piercing]]]{1d4 piercing damage}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gunner is flanked by two or more creatures and the gunner's pistol is loaded</p>\n<p><strong>Effect</strong> The gunner turns their pistol on themself and pulls the trigger, firing through their own gut to catch the foe behind them unawares. The gunner makes a flintlock pistol Strike against an adjacent creature, who becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike. The gunner takes [[/r {1d4}[piercing]]]{1d4 piercing damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -898,7 +903,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Gut Shot",
             "sort": 900000,
@@ -916,6 +920,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The gunner deals an additional [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -988,6 +993,7 @@
                 "actions": {
                     "value": 3
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Requirements</strong> The gunner is holding a loaded firearm</p>\n<p><strong>Effect</strong> The gunner Interacts to draw an alchemist's fire, throws it at a point within 30 feet, and then shoots the bomb in midair. Creatures within a @Template[type:burst|distance:10]{10-foot radius} of the shot bomb must succeed at a @Check[type:reflex|dc:15] save or take the splash and persistent damage from the alchemist's fire.</p>"
                 },
@@ -1008,7 +1014,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Toss and Shoot",
             "sort": 1100000,
@@ -1037,7 +1042,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1200000,
@@ -1066,7 +1070,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1300000,
@@ -1095,7 +1098,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 1400000,
@@ -1124,7 +1126,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Gunpowder Lore",
             "sort": 1500000,
@@ -1153,7 +1154,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1600000,
@@ -1182,7 +1182,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1700000,

@@ -393,7 +393,7 @@ export class WeaponDamagePF2e {
                 new DiceModifierPF2e({
                     label: traitLabels[slug],
                     diceNumber,
-                    dieSize: (/-(d\d{1,2})$/.exec(slug)?.at(1) ?? weapon.data.damage.die) as DamageDieSize,
+                    dieSize: (/-\d?(d\d{1,2})$/.exec(slug)?.at(1) ?? weapon.data.damage.die) as DamageDieSize,
                     critical: true,
                 })
             );

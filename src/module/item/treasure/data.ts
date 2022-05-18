@@ -8,18 +8,14 @@ import { TreasurePF2e } from ".";
 
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 
-type TreasureData = Omit<TreasureSource, "effects" | "flags"> &
+type TreasureData = Omit<TreasureSource, "data" | "effects" | "flags"> &
     BasePhysicalItemData<TreasurePF2e, "treasure", TreasureSystemData, TreasureSource>;
 
-interface TreasureSystemSource extends PhysicalSystemSource {
-    denomination: {
-        value: "pp" | "gp" | "sp" | "cp";
+type TreasureSystemSource = PhysicalSystemSource;
+type TreasureSystemData = PhysicalSystemData & {
+    equipped: {
+        invested?: never;
     };
-    value: {
-        value: number;
-    };
-}
-
-type TreasureSystemData = TreasureSystemSource & PhysicalSystemData;
+};
 
 export { TreasureData, TreasureSource, TreasureSystemData, TreasureSystemSource };

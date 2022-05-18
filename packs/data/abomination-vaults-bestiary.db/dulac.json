@@ -113,7 +113,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -219,7 +218,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
             "sort": 100000,
@@ -1757,19 +1755,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1786,7 +1771,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1894,19 +1881,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1924,7 +1898,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2019,7 +1995,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "War Flail",
             "sort": 1700000,
@@ -2199,7 +2174,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Death Shadows",
             "sort": 2100000,
@@ -2218,7 +2192,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} or @Compendium[pf2e.conditionitems.Blinded]{Blinded} creature, or a creature with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness}, ends its move adjacent to Dulac</p>\n<p><strong>Effect</strong> Dulac Steps.</p>"
+                    "value": "<p><strong>Trigger</strong> A @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} or @Compendium[pf2e.conditionitems.Blinded]{Blinded} creature, or a creature with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness}, ends its move adjacent to Dulac</p>\n<p><strong>Effect</strong> Dulac Steps.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2240,7 +2214,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Opportune Step",
             "sort": 2200000,
@@ -2259,7 +2232,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An ally within Dulac's reach is targeted with a ranged or melee attack by an attacker she can see</p>\n<p><strong>Effect</strong> The ally gains a +2 circumstance bonus to AC against the triggering attack, and the ally can Step after the attack.</p>"
+                    "value": "<p><strong>Trigger</strong> An ally within Dulac's reach is targeted with a ranged or melee attack by an attacker she can see</p>\n<p><strong>Effect</strong> The ally gains a +2 circumstance bonus to AC against the triggering attack, and the ally can Step after the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2281,7 +2254,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Warding Shove",
             "sort": 2300000,
@@ -2313,12 +2285,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -2373,7 +2354,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 2500000,
@@ -2402,7 +2382,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 2600000,
@@ -2431,7 +2410,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 2700000,
@@ -2460,7 +2438,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
             "sort": 2800000,
@@ -2489,7 +2466,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
             "sort": 2900000,
@@ -2518,7 +2494,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 3000000,

@@ -1,15 +1,17 @@
-import { ItemPF2e, ContainerPF2e } from "@item";
-import { PhysicalItemData, TraitChatData } from "@item/data";
-import { LocalizePF2e } from "@module/system/localize";
-import { Rarity, Size } from "@module/data";
 import { LootPF2e } from "@actor";
+import { type ContainerPF2e, ItemPF2e } from "@item";
+import { PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
-import { getUnidentifiedPlaceholderImage } from "../identification";
-import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait } from "./data";
-import { coinsToString, coinStringToCoins, extractPriceFromItem, multiplyCoinValue } from "@item/treasure/helpers";
+import { coinStringToCoins, multiplyPrice, noCoins } from "@item/treasure/helpers";
+import { Rarity, Size } from "@module/data";
+import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
-import { getUsageDetails, isEquipped } from "./usage";
+import { isObject } from "@util";
+import { getUnidentifiedPlaceholderImage } from "../identification";
+import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import { getUsageDetails, isEquipped } from "./usage";
+import { DENOMINATIONS } from "./values";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -51,12 +53,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.handsHeld > 0;
     }
 
-    get price(): string {
-        return this.data.data.price.value;
+    get price(): Price {
+        return this.data.data.price;
     }
 
-    get stackPrice() {
-        return multiplyCoinValue(coinStringToCoins(this.price), this.quantity);
+    /** The monetary value of the entire item stack */
+    get assetValue(): Coins {
+        return multiplyPrice(this.price, this.quantity);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -165,9 +168,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.containerId ||= null;
         systemData.stackGroup ||= null;
 
-        // Normalize price string
-        systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
-        if (this.isTemporary) systemData.price.value = "0 gp";
+        // Temporary: prevent noise from items pre migration 746
+        if (typeof systemData.price.value === "string") {
+            systemData.price.value = coinStringToCoins(systemData.price.value);
+        }
+
+        // Normalize and fill price data
+        systemData.price.value = mergeObject(noCoins(), this.isTemporary ? {} : systemData.price.value);
+        systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status
         this.data.data.usage = getUsageDetails(systemData.usage.value);
@@ -367,6 +375,23 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
         const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
         if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
+
+        // Clear 0 price denominations and per fields with values 0 or 1
+        if (isObject<Record<string, unknown>>(changed.data?.price)) {
+            const price: Record<string, unknown> = changed.data.price;
+            if (isObject<Record<string, number | null>>(price.value)) {
+                const coins = price.value;
+                for (const denomination of DENOMINATIONS) {
+                    if (coins[denomination] === 0) {
+                        coins[`-=${denomination}`] = null;
+                    }
+                }
+            }
+
+            if ("per" in price && (!price.per || Number(price.per) <= 1)) {
+                price["-=per"] = null;
+            }
+        }
 
         const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.data.data.usage.value));
         const hasSlot = newUsage.type === "worn" && newUsage.where;

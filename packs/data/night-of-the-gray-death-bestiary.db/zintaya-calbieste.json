@@ -115,7 +115,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -173,7 +172,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -299,7 +300,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "6 sp"
+                    "value": {
+                        "sp": 6
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -424,7 +427,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -512,7 +517,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -534,7 +539,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Executioner's Hood",
             "sort": 400000,
@@ -603,7 +607,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -719,7 +726,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "160 gp"
+                    "value": {
+                        "gp": 160
+                    }
                 },
                 "quantity": 3,
                 "range": {
@@ -833,7 +842,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Kukri",
             "sort": 700000,
@@ -893,7 +901,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Crossbow",
             "sort": 800000,
@@ -976,7 +983,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Anonymity",
             "sort": 1000000,
@@ -995,7 +1001,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Trigger</strong> The Gray Gardener assassin rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait\n<strong>Requirements</strong> The Gray Gardener assassin's features are obscured by a mask or hood\n<hr />\n<p><strong>Effect</strong> The Gray Gardener assassin takes [[/r {3d8}[mental]]]{3d8 mental damage}, and the saving throw is a success.</p>"
+                    "value": "<p><strong>Trigger</strong> The Gray Gardener assassin rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait\n<strong>Requirements</strong> The Gray Gardener assassin's features are obscured by a mask or hood</p><hr />\n<p><strong>Effect</strong> The Gray Gardener assassin takes [[/r {3d8}[mental]]]{3d8 mental damage}, and the saving throw is a success.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1014,7 +1020,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Gardener's Resolve",
             "sort": 1100000,
@@ -1054,7 +1059,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Instant Opening",
             "sort": 1200000,
@@ -1124,7 +1128,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Mark for Death",
             "sort": 1300000,
@@ -1143,7 +1146,7 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<strong>Requirements</strong> The Gray Gardener assassin is wielding a piercing or slashing weapon and has a free hand <hr /><p><strong>Effect</strong> The assassin applies a poison to the weapon.</p>"
+                    "value": "<p><strong>Requirements</strong> The Gray Gardener assassin is wielding a piercing or slashing weapon and has a free hand</p><hr /><p><strong>Effect</strong> The assassin applies a poison to the weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1164,7 +1167,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Poison Weapon",
             "sort": 1400000,
@@ -1202,7 +1204,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Draw",
             "sort": 1500000,
@@ -1234,12 +1235,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1303,7 +1313,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attack",
             "sort": 1700000,
@@ -1332,7 +1341,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1800000,
@@ -1361,7 +1369,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1900000,
@@ -1390,7 +1397,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 2000000,
@@ -1419,7 +1425,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 2100000,
@@ -1448,7 +1453,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
             "sort": 2200000,
@@ -1496,7 +1500,6 @@
                     }
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2300000,

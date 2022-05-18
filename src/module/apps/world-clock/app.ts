@@ -206,7 +206,7 @@ export class WorldClock extends Application {
             if (increment !== 0) game.time.advance(increment);
         });
 
-        $html.find('button[name="advance"], button[name="retract"]').on("click", (event) => {
+        $html.find("button[name=advance], button[name=retract]").on("click", (event) => {
             const value = $html.find('input[type=number][name="diff-value"]').val();
             const unit = $html.find('select[name="diff-unit"]').val();
             const advanceOrRetract = $(event.currentTarget).attr("name") === "advance" ? 1 : -1;
@@ -217,10 +217,13 @@ export class WorldClock extends Application {
         for (const eventName of ["keydown.pf2e.world-clock", "keyup.pf2e.world-clock"]) {
             $(document).off(eventName);
             $(document).on(eventName, (event) => {
-                if (!(event.originalEvent instanceof KeyboardEvent) || event.originalEvent.repeat) return;
+                const { originalEvent } = event;
+                if (!(originalEvent instanceof KeyboardEvent)) return;
+                const ctrlKeys = KeyboardManager.CONTROL_KEY_STRING === "⌘" ? ["Control", "Meta"] : ["Control"];
+                if (originalEvent.repeat || !ctrlKeys.includes(originalEvent.key)) return;
                 if (!(event.ctrlKey || this.ctrlKeyDown)) return;
-                const retractTime = event.type === "keydown";
-                this.ctrlKeyDown = retractTime;
+
+                const retractTime = (this.ctrlKeyDown = event.type === "keydown");
 
                 const { Advance, Retract, TimeOfDay } = this.translations.Button;
                 const advanceButtons = Array.from(

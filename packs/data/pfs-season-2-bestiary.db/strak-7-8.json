@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-10: In Burning Dawn"
             }
         },
         "resources": {},
@@ -115,7 +115,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "TpHE8q8tw9hDJk1U",
+            "_id": "jt95CetwN6nvZ5gb",
             "data": {
                 "MAP": {
                     "value": ""
@@ -163,13 +163,15 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -186,16 +188,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -206,7 +208,7 @@
                 "size": "med",
                 "slug": "orc-necksplitter",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -240,17 +242,17 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/orc-necksplitter.webp",
-            "name": "+1 Striking Orc Necksplitter",
+            "name": "Orc Necksplitter",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "ymgXcMPV2ccBzXD7",
+            "_id": "mUcG86jRsgo9nOdm",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 1
                 },
@@ -266,7 +268,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, [[/r {2}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -290,7 +292,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -299,7 +301,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "10 gp"
+                    "value": {
+                        "gp": 10
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -316,27 +320,44 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 12,
                 "range": 20,
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.criticalSuccess]</p>"
+                    }
+                ],
                 "size": "med",
-                "slug": "alchemist-s-fire-moderate",
+                "slug": "alchemists-fire-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -377,12 +398,12 @@
             "type": "weapon"
         },
         {
-            "_id": "Mb0nHWHVc1vQMPWM",
+            "_id": "GbQXwB1ase4PzDTF",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 1
                 },
@@ -393,12 +414,12 @@
                 "containerId": null,
                 "damage": {
                     "damageType": "acid",
-                    "dice": 2,
-                    "die": "d6",
+                    "dice": 1,
+                    "die": "",
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, [[/r {2d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -422,7 +443,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -431,7 +452,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "10 gp"
+                    "value": {
+                        "gp": 10
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -448,27 +471,44 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 20,
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess]</p>"
+                    }
+                ],
                 "size": "med",
                 "slug": "acid-flask-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -543,7 +583,12 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "cp": 0,
+                        "gp": 3,
+                        "pp": 0,
+                        "sp": 0
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -552,7 +597,7 @@
                 "source": {
                     "value": ""
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -610,7 +655,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -677,7 +724,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -710,7 +759,7 @@
             "type": "equipment"
         },
         {
-            "_id": "9EcUG0gHBooNl8u5",
+            "_id": "feWTLG8uj4MemFWn",
             "data": {
                 "activation": {
                     "condition": "",
@@ -732,7 +781,7 @@
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "_deprecated": true,
@@ -772,7 +821,12 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "30 gp"
+                    "value": {
+                        "cp": 0,
+                        "gp": 30,
+                        "pp": 0,
+                        "sp": 0
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -784,13 +838,13 @@
                 "size": "med",
                 "slug": "elixir-of-life-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "target": {
                     "type": "",
                     "units": "",
@@ -831,7 +885,7 @@
             "type": "consumable"
         },
         {
-            "_id": "S60tNYxW8xlSPNMG",
+            "_id": "FnNegbkCY9FM9G7t",
             "data": {
                 "activation": {
                     "condition": "",
@@ -893,7 +947,12 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "53 gp"
+                    "value": {
+                        "cp": 0,
+                        "gp": 53,
+                        "pp": 0,
+                        "sp": 0
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -905,13 +964,13 @@
                 "size": "med",
                 "slug": "smokestick-greater",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "target": {
                     "type": "",
                     "units": "",
@@ -1024,7 +1083,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "range-increment-30"
+                        "range-increment-30",
+                        "splash"
                     ]
                 },
                 "weaponType": {
@@ -1053,18 +1113,10 @@
                     "0": {
                         "damage": "2d8",
                         "damageType": "fire"
-                    },
-                    "1": {
-                        "damage": "2",
-                        "damageType": "acid"
-                    },
-                    "2": {
-                        "damage": "5",
-                        "damageType": "acid"
                     }
                 },
                 "description": {
-                    "value": "<p>(range increment 30 feet)</p>"
+                    "value": "<p>[[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} and [[/r {5}[splash,fire]]]{5 splash fire damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -1089,6 +1141,52 @@
             "type": "melee"
         },
         {
+            "_id": "jA6Po4CDZSV0XrHb",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
             "_id": "EBDp7Z31AQQfw3lY",
             "data": {
                 "actionCategory": {
@@ -1100,8 +1198,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>Strak carries the following infused items, which last for 24 hours, or until the next time he makes his daily preparations: lesser elixir of life, moderate acid flask , moderate alchemist's fire (12), and moderate smokestick.</p>"
+                    "value": "<p>Strak carries the following infused items, which last for 24 hours, or until the next time he makes his daily preparations:@Compendium[pf2e.equipment-srd.Elixir of Life (Lesser)]{Elixir of Life (Lesser)}, @Compendium[pf2e.equipment-srd.Acid Flask (Moderate)]{Acid Flask (Moderate)}, @Compendium[pf2e.equipment-srd.Alchemist's Fire (Moderate)]{Alchemist's Fire (Moderate)} (12), and @Compendium[pf2e.equipment-srd.Smokestick (Greater)]{Smokestick (Greater)}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1128,11 +1227,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infused Items",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "S2h7KNi0cLM2x6aN",
+            "_id": "Rd19d9YmFbfbr8YP",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1143,6 +1242,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -1173,11 +1273,11 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "Jr3OGtUN26RyHIjN",
+            "_id": "wuS8Jfjg33VSvYag",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1188,6 +1288,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
                 },
@@ -1218,7 +1319,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ferocity",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1233,6 +1334,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When throwing an alchemical bomb with the splash trait, Strak can treat the target's space as the first affected square of a @Template[type:cone|distance:15] directed away from him, potentially allowing him to avoid allies and splash deeper into enemy lines. If the target takes up more than a single square, the target's square closest to Strak is the first affected square of the cone.</p>"
                 },
@@ -1259,7 +1361,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Directional Bombs",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1274,6 +1376,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Strak draws an alchemical bomb with an Interact action and throws it as a ranged Strike.</p>"
                 },
@@ -1300,7 +1403,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1329,7 +1432,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1358,7 +1461,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1387,7 +1490,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1416,7 +1519,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         }
     ],

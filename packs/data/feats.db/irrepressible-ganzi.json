@@ -19,11 +19,37 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Ganzi.Irrepressible.SaveNote]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
@@ -35,7 +61,6 @@
             ]
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Irrepressible (Ganzi)",
     "type": "feat"

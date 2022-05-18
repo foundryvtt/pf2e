@@ -216,7 +216,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
     "items": [
         {
@@ -483,7 +482,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+5 untyped bonus to land speed</li>\n</ul>"
+                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
                 },
                 "featType": {
                     "value": "general"
@@ -1193,7 +1192,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Assassin Lore",
             "sort": 0,
@@ -1222,7 +1220,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
             "sort": 0,
@@ -1748,6 +1745,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "medicine"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -1987,7 +2004,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Focus Spells",
             "sort": 0,
@@ -2171,7 +2187,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2299,7 +2317,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2436,7 +2456,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -2533,7 +2555,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2572,7 +2596,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This jangling, silvery bracelet makes you lighter on your feet, giving you a +1 item bonus to Acrobatics checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You gain a +10-foot status bonus to Speed for 1 minute.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Bracelet of Dashing]{Effect: Bracelet of Dashing}</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Acrobatics checks.</li>\n</ul>"
+                    "value": "<p>This jangling, silvery bracelet makes you lighter on your feet, giving you a +1 item bonus to Acrobatics checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You gain a +10-foot status bonus to Speed for 1 minute.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Bracelet of Dashing]{Effect: Bracelet of Dashing}</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2601,7 +2625,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "58 gp"
+                    "value": {
+                        "gp": 58
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -2694,7 +2720,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "160 gp"
+                    "value": {
+                        "gp": 160
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2811,7 +2839,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "7 gp"
+                    "value": {
+                        "gp": 7
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -2931,7 +2961,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "7 gp"
+                    "value": {
+                        "gp": 7
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3050,7 +3082,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "6 gp"
+                    "value": {
+                        "gp": 6
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3163,7 +3197,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "35 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3248,7 +3284,7 @@
                 "baseItem": null,
                 "containerId": "null",
                 "description": {
-                    "value": "<p>These clean, white gloves never show signs of blood, even when used to stitch up wounds or treat other ailments. They give you a +1 item bonus to Medicine checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You can soothe the wounds of a willing, living, adjacent creature, restoring [[/r {2d6+7}[healing]]]{2d6+7 Hit Points} to that creature. This is a positive healing effect. You can't harm undead with this healing.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Medicine checks</li>\n</ul>"
+                    "value": "<p>These clean, white gloves never show signs of blood, even when used to stitch up wounds or treat other ailments. They give you a +1 item bonus to Medicine checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You can soothe the wounds of a willing, living, adjacent creature, restoring [[/r {2d6+7}[healing]]]{2d6+7 Hit Points} to that creature. This is a positive healing effect. You can't harm undead with this healing.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -3278,7 +3314,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "80 gp"
+                    "value": {
+                        "gp": 80
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -3356,7 +3394,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3450,7 +3490,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "12 gp"
+                    "value": {
+                        "gp": 12
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3571,7 +3613,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "6 gp"
+                    "value": {
+                        "gp": 6
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3664,7 +3708,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3730,7 +3776,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3796,7 +3844,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3862,7 +3912,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3928,7 +3980,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3994,7 +4048,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -4060,7 +4116,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "20 gp"
+                    "value": {
+                        "gp": 20
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -4154,7 +4212,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -4216,9 +4276,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -4247,7 +4304,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "quantity": 5,
                 "rules": [],
@@ -4264,9 +4323,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 1
                 },
                 "weight": {
                     "value": 0

@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>The barghest grows elongated fangs that seep poison. Its jaws deal [[/r 1d6[poison]]]{1d6 additional poison damage} and [[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p>"
+            "value": "<p>The barghest grows elongated fangs that seep poison. Its jaws deal [[/r 1d6[poison]]]{1d6 additional poison damage} and @Localize[PF2E.PersistentDamage.Poison1d6.success].</p>"
         },
         "requirements": {
             "value": ""
@@ -29,8 +29,19 @@
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "success"
+                ],
                 "selector": "jaws-damage",
-                "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Poison1d6.success]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "jaws-damage",
+                "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Poison1d6.criticalSuccess]</p>"
             }
         ],
         "source": {
@@ -47,7 +58,6 @@
             "value": ""
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/actions/Passive.webp",
     "name": "(Greater Barghest) Mutation - Poison Fangs",
     "type": "action"

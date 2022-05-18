@@ -29,7 +29,8 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
     for (const actor of characters) {
         const abilities = actor.data.data.abilities;
         const attributes = actor.attributes;
-        const reagents = actor.data.data.resources.crafting.infusedReagents;
+        const resources = actor.data.data.resources;
+        const reagents = resources.crafting.infusedReagents;
 
         // Hit points
         const conModifier = abilities.con.mod;
@@ -113,17 +114,22 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
             hpRestored > 0 ||
             stamina.value > prerest.stamina ||
             resolve.value > prerest.resolve ||
-            spellcastingRecharge.actorUpdates
+            spellcastingRecharge.actorUpdates ||
+            restoreReagents
         ) {
-            actor.update({ "data.attributes": attributes, ...spellcastingRecharge.actorUpdates });
+            actor.update({
+                "data.attributes": attributes,
+                "data.resources": resources,
+                ...spellcastingRecharge.actorUpdates,
+            });
         }
         if (updateData.length > 0) {
             actor.updateEmbeddedDocuments("Item", updateData);
         }
 
         // Remove temporary crafted items
-        const temporaryItems = actor.physicalItems.filter((i) => i.isTemporary).map((i) => i.id);
-        if (temporaryItems.length > 0) await ItemPF2e.deleteDocuments(temporaryItems);
+        const temporaryItems = actor.inventory.filter((i) => i.isTemporary).map((i) => i.id);
+        if (temporaryItems.length > 0) await actor.deleteEmbeddedDocuments("Item", temporaryItems);
 
         // Hit-point restoration
         if (hpRestored > 0) {
