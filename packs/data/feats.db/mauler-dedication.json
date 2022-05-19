@@ -19,6 +19,7 @@
         "level": {
             "value": 2
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,397 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialTwoHandedMeleeWeapons",
+                "sameAs": "unarmed",
+                "slug": "simple-martial-two-hand-weapons"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "axe-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionAxe]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "brawling-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBrawling]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "club-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "flail-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFlail]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "hammer-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionHammer]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "knife-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionKnife]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "pick-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPick]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "polearm-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPolearm]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "shield-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionShield]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "spear-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSpear]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "sword-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSword]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

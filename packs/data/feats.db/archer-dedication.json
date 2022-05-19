@@ -19,10 +19,51 @@
         "level": {
             "value": 2
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:group:bow"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialBows",
+                "sameAs": "unarmed",
+                "slug": "simple-martial-bows"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "weapon:group:bow",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "proficiency:expert",
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "bow-weapon-group-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBow]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
