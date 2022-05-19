@@ -19,6 +19,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         options.width = 480;
         options.height = 600;
         options.template = "systems/pf2e/templates/actors/spellcasting-prep-sheet.html";
+        options.scrollY = [".sheet-content"];
         return options;
     }
 
