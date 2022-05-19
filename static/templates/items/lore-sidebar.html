@@ -2,14 +2,14 @@
 
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize 'PF2E.ProficiencyLabel'}}</label>
+        <label>{{localize "PF2E.ProficiencyLabel"}}</label>
         <select name="data.proficient.value" data-dtype="Number">
             {{#select data.proficient.value}}
-            {{#each proficiencies as |label p|}}
-            <option value="{{p}}">{{localize label}}</option>
-            {{/each}}
+                {{#each proficiencies as |label p|}}
+                    <option value="{{p}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
-    <div class="form-group">{{localize 'PF2E.LoreProficiencyDisclaimer'}}</div>
+    <div class="form-group">{{localize "PF2E.LoreProficiencyDisclaimer"}}</div>
 </div>

@@ -3,12 +3,12 @@
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="number" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
+        <input type="number" name="data.quantity" value="{{data.quantity}}" />
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity" data-dtype="String">
+        <select name="data.traits.rarity">
             {{#select data.traits.rarity}}
                 {{#each rarity as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Usage"}}</label>
-        <select name="data.usage.value" data-dtype="String">
+        <select name="data.usage.value">
             {{#select data.usage.value}}
                 {{#each usage as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
@@ -28,7 +28,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
+        <select name="data.weight.value" {{disabled bulkDisabled}}>
             {{#select data.weight.value}}
                 <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
                 {{#each bulkTypes as |name type|}}
@@ -40,7 +40,7 @@
     <!-- Equipped Bulk -->
     <div class="form-group">
         <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
-        <select name="data.equippedBulk.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
+        <select name="data.equippedBulk.value" {{disabled bulkDisabled}}>
             {{#select data.equippedBulk.value}}
                 <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
                 <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
@@ -53,7 +53,7 @@
     <!-- Stack Group -->
     <div class="form-group">
         <label>{{localize "PF2E.StackGroupLabel"}}</label>
-        <select name="data.stackGroup" data-dtype="String">
+        <select name="data.stackGroup">
             {{#select data.stackGroup}}
                 <option value="">{{localize "PF2E.NoStackGroup"}}</option>
                 {{#each stackGroups as |name type|}}
@@ -65,7 +65,7 @@
     <!-- Size -->
     <div class="form-group">
         <label>{{localize "PF2E.Size"}}</label>
-        <select name="data.size" data-dtype="String">
+        <select name="data.size">
             {{#select data.size}}
                 {{#each sizes as |name value|}}
                     <option value="{{value}}">{{localize name}}</option>
@@ -77,18 +77,18 @@
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
         <div class="price-fields">
-            <input type="text" name="data.price.value" value="{{priceString}}" data-dtype="String" />
+            <input type="text" name="data.price.value" value="{{priceString}}" />
             /
-            <input type="text" name="data.price.per" value="{{data.price.per}}" data-dtype="String" />
+            <input type="number" name="data.price.per" value="{{data.price.per}}" />
         </div>
     </div>
 
     <!-- Charges -->
     <div class="form-group consumable-details">
         <label>{{localize "PF2E.ConsumableChargesLabel"}}</label>
-        <input type="number" name="data.charges.value" value="{{data.charges.value}}" data-dtype="Number"/>
+        <input type="number" name="data.charges.value" value="{{data.charges.value}}" />
         <span class="flex0">/</span>
-        <input type="number" name="data.charges.max" value="{{data.charges.max}}" data-dtype="Number"/>
+        <input type="number" name="data.charges.max" value="{{data.charges.max}}" />
     </div>
     <!-- Traits -->
     <ol class="item-tags tags">
