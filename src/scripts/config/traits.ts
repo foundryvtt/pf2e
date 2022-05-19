@@ -406,6 +406,7 @@ const weaponTraits = {
     hampering: "PF2E.TraitHampering",
     healing: "PF2E.TraitHealing",
     infused: "PF2E.TraitInfused",
+    inhaled: "PF2E.TraitInhaled",
     injection: "PF2E.TraitInjection",
     intelligent: "PF2E.TraitIntelligent",
     invested: "PF2E.TraitInvested",
