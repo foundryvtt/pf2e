@@ -14,14 +14,17 @@ const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword
 
 export const InlineRollLinks = {
     injectRepostElement: ($links: JQuery): void => {
-        if (!game.user.isGM) return;
-
         for (const link of $links) {
-            if (link.querySelector("[data-pf2-repost]")) continue;
+            if (link.querySelector("i[data-pf2-repost]")) {
+                link.classList.add("with-repost");
+                continue;
+            }
 
+            if (!game.user.isGM) continue;
+
+            link.classList.add("with-repost");
             const child = document.createElement("i");
-            child.classList.add("fas");
-            child.classList.add("fa-comment-alt");
+            child.classList.add("fas", "fa-comment-alt");
             child.setAttribute("data-pf2-repost", "");
             child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
             link.appendChild(child);
@@ -43,7 +46,7 @@ export const InlineRollLinks = {
             return actor instanceof ActorPF2e ? actor : null;
         };
 
-        $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
+        $repostLinks.filter("i[data-pf2-repost]").on("click", (event) => {
             const target = event.currentTarget;
             const parent = target.parentElement;
             const actor = actorFromDOM(target);
