@@ -165,14 +165,13 @@ interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 }
 
 /** The full data for a character action (used primarily for strikes.) */
-type CharacterStrike = StatisticModifier &
-    Omit<StrikeData, "item"> & {
-        item: Embedded<WeaponPF2e>;
-        slug: string | null;
-        adjustments?: DegreeOfSuccessAdjustment[];
-        meleeUsage: CharacterStrike | null;
-        auxiliaryActions: AuxiliaryAction[];
-    };
+interface CharacterStrike extends StrikeData {
+    item: Embedded<WeaponPF2e>;
+    slug: string | null;
+    adjustments?: DegreeOfSuccessAdjustment[];
+    meleeUsage: CharacterStrike | null;
+    auxiliaryActions: AuxiliaryAction[];
+}
 
 interface AuxiliaryAction {
     label: string;

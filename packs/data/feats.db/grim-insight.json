@@ -19,6 +19,7 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,31 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "{item|name} @Localize[PF2E.SpecificRule.Gnome.GrimInsight.SaveNote]"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
