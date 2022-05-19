@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Female halfling Emerald Boughs attendant",
             "creatureType": "",
             "level": {
                 "value": 13
@@ -112,7 +112,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9cKyWaDQDXr5By9H",
+            "_id": "xCV2qLOUtPhW7TkL",
             "data": {
                 "MAP": {
                     "value": ""
@@ -205,7 +205,7 @@
                 "size": "med",
                 "slug": "composite-longbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -244,7 +244,7 @@
             "type": "weapon"
         },
         {
-            "_id": "hd2Joh6ibqdoZeZO",
+            "_id": "QkLJlZC5q2goFSXi",
             "data": {
                 "MAP": {
                     "value": ""
@@ -337,7 +337,7 @@
                 "size": "med",
                 "slug": "katar",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -376,7 +376,7 @@
             "type": "weapon"
         },
         {
-            "_id": "a3oW8vKymjmAMtKI",
+            "_id": "vAAyNJQLl0L3woTx",
             "data": {
                 "activation": {
                     "condition": "",
@@ -438,7 +438,7 @@
                     "value": ""
                 },
                 "price": {
-                    "per": 10,
+                    "per": "10",
                     "value": {
                         "sp": 1
                     }
@@ -453,7 +453,7 @@
                 "size": "med",
                 "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -647,7 +647,18 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:grab-an-edge"
+                            ]
+                        },
+                        "selector": "reflex",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -693,11 +704,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "[magical tradition]",
+                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
                         "polymorph",
+                        "primal",
                         "transmutation"
                     ]
                 },
@@ -731,7 +743,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Akila Strides, then Strikes. If she was hidden at the start of this action, she remains hidden until after the Strike.</p>"
+                    "value": "<p>Akila Strides, then Strikes. If she was @Compendium[pf2e.conditionitems.Hidden]{Hidden} at the start of this action, she remains hidden until after the Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -776,7 +788,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "powerful-leap"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "type": "untyped",
+                        "value": 8
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "powerful-leap",
+                        "toggleable": true,
+                        "value": false
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -799,7 +830,7 @@
             "type": "action"
         },
         {
-            "_id": "b51EmsqCKyJFLkMe",
+            "_id": "jHPVh8C4zWd3Pvep",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -811,7 +842,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>\n<p>Akila deals an extra 1d6 precision damage to flat-footed targets.</p>"
+                    "value": "<p>Akila deals an extra 1d6 precision damage to flat-footed targets.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
