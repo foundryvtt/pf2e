@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import { Coins, PartialPrice } from "@item/physical/data";
 
 // Redefined to avoid cyclical reference
@@ -104,17 +103,3 @@ export const coinCompendiumIds = {
     sp: "5Ew82vBF9YfaiY9f",
     cp: "lzJ8AVhRcbFul5fh",
 };
-
-export async function sellAllTreasure(actor: ActorPF2e): Promise<void> {
-    const treasureIds: string[] = [];
-    const coins = actor.itemTypes.treasure
-        .filter((item) => !item.isCoinage)
-        .map((item): Coins => {
-            treasureIds.push(item.id);
-            return item.assetValue;
-        })
-        .reduce(combineCoins, noCoins());
-
-    await actor.deleteEmbeddedDocuments("Item", treasureIds);
-    await actor.inventory.addCoins(coins);
-}
