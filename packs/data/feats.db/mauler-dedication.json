@@ -19,6 +19,7 @@
         "level": {
             "value": 2
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,34 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:melee",
+                        {
+                            "or": [
+                                "weapon:category:simple",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "weapon:usage:hands:2",
+                                "weapon:trait:two-hand-d6",
+                                "weapon:trait:two-hand-d8",
+                                "weapon:trait:two-hand-d10",
+                                "weapon:trait:two-hand-d12"
+                            ]
+                        }
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialTwoHandedMeleeWeapons",
+                "sameAs": "unarmed",
+                "slug": "simple-martial-two-hand-weapons"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
