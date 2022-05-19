@@ -210,7 +210,11 @@ async function migrate() {
                     }
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     delete (updatedActor.data as { schema?: unknown }).schema;
+                    pruneFlags(source);
                     pruneFlags(updatedActor);
+                    for (const item of source.items) {
+                        pruneFlags(item);
+                    }
                     for (const updatedItem of updatedActor.items) {
                         delete (updatedItem.data as { schema?: unknown }).schema;
                         pruneFlags(updatedItem);
@@ -219,20 +223,25 @@ async function migrate() {
                 } else if (isItemData(source)) {
                     source.data.slug = sluggify(source.name);
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+                    delete (source.data as { slug?: unknown }).slug;
                     delete (updatedItem.data as { schema?: unknown }).schema;
                     delete (updatedItem.data as { slug?: unknown }).slug;
+                    pruneFlags(source);
                     pruneFlags(updatedItem);
 
                     return updatedItem;
                 } else if (isMacroData(source)) {
                     const updated = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                    pruneFlags(source);
                     pruneFlags(updated);
                     return updated;
                 } else if (isTableData(source)) {
                     const updated = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                    pruneFlags(source);
                     pruneFlags(updated);
                     return updated;
                 } else {
+                    pruneFlags(source);
                     return source;
                 }
             } catch (error) {
