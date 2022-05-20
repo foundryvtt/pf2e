@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e, TreasurePF2e } from "@item";
+import { Bulk, computeTotalBulk } from "@item/physical/bulk";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { coinCompendiumIds, coinValueInCopper, combineCoins, noCoins } from "@item/treasure/helpers";
@@ -20,6 +21,10 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         return this.filter((item) => game.user.isGM || item.isIdentified)
             .map((item) => item.assetValue)
             .reduce(combineCoins, noCoins());
+    }
+
+    get totalBulk(): Bulk {
+        return computeTotalBulk(this.filter((item) => !item.isInContainer));
     }
 
     async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {

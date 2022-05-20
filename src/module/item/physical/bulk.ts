@@ -1,3 +1,4 @@
+import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@util";
 import { ItemDataPF2e, PhysicalItemData } from "../data";
@@ -9,7 +10,7 @@ interface StackDefinition {
     lightBulk: number;
 }
 
-type StackDefinitions = Record<string, StackDefinition>;
+type StackDefinitions = Record<string, StackDefinition | undefined>;
 
 /**
  * hard coded for now but could be made configurable later on.
@@ -64,6 +65,12 @@ export const stackDefinitions: StackDefinitions = {
         lightBulk: 10,
     },
 };
+
+export interface BulkBehavior {
+    bulk: Bulk;
+    per: number;
+    stackGroup: string | null;
+}
 
 export class Bulk {
     normal: number;
@@ -365,7 +372,7 @@ function calculateStackBulk({
                 console.warn(`No stack definition found for stack ${stackType}`);
                 stackType = "arrows";
             }
-            const { size, lightBulk } = stackDefinitions[stackType];
+            const { size, lightBulk } = stackDefinitions[stackType] ?? { size: 10, lightBulk: 1 };
             const bulkRelevantQuantity = Math.floor(quantity / size);
             // if is needed because negligible bulk can indeed become bulk if its size increases
             const itemBulk =
@@ -528,11 +535,11 @@ const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
  * @param weight if not parseable will return null or undefined
  */
-export function weightToBulk(weight: Optional<string>): Bulk | undefined {
+export function weightToBulk(weight: Optional<string | number>): Bulk | undefined {
     if (weight === undefined || weight === null) {
         return undefined;
     }
-    const trimmed = weight.trim();
+    const trimmed = String(weight).trim();
     if (/^\d+$/.test(trimmed)) {
         return new Bulk({ normal: parseInt(trimmed, 10) });
     }
@@ -701,4 +708,50 @@ export function indexBulkItemsById(bulkItems: BulkItem[] = []): Map<string, Bulk
     const result = new Map();
     bulkItems.forEach((bulkItem) => fillBulkIndex(bulkItem, result));
     return result;
+}
+
+/** Returns true if any of the item's container ancestry is extradimensional */
+export function hasExtraDimensionalParent(item: ContainerPF2e, encountered = new Set<string>()): boolean {
+    // Check for cyclical reference
+    if (encountered.has(item.id)) return false;
+    encountered.add(item.id);
+
+    const parent = item.container;
+    if (!parent) return false;
+    if (parent.traits.has("extradimensional")) return true;
+    encountered.add(parent.id);
+    return hasExtraDimensionalParent(parent);
+}
+
+export function computeTotalBulk(items: PhysicalItemPF2e[]) {
+    // Figure out which items have stack groups and which don't
+    const nonStackingItems = items.filter((i) => i.isOfType("backpack") || !i.bulkBehavior.stackGroup);
+    const nonStackingIds = new Set(nonStackingItems.map((item) => item.id));
+    const stackingItems = items.filter((item) => !nonStackingIds.has(item.id));
+
+    // Compute non-stacking bulks
+    const baseBulk = nonStackingItems
+        .map((item) => item.totalBulk)
+        .reduce((first, second) => first.plus(second), new Bulk());
+
+    // Group by stack group, then combine into quantities, then compute bulk from combined quantities
+    type BulkBehaviorQuantity = BulkBehavior & { quantity: number };
+    const stackingBehaviors = stackingItems.map((item) => ({ ...item.bulkBehavior, quantity: item.quantity }));
+    const groupedBehaviors = stackingBehaviors.reduce((result: Record<string, BulkBehaviorQuantity>, behavior) => {
+        if (!behavior.stackGroup) return result;
+
+        if (behavior.stackGroup in result) {
+            result[behavior.stackGroup].quantity += behavior.quantity;
+        } else {
+            result[behavior.stackGroup] = behavior;
+        }
+
+        return result;
+    }, {});
+    const bulks = Object.values(groupedBehaviors).map((behavior) =>
+        behavior.bulk.times(Math.floor(behavior.quantity / behavior.per))
+    );
+
+    // Combine non-stacking and stacking bulks together
+    return baseBulk.plus(bulks.reduce((first, second) => first.plus(second), new Bulk()));
 }
