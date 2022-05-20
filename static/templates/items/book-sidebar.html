@@ -3,11 +3,11 @@
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="number" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
+        <input type="number" name="data.quantity" value="{{data.quantity}}" />
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity" data-dtype="String">
+        <select name="data.traits.rarity">
             {{#select data.traits.rarity}}
                 {{#each rarity as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Usage"}}</label>
-        <select name="data.usage.value" data-dtype="String">
+        <select name="data.usage.value">
             {{#select data.usage.value}}
                 {{#each usage as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
+        <select name="data.weight.value" {{disabled bulkDisabled}}>
             {{#select data.weight.value}}
                 <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
                 {{#each bulkTypes as |name type|}}
@@ -38,7 +38,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Size"}}</label>
-        <select name="data.size" data-dtype="String">
+        <select name="data.size">
             {{#select data.size}}
                 {{#each sizes as |name value|}}
                     <option value="{{value}}">{{localize name}}</option>
@@ -48,7 +48,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{priceString}}" data-dtype="String" />
+        <input type="text" name="data.price.value" value="{{priceString}}" />
     </div>
     <ol class="item-tags tags">
         {{#each traits as |trait|}}
