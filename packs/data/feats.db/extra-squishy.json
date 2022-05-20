@@ -19,6 +19,7 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,63 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.acr.rank",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:shove",
+                        "while-squeezing"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:shove",
+                        "while-squeezing"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "action:squeeze"
+                    ]
+                },
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Goblin.ExtraSquishy.Note]</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:squeeze"
+                    ]
+                },
+                "selector": "skill",
+                "type": "acrobatics"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
