@@ -241,7 +241,7 @@ export const InlineRollLinks = {
     },
 
     repostAction: (target: HTMLElement, actor: ActorPF2e | null = null): void => {
-        if (!target?.matches("[data-pf2-action], [data-pf2-action] *, [data-pf2-check], [data-pf2-check] *")) {
+        if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
 
