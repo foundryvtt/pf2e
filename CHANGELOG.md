@@ -1,5 +1,37 @@
 # Changelog
 
+## Version 3.10.3
+
+### Bugfixes
+* (stwlam) Fix bug causing some deferred statistics (e.g., strike damage while in battle form) from resolving incorrectly
+* (stwlam) Fix functionality of damage buttons on attack roll messages from a combination weapon's melee usage
+* (stwlam) Fix effect-area link repost buttons
+* (stwlam) Roll initiative privately for hidden combatants
+* (Supe) Restore reagents when resting for the night
+* (Supe) Maintain spellcasting preparation dialog scroll position when adding spells
+
+### Data Updates
+* (Abaddon) Fix Skeleton Guard weapons
+* (Friz) Update critical specialization for Bow to add immobilized drag text
+* (InfamousSky) Add icons to tools and accessories from Guns & Gears
+* (InfamousSky) Review Fist of the Ruby Phoenix book 2 chapter 2
+* (JDCalvert) Add rule elements to Mauler and Archer dedication feats
+* (Kuroni Kobayakawa) Fix formatting errors on a handful of item descriptions
+* (Manni) Corrected senses of Mastodon (Bestiary 2)
+* (Manni) Updated Void Zombie to the correct notation for Salt Water weakness
+* (NullWolf) Add Heroism to Choral spells
+* (NullWolf) Set Inhaled as a weapon trait and add Traits to Vexing Vapor
+* (NullWolf) Update Troubles in Otari Hazards
+* (rectulo) Corrects a typo in sea serpent undetectable ability
+* (rectulo) Fix a typo in the draconic frenzy ability of the young white dragon
+* (Shandyan) Automate gnome feats
+* (SpartanCPA) Add bonus to saves vs Shove and Trip to Mountain Stance effect
+* (stwlam) Run extractPacks all on every compendium except PFS bestiaries
+* (Tikael) Remove generic Sneak Attack rules from PFS creatures
+* (Tikael) Remove inline precision damage buttons and duplicate flat footed references
+* (Tikael) Update Raise a Shield action on Beginner Box pregens
+
+
 ## Version 3.10.2
 
 ### Bugfixes
