@@ -479,6 +479,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     rollTwice,
                     skipDialog: args.skipDialog,
                 };
+                if (combatant.hidden) {
+                    context.rollMode = CONST.DICE_ROLL_MODES.PRIVATE;
+                }
 
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, systemData.attributes.initiative, args.modifiers),

@@ -60,8 +60,8 @@ export class LootPF2e extends ActorPF2e {
         }
         if (this.isMerchant && item instanceof PhysicalItemPF2e) {
             const itemValue = multiplyPrice(item.price, quantity);
-            if (await targetActor.removeCoins(itemValue)) {
-                await item.actor.addCoins(itemValue);
+            if (await targetActor.inventory.removeCoins(itemValue)) {
+                await item.actor.inventory.addCoins(itemValue);
                 return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
             } else if (this.isLoot) {
                 throw ErrorPF2e("Loot transfer failed");

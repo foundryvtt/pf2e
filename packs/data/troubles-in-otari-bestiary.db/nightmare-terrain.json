@@ -15,21 +15,21 @@
                 "value": 0
             },
             "stealth": {
-                "details": "DC 22 Perception to detect the subtle magical aura of the land",
-                "value": 12
+                "details": "<p>@Check[type:perception|dc:22|traits:action:seek] to detect the subtle magical aura of the land</p>",
+                "value": 16
             }
         },
         "creatureType": "",
         "customModifiers": {},
         "details": {
             "description": "<p>What seems like an innocent stretch of land assaults trespassers with terrible illusions.</p>",
-            "disable": "<p>Arcana, Nature, Occultism, or Religion DC 22 (by a hero with expert proficiency in that skill) three times to temporarily disrupt the magic, or dispel magic (3rd-level spell, DC 25)</p>",
+            "disable": "<p>@Check[type:arcana|dc:22], @Check[type:nature|dc:22], @Check[type:occultism|dc:22], or @Check[type:religion|dc:22] (by a hero with expert proficiency in that skill) three times to temporarily disrupt the magic, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (3rd-level spell, DC 25)</p>",
             "isComplex": true,
             "level": {
                 "value": 6
             },
             "reset": "<p>The terrible visions cease after all creatures have left the affected area, but the hazard is immediately ready to inflict its visions on the next creature to enter.</p>",
-            "routine": "<p>(1 action) Terrible visions assail the minds of all creatures who can see within the affected area. Each creature must attempt a DC 24 Will saving throw.\nCritical Success The creature is unaffected.\nSuccess The creature is frightened 2.\nFailure The creature takes 2d8+9 mental damage and is frightened 3.\nCritical Failure The creature takes 4d8+18 mental damage and is frightened 4.</p>"
+            "routine": "<p>(1 action) Terrible visions assail the minds of all creatures who can see within the affected area. Each creature must attempt a @Check[type:will|dc:24] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {2d8+9}[mental]]]{2d8+9 mental damage} and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {4d8+18}[mental]]]{4d8+18 mental damage} and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
         },
         "saves": {
             "fortitude": {
@@ -67,7 +67,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "magical"
+                    "magical",
+                    "trap"
                 ]
             }
         }
@@ -87,7 +88,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>(illusion, mental, occult) If a creature that can see moves 10 feet into the affected area, the hazard rolls Stealth (+16) for its initiative.</p>"
+                    "value": "<p>If a creature that can see moves 10 feet into the affected area, the hazard rolls Stealth (+16) for its initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -100,7 +101,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "illusion",
+                        "mental",
+                        "occult"
+                    ]
                 },
                 "trigger": {
                     "value": ""

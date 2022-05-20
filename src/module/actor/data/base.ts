@@ -212,7 +212,7 @@ export interface StrikeTrait {
 }
 
 /** An strike which a character can use. */
-export interface StrikeData {
+export interface StrikeData extends StatisticModifier {
     /** The type of action; currently just 'strike'. */
     type: "strike";
     /** The image URL for this strike (shown on the UI). */
