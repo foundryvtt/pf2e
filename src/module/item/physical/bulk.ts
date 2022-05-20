@@ -330,36 +330,24 @@ function combineBulkAndOverflow(first: BulkAndOverflow, second: BulkAndOverflow)
     return [firstBulk.plus(secondBulk), combineObjects(firstOverflow, secondOverflow, add)];
 }
 
-export interface BulkConfig {
-    ignoreCoinBulk: boolean;
-}
-
-export const defaultBulkConfig: BulkConfig = {
-    ignoreCoinBulk: false,
-};
-
 /**
  * Calculates the bulk for stacks of ammunition, coins and rations;
  * Returns the remainders as overflow for further calculation
  * @param itemStacks and object containing the stack name as key and quantity as value
- * @param bulkConfig
  * @param actorSize
  * @param itemSize
  * @return
  */
 function calculateStackBulk({
     itemStacks,
-    bulkConfig = defaultBulkConfig,
     actorSize,
     itemSize,
 }: {
     itemStacks: Record<string, number>;
-    bulkConfig: BulkConfig;
     actorSize: Size;
     itemSize: Size;
 }): BulkAndOverflow {
     return Object.entries(itemStacks)
-        .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === "coins"))
         .map(([stackType, quantity]) => {
             if (!(stackType in stackDefinitions)) {
                 console.warn(`No stack definition found for stack ${stackType}`);
@@ -379,15 +367,7 @@ function calculateStackBulk({
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 }
 
-function calculateItemBulk({
-    item,
-    bulkConfig,
-    actorSize,
-}: {
-    item: BulkItem;
-    bulkConfig: BulkConfig;
-    actorSize: Size;
-}): BulkAndOverflow {
+function calculateItemBulk({ item, actorSize }: { item: BulkItem; actorSize: Size }): BulkAndOverflow {
     // ignore containers that aren't items
     if (item.id === "") {
         return [new Bulk(), {}];
@@ -397,12 +377,8 @@ function calculateItemBulk({
         const bulk = calculateNonStackBulk(item);
         return [convertBulkToSize(bulk, item.size, actorSize).times(item.quantity), {}];
     }
-    return calculateStackBulk({
-        itemStacks: { [stackName]: item.quantity },
-        bulkConfig,
-        itemSize: item.size,
-        actorSize,
-    });
+
+    return calculateStackBulk({ itemStacks: { [stackName]: item.quantity }, itemSize: item.size, actorSize });
 }
 
 /**
@@ -449,25 +425,18 @@ function calculateChildOverflow(overflow: StackGroupOverflow, item: BulkItem): S
 function calculateCombinedBulk({
     item,
     nestedExtraDimensionalContainer = false,
-    bulkConfig = defaultBulkConfig,
     actorSize,
 }: {
     item: BulkItem;
     nestedExtraDimensionalContainer: boolean;
-    bulkConfig: BulkConfig;
     actorSize: Size;
 }): BulkAndOverflow {
-    const [mainBulk, mainOverflow] = calculateItemBulk({
-        item,
-        bulkConfig,
-        actorSize,
-    });
+    const [mainBulk, mainOverflow] = calculateItemBulk({ item, actorSize });
     const [childBulk, childOverflow] = item.holdsItems
         .map((child) =>
             calculateCombinedBulk({
                 item: child,
                 nestedExtraDimensionalContainer: item.extraDimensionalContainer,
-                bulkConfig,
                 actorSize,
             })
         )
@@ -477,7 +446,6 @@ function calculateCombinedBulk({
     const combinedOverflow = combineObjects(mainOverflow, calculateChildOverflow(childOverflow, item), add);
     const [overflowBulk, remainingOverflow] = calculateStackBulk({
         itemStacks: combinedOverflow,
-        bulkConfig,
         actorSize,
         itemSize: item.size,
     });
@@ -494,7 +462,6 @@ function calculateCombinedBulk({
  * armor or weapons that are placed in a sheathe should be combined in a single container as well
  * @param nestedExtraDimensionalContainer true if you have a bag of holding inside a bag of holding
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
- * @param bulkConfig
  * @param actorSize
  * @return
  */
@@ -502,12 +469,10 @@ export function calculateBulk({
     items = [],
     nestedExtraDimensionalContainer = false,
     actorSize = "med",
-    bulkConfig = defaultBulkConfig,
 }: {
     items?: BulkItem[];
     nestedExtraDimensionalContainer?: boolean;
     actorSize?: Size;
-    bulkConfig?: BulkConfig;
 } = {}): BulkAndOverflow {
     const inventory = new BulkItem({
         holdsItems: items,
@@ -515,7 +480,6 @@ export function calculateBulk({
     return calculateCombinedBulk({
         item: inventory,
         nestedExtraDimensionalContainer,
-        bulkConfig,
         actorSize,
     });
 }

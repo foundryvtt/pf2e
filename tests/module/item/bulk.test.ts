@@ -736,33 +736,6 @@ describe("should calculate bulk", () => {
         ).toBe(false);
     });
 
-    test("should respect configs to ignore coin bulk", () => {
-        const items = [
-            new BulkItem({
-                id: "1",
-                stackGroup: "coins",
-                quantity: 100000,
-            }),
-        ];
-        let [bulk] = calculateBulk({ items });
-
-        expect(bulk).toEqual({
-            light: 0,
-            normal: 100,
-        });
-
-        [bulk] = calculateBulk({
-            items,
-            bulkConfig: {
-                ignoreCoinBulk: true,
-            },
-        });
-        expect(bulk).toEqual({
-            light: 0,
-            normal: 0,
-        });
-    });
-
     test("should parse more complex weights", () => {
         expect(weightToBulk("2; l")).toEqual({
             normal: 2,

@@ -245,16 +245,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const lores: LoreData[] = [];
 
         // Iterate through items, allocating to containers
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
             items: actorData.items.filter(isPhysicalData),
             bulkItemsById,
-            bulkConfig,
             actorSize: this.actor.size,
         });
         sheetData.hasRealContainers = this.actor.itemTypes.backpack.some((c) => c.data.data.stowing);
@@ -305,7 +300,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({
                         items: bulkItem === undefined ? [] : [bulkItem],
-                        bulkConfig: bulkConfig,
                         actorSize: this.actor.data.data.traits.size.value,
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
@@ -389,17 +383,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        const [bulk] = calculateBulk({
-            items: bulkItems,
-            bulkConfig: bulkConfig,
-            actorSize: this.actor.data.data.traits.size.value,
-        });
+        const [bulk] = calculateBulk({ items: bulkItems, actorSize: this.actor.size });
         actorData.data.attributes.encumbrance = calculateEncumbrance(
             actorData.data.abilities.str.mod,
             bonusEncumbranceBulk,
             bonusLimitBulk,
             bulk,
-            actorData.data?.traits?.size?.value ?? "med"
+            this.actor.size
         );
     }
 

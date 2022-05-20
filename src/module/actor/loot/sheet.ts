@@ -75,16 +75,11 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         };
 
         // Iterate through items, allocating to containers
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
             items: actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData)),
             bulkItemsById,
-            bulkConfig,
         });
 
         const itemsData: InventoryItem[] = actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData));
@@ -106,7 +101,6 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             const bulkItem = bulkItemsById.get(itemData._id);
             const [approximatedBulk] = calculateBulk({
                 items: bulkItem === undefined ? [] : [bulkItem],
-                bulkConfig,
             });
             itemData.totalWeight = formatBulk(approximatedBulk);
             if (itemData.type === "book") {
