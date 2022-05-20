@@ -61,7 +61,7 @@ function isModuleArt(record: unknown): record is ModuleArtMap {
                     (art) =>
                         isObject<Record<string, unknown>>(art) &&
                         typeof art.actor === "string" &&
-                        art.token === "string"
+                        typeof art.token === "string"
                 )
         )
     );
