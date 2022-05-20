@@ -25,8 +25,10 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
             data.mode = "override";
             data.value = 0;
         }
+        data.predicate ??= {};
+        data.priority ??= 90;
 
-        super({ ...data, phase: "beforeDerived", priority: data.priority ?? 90 }, item, options);
+        super({ ...data, phase: "beforeDerived" }, item, options);
 
         if (typeof data.relabel === "string") {
             this.relabel = data.relabel;
