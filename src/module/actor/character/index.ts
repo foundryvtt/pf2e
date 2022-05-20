@@ -185,7 +185,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Remove infused/temp items
-        for (const item of this.physicalItems) {
+        for (const item of this.inventory) {
             if (item.data.data.temporary) await item.delete();
         }
 
@@ -986,7 +986,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Set number of hands free
-        const heldItems = this.physicalItems.filter((i) => i.isHeld);
+        const heldItems = this.inventory.filter((i) => i.isHeld);
         const handsFree = heldItems.reduce((count, item) => {
             const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
             return Math.max(count - handsOccupied, 0);
@@ -1988,7 +1988,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     /** Toggle the invested state of an owned magical item */
     async toggleInvested(itemId: string): Promise<boolean> {
-        const item = this.physicalItems.get(itemId);
+        const item = this.inventory.get(itemId);
         if (!item?.traits.has("invested")) {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }

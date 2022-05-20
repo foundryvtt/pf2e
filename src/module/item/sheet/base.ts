@@ -252,9 +252,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
-    protected override _canDragDrop(_selector: string): boolean {
-        return this.item.isOwner;
+    override async close(options?: { force?: boolean }): Promise<void> {
+        this.editingRuleElementIndex = null;
+        return super.close(options);
     }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
@@ -414,6 +419,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
         return buttons;
+    }
+
+    protected override _canDragDrop(_selector: string): boolean {
+        return this.item.isOwner;
     }
 
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */

@@ -524,6 +524,7 @@ class NPCPF2e extends CreaturePF2e {
                     attackRollType:
                         meleeData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
                     additionalEffects,
+                    item,
                     weapon: item,
                     traits: strikeTraits,
                     options: [],
@@ -535,9 +536,6 @@ class NPCPF2e extends CreaturePF2e {
 
                 Object.defineProperty(action, "origin", {
                     get: () => this.items.get(item.id),
-                });
-                Object.defineProperty(action, "item", {
-                    get: () => item,
                 });
 
                 action.breakdown = action.modifiers

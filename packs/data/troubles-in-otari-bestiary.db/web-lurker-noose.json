@@ -22,7 +22,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Discreet webbing at throat level snags a creature that walks into it.</p>",
-            "disable": "<p>DC 18 Survival (trained) or Thievery (expert) to rearrange the webbing</p>",
+            "disable": "<p>@Check[type:survival|dc:18] (trained) or @Check[type:thievery|dc:18|traits:action:disable-a-device] (expert) to rearrange the webbing</p>",
             "isComplex": false,
             "level": {
                 "value": 2
@@ -67,7 +67,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -96,7 +97,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target gains the grabbed condition is and pulled off the ground (Escape DC 22).</p>"
+                    "value": "<p>The target gains the @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} condition is and pulled off the ground (@Compendium[pf2e.actionspf2e.Escape]{Escape} DC 22).</p>"
                 },
                 "rules": [],
                 "slug": null,

@@ -5,7 +5,7 @@
 <div class="feat-details">
     <div class="form-group">
         <label>{{localize "PF2E.FeatTypeLabel"}}</label>
-        <select name="data.featType.value" data-dtype="String">
+        <select name="data.featType.value">
             {{#select data.featType.value}}
                 {{#each featTypes as |name type|}}
                     <option value="{{type}}">{{localize name}}</option>
@@ -16,7 +16,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity" data-dtype="String">
+        <select name="data.traits.rarity">
             {{#select data.traits.rarity}}
                 {{#each rarities as |rarity|}}
                     <option value="{{rarity.value}}">{{localize rarity.label}}</option>

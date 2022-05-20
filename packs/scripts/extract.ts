@@ -6,7 +6,7 @@ import yargs from "yargs";
 import { JSDOM } from "jsdom";
 import type { ActorPF2e } from "@actor/base";
 import type { ItemPF2e } from "@item/base";
-import { sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import systemJSON from "system.json";
 import templateJSON from "static/template.json";
 import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
@@ -140,14 +140,14 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                 "systems/pf2e/"
             ) as ImagePath;
 
-            if ("type" in docSource) {
-                if (docSource.flags && Object.keys(docSource.flags.pf2e ?? {}).length === 0) {
-                    delete docSource.flags.pf2e;
-                }
-                if (Object.keys(docSource.flags ?? {}).length === 0) {
-                    delete (docSource as { flags?: object }).flags;
-                }
+            if (isObject(docSource.flags?.pf2e) && Object.keys(docSource.flags.pf2e).length === 0) {
+                delete docSource.flags.pf2e;
+            }
+            if (Object.keys(docSource.flags ?? {}).length === 0) {
+                delete (docSource as { flags?: object }).flags;
+            }
 
+            if ("type" in docSource) {
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
                     delete (docSource as { effects?: unknown }).effects;
