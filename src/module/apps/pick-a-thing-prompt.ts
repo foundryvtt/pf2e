@@ -112,7 +112,7 @@ abstract class PickAThingPrompt<T> extends Application {
                 enabled: 1,
                 highlightFirst: true,
                 mapValueTo: "label",
-                maxItems: 9,
+                maxItems: this.choices.length <= 12 ? this.choices.length : 9,
                 searchKeys: ["label"],
             },
             whitelist: this.choices

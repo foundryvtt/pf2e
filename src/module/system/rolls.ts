@@ -125,6 +125,7 @@ export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, Co
     token: string | null;
     item?: undefined;
     target: CheckTargetFlag | null;
+    altUsage?: "melee" | "thrown";
 }
 
 interface RerollOptions {
@@ -233,22 +234,13 @@ export class CheckPF2e {
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = context.actor.data.data.actions;
-                const strike = strikes.find((a) => {
-                    const strikeItem = a.item;
-                    if (!strikeItem) return false;
-                    if (strikeItem.isOfType("melee")) return strikeItem.id === contextItem.id;
-                    if (contextItem.isOfType("weapon")) {
-                        return (["id", "name", "isMelee"] as const).every(
-                            (key) => strikeItem[key] === contextItem[key]
-                        );
-                    }
-                    return false;
-                });
+                const strike = strikes.find((a): a is StrikeData & { item: ItemPF2e } => a.item?.id === contextItem.id);
+
                 if (strike) {
                     data.strike = {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
-                        name: strike.item!.name,
+                        name: strike.item.name,
                     };
                 }
             }
@@ -348,6 +340,9 @@ export class CheckPF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
         delete contextFlag.item;
+        if (item?.data.flags.pf2e.comboMeleeUsage) {
+            contextFlag.altUsage = "melee";
+        }
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {

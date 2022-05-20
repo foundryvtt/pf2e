@@ -83,20 +83,19 @@ type NPCDetails = CreatureDetails & {
 };
 
 /** The full data for a NPC action (used primarily for strikes.) */
-type NPCStrike = StatisticModifier &
-    Omit<StrikeData, "item"> & {
-        item?: Embedded<MeleePF2e>;
-        /** The type of attack as a localization string */
-        attackRollType?: string;
-        /** The id of the item this strike is generated from */
-        sourceId?: string;
-        /** A list of all damage roll parts */
-        damageBreakdown?: string[];
-        /** Additional effects from a successful strike, like "Grab" */
-        additionalEffects: { tag: string; label: string }[];
-        /** A melee usage of a firearm: not available on NPC strikes */
-        meleeUsage?: never;
-    };
+interface NPCStrike extends StrikeData {
+    item: Embedded<MeleePF2e>;
+    /** The type of attack as a localization string */
+    attackRollType?: string;
+    /** The id of the item this strike is generated from */
+    sourceId?: string;
+    /** A list of all damage roll parts */
+    damageBreakdown?: string[];
+    /** Additional effects from a successful strike, like "Grab" */
+    additionalEffects: { tag: string; label: string }[];
+    /** A melee usage of a firearm: not available on NPC strikes */
+    meleeUsage?: never;
+}
 
 /** AC data with an additional "base" value */
 interface NPCArmorClass extends StatisticModifier, ArmorClassData {

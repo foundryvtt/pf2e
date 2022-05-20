@@ -1,12 +1,13 @@
-import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { StatisticModifier } from "@actor/modifiers";
-import { coinsToString, multiplyCoins, multiplyPrice } from "@item/treasure/helpers";
-import { LocalizePF2e } from "@system/localize";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/data";
+import { StrikeData } from "@actor/data/base";
+import { StatisticModifier } from "@actor/modifiers";
+import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
+import { coinsToString, multiplyCoins, multiplyPrice } from "@item/treasure/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
 
@@ -19,13 +20,13 @@ export const ChatCards = {
             // Extract card data
             const $button = $(event.currentTarget);
             const messageId = $button.parents(".message").attr("data-message-id") ?? "";
-            const message = game.messages.get(messageId);
+            const message = game.messages.get(messageId, { strict: true });
             const $card = $button.closest(".chat-card, .message-buttons");
             const action = $button.attr("data-action");
 
             // Get the actor and item from the chat message
-            const item = message?.item;
-            const actor = item?.actor ?? message?.actor;
+            const item = message.item;
+            const actor = item?.actor ?? message.actor;
 
             if (!actor) return;
 
@@ -103,7 +104,12 @@ export const ChatCards = {
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = $card.attr("data-strike-index");
                 const strikeName = $card.attr("data-strike-name");
-                const strikeAction = actor.data.data.actions[Number(strikeIndex)];
+                const strikeAction = ((): StrikeData | null => {
+                    const action = actor.data.data.actions.at(Number(strikeIndex));
+                    return (
+                        (message.data.flags.pf2e.context?.altUsage === "melee" ? action?.meleeUsage : action) ?? null
+                    );
+                })();
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
