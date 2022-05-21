@@ -80,6 +80,15 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return actor ? { actor, token } : null;
     }
 
+    /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
+    get journalEntry(): JournalEntry | null {
+        const uuid = this.data.flags.pf2e.journalEntry;
+        if (!uuid) return null;
+
+        const entryId = /^JournalEntry.([A-Za-z0-9]{16})$/.exec(uuid)?.at(1);
+        return game.journal.get(entryId ?? "") ?? null;
+    }
+
     /** Does this message include a check (1d20 + c) roll? */
     get isCheckRoll(): boolean {
         return this.roll instanceof CheckRoll;
@@ -165,7 +174,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
 
         // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibilityPF2e.process($html, { message: this, actor: this.actor });
+        UserVisibilityPF2e.process($html, { message: this });
 
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
         const targetDC = $html[0].querySelector(".target-dc");
