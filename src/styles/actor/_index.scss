@@ -235,6 +235,25 @@ $header-height: 89px;   /* Adjust height of the header */
     }
 }
 
+.item-image {
+    @include flex-center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+
+    &:hover {
+        background: none !important;
+
+        & > i {
+            color: black;
+        }
+    }
+
+    & > i {
+        color: transparent;
+    }
+}
+
 @import "coinage";
 
 /* Actor-type Imports */

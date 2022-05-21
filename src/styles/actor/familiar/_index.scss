@@ -558,16 +558,10 @@
                 border-bottom: none !important;
     
                 .item-image {
-                    background-size: cover;
-                    border: 1px solid #323232;
-                    border-bottom: 1px solid #323232;
+                    @include frame-icon;
                     border-radius: 3px;
                     width: 64px;
-                }
-    
-                .item-image:hover {
-                    border: 1px solid #f5efe0;
-                    border-radius: 3px;
+                    font-size: var(--font-size-18);
                 }
             }
         }
@@ -639,23 +633,11 @@
             }
 
             .item-image {
+                @include frame-icon;
                 height: 32px;
                 width: 32px;
-                background-repeat: no-repeat;
-                background-size: 32px 32px;
                 margin-right: 0.5em;
-
-                i {
-                    display: none;
-                    font-size: 2em;
-                    color: var(--primary);
-                }
-                &:hover {
-                    background: none !important;
-                    i {
-                        display: block;
-                    }
-                }
+                font-size: var(--font-size-18);
             }
 
             .item-summary {
