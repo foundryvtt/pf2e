@@ -1,10 +1,9 @@
-import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { objectHasKey } from "@util";
 
 const UserVisibilityPF2e = {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    process: ($html: JQuery, { message, actor = message?.actor ?? null }: ProcessOptions = {}) => {
+    process: ($html: JQuery, { message }: ProcessOptions = {}) => {
         const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
 
         // Remove all visibility=none elements
@@ -12,12 +11,14 @@ const UserVisibilityPF2e = {
             element.remove();
         }
 
-        if (actor) {
+        // Process all other visibility elements according to originating document ownership
+        const document = message?.actor ?? message?.journalEntry ?? null;
+        if (document) {
             const elements = visibilityElements.filter((e) => e.dataset.visibility === "owner");
             for (const element of elements) {
                 const whoseData = element.dataset.whose ?? "self";
                 if (whoseData === "self") {
-                    element.dataset.visibility = actor.hasPlayerOwner ? "all" : "gm";
+                    element.dataset.visibility = document.hasPlayerOwner ? "all" : "gm";
                     continue;
                 }
 
@@ -27,12 +28,12 @@ const UserVisibilityPF2e = {
             }
         }
 
-        const hasOwnership = actor?.isOwner || game.user.isGM;
+        const hasOwnership = document?.isOwner ?? game.user.isGM;
         // Hide DC for explicit save buttons (such as in spell cards)
         const dcSetting = game.settings.get("pf2e", "metagame.showDC");
         const $saveButtons = $html.find("button[data-action=save]");
         const hideDC =
-            !actor?.hasPlayerOwner &&
+            !document?.hasPlayerOwner &&
             ((dcSetting === "owner" && !hasOwnership) ||
                 (dcSetting === "gm" && !game.user.isGM) ||
                 dcSetting === "none");
@@ -44,7 +45,7 @@ const UserVisibilityPF2e = {
                     elem.innerText = game.i18n.format("PF2E.SavingThrowWithName", { saveName });
                 }
             });
-        } else if (!actor?.hasPlayerOwner && dcSetting !== "all") {
+        } else if (!document?.hasPlayerOwner && dcSetting !== "all") {
             $saveButtons.each((_idx, elem) => {
                 $(elem).addClass("hidden-to-others");
             });
@@ -87,7 +88,6 @@ type UserVisibility = "all" | "owner" | "gm" | "none";
 
 interface ProcessOptions {
     message?: ChatMessagePF2e;
-    actor?: ActorPF2e | null;
 }
 
 export { UserVisibilityPF2e, UserVisibility };
