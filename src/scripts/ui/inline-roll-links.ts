@@ -33,21 +33,21 @@ export const InlineRollLinks = {
         InlineRollLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
-        const actorFromDOM = (html: HTMLElement): ActorPF2e | null => {
-            const sheet: { id?: string; actor?: unknown } | null =
-                ui.windows[Number(html.closest<HTMLElement>(".actor.sheet")?.dataset.appid)];
+        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | null => {
+            const sheet: { id?: string; document?: unknown; actor?: unknown; journalEntry?: unknown } | null =
+                ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)];
             const sheetOrMessage =
                 sheet ?? game.messages.get(html.closest<HTMLElement>("li.chat-message")?.dataset.messageId ?? "") ?? {};
-            const { actor } = sheetOrMessage;
+            const document = sheetOrMessage.document ?? sheetOrMessage.actor ?? sheetOrMessage.journalEntry;
 
-            return actor instanceof ActorPF2e ? actor : null;
+            return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
         };
 
         $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
             const target = event.currentTarget;
             const parent = target.parentElement;
-            const actor = actorFromDOM(target);
-            if (parent) InlineRollLinks.repostAction(parent, actor instanceof ActorPF2e ? actor : null);
+            const document = documentFromDOM(target);
+            if (parent) InlineRollLinks.repostAction(parent, document);
             event.stopPropagation();
         });
 
@@ -240,21 +240,29 @@ export const InlineRollLinks = {
         });
     },
 
-    repostAction: (target: HTMLElement, actor: ActorPF2e | null = null): void => {
+    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | null = null): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
 
         const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-        const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
-        const speaker = ChatMessagePF2e.getSpeaker({
-            actor,
-            token: actor?.token ?? actor?.getActiveTokens(false, true).shift(),
-        });
+        const showDC =
+            target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? (document?.hasPlayerOwner ? "all" : "gm");
+        const speaker =
+            document instanceof ActorPF2e
+                ? ChatMessagePF2e.getSpeaker({
+                      actor: document,
+                      token: document.token ?? document.getActiveTokens(false, true).shift(),
+                  })
+                : ChatMessagePF2e.getSpeaker();
+
+        // If the originating document is a journal entry, include its UUID as a flag
+        const flags = document instanceof JournalEntry ? { pf2e: { journalEntry: document.uuid } } : {};
 
         ChatMessagePF2e.create({
             speaker,
             content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
+            flags,
         });
     },
 };

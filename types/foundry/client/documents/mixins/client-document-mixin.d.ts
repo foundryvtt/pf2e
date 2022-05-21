@@ -106,7 +106,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get sheet(): FormApplication;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): string;
+    get uuid(): DocumentUUID;
 
     /**
      * A boolean indicator for whether or not the current game User has at least limited visibility for this Document.

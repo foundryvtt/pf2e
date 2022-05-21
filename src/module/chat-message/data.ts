@@ -25,6 +25,7 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
+        journalEntry?: DocumentUUID;
         [key: string]: unknown;
     };
     core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
