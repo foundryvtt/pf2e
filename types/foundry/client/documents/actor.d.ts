@@ -19,7 +19,10 @@ declare global {
      * @example <caption>Retrieve an existing Actor</caption>
      * let actor = game.actors.get(actorId);
      */
-    class Actor<TParent extends TokenDocument = TokenDocument> extends ActorConstructor {
+    class Actor<
+        TParent extends TokenDocument = TokenDocument,
+        TItemTypeMap extends ItemTypeMap = ItemTypeMap
+    > extends ActorConstructor {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
@@ -38,7 +41,7 @@ declare global {
         get img(): ImagePath;
 
         /** Provide an object which organizes all embedded Item instances by their type */
-        get itemTypes(): Record<string, Embedded<Item>[]>;
+        get itemTypes(): { [K in keyof TItemTypeMap]: Embedded<TItemTypeMap[K]>[] };
 
         /** Test whether an Actor is a synthetic representation of a Token (if true) or a full Document (if false) */
         get isToken(): boolean;
@@ -216,3 +219,5 @@ declare global {
 
     type ActorUUID = `Actor.${string}` | CompendiumUUID;
 }
+
+type ItemTypeMap = Record<string, Item>;
