@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
                 "mod": 1
@@ -151,7 +151,97 @@
             "type": "melee"
         },
         {
-            "_id": "EidyOaLpGMtSvIHb",
+            "_id": "gLfmtgEPtSKYyZhj",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "FMkTzGoJS9v9IP0u",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "Av2ZHeTLnI3Ezbhz",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -163,12 +253,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Pack Attack The cinder wolf's Strikes deal [[/r {1d4}[precision]]]{1d4 extra precision damage} to creatures within reach of at least two of the wolf's allies.</p>"
+                    "value": "<p>The cinder wolf's Strikes deal 1d4 extra precision damage to creatures within reach of at least two of the wolf's allies.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -185,9 +293,59 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.9RRqDOZEOM8rUI1P"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pack Attack",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "P5at9SflQucoCtxA",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Knockdown",
-            "sort": 200000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -215,7 +373,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -243,7 +401,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -271,7 +429,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -299,7 +457,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
