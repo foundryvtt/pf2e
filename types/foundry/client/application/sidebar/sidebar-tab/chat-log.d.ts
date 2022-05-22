@@ -131,10 +131,8 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
     protected override _getEntryContextOptions(): EntryContextOption[];
 }
 
-declare interface ChatLogOptions extends SidebarTabOptions {
+declare interface ChatLogOptions extends ApplicationOptions {
     id: "chat";
-    template: string;
-    title: string;
-    scrollContainer: null;
+    /** Is this chat log being rendered as part of the stream view? */
     stream: boolean;
 }
