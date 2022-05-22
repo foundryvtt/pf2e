@@ -410,10 +410,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    protected setNumericRollOptions(): void {
-        this.rollOptions.all[`self:level:${this.level}`] = true; // `;
-    }
-
     protected prepareInitiative(): void {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
 
