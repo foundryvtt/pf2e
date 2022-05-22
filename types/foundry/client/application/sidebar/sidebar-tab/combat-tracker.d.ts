@@ -1,8 +1,5 @@
-declare interface CombatTrackerOptions extends SidebarTabOptions {
+declare interface CombatTrackerOptions extends ApplicationOptions {
     id: "combat";
-    template: string;
-    title: string;
-    scrollY: string[];
 }
 
 declare interface CombatTrackerTurn {
