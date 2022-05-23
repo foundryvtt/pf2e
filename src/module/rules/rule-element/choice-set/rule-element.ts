@@ -189,7 +189,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 (i): PickableThing<string> => ({
                     img: i.img,
                     label: i.name,
-                    value: i.slug ?? sluggify(i.name),
+                    value: i.id,
                 })
             );
 
