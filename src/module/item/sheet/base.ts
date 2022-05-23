@@ -317,6 +317,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
+        // Prevent textarea changes from bubbling
+        $html.find(".rule-editing").on("change", "textarea", (event) => {
+            event.stopPropagation();
+        });
+
         $html.find(".rule-editing [data-action=close]").on("click", (event) => {
             event.preventDefault();
             this.editingRuleElementIndex = null;
