@@ -408,21 +408,33 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "ac",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.AnimatedObjectsConstructArmor",
-                        "option": "construct-broken",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "construct-broken"
+                                "construct-armor"
                             ]
                         },
                         "selector": "ac",
+                        "slug": "construct-armor-critical",
                         "value": -4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "construct-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "slug": "construct-armor-health",
+                        "value": "4*(min(max(-9+@actor.attributes.hp.value,0),1)-1)"
                     }
                 ],
                 "slug": null,
