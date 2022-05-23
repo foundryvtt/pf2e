@@ -19,7 +19,7 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -27,6 +27,23 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Ride"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:command-an-animal",
+                        {
+                            "or": [
+                                "target:goblin-dog",
+                                "target:wolf"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "source": {
