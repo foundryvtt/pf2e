@@ -66,7 +66,7 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
         if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
             await this.item.delete();
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            await this.item.update({ "data.duration.value": 0, "data.expired": true });
+            await this.item.update({ "data.duration.value": -1, "data.expired": true });
         }
     }
 }
