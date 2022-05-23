@@ -388,6 +388,9 @@ class CharacterPF2e extends CreaturePF2e {
         for (const formula of this.data.data.crafting.formulas) {
             formula.deletable = true;
         }
+
+        // PC level is never a derived number, so it can be set early
+        this.rollOptions.all[`self:level:${this.level}`] = true;
     }
 
     /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
@@ -952,9 +955,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Set roll operations for ability scores, proficiency ranks, and number of hands free */
-    protected override setNumericRollOptions(): void {
-        super.setNumericRollOptions();
-
+    protected setNumericRollOptions(): void {
         const rollOptionsAll = this.rollOptions.all;
 
         const perceptionRank = this.data.data.attributes.perception.rank;

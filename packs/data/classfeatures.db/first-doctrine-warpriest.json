@@ -27,13 +27,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.medium.rank",
+                "path": "data.martial.light.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.light.rank",
+                "path": "data.martial.medium.rank",
                 "value": 1
             },
             {
@@ -45,6 +45,40 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Shield Block"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                13
+                            ]
+                        },
+                        "feature:divine-defense"
+                    ]
+                },
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                13
+                            ]
+                        },
+                        "feature:divine-defense"
+                    ]
+                },
+                "value": 2
             }
         ],
         "source": {

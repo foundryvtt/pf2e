@@ -95,6 +95,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         // The familiar's alliance is the same as its master's
         const level = (details.level.value = master.level);
+        this.rollOptions.all[`self:level:${level}`] = true;
         details.alliance = master.data.data.details.alliance;
 
         const masterLevel =
