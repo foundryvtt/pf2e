@@ -7,9 +7,9 @@ import { MigrationBase } from "@module/migration/base";
 import { BaseWeaponType } from "@item/weapon/data";
 
 import "@yaireo/tagify/src/tagify.scss";
-import { isObject, objectHasKey, sluggify } from "@util";
+import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { ItemSheetPF2e } from "@item/sheet/base";
-import { isHomebrewFlag } from "./helpers";
+import { isHomebrewFlagCategory } from "./helpers";
 
 export type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
@@ -188,22 +188,32 @@ export class HomebrewElements extends SettingsMenuPF2e {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.data.flags?.[key]?.["pf2e-homebrew"];
-            if (isObject(homebrew) && isHomebrewFlag(homebrew)) {
-                for (const recordKey of HomebrewElements.SETTINGS) {
-                    const elements = homebrew[recordKey] ?? {};
-                    // A registered tag can be a string label or an object containing a label and description
-                    const tags = Object.entries(elements).map(([id, value]) => ({
-                        id: `hb_${id}`,
-                        value: typeof value === "string" ? value : value.label,
-                    })) as unknown as HomebrewTag[];
-                    this.updateConfigRecords(tags, recordKey);
+            if (!isObject<Record<string, unknown>>(homebrew)) continue;
 
-                    // Register descriptions if present
-                    for (const [key, value] of Object.entries(elements)) {
-                        if (typeof value === "object") {
-                            const hbKey = `hb_${key}` as unknown as keyof ConfigPF2e["PF2E"]["traitsDescriptions"];
-                            CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
-                        }
+            for (const recordKey of Object.keys(homebrew)) {
+                if (!tupleHasValue(HomebrewElements.SETTINGS, recordKey)) {
+                    console.warn(`PF2E System | Invalid homebrew record "${recordKey}" in module ${key}`);
+                    continue;
+                }
+
+                const elements = homebrew[recordKey];
+                if (!isObject(elements) || !isHomebrewFlagCategory(elements)) {
+                    console.warn(`PF2E System | Homebrew record ${recordKey} is malformed in module ${key}`);
+                    continue;
+                }
+
+                // A registered tag can be a string label or an object containing a label and description
+                const tags = Object.entries(elements).map(([id, value]) => ({
+                    id: `hb_${id}`,
+                    value: typeof value === "string" ? value : value.label,
+                })) as unknown as HomebrewTag[];
+                this.updateConfigRecords(tags, recordKey);
+
+                // Register descriptions if present
+                for (const [key, value] of Object.entries(elements)) {
+                    if (typeof value === "object") {
+                        const hbKey = `hb_${key}` as unknown as keyof ConfigPF2e["PF2E"]["traitsDescriptions"];
+                        CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
                     }
                 }
             }
