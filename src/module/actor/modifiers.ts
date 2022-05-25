@@ -190,9 +190,9 @@ export class ModifierPF2e implements RawModifier {
         const isBonus =
             (this.modifier > 0 || this.type === "proficiency") && !["ability", "untyped"].includes(this.type);
         const isPenalty = this.modifier < 0 && !["ability", "proficiency"].includes(this.type);
-        const prefix = isBonus ? "bonus:" : isPenalty ? "penalty" : "modifier";
+        const prefix = isBonus ? "bonus" : isPenalty ? "penalty" : "modifier";
 
-        const options = [`${prefix}type:${this.type}`];
+        const options = [`${prefix}:type:${this.type}`];
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
@@ -507,8 +507,7 @@ export class StatisticModifier {
     }
 
     private applyAdjustments(rollOptions: string[]): void {
-        const modifiers = this._modifiers.filter((m) => !m.ignored);
-        for (const modifier of modifiers) {
+        for (const modifier of this._modifiers) {
             const adjustments = modifier.adjustments.filter((a) =>
                 a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
             );

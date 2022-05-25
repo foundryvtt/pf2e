@@ -1,0 +1,68 @@
+{
+    "_id": "vUQ3XwCT0i3ydX1U",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>Extensive training against undead has taught you to cover your weak points, even when you think that you're alone. You aren't @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to @Compendium[pf2e.conditionitems.Hidden]{Hidden}, @Compendium[pf2e.conditionitems.Undetected]{Undetected}, or flanking undead of your level or lower. However, the undead can still help their allies flank. If all of your opponents are undead, you gain a +1 circumstance bonus to initiative rolls; the GM determines whether to apply this bonus if undead are disguised as another type of creature, if another type of creature is disguised as undead, or if there are additional opponents you haven't noticed who aren't undead.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 4
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Lastwall Sentry Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.attributes.flanking.flatFootable",
+                "predicate": {
+                    "all": [
+                        "origin:trait:undead"
+                    ]
+                },
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "all-undead"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Always Ready",
+    "type": "feat"
+}

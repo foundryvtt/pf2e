@@ -122,7 +122,8 @@ class NPCPF2e extends CreaturePF2e {
         const baseLevel = level.value;
         level.value = traits.has("elite") ? baseLevel + 1 : traits.has("weak") ? baseLevel - 1 : baseLevel;
 
-        this.setNumericRollOptions();
+        this.rollOptions.all[`self:level:${level.value}`] = true;
+
         super.prepareEmbeddedDocuments();
     }
 

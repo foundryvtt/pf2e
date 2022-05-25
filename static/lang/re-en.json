@@ -432,7 +432,6 @@
             }
         },
         "NPCAbility": {
-            "AnimatedObjectsConstructArmor": "Construct Armor is Broken",
             "BarghestFeed": "How many times has the Barghest fed?",
             "Charge": {
                 "AtLeastTen": "Moved at Least 10 feet"
@@ -587,6 +586,14 @@
             "Bleed2d10": {
                 "success": "[[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
                 "criticalSuccess": "[[/r {2*2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
+            },
+            "Bleed1d12": {
+                "success": "[[/r {1d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
+                "criticalSuccess": "[[/r {2*1d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
+            },
+            "Bleed2d12": {
+                "success": "[[/r {2d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
+                "criticalSuccess": "[[/r {2*2d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
             },
             "Cold1d6": {
                 "success": "[[/r {1d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}",
@@ -777,6 +784,7 @@
             "Swim": "To Swim",
             "TarPit": "In Tar Pits",
             "TellTheTruth": "To Tell the Truth",
+            "ThickVegetation": "In Thick Vegetation",
             "TrackBleedingCreature": "To Track a Bleeding Creature",
             "Track": "To Track",
             "Traps": "Traps",
@@ -1036,6 +1044,17 @@
                     "SaveNote": "When you roll a success on a saving throw against a fear effect, you get a critical success instead, and the source of the fear effect is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to you until the end of your next turn."
                 }
             },
+            "Goblin": {
+                "ExtraSquishy": {
+                    "Note": "If you roll a success to Squeeze, you get a critical success instead."
+                },
+                "RecklessAbandon": {
+                    "Note": "If you roll a failure or critical failure on a saving throw against a harmful effect, you get a success instead."
+                },                
+                "TorchGoblin": {
+                    "Note": "As long as you are suffering persistent fire damage, all your melee attacks against adjacent creatures deal an additional [[/r {1}[fire]]]{1 Fire Damage} per weapon damage die."
+                }
+            },
             "HarrowDeck": {
                 "Prompt": "Select a Harrow Suit",
                 "HarrowSuits": {
@@ -1198,6 +1217,7 @@
             "SterlingDynamo": {
                 "AutomaticPercussive": "Automatic Percussive Striker Dynamo",
                 "AutomaticPower": "Automatic Power Driver Dynamo",
+                "Label": "Sterling Dynamo",
                 "ManualPercussive": "Manual Percussive Striker Dynamo",
                 "ManualPower": "Manual Power Driver Dynamo"
             },

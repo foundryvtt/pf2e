@@ -1,9 +1,3 @@
-declare interface CompendiumDirectoryOptions extends SidebarTabOptions {
-    id: string;
-    template: string;
-    title: string;
-}
-
 declare type PackSummaryByEntity = Record<CompendiumDocumentType, PackSummary>;
 
 declare interface CompendiumDirectoryData {
@@ -26,7 +20,7 @@ declare interface PackSummary {
 }
 
 declare class CompendiumDirectory extends SidebarTab {
-    static override get defaultOptions(): CompendiumDirectoryOptions;
+    static override get defaultOptions(): ApplicationOptions;
 
     override getData(options?: {}): CompendiumDirectoryData;
 
@@ -55,8 +49,4 @@ declare class CompendiumDirectory extends SidebarTab {
     protected _onDeleteCompendium(pack: CompendiumCollection): Promise<boolean>;
 
     protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void;
-}
-
-declare interface CompendiumDirectory {
-    options: CompendiumDirectoryOptions;
 }
