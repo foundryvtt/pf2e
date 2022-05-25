@@ -3,7 +3,6 @@ import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasureP
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { coinValueInCopper } from "@item/treasure/helpers";
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
@@ -82,10 +81,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Calculate financial and total wealth
         const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
-        const totalCoinageGold = (coinValueInCopper(coins) / 100).toFixed(2);
+        const totalCoinageGold = (coins.copperValue / 100).toFixed(2);
 
         const totalWealth = this.actor.inventory.totalWealth;
-        const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
+        const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
 
         // IWR
         const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.data.traits.di);
@@ -141,7 +140,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return (this.element as JQuery).find(".tab.active .directory-list");
     }
 
-    protected static coinsToSheetData(coins: Partial<Coins>): CoinageSummary {
+    protected static coinsToSheetData(coins: Coins): CoinageSummary {
         return DENOMINATIONS.reduce(
             (accumulated, denomination) => ({
                 ...accumulated,

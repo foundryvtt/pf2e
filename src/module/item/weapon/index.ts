@@ -14,7 +14,7 @@ import {
     WeaponSource,
     WeaponTrait,
 } from "./data";
-import { coinValueInCopper, noCoins } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { ErrorPF2e, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
@@ -251,10 +251,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this.data).bulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-        const modifiedPrice = mergeObject(noCoins(), { gp: runeValue + materialValue });
+        const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
 
         const basePrice = this.price.value;
-        const modifiedIsHigher = coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice);
+        const modifiedIsHigher = modifiedPrice.copperValue > basePrice.copperValue;
         const highestPrice = modifiedIsHigher ? modifiedPrice : basePrice;
         systemData.price.value = highestPrice;
 

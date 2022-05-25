@@ -3,7 +3,7 @@ import { PreciousMaterialGrade } from "@item/physical/types";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
-import { coinsToString, coinValueInCopper, multiplyCoins } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { OneToFour, OneToThree } from "@module/data";
 import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
@@ -57,12 +57,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                   })
                 : null;
         const adjustedPriceHint = (() => {
-            const basePrice = coinValueInCopper(multiplyCoins(baseData.data.price.value, baseData.data.quantity));
-            const derivedPrice = coinValueInCopper(this.item.assetValue);
+            const basePrice = new CoinsPF2e(baseData.data.price.value).scale(baseData.data.quantity).copperValue;
+            const derivedPrice = this.item.assetValue.copperValue;
             return basePrice !== derivedPrice
                 ? game.i18n.format(hintText, {
                       property: game.i18n.localize("PF2E.PriceLabel"),
-                      value: coinsToString(this.item.price.value),
+                      value: this.item.price.value.toString(),
                   })
                 : null;
         })();
@@ -151,7 +151,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             abpEnabled,
             baseLevel: baseData.data.level.value,
             baseRarity: baseData.data.traits.rarity,
-            basePrice: coinsToString(baseData.data.price.value),
+            basePrice: new CoinsPF2e(baseData.data.price.value),
             categories: CONFIG.PF2E.weaponCategories,
             groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,

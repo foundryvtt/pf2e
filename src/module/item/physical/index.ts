@@ -2,14 +2,14 @@ import { LootPF2e } from "@actor";
 import { type ContainerPF2e, ItemPF2e } from "@item";
 import { PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
-import { coinStringToCoins, multiplyPrice, noCoins } from "@item/treasure/helpers";
+import { CoinsPF2e, multiplyPrice } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { isObject } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { Bulk, BulkBehavior, convertBulkToSize, stackDefinitions, weightToBulk } from "./bulk";
-import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
+import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
@@ -59,7 +59,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** The monetary value of the entire item stack */
-    get assetValue(): Coins {
+    get assetValue(): CoinsPF2e {
         return multiplyPrice(this.price, this.quantity);
     }
 
@@ -193,7 +193,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Temporary: prevent noise from items pre migration 746
         if (typeof systemData.price.value === "string") {
-            systemData.price.value = coinStringToCoins(systemData.price.value);
+            systemData.price.value = CoinsPF2e.fromString(systemData.price.value);
         }
 
         // Ensure infused items are always temporary
@@ -202,7 +202,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
 
         // Normalize and fill price data
-        systemData.price.value = mergeObject(noCoins(), systemData.temporary ? {} : systemData.price.value);
+        systemData.price.value = new CoinsPF2e(systemData.temporary ? {} : systemData.price.value);
         systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status

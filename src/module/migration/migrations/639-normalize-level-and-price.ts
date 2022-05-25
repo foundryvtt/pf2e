@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins, PhysicalSystemSource } from "@item/physical/data";
-import { coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
@@ -39,7 +39,7 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
         } else {
             const quantity = system.quantity;
             const priceValue = price.value;
-            if (!coinValueInCopper(coinStringToCoins(priceValue, quantity))) {
+            if (CoinsPF2e.fromString(priceValue, quantity).copperValue) {
                 price.value = "0 gp";
             }
         }
@@ -48,6 +48,6 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
 
 interface PhysicalDataOld extends Omit<PhysicalSystemSource, "price"> {
     price: {
-        value?: string | Partial<Coins>;
+        value?: string | Coins;
     };
 }
