@@ -1,4 +1,4 @@
-import { coinsToString, coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
@@ -60,8 +60,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
                     const priceValue = itemData.data.price.value;
-                    const priceCoins = typeof priceValue === "string" ? coinStringToCoins(priceValue) : priceValue;
-                    const coinValue = coinValueInCopper(priceCoins);
+                    const priceCoins =
+                        typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
+                    const coinValue = priceCoins.copperValue;
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
@@ -85,7 +86,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         category: itemData.data.category ?? "",
                         group: itemData.data.group ?? "",
                         consumableType: itemData.data.consumableType?.value ?? "",
-                        price: coinsToString(priceCoins, { reduce: false }),
+                        price: priceCoins,
                         priceInCopper: coinValue,
                         traits: itemData.data.traits.value,
                         rarity: itemData.data.traits.rarity,
@@ -178,11 +179,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 lower = lower.replaceAll(translated, english);
                 upper = upper.replaceAll(translated, english);
             }
-            const min = coinValueInCopper(coinStringToCoins(lower));
-            const max = coinValueInCopper(coinStringToCoins(upper));
             return {
-                min,
-                max,
+                min: CoinsPF2e.fromString(lower).copperValue,
+                max: CoinsPF2e.fromString(upper).copperValue,
                 inputMin: lower,
                 inputMax: upper,
             };

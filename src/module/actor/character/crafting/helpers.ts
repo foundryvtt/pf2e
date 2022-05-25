@@ -1,7 +1,7 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import { coinsToString, coinValueInCopper, multiplyCoins, multiplyPrice } from "@module/item/treasure/helpers";
+import { CoinsPF2e, multiplyPrice } from "@item/physical/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
@@ -9,35 +9,31 @@ import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { Coins } from "@item/physical/data";
 
 interface Costs {
-    reductionPerDay: Partial<Coins>;
-    materials: Partial<Coins>;
-    itemPrice: Partial<Coins>;
-    lostMaterials: Partial<Coins>;
+    reductionPerDay: CoinsPF2e;
+    materials: CoinsPF2e;
+    itemPrice: CoinsPF2e;
+    lostMaterials: CoinsPF2e;
 }
 
 function calculateDaysToNoCost(costs: Costs): number {
-    return Math.ceil(
-        (coinValueInCopper(costs.itemPrice) - coinValueInCopper(costs.materials)) /
-            coinValueInCopper(costs.reductionPerDay)
-    );
+    return Math.ceil((costs.itemPrice.copperValue - costs.materials.copperValue) / costs.reductionPerDay.copperValue);
 }
 
 function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
     const rollData = item.getRollData();
 
     return {
-        reductionPerDay: coinsToString(costs.reductionPerDay),
+        reductionPerDay: costs.reductionPerDay.toString(),
         materialCost: game.i18n.format("PF2E.Actions.Craft.Details.PayMaterials", {
-            cost: coinsToString(costs.materials),
+            cost: costs.materials.toString(),
         }),
         itemCost: game.i18n.format("PF2E.Actions.Craft.Details.PayFull", {
-            cost: coinsToString(costs.itemPrice),
+            cost: costs.itemPrice.toString(),
         }),
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
-            cost: coinsToString(costs.lostMaterials),
+            cost: costs.lostMaterials.toString(),
         }),
         itemLink: game.pf2e.TextEditor.enrichHTML(item.link, { rollData }),
     };
@@ -50,21 +46,9 @@ function calculateCosts(
     degreeOfSuccess: number
 ): Costs | null {
     const itemPrice = multiplyPrice(item.price, quantity);
-    const materialCosts = multiplyCoins(itemPrice, 0.5);
-
-    const lostMaterials: Coins = {
-        pp: 0,
-        gp: 0,
-        sp: 0,
-        cp: 0,
-    };
-
-    const reductionPerDay: Coins = {
-        pp: 0,
-        gp: 0,
-        sp: 0,
-        cp: 0,
-    };
+    const materialCosts = itemPrice.scale(0.5);
+    const lostMaterials = new CoinsPF2e();
+    const reductionPerDay = new CoinsPF2e();
 
     const proficiency = skillRankToProficiency(actor.data.data.skills.cra.rank);
     if (!proficiency) return null;
@@ -74,7 +58,7 @@ function calculateCosts(
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         Object.assign(reductionPerDay, getIncomeForLevel(actor.level).rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
-        Object.assign(lostMaterials, multiplyCoins(materialCosts, 0.1));
+        Object.assign(lostMaterials, materialCosts.scale(0.1));
     }
 
     return {
