@@ -97,7 +97,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             itemData.canBeEquipped = false;
             // Inventory
             itemData.data.quantity = itemData.data.quantity || 0;
-            itemData.data.weight.value = itemData.data.weight.value || 0;
+            itemData.data.weight.value = itemData.data.weight.value || "";
             const bulkItem = bulkItemsById.get(itemData._id);
             const [approximatedBulk] = calculateBulk({
                 items: bulkItem === undefined ? [] : [bulkItem],

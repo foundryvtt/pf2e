@@ -41,11 +41,12 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     hp: PhysicalItemHitPoints;
     hardness: number;
     weight: {
-        value: number;
+        value: string;
     };
     equippedBulk: {
         value: string;
     };
+    /** This is unused, remove when inventory bulk refactor is complete */
     unequippedBulk: {
         value: string;
     };

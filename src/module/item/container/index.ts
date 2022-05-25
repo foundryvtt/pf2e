@@ -1,5 +1,6 @@
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
+import { Bulk, computeTotalBulk, hasExtraDimensionalParent, weightToBulk } from "@item/physical/bulk";
 import { ContainerData } from "./data";
 
 class ContainerPF2e extends PhysicalItemPF2e {
@@ -9,6 +10,13 @@ class ContainerPF2e extends PhysicalItemPF2e {
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
         return this.data.data.stowing;
+    }
+
+    override get totalBulk(): Bulk {
+        const heldBulk = computeTotalBulk(this.contents.contents);
+        const canReduceBulk = !this.traits.has("extradimensional") || !hasExtraDimensionalParent(this);
+        const reduction = canReduceBulk ? weightToBulk(this.data.data.negateBulk.value) : new Bulk();
+        return super.totalBulk.plus(heldBulk.minus(reduction ?? new Bulk()));
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
