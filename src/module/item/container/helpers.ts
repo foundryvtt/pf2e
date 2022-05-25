@@ -1,17 +1,8 @@
-import {
-    Bulk,
-    BulkConfig,
-    BulkItem,
-    calculateBulk,
-    defaultBulkConfig,
-    formatBulk,
-    weightToBulk,
-} from "../physical/bulk";
-import { PhysicalItemData } from "../data";
-import { groupBy } from "@util";
+import { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { Size } from "@module/data";
-import { PhysicalItemPF2e } from "@item/physical";
-import { ContainerPF2e } from ".";
+import { groupBy } from "@util";
+import { PhysicalItemData } from "../data";
+import { Bulk, BulkItem, calculateBulk, formatBulk, weightToBulk } from "../physical/bulk";
 
 /**
  * Datatype that holds container information for *every* item, even non containers
@@ -113,7 +104,6 @@ class ContainerSheetData {
  * @param heldBulkItems
  * @param isInContainer
  * @param stackDefinitions
- * @param bulkConfig
  * @return
  */
 function toContainer({
@@ -121,20 +111,17 @@ function toContainer({
     heldItems = [],
     heldBulkItems = [],
     isInContainer,
-    bulkConfig,
     actorSize,
 }: {
     item: PhysicalItemData;
     heldItems: PhysicalItemData[];
     heldBulkItems: BulkItem[];
     isInContainer: boolean;
-    bulkConfig: BulkConfig;
     actorSize: Size;
 }): ContainerSheetData {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
     const [heldItemBulk] = calculateBulk({
         items: heldBulkItems,
-        bulkConfig,
         actorSize,
     });
     const capacity = item.type === "backpack" ? weightToBulk(item.data.bulkCapacity.value) ?? new Bulk() : new Bulk();
@@ -177,12 +164,10 @@ export function isCycle(item: PhysicalItemPF2e, container: Embedded<ContainerPF2
 export function getContainerMap({
     items = [],
     bulkItemsById = new Map(),
-    bulkConfig = defaultBulkConfig,
     actorSize = "med",
 }: {
     items?: PhysicalItemData[];
     bulkItemsById?: Map<string, BulkItem>;
-    bulkConfig?: BulkConfig;
     actorSize?: Size;
 } = {}): Map<string, ContainerSheetData> {
     const allIds = groupBy(items, (itemData) => itemData._id);
@@ -204,7 +189,6 @@ export function getContainerMap({
                 heldItems,
                 heldBulkItems: bulkItemsById.get(item._id)?.holdsItems ?? [],
                 isInContainer,
-                bulkConfig,
                 actorSize,
             })
         );

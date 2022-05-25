@@ -74,16 +74,11 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         };
 
         // Iterate through items, allocating to containers
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
             items: actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData)),
             bulkItemsById,
-            bulkConfig,
             actorSize: actorData.data.traits.size.value,
         });
 
@@ -108,7 +103,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                     const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({
                         items: bulkItem === undefined ? [] : [bulkItem],
-                        bulkConfig: bulkConfig,
                         actorSize: this.actor.data.data.traits.size.value,
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
