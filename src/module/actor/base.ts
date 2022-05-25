@@ -32,17 +32,11 @@ import { preImportJSON } from "@module/doc-helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { ActorInventory } from "./inventory";
 
-interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
-    pf2e?: {
-        ready?: boolean;
-    };
-}
-
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
-class ActorPF2e extends Actor<TokenDocumentPF2e> {
+class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Has this actor gone through at least one cycle of data preparation? */
     private initialized?: true;
 
@@ -58,6 +52,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     synthetics!: RuleElementSynthetics;
 
     saves?: { [K in SaveType]?: Statistic };
+
+    /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
+    private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] };
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
@@ -76,6 +73,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
             return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
         }
+    }
+
+    /** Cache the return data before passing it to the caller */
+    override get itemTypes(): { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } {
+        return (this._itemTypes ??= super.itemTypes);
     }
 
     /** The compendium source ID of the actor **/
@@ -291,6 +293,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
+        delete this._itemTypes;
+
         super.prepareData();
 
         this.preparePrototypeToken();
@@ -1124,15 +1128,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 }
 
-interface ActorPF2e extends Actor<TokenDocumentPF2e> {
+interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
 
     get sheet(): ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e>;
-
-    get itemTypes(): {
-        [K in ItemType]: Embedded<InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][K]>>[];
-    };
 
     /** See implementation in class */
     createEmbeddedDocuments(
@@ -1177,15 +1177,25 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 }
 
-export interface HitPointsSummary {
+interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
+    pf2e?: {
+        ready?: boolean;
+    };
+}
+
+type ItemTypeMap = {
+    [K in ItemType]: InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][K]>;
+};
+
+interface HitPointsSummary {
     value: number;
     max: number;
     temp: number;
     negativeHealing: boolean;
 }
 
-export interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<T> {
+interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<T> {
     damageTaken?: number;
 }
 
-export { ActorPF2e };
+export { ActorPF2e, HitPointsSummary, ActorUpdateContext };
