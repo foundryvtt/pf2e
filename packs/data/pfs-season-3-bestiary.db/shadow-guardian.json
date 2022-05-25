@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "Hardness: 7",
+                "details": "Hardness 7",
                 "max": 46,
                 "temp": 0,
                 "value": 46
@@ -59,7 +59,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society Scenario 3-06 Struck by Shadows"
+                "value": "Pathfinder Society Scenario #3-06: Struck by Shadows"
             }
         },
         "resources": {},
@@ -282,19 +282,31 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.AnimatedObjectsConstructArmor",
-                        "option": "constructArmor",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "constructArmor"
+                                "construct-armor"
                             ]
                         },
                         "selector": "ac",
+                        "slug": "construct-armor-critical",
                         "value": -4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "construct-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "slug": "construct-armor-health",
+                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.data.data.attributes.hp.max),1)-1)"
                     }
                 ],
                 "slug": null,

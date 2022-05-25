@@ -91,7 +91,7 @@
                 ],
                 "predicate": {
                     "all": [
-                        "target:animal"
+                        "target:trait:animal"
                     ]
                 },
                 "selector": "{item|_id}-damage",
@@ -102,7 +102,7 @@
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
-                        "target:animal"
+                        "target:trait:animal"
                     ]
                 },
                 "selector": "{item|_id}-damage"
@@ -111,10 +111,10 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "boredWeapon"
+                        "bored-weapon"
                     ],
                     "not": [
-                        "target:animal"
+                        "target:trait:animal"
                     ]
                 },
                 "selector": "{item|_id}-attack",
@@ -124,22 +124,22 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "The Boastful Hunter is Bored",
-                "option": "boredWeapon",
+                "label": "The Boastful Hunter is bored",
+                "option": "bored-weapon",
                 "toggleable": true
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "The Boastful Hunter is Insulted",
-                "option": "insultedWeapon",
+                "label": "The Boastful Hunter is insulted",
+                "option": "insulted-weapon",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "insultedWeapon"
+                        "insulted-weapon"
                     ]
                 },
                 "selector": "intimidation",
@@ -150,7 +150,7 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "insultedWeapon"
+                        "insulted-weapon"
                     ]
                 },
                 "selector": "deception",
@@ -161,7 +161,7 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "insultedWeapon"
+                        "insulted-weapon"
                     ]
                 },
                 "selector": "diplomacy",
@@ -172,7 +172,7 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "insultedWeapon"
+                        "insulted-weapon"
                     ]
                 },
                 "selector": "{item|_id}-attack",
@@ -183,7 +183,7 @@
                 "key": "Note",
                 "predicate": {
                     "all": [
-                        "insultedWeapon"
+                        "insulted-weapon"
                     ]
                 },
                 "selector": "{item|_id}-attack",

@@ -162,7 +162,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
         if (!(item instanceof SpellPF2e)) throw ErrorPF2e("Invalid item drop on deity sheet");
 
         if (item.isCantrip || item.isFocusSpell || item.isRitual) {
-            console.warn("PF2e System | A deity's cleric spells cannot be a cantrip, focus spell, or ritual.");
+            ui.notifications.error("PF2E.Item.Deity.ClericSpells.DropError", { localize: true });
             return;
         }
 

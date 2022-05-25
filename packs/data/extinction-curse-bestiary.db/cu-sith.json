@@ -81,7 +81,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "fear effects"
+                    "fear-effects"
                 ]
             },
             "dr": [],
@@ -159,6 +159,96 @@
             "type": "melee"
         },
         {
+            "_id": "4688WSjp9uFUrW20",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "ZBXrwpIbTkQL6615",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "DtEZmNobgsVWzikz",
             "data": {
                 "actionCategory": {
@@ -171,7 +261,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Any creature within 200 feet of the cu sith that hears its Dooming Bark must attempt a @Check[type:will|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and immune to Dooming Bark for 24 hours.</p>\n<p><strong>Success</strong> The creature is frightened 1.</p>\n<p><strong>Failure</strong> The creature is frightened 2.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 3 and fleeing.</p>\n<p>If a creature is already frightened when it fails a save against Dooming Bark, its frightened value increases by 1 and it becomes doomed 1. A creature in an area that the cu sith can't easily reach-such as a hidden burrow or enclosed building-increases the degree of success of its saving throw against Dooming Bark by one step.</p>"
+                    "value": "<p>Any creature within 200 feet of the cu sith that hears its Dooming Bark must attempt a @Check[type:will|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and immune to Dooming Bark for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}.</p>\n<p>If a creature is already frightened when it fails a save against Dooming Bark, its frightened value increases by 1 and it becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<p>A creature in an area that the cu sith can't easily reach-such as a hidden burrow or enclosed building-increases the degree of success of its saving throw against Dooming Bark by one step.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -202,7 +292,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dooming Bark",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -223,7 +313,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack",
+                        "key": "RollOption",
+                        "option": "worry-prey",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "worry-prey"
+                            ]
+                        },
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -244,7 +353,52 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Worry Prey",
-            "sort": 300000,
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "rEczpIuzfDrKmIkX",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -272,7 +426,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -300,7 +454,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -328,7 +482,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -356,7 +510,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

@@ -3,17 +3,14 @@ declare interface String {
 
     titleCase(): string;
 
-    /**
-     * Strip any <script> tags which were included within a provided string
-     * @returns {String|*}
-     */
+    /** Strip any <script> tags which were included within a provided string */
     stripScripts(): string;
 
     /**
      * Transform any string into a url-viable slug string
-     * @param {string} replacement    The replacement character to separate terms, default is '-'
-     * @param {boolean} strict        Replace all non-alphanumeric characters, or allow them? Default false
-     * @return {string}               The cleaned slug string
+     * @param replacement The replacement character to separate terms, default is '-'
+     * @param strict      Replace all non-alphanumeric characters, or allow them? Default false
+     * @return The cleaned slug string
      */
     slugify(replacement?: string, strict?: boolean): string;
 }
@@ -25,10 +22,10 @@ declare interface String {
 declare interface Math {
     /**
      * Bound a number between some minimum and maximum value, inclusively.
-     * @param num    The current value
-     * @param min    The minimum allowed value
-     * @param max    The maximum allowed value
-     * @return       The clamped number
+     * @param num The current value
+     * @param min The minimum allowed value
+     * @param max The maximum allowed value
+     * @return The clamped number
      */
     clamped(num: number, min: number, max: number): number;
 
@@ -102,6 +99,6 @@ declare interface Array<T> {
     findSplice(find: (element: T) => boolean, replace?: T): T | null;
 }
 
-declare interface RegExp {
+declare interface RegExpConstructor {
     escape(string: string): string;
 }

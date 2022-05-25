@@ -1,5 +1,50 @@
 # Changelog
 
+## Version 3.10.4
+
+### Bugfixes
+* (JDCalvert) Generate weapon names for striking weapons with no potency rune
+* (Supe) Prevent unintended item updates (and possible resets) in rule-element editor
+* (stwlam) Fix effect expiration triggered by Roll Twice rule elements
+* (stwlam) Fix bug preventing suppression of circumstance penalties by True Strike effect
+
+### Data Updates
+* (Abaddon) Review Bebilith, Intellect Devourer, Jyoti, Moonflower
+* (Friz) Add missing inline automation to Caterwaul Sling
+* (Friz) Added missing traits to Dinosaur Boots
+* (Friz) Fix details of Sulfur Bomb failure effect
+* (Friz) Fixed consumable type of multiple Feather Tokens
+* (kageru) Fix malformed roll expressions in pfs-3 bestiary
+* (Koncookie) Fixed ability modifiers of multiple creatures
+* (LebombJames) Add reload time to Shobhad Longrifle
+* (Manni) Fix details on Thanadaemon and Stygira
+* (Manni) Remove duplicate Negative Healing ability from Giant Crawling Hand
+* (Pliskin) Fix the size of the Sicklehand Construct
+* (rectulo) Fix a typos in action descriptions of Quasit and Shining Child (Bestiary 1)
+* (Redeux) Added area to Flame Strike
+* (Shandyan) Automate Goloma ancestry feats
+* (Shandyan) Automate goblin feats, part 1
+* (SpartanCPA) Add rollable Flat Check button in Confused condition
+* (SpartanCPA) Standardize Construct Armor implementation
+* (SpartanCPA, Tikael) Add new items from Lost Omens: Knights of Lastwall
+* (stwlam) Add rule elements to set Warpriest armor proficiencies at level 13
+* (stwlam) Fix rule elements on Boastful Hunter
+* (stwlam) Link Magic Fang spell effect from spell description, update icon
+* (stwlam) Remove ability to strike while in pest form
+* (TMun) Add/update NPCs from PFS scenarios 3-05, 3-06, 3-07, 3-08, 3-09, 3-11, 3-12, 3-13, 3-14
+* (TMun) Add effect area to Storm of Vengeance
+* (TMun) Add spell-heightening data to Subconscious Suggestion
+* (TMun) Convert Ice Storm to new spell format
+* (TMun) Convert Planetar Sword into current data entry standard and add missing change shape ability
+* (TMun) Fix details of Hydraulic Torrent spell
+* (TMun) Fix golem anti-magic description for Lazurite-Infused Stone Golem
+* (TMun) Set perception to +8 per private note on Ninth Army Ruffian
+* (Tikael) Add more vampire family abilities
+* (Tikael) Fix construct armor rule elements
+* (Tikael) Localize rule elements on Sterling Dynamo Dedication
+* (Vindico) Add archetype journals for several BotD archetypes
+
+
 ## Version 3.10.3
 
 ### Bugfixes
