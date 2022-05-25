@@ -4,6 +4,7 @@ import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@u
 import { ItemDataPF2e, PhysicalItemData } from "../data";
 import { isPhysicalData } from "../data/helpers";
 import { isEquipped } from "./usage";
+import type { ItemCarryType } from "./data";
 
 interface StackDefinition {
     size: number;
@@ -249,6 +250,8 @@ export class BulkItem {
 
     isEquipped: boolean;
 
+    carryType: ItemCarryType;
+
     unequippedBulk?: Bulk;
 
     equippedBulk?: Bulk;
@@ -265,6 +268,7 @@ export class BulkItem {
         quantity = 1,
         stackGroup = null,
         isEquipped = false,
+        carryType = 'stowed',
         // value to overrides bulk field when unequipped
         unequippedBulk,
         // value to overrides bulk field when equipped
@@ -282,6 +286,7 @@ export class BulkItem {
         quantity?: number;
         stackGroup?: string | null;
         isEquipped?: boolean;
+        carryType?: ItemCarryType;
         unequippedBulk?: Bulk;
         equippedBulk?: Bulk;
         holdsItems?: BulkItem[];
@@ -298,6 +303,7 @@ export class BulkItem {
         this.unequippedBulk = unequippedBulk;
         this.equippedBulk = equippedBulk;
         this.isEquipped = isEquipped;
+        this.carryType = carryType;
         this.extraDimensionalContainer = extraDimensionalContainer;
         this.size = size;
     }
@@ -438,6 +444,10 @@ function calculateCombinedBulk({
     nestedExtraDimensionalContainer: boolean;
     actorSize: Size;
 }): BulkAndOverflow {
+	if(item.carryType === "dropped") {
+        return [new Bulk(), {}];
+    }
+
     const [mainBulk, mainOverflow] = calculateItemBulk({ item, actorSize });
     const [childBulk, childOverflow] = item.holdsItems
         .map((child) =>
@@ -559,6 +569,7 @@ export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] =
         holdsItems: nestedItems,
         stackGroup,
         isEquipped: isEquipped(itemData.data.usage, itemData.data.equipped),
+        carryType: itemData.data.equipped.carryType,
         quantity,
         extraDimensionalContainer,
         size,
@@ -688,6 +699,8 @@ export function hasExtraDimensionalParent(item: ContainerPF2e, encountered = new
 }
 
 export function computeTotalBulk(items: PhysicalItemPF2e[]) {
+    items = items.filter((item) => item.carryType !== "dropped");
+
     // Figure out which items have stack groups and which don't
     const nonStackingItems = items.filter((i) => i.isOfType("backpack") || !i.bulkBehavior.stackGroup);
     const nonStackingIds = new Set(nonStackingItems.map((item) => item.id));
