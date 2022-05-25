@@ -113,7 +113,34 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             }
 
                             const { traits } = weapon.data.data;
-                            if (!traits.value.includes(change)) traits.value.push(change);
+                            // If the weapon already has this trait, we don't need to do anything else
+                            if (traits.value.includes(change)) return;
+
+                            // If the weapon already has a trait of the same type but a different value, we need to check
+                            // if the new trait is better than the existing one and, if it is, replace it
+                            const match = change.match(/([a-z-]*)-(\d*d?\d+)/);
+                            if (match !== null) {
+                                const changeBaseTrait = match[1];
+                                const changeValue = match[2];
+
+                                const traitRegex = new RegExp(`${changeBaseTrait}-(\\d*d?\\d*)`);
+                                const existingTraitMatch = traits.value
+                                    .map((trait) => trait.match(traitRegex))
+                                    .find((match) => !!match);
+                                if (existingTraitMatch) {
+                                    const existingTraitScore = getTraitScore(existingTraitMatch[1]);
+                                    const changeTraitScore = getTraitScore(changeValue);
+
+                                    // If the new trait's score is higher than the existing trait's score, then remove the existing one
+                                    // otherwise just return out as we don't want to add the new (lesser) trait
+                                    if (changeTraitScore > existingTraitScore) {
+                                        traits.value.findSplice((trait) => trait === existingTraitMatch[0]);
+                                    } else {
+                                        return;
+                                    }
+                                }
+                            }
+                            traits.value.push(change);
                             return;
                         },
                     };
@@ -122,6 +149,14 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 
         this.actor.synthetics.strikeAdjustments.push(adjustment);
     }
+}
+
+/** Score the trait value. If it's a dice roll, use the average roll, otherwise just use the number */
+function getTraitScore(traitValue: string) {
+    const traitValueMatch = traitValue.match(/(\d*)d(\d+)/);
+    return traitValueMatch
+        ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
+        : Number(traitValue);
 }
 
 interface AdjustStrikeRuleElement extends AELikeRuleElement {
