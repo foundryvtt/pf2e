@@ -310,6 +310,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
                     itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
+                    itemData.isDamaged = itemData.data.hp.value > 0 && itemData.data.hp.value < itemData.data.hp.max;
                     if (physicalData.type === "book") {
                         inventory.equipment.items.push(itemData);
                     } else {

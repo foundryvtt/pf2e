@@ -44,6 +44,11 @@
             {{#if (and (ne @root.actor.type "loot") (ne @root.actor.type "vehicle"))}}
                 {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=this}}
             {{/if}}
+
+            {{#if item.isDamaged}}
+                <a class="item-control item-repair" title="{{localize 'PF2E.RepairItemTitle'}}"><i class="fas fa-hammer"></i></a>
+            {{/if}}
+
             {{#if user.isGM}}
                 {{#if item.isIdentified}}
                     <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
