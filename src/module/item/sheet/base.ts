@@ -16,6 +16,12 @@ import { ItemSheetDataPF2e } from "./data-types";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 
+import { EditorState, EditorView, basicSetup } from "@codemirror/basic-setup";
+import { keymap } from "@codemirror/view";
+import { indentWithTab } from "@codemirror/commands";
+import { linter } from "@codemirror/lint";
+import { json, jsonParseLinter } from "@codemirror/lang-json";
+
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
@@ -41,10 +47,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** Maintain selected rule element at the sheet level (do not persist) */
-    private selectedRuleElement: string | null = Object.keys(RuleElements.all).at(0) ?? null;
+    private selectedRuleElementType: string | null = Object.keys(RuleElements.all).at(0) ?? null;
 
     /** If we are currently editing an RE, this is the index */
     private editingRuleElementIndex: number | null = null;
+
+    get editingRuleElement() {
+        if (this.editingRuleElementIndex === null) return null;
+        return this.item.toObject().data.rules[this.editingRuleElementIndex] ?? null;
+    }
 
     override async getData(options?: Partial<DocumentSheetOptions>) {
         const sheetData: any = this.getBaseData(options);
@@ -150,8 +161,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const isEditable = this.isEditable;
 
-        const editingRule = this.editingRuleElementIndex === null ? null : rules[this.editingRuleElementIndex];
-
         return {
             itemType: null,
             hasSidebar: false,
@@ -168,9 +177,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
-            ruleEditing: editingRule ? JSON.stringify(editingRule, null, 2) : null,
+            ruleEditing: !!this.editingRuleElement,
             ruleSelection: {
-                selected: this.selectedRuleElement,
+                selected: this.selectedRuleElementType,
                 types: sortStringRecord(
                     Object.keys(RuleElements.all).reduce((result: Record<string, string>, key) => {
                         const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
@@ -285,7 +294,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         $html.find("[data-action=select-rule-element]").on("change", async (event) => {
             event.preventDefault();
             event.stopPropagation();
-            this.selectedRuleElement = (event.target as HTMLSelectElement).value;
+            this.selectedRuleElementType = (event.target as HTMLSelectElement).value;
         });
 
         $html.find(".add-rule-element").on("click", async (event) => {
@@ -294,7 +303,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
             const rulesData = this.item.toObject().data.rules;
-            const key = this.selectedRuleElement ?? "NewRuleElement";
+            const key = this.selectedRuleElementType ?? "NewRuleElement";
             this.item.update({ "data.rules": rulesData.concat({ key }) });
         });
 
@@ -314,44 +323,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (rules && Number.isInteger(index) && rules.length > index) {
                 rules.splice(index, 1);
                 this.item.update({ "data.rules": rules });
-            }
-        });
-
-        // Prevent textarea changes from bubbling
-        $html.find(".rule-editing").on("change", "textarea", (event) => {
-            event.stopPropagation();
-        });
-
-        $html.find(".rule-editing [data-action=close]").on("click", (event) => {
-            event.preventDefault();
-            this.editingRuleElementIndex = null;
-            this.render(true);
-        });
-
-        $html.find(".rule-editing [data-action=apply]").on("click", (event) => {
-            event.preventDefault();
-            const value = $html.find(".rule-editing textarea").val();
-
-            // Close early if the editing index is invalid
-            if (this.editingRuleElementIndex === null) {
-                this.editingRuleElementIndex = null;
-                this.render(true);
-                return;
-            }
-
-            try {
-                const rules = this.item.toObject().data.rules;
-                rules[this.editingRuleElementIndex] = JSON.parse(value as string);
-                this.editingRuleElementIndex = null;
-                this.item.update({ "data.rules": rules });
-            } catch (error) {
-                if (error instanceof Error) {
-                    ui.notifications.error(
-                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                    );
-                    console.warn("Syntax error in rule element definition.", error.message, value);
-                    throw error;
-                }
             }
         });
 
@@ -381,6 +352,58 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if ($prerequisites[0]) {
             new Tagify($prerequisites[0], {
                 editTags: 1,
+            });
+        }
+
+        // If editing a rule element, create the editor
+        const editingRuleElement = this.editingRuleElement;
+        if (editingRuleElement) {
+            const ruleText = JSON.stringify(editingRuleElement, null, 2);
+            const view = new EditorView({
+                state: EditorState.create({
+                    doc: ruleText,
+                    extensions: [basicSetup, keymap.of([indentWithTab]), json(), linter(jsonParseLinter())],
+                }),
+            });
+
+            $html.find(".rule-editing .editor-placeholder").replaceWith(view.dom);
+
+            // Prevent textarea changes from bubbling
+            $html.find(".rule-editing").on("change", "textarea", (event) => {
+                event.stopPropagation();
+            });
+
+            $html.find(".rule-editing [data-action=close]").on("click", (event) => {
+                event.preventDefault();
+                this.editingRuleElementIndex = null;
+                this.render(true);
+            });
+
+            $html.find(".rule-editing [data-action=apply]").on("click", (event) => {
+                event.preventDefault();
+                const value = view.state.doc.toString();
+
+                // Close early if the editing index is invalid
+                if (this.editingRuleElementIndex === null) {
+                    this.editingRuleElementIndex = null;
+                    this.render(true);
+                    return;
+                }
+
+                try {
+                    const rules = this.item.toObject().data.rules;
+                    rules[this.editingRuleElementIndex] = JSON.parse(value as string);
+                    this.editingRuleElementIndex = null;
+                    this.item.update({ "data.rules": rules });
+                } catch (error) {
+                    if (error instanceof Error) {
+                        ui.notifications.error(
+                            game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                        );
+                        console.warn("Syntax error in rule element definition.", error.message, value);
+                        throw error;
+                    }
+                }
             });
         }
 
