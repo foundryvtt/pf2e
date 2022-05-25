@@ -48,6 +48,8 @@ export const Init = {
 
             CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
             CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
+            CONFIG.MeasuredTemplate.defaults.angle = 90;
+            CONFIG.MeasuredTemplate.defaults.width = 1;
 
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.layerClass = TokenLayerPF2e;
