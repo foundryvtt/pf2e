@@ -116,17 +116,21 @@ a.foundry-href {
 }
 
 @mixin inline-link {
+    background: var(--inline-link-bg);
+    border-radius: 2px;
+    border: 1px solid var(--color-border-dark-tertiary);
+    box-sizing: border-box;
+    cursor: pointer;
     font-weight: 500;
     line-height: 1.5em;
-    background: #ddd;
-    padding: 1px 4px;
-    border: 1px solid #4b4a44;
-    border-radius: 2px;
+    padding: 1px 0.2em;
     white-space: nowrap;
     word-break: break-all;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-weight: 500;
+
+    &.with-repost {
+        border-right: none;
+        padding-right: 0;
+    }
 }
 
 /* ----------------------------------------- */
@@ -141,7 +145,7 @@ a.foundry-href {
     font-family: "Pathfinder2eActions";
     font-size: 1.5em;
     margin-right: 2px;
-    color: #7a7971;
+    color: var(--color-text-dark-inactive);
 }
 
 [data-pf2-action]:not([data-pf2-glyph])::before,
@@ -186,84 +190,88 @@ a.foundry-href {
 /* PF2E Check Custom Element                 */
 /* ----------------------------------------- */
 
-[data-pf2-check] {
+span[data-pf2-check] {
     @include inline-link;
-}
 
-[data-pf2-check]:not([data-pf2-show-dc="gm"]) {
-    background: #e8e8ef;
-}
+    &::before {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 0.25em;
+        color: var(--color-text-dark-inactive);
+        content: "\f6cf";
+    }
 
-[data-pf2-check]::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-right: 5px;
-    color: #7a7971;
-    content: "\f6cf";
-}
+    &[data-pf2-check="reflex"]::before {
+        content: "\f70c";
+    }
 
-[data-pf2-check="reflex"]::before {
-    content: "\f70c";
-}
+    &[data-pf2-check="will"]::before {
+        content: "\f5dc";
+    }
 
-[data-pf2-check="will"]::before {
-    content: "\f5dc";
-}
+    &[data-pf2-check="fortitude"]::before {
+        content: "\f21e";
+    }
 
-[data-pf2-check="fortitude"]::before {
-    content: "\f21e";
-}
-
-[data-pf2-check="perception"]::before {
-    content: "\f06e";
+    &[data-pf2-check="perception"]::before {
+        content: "\f06e";
+    }
 }
 
 /* ----------------------------------------- */
 /* PF2E Inline Template Custom Element       */
 /* ----------------------------------------- */
 
-[data-pf2-effect-area] {
+span[data-pf2-effect-area] {
     @include inline-link;
 
-    &:not([data-pf2-show-dc="gm"]) {
-        background: #e8e8ef;
-    }
-
     &::before {
+        color: var(--color-text-dark-inactive);
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
-        margin-right: 5px;
-        color: #7a7971;
+        margin-right: 0.25em;
     }
-}
 
-[data-pf2-effect-area="cone"]::before {
-    content: "\f104";
-}
+    &[data-pf2-effect-area="cone"]::before {
+        content: "\f104";
+    }
 
-[data-pf2-effect-area="line"]::before {
-    content: "\f7a5";
-}
+    &[data-pf2-effect-area="line"]::before {
+        content: "\f7a5";
+    }
 
-[data-pf2-effect-area="burst"]::before {
-    content: "\f111";
-}
+    &[data-pf2-effect-area="burst"]::before {
+        content: "\f111";
+    }
 
-[data-pf2-effect-area="emanation"]::before {
-    content: "\f111";
-}
+    &[data-pf2-effect-area="emanation"]::before {
+        content: "\f192";
+    }
 
-[data-pf2-effect-area="rect"]::before {
-    content: "\f0c8";
+    &[data-pf2-effect-area="rect"]::before {
+        content: "\f0c8";
+    }
 }
 
 /* ----------------------------------------- */
 /* PF2E Inline Repost Element                */
 /* ----------------------------------------- */
 
-[data-pf2-repost] {
-    color: #7a7971;
-    padding-left: 5px;
+i[data-pf2-repost] {
+    background: var(--inline-repost-bg);
+    border: 2px outset var(--color-text-light-7);
+    color: var(--color-text-dark-inactive);
+    margin-left: 0.25em;
+    padding: 0.08em;
+
+    &:hover {
+        color: var(--color-text-light-7);
+        text-shadow: none;
+    }
+
+    &:active {
+        border-style: inset;
+    }
 }
 
 [data-visibility]:is(div, em, h4, p, section, span, strong):not([data-visibility="all"]) {
@@ -278,7 +286,7 @@ a.foundry-href {
     /* GM Visibility Elements                    */
     /* ----------------------------------------- */
     &[data-visibility="gm"] {
-        background: #e8e8ef;
+        background: var(--visibility-gm-bg);
 
         &.message-sender {
             max-width: fit-content;
@@ -294,7 +302,7 @@ a.foundry-href {
     /* Owner Visibility Elements                 */
     /* ----------------------------------------- */
     &[data-visibility="owner"] {
-        background: #ddebe1;
+        background: var(--visibility-owner-bg);
 
         [data-visibility="owner"] {
             outline: none;
