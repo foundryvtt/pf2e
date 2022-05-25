@@ -3,7 +3,7 @@ import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasureP
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { coinValueInCopper, sellAllTreasure } from "@item/treasure/helpers";
+import { coinValueInCopper } from "@item/treasure/helpers";
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
@@ -1150,7 +1150,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     Yes: {
                         icon: '<i class="fa fa-check"></i>',
                         label: "Yes",
-                        callback: async () => sellAllTreasure(this.actor),
+                        callback: async () => this.actor.inventory.sellAllTreasure(),
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',

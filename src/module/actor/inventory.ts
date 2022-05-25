@@ -159,6 +159,14 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
 
         return true;
     }
+
+    async sellAllTreasure(): Promise<void> {
+        const treasures = this.actor.itemTypes.treasure.filter((item) => !item.isCoinage);
+        const treasureIds = treasures.map((item) => item.id);
+        const coins = treasures.map((item) => item.assetValue).reduce(combineCoins, noCoins());
+        await this.actor.deleteEmbeddedDocuments("Item", treasureIds);
+        await this.actor.inventory.addCoins(coins);
+    }
 }
 
 export { ActorInventory };
