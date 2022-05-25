@@ -150,6 +150,21 @@
                 },
                 "selector": "saving-throw",
                 "type": "save"
+            },
+            {
+                "key": "Resistance",
+                "predicate": {
+                    "all": [
+                        {
+                            "or": [
+                                "self:curse:moderate",
+                                "self:curse:major"
+                            ]
+                        }
+                    ]
+                },
+                "type": "poison",
+                "value": "floor(@actor.level/2)"
             }
         ],
         "source": {
