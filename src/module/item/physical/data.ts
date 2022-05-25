@@ -17,6 +17,7 @@ import { Size, ValuesList } from "@module/data";
 import { ActionTrait } from "@item/action/data";
 import { UsageDetails } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import { CoinsPF2e } from "./helpers";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
@@ -171,19 +172,19 @@ interface PhysicalItemHitPoints {
 }
 
 interface Coins {
-    pp: number;
-    gp: number;
-    sp: number;
-    cp: number;
+    pp?: number;
+    gp?: number;
+    sp?: number;
+    cp?: number;
 }
 
 interface PartialPrice {
-    value: Partial<Coins>;
+    value: Coins;
     per?: number;
 }
 
 interface Price extends PartialPrice {
-    value: Coins;
+    value: CoinsPF2e;
     per: number;
 }
 

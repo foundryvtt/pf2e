@@ -53,7 +53,7 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     hasRealContainers?: boolean;
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
-    totalWealth: Partial<Coins>;
+    totalWealth: Coins;
     totalWealthGold: string;
     immunities: SheetOptions;
     hasImmunities: boolean;

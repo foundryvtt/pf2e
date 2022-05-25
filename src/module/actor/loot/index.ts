@@ -8,7 +8,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
-import { multiplyPrice } from "@item/treasure/helpers";
+import { multiplyPrice } from "@item/physical/helpers";
 
 export class LootPF2e extends ActorPF2e {
     get isLoot(): boolean {
