@@ -1,0 +1,61 @@
+{
+    "_id": "3WzaQKb10AYLdTsQ",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>You gain a +2 status bonus to attack and damage rolls against undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 2
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:trait:undead"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:trait:undead"
+                    ]
+                },
+                "selector": "damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Corpse-Killer's Defiance",
+    "type": "effect"
+}

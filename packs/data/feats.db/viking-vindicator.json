@@ -1,0 +1,72 @@
+{
+    "_id": "3xiWBDSR8miAotpa",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You are one of the raiders eagerly planning to launch an assault by sea on the Whispering Tyrant's Isle of Terror. You gain the @Compendium[pf2e.feats-srd.Sudden Charge]{Sudden Charge} fighter feat, though it's a viking feat for you instead. As normal when gaining an additional feat from an archetype feat, gaining Sudden Charge doesn't count toward fulfilling the special requirement for Viking Dedication. If you already had Sudden Charge, you can retrain it as part of gaining this feat. When you use Sudden Charge to Strike a target in shallow water, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against your Strike, as you use the water kicked up by your passage to camouflage your angle of attack. If you have @Compendium[pf2e.feats-srd.Viking Weapon Familiarity]{Viking Weapon Familiarity} or @Compendium[pf2e.feats-srd.Viking Weapon Specialist]{Viking Weapon Specialist}, add the bastard sword and rapier to the list of weapons in those feats.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 8
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Viking Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-bastard-sword.rank",
+                "predicate": {
+                    "all": [
+                        "feat:viking-weapon-familiarity"
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-rapier.rank",
+                "predicate": {
+                    "all": [
+                        "feat:viking-weapon-familiarity"
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Sudden Charge"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Viking Vindicator",
+    "type": "feat"
+}
