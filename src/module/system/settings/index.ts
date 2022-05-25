@@ -21,15 +21,6 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    game.settings.register("pf2e", "ignoreCoinBulk", {
-        name: "PF2E.SETTINGS.IgnoreCoinBulk.Name",
-        hint: "PF2E.SETTINGS.IgnoreCoinBulk.Hint",
-        scope: "world",
-        config: false,
-        default: false,
-        type: Boolean,
-    });
-
     game.settings.register("pf2e", "identifyMagicNotMatchingTraditionModifier", {
         name: "PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name",
         hint: "PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint",
