@@ -16,6 +16,7 @@ import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@syst
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
+import { tamper } from "./class/inventor/tamper";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
@@ -109,6 +110,9 @@ export class ActionMacros {
 
         // Ancestry
         arcaneSlam,
+
+        // Class
+        tamper,
 
         // Exploration
         avoidNotice,
