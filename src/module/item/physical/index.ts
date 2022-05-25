@@ -173,8 +173,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             systemData.price.value = coinStringToCoins(systemData.price.value);
         }
 
+        // Ensure infused items are always temporary
+        if (systemData.traits.value.includes("infused")) {
+            systemData.temporary = true;
+        }
+
         // Normalize and fill price data
-        systemData.price.value = mergeObject(noCoins(), this.isTemporary ? {} : systemData.price.value);
+        systemData.price.value = mergeObject(noCoins(), systemData.temporary ? {} : systemData.price.value);
         systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status
