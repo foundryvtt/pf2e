@@ -8,7 +8,7 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { isObject, sluggify } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
-import { Bulk, BulkBehavior, convertBulkToSize, stackDefinitions, weightToBulk } from "./bulk";
+import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
 import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
@@ -125,26 +125,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this._container;
     }
 
-    get bulkBehavior(): BulkBehavior {
-        const stackGroup = this.data.data.stackGroup;
-        const stackDefinition = stackDefinitions[stackGroup ?? ""];
-
-        const weight = weightToBulk(this.data.data.weight.value) ?? new Bulk();
-        const baseBulk = stackDefinition
-            ? new Bulk({ light: stackDefinition.lightBulk })
-            : this.isEquipped
-            ? weightToBulk(this.data.data.equippedBulk.value) ?? weight
-            : weight;
-        const bulk = convertBulkToSize(baseBulk, this.size, this.actor?.size ?? "med");
-        const per = stackDefinition?.size ?? this.price.per;
-        return { bulk, per, stackGroup };
-    }
-
     /** Returns the bulk of this item and all sub-containers */
-    get totalBulk(): Bulk {
-        const { bulk, per } = this.bulkBehavior;
+    get bulk(): Bulk {
+        const { value, per } = this.data.data.bulk;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
-        return bulk.times(bulkRelevantQuantity);
+        return new Bulk({ light: value }).times(bulkRelevantQuantity);
     }
 
     get activations() {

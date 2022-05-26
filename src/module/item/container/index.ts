@@ -12,11 +12,11 @@ class ContainerPF2e extends PhysicalItemPF2e {
         return this.data.data.stowing;
     }
 
-    override get totalBulk(): Bulk {
+    override get bulk(): Bulk {
         const heldBulk = computeTotalBulk(this.contents.contents);
         const canReduceBulk = !this.traits.has("extradimensional") || !hasExtraDimensionalParent(this);
         const reduction = canReduceBulk ? weightToBulk(this.data.data.negateBulk.value) : new Bulk();
-        return super.totalBulk.plus(heldBulk.minus(reduction ?? new Bulk()));
+        return super.bulk.plus(heldBulk.minus(reduction ?? new Bulk()));
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */

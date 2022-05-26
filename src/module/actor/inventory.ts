@@ -23,7 +23,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
             .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
-    get totalBulk(): Bulk {
+    get bulk(): Bulk {
         return computeTotalBulk(this.filter((item) => !item.isInContainer));
     }
 
