@@ -6,7 +6,7 @@ import { CoinsPF2e, multiplyPrice } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
-import { isObject } from "@util";
+import { isObject, sluggify } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { Bulk, BulkBehavior, convertBulkToSize, stackDefinitions, weightToBulk } from "./bulk";
 import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
@@ -190,6 +190,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.preciousMaterialGrade.value ||= null;
         systemData.containerId ||= null;
         systemData.stackGroup ||= null;
+        systemData.equippedBulk.value ||= null;
+        systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
 
         // Temporary: prevent noise from items pre migration 746
         if (typeof systemData.price.value === "string") {
@@ -218,6 +220,22 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             equipped.carryType = "worn";
             equipped.inSlot = false;
         }
+
+        // Temporary conversion of scattershot bulk data into a single object
+        systemData.bulk = (() => {
+            const stackData = stackDefinitions[systemData.stackGroup ?? ""] ?? null;
+            const per = stackData?.size ?? 1;
+
+            const heldOrStowed = stackData?.lightBulk ?? weightToBulk(systemData.weight.value)?.toLightBulk() ?? 0;
+            const worn = systemData.equippedBulk.value
+                ? weightToBulk(systemData.equippedBulk.value)?.toLightBulk() ?? 0
+                : null;
+
+            const { carryType } = systemData.equipped;
+            const value = this.isEquipped && carryType === "worn" ? worn ?? heldOrStowed : heldOrStowed;
+
+            return { heldOrStowed, worn, value, per };
+        })();
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId) {

@@ -249,9 +249,9 @@ export class BulkItem {
 
     isEquipped: boolean;
 
-    unequippedBulk?: Bulk;
+    unequippedBulk?: Bulk | null;
 
-    equippedBulk?: Bulk;
+    equippedBulk?: Bulk | null;
 
     holdsItems: BulkItem[];
 
@@ -282,8 +282,8 @@ export class BulkItem {
         quantity?: number;
         stackGroup?: string | null;
         isEquipped?: boolean;
-        unequippedBulk?: Bulk;
-        equippedBulk?: Bulk;
+        unequippedBulk?: Bulk | null;
+        equippedBulk?: Bulk | null;
         holdsItems?: BulkItem[];
         negateBulk?: Bulk;
         extraDimensionalContainer?: boolean;
@@ -499,9 +499,9 @@ const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
  * @param weight if not parseable will return null or undefined
  */
-export function weightToBulk(weight: Optional<string | number>): Bulk | undefined {
-    if (weight === undefined || weight === null) {
-        return undefined;
+export function weightToBulk(weight: Optional<string | number>): Bulk | null {
+    if (typeof weight !== "string" && typeof weight !== "number") {
+        return null;
     }
     const trimmed = String(weight).trim();
     if (/^\d+$/.test(trimmed)) {
@@ -515,11 +515,11 @@ export function weightToBulk(weight: Optional<string | number>): Bulk | undefine
     if (complexMatch) {
         const [, normal, light] = complexMatch;
         return new Bulk({
-            normal: parseInt(normal, 10),
-            light: parseInt(light || "1", 10),
+            normal: Number(normal) || 0,
+            light: Number(light || 1) || 0,
         });
     }
-    return undefined;
+    return null;
 }
 
 type BrokenBulk = Optional<string> | Optional<number>;

@@ -45,7 +45,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
         value: string;
     };
     equippedBulk: {
-        value: string;
+        value: string | null;
     };
     /** This is unused, remove when inventory bulk refactor is complete */
     unequippedBulk: {
@@ -75,6 +75,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
 
 interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
     price: Price;
+    bulk: BulkData;
     traits: PhysicalItemTraits;
     temporary: boolean;
     usage: UsageDetails;
@@ -85,6 +86,18 @@ type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData
         invested: boolean | null;
     };
 };
+
+/** The item's bulk in Light bulk units, given the item is of medium size */
+interface BulkData {
+    /** Held or stowed bulk */
+    heldOrStowed: number;
+    /** Worn bulk, if different than when held or stowed */
+    worn: number | null;
+    /** The applicable bulk value between the above two */
+    value: number;
+    /** The quantity of this item necessary to amount to the above bulk quantities: anything less is negligible */
+    per: number;
+}
 
 interface ActivatedEffectData {
     activation: {
