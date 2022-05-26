@@ -690,142 +690,6 @@
             "type": "heritage"
         },
         {
-            "_id": "ho703meqepsjz7k0",
-            "data": {
-                "boosts": {
-                    "0": {
-                        "value": [
-                            "int",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>You have a knack for learning, and sequestered yourself from the outside world to learn all you could. You read about so many wondrous places and things in your books, and always dreamed about one day seeing the real things. Eventually, that curiosity led you to leave your studies and become an adventurer.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Arcana skill, and the Academia Lore skill. You gain the @Compendium[pf2e.feats-srd.Assurance (Arcana)]{Assurance (Arcana)} skill feat.</p>"
-                },
-                "items": {
-                    "8l1xu": {
-                        "id": "5nTNxbOx6G8ZmSp4",
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
-                        "level": 1,
-                        "name": "Assurance (Arcana)",
-                        "pack": "pf2e.feats-srd"
-                    }
-                },
-                "rules": [],
-                "slug": "scholar-arcana",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "trainedLore": "Academia Lore",
-                "trainedSkills": {
-                    "custom": "",
-                    "value": [
-                        "arc"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.WRVEUkemqj2uNHwl"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Scholar (Arcana)",
-            "sort": 0,
-            "type": "background"
-        },
-        {
-            "_id": "kp0cubh5u9ms7e0o",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Even in the worst circumstances, you can perform basic arcana tasks. You can forgo rolling a skill check for arcana to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>"
-                },
-                "featType": {
-                    "value": "skill"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ho703meqepsjz7k0",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in arcana"
-                        }
-                    ]
-                },
-                "rules": [
-                    {
-                        "key": "SubstituteRoll",
-                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
-                        "selector": "arcana",
-                        "slug": "assurance",
-                        "value": 10
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "predicate": {
-                            "all": [
-                                "substitute:assurance"
-                            ],
-                            "not": [
-                                "bonus:type:proficiency"
-                            ]
-                        },
-                        "selector": "arcana",
-                        "suppress": true
-                    }
-                ],
-                "slug": "assurance-arcana",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fortune",
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.5nTNxbOx6G8ZmSp4"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Assurance (Arcana)",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
             "_id": "hpkS2cVIrGRJskDc",
             "data": {
                 "ability": {
@@ -4379,6 +4243,254 @@
             "name": "Human",
             "sort": 0,
             "type": "ancestry"
+        },
+        {
+            "_id": "ddprczlgnahgu89l",
+            "data": {
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "int",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You have a knack for learning, and sequestered yourself from the outside world to learn all you could. You read about so many wondrous places and things in your books, and always dreamed about one day seeing the real things. Eventually, that curiosity led you to leave your studies and become an adventurer.</p>\n<p>Choose two ability boosts. One must be to Intelligence or Wisdom, and one is a free ability boost.</p>\n<p>You’re trained in your choice of the Arcana, Nature, Occultism, or Religion skill, and the Academia Lore skill. You gain the @Compendium[pf2e.feats-srd.Assurance]{Assurance} skill feat in your chosen skill.</p>"
+                },
+                "items": {},
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SkillArc",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.SkillNat",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.SkillOcc",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.SkillRel",
+                                "value": "religion"
+                            }
+                        ],
+                        "flag": "scholar",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "arcana"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.{item|flags.pf2e.rulesSelections.scholar}.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "GrantItem",
+                        "preselectChoices": {
+                            "assurance": "{item|flags.pf2e.rulesSelections.scholar}"
+                        },
+                        "uuid": "Compendium.pf2e.feats-srd.W6Gl9ePmItfDHji0"
+                    }
+                ],
+                "slug": "scholar",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "trainedLore": "Academia Lore",
+                "trainedSkills": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.v0WPfxN6G8XFfFZT"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "bcxm1l11l94xzb1b"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Scholar (Arcana)",
+            "sort": 0,
+            "type": "background"
+        },
+        {
+            "_id": "bcxm1l11l94xzb1b",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "featType": {
+                    "value": "skill"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "",
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SkillAcr",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.SkillArc",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.SkillAth",
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.SkillCra",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.SkillDec",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.SkillDip",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.SkillItm",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.SkillMed",
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.SkillNat",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.SkillOcc",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.SkillPrf",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.SkillRel",
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.SkillSoc",
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.SkillSte",
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.SkillSur",
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.SkillThi",
+                                "value": "thievery"
+                            },
+                            {
+                                "label": "PF2E.SkillLore",
+                                "value": "lore"
+                            }
+                        ],
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "arcana"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.W6Gl9ePmItfDHji0"
+                },
+                "pf2e": {
+                    "grantedBy": "ddprczlgnahgu89l"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Assurance (Arcana)",
+            "sort": 0,
+            "type": "feat"
         }
     ],
     "name": "Ezren (Beginner Box)",
