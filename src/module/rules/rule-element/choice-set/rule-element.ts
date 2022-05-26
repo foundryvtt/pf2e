@@ -61,7 +61,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
         const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
-        if (this.data.predicate && !this.resolveInjectedProperties(this.data.predicate).test(rollOptions)) return;
+
+        const predicate = this.resolveInjectedProperties(this.data.predicate ?? new PredicatePF2e({}));
+        if (!predicate.test(rollOptions)) return;
 
         this.setDefaultFlag(ruleSource);
 
