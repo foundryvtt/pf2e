@@ -1,6 +1,6 @@
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
-import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@util";
+import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional, sum } from "@util";
 import { ItemDataPF2e, PhysicalItemData } from "../data";
 import { isPhysicalData } from "../data/helpers";
 import { isEquipped } from "./usage";
@@ -65,12 +65,6 @@ export const stackDefinitions: StackDefinitions = {
         lightBulk: 10,
     },
 };
-
-export interface BulkBehavior {
-    bulk: Bulk;
-    per: number;
-    stackGroup: string | null;
-}
 
 export class Bulk {
     normal: number;
@@ -689,32 +683,26 @@ export function hasExtraDimensionalParent(item: ContainerPF2e, encountered = new
 
 export function computeTotalBulk(items: PhysicalItemPF2e[]) {
     // Figure out which items have stack groups and which don't
-    const nonStackingItems = items.filter((i) => i.isOfType("backpack") || !i.bulkBehavior.stackGroup);
+    const nonStackingItems = items.filter(
+        (i) => i.isOfType("backpack") || (i.data.data.bulk.per === 1 && i.data.data.baseItem)
+    );
     const nonStackingIds = new Set(nonStackingItems.map((item) => item.id));
     const stackingItems = items.filter((item) => !nonStackingIds.has(item.id));
 
     // Compute non-stacking bulks
     const baseBulk = nonStackingItems
-        .map((item) => item.totalBulk)
+        .map((item) => item.bulk)
         .reduce((first, second) => first.plus(second), new Bulk());
 
     // Group by stack group, then combine into quantities, then compute bulk from combined quantities
-    type BulkBehaviorQuantity = BulkBehavior & { quantity: number };
-    const stackingBehaviors = stackingItems.map((item) => ({ ...item.bulkBehavior, quantity: item.quantity }));
-    const groupedBehaviors = stackingBehaviors.reduce((result: Record<string, BulkBehaviorQuantity>, behavior) => {
-        if (!behavior.stackGroup) return result;
-
-        if (behavior.stackGroup in result) {
-            result[behavior.stackGroup].quantity += behavior.quantity;
-        } else {
-            result[behavior.stackGroup] = behavior;
-        }
-
-        return result;
-    }, {});
-    const bulks = Object.values(groupedBehaviors).map((behavior) =>
-        behavior.bulk.times(Math.floor(behavior.quantity / behavior.per))
-    );
+    const stackingBehaviors = stackingItems.map((item) => ({ ...item.data.data.bulk, item }));
+    const grouped = groupBy(stackingBehaviors, (data) => `${data.item.data.data.baseItem}-${data.per}`);
+    const bulks = [...grouped.values()].map((dataEntries) => {
+        const { value, per } = dataEntries[0]; // guaranteed to have at least one with groupBy
+        const quantity = sum(dataEntries.map((entry) => entry.item.quantity));
+        const bulkRelevantQuantity = Math.floor(quantity / per);
+        return new Bulk({ light: value }).times(bulkRelevantQuantity);
+    });
 
     // Combine non-stacking and stacking bulks together
     return baseBulk.plus(bulks.reduce((first, second) => first.plus(second), new Bulk()));
