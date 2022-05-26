@@ -762,11 +762,11 @@ describe("should calculate bulk", () => {
             light: 1,
         });
 
-        expect(weightToBulk("2, 1l")).toEqual(undefined);
+        expect(weightToBulk("2, 1l")).toEqual(null);
 
-        expect(weightToBulk("2, 1lL")).toEqual(undefined);
+        expect(weightToBulk("2, 1lL")).toEqual(null);
 
-        expect(weightToBulk("-")).toEqual(undefined);
+        expect(weightToBulk("-")).toEqual(null);
 
         expect(weightToBulk("2L")).toEqual({
             normal: 0,
