@@ -129,7 +129,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get bulk(): Bulk {
         const { value, per } = this.data.data.bulk;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
-        return new Bulk({ light: value }).times(bulkRelevantQuantity);
+        return new Bulk({ light: value })
+            .convertToSize(this.size, this.actor?.size ?? this.size)
+            .times(bulkRelevantQuantity);
     }
 
     get activations() {

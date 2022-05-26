@@ -1,9 +1,6 @@
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
-import { getContainerMap } from "@item/container/helpers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
-import { ItemDataPF2e, PhysicalItemData } from "@item/data";
-import { PhysicalItemType } from "@item/physical/data";
+import { ItemDataPF2e } from "@item/data";
 import { VehicleTrait } from "./data";
 import { isPhysicalData } from "@item/data/helpers";
 import { PhysicalItemPF2e } from "@item";
@@ -56,15 +53,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
     protected prepareItems(sheetData: any): void {
         const actorData = sheetData.actor;
-        // Inventory
-        const inventory: Record<Exclude<PhysicalItemType, "book">, { label: string; items: PhysicalItemData[] }> = {
-            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
-            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
-            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
-            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
-            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
-            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
-        };
 
         // Actions
         const actions: Record<string, { label: string; actions: any }> = {
@@ -73,46 +61,15 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        // Iterate through items, allocating to containers
-        const bulkItems = itemsFromActorData(actorData);
-        const bulkItemsById = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData)),
-            bulkItemsById,
-            actorSize: actorData.data.traits.size.value,
-        });
-
         for (const itemData of actorData.items) {
             const physicalData: ItemDataPF2e = itemData;
             const item = this.actor.items.get(itemData._id, { strict: true });
             if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
                 itemData.showEdit = sheetData.user.isGM || physicalData.data.identification.status === "identified";
                 itemData.img ||= CONST.DEFAULT_TOKEN;
-
-                const containerData = containers.get(itemData._id)!;
-                itemData.containerData = containerData;
-                itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = false;
                 itemData.isIdentified = physicalData.data.identification.status === "identified";
                 itemData.assetValue = item.assetValue;
-
-                // Inventory
-                if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity = physicalData.data.quantity || 0;
-                    itemData.data.weight.value = physicalData.data.weight.value || 0;
-                    const bulkItem = bulkItemsById.get(physicalData._id);
-                    const [approximatedBulk] = calculateBulk({
-                        items: bulkItem === undefined ? [] : [bulkItem],
-                        actorSize: this.actor.data.data.traits.size.value,
-                    });
-                    itemData.totalWeight = formatBulk(approximatedBulk);
-                    itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
-                    if (physicalData.type === "book") {
-                        inventory.equipment.items.push(itemData);
-                    } else {
-                        inventory[physicalData.type].items.push(itemData);
-                    }
-                }
             }
 
             // Actions
@@ -136,8 +93,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             }
         }
 
-        actorData.inventory = inventory;
-        // actorData.attacks = attacks;
         actorData.actions = actions;
     }
 

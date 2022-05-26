@@ -7,22 +7,12 @@ import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ConditionPF2e, SpellcastingEntryPF2e } from "@item";
-import {
-    ArmorData,
-    ConsumableData,
-    EffectData,
-    EquipmentData,
-    ItemDataPF2e,
-    TreasureData,
-    WeaponData,
-} from "@item/data";
+import { EffectData } from "@item/data";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
-import { InventoryItem, SheetInventory } from "../sheet/data-types";
 import { Size } from "@module/data";
 import { NPCSkillData } from "./data";
 import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/data/base";
-import { BookData } from "@item/book";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData } from "./types";
 import { CreatureSheetData } from "@actor/creature/types";
@@ -83,7 +73,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
-        sheetData.inventory = this.prepareInventory(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
         sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition);
         sheetData.effectItems = sheetData.items.filter(
@@ -452,58 +441,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
 
         sheetData.isSpellcaster = this.actor.isSpellcaster;
-    }
-
-    /**
-     * Prepares the equipment list of the actor.
-     * @param sheetData Data of the sheet.
-     */
-    prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
-        const itemsData = sheetData.items;
-        const inventory: SheetInventory = {
-            weapon: {
-                label: game.i18n.localize("PF2E.InventoryWeaponsHeader"),
-                type: "weapon",
-                items: itemsData.filter(
-                    (itemData): itemData is InventoryItem<WeaponData> => itemData.type === "weapon"
-                ),
-            },
-            armor: {
-                label: game.i18n.localize("PF2E.InventoryArmorHeader"),
-                type: "armor",
-                items: itemsData.filter((itemData): itemData is InventoryItem<ArmorData> => itemData.type === "armor"),
-            },
-            equipment: {
-                label: game.i18n.localize("PF2E.InventoryEquipmentHeader"),
-                type: "equipment",
-                items: itemsData.filter(
-                    (itemData): itemData is InventoryItem<EquipmentData | BookData> =>
-                        itemData.type === "equipment" || itemData.type === "book"
-                ),
-            },
-            consumable: {
-                label: game.i18n.localize("PF2E.InventoryConsumablesHeader"),
-                type: "consumable",
-                items: itemsData.filter(
-                    (itemData): itemData is InventoryItem<ConsumableData> => itemData.type === "consumable"
-                ),
-            },
-            treasure: {
-                label: game.i18n.localize("PF2E.InventoryTreasureHeader"),
-                type: "treasure",
-                items: itemsData.filter(
-                    (itemData): itemData is InventoryItem<TreasureData> => itemData.type === "treasure"
-                ),
-            },
-        };
-
-        for (const itemType of ["armor", "consumable", "equipment", "treasure", "weapon"] as const) {
-            for (const itemData of inventory[itemType].items) {
-                itemData.isIdentified = itemData.data.identification.status === "identified";
-            }
-        }
-
-        return inventory;
     }
 
     private get isWeak(): boolean {

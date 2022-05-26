@@ -4,11 +4,8 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { ItemPF2e, ConditionPF2e, FeatPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { getContainerMap } from "@item/container/helpers";
-import { ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
-import { PhysicalItemType } from "@item/physical/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
@@ -214,24 +211,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): void {
         const actorData = sheetData.actor;
 
-        // Inventory
-        interface InventorySheetData {
-            label: string;
-            items: PhysicalItemData[];
-            investedItemCount?: number;
-            investedMax?: number;
-            overInvested?: boolean;
-        }
-
-        const inventory: Record<Exclude<PhysicalItemType, "book">, InventorySheetData> = {
-            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
-            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
-            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
-            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
-            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
-            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
-        };
-
         // Actions
         const actions: Record<string, { label: string; actions: any[] }> = {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
@@ -243,19 +222,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores: LoreData[] = [];
-
-        // Iterate through items, allocating to containers
-        const bulkItems = itemsFromActorData(actorData);
-        const bulkItemsById = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap({
-            items: actorData.items.filter(isPhysicalData),
-            bulkItemsById,
-            actorSize: this.actor.size,
-        });
-        sheetData.hasRealContainers = this.actor.itemTypes.backpack.some((c) => c.data.data.stowing);
-
-        let investedCount = 0; // Tracking invested items
-        const investedMax = actorData.data.resources.investiture.max;
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
@@ -269,10 +235,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
                 itemData.assetValue = item.assetValue;
-
-                const containerData = containers.get(itemData._id)!;
-                itemData.containerData = containerData;
-                itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
 
                 // Read-Only Equipment
@@ -284,31 +246,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ) {
                     readonlyEquipment.push(itemData);
                     actorData.hasEquipment = true;
-                }
-
-                itemData.canBeEquipped = !containerData.isInContainer;
-                itemData.isSellableTreasure =
-                    itemData.showEdit && physicalData.type === "treasure" && physicalData.data.stackGroup !== "coins";
-                if (isInvested) {
-                    investedCount += 1;
-                }
-
-                // Inventory
-                if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity = physicalData.data.quantity || 0;
-                    itemData.data.weight.value = physicalData.data.weight.value || 0;
-                    const bulkItem = bulkItemsById.get(physicalData._id);
-                    const [approximatedBulk] = calculateBulk({
-                        items: bulkItem === undefined ? [] : [bulkItem],
-                        actorSize: this.actor.data.data.traits.size.value,
-                    });
-                    itemData.totalWeight = formatBulk(approximatedBulk);
-                    itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
-                    if (physicalData.type === "book") {
-                        inventory.equipment.items.push(itemData);
-                    } else {
-                        inventory[physicalData.type].items.push(itemData);
-                    }
                 }
             }
 
@@ -358,10 +295,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        inventory.equipment.investedItemCount = investedCount; // Tracking invested items
-        inventory.equipment.investedMax = investedMax;
-        inventory.equipment.overInvested = investedMax < investedCount;
-
         // assign mode to actions
         Object.values(actions)
             .flatMap((section) => section.actions)
@@ -372,8 +305,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         // Assign and return
-        actorData.inventory = inventory;
-
         actorData.featSlots = this.actor.featGroups;
         actorData.pfsBoons = this.actor.pfsBoons;
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
@@ -383,12 +314,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        const [bulk] = calculateBulk({ items: bulkItems, actorSize: this.actor.size });
         actorData.data.attributes.encumbrance = calculateEncumbrance(
             actorData.data.abilities.str.mod,
             bonusEncumbranceBulk,
             bonusLimitBulk,
-            bulk,
+            this.actor.inventory.bulk,
             this.actor.size
         );
     }

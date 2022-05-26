@@ -19,7 +19,7 @@ import {
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
@@ -73,11 +73,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         );
         (actorData as { items: unknown }).items = items;
 
-        const inventoryItems = items.filter((itemData): itemData is InventoryItem => isPhysicalData(itemData));
-        for (const itemData of inventoryItems) {
-            itemData.isContainer = itemData.type === "backpack";
-        }
-
         // Calculate financial and total wealth
         const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
@@ -127,6 +122,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             totalCoinageGold,
             totalWealth,
             totalWealthGold,
+            inventory: this.prepareInventory(),
         };
 
         this.prepareItems(sheetData);
@@ -135,6 +131,53 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): void;
+
+    protected prepareInventory() {
+        const invested = this.actor.inventory.invested;
+        const sections: SheetInventory["sections"] = {
+            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), type: "weapon", items: [] },
+            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), type: "armor", items: [] },
+            equipment: {
+                label: game.i18n.localize("PF2E.InventoryEquipmentHeader"),
+                type: "equipment",
+                items: [],
+                invested,
+            },
+            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), type: "consumable", items: [] },
+            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), type: "treasure", items: [] },
+            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), type: "backpack", items: [] },
+        };
+
+        const createInventoryItem = (item: PhysicalItemPF2e): InventoryItem => {
+            const editable = game.user.isGM || item.isIdentified;
+            const heldItems = item.isOfType("backpack") ? item.contents.map((i) => createInventoryItem(i)) : undefined;
+            heldItems?.sort((a, b) => (a.item.data.sort || 0) - (b.item.data.sort || 0));
+
+            return {
+                item: item,
+                editable,
+                isContainer: item.isOfType("backpack"),
+                canBeEquipped: !item.isInContainer,
+                isInvestable:
+                    this.actor.isOfType("character") &&
+                    item.isEquipped &&
+                    item.isIdentified &&
+                    item.isInvested !== null,
+                isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
+                hasCharges: item.isOfType("consumable") && item.charges.max > 0,
+                heldItems,
+            };
+        };
+
+        for (const item of this.actor.inventory.contents.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0))) {
+            if (!objectHasKey(sections, item.type) || item.isInContainer) continue;
+            const category = item.isOfType("book") ? sections.equipment : sections[item.type];
+            category.items.push(createInventoryItem(item));
+        }
+
+        sections.equipment.overInvested = !!invested && invested.max < invested.value;
+        return { sections };
+    }
 
     protected findActiveList() {
         return (this.element as JQuery).find(".tab.active .directory-list");
