@@ -19,10 +19,31 @@
         "level": {
             "value": 1
         },
+        "location": null,
+        "onlyLevel1": true,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:impersonate",
+                        "not-a-half-elf"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
