@@ -5,14 +5,11 @@ import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { createSheetOptions, createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { ErrorPF2e } from "@util";
 import { DeityPF2e } from "./document";
-import type * as TinyMCE from "tinymce";
 import Tagify from "@yaireo/tagify";
 import { fromUUIDs } from "@util/from-uuids";
 import { Alignment } from "@actor/creature/types";
 
 export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemSheetPF2e<TItem> {
-    #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];
-
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -129,18 +126,6 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
                     await this.item.update({ [`data.spells.-=${oldLevel}`]: null, [`data.spells.${newLevel}`]: uuid });
                 }
             });
-    }
-
-    /** Hide the toolbar for the smaller sidebar editors */
-    override activateEditor(name: string, options: Partial<TinyMCE.EditorSettings> = {}, initialContent = ""): void {
-        if (this.#sidebarText.includes(name)) {
-            options.toolbar = "";
-            options.plugins = "paste";
-            options.paste_as_text = true;
-            options.body_class = "pf2e sidebar-text";
-            if (typeof options.height === "number") options.height *= 1.5;
-        }
-        super.activateEditor(name, options, initialContent);
     }
 
     /* -------------------------------------------- */
