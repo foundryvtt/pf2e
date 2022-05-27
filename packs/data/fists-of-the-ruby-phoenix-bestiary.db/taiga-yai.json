@@ -104,7 +104,7 @@
             },
             "rarity": "common",
             "senses": {
-                "value": ""
+                "value": "greater darkvision"
             },
             "size": {
                 "value": "huge"
@@ -140,7 +140,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -231,7 +231,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "QwZTCCUlvrZoeH7I",
+            "_id": "crRAoEZy9wU9Jcgm",
             "data": {
                 "ability": {
                     "value": ""
@@ -258,8 +258,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "11d6"
@@ -275,10 +277,25 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "1320"
+                            },
+                            "range": {
+                                "value": "half a mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 8
                 },
                 "location": {
+                    "heightenedLevel": 8,
                     "uses": {
                         "max": 2,
                         "value": 2
@@ -313,7 +330,7 @@
                 },
                 "slug": "earthquake",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -352,123 +369,17 @@
             "type": "spell"
         },
         {
-            "_id": "UYOBAy708YaFH4Ut",
+            "_id": "Ap94iEaJqTky39Vv",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": ""
+                    "areaType": "burst",
+                    "value": "40"
                 },
                 "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "qVvGOrI5DbUvbKhA"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "divination"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "speak-with-animals",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.BBvV7qoXGdw09q1C"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
-            "name": "Speak with Animals (constant)",
-            "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "5z0tIee0iOQhKa6k",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
+                    "value": "40-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -486,18 +397,23 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure an animal to fight for you. You summon a common creature that has the animal trait and whose level is -1, such as those found in Pathfinder Bestiary volumes. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1</p>\n<p><strong>Heightened (3rd)</strong> Level 2</p>\n<p><strong>Heightened (4th)</strong> Level 3</p>\n<p><strong>Heightened (5th)</strong> Level 5</p>\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
+                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10-foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
                 },
                 "duration": {
-                    "value": "sustained up to 1 minute"
+                    "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 8
+                    "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "qVvGOrI5DbUvbKhA"
                 },
                 "materials": {
@@ -510,7 +426,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
                 },
                 "rules": [],
                 "save": {
@@ -526,9 +442,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "summon-animal",
+                "slug": "tangling-creepers",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -544,28 +460,29 @@
                 },
                 "traditions": {
                     "value": [
-                        "arcane",
                         "primal"
                     ]
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "plant"
+                    ]
                 }
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.4YnON9JHYqtLzccu"
+                    "sourceId": "Compendium.pf2e.spells-srd.JbAcSLu62TU1OgNF"
                 }
             },
-            "img": "systems/pf2e/icons/spells/summon-animal.webp",
-            "name": "Summon Animal",
-            "sort": 400000,
+            "img": "systems/pf2e/icons/spells/tangling-creepers.webp",
+            "name": "Tangling Creepers",
+            "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "oslNIr0AWwBPyhR8",
+            "_id": "i2CNCdCPakR3eSH8",
             "data": {
                 "ability": {
                     "value": ""
@@ -593,7 +510,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause the surface to heave. The area becomes difficult terrain and any tracks in the area are destroyed by the churning ground. Creatures standing in the area take a -1 status penalty to Acrobatics checks to @Compendium[pf2e.actionspf2e.Balance]{Balance} and @Compendium[pf2e.actionspf2e.Tumble Through]{Tumble Through} and Athletics checks to @Compendium[pf2e.actionspf2e.High Jump]{High Jump} and @Compendium[pf2e.actionspf2e.Long Jump]{Long Jump}. When you Sustain the Spell, you can move the churning area up to 10 feet in any direction. Creatures immobilized by the spell are carried along with the shifting sand in the same direction, if possible; this movement is forced movement. Creatures that enter or begin their turn standing in the shifting sand must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and ignores the area's difficult terrain and penalty to skill checks until the end of its turn.</p>\n<p><strong>Success</strong> The creature ignores the area's penalty to skill checks until the end of its turn.</p>\n<p><strong>Failure</strong> The creature is affected normally by the spell this turn.</p>\n<p><strong>Critical Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} within the spell's area until it Escapes. If the creature was already immobilized by shifting sands, it also falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The status penalty increases to -2 and the spell's range increases to 60 feet.</p>\n<p><strong>Heightened (7th)</strong> The status penalty increases to -3, the spell's range increases to 60 feet, and the spell's area increases to a 30-foot burst.</p>\n<p><strong>Heightened (9th)</strong> The status penalty increases to -4, the spell's range increases to 60 feet, and the spell's area increases to a 40-foot burst.</p>"
+                    "value": "<p>You cause the surface to heave. The area becomes difficult terrain and any tracks in the area are destroyed by the churning ground. Creatures standing in the area take a -1 status penalty to Acrobatics checks to @Compendium[pf2e.actionspf2e.Balance]{Balance} and @Compendium[pf2e.actionspf2e.Tumble Through]{Tumble Through} and Athletics checks to @Compendium[pf2e.actionspf2e.High Jump]{High Jump} and @Compendium[pf2e.actionspf2e.Long Jump]{Long Jump}. The first time each round you Sustain the Spell, you can move the churning area up to 10 feet in any direction. Creatures immobilized by the spell are carried along with the shifting sand in the same direction, if possible; this movement is forced movement. Creatures that enter or begin their turn standing in the shifting sand must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and ignores the area's difficult terrain and penalty to skill checks until the end of its turn.</p>\n<p><strong>Success</strong> The creature ignores the area's penalty to skill checks until the end of its turn.</p>\n<p><strong>Failure</strong> The creature is affected normally by the spell this turn.</p>\n<p><strong>Critical Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} within the spell's area until it Escapes. If the creature was already immobilized by shifting sands, it also falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The status penalty increases to -2 and the spell's range increases to 60 feet.</p>\n<p><strong>Heightened (7th)</strong> The status penalty increases to -3, the spell's range increases to 60 feet, and the spell's area increases to a 30-foot burst.</p>\n<p><strong>Heightened (9th)</strong> The status penalty increases to -4, the spell's range increases to 60 feet, and the spell's area increases to a 40-foot burst.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -601,10 +518,33 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "7": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "30"
+                            }
+                        },
+                        "9": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "40"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
-                    "value": 7
+                    "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 7,
                     "uses": {
                         "max": 2,
                         "value": 2
@@ -639,7 +579,7 @@
                 },
                 "slug": "shifting-sand",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Lost Omens: Gods & Magic"
                 },
                 "spellType": {
                     "value": "attack"
@@ -675,123 +615,11 @@
             },
             "img": "systems/pf2e/icons/spells/shifting-sand.webp",
             "name": "Shifting Sand",
-            "sort": 500000,
+            "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "PyvWUBirWTSbszLi",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "40-foot burst"
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10- foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "uses": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "value": "qVvGOrI5DbUvbKhA"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "conjuration"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "tangling-creepers",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "plant"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.JbAcSLu62TU1OgNF"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/tangling-creepers.webp",
-            "name": "Tangling Creepers",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "jX1YC2DnqCIOAGcQ",
+            "_id": "wkCqvjjB7tDbYvBa",
             "data": {
                 "ability": {
                     "value": ""
@@ -831,6 +659,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "qVvGOrI5DbUvbKhA"
                 },
                 "materials": {
@@ -861,7 +690,7 @@
                 },
                 "slug": "darkness",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -898,11 +727,11 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 700000,
+            "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "MU4t7amlwRKKSUNP",
+            "_id": "RbqTjLRLrXz6zrTi",
             "data": {
                 "ability": {
                     "value": ""
@@ -942,6 +771,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "qVvGOrI5DbUvbKhA"
                 },
                 "materials": {
@@ -972,7 +802,7 @@
                 },
                 "slug": "entangle",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1006,11 +836,11 @@
             },
             "img": "systems/pf2e/icons/spells/entangle.webp",
             "name": "Entangle (at will)",
-            "sort": 800000,
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "itnQeZ74PwO3uYc6",
+            "_id": "PCNkpVlmOHDZNMRH",
             "data": {
                 "ability": {
                     "value": ""
@@ -1050,6 +880,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "qVvGOrI5DbUvbKhA"
                 },
                 "materials": {
@@ -1080,7 +911,7 @@
                 },
                 "slug": "invisibility",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1113,16 +944,231 @@
             },
             "img": "systems/pf2e/icons/spells/invisibility.webp",
             "name": "Invisibility (at will, self only)",
+            "sort": 700000,
+            "type": "spell"
+        },
+        {
+            "_id": "sZ9Bz6DNeqtWdq6e",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": "qVvGOrI5DbUvbKhA"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "speak-with-animals",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.BBvV7qoXGdw09q1C"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
+            "name": "Speak with Animals (constant)",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "Yh9aJPwDQDUJM86p",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You conjure an animal to fight for you. You summon a common creature that has the animal trait and whose level is -1, such as those found in Pathfinder Bestiary volumes. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1</p>\n<p><strong>Heightened (3rd)</strong> Level 2</p>\n<p><strong>Heightened (4th)</strong> Level 3</p>\n<p><strong>Heightened (5th)</strong> Level 5</p>\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": "qVvGOrI5DbUvbKhA"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "conjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "summon-animal",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4YnON9JHYqtLzccu"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/summon-animal.webp",
+            "name": "Summon Animal",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "pSYBJeOVd1u496J8",
+            "_id": "r2cpDBiegnMUolVk",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": "shortbow",
+                "baseItem": "longbow",
                 "bonus": {
                     "value": 0
                 },
@@ -1134,11 +1180,11 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
+                    "die": "d8",
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
+                    "value": "<p>This 5‑foot‑tall bow, usually made of a single piece of elm, hickory, or yew, has a powerful draw and is excellent at propelling arrows with great force and at an extreme distance. You must use two hands to fire a longbow, and it can't be used while mounted.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1172,7 +1218,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 3
+                        "gp": 6
                     }
                 },
                 "property1": {
@@ -1202,15 +1248,15 @@
                     "value": null
                 },
                 "quantity": 1,
-                "range": 60,
+                "range": 100,
                 "reload": {
                     "value": "0"
                 },
                 "rules": [],
-                "size": "med",
-                "slug": "shortbow",
+                "size": "huge",
+                "slug": "longbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1226,25 +1272,145 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "deadly-d10"
+                        "deadly-d10",
+                        "volley-30"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-plus-hands"
                 },
                 "weight": {
-                    "value": "1"
+                    "value": "2"
                 }
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.hIgqLgH3YcLZBeoT"
+                    "sourceId": "Compendium.pf2e.equipment-srd.MVAWttmT0QDa7LsV"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
-            "name": "Shortbow",
+            "img": "systems/pf2e/icons/equipment/weapons/longbow.webp",
+            "name": "Longbow",
             "sort": 1000000,
             "type": "weapon"
+        },
+        {
+            "_id": "O37hBV6wMXpsGYsX",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "quantity": 20,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": "huge",
+                "slug": "arrows",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": "arrows",
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 1100000,
+            "type": "consumable"
         },
         {
             "_id": "owEhZQazHR2YiCJ4",
@@ -1292,7 +1458,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "melee"
         },
         {
@@ -1344,7 +1510,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Acid Missile",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1387,7 +1553,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortbow",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -1432,7 +1598,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1453,7 +1619,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "botanic-interruption",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "botanic-interruption"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1475,7 +1660,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Botanic Interruption",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1520,7 +1705,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1565,7 +1750,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1617,7 +1802,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 status to all saves vs. magic",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1662,7 +1847,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (Deactivated by Fire)",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1707,7 +1892,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1723,7 +1908,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The taiga yai takes on the appearance of a taiga giant. This doesn't change their Speed or Strike attack and damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>The taiga yai takes on the appearance of a @Compendium[pf2e.pathfinder-bestiary-2.Taiga Giant]{Taiga Giant}. This doesn't change their Speed or Strike attack and damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1734,11 +1919,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "[magical tradition]",
+                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",
                         "polymorph",
+                        "primal",
                         "transmutation"
                     ]
                 },
@@ -1756,7 +1942,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -1772,7 +1958,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The taiga yai commands underground plant roots to drag a creature within 60 feet into the earth. The target must succeed at a @Check[type:fortitude|dc:35] save or be @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for [[/br 1d4 #rounds]]{1d4 rounds}. After this time, the creature is buried; it is grabbed, begins to suffocate, and takes [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} each round they remain buried. To escape either while immobilized or grabbed, the creature must succeed at a DC 35 Escape check or an adjacent ally must succeed at a @Check[type:athletics|dc:33] check to pull them out.</p>"
+                    "value": "<p>The taiga yai commands underground plant roots to drag a creature within 60 feet into the earth. The target must succeed at a @Check[type:fortitude|dc:35] save or be @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for [[/br 1d4 #rounds]]{1d4 rounds}. After this time, the creature is buried; it is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, begins to suffocate, and takes [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} each round they remain buried. To @Compendium[pf2e.actionspf2e.Escape]{Escape} either while immobilized or grabbed, the creature must succeed at a DC 35 Escape check or an adjacent ally must succeed at a @Check[type:athletics|dc:33] check to pull them out.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1799,7 +1985,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Return to Nature",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -1827,7 +2013,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1855,7 +2041,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2400000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -1883,7 +2069,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2500000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -1911,7 +2097,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2600000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -1939,7 +2125,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2700000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -1967,7 +2153,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2800000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -1995,7 +2181,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2900000,
+            "sort": 3000000,
             "type": "lore"
         }
     ],
