@@ -23,8 +23,20 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
             .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
+    get invested() {
+        if (this.actor.isOfType("character")) {
+            return {
+                value: this.filter((item) => !!item.isInvested).length,
+                max: this.actor.data.data.resources.investiture.max,
+            };
+        }
+
+        return null;
+    }
+
     get bulk(): Bulk {
-        return computeTotalBulk(this.filter((item) => !item.isInContainer));
+        const topLevel = this.filter((item) => !item.isInContainer);
+        return computeTotalBulk(topLevel, this.actor);
     }
 
     async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
