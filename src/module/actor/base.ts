@@ -284,6 +284,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     protected override _initialize(): void {
         this.rules = [];
+
         super._initialize();
         this.initialized = true;
 
@@ -418,7 +419,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.svg`;
+        const tokenImgIsDefault = [
+            "systems/pf2e/icons/default-icons/mystery-man.svg",
+            `systems/pf2e/icons/default-icons/${this.type}.svg`,
+        ].includes(this.data.token.img);
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
