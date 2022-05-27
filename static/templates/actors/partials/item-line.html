@@ -1,60 +1,63 @@
-<li class="item list-row {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}" data-item-rarity="{{item.data.traits.rarity}}">
+<li class="item list-row {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}" data-item-rarity="{{item.data.traits.rarity}}">
     <div class="item-name rollable{{#if (and (ne @root.actor.type "loot") (not owner))}} long{{/if}}">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>
             {{item.name}}
             {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
-            {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{data.identification.identified.name}})</span>{{/if}}
+            {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.data.data.identification.identified.name}})</span>{{/if}}
         </h4>
         {{#if item.hasCharges}}
-            <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
+            <span class="item-charges">({{item.charges.value}}/{{item.charges.max}})</span>
         {{/if}}
     </div>
     {{#if (eq @root.actor.type "loot")}}
-        <span class="item-sell-value">{{#if (or item.isIdentified @root.user.isGM)}}{{coinLabel item.data.price.value}}{{/if}}</span>
+        <span class="item-sell-value">{{#if (or item.isIdentified @root.user.isGM)}}{{item.price.value}}{{/if}}</span>
     {{else}}
-        {{#if (eq item.type "treasure")}}
-            <span class="item-sell-value">{{coinLabel item.assetValue}}</span>
+        {{#if (or (eq @root.actor.type "npc") (eq item.type "treasure"))}}
+            <span class="item-sell-value">{{#if (or item.isIdentified @root.user.isGM)}}{{item.assetValue}}{{/if}}</span>
         {{/if}}
     {{/if}}
     <span class="item-quantity">
         {{#if owner}}
             <a class="item-decrease-quantity">-</a>
         {{/if}}
-        <span>{{item.data.quantity}}</span>
+        <span>{{item.quantity}}</span>
         {{#if owner}}
             <a class="item-increase-quantity">+</a>
         {{/if}}
     </span>
-    <span class="item-weight">{{item.totalWeight}}</span>
+
+    {{#if (ne @root.actor.type "npc")}}
+        <span class="item-weight">{{item.bulk}}</span>
+    {{/if}}
 
     {{#if editable}}
         <div class="item-controls">
-            {{#if item.isContainer}}
-                {{#if item.containerData.isCollapsed}}
+            {{#if isContainer}}
+                {{#if item.isCollapsed}}
                     <a class="item-control item-toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fas fa-box"></i></a>
                 {{else}}
                     <a class="item-control item-toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fas fa-box-open"></i></a>
                 {{/if}}
             {{/if}}
 
-            {{#if (and item.canBeEquipped item.isInvestable)}}
-                <a class="item-control item-toggle-invest {{#if item.data.equipped.invested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
+            {{#if (and canBeEquipped isInvestable)}}
+                <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
             {{/if}}
-            {{#if (and (ne @root.actor.type "loot") (ne @root.actor.type "vehicle"))}}
-                {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=this}}
+            {{#if (eq @root.actor.type "character")}}
+                {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=item}}
             {{/if}}
-            {{#if user.isGM}}
+            {{#if @root.user.isGM}}
                 {{#if item.isIdentified}}
                     <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
                 {{else}}
                     <a class="item-control item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle"></i></a>
                 {{/if}}
             {{/if}}
-            {{#if (and item.isSellableTreasure (ne @root.actor.type "loot"))}}
+            {{#if (and isSellable (ne @root.actor.type "loot"))}}
                 <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
             {{/if}}
-            {{#if item.showEdit}}
+            {{#if editable}}
                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
             {{/if}}
             {{#if (or owner (ne @root.actor.type "loot"))}}
@@ -63,18 +66,19 @@
         </div>
     {{/if}}
 </li>
-<div class="container-metadata" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
-    {{#unless item.containerData.isCollapsed}}
-        {{#if item.isContainer}}
+
+{{#unless item.isCollapsed}}
+    <div class="container-metadata" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
+        {{#if isContainer}}
             <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
-                <span class="container-capacity-bar" style="width:{{item.containerData.fullPercentageMax100}}%"></span>
-                <span class="container-capacity-label">{{localize "PF2E.CapacityBarLabel"}}: {{item.containerData.formattedHeldItemBulk}} / {{item.containerData.formattedCapacity}}</span>
+                <span class="container-capacity-bar" style="width:{{item.capacityPercentage}}%"></span>
+                <span class="container-capacity-label">{{localize "PF2E.CapacityBarLabel"}}: {{item.capacity.value}} / {{item.capacity.max}}</span>
             </div>
         {{/if}}
         <div class="container-held-items">
-            {{#each item.containerData.heldItems}}
-                {{> "systems/pf2e/templates/actors/partials/item-line.html" item=this editable=@root.editable user=@root.user owner=@root.owner}}
+            {{#each heldItems}}
+                {{> "systems/pf2e/templates/actors/partials/item-line.html" editable=@root.editable user=@root.user owner=@root.owner}}
             {{/each}}
         </div>
-    {{/unless}}
 </div>
+{{/unless}}

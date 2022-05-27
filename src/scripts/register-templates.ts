@@ -68,7 +68,6 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/npc/partials/sidebar.html",
         "systems/pf2e/templates/actors/npc/partials/action.html",
         "systems/pf2e/templates/actors/npc/partials/attack.html",
-        "systems/pf2e/templates/actors/npc/partials/item.html",
 
         // Item Sheet Partials
         "systems/pf2e/templates/items/rules-panel.html",

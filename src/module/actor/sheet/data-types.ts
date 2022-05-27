@@ -1,29 +1,19 @@
 import { ActorPF2e } from "@actor/base";
 import { LootPF2e } from "@actor/loot";
-import { BookData } from "@item/book";
-import { getContainerMap } from "@item/container/helpers";
-import { ArmorData, ConsumableData, EquipmentData, PhysicalItemData, TreasureData, WeaponData } from "@item/data";
-import { Coins, IdentificationData, MystifiedData, PartialPrice } from "@item/physical/data";
+import { PhysicalItemPF2e } from "@item";
+import { Coins, PhysicalItemType } from "@item/physical/data";
 import { SheetOptions } from "@module/sheet/helpers";
 
-type ContainerMap = ReturnType<typeof getContainerMap>;
-type SheetContainerData = ContainerMap extends Map<string, infer X> ? X : never;
-export type InventoryItem<D extends PhysicalItemData = PhysicalItemData> = D & {
-    canBeEquipped: boolean;
-    containerData: SheetContainerData;
+export interface InventoryItem<D extends PhysicalItemPF2e = PhysicalItemPF2e> {
+    item: D;
+    editable: boolean;
     isContainer: boolean;
-    isIdentified: boolean;
-    isInContainer: boolean;
-    isSellableTreasure?: boolean;
-    showEdit: boolean;
-    price: PartialPrice & { label: string };
-    totalWeight: string;
-    data: D["data"] & {
-        identification: IdentificationData & {
-            identified: MystifiedData;
-        };
-    };
-};
+    canBeEquipped: boolean;
+    isInvestable: boolean;
+    isSellable: boolean;
+    hasCharges: boolean;
+    heldItems?: InventoryItem[];
+}
 
 interface CoinDisplayData {
     value: number;
@@ -32,31 +22,29 @@ interface CoinDisplayData {
 
 export type CoinageSummary = { [K in keyof Coins]?: CoinDisplayData };
 
-interface SheetItemList<D extends PhysicalItemData> {
+interface SheetItemList {
     label: string;
-    type: D["type"];
-    items: InventoryItem<D>[];
+    type: PhysicalItemType;
+    items: InventoryItem[];
+    invested?: { value: number; max: number } | null;
+    overInvested?: boolean;
 }
 
 export interface SheetInventory {
-    weapon: SheetItemList<WeaponData>;
-    armor: SheetItemList<ArmorData>;
-    equipment: SheetItemList<EquipmentData | BookData>;
-    consumable: SheetItemList<ConsumableData>;
-    treasure: SheetItemList<TreasureData>;
+    sections: Record<Exclude<PhysicalItemType, "book">, SheetItemList>;
 }
 
 export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TActor> {
     traits: SheetOptions;
     isTargetFlatFooted: boolean;
     user: { isGM: boolean };
-    hasRealContainers?: boolean;
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
     totalWealth: Coins;
     totalWealthGold: string;
     immunities: SheetOptions;
     hasImmunities: boolean;
+    inventory: SheetInventory;
 }
 
 export interface LootSheetDataPF2e extends ActorSheetDataPF2e<LootPF2e> {

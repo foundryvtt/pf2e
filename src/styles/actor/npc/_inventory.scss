@@ -25,13 +25,17 @@
 
     .header {
         display: grid;
-        grid-template-columns: 26px 3fr 1fr 1fr;
-        column-gap: 6px;
+        grid-template-columns: 3fr 40px 65px 80px;
+        column-gap: 4px;
         align-items: center;
         color: $light-text;
         background-color: $primary-accent;
         border-radius: 3px 3px 0px 0px;
         padding: 6px;
+
+        .item-quantity {
+            text-align: center;
+        }
     }
 
     .body {
@@ -64,10 +68,10 @@
                 }
             }
 
-            li.list-item {
+            li.item {
                 display: grid;
-                grid-template-columns: 26px 3fr 1fr 2fr;
-                column-gap: 6px;
+                grid-template-columns: 3fr 40px 65px 80px;
+                column-gap: 4px;
                 align-items: center;
                 padding: 2px 6px;
 
@@ -75,7 +79,16 @@
                     border-bottom: 1px solid $faded-color;
                 }
 
-                .item-icon {
+                .item-name {
+                    align-items: center;
+                    display: flex;
+                    gap: 6px;
+                    h4 {
+                        margin: 0;
+                    }
+                }
+
+                .item-image {
                     border: 2px solid $faded-color;
                     border-radius: 3px;
                     width: 26px;
@@ -83,12 +96,6 @@
                     background-size: 26px 26px;
                     &:hover {
                         cursor: pointer;
-                    }
-                }
-
-                .item-name {
-                    h4 {
-                        margin: 0;
                     }
                 }
 
@@ -129,7 +136,10 @@
                 }
 
                 .item-quantity {
-                    text-align: right;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 4px;
                 }
 
                 .controls .item-toggle-equip {
@@ -159,16 +169,12 @@
     }
 }
 
-.items-controls {
+.item-controls {
     display: flex;
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: baseline;
-    padding: 4px 12px;
-
-    a {
-        margin: 0px 6px;
-    }
+    justify-content: end;
+    align-items: center;
+    gap: 4px;
 }
