@@ -122,7 +122,12 @@
                             </div>
 
                             {{#if @root.options.editable}}
-                                <button type="button" class="cast-spell" data-action="cast-spell">{{localize "PF2E.CastLabel"}}</button>
+                                <div class="spell-cast">
+                                    <button type="button" class="cast-spell" data-action="cast-spell">
+                                        <i class="fas fa-dice-d20"></i>{{localize "PF2E.CastLabel"}}
+                                    </button>
+                                </div>
+
                                 {{#unless (and entry.isFlexible (not section.isCantrip))}}
                                     <div class="item-controls">
                                         {{#if entry.isPrepared}}
