@@ -16,7 +16,7 @@ class AELikeRuleElement extends RuleElementPF2e {
      */
     static SKILL_LONG_FORM_PATH = ((): RegExp => {
         const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
-        return new RegExp(String.raw`^(?<=data\.skills\.)${skillLongForms}\b`);
+        return new RegExp(String.raw`(?<=^data\.skills\.)(?:${skillLongForms})\b`);
     })();
 
     constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
