@@ -1469,14 +1469,15 @@ class CharacterPF2e extends CreaturePF2e {
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
-        // If a weapon matches against a linked proficiency, add the `sameAs` category to the weapon's item roll options
+        // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
+        // item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
             "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
         );
-        weaponRollOptions.push(...equivalentCategories);
+        const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
         const syntheticRanks = Object.values(systemData.martial)
-            .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponRollOptions))
+            .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
