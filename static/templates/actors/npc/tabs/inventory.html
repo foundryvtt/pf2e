@@ -3,18 +3,14 @@
         {{#if @root.owner}}
             {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=@root.owner}}
         {{/if}}
-        <div class="header">
-            <div class="item-name">{{localize "PF2E.NPC.Inventory.Header.NameLabel"}}</div>
-            <div class="item-price"></div>
-            <div class="item-quantity">{{localize "PF2E.NPC.Inventory.Header.QuantityLabel"}}</div>
-            <div></div>
-        </div>
         <div class="body">
             <ul class="item-list">
                 {{#each inventory.sections as |section|}}
-                    <div class="category-header">
-                        <h4>{{section.label}}</h4>
-                        <div class="category-controls controls">
+                    <div class="category-header inventory-header">
+                        <h3 class="item-name">{{section.label}}</h3>
+                        <div class="item-sell-value">{{localize "PF2E.NPC.Inventory.Header.ValueLabel"}}</div>
+                        <div class="item-quantity">{{localize "PF2E.NPC.Inventory.Header.QuantityLabel"}}</div>
+                        <div class="category-controls controls item-controls">
                             {{#if @root.owner}}
                                 <a class="item-control item-create" data-type="{{section.type}}"><i class="fas fa-plus"></i></a>
                                 <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{section.type}}"><i class="fas fa-search"></i></a>

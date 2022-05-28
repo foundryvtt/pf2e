@@ -1,24 +1,6 @@
 .inventory .inventory-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     height: 100%;
-    overflow-y: auto;
     margin-bottom: 2px;
-
-    .list-row {
-        display: flex;
-        flex-flow: wrap row;
-        justify-content: flex-start;
-        line-height: 1.8em;
-        padding: 0;
-        border-bottom: 1px solid var(--secondary-background);
-
-        > * {
-            flex: 1;
-            display: flex;
-        }
-    }
 
     .item-list {
         margin: 0;
@@ -26,38 +8,12 @@
     }
 
     .item-name {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-        cursor: pointer;
-        padding: 1px 0;
-
-        &:first-child {
-            padding-left: 4px;
-
-            &.long {
-                min-width: 230px;
-            }
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        .item-image {
-            flex: 0 0 24px;
-            margin-right: 4px;
-            background-size: 24px;
-            background-repeat: no-repeat;
-        }
-
         h4 {
             flex: 2;
             margin: 0;
         }
 
         .prepared {
-            color: #666;
             margin-left: 3px;
             font-size: var(--font-size-10);
         }
@@ -67,75 +23,24 @@
             font-size: var(--font-size-12);
             flex: 0;
         }
-
-        &:hover .item-image {
-            background-image: url("../../../icons/svg/d20-grey.svg") !important;
-        }
-
-        .item-image:hover {
-            background-image: url("../../../icons/svg/d20-black.svg") !important;
-        }
     }
 
-    .item-sell-value {
-        flex: 0 0 60px;
-        font-size: var(--font-size-12);
-        color: #666;
-        text-align: center;
-        border-left: 1px solid var(--secondary-background);
-        justify-content: flex-end;
-    }
-
-    .item-quantity {
-        border-left: 1px solid var(--secondary-background);
-        color: #666;
-        flex: 0 0 64px;
-        font-size: var(--font-size-12);
-        justify-content: space-around;
-        margin-left: 5px;
-        padding: 0 5px;
-        text-align: center;
-
-        * {
-            display: inline;
-        }
-
-        a {
-            flex: 0.25;
-            font-weight: bold;
-        }
-    }
-
+    .item-sell-value,
+    .item-quantity,
     .item-weight {
-        flex: 0 0 42px;
-        font-size: var(--font-size-12);
-        color: #666;
-        text-align: center;
         border-left: 1px solid var(--secondary-background);
-        justify-content: center;
+        color: #666;
     }
 
     .item-controls {
-        flex: 0 0 64px;
-        justify-content: flex-end;
+        flex: 0 0 70px; // remove when .inventory-list global styling is removed
         border-left: 1px solid var(--secondary-background);
-
-        a {
-            font-size: var(--font-size-10);
-            color: #666;
-            margin-right: 4px;
-        }
     }
 
     .inventory-header {
         font-weight: 700;
         background: var(--primary-background);
-        list-style: none;
         margin: 0;
-        display: flex;
-        flex-flow: wrap row;
-        justify-content: flex-start;
-        line-height: 1.8em;
         padding: 0;
         border-bottom: 1px solid var(--secondary-background);
 
@@ -144,8 +49,9 @@
         .item-quantity,
         .item-weight,
         .item-controls {
+            line-height: 1.8em;
             color: white;
-            font-size: var(--font-size-12);
+            height: 100%;
         }
 
         .item-name {
@@ -155,52 +61,18 @@
         }
 
         .item-controls {
-            .item-create,
-            .inventory-browse {
-                color: white;
-            }
+            color: white;
         }
     }
 
-    .item-summary {
-        flex: 0 0 100%;
-        flex-direction: column;
-        font-size: var(--font-size-12);
-        line-height: 16px;
-        padding: 0.25em 0.5em;
-        border-top: 1px solid var(--secondary-background);
-    }
+    .list-row {
+        line-height: 1.8em;
+        padding: 0;
+        border-bottom: 1px solid var(--secondary-background);
 
-    .container-capacity {
-        box-sizing: border-box;
-        background: rgb(0 0 0 / 10%);
-        height: 20px;
-        position: relative;
-        width: 100%;
-        border-bottom: 1px solid #666;
-
-        .container-capacity-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: #aaa;
-            height: 19px;
-        }
-
-        .container-capacity-label {
-            position: absolute;
-            height: 20px;
-            font-size: var(--font-size-12);
-            line-height: 20px;
-            color: #000;
-            padding: 0 3px;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        &.over-limit .container-capacity-bar {
-            background: #ec6b6b;
+        .item-controls a {
+            font-size: var(--font-size-10);
+            color: #666;
         }
     }
 }
