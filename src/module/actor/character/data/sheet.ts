@@ -1,6 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, HeritagePF2e } from "@item";
-import { MagicTradition } from "@item/spellcasting-entry/data";
+import { MagicTradition } from "@item/spell/types";
 import { CraftingEntry } from "@actor/character/crafting/entry";
 import { CraftingFormula } from "@actor/character/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";

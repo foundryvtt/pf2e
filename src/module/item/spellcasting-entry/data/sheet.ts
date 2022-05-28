@@ -1,7 +1,8 @@
 import { SpellPF2e } from "@item";
+import { MagicTradition } from "@item/spell/types";
 import { ZeroToTen } from "@module/data";
 import { StatisticChatData } from "@system/statistic";
-import { MagicTradition, PreparationType } from ".";
+import { PreparationType } from ".";
 
 /** Final render data used for showing a spell list  */
 export interface SpellListData {

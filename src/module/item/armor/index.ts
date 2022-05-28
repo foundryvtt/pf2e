@@ -1,7 +1,7 @@
 import { PhysicalItemHitPoints } from "@item/physical/data";
-import { MAGIC_TRADITIONS } from "@item/spell/data";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
-import { addSign, ErrorPF2e } from "@util";
+import { addSign, ErrorPF2e, setHasElement } from "@util";
 import { PhysicalItemPF2e } from "../physical";
 import { getResiliencyBonus } from "../runes";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
@@ -104,7 +104,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const baseTraits = this.data.data.traits.value;
         const fromRunes: ("invested" | "abjuration")[] =
             this.data.data.potencyRune.value || this.data.data.resiliencyRune.value ? ["invested", "abjuration"] : [];
-        const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.includes(trait));
+        const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
     }

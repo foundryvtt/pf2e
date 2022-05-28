@@ -1,4 +1,4 @@
-export const MAGIC_SCHOOLS = [
+export const MAGIC_SCHOOLS = new Set([
     "abjuration",
     "conjuration",
     "divination",
@@ -7,6 +7,6 @@ export const MAGIC_SCHOOLS = [
     "illusion",
     "necromancy",
     "transmutation",
-] as const;
+] as const);
 
-export const MAGIC_TRADITIONS = ["arcane", "divine", "occult", "primal"] as const;
+export const MAGIC_TRADITIONS = new Set(["arcane", "divine", "occult", "primal"] as const);
