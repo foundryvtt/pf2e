@@ -333,10 +333,10 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting-tradition proficiencies
         systemData.proficiencies = {
-            traditions: MAGIC_TRADITIONS.reduce(
-                (accumulated: DeepPartial<MagicTraditionProficiencies>, tradition) => ({
+            traditions: Array.from(MAGIC_TRADITIONS).reduce(
+                (accumulated: DeepPartial<MagicTraditionProficiencies>, t) => ({
                     ...accumulated,
-                    [tradition]: { rank: 0 },
+                    [t]: { rank: 0 },
                 }),
                 {}
             ),

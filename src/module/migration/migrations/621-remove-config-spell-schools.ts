@@ -1,7 +1,7 @@
-import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
-import { objectHasKey } from "@util";
-import { MagicSchool } from "@item/spell/data";
+import { MAGIC_SCHOOLS } from "@item/spell/values";
+import { objectHasKey, setHasElement } from "@util";
+import { MigrationBase } from "../base";
 
 /** Remove duplicate magic schools localization map */
 export class Migration621RemoveConfigSpellSchools extends MigrationBase {
@@ -21,7 +21,7 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
     private reassignSchool(abbreviation: string) {
         if (objectHasKey(this.KEY_MAP, abbreviation)) {
             return this.KEY_MAP[abbreviation];
-        } else if (Object.values(this.KEY_MAP).includes(abbreviation as MagicSchool)) {
+        } else if (setHasElement(MAGIC_SCHOOLS, abbreviation)) {
             return abbreviation;
         } else {
             return this.KEY_MAP.evo;

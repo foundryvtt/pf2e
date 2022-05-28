@@ -1,7 +1,8 @@
 import { AbilityString } from "@actor/data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { SpellcastingEntryPF2e } from "@item";
-import { MagicTradition, PreparationType } from "@item/spellcasting-entry/data";
+import { MagicTradition } from "@item/spell/types";
+import { PreparationType } from "@item/spellcasting-entry/data";
 
 interface SpellcastingDialogOptions {
     entry?: SpellcastingEntryPF2e;
