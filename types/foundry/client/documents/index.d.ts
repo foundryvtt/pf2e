@@ -25,3 +25,20 @@ import "./tile-document";
 import "./token-document";
 import "./user";
 import "./wall-document";
+
+declare global {
+    type WorldDocument =
+        | Actor
+        | ChatMessage
+        | Combat
+        | Folder
+        | Item
+        | JournalEntry
+        | Macro
+        | Playlist
+        | RollTable
+        | Scene
+        | User;
+
+    type WorldDocumentUUID<T extends WorldDocument = WorldDocument> = `${T["documentName"]}.${string}`;
+}

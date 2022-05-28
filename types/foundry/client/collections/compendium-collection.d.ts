@@ -158,27 +158,13 @@ declare global {
         protected _onModifyContents(documents: TDocument[], options: DocumentModificationContext, userId: string): void;
     }
 
-    type CompendiumDocumentType = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
+    type CompendiumDocumentType = typeof CONST.COMPENDIUM_DOCUMENT_TYPES[number];
     type CompendiumUUID = `Compendium.${string}.${string}`;
-    type DocumentUUID = `${CompendiumDocumentType}.${string}` | CompendiumUUID | TokenDocumentUUID;
+    type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
     function fromUuid<T extends ClientDocument = ClientDocument>(uuid: string): Promise<T | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
-        readonly type: T extends Actor
-            ? "Actor"
-            : T extends Item
-            ? "Item"
-            : T extends JournalEntry
-            ? "JournalEntry"
-            : T extends Macro
-            ? "Macro"
-            : T extends Playlist
-            ? "Playlist"
-            : T extends RollTable
-            ? "RollTable"
-            : T extends Scene
-            ? "Scene"
-            : CompendiumDocumentType;
+        readonly type: T["documentName"];
         name: string;
         label: string;
         path: string;
@@ -198,5 +184,5 @@ declare global {
 
     type CompendiumIndex = Collection<CompendiumIndexData>;
 
-    type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
+    type CompendiumDocument = Exclude<WorldDocument, Combat | ChatMessage | Folder | User>;
 }
