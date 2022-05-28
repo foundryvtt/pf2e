@@ -9,6 +9,7 @@ import { CheckDC } from "@system/degree-of-success";
 import { CreaturePF2e } from ".";
 import { SheetOptions } from "@module/sheet/helpers";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
+import { TraitViewData } from "@actor/data/base";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
@@ -36,6 +37,7 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
     options: string[];
     self: StrikeSelf<A, I>;
     target: AttackTarget | null;
+    traits: TraitViewData[];
 }
 
 interface StrikeRollContextParams<T extends AttackItem> {
@@ -46,10 +48,7 @@ interface StrikeRollContextParams<T extends AttackItem> {
     viewOnly?: boolean;
 }
 
-interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> {
-    options: string[];
-    self: StrikeSelf<A, I>;
-    target: AttackTarget | null;
+interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> extends StrikeRollContext<A, I> {
     dc: CheckDC | null;
 }
 

@@ -75,6 +75,17 @@ export class DamageRollModifiersDialog extends Application {
                 cssClass: null,
                 dataAttr: "trait",
             });
+
+            const item = context.self?.item;
+            const itemTraits = item?.isOfType("weapon", "melee")
+                ? toTags(Array.from(item.traits), {
+                      labels: strikeTraits,
+                      descriptions: CONFIG.PF2E.traitsDescriptions,
+                      cssClass: "tag_alt",
+                      dataAttr: "trait",
+                  })
+                : "";
+
             const materialEffects = toTags(damage.materials, {
                 labels: CONFIG.PF2E.preciousMaterials,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
@@ -82,14 +93,14 @@ export class DamageRollModifiersDialog extends Application {
                 dataAttr: "material",
             });
 
-            flavor += `<div class="tags">${traits}${materialEffects}</div><hr>`;
+            flavor += `<div class="tags">${traits}<hr class="vr" />${itemTraits}${materialEffects}</div><hr>`;
         }
 
         const base = game.i18n.localize("PF2E.Damage.Base");
         const dice = `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`;
         const damageTypes: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
         const damageType = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
-        const baseBreakdown = `<span class="damage-tag damage-tag-base">${base} ${dice} ${damageType}</span>`;
+        const baseBreakdown = `<span class="tag tag_transparent">${base} ${dice} ${damageType}</span>`;
         const modifierBreakdown = [damage.diceModifiers.filter((m) => m.diceNumber !== 0), damage.numericModifiers]
             .flat()
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
@@ -101,7 +112,7 @@ export class DamageRollModifiersDialog extends Application {
                         : null;
                 const typeLabel = damageType ? ` ${damageType}` : "";
 
-                return `<span class="damage-tag damage-tag-modifier">${m.label} ${modifier}${typeLabel}</span>`;
+                return `<span class="tag tag_transparent">${m.label} ${modifier}${typeLabel}</span>`;
             })
             .join("");
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
