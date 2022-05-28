@@ -64,6 +64,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 if (art) {
                     data.img = art.actor;
                     data.token = mergeObject(data.token ?? {}, { img: art.token });
+                    if (art.scale) {
+                        data.token = mergeObject(data.token ?? {}, {
+                            scale: art.scale,
+                            flags: { pf2e: { linkToActorSize: false } },
+                        });
+                    }
                 }
             }
 
