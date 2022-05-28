@@ -39,11 +39,33 @@ declare global {
             ROLL: 5;
         };
 
-        /**
-         * The allowed Entity types which may exist within a Compendium pack
-         * This is a subset of ENTITY_TYPES
-         */
-        COMPENDIUM_ENTITY_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "Macro", "RollTable", "Playlist"];
+        DOCUMENT_TYPES: [
+            "Actor",
+            "Cards",
+            "ChatMessage",
+            "Combat",
+            "Item",
+            "Folder",
+            "JournalEntry",
+            "Macro",
+            "Playlist",
+            "RollTable",
+            "Scene",
+            "User"
+        ];
+
+        /** The allowed Document types which may exist within a Compendium pack. */
+        COMPENDIUM_DOCUMENT_TYPES: [
+            "Actor",
+            "Cards",
+            "Item",
+            "JournalEntry",
+            "Macro",
+            "Playlist",
+            "RollTable",
+            "Scene",
+            "Adventure"
+        ];
 
         /** The default artwork used for Token images if none is provided */
         DEFAULT_TOKEN: ImagePath;
@@ -141,7 +163,7 @@ declare global {
         /**
          * Define the allowed Entity types which Folders may contain
          */
-        FOLDER_ENTITY_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "RollTable"];
+        FOLDER_DOCUMENT_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "RollTable"];
 
         /** Define the allowed Entity types which may be dynamically linked in chat */
         ENTITY_LINK_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "Macro", "RollTable"];

@@ -16,6 +16,8 @@ declare module foundry {
             readonly data: data.FolderData<this>;
 
             readonly parent: null;
+
+            get documentName(): typeof BaseFolder["metadata"]["name"];
         }
 
         interface FolderMetadata extends abstract.DocumentMetadata {
@@ -23,7 +25,7 @@ declare module foundry {
             collection: "folders";
             label: "DOCUMENT.Folder";
             isPrimary: true;
-            types: typeof CONST.FOLDER_ENTITY_TYPES;
+            types: typeof CONST.FOLDER_DOCUMENT_TYPES;
         }
     }
 }

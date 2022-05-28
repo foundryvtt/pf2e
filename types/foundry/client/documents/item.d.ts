@@ -62,5 +62,6 @@ declare global {
         getFlag(scope: "core", key: "sourceId"): string | undefined;
     }
 
-    type ItemUUID = `Item.${string}` | `Actor.${string}.Item.${string}` | CompendiumUUID;
+    type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
+    type ItemUUID = WorldDocumentUUID<Item> | EmbeddedItemUUID | CompendiumUUID;
 }

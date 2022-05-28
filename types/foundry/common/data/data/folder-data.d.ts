@@ -8,7 +8,7 @@ declare module foundry {
          *
          * @property _id           The _id which uniquely identifies this Folder document
          * @property name          The name of this Folder
-         * @property type          The document type which this Folder contains, from CONST.FOLDER_ENTITY_TYPES
+         * @property type          The document type which this Folder contains, from CONST.FOLDER_DOCUMENT_TYPES
          * @property [description] An HTML description of the contents of this folder
          * @property [parent]      The _id of a parent Folder which contains this Folder
          * @property [sorting=a]   The sorting mode used to organize documents within this Folder, in ["a", "m"]
@@ -42,4 +42,4 @@ declare module foundry {
     }
 }
 
-declare type FolderDocumentType = typeof CONST.FOLDER_ENTITY_TYPES[number];
+declare type FolderDocumentType = typeof CONST.FOLDER_DOCUMENT_TYPES[number];
