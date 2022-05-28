@@ -51,7 +51,9 @@
                 {{#each section.feats as |feat fid|}}
                     <li class="item feat-item" data-item-id="{{feat._id}}">
                         <div class="item-name rollable">
-                            <img class="item-image" src="{{feat.img}}" alt="{{feat.name}}">
+                            <div class="item-image" style="background-image: url({{feat.img}})">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
                             <h4>{{feat.name}}</h4>
                         </div>
                         {{#if @root.options.editable}}
@@ -81,7 +83,9 @@
                 <div class="item-name rollable">
                     <div class="feat-slot-title">
                     </div>
-                    <img class="item-image" src="{{feat.img}}" alt="{{feat.name}}">
+                    <div class="item-image" style="background-image: url({{feat.img}})">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
                     <h4>
                         {{feat.name}}
                     </h4>

@@ -31,27 +31,14 @@ $-alt-color: #786452 !default;
             flex: 1;
 
             .item-image {
+                @include frame-icon;
                 color: transparent;
                 background-color: var(--secondary);
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: center;
                 margin-right: 8px;
                 font-size: var(--font-size-18);
-                @include flex-center;
-                @include frame-icon;
                 padding: 14px;
                 height: 32px;
                 width: 32px;
-
-                &:hover {
-                    background: none !important;
-                    color: var(--primary);
-                }
-
-                &[style*='mystery-man'] {
-                    background-size: 24px;
-                }
             }
         }
 
