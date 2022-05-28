@@ -38,7 +38,7 @@ import {
     SlottedFeat,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -51,16 +51,9 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import {
-    WeaponCategory,
-    WeaponDamage,
-    WeaponSource,
-    WeaponSystemSource,
-    WeaponTrait,
-    WEAPON_CATEGORIES,
-} from "@item/weapon/data";
+import { WeaponCategory, WeaponDamage, WeaponSource, WeaponSystemSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
-import { AbilityString, StrikeTrait } from "@actor/data/base";
+import { AbilityString } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -88,6 +81,7 @@ import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
 import { FamiliarPF2e } from "@actor/familiar";
 import { CheckRoll } from "@system/check/roll";
+import { ActionTrait } from "@item/action/data";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -1710,61 +1704,43 @@ class CharacterPF2e extends CreaturePF2e {
             action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
-        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const attackTrait: StrikeTrait = {
-            name: "attack",
-            label: CONFIG.PF2E.featTraits.attack,
-            description: CONFIG.PF2E.traitsDescriptions.attack,
-        };
-
-        const toStrikeTrait = (trait: WeaponTrait) => {
-            // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
-            // in use, which can include what are normally NPC-only traits
-            const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
-            const traitObject: StrikeTrait = {
-                name: trait,
-                label,
-                description: traitDescriptions[trait] ?? "",
-            };
-
-            // look for toggleable traits
-            if (trait.startsWith("versatile-")) {
-                traitObject.rollName = "damage-roll";
-                traitObject.rollOption = trait;
-            }
-
-            return traitObject;
-        };
-        action.traits = [attackTrait].concat([...weaponTraits].map(toStrikeTrait));
+        const strikeTraits: ActionTrait[] = ["attack" as const];
+        for (const adjustment of this.synthetics.strikeAdjustments) {
+            adjustment.adjustTraits?.(weapon, strikeTraits);
+        }
+        action.traits = strikeTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
             .join(", ");
 
-        const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-        const flavorText = weaponTraits.has("combination")
-            ? weapon.isMelee
-                ? game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Melee", { weapon: weapon.name })
-                : game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Ranged", { weapon: weapon.name })
-            : `${strikeLabel}: ${action.name}`;
+        const checkName = game.i18n.format(
+            weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+            { weapon: weapon.name }
+        );
+
+        const mapZeroLabel = ((): string => {
+            const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
+            const value = action.totalModifier;
+            const sign = value < 0 ? "" : "+";
+            return `${strike} ${sign}${value}`;
+        })();
 
         const labels: [string, string, string] = [
-            `${game.i18n.localize("PF2E.RuleElement.Strike")} ${action.totalModifier < 0 ? "" : "+"}${
-                action.totalModifier
-            }`,
+            mapZeroLabel,
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
         ];
         const checkModifiers = [
-            (otherModifiers: ModifierPF2e[]) => new CheckModifier(flavorText, action, otherModifiers),
+            (otherModifiers: ModifierPF2e[]) => new CheckModifier(checkName, action, otherModifiers),
             (otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(flavorText, action, [
+                new CheckModifier(checkName, action, [
                     ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
             (otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(flavorText, action, [
+                new CheckModifier(checkName, action, [
                     ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
                 ]),
@@ -1826,7 +1802,6 @@ class CharacterPF2e extends CreaturePF2e {
                     }
 
                     const item = context.self.item;
-                    const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
                     const rollTwice = extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
 
                     const checkContext: CheckRollContext = {
@@ -1837,7 +1812,7 @@ class CharacterPF2e extends CreaturePF2e {
                         options: finalRollOptions,
                         notes,
                         dc,
-                        traits,
+                        traits: context.traits,
                         rollTwice,
                     };
 
@@ -1874,12 +1849,11 @@ class CharacterPF2e extends CreaturePF2e {
                 const options = Array.from(
                     new Set([args.options, context.options, action.options, baseOptions, incrementOption].flat())
                 );
-                const traits = [attackTrait, [...context.self.item.traits].map((t) => toStrikeTrait(t))].flat();
 
                 const damage = WeaponDamagePF2e.calculate(
                     context.self.item.data,
                     context.self.actor,
-                    traits,
+                    context.traits,
                     statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,

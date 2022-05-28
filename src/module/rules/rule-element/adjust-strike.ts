@@ -1,5 +1,6 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import { ActionTrait } from "@item/action/data";
 import { WeaponRangeIncrement } from "@item/weapon/data";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
@@ -11,7 +12,7 @@ import { RuleElementOptions } from "./base";
 class AdjustStrikeRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private static VALID_PROPERTIES = new Set(["materials", "range-increment", "traits"] as const);
+    private static VALID_PROPERTIES = new Set(["materials", "range-increment", "traits", "weapon-traits"] as const);
 
     /** The property of the strike to adjust */
     private property: SetElement<typeof AdjustStrikeRuleElement["VALID_PROPERTIES"]> | null;
@@ -81,6 +82,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (typeof change !== "number") {
                                 return this.failValidation("Change value is not a number.");
                             }
+
                             if (!definition.test(weapon.getRollOptions("weapon"))) {
                                 return;
                             }
@@ -99,14 +101,32 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                     };
                 case "traits":
                     return {
+                        adjustTraits: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                            if (this.mode !== "add") {
+                                return this.failValidation(
+                                    'A Strike Adjustment of traits must be used with "add" mode.'
+                                );
+                            }
+                            if (!objectHasKey(CONFIG.PF2E.actionTraits, change)) {
+                                return this.failValidation(`"${change} is not a recognized action trait.`);
+                            }
+                            if (!definition.test(weapon.getRollOptions("weapon"))) {
+                                return;
+                            }
+
+                            if (!traits.includes(change)) traits.push(change);
+                        },
+                    };
+                case "weapon-traits":
+                    return {
                         adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
                             if (this.mode !== "add") {
                                 return this.failValidation(
-                                    'A strike adjustment of traits must be used with "add" mode.'
+                                    'A Strike Adjustment of weapons traits must be used with "add" mode.'
                                 );
                             }
                             if (!objectHasKey(CONFIG.PF2E.weaponTraits, change)) {
-                                return this.failValidation(`"${change} is not a recognized strike trait.`);
+                                return this.failValidation(`"${change} is not a recognized weapon trait.`);
                             }
                             if (!definition.test(weapon.getRollOptions("weapon"))) {
                                 return;
@@ -118,7 +138,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 
                             // If the weapon already has a trait of the same type but a different value, we need to check
                             // if the new trait is better than the existing one and, if it is, replace it
-                            const match = change.match(/([a-z-]*)-(\d*d?\d+)/);
+                            const match = change.match(/^([-a-z]*)-(\d*d?\d+)$/);
                             if (match !== null) {
                                 const changeBaseTrait = match[1];
                                 const changeValue = match[2];
@@ -176,6 +196,7 @@ interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
 interface StrikeAdjustment {
     adjustDamageRoll?: (weapon: Embedded<WeaponPF2e>, { materials }: { materials?: Set<WeaponMaterialEffect> }) => void;
     adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
+    adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
 }
 
 export { AdjustStrikeRuleElement, StrikeAdjustment };

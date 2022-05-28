@@ -1,7 +1,7 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
-import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
+import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
 import { MeleeData } from "@item/data";
@@ -500,7 +500,7 @@ class NPCPF2e extends CreaturePF2e {
 
                 const statistic = new StatisticModifier(meleeData.name, modifiers, this.getRollOptions(domains));
 
-                const attackTrait: StrikeTrait = {
+                const attackTrait: TraitViewData = {
                     name: "attack",
                     label: CONFIG.PF2E.featTraits.attack,
                     description: CONFIG.PF2E.traitsDescriptions.attack,
@@ -508,7 +508,7 @@ class NPCPF2e extends CreaturePF2e {
                 const strikeTraits = [
                     attackTrait,
                     ...traits.map(
-                        (trait): StrikeTrait => ({
+                        (trait): TraitViewData => ({
                             name: trait,
                             label: CONFIG.PF2E.npcAttackTraits[trait] ?? trait,
                             description: CONFIG.PF2E.traitsDescriptions[trait],

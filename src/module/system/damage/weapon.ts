@@ -1,4 +1,4 @@
-import { AbilityString, StrikeTrait } from "@actor/data/base";
+import { AbilityString, TraitViewData } from "@actor/data/base";
 import { WeaponData } from "@item/data";
 import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import {
@@ -85,7 +85,7 @@ export class WeaponDamagePF2e {
     static calculateStrikeNPC(
         weapon: any,
         actor: NPCPF2e,
-        traits: StrikeTrait[] = [],
+        traits: TraitViewData[] = [],
         statisticsModifiers: Record<string, DeferredModifier[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
@@ -197,7 +197,7 @@ export class WeaponDamagePF2e {
     static calculate(
         weapon: WeaponData,
         actor: CharacterPF2e | NPCPF2e,
-        traits: StrikeTrait[] = [],
+        traits: TraitViewData[] = [],
         statisticsModifiers: Record<string, DeferredModifier[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,

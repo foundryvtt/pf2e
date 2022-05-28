@@ -218,7 +218,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
 
         // Trait and material tooltips
-        $html.find(".tag[data-trait], .tag[data-material]").each((_idx, span) => {
+        $html.find(".tag[data-material], .tag[data-slug], .tag[data-trait]").each((_idx, span) => {
             const $tag = $(span);
             const description = $tag.attr("data-description");
             if (description) {

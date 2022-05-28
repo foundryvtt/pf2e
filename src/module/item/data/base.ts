@@ -84,5 +84,6 @@ export {
     ItemLevelData,
     ItemSystemData,
     ItemSystemSource,
+    ItemTrait,
     ItemTraits,
 };
