@@ -14,7 +14,6 @@ export type RuleElementSource = {
     data?: unknown;
     selector?: string;
     value?: RuleValue | BracketedValue;
-    scope?: string;
     label?: string;
     slug?: unknown;
     predicate?: RawPredicate;
@@ -31,7 +30,6 @@ export interface RuleElementData extends RuleElementSource {
     data?: object;
     selector?: string;
     value?: RuleValue | BracketedValue;
-    scope?: string;
     label: string;
     slug?: string | null;
     predicate?: PredicatePF2e;
