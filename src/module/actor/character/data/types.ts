@@ -27,7 +27,7 @@ import { StatisticModifier } from "@actor/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
-import { MagicTradition } from "@item/spellcasting-entry/data";
+import { MagicTradition } from "@item/spell/types";
 import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CraftingEntryData } from "@actor/character/crafting/entry";

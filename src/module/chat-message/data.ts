@@ -1,5 +1,5 @@
 import { ItemType } from "@item/data";
-import { MagicTradition } from "@item/spellcasting-entry/data";
+import { MagicTradition } from "@item/spell/types";
 import { RawModifier } from "@actor/modifiers";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { CheckRollContextFlag } from "@system/rolls";

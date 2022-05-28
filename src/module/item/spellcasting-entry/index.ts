@@ -1,8 +1,6 @@
 import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
 import {
     ActiveSpell,
-    MagicTradition,
-    MAGIC_TRADITIONS,
     SlotKey,
     SpellcastingEntry,
     SpellcastingEntryData,
@@ -16,6 +14,8 @@ import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
+import { MagicTradition } from "@item/spell/types";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
 
 class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     private _spells: Collection<Embedded<SpellPF2e>> | null = null;
@@ -42,7 +42,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     /** This entry's magic tradition, defaulting to arcane if unset or invalid */
     get tradition(): MagicTradition {
         const tradition = this.data.data.tradition.value || "arcane";
-        return MAGIC_TRADITIONS.includes(tradition) ? tradition : "arcane";
+        return MAGIC_TRADITIONS.has(tradition) ? tradition : "arcane";
     }
 
     /**
@@ -54,7 +54,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         if (actor instanceof CharacterPF2e) {
             const traditions = actor.data.data.proficiencies.traditions;
             if (this.isInnate) {
-                const allRanks = MAGIC_TRADITIONS.map((tradition) => traditions[tradition].rank);
+                const allRanks = Array.from(MAGIC_TRADITIONS).map((t) => traditions[t].rank);
                 return Math.max(1, this.data.data.proficiency.value ?? 1, ...allRanks) as OneToFour;
             } else {
                 return Math.max(this.data.data.proficiency.value, traditions[this.tradition].rank) as OneToFour;

@@ -8,20 +8,16 @@ import {
     ItemSystemSource,
     ItemTraits,
 } from "@item/data/base";
-import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@system/damage";
 import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
 import type { SpellPF2e } from "@item";
-import { MAGIC_SCHOOLS } from "./values";
+import { MagicSchool, MagicTradition, SpellTrait } from "../types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
 type SpellData = Omit<SpellSource, "effects" | "flags"> &
     BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
-export type MagicSchool = typeof MAGIC_SCHOOLS[number];
-
-export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"] | MagicSchool | MagicTradition;
 export type SpellTraits = ItemTraits<SpellTrait>;
 type SpellDamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
 

@@ -1,8 +1,9 @@
 import { PhysicalItemData } from "./data";
 import { adjustDCByRarity, calculateDC, DCOptions } from "../dc";
 import { PhysicalItemPF2e } from "./physical";
-import { MagicTradition } from "./spellcasting-entry/data";
-import { MAGIC_TRADITIONS } from "./spellcasting-entry/data/values";
+import { MagicTradition } from "./spell/types";
+import { MAGIC_TRADITIONS } from "./spell/values";
+import { setHasElement } from "@util";
 
 /**
  * Implementation of Identify Magic and Identify Alchemy Rules for items
@@ -11,8 +12,6 @@ import { MAGIC_TRADITIONS } from "./spellcasting-entry/data/values";
  *
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
-
-const magicTraditions: Set<string> = new Set(MAGIC_TRADITIONS);
 
 function getTraits(itemData: PhysicalItemData): Set<string> {
     return new Set(itemData.data.traits.value);
@@ -23,18 +22,14 @@ function getTraits(itemData: PhysicalItemData): Set<string> {
  * @param itemData
  */
 function getMagicTraditions(itemData: PhysicalItemData): Set<MagicTradition> {
-    const traits = getTraits(itemData);
-    return new Set([...traits].filter((trait): trait is MagicTradition => magicTraditions.has(trait)));
+    return new Set(itemData.data.traits.value.filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t)));
 }
 
 function isCursed(itemData: PhysicalItemData) {
     return getTraits(itemData).has("cursed");
 }
 
-/**
- * All cursed items are incredibly hard to identify
- * @param itemData
- */
+/** All cursed items are incredibly hard to identify */
 function getDcRarity(itemData: PhysicalItemData) {
     if (isCursed(itemData)) {
         return "unique";
@@ -88,9 +83,7 @@ function hasRunes(itemData: PhysicalItemData): boolean {
 
 export function isMagical(itemData: PhysicalItemData): boolean {
     const traits = getTraits(itemData);
-    return (
-        traits.has("magical") || hasRunes(itemData) || Array.from(magicTraditions).some((trait) => traits.has(trait))
-    );
+    return traits.has("magical") || hasRunes(itemData) || Array.from(MAGIC_TRADITIONS).some((t) => traits.has(t));
 }
 
 interface IdentifyItemOptions extends DCOptions {

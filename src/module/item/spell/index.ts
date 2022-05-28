@@ -1,11 +1,10 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@item";
-import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
 import { ordinal, objectHasKey, ErrorPF2e, isObject } from "@util";
 import { DicePF2e } from "@scripts/dice";
-import { MagicSchool, SpellData, SpellHeightenLayer, SpellTrait } from "./data";
+import { SpellData, SpellHeightenLayer } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -23,6 +22,7 @@ import { extractModifiers } from "@module/rules/util";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { UserPF2e } from "@module/user";
 import { StatisticRollParameters } from "@system/statistic";
+import { MagicSchool, MagicTradition, SpellTrait } from "./types";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
