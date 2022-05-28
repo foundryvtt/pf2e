@@ -25,7 +25,7 @@ import {
 } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
 import { SKILL_DICTIONARY } from "@actor/data/values";
@@ -51,6 +51,7 @@ import { isCycle } from "@item/container/helpers";
 import { isEquipped } from "@item/physical/usage";
 import { ArmorSource } from "@item/data";
 import { SIZE_TO_REACH } from "./values";
+import { ActionTrait } from "@item/action/data";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -733,9 +734,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     ): StrikeRollContext<this, I> {
         const context = this.getStrikeRollContext({ ...params, domains: ["all", "damage-roll"] });
         return {
+            ...context,
             options: Array.from(new Set(context.options)),
-            self: context.self,
-            target: context.target,
         };
     }
 
@@ -778,6 +778,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
                           );
                       }) ?? params.item) as I);
 
+        const traitSlugs: ActionTrait[] = ["attack" as const];
+        for (const adjustment of this.synthetics.strikeAdjustments) {
+            if (selfItem.isOfType("weapon", "melee")) {
+                adjustment.adjustTraits?.(selfItem, traitSlugs);
+            }
+        }
+        const traits = traitSlugs.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
@@ -807,6 +815,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             options: Array.from(new Set(rollOptions)),
             self,
             target,
+            traits,
         };
     }
 

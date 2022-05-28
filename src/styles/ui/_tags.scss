@@ -4,95 +4,102 @@
     gap: 2px;
     list-style-type: none;
     margin-bottom: 2px;
-}
 
-.tags .tag, .tags .tag option {
-    @include micro;
-    border-radius: 2px;
-    padding: 3px 4px;
-    box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-    background-color: var(--primary);
-    font-weight: 500;
-    color: white;
-
-    &.edit-btn {
-        display: flex;
-        justify-content: center;
+    .tag, .tag option {
+        @include micro;
         align-items: center;
-        background-color: white;
-        border-radius: 0;
-        color: var(--primary);
-        a {
-            display: inline-flex;
-            svg {
-                height: 9px;
-                width: auto;
+        display: flex;
+        background-color: var(--primary);
+        border-radius: 2px;
+        box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+        color: white;
+        font-weight: 500;
+        padding: 0 0.33em;
+
+        &.edit-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 0;
+            color: var(--primary);
+            a {
+                display: inline-flex;
+                svg {
+                    height: 9px;
+                    width: auto;
+                }
             }
+        }
+
+        &_secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        &_tertiary {
+            background-color: var(--tertiary);
+            color: white;
+        }
+
+        &_alt {
+            background-color: var(--alt);
+            color: white;
+        }
+
+        &_material {
+            background-color: var(--alt-dark);
+            color: white;
+        }
+
+        &_transparent {
+            background-color: transparent;
+            color: var(--text-color-dark-2);
+            text-transform: none;
+            font-family: var(--font-primary);
+            font-size: var(--font-size-10);
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
+            border-radius: 4px;
+        }
+
+        &.mystified {
+            opacity: 0.7;
+        }
+
+        &.common, &[value="common"] {
+            border-color: $rarity-common;
+            background-color: $rarity-common;
+        }
+
+        &.uncommon, &[value="uncommon"] {
+            border-color: $rarity-uncommon;
+            background-color: $rarity-uncommon;
+        }
+
+        &.rare, &[value="rare"] {
+            border-color: $rarity-rare;
+            background-color: $rarity-rare;
+        }
+
+        &.unique, &[value="unique"] {
+            border-color: $rarity-unique;
+            background-color: $rarity-unique;
         }
     }
 
-    &.tag_secondary {
-        background-color: var(--secondary);
-        color: white;
+    select.tag {
+        border: none;
+        padding: 0;
+        height: auto;
     }
 
-    &.tag_tertiary {
-        background-color: var(--tertiary);
-        color: white;
-    }
-
-    &.tag_alt {
-        background-color: var(--alt);
-        color: white;
-    }
-
-    &.tag_material {
-        background-color: var(--alt-dark);
-        color: white;
-    }
-
-    &.tag_transparent {
-        background-color: transparent;
-        color: black;
-        text-transform: none;
-        font-size: var(--font-size-10);
-        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
-        border-radius: 4px;
-    }
-
-    &.mystified {
-        opacity: 0.7;
-    }
-
-    &.common, &[value="common"] {
-        border-color: $rarity-common;
-        background-color: $rarity-common;
-    }
-
-    &.uncommon, &[value="uncommon"] {
-        border-color: $rarity-uncommon;
-        background-color: $rarity-uncommon;
-    }
-
-    &.rare, &[value="rare"] {
-        border-color: $rarity-rare;
-        background-color: $rarity-rare;
-    }
-
-    &.unique, &[value="unique"] {
-        border-color: $rarity-unique;
-        background-color: $rarity-unique;
+    &.main .tag {
+        font-size: var(--font-size-12);
     }
 }
 
-.tags select.tag {
-    border: none;
-    padding: 0;
-    height: auto;
-}
-
-.tags.main .tag {
-    font-size: var(--font-size-12);
+li.chat-message .tags .tag {
+    height: 1rem;
 }
 
 .damage-tag {
