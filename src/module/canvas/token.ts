@@ -285,7 +285,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
-    protected override _onUpdate(
+    override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this["document"]>,
         userId: string

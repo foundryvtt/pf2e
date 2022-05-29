@@ -63,19 +63,19 @@ declare class AmbientLight<
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["document"]["data"]["_source"],
-        options: DocumentModificationContext,
+    override _onCreate(
+        data: TDocument["data"]["_source"],
+        options: DocumentModificationContext<TDocument>,
         userId: string
     ): void;
 
-    protected override _onUpdate(
-        changed: DocumentUpdateData<this["document"]>,
-        options: DocumentModificationContext,
+    override _onUpdate(
+        changed: DocumentUpdateData<TDocument>,
+        options: DocumentModificationContext<TDocument>,
         userId: string
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Mouse Interaction Handlers                  */
