@@ -61,6 +61,7 @@ import { FeatType } from "@item/feat/data";
 import { DeityDomain } from "@item/deity/types";
 import { sluggify } from "@util";
 import { Alignment } from "@actor/creature/types";
+import { WeaponReloadTime } from "@item/weapon/types";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -726,6 +727,15 @@ const deityDomains = Object.keys(enJSON.PF2E.Item.Deity.Domain).reduce((domains,
     };
 }, {} as Record<DeityDomain, { label: string; description: string }>);
 
+const weaponReload: Record<WeaponReloadTime, string> = {
+    "-": "-",
+    0: "0",
+    1: "1",
+    2: "2",
+    3: "3",
+    10: "PF2E.Item.Weapon.ReloadOneMinute",
+};
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
@@ -1203,14 +1213,7 @@ export const PF2ECONFIG = {
         5: "-5/-10",
     },
 
-    weaponReload: {
-        "-": "-",
-        0: "0",
-        1: "1",
-        2: "2",
-        3: "3",
-        30: "1 min",
-    },
+    weaponReload,
 
     armorTypes: {
         unarmored: "PF2E.ArmorTypeUnarmored",

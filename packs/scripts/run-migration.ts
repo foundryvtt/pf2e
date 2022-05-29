@@ -35,6 +35,7 @@ import { Migration746StandardizePricing } from "@module/migration/migrations/746
 import { Migration748BatchConsumablePricing } from "@module/migration/migrations/748-batch-consumable-pricing";
 import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
 import { Migration752StrikeVsWeaponTraits } from "@module/migration/migrations/752-strike-vs-weapon-traits";
+import { Migration753WeaponReloadTimes } from "@module/migration/migrations/753-weapon-reload-times";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -66,6 +67,7 @@ const migrations: MigrationBase[] = [
     new Migration748BatchConsumablePricing(),
     new Migration749AssuranceREs(),
     new Migration752StrikeVsWeaponTraits(),
+    new Migration753WeaponReloadTimes(),
 ];
 
 global.deepClone = <T>(original: T): T => {
