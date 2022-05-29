@@ -31,6 +31,7 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -52,6 +53,7 @@ export const SetGamePF2e = {
             Check: CheckPF2e,
             CheckModifier: CheckModifier,
             ConditionManager: ConditionManager,
+            Coins: CoinsPF2e,
             Dice: DicePF2e,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
