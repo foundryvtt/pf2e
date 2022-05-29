@@ -213,7 +213,8 @@ export class WeaponDamagePF2e {
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
         // Always add all weapon traits to the options
-        options = traits.map((t) => t.name).concat(options);
+        options.push(...traits.map((t) => t.name));
+        options.sort();
 
         if (proficiencyRank >= 0) {
             options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
