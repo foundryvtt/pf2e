@@ -152,3 +152,4 @@ export { Migration749AssuranceREs } from "./749-assurance-res";
 export { Migration750FixCorruptedPrice } from "./750-fix-corrupted-price";
 export { Migration751ResetRollOptions } from "./751-reset-roll-options";
 export { Migration752StrikeVsWeaponTraits } from "./752-strike-vs-weapon-traits";
+export { Migration753WeaponReloadTimes } from "./753-weapon-reload-times";
