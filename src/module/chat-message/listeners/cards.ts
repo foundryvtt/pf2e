@@ -5,7 +5,7 @@ import { StrikeData } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { multiplyPrice } from "@item/physical/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
@@ -135,7 +135,7 @@ export const ChatCards = {
                     const item = await fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = multiplyPrice(item.price, quantity);
+                    const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
                     const coinsToRemove = $button.hasClass("full") ? craftingCost : craftingCost.scale(0.5);
                     if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
@@ -181,7 +181,7 @@ export const ChatCards = {
                     const item = await fromUuid(itemUuid);
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = multiplyPrice(item.price, quantity);
+                    const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
                     const materialCosts = craftingCost.scale(0.5);
                     const coinsToRemove = materialCosts.scale(0.1);
                     if (!(await actor.inventory.removeCoins(coinsToRemove))) {
