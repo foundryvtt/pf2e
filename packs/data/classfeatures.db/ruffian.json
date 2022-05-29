@@ -28,15 +28,25 @@
                 "category": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "label": "PF2E.SpecificRule.SneakAttack",
                 "predicate": {
                     "all": [
                         "target:condition:flat-footed",
-                        "weapon:category:simple"
-                    ],
-                    "not": [
-                        "finesse",
-                        "agile",
-                        "ranged"
+                        "weapon:category:simple",
+                        {
+                            "nor": [
+                                "weapon:trait:finesse",
+                                "weapon:trait:agile",
+                                {
+                                    "and": [
+                                        "weapon:ranged",
+                                        {
+                                            "not": "weapon:thrown"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "selector": "strike-damage",
