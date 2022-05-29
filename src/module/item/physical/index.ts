@@ -156,7 +156,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             equipped: this.isEquipped,
             magical: this.isMagical,
             uninvested: this.isInvested === false,
-            [`material:${this.material.precious?.type}`]: !!this.material,
+            [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
             .map(([key]) => key)
