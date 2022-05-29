@@ -15,7 +15,7 @@ import {
     WeaponTrait,
 } from "./data";
 import { CoinsPF2e } from "@item/physical/helpers";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -25,6 +25,7 @@ import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { WeaponReloadTime } from "./types";
 
 class WeaponPF2e extends PhysicalItemPF2e {
     override get isEquipped(): boolean {
@@ -76,8 +77,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.range;
     }
 
-    get reload(): string | null {
-        return this.data.data.reload.value;
+    get reload(): WeaponReloadTime | null {
+        return this.data.data.reload.value || null;
     }
 
     get isSpecific(): boolean {
@@ -90,6 +91,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     get isRanged(): boolean {
         return this.rangeIncrement !== null;
+    }
+
+    get isThrown(): boolean {
+        return this.isRanged && this.reload === "-";
     }
 
     override get material(): WeaponMaterialData {
@@ -135,6 +140,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
+                thrown: this.isThrown,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
@@ -171,15 +177,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         AutomaticBonusProgression.cleanupRunes(this);
 
-        // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
-        const traitsArray = this.data.data.traits.value;
-        if (traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
-            this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
+        const traitsArray = systemData.traits.value;
+        // Thrown weapons always have a reload of "-"
+        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+            this.data.data.reload.value = "-";
         }
 
-        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
+        // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;
-        const mandatoryRanged = rangedWeaponGroups.has(this.group ?? "") || traitSet.has("thrown");
+        const mandatoryRanged = setHasElement(RANGED_WEAPON_GROUPS, systemData.group) || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
 

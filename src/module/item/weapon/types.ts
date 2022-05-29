@@ -7,4 +7,6 @@ type WeaponMaterialEffect = Extract<
     "abysium" | "adamantine" | "coldIron" | "djezet" | "mithral" | "noqual" | "peachwood" | "silver" | "sovereignSteel"
 >;
 
-export { WeaponMaterialEffect, WeaponMaterialType };
+type WeaponReloadTime = "-" | "0" | "1" | "2" | "3" | "10";
+
+export { WeaponMaterialEffect, WeaponMaterialType, WeaponReloadTime };
