@@ -397,7 +397,7 @@ declare global {
          * Toggle the visibility state of any Tokens in the currently selected set
          * @return A Promise which resolves to the updated Token documents
          */
-        toggleVisibility(): Promise<this["document"][]>;
+        toggleVisibility(): Promise<TDocument[]>;
 
         /** Return the token's sight origin, tailored for the direction of their movement velocity to break ties with walls */
         getSightOrigin(): Point;
@@ -419,20 +419,20 @@ declare global {
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
 
-        protected override _onCreate(
-            data: this["document"]["data"]["_source"],
-            options: DocumentModificationContext,
+        override _onCreate(
+            data: TDocument["data"]["_source"],
+            options: DocumentModificationContext<TDocument>,
             userId: string
         ): void;
 
-        protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
-            options: DocumentModificationContext,
+        override _onUpdate(
+            changed: DeepPartial<TDocument["data"]["_source"]>,
+            options: DocumentModificationContext<TDocument>,
             userId: string
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
-        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+        override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
 
         protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
 
@@ -459,7 +459,7 @@ declare global {
 
         protected override _onClickRight2(event: PIXI.InteractionEvent): void;
 
-        protected override _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]>;
+        protected override _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<TDocument[]>;
 
         protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
     }
