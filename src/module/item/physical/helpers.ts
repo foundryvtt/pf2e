@@ -78,6 +78,11 @@ class CoinsPF2e implements Coins {
             .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
+    static fromPrice(price: PartialPrice, factor: number): CoinsPF2e {
+        const per = Math.max(1, price.per ?? 1);
+        return new CoinsPF2e(price.value).scale(factor / per);
+    }
+
     /** Creates a new price string such as "5 gp" from this object */
     toString(): string {
         if (DENOMINATIONS.every((denomination) => !this[denomination])) {
@@ -96,11 +101,6 @@ class CoinsPF2e implements Coins {
     }
 }
 
-function multiplyPrice(price: PartialPrice, factor: number): CoinsPF2e {
-    const per = Math.max(1, price.per ?? 1);
-    return new CoinsPF2e(price.value).scale(factor / per);
-}
-
 const coinCompendiumIds = {
     pp: "JuNPeK5Qm1w6wpb4",
     gp: "B6B7tBWJSqOBz5zz",
@@ -108,4 +108,4 @@ const coinCompendiumIds = {
     cp: "lzJ8AVhRcbFul5fh",
 };
 
-export { CoinsPF2e, coinCompendiumIds, multiplyPrice };
+export { CoinsPF2e, coinCompendiumIds };

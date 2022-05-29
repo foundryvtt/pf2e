@@ -1,7 +1,7 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import { CoinsPF2e, multiplyPrice } from "@item/physical/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
@@ -45,7 +45,7 @@ function calculateCosts(
     actor: CharacterPF2e,
     degreeOfSuccess: number
 ): Costs | null {
-    const itemPrice = multiplyPrice(item.price, quantity);
+    const itemPrice = CoinsPF2e.fromPrice(item.price, quantity);
     const materialCosts = itemPrice.scale(0.5);
     const lostMaterials = new CoinsPF2e();
     const reductionPerDay = new CoinsPF2e();

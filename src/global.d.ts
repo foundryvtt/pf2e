@@ -47,6 +47,7 @@ import { ActorsPF2e } from "@module/collection/actors";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import { UserVisibility } from "@scripts/ui/user-visibility";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 declare global {
     interface Game {
@@ -74,6 +75,7 @@ declare global {
             variantRules: {
                 AutomaticBonusProgression: typeof AutomaticBonusProgression;
             };
+            Coins: typeof CoinsPF2e;
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
