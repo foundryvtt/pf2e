@@ -728,7 +728,7 @@ const deityDomains = Object.keys(enJSON.PF2E.Item.Deity.Domain).reduce((domains,
 }, {} as Record<DeityDomain, { label: string; description: string }>);
 
 const weaponReload: Record<WeaponReloadTime, string> = {
-    "-": "-",
+    "-": "—", // Reload value for thrown weapons
     0: "0",
     1: "1",
     2: "2",
