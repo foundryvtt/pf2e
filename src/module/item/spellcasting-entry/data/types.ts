@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { AbilityString } from "@actor/data/base";
 import { SpellPF2e } from "@item";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
@@ -7,28 +8,38 @@ import { RollNotePF2e } from "@module/notes";
 import { Statistic, StatisticChatData } from "@system/statistic";
 import { SpellcastingEntryPF2e } from "..";
 
-export interface SpellcastingEntry {
+interface BaseSpellcastingEntry {
     id: string;
+    actor: ActorPF2e | null;
+    ability: AbilityString;
+    tradition: MagicTradition;
     statistic: Statistic;
     cast(spell: SpellPF2e, options: {}): Promise<void>;
 }
 
+interface SpellcastingEntry extends BaseSpellcastingEntry {
+    isPrepared: boolean;
+    isSpontaneous: boolean;
+    isInnate: boolean;
+    isFocusPool: boolean;
+}
+
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
-export type SlotKey = `slot${ZeroToEleven}`;
+type SlotKey = `slot${ZeroToEleven}`;
 
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemData>;
 
 type SpellcastingEntryData = Omit<SpellcastingEntrySource, "effects" | "flags"> &
     BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySystemData, SpellcastingEntrySource>;
 
-export interface SpellAttackRollModifier {
+interface SpellAttackRollModifier {
     breakdown: string;
     notes: RollNotePF2e[];
     roll: Function;
     value: number;
 }
 
-export interface SpellDifficultyClass {
+interface SpellDifficultyClass {
     breakdown: string;
     notes: RollNotePF2e[];
     value: number;
@@ -47,9 +58,9 @@ interface SpellSlotData {
     max: number;
 }
 
-export type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
+type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
 
-export interface SpellcastingEntrySystemData extends ItemSystemData {
+interface SpellcastingEntrySystemData extends ItemSystemData {
     ability: {
         value: AbilityString | "";
     };
@@ -78,4 +89,14 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     };
 }
 
-export { SpellcastingEntryData, SpellcastingEntrySource };
+export {
+    BaseSpellcastingEntry,
+    PreparationType,
+    SlotKey,
+    SpellAttackRollModifier,
+    SpellDifficultyClass,
+    SpellcastingEntry,
+    SpellcastingEntryData,
+    SpellcastingEntrySource,
+    SpellcastingEntrySystemData,
+};

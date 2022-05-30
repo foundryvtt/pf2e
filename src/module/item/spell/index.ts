@@ -35,7 +35,7 @@ class SpellPF2e extends ItemPF2e {
     original?: SpellPF2e;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
-    trickMagicEntry?: TrickMagicItemEntry;
+    trickMagicEntry: TrickMagicItemEntry | null = null;
 
     get baseLevel(): OneToTen {
         return this.data.data.level.value;
