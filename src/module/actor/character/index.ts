@@ -859,8 +859,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const { ability, tradition } = entry;
-            const rank = (entry.data.data.proficiency.value = entry.rank);
+            const { ability, rank, tradition } = entry;
 
             const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
             const attackSelectors = [
