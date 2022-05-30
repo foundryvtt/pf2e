@@ -242,7 +242,19 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        super._onUpdate(changed, options, userId);
+        if (this.isLinked) {
+            super._onUpdate(changed, options, userId);
+        } else {
+            // Handle updates to unlinked tokens' light data via actor overrides
+            const preUpdate = this.data.light.toObject(false);
+            super._onUpdate(changed, options, userId);
+            const postUpdate = this.data.light.toObject(false);
+            const diff = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdate, postUpdate);
+            if (canvas.ready && Object.keys(diff).length > 0) {
+                mergeObject(changed, { light: diff });
+                this.object._onUpdate(changed, options, userId);
+            }
+        }
 
         game.pf2e.effectPanel.refresh();
 

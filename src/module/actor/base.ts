@@ -1138,6 +1138,8 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     get sheet(): ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e>;
 
+    overrides: Omit<DeepPartial<this["data"]["_source"]>, "token"> & { token?: foundry.data.TokenSource };
+
     /** See implementation in class */
     createEmbeddedDocuments(
         embeddedName: "ActiveEffect",
