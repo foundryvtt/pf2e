@@ -54,18 +54,20 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
      * For innate spells, this is the highest spell proficiency (min trained)
      */
     get rank(): OneToFour {
-        const actor = this.actor;
+        const { proficiency } = this.data.data;
+        const { actor } = this;
+
         if (actor instanceof CharacterPF2e) {
             const traditions = actor.data.data.proficiencies.traditions;
             if (this.isInnate) {
                 const allRanks = Array.from(MAGIC_TRADITIONS).map((t) => traditions[t].rank);
-                return Math.max(1, this.data.data.proficiency.value ?? 1, ...allRanks) as OneToFour;
+                proficiency.value = Math.max(proficiency.value, ...allRanks) as OneToFour;
             } else {
-                return Math.max(this.data.data.proficiency.value, traditions[this.tradition].rank) as OneToFour;
+                proficiency.value = Math.max(proficiency.value, traditions[this.tradition].rank) as OneToFour;
             }
         }
 
-        return this.data.data.proficiency.value ?? 0;
+        return proficiency.value;
     }
 
     get isPrepared(): boolean {
@@ -101,7 +103,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     override prepareBaseData(): void {
         super.prepareBaseData();
         // Spellcasting abilities are always at least trained
-        this.data.data.proficiency.value = Math.max(1, this.data.data.proficiency.value) as OneToFour;
+        const { proficiency } = this.data.data;
+        proficiency.value = (Number(proficiency.value) || 1) as OneToFour;
     }
 
     override prepareDerivedData(): void {
