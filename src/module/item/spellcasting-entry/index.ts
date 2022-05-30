@@ -16,12 +16,16 @@ import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { AbilityString } from "@actor/data";
 
 class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     private _spells: Collection<Embedded<SpellPF2e>> | null = null;
 
+    /** Spellcasting attack and dc data created during actor preparation */
+    statistic!: Statistic;
+
     /** A collection of all spells contained in this entry regardless of organization */
-    get spells() {
+    get spells(): Collection<Embedded<SpellPF2e>> {
         if (!this._spells) {
             this._spells = new Collection<Embedded<SpellPF2e>>();
             if (this.actor) {
@@ -35,7 +39,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this._spells;
     }
 
-    get ability() {
+    get ability(): AbilityString {
         return this.data.data.ability.value || "int";
     }
 
@@ -93,9 +97,6 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
-
-    /** Spellcasting attack and dc data created during actor preparation */
-    statistic!: Statistic;
 
     override prepareBaseData(): void {
         super.prepareBaseData();
