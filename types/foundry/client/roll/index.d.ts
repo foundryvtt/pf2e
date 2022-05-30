@@ -51,7 +51,7 @@ declare global {
         protected _total: number | undefined;
 
         /** A Proxy environment for safely evaluating a string using only available Math functions */
-        static MATH_PROXY: Math;
+        static MATH_PROXY: RollMathProxy;
 
         /** The HTML template path used to render a complete Roll object to the chat log */
         static CHAT_TEMPLATE: string;
@@ -469,4 +469,8 @@ declare global {
         maximize?: boolean;
         async?: boolean;
     }
+
+    // Empty extended interface that can be expanded by the system without polluting Math itself
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface RollMathProxy extends Math {}
 }
