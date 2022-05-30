@@ -94,7 +94,7 @@ interface NPCStrike extends StrikeData {
     /** Additional effects from a successful strike, like "Grab" */
     additionalEffects: { tag: string; label: string }[];
     /** A melee usage of a firearm: not available on NPC strikes */
-    meleeUsage?: never;
+    altUsages?: never;
 }
 
 /** AC data with an additional "base" value */

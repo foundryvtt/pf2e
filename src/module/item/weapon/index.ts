@@ -388,10 +388,32 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    getAltUsages(): this[];
+    getAltUsages(): WeaponPF2e[] {
+        return [this.toThrownUsage() ?? [], this.toMeleeUsage() ?? []].flat();
+    }
+
+    /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
+    private toThrownUsage(): this | null {
+        const traits = this.data.data.traits.value;
+        const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
+        if (this.isRanged || !thrownTrait) return null;
+
+        const range = Number(/(\d{1,3})$/.exec(thrownTrait)!.at(1)) as WeaponRangeIncrement;
+        const newTraits = deepClone(traits);
+        newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
+        const overlay: DeepPartial<WeaponSource> = {
+            data: {
+                range,
+                traits: { value: newTraits },
+            },
+        };
+
+        return this.clone(overlay, { keepId: true });
+    }
+
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
-    toMeleeUsage(this: Embedded<WeaponPF2e>): Embedded<WeaponPF2e> | null;
-    toMeleeUsage(this: WeaponPF2e): WeaponPF2e | null;
-    toMeleeUsage(): Embedded<WeaponPF2e> | WeaponPF2e | null {
+    private toMeleeUsage(): this | null {
         const { meleeUsage } = this.data.data;
         if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
 

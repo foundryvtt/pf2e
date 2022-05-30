@@ -46,12 +46,15 @@ export class DamageRollModifiersDialog extends Application {
             };
 
             interface ToTagsParams {
-                labels: Record<string, string | undefined>;
-                descriptions: Record<string, string | undefined>;
+                labels?: Record<string, string | undefined>;
+                descriptions?: Record<string, string | undefined>;
                 cssClass: string | null;
                 dataAttr: string;
             }
-            const toTags = (slugs: string[], { labels, descriptions, cssClass, dataAttr }: ToTagsParams): string =>
+            const toTags = (
+                slugs: string[],
+                { labels = {}, descriptions = {}, cssClass, dataAttr }: ToTagsParams
+            ): string =>
                 slugs
                     .map((s) => ({ value: s, label: game.i18n.localize(labels[s] ?? "") }))
                     .sort((a, b) => a.label.localeCompare(b.label))
@@ -86,6 +89,23 @@ export class DamageRollModifiersDialog extends Application {
                   })
                 : "";
 
+            const properties = ((): string => {
+                if (item?.isOfType("weapon") && item.isRanged) {
+                    // Show the range increment for ranged weapons
+                    const { rangeIncrement } = item;
+                    const slug = `range-increment-${rangeIncrement}`;
+                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range: rangeIncrement });
+                    return toTags([slug], {
+                        labels: { [slug]: label },
+                        descriptions: { [slug]: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
+                        cssClass: "tag_secondary",
+                        dataAttr: "slug",
+                    });
+                } else {
+                    return "";
+                }
+            })();
+
             const materialEffects = toTags(damage.materials, {
                 labels: CONFIG.PF2E.preciousMaterials,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
@@ -93,7 +113,9 @@ export class DamageRollModifiersDialog extends Application {
                 dataAttr: "material",
             });
 
-            flavor += `<div class="tags">${traits}<hr class="vr" />${itemTraits}${materialEffects}</div><hr>`;
+            const otherTags = [itemTraits, properties, materialEffects].join("");
+
+            flavor += `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`;
         }
 
         const base = game.i18n.localize("PF2E.Damage.Base");

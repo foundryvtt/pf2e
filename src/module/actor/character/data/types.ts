@@ -169,7 +169,7 @@ interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
     slug: string | null;
     adjustments?: DegreeOfSuccessAdjustment[];
-    meleeUsage: CharacterStrike | null;
+    altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
 }
 

@@ -104,30 +104,33 @@ export const ChatCards = {
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = $card.attr("data-strike-index");
                 const strikeName = $card.attr("data-strike-name");
+                const altUsage = message.data.flags.pf2e.context?.altUsage ?? null;
+
                 const strikeAction = ((): StrikeData | null => {
-                    const action = actor.data.data.actions.at(Number(strikeIndex));
-                    return (
-                        (message.data.flags.pf2e.context?.altUsage === "melee" ? action?.meleeUsage : action) ?? null
-                    );
+                    const action = actor.data.data.actions.at(Number(strikeIndex)) ?? null;
+                    return altUsage
+                        ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ??
+                              null
+                        : action;
                 })();
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
                     switch (sluggify(action ?? "")) {
                         case "strike-attack":
-                            strikeAction.variants[0].roll({ event: event, options });
+                            strikeAction.variants[0].roll({ event, altUsage, options });
                             break;
                         case "strike-attack2":
-                            strikeAction.variants[1].roll({ event: event, options });
+                            strikeAction.variants[1].roll({ event, altUsage, options });
                             break;
                         case "strike-attack3":
-                            strikeAction.variants[2].roll({ event: event, options });
+                            strikeAction.variants[2].roll({ event, altUsage, options });
                             break;
                         case "strike-damage":
-                            strikeAction.damage?.({ event: event, options });
+                            strikeAction.damage?.({ event, altUsage, options });
                             break;
                         case "strike-critical":
-                            strikeAction.critical?.({ event: event, options });
+                            strikeAction.critical?.({ event, altUsage, options });
                             break;
                     }
                 } else if (action === "pay-crafting-costs") {

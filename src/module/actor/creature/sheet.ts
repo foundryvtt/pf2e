@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, setHasElement, tupleHasValue } from "@util";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
@@ -242,13 +242,21 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
         $strikesList.find(attackSelectors).on("click", (event) => {
-            if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
+            if (!("actions" in this.actor.data.data)) {
+                throw ErrorPF2e("Strikes are not supported on this actor");
+            }
+
+            const target = event.currentTarget;
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
+                ? target.dataset.altUsage
+                : null;
+
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;
             const $button = $(event.currentTarget);
             const variantIndex = Number($button.attr("data-variant-index"));
 
-            strike.variants[variantIndex]?.roll({ event });
+            strike.variants[variantIndex]?.roll({ event, altUsage });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.
@@ -282,8 +290,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const rootAction = this.actor.data.data.actions?.[actionIndex];
         if (!rootAction) return null;
 
-        const isMeleeUsage = Boolean(target.dataset.meleeUsage);
-        return isMeleeUsage && rootAction?.meleeUsage ? rootAction.meleeUsage : rootAction;
+        const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
+            ? target.dataset.altUsage
+            : null;
+
+        return altUsage
+            ? rootAction.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
+            : rootAction;
     }
 
     private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
