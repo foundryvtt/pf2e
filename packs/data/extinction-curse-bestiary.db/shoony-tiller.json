@@ -27,7 +27,7 @@
                 "value": 15
             },
             "allSaves": {
-                "value": "A shoony's small, blunt snout and labyrinthine sinus system make them resistant to phenomena that assail the nose. When they rolls a saving throw against inhaled threats (such as inhaled poisons) and olfactory effects (such as xulgath stench), they get the outcome one degree of success better than the result of their roll."
+                "value": "blunt snout"
             },
             "hp": {
                 "details": "",
@@ -56,7 +56,7 @@
                 "value": 0
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Nearly all shoonies in a given settlement are farmers, fishers, or foragers. Shoonies are not expected to fight to protect their settlements; most agree it is better to live in cowardice than to die with that foolish, intangible principle taller races call \"honor.\" Many shoonies hone their skill with tools rather than arms in the knowledge that whatever is lost to violence can be rebuilt. When cornered, a shoony may put up a fight with whatever they have on hand; the average shoony can wield a simple shovel or pick in melee as well as most humans can wield a sword.</p>",
             "source": {
                 "value": "Pathfinder #153: Life's Long Shadows"
             }
@@ -154,7 +154,7 @@
                 "source": {
                     "value": ""
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -164,11 +164,11 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "hoe",
+            "name": "Hoe",
             "sort": 100000,
             "type": "equipment"
         },
@@ -227,7 +227,7 @@
                 "damageRolls": {
                     "98wuxhxejntwseiew2ad": {
                         "damage": "1",
-                        "damageType": "nonlethal"
+                        "damageType": "untyped"
                     }
                 },
                 "description": {
@@ -241,7 +241,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "nonlethal",
+                        "range-increment-10",
+                        "thrown"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -251,6 +255,69 @@
             "name": "Dirt Clod",
             "sort": 300000,
             "type": "melee"
+        },
+        {
+            "_id": "pzRz2QV1C2YrM7uk",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Your small, blunt snout and labyrinthine sinus system make you resistant to phenomena that assail the nose. When you roll a saving throw against inhaled threats (such as inhaled poisons) and olfactory effects (such as xulgath stench), you get the outcome one degree of success better than the result of your roll.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "any": [
+                                "inhaled",
+                                "olfactory"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "all": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": {
+                            "any": [
+                                "olfactory",
+                                "inhaled"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "save"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blunt Snout",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "n0wujzukuAjn0imB",
@@ -265,7 +332,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> You are standing on dirt, sand, snow, or similar particulate material.</p>\n<hr />\n<p><strong>Effect</strong> Your hands work as effectively as shovels when you need to dig a quick hole. You dig a shallow pit in the square you currently occupy, turning the square into difficult terrain (including for you). In addition, you also kick up a cloud of grit in a direction of your choice. The cloud extinguishes small, unattended, non-magical fires and helps smother the flames on burning creatures located within the cone; creatures in this cone that are taking persistent fire damage can immediately attempt an additional flat DC 15 check to end the persistent damage.</p>"
+                    "value": "<p><strong>Requirements</strong> You are standing on dirt, sand, snow, or similar particulate material.</p>\n<hr />\n<p><strong>Effect</strong> Your hands work as effectively as shovels when you need to dig a quick hole. You dig a shallow pit in the square you currently occupy, turning the square into difficult terrain (including for you). In addition, you also kick up a cloud of grit in a direction of your choice. The cloud extinguishes small, unattended, non-magical fires and helps smother the flames on burning creatures located within the cone; creatures in this cone that are taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} can immediately attempt an additional @Check[type:flat|dc:15] to end the persistent damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -291,7 +358,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dig Quickly",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -319,7 +386,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -347,7 +414,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -375,7 +442,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -402,8 +469,8 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
-            "sort": 800000,
+            "name": "Farming Lore",
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -431,7 +498,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -459,7 +526,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
