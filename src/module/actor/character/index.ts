@@ -1666,7 +1666,7 @@ class CharacterPF2e extends CreaturePF2e {
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
-        const meleeUsage = weapon.toMeleeUsage();
+        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
@@ -1683,7 +1683,7 @@ class CharacterPF2e extends CreaturePF2e {
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
-            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories }) : null,
+            altUsages,
             auxiliaryActions,
         });
 
@@ -1810,6 +1810,7 @@ class CharacterPF2e extends CreaturePF2e {
                         target: context.target,
                         item,
                         type: "attack-roll",
+                        altUsage: args.altUsage ?? null,
                         options: finalRollOptions,
                         notes,
                         dc,

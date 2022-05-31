@@ -12,7 +12,7 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey } from "@util";
+import { ErrorPF2e, groupBy, objectHasKey, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -465,9 +465,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const damageButton of $damageButtons) {
             const $button = $(damageButton);
             const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
-            const meleeUsage = Boolean($button.attr("data-melee-usage"));
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, damageButton.dataset.altUsage)
+                ? damageButton.dataset.altUsage
+                : null;
+
             const strike = this.getStrikeFromDOM($button[0]);
-            strike?.[method]?.({ getFormula: true, meleeUsage }).then((formula) => {
+            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
                 if (!formula) return;
                 $button.attr({ title: formula });
                 $button.tooltipster({
