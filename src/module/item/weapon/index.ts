@@ -11,7 +11,13 @@ import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/mater
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
 import { PhysicalItemPF2e } from "../physical";
-import { getStrikingDice, RuneValuationData, WeaponPropertyRuneData, WEAPON_VALUATION_DATA } from "../runes";
+import {
+    getStrikingDice,
+    RuneValuationData,
+    WeaponPropertyRuneData,
+    WEAPON_PROPERTY_RUNES,
+    WEAPON_VALUATION_DATA,
+} from "../runes";
 import { WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
@@ -222,6 +228,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
             ),
             effects: [],
         };
+
+        // Adjust weapon data according to property runes if they alter any weapon data
+        for (const rune of this.data.data.runes.property) {
+            WEAPON_PROPERTY_RUNES[rune].prepareItem?.(this);
+        }
     }
 
     processMaterialAndRunes(): void {

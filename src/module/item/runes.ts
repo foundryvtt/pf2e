@@ -6,6 +6,7 @@ import { PredicateStatement, RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
+import { WeaponPF2e } from "./weapon";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "./weapon/types";
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
@@ -110,7 +111,10 @@ export interface WeaponPropertyRuneData {
     rarity: Rarity;
     slug: string;
     traits: WeaponTrait[];
+    /** Tags that are trait-like but made implicit in rulebooks */
     otherTags?: OtherWeaponTag[];
+    /** Optionally alter weapon data */
+    prepareItem?: (weapon: WeaponPF2e) => void;
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
@@ -794,6 +798,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         rarity: "common",
         slug: "returning",
         traits: ["evocation", "magical"],
+        prepareItem: (weapon: WeaponPF2e): void => {
+            if (weapon.isThrown && !weapon.traits.has("consumable")) {
+                weapon.data.data.reload.consume = false;
+            }
+        },
     },
     serrating: {
         damage: {

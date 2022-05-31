@@ -1,6 +1,6 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
 import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
@@ -351,10 +351,9 @@ export class CheckPF2e {
             await callback(roll, context.outcome, msg);
         }
 
-        // Consume one unit of the weapon if it has the consumable trait
-        const isConsumableWeapon = item instanceof WeaponPF2e && item.traits.has("consumable");
-        if (isConsumableWeapon && item.actor.items.has(item.id) && item.quantity > 0) {
-            await item.update({ data: { quantity: item.quantity - 1 } });
+        // Consume one unit of the weapon if it is thrown and not otherwise prevented from being consumed
+        if (item?.isOfType("weapon") && item.isThrown && item.data.data.reload.consume) {
+            await item.update({ data: { quantity: Math.max(0, item.quantity - 1) } });
         }
 
         return roll;
