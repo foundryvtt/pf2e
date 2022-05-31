@@ -420,7 +420,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
         const tokenImgIsDefault = [
-            "systems/pf2e/icons/default-icons/mystery-man.svg",
+            foundry.data.ActorData.DEFAULT_ICON,
             `systems/pf2e/icons/default-icons/${this.type}.svg`,
         ].includes(this.data.token.img);
         const tokenImgIsActorImg = this.data.token.img === this.img;
