@@ -50,8 +50,8 @@ export interface RollParameters {
 export interface StrikeRollParams extends RollParameters {
     /** Retrieve the formula of the strike roll without following through to the end */
     getFormula?: true;
-    /** The strike is to use the melee usage of a combination weapon */
-    meleeUsage?: boolean;
+    /** The strike is involve throwing a thrown melee weapon or to use the melee usage of a combination weapon */
+    altUsage?: "thrown" | "melee" | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
 }
@@ -112,6 +112,8 @@ export interface CheckRollContext extends BaseRollContext {
     isReroll?: boolean;
     /** D20 results substituted for an actual roll */
     substitutions?: RollSubstitution[];
+    /** Is the weapon used in this attack roll an alternative usage? */
+    altUsage?: "thrown" | "melee" | null;
 }
 
 interface CheckTargetFlag {
@@ -119,13 +121,13 @@ interface CheckTargetFlag {
     token?: TokenDocumentUUID;
 }
 
-type ContextFlagOmissions = "actor" | "token" | "item" | "target" | "createMessage";
-export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmissions>> {
+type ContextFlagOmission = "actor" | "token" | "item" | "target" | "altUsage" | "createMessage";
+export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
     target: CheckTargetFlag | null;
-    altUsage?: "melee" | "thrown";
+    altUsage?: "thrown" | "melee" | null;
 }
 
 interface RerollOptions {
@@ -318,9 +320,6 @@ export class CheckPF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
         delete contextFlag.item;
-        if (item?.data.flags.pf2e.comboMeleeUsage) {
-            contextFlag.altUsage = "melee";
-        }
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
@@ -406,8 +405,13 @@ export class CheckPF2e {
             if (item?.isOfType("weapon") && item.isRanged) {
                 // Show the range increment for ranged weapons
                 const range = item.rangeIncrement ?? 10;
-                const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", { range });
-                return [toTagElement({ name: range.toString(), label }, "secondary")];
+                const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range });
+                return [
+                    toTagElement(
+                        { name: range.toString(), label, description: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
+                        "secondary"
+                    ),
+                ];
             } else {
                 return [];
             }

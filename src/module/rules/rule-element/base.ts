@@ -312,6 +312,8 @@ namespace RuleElementPF2e {
         domains: string[];
         rollOptions: string[];
     }
+
+    export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
 }
 
 interface RuleElementOptions {
