@@ -1,29 +1,27 @@
-import type { ActorPF2e } from "@actor/base";
-import { CreaturePF2e } from "@actor";
-import { TokenDocumentPF2e } from "@scene";
+import { type ActorPF2e, CreaturePF2e } from "@actor";
 import { DC_SLUGS, SKILL_EXPANDED } from "@actor/data/values";
 import {
-    ensureProficiencyOption,
     CheckModifier,
-    StatisticModifier,
+    ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
+    StatisticModifier,
 } from "@actor/modifiers";
-import { CheckPF2e } from "../rolls";
-import { Statistic, StatisticDataWithDC } from "@system/statistic";
+import { WeaponPF2e } from "@item/weapon";
+import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { seek } from "./basic/seek";
-import { senseMotive } from "./basic/sense-motive";
-import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
-import { tamper } from "./class/inventor/tamper";
-import { avoidNotice } from "./exploration/avoid-notice";
-import { senseDirection } from "./exploration/sense-direction";
-import { track } from "./exploration/track";
+import { PredicatePF2e } from "@system/predication";
+import { Statistic, StatisticDataWithDC } from "@system/statistic";
+import { setHasElement } from "@util";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { CheckPF2e } from "../rolls";
 import { balance } from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
 import { tumbleThrough } from "./acrobatics/tumble-through";
+import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
 import { climb } from "./athletics/climb";
 import { disarm } from "./athletics/disarm";
 import { forceOpen } from "./athletics/force-open";
@@ -34,6 +32,9 @@ import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import { trip } from "./athletics/trip";
 import { whirlingThrow } from "./athletics/whirling-throw";
+import { seek } from "./basic/seek";
+import { senseMotive } from "./basic/sense-motive";
+import { tamper } from "./class/inventor/tamper";
 import { craft } from "./crafting/craft";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
@@ -43,6 +44,9 @@ import { bonMot } from "./diplomacy/bon-mot";
 import { gatherInformation } from "./diplomacy/gather-information";
 import { makeAnImpression } from "./diplomacy/make-an-impression";
 import { request } from "./diplomacy/request";
+import { avoidNotice } from "./exploration/avoid-notice";
+import { senseDirection } from "./exploration/sense-direction";
+import { track } from "./exploration/track";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatDisease } from "./medicine/treat-disease";
@@ -51,11 +55,6 @@ import { commandAnAnimal } from "./nature/command-an-animal";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
-import { PredicatePF2e } from "@system/predication";
-import { WeaponPF2e } from "@item/weapon";
-import { WeaponTrait } from "@item/weapon/data";
-import { setHasElement } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 

@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/data/values";
-import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { WEAPON_CATEGORIES } from "@item/weapon/data";
+import { ARMOR_CATEGORIES } from "@item/armor/data";
+import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { sluggify } from "@util";
 import { ClassData, ClassTrait } from "./data";
