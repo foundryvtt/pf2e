@@ -371,7 +371,21 @@ export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] =
     });
 }
 
+/** Non-stowing containers are not "real" and thus shouldn't split stack groups */
+export function flattenNonStowing(items: PhysicalItemPF2e[]): PhysicalItemPF2e[] {
+    return items
+        .map((item) => {
+            if (item.isOfType("backpack") && !item.stowsItems) {
+                return flattenNonStowing(item.contents.contents);
+            }
+            return item;
+        })
+        .flat();
+}
+
 export function computeTotalBulk(items: PhysicalItemPF2e[], actor: ActorPF2e | null) {
+    items = flattenNonStowing(items);
+
     // Figure out which items have stack groups and which don't
     const nonStackingItems = items.filter(
         (i) => i.isOfType("backpack") || (i.data.data.bulk.per === 1 && i.data.data.baseItem)
