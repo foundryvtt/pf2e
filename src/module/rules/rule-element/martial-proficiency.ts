@@ -4,7 +4,7 @@ import { MartialProficiency } from "@actor/character/data";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ProficiencyRank } from "@item/data";
-import { WeaponCategory } from "@item/weapon/data";
+import { WeaponCategory } from "@item/weapon/types";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 

@@ -1,6 +1,6 @@
 import { ALIGNMENTS } from "@actor/creature/values";
 import { ItemPF2e } from "@item";
-import { BaseWeaponType } from "@item/weapon/data";
+import { BaseWeaponType } from "@item/weapon/types";
 import { sluggify } from "@util";
 import { DeityData } from "./data";
 import { DeitySheetPF2e } from "./sheet";
@@ -30,9 +30,9 @@ class DeityPF2e extends ItemPF2e {
         };
 
         // Set available domains from this deity
-        for (const domain of [...this.data.data.domains.primary, ...this.data.data.domains.alternate]) {
+        for (const domain of this.data.data.domains.primary) {
             const label = CONFIG.PF2E.deityDomains[domain]?.label;
-            if (label) deities.domains[domain] = label;
+            deities.domains[domain] = label ?? domain;
         }
 
         // Set some character roll options

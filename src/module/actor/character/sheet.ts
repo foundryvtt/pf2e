@@ -1,18 +1,19 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ItemPF2e, ConditionPF2e, FeatPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { ConditionPF2e, FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
-import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
+import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
+import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -167,8 +168,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;
-        const weaponCategories: Set<string> = WEAPON_CATEGORIES;
-        const isWeaponProficiency = (key: string): boolean => weaponCategories.has(key) || /\bweapon\b/.test(key);
+
+        const isWeaponProficiency = (key: string): boolean =>
+            setHasElement(WEAPON_CATEGORIES, key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
             .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
