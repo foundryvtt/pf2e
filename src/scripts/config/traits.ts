@@ -3,7 +3,7 @@ import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
 import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool, MagicTradition } from "@item/spell/types";
-import { OtherWeaponTag } from "@item/weapon/data";
+import { OtherWeaponTag } from "@item/weapon/types";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits

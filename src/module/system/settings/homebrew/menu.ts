@@ -1,15 +1,14 @@
-import { MenuTemplateData, PartialSettingsData, SettingsMenuPF2e } from "../menu";
-import Tagify from "@yaireo/tagify";
-import { prepareCleanup } from "./cleanup-migration";
-import { LocalizePF2e } from "@module/system/localize";
-import { MigrationRunner } from "@module/migration/runner";
-import { MigrationBase } from "@module/migration/base";
-import { BaseWeaponType } from "@item/weapon/data";
-
-import "@yaireo/tagify/src/tagify.scss";
-import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { ItemSheetPF2e } from "@item/sheet/base";
+import { BaseWeaponType } from "@item/weapon/types";
+import { MigrationBase } from "@module/migration/base";
+import { MigrationRunner } from "@module/migration/runner";
+import { LocalizePF2e } from "@module/system/localize";
+import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
+import Tagify from "@yaireo/tagify";
+import { MenuTemplateData, PartialSettingsData, SettingsMenuPF2e } from "../menu";
+import { prepareCleanup } from "./cleanup-migration";
 import { isHomebrewFlagCategory } from "./helpers";
+import "@yaireo/tagify/src/tagify.scss";
 
 export type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;

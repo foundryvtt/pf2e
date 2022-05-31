@@ -2,7 +2,7 @@ import { SkillAbbreviation } from "@actor/creature/data";
 import { Alignment } from "@actor/creature/types";
 import { AbilityString } from "@actor/data";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
-import { BaseWeaponType } from "@item/weapon/data";
+import { BaseWeaponType } from "@item/weapon/types";
 import type { DeityPF2e } from "./document";
 import { DeityDomain } from "./types";
 

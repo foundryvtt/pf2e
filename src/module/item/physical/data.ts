@@ -11,7 +11,7 @@ import type { PhysicalItemPF2e } from "@item/physical";
 import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES } from "../data/values";
 import { EquipmentTrait } from "@item/equipment/data";
 import { ArmorTrait } from "@item/armor/data";
-import { WeaponTrait } from "@item/weapon/data";
+import { WeaponTrait } from "@item/weapon/types";
 import { ConsumableTrait } from "@item/consumable/data";
 import { Size, ValuesList } from "@module/data";
 import { ActionTrait } from "@item/action/data";

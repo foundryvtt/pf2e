@@ -5,11 +5,12 @@ import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { OneToFour, OneToThree } from "@module/data";
-import { objectHasKey } from "@util";
+import { objectHasKey, setHasElement } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
-import { RANGED_WEAPON_GROUPS, WeaponPropertyRuneSlot, WEAPON_RANGES } from "./data";
+import { WeaponPropertyRuneSlot } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
+import { RANGED_WEAPON_GROUPS, WEAPON_RANGES } from "./values";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData() {
@@ -118,17 +119,17 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const traitSet = this.item.traits;
         const isComboWeapon = traitSet.has("combination");
 
-        const weaponRanges = WEAPON_RANGES.reduce(
+        const weaponRanges = Array.from(WEAPON_RANGES).reduce(
             (ranges: Record<number, string>, range) => ({
                 ...ranges,
                 [range]: game.i18n.format("PF2E.WeaponRangeN", { range: range }),
             }),
             {}
         );
-        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
         const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
         const mandatoryRanged =
-            rangedWeaponGroups.has(this.item.group ?? "") || rangedOnlyTraits.some((trait) => traitSet.has(trait));
+            setHasElement(RANGED_WEAPON_GROUPS, this.item.group) ||
+            rangedOnlyTraits.some((trait) => traitSet.has(trait));
         const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
 
         const meleeUsage = sheetData.data.meleeUsage ?? {

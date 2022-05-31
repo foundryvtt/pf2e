@@ -1,12 +1,11 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { WeaponRangeIncrement } from "@item/weapon/data";
-import { WeaponMaterialEffect } from "@item/weapon/types";
+import { WeaponMaterialEffect, WeaponRangeIncrement } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
-import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
+import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
 
 class AdjustStrikeRuleElement extends AELikeRuleElement {
