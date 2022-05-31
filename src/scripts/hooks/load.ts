@@ -40,6 +40,9 @@ export const Load = {
         CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
         CONFIG.User.documentClass = UserPF2e;
 
+        // Mystery Man but with a drop shadow
+        foundry.data.ActorData.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
+
         Roll.MATH_PROXY = mergeObject(Roll.MATH_PROXY, {
             eq: (a: number, b: number) => a === b,
             gt: (a: number, b: number) => a > b,
