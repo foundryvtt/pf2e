@@ -762,9 +762,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const selfItem =
             params.viewOnly || params.item.isOfType("spell")
                 ? params.item
-                : ((actions
-                      .map((a) => a.item)
-                      .find((weapon) => {
+                : actions
+                      .map((a): AttackItem => a.item)
+                      .find((weapon): weapon is I => {
                           // Find the matching weapon or melee item
                           if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
                           if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
@@ -775,7 +775,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                               weapon.isOfType("weapon") &&
                               params.item.isMelee === weapon.isMelee
                           );
-                      }) ?? params.item) as I);
+                      }) ?? params.item;
 
         const traitSlugs: ActionTrait[] = ["attack" as const];
         for (const adjustment of this.synthetics.strikeAdjustments) {
