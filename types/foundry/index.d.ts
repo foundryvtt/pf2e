@@ -1,3 +1,4 @@
+import "pixi.js";
 import "./client/application/base";
 import "./client/application/chat-popout";
 import "./client/application/compendium";
@@ -79,8 +80,7 @@ import "./client/pixi/canvas-layer/controls-layer";
 import "./client/pixi/canvas-layer/effects-layer";
 import "./client/pixi/canvas-layer/grid-layer";
 import "./client/pixi/canvas-layer/sight-layer";
-import "./client/pixi/grids/base-grid";
-import "./client/pixi/grids/square-grid";
+import "./client/pixi/grid";
 import "./client/pixi/helpers";
 import "./client/pixi/helpers/point-source";
 import "./client/pixi/helpers/point-source-polygon";
