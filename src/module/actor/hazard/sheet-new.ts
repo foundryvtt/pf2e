@@ -31,11 +31,6 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
     override async getData(): Promise<HazardSheetData> {
         const sheetData = await super.getData();
 
-        // Update save labels
-        for (const key of SAVE_TYPES) {
-            if (!sheetData.data.saves[key]) continue;
-            sheetData.data.saves[key].label = CONFIG.PF2E.saves[key];
-        }
         sheetData.actor.flags.editHazard ??= { value: false };
         const systemData: HazardSystemData = sheetData.data;
         const actor = this.actor;
@@ -90,7 +85,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             const save = this.actor.saves[saveType];
             if (this.editing || save) {
                 results.push({
-                    label: CONFIG.PF2E.saves[saveType],
+                    label: game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`),
                     type: saveType,
                     mod: save?.check.mod,
                 });
@@ -103,14 +98,10 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
     override prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): void {
         const actorData = sheetData.actor;
         // Actions
-        type AttackData = { label: string; items: ItemDataPF2e[]; type: "melee" };
-        const attacks: Record<"melee" | "ranged", AttackData> = {
-            melee: { label: "NPC Melee Attack", items: [], type: "melee" },
-            ranged: { label: "NPC Ranged Attack", items: [], type: "melee" },
-        };
+        const attacks: ItemDataPF2e[] = [];
 
         // Iterate through items, allocating to containers
-        const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+        const weaponTraits: Record<string, string> = CONFIG.PF2E.npcAttackTraits;
         const traitsDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
         for (const itemData of actorData.items) {
             itemData.img = itemData.img || CONST.DEFAULT_TOKEN;
@@ -120,6 +111,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
                 const weaponType: "melee" | "ranged" = itemData.data.weaponType.value || "melee";
                 const traits: string[] = itemData.data.traits.value;
                 const isAgile = traits.includes("agile");
+                itemData.attackRollType = weaponType === "melee" ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged";
                 itemData.data.bonus.total = Number(itemData.data.bonus.value) || 0;
                 itemData.data.isAgile = isAgile;
 
@@ -128,7 +120,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
                     label: weaponTraits[trait] ?? trait.charAt(0).toUpperCase() + trait.slice(1),
                     description: traitsDescriptions[trait] ?? "",
                 }));
-                attacks[weaponType].items.push(itemData);
+                attacks.push(itemData);
             }
         }
 
@@ -143,7 +135,8 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        $html.find(".edit-button").on("click", () => {
+        // Toggle Edit mode
+        $html.find(".edit-mode-button").on("click", () => {
             this.actor.setFlag("pf2e", "editHazard.value", !this.editing);
         });
 
@@ -161,6 +154,14 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             const propertyPath = $input.attr("data-property") ?? "";
             const preparedValue: number = getProperty(this.actor.data, propertyPath);
             $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
+        });
+
+        $html.find('[data-action="edit-section"]').on("click", (event) => {
+            const $parent = $(event.target).closest(".section-container");
+            const name = $parent.find("[data-edit]").attr("data-edit");
+            if (name) {
+                this.activateEditor(name);
+            }
         });
 
         // NPC Weapon Rolling
