@@ -26,7 +26,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
-        overrides: DeepPartial<this["data"]["_source"]>;
+        overrides: DeepPartial<this["data"]["_source"]> & { token?: TParent["data"]["_source"] };
 
         /**
          * A cached array of image paths which can be used for this Actor's token.
