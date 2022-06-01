@@ -19,10 +19,28 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "action:create-a-diversion"
+                    ]
+                },
+                "selector": "deception",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Halfling.Innocuous.Note]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
