@@ -27,7 +27,7 @@
                 "value": 36
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
@@ -103,8 +103,6 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
                     "value": 10
                 }
@@ -140,7 +138,7 @@
             "_id": "ZMiYZDea3JArKJtQ",
             "data": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 4
                 },
                 "description": {
                     "value": ""
@@ -155,7 +153,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -163,11 +161,7 @@
                 "slots": {
                     "slot0": {
                         "max": 1,
-                        "prepared": {
-                            "0": {
-                                "id": "cRnDtAd3NJdTVy58"
-                            }
-                        },
+                        "prepared": {},
                         "value": 1
                     },
                     "slot1": {
@@ -197,11 +191,7 @@
                     },
                     "slot4": {
                         "max": 2,
-                        "prepared": {
-                            "0": {
-                                "id": "IluSzTeu66gMFMrJ"
-                            }
-                        },
+                        "prepared": {},
                         "value": 2
                     },
                     "slot5": {
@@ -238,7 +228,7 @@
                     "dc": 34,
                     "item": 0,
                     "mod": 0,
-                    "value": 24
+                    "value": 26
                 },
                 "tradition": {
                     "value": "divine"
@@ -262,7 +252,7 @@
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "all squares in a 20-foot-radius burst that contain plants"
@@ -292,9 +282,10 @@
                     "value": false
                 },
                 "level": {
-                    "value": 4
+                    "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "ZMiYZDea3JArKJtQ"
                 },
                 "materials": {
@@ -325,7 +316,7 @@
                 },
                 "slug": "entangle",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -370,7 +361,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -400,9 +391,10 @@
                     "value": false
                 },
                 "level": {
-                    "value": 4
+                    "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "ZMiYZDea3JArKJtQ"
                 },
                 "materials": {
@@ -433,7 +425,7 @@
                 },
                 "slug": "tree-shape",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -479,7 +471,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -542,7 +534,7 @@
                 },
                 "slug": "know-direction",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -579,7 +571,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/know-direction.webp",
-            "name": "Know Direction (4th Level)",
+            "name": "Know Direction",
             "sort": 400000,
             "type": "spell"
         },
@@ -591,7 +583,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -619,6 +611,20 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "emanation",
+                                "value": "20"
+                            },
+                            "range": {
+                                "value": "20 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -654,7 +660,7 @@
                 },
                 "slug": "pass-without-trace",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -933,7 +939,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -966,7 +972,7 @@
             "type": "action"
         },
         {
-            "_id": "bjdMKR5pT4EwhJzy",
+            "_id": "uara7mD6sRfBQr3k",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -990,9 +996,9 @@
                             "any": [
                                 "magical",
                                 "arcane",
+                                "divine",
                                 "primal",
-                                "occult",
-                                "divine"
+                                "occult"
                             ]
                         },
                         "selector": "saving-throw",
@@ -1000,7 +1006,7 @@
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -1016,8 +1022,13 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs Magic",
+            "name": "+1 Status to All Saves vs Magic",
             "sort": 1200000,
             "type": "action"
         },
@@ -1256,7 +1267,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1291,7 +1311,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws moisture from the living creatures surrounding them, using the energy to heal their own wounds. Each living creature in a @Template[type:emanation|distance:30] takes [[/r {7d10}[negative]]]{7d10 negative damage} (@Check[type:fortitude|dc:34|basic:true] save). Creatures made entirely of water and plant creatures use the outcome one degree of success worse than they rolled. The dragon regains Hit Points equal to half of the highest damage a single creature takes from this effect.In addition, all non-creature plant life in the area withers and dies, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. Water is also consumed in the same way, typically lowering any standing body of water fully within the area by 1 foot.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon draws moisture from the living creatures surrounding them, using the energy to heal their own wounds. Each living creature in a @Template[type:emanation|distance:30] takes [[/r {7d10}[negative]]]{7d10 negative damage} (@Check[type:fortitude|dc:34|basic:true] save). Creatures made entirely of water and plant creatures use the outcome one degree of success worse than they rolled. The dragon regains Hit Points equal to half of the highest damage a single creature takes from this effect.</p>\n<p>In addition, all non-creature plant life in the area withers and dies, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. Water is also consumed in the same way, typically lowering any standing body of water fully within the area by 1 foot.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1376,7 +1396,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {3d8+10}[bludgeoning]]]{3d8+10 bludgeoning damage}, DC 34</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r {3d8+10}[bludgeoning]]]{3d8+10 bludgeoning}, @Check[type:fortitude|dc:34|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
