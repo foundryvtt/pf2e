@@ -33,7 +33,7 @@ import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
-import { extractModifiers, extractRollTwice } from "@module/rules/util";
+import { extractModifiers, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { DamageType } from "@system/damage";
 import { StrikeData } from "@actor/data/base";
 import {
@@ -467,6 +467,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 if (!combatant) return null;
 
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
+
                 const context: CheckRollContext = {
                     actor: this,
                     type: "initiative",
@@ -474,6 +476,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     notes,
                     dc: args.dc,
                     rollTwice,
+                    substitutions,
                     skipDialog: args.skipDialog,
                 };
                 if (combatant.hidden) {
