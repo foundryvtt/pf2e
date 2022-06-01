@@ -665,45 +665,53 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
         }
 
-        // Send chat message
-        const hpStatement = ((): string => {
-            // This would be a nested ternary, except prettier thoroughly mangles it
-            if (damage === 0) return translations.TakesNoDamage;
-            if (damage > 0) {
-                return absorbedDamage > 0
-                    ? hpDamage > 0
-                        ? translations.DamagedForNShield
-                        : translations.ShieldAbsorbsAll
-                    : translations.DamagedForN;
-            }
-            return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
-        })();
+        const secretDamage = game.settings.get("pf2e", "metagame.secretDamageChat");
+        if (secretDamage !== "none") {
+            // Send chat message
+            const hpStatement = ((): string => {
+                // This would be a nested ternary, except prettier thoroughly mangles it
+                if (damage === 0) return translations.TakesNoDamage;
+                if (damage > 0) {
+                    return absorbedDamage > 0
+                        ? hpDamage > 0
+                            ? translations.DamagedForNShield
+                            : translations.ShieldAbsorbsAll
+                        : translations.DamagedForN;
+                }
+                return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
+            })();
 
-        const updatedShield = "shield" in this.attributes ? this.attributes.shield : null;
-        const shieldStatement =
-            updatedShield && shieldDamage > 0
-                ? updatedShield.broken
-                    ? translations.ShieldDamagedForNBroken
-                    : updatedShield.destroyed
-                    ? translations.ShieldDamagedForNDestroyed
-                    : translations.ShieldDamagedForN
-                : null;
-        const statements = [hpStatement, shieldStatement]
-            .filter((s): s is string => !!s)
-            .map((s) =>
-                game.i18n.format(s, { actor: token.name, hpDamage: Math.abs(hpDamage), absorbedDamage, shieldDamage })
-            )
-            .join(" ");
+            const updatedShield = "shield" in this.attributes ? this.attributes.shield : null;
+            const shieldStatement =
+                updatedShield && shieldDamage > 0
+                    ? updatedShield.broken
+                        ? translations.ShieldDamagedForNBroken
+                        : updatedShield.destroyed
+                        ? translations.ShieldDamagedForNDestroyed
+                        : translations.ShieldDamagedForN
+                    : null;
+            const statements = [hpStatement, shieldStatement]
+                .filter((s): s is string => !!s)
+                .map((s) =>
+                    game.i18n.format(s, {
+                        actor: token.name,
+                        hpDamage: Math.abs(hpDamage),
+                        absorbedDamage,
+                        shieldDamage,
+                    })
+                )
+                .join(" ");
 
-        await ChatMessagePF2e.create({
-            speaker: { alias: token.name, token: token.id ?? null },
-            content: `<p>${statements}</p>`,
-            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-            whisper:
-                game.settings.get("pf2e", "metagame.secretDamage") && !token.actor?.hasPlayerOwner
-                    ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
-                    : [],
-        });
+            await ChatMessagePF2e.create({
+                speaker: { alias: token.name, token: token.id ?? null },
+                content: `<p>${statements}</p>`,
+                type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+                whisper:
+                    secretDamage === "owner" && !token.actor?.hasPlayerOwner
+                        ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
+                        : [],
+            });
+        }
     }
 
     isLootableBy(user: UserPF2e) {
@@ -1098,12 +1106,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
-        const hideFromUser =
-            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretDamage");
-        if (options.damageTaken && !hideFromUser) {
-            const tokens = super.getActiveTokens();
-            for (const token of tokens) {
-                token.showFloatyText(options.damageTaken);
+
+        const secretDamage = game.settings.get("pf2e", "metagame.secretDamageToken");
+        if (secretDamage !== "none") {
+            const hideFromUser = secretDamage === "owner" && !this.hasPlayerOwner && !game.user.isGM;
+            if (options.damageTaken && !hideFromUser) {
+                const tokens = super.getActiveTokens();
+                for (const token of tokens) {
+                    token.showFloatyText(options.damageTaken);
+                }
             }
         }
     }

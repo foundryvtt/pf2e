@@ -146,7 +146,8 @@ declare global {
 
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
-        get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
+        get(module: "pf2e", setting: "metagame.secretDamageChat"): "none" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.secretDamageToken"): "none" | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): UserVisibility;
         get(module: "pf2e", setting: "metagame.showResults"): UserVisibility;
         get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
