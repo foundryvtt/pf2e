@@ -1,31 +1,28 @@
-import { PhysicalItemPF2e } from "../physical";
-import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
-import { LocalizePF2e } from "@module/system/localize";
-import {
-    BaseWeaponType,
-    CROSSBOW_WEAPONS,
-    RANGED_WEAPON_GROUPS,
-    WeaponCategory,
-    WeaponData,
-    WeaponGroup,
-    WeaponMaterialData,
-    WeaponPropertyRuneType,
-    WeaponRangeIncrement,
-    WeaponSource,
-    WeaponTrait,
-} from "./data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
-import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { NPCPF2e } from "@actor";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { ConsumablePF2e } from "@item";
+import { MeleeSource } from "@item/data";
+import { MeleePF2e } from "@item/melee";
+import { MeleeDamageRoll } from "@item/melee/data";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
-import { MeleePF2e } from "@item/melee";
-import { MeleeSource } from "@item/data";
-import { MeleeDamageRoll } from "@item/melee/data";
-import { NPCPF2e } from "@actor";
-import { ConsumablePF2e } from "@item";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { WeaponReloadTime } from "./types";
+import { CoinsPF2e } from "@item/physical/helpers";
+import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { LocalizePF2e } from "@module/system/localize";
+import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
+import { PhysicalItemPF2e } from "../physical";
+import { getStrikingDice, RuneValuationData, WeaponPropertyRuneData, WEAPON_VALUATION_DATA } from "../runes";
+import { WeaponData, WeaponMaterialData, WeaponSource } from "./data";
+import {
+    BaseWeaponType,
+    WeaponCategory,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponRangeIncrement,
+    WeaponReloadTime,
+    WeaponTrait,
+} from "./types";
+import { CROSSBOW_WEAPONS, RANGED_WEAPON_GROUPS } from "./values";
 
 class WeaponPF2e extends PhysicalItemPF2e {
     override get isEquipped(): boolean {
@@ -192,15 +189,17 @@ class WeaponPF2e extends PhysicalItemPF2e {
             if (traitSet.has("combination")) this.data.data.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
-            const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
-            if (this.group === "bow" && crossbowWeapons.has(this.baseType ?? "")) {
-                this.data.data.traits.otherTags.push("crossbow");
+            if (this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType)) {
+                systemData.traits.otherTags.push("crossbow");
             }
         }
 
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
         const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
         if (mandatoryMelee) this.data.data.range = null;
+
+        // Set whether the ammunition or weapon itself should be consumed
+        systemData.reload.consume = this.isMelee ? null : this.reload !== null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.data.flags.pf2e.comboMeleeUsage ??= false;
@@ -288,13 +287,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     getRunesData(): RuneValuationData[] {
         const systemData = this.data.data;
+        const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
             WEAPON_VALUATION_DATA.striking[systemData.strikingRune.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune1.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune2.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune3.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune4.value ?? ""],
+            propertyRuneData[systemData.propertyRune1.value ?? ""],
+            propertyRuneData[systemData.propertyRune2.value ?? ""],
+            propertyRuneData[systemData.propertyRune3.value ?? ""],
+            propertyRuneData[systemData.propertyRune4.value ?? ""],
         ].filter((datum): datum is RuneValuationData => !!datum);
     }
 
@@ -388,10 +388,32 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    getAltUsages(): this[];
+    getAltUsages(): WeaponPF2e[] {
+        return [this.toThrownUsage() ?? [], this.toMeleeUsage() ?? []].flat();
+    }
+
+    /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
+    private toThrownUsage(): this | null {
+        const traits = this.data.data.traits.value;
+        const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
+        if (this.isRanged || !thrownTrait) return null;
+
+        const range = Number(/(\d{1,3})$/.exec(thrownTrait)!.at(1)) as WeaponRangeIncrement;
+        const newTraits = deepClone(traits);
+        newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
+        const overlay: DeepPartial<WeaponSource> = {
+            data: {
+                range,
+                traits: { value: newTraits },
+            },
+        };
+
+        return this.clone(overlay, { keepId: true });
+    }
+
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
-    toMeleeUsage(this: Embedded<WeaponPF2e>): Embedded<WeaponPF2e> | null;
-    toMeleeUsage(this: WeaponPF2e): WeaponPF2e | null;
-    toMeleeUsage(): Embedded<WeaponPF2e> | WeaponPF2e | null {
+    private toMeleeUsage(): this | null {
         const { meleeUsage } = this.data.data;
         if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
 

@@ -1,6 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
-import { WeaponCategory, WeaponGroup, WeaponRangeIncrement, WeaponSystemSource } from "@item/weapon/data";
-import { RANGED_WEAPON_GROUPS } from "@item/weapon/data/values";
+import { WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
+import { RANGED_WEAPON_GROUPS } from "@item/weapon/values";
 import { RuleElementSource } from "@module/rules";
 import { setHasElement } from "@util";
 import { MigrationBase } from "../base";

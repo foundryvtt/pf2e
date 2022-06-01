@@ -1,6 +1,5 @@
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString, TraitViewData } from "@actor/data/base";
-import { WeaponData } from "@item/data";
-import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import {
     BaseRawModifier,
     DamageDiceOverride,
@@ -11,17 +10,18 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
-import { RollNotePF2e } from "@module/notes";
-import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { PredicatePF2e } from "@system/predication";
-import { setHasElement, sluggify } from "@util";
-import { extractModifiers } from "@module/rules/util";
-import { DeferredModifier, StrikeAdjustment } from "@module/rules/rule-element/data";
+import { WeaponPF2e } from "@item";
+import { WeaponData } from "@item/data";
+import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
-import { WeaponPF2e } from "@item";
+import { RollNotePF2e } from "@module/notes";
+import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
+import { DeferredModifier, StrikeAdjustment } from "@module/rules/rule-element/data";
+import { extractModifiers } from "@module/rules/util";
+import { PredicatePF2e } from "@system/predication";
+import { setHasElement, sluggify } from "@util";
+import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
 
 export interface DamagePartials {
     [damageType: string]: {

@@ -38,7 +38,15 @@ import {
     SlottedFeat,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
+import {
+    ErrorPF2e,
+    getActionGlyph,
+    objectHasKey,
+    setHasElement,
+    sluggify,
+    sortedStringify,
+    traitSlugToObject,
+} from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -51,7 +59,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { WeaponCategory, WeaponDamage, WeaponSource, WeaponSystemSource, WEAPON_CATEGORIES } from "@item/weapon/data";
+import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
@@ -82,6 +90,8 @@ import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } fro
 import { FamiliarPF2e } from "@actor/familiar";
 import { CheckRoll } from "@system/check/roll";
 import { ActionTrait } from "@item/action/data";
+import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
+import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -284,7 +294,11 @@ class CharacterPF2e extends CreaturePF2e {
             this[property] = null;
 
             if (property === "deity") {
-                details.deities = { primary: null, secondary: null, domains: {} };
+                details.deities = {
+                    primary: null,
+                    secondary: null,
+                    domains: {},
+                };
             } else if (property !== "background") {
                 details[property] = null;
             }
@@ -1561,7 +1575,9 @@ class CharacterPF2e extends CreaturePF2e {
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
 
             if (potencyRune) {
-                const property = getPropertyRunes(itemData, getPropertySlots(itemData));
+                const property = getPropertyRunes(itemData, getPropertySlots(itemData)).filter(
+                    (r): r is WeaponPropertyRuneType => setHasElement(WEAPON_PROPERTY_RUNE_TYPES, r)
+                );
                 potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, type: "item", property });
             }
             return potency.length > 0
@@ -1666,7 +1682,7 @@ class CharacterPF2e extends CreaturePF2e {
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
-        const meleeUsage = weapon.toMeleeUsage();
+        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
@@ -1683,7 +1699,7 @@ class CharacterPF2e extends CreaturePF2e {
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
-            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories }) : null,
+            altUsages,
             auxiliaryActions,
         });
 
@@ -1810,6 +1826,7 @@ class CharacterPF2e extends CreaturePF2e {
                         target: context.target,
                         item,
                         type: "attack-roll",
+                        altUsage: args.altUsage ?? null,
                         options: finalRollOptions,
                         notes,
                         dc,

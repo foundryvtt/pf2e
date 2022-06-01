@@ -3,6 +3,7 @@ import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { MODIFIER_TYPE } from "@actor/modifiers";
+import { WeaponPropertyRuneType } from "@item/weapon/types";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
@@ -44,7 +45,7 @@ interface WeaponPotencyPF2e {
     bonus: number;
     type: "item" | "potency";
     predicate?: PredicatePF2e;
-    property?: string[];
+    property?: WeaponPropertyRuneType[];
 }
 
 export { WeaponPotencyRuleElement, WeaponPotencyPF2e };

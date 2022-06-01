@@ -29,7 +29,13 @@ import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
+import {
+    BaseWeaponType,
+    MeleeWeaponGroup,
+    RangedWeaponGroup,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+} from "@item/weapon/types";
 import enJSON from "../../../static/lang/en.json";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
 import {
@@ -673,10 +679,10 @@ const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
 
 const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
 
-const weaponPropertyRunes: Record<string, string> = {
+const weaponPropertyRunes = {
     ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
         return { ...accumulated, [slug]: rune.name };
-    }, {}),
+    }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
 // Creature and Equipment Sizes

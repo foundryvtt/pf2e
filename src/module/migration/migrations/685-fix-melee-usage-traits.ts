@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
-import { ComboWeaponMeleeUsage, WeaponTrait } from "@item/weapon/data";
+import { ComboWeaponMeleeUsage } from "@item/weapon/data";
+import { WeaponTrait } from "@item/weapon/types";
 import { MigrationBase } from "../base";
 
 /** Fix melee-usage traits on combination weapons */

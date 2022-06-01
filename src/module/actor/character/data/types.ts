@@ -1,43 +1,43 @@
+import { CraftingEntryData } from "@actor/character/crafting/entry";
+import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import {
     Abilities,
-    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
+    CreatureAttributes,
+    CreatureDetails,
     CreatureHitPoints,
+    CreatureInitiative,
     CreatureSystemData,
+    HeldShieldData,
     SaveData,
     SkillAbbreviation,
     SkillData,
-    CreatureInitiative,
-    HeldShieldData,
-    CreatureDetails,
 } from "@actor/creature/data";
+import { SaveType } from "@actor/data";
 import {
+    AbilityBasedStatistic,
     AbilityString,
     ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
-    AbilityBasedStatistic,
     StrikeData,
 } from "@actor/data/base";
-import { ArmorCategory } from "@item/armor/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
 import { StatisticModifier } from "@actor/modifiers";
-import { ZeroToFour } from "@module/data";
-import type { CharacterPF2e } from "..";
-import { SaveType } from "@actor/data";
-import { MagicTradition } from "@item/spell/types";
-import { CraftingFormulaData } from "@actor/character/crafting/formula";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { CraftingEntryData } from "@actor/character/crafting/entry";
-import { PredicatePF2e } from "@system/predication";
-import { FeatData, ProficiencyRank } from "@item/data";
 import { FeatPF2e, WeaponPF2e } from "@item";
-import { CharacterSheetTabVisibility } from "./sheet";
+import { ArmorCategory } from "@item/armor/data";
+import { FeatData, ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
-import { FeatType } from "@item/feat/data";
 import { DeityDomain } from "@item/deity/types";
+import { FeatType } from "@item/feat/data";
+import { MagicTradition } from "@item/spell/types";
+import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types";
+import { ZeroToFour } from "@module/data";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
+import { PredicatePF2e } from "@system/predication";
+import type { CharacterPF2e } from "..";
+import { CharacterSheetTabVisibility } from "./sheet";
 
 interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -169,7 +169,7 @@ interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
     slug: string | null;
     adjustments?: DegreeOfSuccessAdjustment[];
-    meleeUsage: CharacterStrike | null;
+    altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
 }
 
