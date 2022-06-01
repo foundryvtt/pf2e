@@ -9,7 +9,8 @@ export class MetagameSettings extends SettingsMenuPF2e {
         "showDC",
         "showResults",
         "tokenSetsNameVisibility",
-        "secretDamage",
+        "secretDamageChat",
+        "secretDamageToken",
         "secretCondition",
         "partyVision",
     ] as const;
@@ -55,11 +56,27 @@ export class MetagameSettings extends SettingsMenuPF2e {
                     }
                 },
             },
-            secretDamage: {
-                name: "PF2E.SETTINGS.Metagame.SecretDamage.Name",
-                hint: "PF2E.SETTINGS.Metagame.SecretDamage.Hint",
-                default: false,
-                type: Boolean,
+            secretDamageChat: {
+                name: "PF2E.SETTINGS.Metagame.SecretDamage.Chat.Name",
+                hint: "PF2E.SETTINGS.Metagame.SecretDamage.Chat.Hint",
+                default: "all",
+                type: String,
+                choices: {
+                    all: "PF2E.SETTINGS.Metagame.SecretDamage.All",
+                    owner: "PF2E.SETTINGS.Metagame.SecretDamage.Owner",
+                    none: "PF2E.SETTINGS.Metagame.SecretDamage.None",
+                },
+            },
+            secretDamageToken: {
+                name: "PF2E.SETTINGS.Metagame.SecretDamage.Token.Name",
+                hint: "PF2E.SETTINGS.Metagame.SecretDamage.Token.Hint",
+                default: "all",
+                type: String,
+                choices: {
+                    all: "PF2E.SETTINGS.Metagame.SecretDamage.All",
+                    owner: "PF2E.SETTINGS.Metagame.SecretDamage.Owner",
+                    none: "PF2E.SETTINGS.Metagame.SecretDamage.None",
+                },
             },
             secretCondition: {
                 name: "PF2E.SETTINGS.Metagame.SecretCondition.Name",
