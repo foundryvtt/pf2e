@@ -152,17 +152,38 @@
         {{/each}}
     </div>
 </div>
-<div class="saves">
-    {{#each data.saves as |save saveType|}}
-        <div class="container" data-save="{{saveType}}">
-            <label class="attribute-label rollable" title="{{save.breakdown}}"><a>{{localize save.labelShort}}</a></label>
-            <input type="text" value="{{numberFormat save.value decimals=0 sign=true}}" class="modifier adjustable{{#if save.adjustedHigher}} adjusted-higher{{else if save.adjustedLower}} adjusted-lower{{/if}}" data-property="data.saves.{{saveType}}.value" data-dtype="Number" placeholder="0" />
+<!-- SAVES -->
+<div id="saves-side-bar-section" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-dice-d20"></i>
+            <h4>{{localize "PF2E.SavesHeader"}}</h4>
         </div>
-    {{/each}}
-</div>
-<div class="save-details side-bar-section">
+        {{#if options.editable}}
+            <div class="controls">
+                <a class="saves-edit edit" data-trait-selector="basic" data-property="data.data.attributes.allSaves.value" data-title="PF2E.SavesHeader" title="{{localize "PF2E.NPC.EditSaves"}}">
+                    <i class="fas {{#if allSaves}}fa-edit {{else}}fa-plus{{/if}}"></i>
+                </a>
+            </div>
+        {{/if}}
+    </div>
     <div class="side-bar-section-content">
-        <input type="text" name="data.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
+        <div class="saves">
+            {{#each data.saves as |save saveType|}}
+                <div class="container" data-save="{{saveType}}">
+                    <label class="attribute-label rollable" title="{{save.breakdown}}"><a>{{localize
+                            save.labelShort}}</a></label>
+                    <input type="text" value="{{numberFormat save.value decimals=0 sign=true}}"
+                        class="modifier adjustable{{#if save.adjustedHigher}} adjusted-higher{{else if save.adjustedLower}} adjusted-lower{{/if}}"
+                        data-property="data.saves.{{saveType}}.value" data-dtype="Number" placeholder="0" />
+                </div>
+            {{/each}}
+        </div>
+        {{#if data.attributes.allSaves.value}}
+            <div id="allSaves">
+                <div class="tag-legacy">{{data.attributes.allSaves.value}}</div>
+            </div>
+        {{/if}}
     </div>
 </div>
 <!-- MOVEMENT -->

@@ -98,6 +98,7 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     weakState: "active" | "inactive";
     notAdjusted: boolean;
     hasShield?: boolean;
+    allSaves?: string;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
     isSpellcaster?: boolean;
