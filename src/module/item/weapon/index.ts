@@ -494,7 +494,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         };
 
         const source: PreCreate<MeleeSource> = {
-            name: this.name,
+            name: this.data._source.name,
             type: "melee",
             data: {
                 weaponType: { value: this.isMelee ? "melee" : "ranged" },
