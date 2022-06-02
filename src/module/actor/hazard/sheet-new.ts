@@ -35,6 +35,15 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         const systemData: HazardSystemData = sheetData.data;
         const actor = this.actor;
 
+        const hasHealth = !!actor.hitPoints?.max;
+        const hasImmunities = systemData.traits.di.value.length > 0;
+        const hasResistances = systemData.traits.dr.length > 0;
+        const hasWeaknesses = systemData.traits.dv.length > 0;
+        const hasIWR = hasHealth || hasImmunities || hasResistances || hasWeaknesses;
+        const stealthMod = actor.data.data.attributes.stealth.value;
+        const stealthDC = stealthMod ? stealthMod + 10 : null;
+        const hasStealthDescription = !!systemData.attributes.stealth?.details;
+
         return {
             ...sheetData,
             actions: this.prepareActions(),
@@ -43,15 +52,16 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             brokenThreshold: systemData.attributes.hp.brokenThreshold,
+            stealthDC,
             saves: this.prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
+            hasHealth,
             hasHPDetails: !!systemData.attributes.hp.details.trim(),
             hasSaves: Object.keys(actor.saves ?? {}).length > 0,
-            hasImmunities: systemData.traits.di.value.length > 0,
-            hasResistances: systemData.traits.dr.length > 0,
-            hasWeaknesses: systemData.traits.dv.length > 0,
-            hasStealthDescription: !!systemData.attributes.stealth?.details,
+            hasIWR,
+            hasStealth: stealthDC !== null || hasStealthDescription,
+            hasStealthDescription,
             hasDescription: !!systemData.details.description.trim(),
             hasDisable: !!systemData.details.disable.trim(),
             hasRoutineDetails: !!systemData.details.routine.trim(),
@@ -152,7 +162,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue: number = getProperty(this.actor.data, propertyPath);
+            const preparedValue = $input.attr("data-value") ?? getProperty(this.actor.data, propertyPath);
             $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
         });
 
