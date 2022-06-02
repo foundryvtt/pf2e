@@ -72,12 +72,11 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    if (BUILD_MODE === "development") {
-        Actors.registerSheet("pf2e", HazardSheetGreenPF2e, {
-            types: ["hazard"],
-            label: "Dev Hazard Sheet",
-        });
-    }
+    // Register Beta Hazard Sheet
+    Actors.registerSheet("pf2e", HazardSheetGreenPF2e, {
+        types: ["hazard"],
+        label: "Hazard Sheet (Beta)",
+    });
 
     // Register Loot Sheet
     Actors.registerSheet("pf2e", LootSheetPF2e, {
