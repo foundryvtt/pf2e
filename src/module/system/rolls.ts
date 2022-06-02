@@ -288,7 +288,7 @@ export class CheckPF2e {
 
             const header = document.createElement("h4");
             header.classList.add("action");
-            header.innerText = check.name;
+            header.innerHTML = check.name;
 
             return [header, result ?? [], tags, notes, incapacitation]
                 .flat()
@@ -419,9 +419,13 @@ export class CheckPF2e {
 
         const traitsAndProperties = document.createElement("div");
         traitsAndProperties.className = "tags";
-        const verticalBar = document.createElement("hr");
-        verticalBar.className = "vr";
-        traitsAndProperties.append(...[traits, verticalBar, itemTraits, properties].flat());
+        if (itemTraits.length === 0 && properties.length === 0) {
+            traitsAndProperties.append(...traits);
+        } else {
+            const verticalBar = document.createElement("hr");
+            verticalBar.className = "vr";
+            traitsAndProperties.append(...[traits, verticalBar, itemTraits, properties].flat());
+        }
 
         const modifiers = check.modifiers
             .filter((m) => m.enabled)
