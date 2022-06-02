@@ -452,14 +452,21 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const baseDamage = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
             const ability = this.rangeIncrement ? "dex" : "str";
-            const modifier = actor.abilities[ability].mod;
             const actorLevel = actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
                 Math.abs(dice - Math.round(actorLevel / 4)) < Math.abs(closest - Math.round(actorLevel / 4))
                     ? dice
                     : closest
             );
-            const constant = modifier > 0 ? ` + ${modifier}` : modifier < 0 ? ` - ${-1 * modifier}` : "";
+
+            // Approximate weapon specialization
+            const constant = ((): string => {
+                const fromAbility = actor.abilities[ability].mod;
+                const totalModifier = fromAbility + (actor.level > 1 ? dice : 0);
+                const sign = totalModifier < 0 ? " - " : " + ";
+                return totalModifier === 0 ? "" : [sign, totalModifier].join("");
+            })();
+
             return {
                 damage: `${dice}${weaponDamage.die}${constant}`,
                 damageType: weaponDamage.damageType,
