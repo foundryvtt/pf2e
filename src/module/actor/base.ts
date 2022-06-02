@@ -1048,7 +1048,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         user: UserPF2e
     ): Promise<void> {
         // Set default portrait and token images
-        if (this.data._source.img === "icons/svg/mystery-man.svg") {
+        if (this.data._source.img === foundry.data.ActorData.DEFAULT_ICON) {
             this.data._source.img =
                 this.data._source.token.img =
                 data.img =
