@@ -162,8 +162,13 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = $input.attr("data-value") ?? getProperty(this.actor.data, propertyPath);
-            $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
+            const valueAttr = $input.attr("data-value");
+            if (valueAttr) {
+                $input.val(valueAttr);
+            } else {
+                const preparedValue = getProperty(this.actor.data, propertyPath);
+                $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
+            }
         });
 
         $html.find('[data-action="edit-section"]').on("click", (event) => {
