@@ -1,14 +1,21 @@
+import { PhysicalItemTrait } from "@item/physical/data";
 import { SortDirection } from "../data";
 
-export type CheckBoxOptions = Record<string, { label: string; selected: boolean }>;
-export interface CheckBoxdata {
+type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
+interface CheckboxData {
     isExpanded: boolean;
     label: string;
-    options: CheckBoxOptions;
+    options: CheckboxOptions;
     selected: string[];
 }
 
-interface DropDownData {
+interface MultiselectData<T extends string = string> {
+    label: string;
+    options: { label: string; value: T }[];
+    selected: { label: string; value: T }[];
+}
+
+interface SelectData {
     label: string;
     options: Record<string, string>;
     selected: string;
@@ -21,7 +28,7 @@ interface OrderData {
     options: Record<string, string>;
 }
 
-export interface RangesData {
+interface RangesData {
     changed: boolean;
     isExpanded: boolean;
     values: {
@@ -45,9 +52,10 @@ interface SliderData {
     label: string;
 }
 
-export interface BaseFilterData {
-    checkboxes?: Record<string, CheckBoxdata>;
-    dropdowns?: Record<string, DropDownData>;
+interface BaseFilterData {
+    checkboxes?: Record<string, CheckboxData>;
+    selects?: Record<string, SelectData>;
+    multiselects?: Record<string, MultiselectData>;
     order: OrderData;
     ranges?: Record<string, RangesData>;
     search: {
@@ -56,38 +64,50 @@ export interface BaseFilterData {
     sliders?: Record<string, SliderData>;
 }
 
-export interface ActionFilters extends BaseFilterData {
-    checkboxes: Record<"traits" | "source", CheckBoxdata>;
+interface ActionFilters extends BaseFilterData {
+    checkboxes: Record<"traits" | "source", CheckboxData>;
 }
 
-export interface BestiaryFilters extends BaseFilterData {
-    checkboxes: Record<"alignments" | "rarity" | "sizes" | "source" | "traits", CheckBoxdata>;
+interface BestiaryFilters extends BaseFilterData {
+    checkboxes: Record<"alignments" | "rarity" | "sizes" | "source" | "traits", CheckboxData>;
     sliders: Record<"level", SliderData>;
 }
 
-export interface EquipmentFilters extends BaseFilterData {
-    checkboxes: Record<
-        "armorTypes" | "consumableType" | "weaponTypes" | "weaponTraits" | "itemtypes" | "rarity" | "source",
-        CheckBoxdata
-    >;
+interface EquipmentFilters extends BaseFilterData {
+    checkboxes: Record<"armorTypes" | "weaponTypes" | "itemtypes" | "rarity" | "source", CheckboxData>;
+    multiselects: Record<"traits", MultiselectData<PhysicalItemTrait>>;
     ranges: Record<"price", RangesData>;
     sliders: Record<"level", SliderData>;
 }
 
-export interface FeatFilters extends BaseFilterData {
-    checkboxes: Record<"ancestry" | "classes" | "feattype" | "skills" | "rarity" | "source" | "traits", CheckBoxdata>;
+interface FeatFilters extends BaseFilterData {
+    checkboxes: Record<"ancestry" | "classes" | "feattype" | "skills" | "rarity" | "source" | "traits", CheckboxData>;
     sliders: Record<"level", SliderData>;
 }
 
-export interface HazardFilters extends BaseFilterData {
-    checkboxes: Record<"complexity" | "rarity" | "source" | "traits", CheckBoxdata>;
+interface HazardFilters extends BaseFilterData {
+    checkboxes: Record<"complexity" | "rarity" | "source" | "traits", CheckboxData>;
     sliders: Record<"level", SliderData>;
 }
 
-export interface SpellFilters extends BaseFilterData {
+interface SpellFilters extends BaseFilterData {
     checkboxes: Record<
         "category" | "classes" | "level" | "rarity" | "school" | "source" | "traditions" | "traits",
-        CheckBoxdata
+        CheckboxData
     >;
-    dropdowns: Record<"timefilter", DropDownData>;
+    selects: Record<"timefilter", SelectData>;
 }
+
+export {
+    ActionFilters,
+    BaseFilterData,
+    BestiaryFilters,
+    CheckboxData,
+    CheckboxOptions,
+    EquipmentFilters,
+    FeatFilters,
+    HazardFilters,
+    MultiselectData,
+    RangesData,
+    SpellFilters,
+};
