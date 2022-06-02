@@ -41,7 +41,7 @@ interface ExtractArgs {
     logWarnings?: boolean;
 }
 
-const args = await (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
+const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
     .command(
         "$0 <packDb> [foundryConfig] [disablePresort] [logWarnings]",
         "Extract one or all compendium packs to packs/data",
@@ -83,7 +83,7 @@ const args = await (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
     })
     .help(false)
     .version(false)
-    .parse();
+    .parseSync();
 
 const packsPath = (() => {
     try {
