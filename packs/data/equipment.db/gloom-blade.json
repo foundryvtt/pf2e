@@ -111,14 +111,26 @@
                 "value": 2
             },
             {
+                "key": "Striking",
+                "predicate": {
+                    "all": [
+                        "gloom-blade-darkness"
+                    ]
+                },
+                "selector": "{item|_id}-damage",
+                "value": 1
+            },
+            {
                 "category": "precision",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|_id}-damage",
-                "traits": [
-                    "gloom-blade-undetected"
-                ]
+                "predicate": {
+                    "all": [
+                        "gloom-blade-undetected"
+                    ]
+                },
+                "selector": "{item|_id}-damage"
             }
         ],
         "size": "med",
