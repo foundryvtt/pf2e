@@ -30,7 +30,30 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "weapon:base:staff",
+                        "self:effect:arcane-cascade"
+                    ]
+                },
+                "critical": true,
+                "dieSize": "d6",
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 1,
+                "selector": "damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "staff-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
