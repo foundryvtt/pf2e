@@ -234,7 +234,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             if (item.isOfType("weapon")) {
                 const attack = item.toNPCAttack().toObject();
                 await actor.createEmbeddedDocuments("Item", [attack]);
-                console.info(`Generated NPC attack: ${attack.name}`);
+                ui.notifications.info(`Generated NPC attack: ${attack.name}`);
             }
         });
     }
