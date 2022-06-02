@@ -172,6 +172,7 @@ declare global {
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "nathMode"): boolean;
+        get(module: "pf2e", setting: "npcAttacksFromWeapons"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
