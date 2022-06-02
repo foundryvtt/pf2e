@@ -22,13 +22,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>Three launching mechanisms built into the mudbrick walls expel darts containing acidic chemicals. All three launching mechanisms must be disabled or destroyed to deactivate the trap.</p>",
-            "disable": "<p>DC 32 Thievery (master) to sufficiently jam the tubes to make the trap unable to attack creatures in a single 5-foot square in the room, or DC 34 Crafting (master) to alter one of the three launching mechanisms.</p>",
+            "disable": "<p>@Check[type:thievery|dc:32|name:Jam the tube|traits:trap,mechanical,complex] (master) to sufficiently jam the tubes to make the trap unable to attack creatures in a single 5-foot square in the room, or @Check[type:crafting|dc:34|name:Alter a launching mechanism|traits:trap,mechanical,complex] (master) to alter one of the three launching mechanisms.</p>",
             "isComplex": true,
             "level": {
                 "value": 11
             },
-            "reset": "<p>The trap deactivates and resets 1 minute after no creatures are in area C7</p>",
-            "routine": "[[3-actions]] The trap uses each action for a caustic dart Strike. The trap loses 1 action for each launching mechanism that is broken or destroyed."
+            "reset": "<p>The trap deactivates and resets 1 minute after no creatures are in area <strong>C7</strong></p>",
+            "routine": "<p><span class=\"pf2-icon\">3</span> The trap uses each action for a caustic dart Strike. The trap loses 1 action for each launching mechanism that is broken or destroyed.</p>"
         },
         "saves": {
             "fortitude": {
@@ -68,7 +68,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
