@@ -39,6 +39,7 @@ export function registerTemplates() {
 
         // Actor Sheets Partials (Hazards)
         "systems/pf2e/templates/actors/hazard/partials/header.html",
+        "systems/pf2e/templates/actors/hazard/partials/sidebar.html",
 
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",

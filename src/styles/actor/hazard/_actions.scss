@@ -16,12 +16,26 @@ $light-text: #f5efe0;
     }
 }
 
-.actions-list {
+.actions-list, .attacks-list {
     align-items: baseline;
     padding: 0px;
     margin: 0px;
     padding-bottom: 6px;
     width: 100%;
+
+    .item-controls {
+        font-size: 0.8rem;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        margin-left: auto;
+        gap: 1px;
+
+        .chat {
+            margin-right: 3px;
+            font-size: 0.9em;
+        }
+    }
 }
 
 .action {
@@ -171,25 +185,6 @@ $light-text: #f5efe0;
 
         .attack-description {
             min-height: 10px;
-        }
-    }
-}
-
-.actions-list, .attacks-list {
-    .controls {
-        font-size: 0.8rem;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: baseline;
-        margin-left: auto;
-        gap: 1px;
-
-        .chat {
-            margin-right: 3px;
-            font-size: 0.9em;
-        }
-        > a.item-control {
-            padding-left: 4px;
         }
     }
 }
