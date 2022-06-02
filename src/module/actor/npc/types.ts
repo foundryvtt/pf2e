@@ -100,6 +100,7 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
+    npcAttacksFromWeapons?: boolean;
     isSpellcaster?: boolean;
 }
 

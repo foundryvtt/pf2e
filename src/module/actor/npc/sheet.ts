@@ -162,6 +162,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
 
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
+        sheetData.npcAttacksFromWeapons = game.settings.get("pf2e", "npcAttacksFromWeapons");
 
         // Return data for rendering
         return sheetData as NPCSheetData;
@@ -218,11 +219,22 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         $html.find(".increment").on("click", async (event) => {
             const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
+            const $target = $(event.currentTarget);
+            const parent = $target.parents(".item");
+            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
             if (effect instanceof ConditionPF2e) {
                 await actor.increaseCondition(effect);
+            }
+        });
+
+        $html.find(".item-control.generate-attack").on("click", async (event) => {
+            const { actor } = this;
+            const itemId = event.currentTarget.closest("li")?.dataset.itemId ?? "";
+            const item = actor.items.get(itemId, { strict: true });
+            if (item.isOfType("weapon")) {
+                const attack = item.toNPCAttack().toObject();
+                await actor.createEmbeddedDocuments("Item", [attack]);
+                console.info(`Generated NPC attack: ${attack.name}`);
             }
         });
     }
