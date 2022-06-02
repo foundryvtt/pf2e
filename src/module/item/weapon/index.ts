@@ -9,10 +9,17 @@ import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { MAGIC_SCHOOLS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { PhysicalItemPF2e } from "../physical";
-import { getStrikingDice, RuneValuationData, WeaponPropertyRuneData, WEAPON_VALUATION_DATA } from "../runes";
+import {
+    getStrikingDice,
+    RuneValuationData,
+    WeaponPropertyRuneData,
+    WEAPON_PROPERTY_RUNES,
+    WEAPON_VALUATION_DATA,
+} from "../runes";
 import { WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
@@ -442,7 +449,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const { actor } = this;
         if (!(actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
-        const damageRoll = ((): MeleeDamageRoll => {
+        const baseDamage = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
             const ability = this.rangeIncrement ? "dex" : "str";
             const modifier = actor.abilities[ability].mod;
@@ -458,6 +465,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 damageType: weaponDamage.damageType,
             };
         })();
+        const fromPropertyRunes = this.data.data.runes.property
+            .flatMap((r) => WEAPON_PROPERTY_RUNES[r].damage?.dice ?? [])
+            .map(
+                (d): MeleeDamageRoll => ({
+                    damage: `${d.diceNumber}${d.dieSize}`,
+                    damageType: d.damageType ?? baseDamage.damageType,
+                })
+            );
 
         const npcReach = {
             tiny: null,
@@ -472,7 +487,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const actorTraits = actor.traits;
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) => (t === "reach" ? npcReach[this.size] ?? [] : t))
-                .filter((t) => !actorTraits.has(t));
+                .filter((t) => !actorTraits.has(t) && !setHasElement(MAGIC_SCHOOLS, t));
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
             if (actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
@@ -502,9 +517,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
                     // Give an attack bonus approximating a high-threat NPC
                     value: Math.round(1.5 * this.actor.level + 7),
                 },
-                damageRolls: {
-                    [randomID()]: damageRoll,
-                },
+                damageRolls: [baseDamage, fromPropertyRunes]
+                    .flat()
+                    .reduce(
+                        (rolls: Record<string, MeleeDamageRoll>, roll) => mergeObject(rolls, { [randomID()]: roll }),
+                        {}
+                    ),
                 traits: {
                     value: toAttackTraits(this.data.data.traits.value),
                 },
