@@ -60,6 +60,9 @@
             {{#if editable}}
                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
             {{/if}}
+            {{#if (and @root.npcAttacksFromWeapons (eq item.type "weapon") (eq @root.actor.type "npc"))}}
+                <a class="item-control generate-attack" title="Generate Attack"><i class="fas fa-hammer"></i></a>
+            {{/if}}
             {{#if (or owner (ne @root.actor.type "loot"))}}
                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
             {{/if}}

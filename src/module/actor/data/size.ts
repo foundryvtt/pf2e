@@ -63,7 +63,7 @@ export class ActorSizePF2e {
      * @param size The size to which this size is being compared
      * @param [smallIsMedium] Treat small as medium for both sizes
      */
-    isLargerThan(size: ActorSizePF2e, { smallIsMedium = false } = {}): boolean {
+    isLargerThan(size: ActorSizePF2e | Size, { smallIsMedium = false } = {}): boolean {
         const other = size instanceof ActorSizePF2e ? size : new ActorSizePF2e({ value: size });
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(other.value, { smallIsMedium });

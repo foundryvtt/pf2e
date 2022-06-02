@@ -229,6 +229,14 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register("pf2e", "npcAttacksFromWeapons", {
+        name: "NPC Attacks From Weapons",
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+
     if (BUILD_MODE === "production") {
         registerWorldSchemaVersion();
     }
