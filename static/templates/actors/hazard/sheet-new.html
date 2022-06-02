@@ -1,115 +1,16 @@
 <form class="{{cssClass}}{{#if editing}} editing{{/if}}" autocomplete="off">
     {{> systems/pf2e/templates/actors/hazard/partials/header.html}}
     <div class="container">
-        <section class="sidebar">
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.DefensesLabel"}}</h2>
-                </div>
-                <div class="health-line">
-                    <div class="health valued-icon">
-                        <i class="fas fa-heart"></i>
-                        <input name="data.attributes.hp.value" class="current" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
-                        /
-                        <input name="data.attributes.hp.max" class="max" type="number" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0" />
-                    </div>
-                    <div class="armor-class valued-icon">
-                        <input name="data.attributes.hardness" type="number" value="{{data.attributes.hardness}}" data-dtype="Number" placeholder="0" />
-                        H
-                    </div>
-                    <div class="armor-class valued-icon">
-                        <input name="data.attributes.ac.value" type="number" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0" />
-                        AC
-                    </div>
-                </div>
-                <input class="hp-details" name="data.attributes.hp.details" type="text" value="{{data.attributes.hp.details}}" placeholder="{{localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder'}}"/>
-            </div>
-
-            {{#if document.isComplex}}
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
-                </div>
-                <div>
-                    <div class="initiative">
-                        <div class="{{#unless editing}}roll-init{{/unless}} valued-icon">
-                            <i class="fas fa-dice-d20 roll-init"></i>
-                            {{#if editing}}
-                                <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="data.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
-                            {{else}}
-                                <span>{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}</span>
-                            {{/if}}
-                        </div>
-                        <h4 class="attribute-name">{{localize "PF2E.StealthLabel"}}</h4>
-                    </div>
-                </div>
-            </div>
-            {{/if}}
-
-            {{#if (or hasSaves editing)}}
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.SavesHeader"}}</h2>
-                </div>
-                <div class="sidebar-saves">
-                    {{#each saves as |save|}}
-                        <div class="save">
-                            <h2 {{#if save.mod includeZero=true}}class="save-name" data-save="{{save.type}}"{{/if}}>
-                                {{#if save.mod includeZero=true}}
-                                    <i class="fas fa-dice-d20"></i>
-                                {{/if}}
-                                {{localize save.label}}
-                            </h2>
-                            <span class="valued-icon">
-                                <input type="text" value="{{#if save.mod includeZero=true}}{{numberFormat save.mod decimals=0 sign=true}}{{/if}}" data-property="data.saves.{{save.type}}.value" data-dtype="Number" placeholder="N/A" />
-                            </span>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-            {{/if}}
-
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
-                    <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
-                </div>
-                <div class="tags">
-                    {{#each immunities as |immunity slug|}}
-                        <span class="tag" data-slug="{{slug}}">{{localize immunity.label}}</span>
-                    {{/each}}
-                </div>
-            </div>
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
-                    <a class="trait-selector" data-trait-selector="weaknesses"><i class="fas fa-edit"></i></a>
-                </div>
-                <div class="tags">
-                    {{#each data.traits.dv as |weakness|}}
-                        <span class="tag" data-slug="weakness.type">{{localize weakness.label}} {{weakness.value}}</span>
-                    {{/each}}
-                </div>
-            </div>
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
-                    <a class="trait-selector" data-trait-selector="resistances"><i class="fas fa-edit"></i></a>
-                </div>
-                <div class="tags">
-                    {{#each data.traits.dr as |resistance|}}
-                        <span class="tag" data-slug="resistance.type">{{localize resistance.label}} {{resistance.value}}</span>
-                    {{/each}}
-                </div>
-            </div>
-        </section>
-
+        {{> systems/pf2e/templates/actors/hazard/partials/sidebar.html}}
         <!-- BODY -->
         <section class="content">
-            {{#if (or hasStealthDescription editing)}}
+            {{#if (or hasStealth editing)}}
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize "PF2E.StealthLabel"}}</h3>
+                    <h3>
+                        {{localize "PF2E.Check.DC.Specific.stealth"}}
+                        <input type="text" value="{{stealthDC}}" data-value="{{stealthDC}}" data-property="data.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                    </h3>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
@@ -166,6 +67,9 @@
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardResetLabel"}}</h3>
+                    <div class="controls">
+                        <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                    </div>
                 </div>
                 <div class="section-body hazard-editor">
                     {{editor content=(enrichHTML data.details.reset) target="data.details.reset" button=true owner=owner editable=editable}}
@@ -193,7 +97,7 @@
                             <li class="item action flexrow" data-item-id="{{action.id}}">
                                 <div class="action-header">
                                     <div class="action-name rollable">
-                                        <h4>{{action.name}}</h4> {{{actionGlyph action.actionCost}}}
+                                        <h4><a>{{action.name}} {{{actionGlyph action.actionCost}}}</a></h4>
                                     </div>
                                     {{#if ../../owner}}
                                     <div class="item-controls">
@@ -224,7 +128,7 @@
                                             <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>
                                         {{/each}}
                                     </h4>
-                                    <div class="attack-controls controls">
+                                    <div class="attack-controls item-controls">
                                         {{#if @root.editing}}
                                             <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fas fa-edit"></i></a>
                                             <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fas fa-trash"></i></a>
