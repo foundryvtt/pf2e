@@ -488,7 +488,7 @@ export class CompendiumBrowser extends Application {
                     enabled: 0,
                     fuzzySearch: false,
                     mapValueTo: "label",
-                    maxItems: 32,
+                    maxItems: data.options.length,
                     searchKeys: ["label"],
                 },
                 whitelist: data.options,
