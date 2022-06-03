@@ -117,7 +117,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
-        this.filterData.dropdowns.timefilter.options = [...times].sort().reduce(
+        this.filterData.selects.timefilter.options = [...times].sort().reduce(
             (result, time) => ({
                 ...result,
                 [sluggify(time)]: time,
@@ -129,7 +129,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, dropdowns, search } = this.filterData;
+        const { checkboxes, selects, search } = this.filterData;
 
         // Name
         if (search.text) {
@@ -142,8 +142,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             if (!levels.includes(entry.level)) return false;
         }
         // Casting time
-        if (dropdowns.timefilter.selected) {
-            if (!(dropdowns.timefilter.selected === entry.time.value)) return false;
+        if (selects.timefilter.selected) {
+            if (!(selects.timefilter.selected === entry.time.value)) return false;
         }
         // Category
         if (checkboxes.category.selected.length) {
@@ -225,7 +225,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     selected: [],
                 },
             },
-            dropdowns: {
+            selects: {
                 timefilter: {
                     label: "PF2E.BrowserFilterCastingTime",
                     options: {},
