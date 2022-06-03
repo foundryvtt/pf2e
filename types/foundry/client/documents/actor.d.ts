@@ -178,9 +178,11 @@ declare global {
 
         get collection(): Actors<this>;
 
-        _sheet: ActorSheet<Actor, Item> | null;
+        _sheet: ActorSheet<this, Item> | null;
 
-        get sheet(): ActorSheet<Actor, Item>;
+        get sheet(): ActorSheet<this, Item>;
+
+        get folder(): Folder<this> | null;
 
         deleteEmbeddedDocuments(
             embeddedName: "ActiveEffect",
