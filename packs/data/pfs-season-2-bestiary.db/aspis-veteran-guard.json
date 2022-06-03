@@ -31,9 +31,9 @@
             },
             "hp": {
                 "details": "",
-                "max": 10,
+                "max": 60,
                 "temp": 0,
-                "value": 10
+                "value": 60
             },
             "initiative": {
                 "ability": "perception"
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario #2-12: Snakes in the Grass"
             }
         },
         "resources": {},
@@ -740,7 +740,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Target is your Hunted Prey",
+                        "option": "hunted-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Seek hunted prey",
+                        "predicate": {
+                            "all": [
+                                "action:seek",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Track hunted prey",
+                        "predicate": {
+                            "all": [
+                                "action:track",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
