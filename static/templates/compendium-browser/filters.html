@@ -28,13 +28,13 @@
                 </a>
             </dd>
         </dl>
-        {{#each filterData.dropdowns as |dropdown type|}}
+        {{#each filterData.selects as |select type|}}
             <dl class="{{type}}">
-                <dt>{{localize dropdown.label}}:</dt>
+                <dt>{{localize select.label}}:</dt>
                 <dd><select name="{{type}}">
-                    {{#select dropdown.selected}}
+                    {{#select select.selected}}
                         <option value="" selected>-</option>
-                        {{#each dropdown.options as |option key|}}
+                        {{#each select.options as |option key|}}
                             <option value="{{key}}">{{option}}</option>
                         {{/each}}
                     {{/select}}
@@ -44,6 +44,14 @@
     </div>
     <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
     {{#each filterData.checkboxes as |checkbox name|}}
+        {{#if (eq @index 1)}}
+            {{#each ../filterData.multiselects as |select type|}}
+                <div class="filtercontainer" data-filter-type="multiselects" data-filter-name="{{type}}">
+                    <h3>{{localize select.label}}</h3>
+                    <input name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json select.selected}}" />
+                </div>
+            {{/each}}
+        {{/if}}
         <div class="filtercontainer" data-filter-type="checkboxes" data-filter-name="{{name}}">
             <div class="title">
                 <h3>{{localize checkbox.label}}</h3>
