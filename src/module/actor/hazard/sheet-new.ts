@@ -14,6 +14,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: ["default", "sheet", "hazard", "actor"],
+            scrollY: [".container > section"],
             width: 700,
             height: 680,
         });
