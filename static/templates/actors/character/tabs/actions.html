@@ -44,8 +44,9 @@
                                                         {{/if}}
                                                     {{/with}}
 
-                                                    {{#if (eq action.origin.type "weapon")}}
-                                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
+
+                                                    {{#if (and (eq action.origin.type "weapon") action.ready)}}
+                                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.origin.data}}
                                                     {{/if}}
                                                 </div>
                                             {{/if}}
@@ -75,6 +76,10 @@
                                             <span>{{aux.label}}</span>
                                         </button>
                                     {{/each}}
+
+                                    {{#if (and (eq action.origin.type "weapon") (not action.ready))}}
+                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.origin.data}}
+                                    {{/if}}
                                 </div>
                                 <div class="item-summary">
                                     <div class="item-description">
