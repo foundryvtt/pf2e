@@ -19,8 +19,8 @@ interface AncestrySystemSource extends ABCSystemData {
         value: string[];
         custom: string;
     };
-    boosts: { [key: string]: { value: AbilityString[] } };
-    flaws: { [key: string]: { value: AbilityString[] } };
+    boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    flaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     hp: number;
     languages: ValuesList<Language>;
     speed: number;

@@ -11,7 +11,7 @@ type BackgroundData = Omit<BackgroundSource, "effects" | "flags"> &
 
 interface BackgroundSystemSource extends ABCSystemData {
     traits: ItemTraits;
-    boosts: { [key: string]: { value: AbilityString[] } };
+    boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     trainedLore: string;
     trainedSkills: {
         value: SkillAbbreviation[];

@@ -30,6 +30,16 @@ class BackgroundPF2e extends ABCItemPF2e {
         }
 
         this.actor.background = this;
+        const { build } = this.actor.data.data;
+
+        // Add ability boosts
+        const boosts = Object.values(this.data.data.boosts);
+        for (const boost of boosts) {
+            if (boost.selected) {
+                build.abilities.boosts.background.push(boost.selected);
+            }
+        }
+
         const { trainedSkills } = this.data.data;
         if (trainedSkills.value.length === 1) {
             const key = trainedSkills.value[0];
