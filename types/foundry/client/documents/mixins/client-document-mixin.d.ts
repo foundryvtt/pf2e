@@ -103,7 +103,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get permission(): PermissionLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): FormApplication;
+    get sheet(): FormApplication<this> | null;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;

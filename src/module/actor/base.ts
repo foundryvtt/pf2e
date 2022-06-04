@@ -1134,9 +1134,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
-    _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
 
-    get sheet(): ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e>;
+    _sheet: ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e> | null;
+
+    get sheet(): ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e>;
 
     /** See implementation in class */
     createEmbeddedDocuments(

@@ -19,7 +19,7 @@ import { CreatureSheetData } from "@actor/creature/types";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values";
 import { NPCConfig } from "./config";
 
-export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
+export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
 
@@ -45,7 +45,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     /** Use the token name as the title if showing a lootable NPC sheet */
-    override get title() {
+    override get title(): string {
         if (this.isLootSheet || this.actor.limited) {
             const actorName = this.token?.name ?? this.actor.name;
             if (this.actor.isDead) {
@@ -65,7 +65,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares items in the actor for easier access during sheet rendering.
      * @param sheetData Data from the actor associated to this sheet.
      */
-    protected prepareItems(sheetData: NPCSheetData) {
+    protected prepareItems(sheetData: NPCSheetData<TActor>): void {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
@@ -86,8 +86,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return identifyCreature(this.actor.data, { proficiencyWithoutLevel });
     }
 
-    override async getData(): Promise<NPCSheetData> {
-        const sheetData: PrePrepSheetData = await super.getData();
+    override async getData(): Promise<NPCSheetData<TActor>> {
+        const sheetData: PrePrepSheetData<TActor> = await super.getData();
 
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {
@@ -165,7 +165,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.npcAttacksFromWeapons = game.settings.get("pf2e", "npcAttacksFromWeapons");
 
         // Return data for rendering
-        return sheetData as NPCSheetData;
+        return sheetData as NPCSheetData<TActor>;
     }
 
     override activateListeners($html: JQuery): void {
@@ -365,7 +365,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the actions list to be accessible from the sheet.
      * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(sheetData: NPCSheetData): void {
+    private prepareActions(sheetData: NPCSheetData<TActor>): void {
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
@@ -441,7 +441,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Prepare spells and spell entries
      * @param sheetData Data of the actor to show in the sheet.
      */
-    private prepareSpellcasting(sheetData: NPCSheetData): void {
+    private prepareSpellcasting(sheetData: NPCSheetData<TActor>): void {
         sheetData.spellcastingEntries = [];
 
         for (const item of sheetData.items) {
@@ -580,4 +580,4 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 }
 
-type PrePrepSheetData = Partial<NPCSheetData> & CreatureSheetData<NPCPF2e>;
+type PrePrepSheetData<T extends NPCPF2e> = Partial<NPCSheetData<T>> & CreatureSheetData<T>;
