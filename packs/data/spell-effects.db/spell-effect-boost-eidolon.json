@@ -16,39 +16,18 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "1 die",
-                        "value": 2
-                    },
-                    {
-                        "label": "2 dice",
-                        "value": 4
-                    },
-                    {
-                        "label": "3 dice",
-                        "value": 6
-                    },
-                    {
-                        "label": "4 dice",
-                        "value": 8
-                    }
-                ],
-                "flag": "boostEidolon",
-                "key": "ChoiceSet",
-                "prompt": "Number of damage dice"
-            },
-            {
                 "key": "FlatModifier",
-                "label": "Boost Eidolon",
                 "predicate": {
                     "all": [
-                        "unarmed"
+                        "self:trait:eidolon"
+                    ],
+                    "not": [
+                        "weapon:category:unarmed"
                     ]
                 },
                 "selector": "strike-damage",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.boostEidolon}"
+                "value": "(1 + @weapon.data.data.runes.striking) * 2"
             }
         ],
         "source": {
