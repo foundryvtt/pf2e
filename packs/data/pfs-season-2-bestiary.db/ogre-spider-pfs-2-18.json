@@ -1,21 +1,21 @@
 {
-    "_id": "rCErTabCxzPbR0ON",
+    "_id": "tY5snIGj4jBSJcay",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": -4
             },
             "con": {
                 "mod": 4
             },
             "dex": {
-                "mod": 2
+                "mod": 4
             },
             "int": {
-                "mod": -4
+                "mod": -5
             },
             "str": {
-                "mod": 5
+                "mod": 6
             },
             "wis": {
                 "mod": 2
@@ -24,48 +24,44 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 22
+                "value": 23
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 125,
+                "max": 70,
                 "temp": 0,
-                "value": 125
+                "value": 70
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 12
+                "value": 7
             },
             "speed": {
                 "otherSpeeds": [
                     {
                         "type": "climb",
-                        "value": "10"
-                    },
-                    {
-                        "type": "swim",
-                        "value": "10"
+                        "value": "30"
                     }
                 ],
-                "value": "20"
+                "value": "30"
             }
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "N"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Animal",
             "level": {
-                "value": 6
+                "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>These terrifying creatures grow as large as elephants. The placement of their eyes above their wide mandibles evokes the grimacing visage of an ogre's leer. Ogres themselves find the appearance of ogre spider faces simultaneously amusing and adorable, but in most cases, ogres' attempts to keep these spiders as pets result in dead ogres and well-fed spiders.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario #2-18: The Fanciful March of Urwal"
             }
@@ -74,7 +70,7 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 17
+                "value": 15
             },
             "reflex": {
                 "saveDetail": "",
@@ -82,44 +78,36 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 13
+                "value": 9
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
                 "value": []
             },
-            "dr": [
-                {
-                    "type": "poison",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
+            "dr": [],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": []
             },
-            "rarity": "uncommon",
+            "rarity": "common",
             "senses": {
-                "value": "darkvision"
+                "value": "darkvision, web sense"
             },
             "size": {
-                "value": "med"
+                "value": "huge"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "aberration"
+                    "animal"
                 ]
             }
         }
@@ -127,22 +115,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2fw4H5Q9NB0Lq7DQ",
+            "_id": "fxuqMIJcFuZQworq",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "ogre-spider-venom"
+                    ]
                 },
                 "bonus": {
-                    "total": 14,
-                    "value": 17
+                    "value": 15
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d10+9",
-                        "damageType": "slashing"
+                        "damage": "2d8+8",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -163,12 +153,52 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tree Claws",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "U845IJKZpNBSVKwx",
+            "_id": "CQ9x9wMLcGSsM5wK",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "web-trap"
+                    ]
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Web",
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "jzVssayBq4mzMU9u",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -209,63 +239,23 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "nmiINLl4XQwyT4oE",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>If the forest rot takes fire damage, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Flame-Scorched",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "oEduKuW4WaDIp98Z",
+            "_id": "5lCoU2D6djePIJZT",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature damages the dragon forest rot.</p>\n<hr />\n<p><strong>Effect</strong> The dragon forest rot sprays spores on the triggering creature. The spores deal [[/r {2d6+9}[piercing]]]{2d6+9 piercing damage} with a @Check[type:fortitude|dc:23|basic:true] save. On a critical failure, the triggering creature gains weakness to slashing 5 for the next 4 rounds.</p>"
+                    "value": "<p>The ogre spider has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -287,68 +277,65 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spores",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Web Sense",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "b3SbLDyYjM3QmXhM",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:23] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. On a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to the of all dragon forest rots for 1 minute.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "WDttWBnICVwt2mYo",
+            "_id": "v65HAbd7O3gZv2VP",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 2
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>The dragon forest rot breathes a toxic cloud that deals [[/r {7d6}[poison]]]{7d6 poison damage} in a @Template[type:cone|distance:15] (@Check[type:fortitude|dc:23|basic:true] save).</p>\n<p>It can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>An ogre spider can fit through tight spaces as if it were a Large creature. While @Compendium[pf2e.actionspf2e.Squeeze]{Squeezing}, it can move at its full speed.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Eerie Flexibility",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "6qaFJjq9JjlhZbaw",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> 1d6 poison damage, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, Clumsy 1, and Enfeebled 1 (1 round)</p>\n<p><strong>Stage 4</strong> 2d6 poison damage, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -362,8 +349,6 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "arcane",
-                        "evocation",
                         "poison"
                     ]
                 },
@@ -374,22 +359,28 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ogre Spider Venom",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "ldXfL2I2YBAW4zH0",
+            "_id": "Pxxc4fNbFR6zlG0y",
             "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
                 "description": {
+                    "value": "<p>A creature hit by the ogre spider's web attack is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and stuck to the nearest surface until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 22).</p>"
+                },
+                "requirements": {
                     "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
                 },
                 "rules": [],
                 "slug": null,
@@ -400,15 +391,21 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Web Trap",
             "sort": 700000,
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "hTeQyuEffMowJLJO",
+            "_id": "Zlp080daUckORMZd",
             "data": {
                 "description": {
                     "value": ""
@@ -431,18 +428,46 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
+            "name": "Acrobatics",
             "sort": 800000,
+            "type": "lore"
+        },
+        {
+            "_id": "BQmLlekhOx0gF2aD",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
             "type": "lore"
         }
     ],
-    "name": "Insidious Dragon Forest Rot",
+    "name": "Ogre Spider (PFS 2-18)",
     "token": {
         "disposition": -1,
-        "height": 1,
+        "height": 3,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Insidious Dragon Forest Rot",
-        "width": 1
+        "name": "Ogre Spider",
+        "width": 3
     },
     "type": "npc"
 }
