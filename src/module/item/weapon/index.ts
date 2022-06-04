@@ -230,6 +230,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
             ),
             effects: [],
         };
+
+        // Adjust weapon data according to property runes if they alter any weapon data
+        for (const rune of this.data.data.runes.property) {
+            WEAPON_PROPERTY_RUNES[rune].prepareItem?.(this);
+        }
     }
 
     processMaterialAndRunes(): void {
