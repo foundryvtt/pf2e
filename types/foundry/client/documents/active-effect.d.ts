@@ -53,7 +53,7 @@ declare global {
          * An instance of the ActiveEffectConfig sheet to use for this ActiveEffect instance.
          * The reference to the sheet is cached so the same sheet instance is reused.
          */
-        override get sheet(): NonNullable<this["_sheet"]>;
+        override get sheet(): ActiveEffectConfig<this>;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -133,10 +133,6 @@ declare global {
 
     interface ActiveEffect {
         readonly parent: Actor | Item;
-
-        getFlag(scope: "core", key: "overlay"): string | undefined;
-        getFlag(scope: "core", key: "statusId"): string | undefined;
-        getFlag(scope: string, key: string): unknown;
     }
 
     interface TemporaryEffect {

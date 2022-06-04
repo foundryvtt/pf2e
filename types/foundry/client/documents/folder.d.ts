@@ -77,5 +77,5 @@ declare global {
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 
-    type EnfolderableDocument = Actor | Item | Scene | JournalEntry | RollTable;
+    type EnfolderableDocument = Actor | Item | Macro | Scene | JournalEntry | RollTable;
 }

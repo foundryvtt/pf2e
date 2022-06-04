@@ -950,9 +950,9 @@ class NPCPF2e extends CreaturePF2e {
 interface NPCPF2e {
     readonly data: NPCData;
 
-    get sheet(): NPCSheetPF2e;
+    _sheet: NPCSheetPF2e<this> | null;
 
-    _sheet: NPCSheetPF2e | null;
+    get sheet(): NPCSheetPF2e<this>;
 }
 
 export { NPCPF2e };

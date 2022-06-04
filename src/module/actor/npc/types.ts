@@ -69,7 +69,7 @@ interface NPCSystemSheetData extends NPCSystemData {
 }
 
 /** Additional fields added in sheet data preparation */
-interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
+interface NPCSheetData<T extends NPCPF2e> extends CreatureSheetData<T> {
     actions: NPCActionSheetData;
     attacks: NPCAttackSheetData;
     data: NPCSystemSheetData;

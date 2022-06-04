@@ -572,12 +572,14 @@ export class CompendiumBrowser extends Application {
             .children("a.item-link, a.actor-link")
             .on("click", (event) => {
                 const entry = $(event.currentTarget).closest(".item")[0].dataset;
-                const id = entry.entryId ?? "";
-                const compendium = entry.entryCompendium;
-                const pack = game.packs.get(compendium ?? "");
-                pack?.getDocument(id).then((document) => {
-                    document!.sheet.render(true);
-                });
+                const compendiumId = entry.entryCompendium ?? "";
+                const docId = entry.entryId ?? "";
+                game.packs
+                    .get(compendiumId)
+                    ?.getDocument(docId)
+                    .then((document) => {
+                        document?.sheet?.render(true);
+                    });
             });
 
         // Add an item to selected tokens' actors' inventories
