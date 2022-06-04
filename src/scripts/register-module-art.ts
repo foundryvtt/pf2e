@@ -57,14 +57,16 @@ function isModuleArt(record: unknown): record is ModuleArtMap {
         Object.values(record).every(
             (packToArt) =>
                 isObject<Record<string, unknown>>(packToArt) &&
-                Object.values(packToArt).every(
-                    (art) =>
-                        isObject<Record<string, unknown>>(art) &&
-                        typeof art.actor === "string" &&
-                        typeof art.token === "string"
+                Object.values(packToArt).every((art) =>
+                    isObject<Record<string, unknown>>(art) &&
+                    typeof art.actor === "string" &&
+                    typeof art.token === "string" &&
+                    art.scale
+                        ? typeof art.scale === "number"
+                        : true
                 )
         )
     );
 }
 
-type ModuleArtMap = Record<string, Record<string, { actor: ImagePath; token: ImagePath }>>;
+type ModuleArtMap = Record<string, Record<string, { actor: ImagePath; token: ImagePath; scale?: Number }>>;
