@@ -366,6 +366,12 @@ export class WeaponDamagePF2e {
         const propertyRunes = weaponPotency?.property ?? [];
         getPropertyRuneModifiers(propertyRunes).forEach((modifier) => diceModifiers.push(modifier));
 
+        const runeNotes = propertyRunes.flatMap((r) => {
+            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            return data.map((d) => new RollNotePF2e("strike-damage", d.text, d.predicate, d.outcome));
+        });
+        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
+
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
             diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
