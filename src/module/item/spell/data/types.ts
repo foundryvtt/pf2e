@@ -11,7 +11,7 @@ import {
 import { DamageType } from "@system/damage";
 import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
 import type { SpellPF2e } from "@item";
-import { MagicSchool, MagicTradition, SpellTrait } from "../types";
+import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "../types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
@@ -64,12 +64,7 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     school: {
         value: MagicSchool;
     };
-    components: {
-        focus: boolean;
-        material: boolean;
-        somatic: boolean;
-        verbal: boolean;
-    };
+    components: Record<SpellComponent, boolean>;
     materials: {
         value: string;
     };
@@ -124,6 +119,8 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     };
 }
 
-type SpellSystemData = SpellSystemSource & Omit<ItemSystemData, "traits">;
+interface SpellSystemData extends SpellSystemSource, ItemSystemData {
+    traits: SpellTraits;
+}
 
 export { SpellData, SpellSource, SpellSystemData, SpellSystemSource };
