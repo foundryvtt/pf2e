@@ -364,7 +364,7 @@ export class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
-        getPropertyRuneModifiers(propertyRunes).forEach((modifier) => diceModifiers.push(modifier));
+        diceModifiers.push(...getPropertyRuneModifiers(propertyRunes));
 
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
