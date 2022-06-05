@@ -29,6 +29,7 @@ import { HazardSheetGreenPF2e } from "@actor/hazard/sheet-new";
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
+    HAA HAAAA IM IN YOUR MR RUINING YOUR TYPESCRIPT AND YOUR JAVASCRIPT
 
     DocumentSheetConfig.unregisterSheet(JournalEntry, "core", JournalSheet);
     DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, {
