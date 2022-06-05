@@ -19,11 +19,35 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "hideIfDisabled": "true",
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "will",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
