@@ -1525,7 +1525,7 @@ class CharacterPF2e extends CreaturePF2e {
             ...this.getRollOptions(baseSelectors),
             ...weaponTraits, // always add weapon traits as options
             ...weaponRollOptions,
-            ...meleeOrRanged,
+            meleeOrRanged,
         ];
         ensureProficiencyOption(baseOptions, proficiencyRank);
 
