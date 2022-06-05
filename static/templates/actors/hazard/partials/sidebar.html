@@ -33,8 +33,7 @@
         </div>
         <div>
             <div class="initiative">
-                <div class="{{#unless editing}}roll-init{{/unless}} valued-icon">
-                    <i class="fas fa-dice-d20 roll-init"></i>
+                <div class="valued-icon">
                     <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="data.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
                 </div>
                 <h4 class="attribute-name">{{localize "PF2E.StealthLabel"}}</h4>
@@ -51,7 +50,7 @@
         <div class="sidebar-saves">
             {{#each saves as |save|}}
                 <div class="save">
-                    <h2 {{#if save.mod includeZero=true}}class="save-name" data-save="{{save.type}}"{{/if}}>
+                    <h2 {{#if save.mod includeZero=true}}class="save-name rollable" data-save="{{save.type}}"{{/if}}>
                         {{#if save.mod includeZero=true}}
                             <i class="fas fa-dice-d20"></i>
                         {{/if}}
