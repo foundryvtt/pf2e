@@ -432,7 +432,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const modifiers = extractModifiers(statisticsModifiers, domains, {
             test: [proficiency, ...this.getRollOptions(domains)],
         });
-        const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
+        const notes = rollNotes.initiative?.map((n) => n.clone()) ?? [];
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
             ability: checkType,

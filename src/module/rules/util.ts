@@ -14,7 +14,7 @@ function extractModifiers(
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
 function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]) {
-    return selectors.flatMap((option) => duplicate(rollNotes[option] ?? []));
+    return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
 }
 
 function extractRollTwice(

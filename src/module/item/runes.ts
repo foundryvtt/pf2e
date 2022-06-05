@@ -2,7 +2,7 @@ import { DiceModifierPF2e } from "@actor/modifiers";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize } from "@system/damage/damage";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { PredicateStatement, RawPredicate } from "@system/predication";
+import { RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
@@ -79,11 +79,7 @@ function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): Di
 
 interface RollNoteData {
     outcome?: DegreeOfSuccessString[];
-    predicate?: {
-        all?: PredicateStatement[];
-        any?: PredicateStatement[];
-        not?: PredicateStatement[];
-    };
+    predicate?: RawPredicate;
     text: string;
 }
 
@@ -96,11 +92,7 @@ export interface WeaponPropertyRuneData {
             damageType?: string;
             diceNumber?: number;
             dieSize?: DamageDieSize;
-            predicate?: {
-                all?: PredicateStatement[];
-                any?: PredicateStatement[];
-                not?: PredicateStatement[];
-            };
+            predicate?: RawPredicate;
         }[];
         notes?: RollNoteData[];
     };

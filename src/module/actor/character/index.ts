@@ -531,7 +531,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
@@ -588,7 +588,7 @@ class CharacterPF2e extends CreaturePF2e {
                 systemData.attributes.classDC,
                 { overwrite: false }
             );
-            stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.value = 10 + stat.totalModifier;
             stat.ability = systemData.details.keyability.value;
             stat.breakdown = [game.i18n.localize("PF2E.ClassDCBase")]
@@ -748,7 +748,7 @@ class CharacterPF2e extends CreaturePF2e {
                 })
                 .join(", ");
             stat.value = stat.totalModifier;
-            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.rank = skill.rank;
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
@@ -811,7 +811,7 @@ class CharacterPF2e extends CreaturePF2e {
             );
             stat.ability = "int";
             stat.itemID = skill._id;
-            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.rank = rank ?? 0;
             stat.shortform = shortForm;
             stat.expanded = skill;
@@ -1556,7 +1556,7 @@ class CharacterPF2e extends CreaturePF2e {
         })();
 
         // Extract weapon roll notes
-        const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
+        const attackRollNotes = extractNotes(rollNotes, selectors);
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
         if (weapon.group === "bomb" && !ABP.isEnabled) {
@@ -1828,7 +1828,7 @@ class CharacterPF2e extends CreaturePF2e {
                         type: "attack-roll",
                         altUsage: args.altUsage ?? null,
                         options: finalRollOptions,
-                        notes,
+                        notes: attackRollNotes,
                         dc,
                         traits: context.traits,
                         rollTwice,
@@ -1876,7 +1876,7 @@ class CharacterPF2e extends CreaturePF2e {
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
                     options,
-                    rollNotes,
+                    this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
                     synthetics.strikeAdjustments

@@ -270,7 +270,7 @@ class NPCPF2e extends CreaturePF2e {
                 { overwrite: false }
             );
             stat.base = base;
-            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -314,7 +314,7 @@ class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
                 ...extractModifiers(statisticsModifiers, domains),
             ];
-            const notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            const notes = extractNotes(rollNotes, domains);
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
 
             const stat = mergeObject(
@@ -390,7 +390,7 @@ class NPCPF2e extends CreaturePF2e {
                     data.skills[shortform],
                     { overwrite: false }
                 );
-                stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+                stat.notes = extractNotes(rollNotes, domains);
                 stat.itemID = itemData._id;
                 stat.base = base;
                 stat.expanded = skill;
@@ -442,7 +442,6 @@ class NPCPF2e extends CreaturePF2e {
             } else if (item instanceof MeleePF2e) {
                 const meleeData = item.data;
                 const modifiers: ModifierPF2e[] = [];
-                const notes: RollNotePF2e[] = [];
 
                 // traits
                 const traits = meleeData.data.traits.value;
@@ -484,7 +483,7 @@ class NPCPF2e extends CreaturePF2e {
                 ];
                 modifiers.push(...extractModifiers(statisticsModifiers, domains));
                 modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
-                notes.push(...domains.flatMap((key) => duplicate(rollNotes[key] ?? [])));
+                const notes = extractNotes(rollNotes, domains);
 
                 // action image
                 const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
