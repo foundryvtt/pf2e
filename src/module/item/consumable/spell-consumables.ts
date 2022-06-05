@@ -68,7 +68,7 @@ export async function createConsumableFromSpell(
     consumableData.data.description.value =
         (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr/>${description}`;
     consumableData.data.spell = {
-        data: duplicate(spell.toObject()),
+        data: spell.toObject(),
         heightenedLevel: heightenedLevel,
     };
     return consumableData;

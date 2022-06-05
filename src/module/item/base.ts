@@ -8,7 +8,6 @@ import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { ItemSheetPF2e } from "./sheet/base";
 import { isCreatureData } from "@actor/data/helpers";
-import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
@@ -269,7 +268,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
-        const traits: string[] = deepClone(this.data.data.traits?.value ?? []).sort();
+        const traits: string[] = [...(this.data.data.traits?.value ?? [])].sort();
         const customTraits =
             this.data.data.traits?.custom
                 .trim()
@@ -301,14 +300,12 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (this.actor?.data.type !== "npc" && this.actor?.data.type !== "hazard") {
+        if (this.actor?.data.type !== "hazard") {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
         // Prepare roll data
         const itemData: any = this.getChatData();
-        const rollData: (NPCSystemData | HazardSystemData) & { item?: unknown; itemBonus?: number } = duplicate(
-            this.actor.data.data
-        );
+        const rollData: HazardSystemData & { item?: unknown; itemBonus?: number } = deepClone(this.actor.data.data);
         const parts = ["@itemBonus"];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
 
@@ -350,16 +347,14 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
         if (this.data.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (this.actor.data.type !== "npc" && this.actor.data.type !== "hazard") {
+        if (this.actor.data.type !== "hazard") {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
 
         // Get item and actor data and format it for the damage roll
         const item = this.data;
         const itemData = item.data;
-        const rollData: (NPCSystemData | HazardSystemData) & { item?: MeleeSystemData } = duplicate(
-            this.actor.data.data
-        );
+        const rollData: HazardSystemData & { item?: MeleeSystemData } = deepClone(this.actor.data.data);
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 
@@ -408,11 +403,8 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     createTemplate() {
-        const itemData =
-            this.data.type === "consumable" && this.data.data.spell?.data
-                ? duplicate(this.data.data.spell.data)
-                : this.toObject();
-        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
+        const itemData = this.isOfType("consumable") ? this.embeddedSpell?.toObject() : this.toObject();
+        if (itemData?.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
         const templateConversion: Record<string, string> = {
             burst: "circle",
