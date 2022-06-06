@@ -1031,12 +1031,22 @@ class CharacterPF2e extends CreaturePF2e {
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
-                const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
-                bulwarkModifier.predicate = new PredicatePF2e({
-                    all: ["damaging-effect"],
-                    not: ["self:armor:bulwark-all"],
+                const bulwarkModifier = new ModifierPF2e({
+                    slug: "bulwark",
+                    type: MODIFIER_TYPE.UNTYPED,
+                    label: CONFIG.PF2E.armorTraits.bulwark,
+                    modifier: 3,
+                    predicate: { all: ["damaging-effect"] },
                 });
                 modifiers.push(bulwarkModifier);
+
+                // Add a modifier adjustment to be picked up by the construction of this saving throw's Statistic
+                const reflexAdjustments = (this.synthetics.modifierAdjustments[saveType] ??= []);
+                reflexAdjustments.push({
+                    slug: "dex",
+                    predicate: new PredicatePF2e({ all: ["damaging-effect"] }),
+                    suppress: true,
+                });
             }
 
             // Add custom modifiers and roll notes relevant to this save.
@@ -1056,13 +1066,6 @@ class CharacterPF2e extends CreaturePF2e {
                 },
                 dc: {},
             });
-
-            if (affectedByBulwark) {
-                stat.abilityModifier?.predicate.not.push(
-                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
-                    "self:armor:bulwark-all"
-                );
-            }
 
             saves[saveType] = stat;
             mergeObject(this.data.data.saves[saveType], stat.getCompatData());

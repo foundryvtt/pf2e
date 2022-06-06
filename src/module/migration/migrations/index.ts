@@ -153,3 +153,4 @@ export { Migration750FixCorruptedPrice } from "./750-fix-corrupted-price";
 export { Migration751ResetRollOptions } from "./751-reset-roll-options";
 export { Migration752StrikeVsWeaponTraits } from "./752-strike-vs-weapon-traits";
 export { Migration753WeaponReloadTimes } from "./753-weapon-reload-times";
+export { Migration754MightyBulwarkAdjustModifiers } from "./754-mighty-bulwark-adjust-modifiers";

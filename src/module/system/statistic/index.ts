@@ -80,7 +80,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     slug: string;
 
     constructor(public actor: ActorPF2e, public readonly data: T, public options?: RollOptionParameters) {
-        this.slug = this.data.slug;
+        this.slug = data.slug;
+        this.ability = data.ability ?? null;
 
         // Add some base modifiers depending on data values
         this.modifiers = [data.modifiers ?? []].flat();
@@ -93,8 +94,9 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             this.proficient = data.proficient === undefined ? true : !!data.proficient;
         }
 
-        if (actor instanceof CharacterPF2e && data.ability) {
-            this.abilityModifier = AbilityModifier.fromScore(data.ability, actor.abilities[data.ability].value);
+        if (actor instanceof CharacterPF2e && this.ability) {
+            this.abilityModifier = AbilityModifier.fromScore(this.ability, actor.abilities[this.ability].value);
+            this.abilityModifier.adjustments = actor.getModifierAdjustments(data.domains ?? [], this.ability);
             this.modifiers.unshift(this.abilityModifier);
         }
 
