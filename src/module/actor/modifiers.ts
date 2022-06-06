@@ -87,8 +87,8 @@ export interface ModifierAdjustment {
     damageType?: DamageType;
     relabel?: string;
     suppress: boolean;
-    getNewValue(current: number): number;
-    getDamageType(current: DamageType | null): DamageType | null;
+    getNewValue?: (current: number) => number;
+    getDamageType?: (current: DamageType | null) => DamageType | null;
 }
 
 export interface RawModifier extends BaseRawModifier {
@@ -520,7 +520,7 @@ export class StatisticModifier {
             type ResolvedAdjustment = { value: number; relabel: string | null };
             const resolvedAdjustment = adjustments.reduce(
                 (resolved: ResolvedAdjustment, adjustment) => {
-                    const newValue = adjustment.getNewValue(resolved.value);
+                    const newValue = adjustment.getNewValue?.(resolved.value) ?? resolved.value;
                     if (newValue !== resolved.value) {
                         resolved.value = newValue;
                         resolved.relabel = adjustment.relabel ?? null;
@@ -537,7 +537,7 @@ export class StatisticModifier {
 
             // If applicable, change the damage type of this modifier, using only the final adjustment found
             modifier.damageType = adjustments.reduce(
-                (damageType: DamageType | null, adjustment) => adjustment.getDamageType(damageType),
+                (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
                 modifier.damageType
             );
         }

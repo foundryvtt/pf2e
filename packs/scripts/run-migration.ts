@@ -36,6 +36,7 @@ import { Migration748BatchConsumablePricing } from "@module/migration/migrations
 import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
 import { Migration752StrikeVsWeaponTraits } from "@module/migration/migrations/752-strike-vs-weapon-traits";
 import { Migration753WeaponReloadTimes } from "@module/migration/migrations/753-weapon-reload-times";
+import { Migration754MightyBulwarkAdjustModifiers } from "@module/migration/migrations/754-mighty-bulwark-adjust-modifiers";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -68,6 +69,7 @@ const migrations: MigrationBase[] = [
     new Migration749AssuranceREs(),
     new Migration752StrikeVsWeaponTraits(),
     new Migration753WeaponReloadTimes(),
+    new Migration754MightyBulwarkAdjustModifiers(),
 ];
 
 global.deepClone = <T>(original: T): T => {
