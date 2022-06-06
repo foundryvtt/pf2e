@@ -1,3 +1,10 @@
+import { ActionTrait } from "@item/action/data";
+import { ArmorTrait } from "@item/armor/data";
+import { ConsumableTrait } from "@item/consumable/data";
+import { EquipmentTrait } from "@item/equipment/data";
+import type { PhysicalItemPF2e } from "@item/physical";
+import { WeaponTrait } from "@item/weapon/types";
+import { Size, ValuesList } from "@module/data";
 import {
     ActionCost,
     BaseItemDataPF2e,
@@ -7,17 +14,10 @@ import {
     ItemSystemSource,
     ItemTraits,
 } from "../data/base";
-import type { PhysicalItemPF2e } from "@item/physical";
-import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES } from "../data/values";
-import { EquipmentTrait } from "@item/equipment/data";
-import { ArmorTrait } from "@item/armor/data";
-import { WeaponTrait } from "@item/weapon/types";
-import { ConsumableTrait } from "@item/consumable/data";
-import { Size, ValuesList } from "@module/data";
-import { ActionTrait } from "@item/action/data";
-import { UsageDetails } from "./usage";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import type { ITEM_CARRY_TYPES } from "../data/values";
 import { CoinsPF2e } from "./helpers";
+import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import { UsageDetails } from "./usage";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
@@ -32,8 +32,6 @@ type BasePhysicalItemData<
     TSystemData extends PhysicalSystemData = PhysicalSystemData,
     TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
 > = Omit<BasePhysicalItemSource, "data" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
-
-type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
 
 interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     traits: PhysicalItemTraits;
@@ -218,7 +216,6 @@ export {
     PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalItemTraits,
-    PhysicalItemType,
     PhysicalSystemData,
     PhysicalSystemSource,
     Price,
