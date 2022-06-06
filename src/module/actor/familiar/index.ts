@@ -289,7 +289,8 @@ export class FamiliarPF2e extends CreaturePF2e {
             modifiers.push(...extractModifiers(statisticsModifiers, selectors).filter(filterModifier));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
-            const stat = mergeObject(new StatisticModifier(label, modifiers), {
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers), {
+                label,
                 ability,
                 value: 0,
                 roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
