@@ -11,7 +11,6 @@ import { isCreatureData } from "@actor/data/helpers";
 import { HazardSystemData } from "@actor/hazard/data";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
-import { GhostTemplate } from "@module/ghost-measured-template";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { preImportJSON } from "@module/doc-helpers";
 
@@ -400,52 +399,6 @@ class ItemPF2e extends Item<ActorPF2e> {
                 left: window.innerWidth - 710,
             },
         });
-    }
-
-    createTemplate() {
-        const itemData = this.isOfType("consumable") ? this.embeddedSpell?.toObject() : this.toObject();
-        if (itemData?.type !== "spell") throw ErrorPF2e("Wrong item type!");
-
-        const templateConversion: Record<string, string> = {
-            burst: "circle",
-            emanation: "circle",
-            line: "ray",
-            cone: "cone",
-            rect: "rect",
-        };
-
-        const areaType = templateConversion[itemData.data.area.areaType];
-
-        const templateData: any = {
-            t: areaType,
-            distance: (Number(itemData.data.area.value) / 5) * (canvas.dimensions?.distance ?? 0),
-            flags: {
-                pf2e: {
-                    origin: {
-                        type: this.type,
-                        uuid: this.uuid,
-                        name: this.name,
-                        slug: this.slug,
-                        traits: deepClone(this.data.data.traits?.value ?? []),
-                    },
-                },
-            },
-        };
-
-        if (areaType === "ray") {
-            templateData.width = canvas.dimensions?.distance ?? 0;
-        } else if (areaType === "cone") {
-            templateData.angle = 90;
-        }
-
-        templateData.user = game.user.id;
-        templateData.fillColor = game.user.color;
-        const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-        return new GhostTemplate(measuredTemplateDoc);
-    }
-
-    placeTemplate(_event: JQuery.ClickEvent) {
-        this.createTemplate().drawPreview();
     }
 
     calculateMap(): { label: string; map2: number; map3: number } {

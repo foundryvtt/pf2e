@@ -1,7 +1,7 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
-import { GhostTemplate } from "@module/ghost-measured-template";
+import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -192,7 +192,7 @@ export const InlineRollLinks = {
             }
         });
 
-        $links.filter("[data-pf2-effect-area]").on("click", (event) => {
+        $links.filter("[data-pf2-effect-area]").on("click", async (event) => {
             const {
                 pf2EffectArea,
                 pf2Distance,
@@ -234,9 +234,9 @@ export const InlineRollLinks = {
                     };
                 }
 
-                const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-                const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
-                ghostTemplate.drawPreview();
+                const templateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                const ghostTemplate = new GhostTemplate(templateDoc);
+                await ghostTemplate.drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }
