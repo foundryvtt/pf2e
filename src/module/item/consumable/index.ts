@@ -118,8 +118,12 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         } else {
             const exhausted = max > 1 && current === 1;
             const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
+            // Add compendium link if it has a sourceId, just the name otherwise
+            const name = this.sourceId
+                ? game.pf2e.TextEditor.enrichHTML("@" + this.sourceId.replace(".", "[") + "]")
+                : this.name;
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
-                name: this.name,
+                name: name,
                 current: current - 1,
             });
 
