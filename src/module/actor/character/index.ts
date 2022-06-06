@@ -809,6 +809,7 @@ class CharacterPF2e extends CreaturePF2e {
                 loreSkill,
                 { overwrite: false }
             );
+            stat.label = skill.name;
             stat.ability = "int";
             stat.itemID = skill._id;
             stat.notes = extractNotes(rollNotes, domains);

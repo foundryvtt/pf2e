@@ -32,7 +32,7 @@
             {{#each trainedSkills as |skill skillId|}}
                 {{#if skill.isLore}}
                     <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
-                        <label class="skill-name">{{skill.name}}</label>
+                        <label class="skill-name">{{skill.label}}</label>
                         <input type="number" name="{{skillId}}" value="{{skill.base}}" placeholder="0" />
                         <div class="item-controls">
                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
