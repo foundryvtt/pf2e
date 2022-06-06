@@ -1,0 +1,69 @@
+name: Deploy Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Deps
+      run: |
+        npm ci
+
+    - name: Update manifest
+      run: node ./.github/workflows/updatebuildno.js
+
+    - name: Build
+      run: |
+        npm run build
+
+    - name: Test
+      run: |
+        npm run test
+
+    - name: Package release
+      working-directory: ./dist
+      run: zip -r ./pf2e.zip ./*
+
+    # Create a release for this specific version
+    - name: Create Release
+      id: create_version_release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true # set this to false if you want to prevent updating existing releases
+        name: ${{ steps.get-version.outputs.version }}
+        body: 'TODO: FILL DETAILS'
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './dist/system.json,./dist/pf2e.zip'
+        tag_name: ${{ steps.get-version.outputs.version }}
+
+    # Update the 'latest' release. The way that foundry works, this needs to be a persistent URL that points
+    # to the zip file for subsequent builds
+    - name: Create Release
+      id: create_latest_release
+      uses: ncipollo/release-action@v1
+      if: endsWith(github.ref, 'master')
+      with:
+        allowUpdates: true
+        name: Latest
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './dist/system.json,./dist/pf2e.zip'
+        tag: latest
