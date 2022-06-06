@@ -131,7 +131,7 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             const data = this.data.data.skills[shortForm];
-            skills[shortForm] = mergeObject(skill, {
+            skills[skill.slug] = skills[shortForm] = mergeObject(skill, {
                 rank: data.rank,
                 ability: data.ability,
                 abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,

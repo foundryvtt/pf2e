@@ -13,6 +13,7 @@ import {
     Rollable,
     StrikeData,
 } from "@actor/data/base";
+import { SkillLongForm } from "@actor/data/types";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { ActorAlliance } from "@actor/types";
@@ -38,8 +39,10 @@ interface BaseCreatureData<
 > extends Omit<BaseCreatureSource<TType>, "data" | "effects" | "flags" | "items" | "token" | "type">,
         BaseActorDataPF2e<TItem, TType, TSystemData, TSource> {}
 
-/** Skill and Lore statistics for rolling */
-type CreatureSkills = Record<SkillAbbreviation, Statistic> & Partial<Record<string, Statistic>>;
+/** Skill and Lore statistics for rolling. Both short and longform are supported, but eventually only long form will be */
+type CreatureSkills = Record<SkillAbbreviation, Statistic> &
+    Record<SkillLongForm, Statistic> &
+    Partial<Record<string, Statistic>>;
 
 interface CreatureSystemSource extends ActorSystemSource {
     details?: {

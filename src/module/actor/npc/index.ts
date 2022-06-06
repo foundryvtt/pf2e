@@ -318,7 +318,7 @@ class NPCPF2e extends CreaturePF2e {
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
 
             const stat = mergeObject(
-                new StatisticModifier(name, modifiers, this.getRollOptions(domains)),
+                new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
                 {
                     ability,
                     expanded: skill,
@@ -386,7 +386,7 @@ class NPCPF2e extends CreaturePF2e {
                 ].flat();
 
                 const stat = mergeObject(
-                    new StatisticModifier(itemData.name, modifiers, this.getRollOptions(domains)),
+                    new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
                     data.skills[shortform],
                     { overwrite: false }
                 );
