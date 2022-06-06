@@ -22,16 +22,6 @@ export class MystifiedTraits {
 
 export const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
 
-export const PHYSICAL_ITEM_TYPES = new Set([
-    "armor",
-    "backpack",
-    "book",
-    "consumable",
-    "equipment",
-    "treasure",
-    "weapon",
-] as const);
-
 export const RANGE_TRAITS = [
     "range",
     "range-5",

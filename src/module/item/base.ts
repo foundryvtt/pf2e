@@ -1,18 +1,20 @@
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ErrorPF2e, sluggify } from "@util";
-import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementOptions } from "../rules";
-import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData, ItemType } from "./data";
-import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { MeleeSystemData } from "./melee/data";
-import { ItemSheetPF2e } from "./sheet/base";
 import { isCreatureData } from "@actor/data/helpers";
 import { HazardSystemData } from "@actor/hazard/data";
-import { UserPF2e } from "@module/user";
-import { MigrationRunner, MigrationList } from "@module/migration";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
+import { MigrationList, MigrationRunner } from "@module/migration";
+import { UserPF2e } from "@module/user";
+import { DicePF2e } from "@scripts/dice";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
+import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
+import { isItemSystemData, isPhysicalData } from "./data/helpers";
+import { PHYSICAL_ITEM_TYPES } from "./physical/values";
+import { MeleeSystemData } from "./melee/data";
+import type { PhysicalItemPF2e } from "./physical";
+import { ItemSheetPF2e } from "./sheet/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -60,10 +62,12 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType<T extends ItemType>(
-        ...types: T[]
-    ): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
-        return types.some((t) => this.data.type === t);
+    isOfType(type: "physical"): this is PhysicalItemPF2e;
+    isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
+    isOfType(...types: (ItemType | "physical")[]): boolean {
+        return types.some((t) =>
+            t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.data.type) : this.data.type === t
+        );
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */

@@ -14,7 +14,7 @@ import { SpellSheetPF2e } from "@item/spell/sheet";
 import { LocalizePF2e } from "@system/localize";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { FeatSheetPF2e } from "@item/feat/sheet";
-import { PHYSICAL_ITEM_TYPES } from "@item/data/values";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 import { WeaponSheetPF2e } from "@item/weapon/sheet";
 import { EffectSheetPF2e } from "@item/effect/sheet";
 import { BookSheetPF2e } from "@item/book/sheet";

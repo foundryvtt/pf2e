@@ -11,7 +11,7 @@ import {
     TraitChatData,
 } from ".";
 import { ItemSystemData, ItemTraits } from "./base";
-import { PHYSICAL_ITEM_TYPES } from "./values";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 
 export function isItemSystemData(data: unknown): data is ItemSystemData {
     return (
