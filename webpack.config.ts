@@ -194,7 +194,6 @@ const config: Configuration = {
             ],
         }),
         new MiniCssExtractPlugin({ filename: "styles/[name].css" }),
-        new SimpleProgressWebpackPlugin({ format: "compact" }),
     ],
     resolve: {
         alias: {
@@ -215,6 +214,10 @@ const config: Configuration = {
         publicPath: "/systems/pf2e",
     },
 };
+
+if (!isProductionBuild) {
+    config.plugins?.push(new SimpleProgressWebpackPlugin({ format: "compact" }));
+}
 
 // eslint-disable-next-line import/no-default-export
 export default config;
