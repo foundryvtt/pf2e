@@ -96,6 +96,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.temporary;
     }
 
+    get isDamaged(): boolean {
+        return this.data.data.hp.value > 0 && this.data.data.hp.value < this.data.data.hp.max;
+    }
+
     get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
         const systemData = this.data.data;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
