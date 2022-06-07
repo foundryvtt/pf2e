@@ -45,6 +45,7 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     immunities: SheetOptions;
     hasImmunities: boolean;
     inventory: SheetInventory;
+    hasInventory?: boolean;
 }
 
 export interface LootSheetDataPF2e extends ActorSheetDataPF2e<LootPF2e> {

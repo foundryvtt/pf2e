@@ -78,6 +78,8 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
+        sheetData.hasConditionOrEffect =
+            sheetData.effectItems.length + sheetData.conditions.length === 0 ? false : true;
         this.prepareSpellcasting(sheetData);
     }
 
