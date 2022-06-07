@@ -2203,7 +2203,7 @@
             "type": "action"
         },
         {
-            "_id": "79wWoGNt31gQ15yl",
+            "_id": "YRWhIzukE4zO9fUH",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2222,25 +2222,23 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "saving-throw",
                         "key": "RollOption",
-                        "label": "Doesn't have heartstone",
-                        "option": "no-heartstone",
-                        "toggleable": true,
-                        "value": false
+                        "option": "lostHeartstone",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "no-heartstone"
+                                "lostHeartstone"
                             ]
                         },
                         "selector": "saving-throw",
                         "value": -2
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -2251,10 +2249,18 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "–2 to all saves if Skarja doesn't have her heartstone",
+            "name": "-2 to All Saves (If Hearstone is Lost)",
             "sort": 2400000,
             "type": "action"
         },
