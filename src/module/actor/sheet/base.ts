@@ -123,7 +123,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             totalWealth,
             totalWealthGold,
             inventory: this.prepareInventory(),
-            hasInventory: this.actor.inventory.size === 0 ? false : true,
         };
 
         this.prepareItems(sheetData);
