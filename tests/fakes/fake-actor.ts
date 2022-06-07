@@ -103,7 +103,7 @@ export class FakeActor {
         for (const changes of data) {
             if (type === "Item") {
                 const source = this.data.items.find((itemData: ItemSourcePF2e) => itemData._id === changes._id);
-                mergeObject(source, changes);
+                if (source) mergeObject(source, changes);
             }
         }
         this.prepareData();
