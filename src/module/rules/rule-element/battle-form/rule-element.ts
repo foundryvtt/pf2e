@@ -12,7 +12,7 @@ import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
+import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify, tupleHasValue } from "@util";
@@ -430,14 +430,15 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: BaseRawModifier[]): void {
+    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void {
         if (this.data.ownUnarmed) return;
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
 
             const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isExtraDice = modifier instanceof DiceModifierPF2e;
-            const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
+            const isStatusOrCircumstance =
+                isNumericBonus && ["status", "circumstance"].includes(modifier.type ?? "untyped");
             const isDamageTrait =
                 isExtraDice &&
                 /^(?:deadly|fatal)-\d?d\d{1,2}$/.test(modifier.slug) &&

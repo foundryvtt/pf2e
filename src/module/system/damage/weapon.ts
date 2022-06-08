@@ -1,7 +1,6 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString, TraitViewData } from "@actor/data/base";
 import {
-    BaseRawModifier,
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
@@ -872,7 +871,7 @@ export class WeaponDamagePF2e {
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
-    modifiers: BaseRawModifier[];
+    modifiers: (DiceModifierPF2e | ModifierPF2e)[];
     weapon: WeaponPF2e | null;
     options: string[];
 }
