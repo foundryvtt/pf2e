@@ -9,7 +9,7 @@
             <a class="item {{#if (not document.inventory.size)}}disabled{{/if}}" data-tab="inventory">{{localize "PF2E.NPC.InventoryTab"}}</a>
             <a class="item {{#if (not isSpellcaster)}}disabled{{/if}}" data-tab="spells">{{localize "PF2E.NPC.SpellsTab"}}</a>
             <a class="item {{#if (not hasConditionOrEffect)}}disabled{{/if}}" data-tab="effects">{{localize "PF2E.NPC.EffectsTab"}}</a>
-            <a class="item" data-tab="notes">{{localize "PF2E.NPC.NotesTab"}}</a>
+            <a class="item {{#with (not data.details.publicNotes data.details.privateNotes)}}disabled{{/with}}" data-tab="notes">{{localize "PF2E.NPC.NotesTab"}}</a>
         </nav>
         <section class="sheet-body">
             {{> "systems/pf2e/templates/actors/npc/tabs/main.html"}}
