@@ -535,15 +535,6 @@ class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
-                if (
-                    action.attackRollType === "PF2E.NPCAttackRanged" &&
-                    !action.traits.some((trait) => trait.name === "range")
-                ) {
-                    action.traits.splice(1, 0, {
-                        name: "range",
-                        label: game.i18n.localize("PF2E.TraitRange"),
-                    });
-                }
                 // Add a damage roll breakdown
                 action.damageBreakdown = Object.values(meleeData.data.damageRolls).flatMap((roll) => {
                     const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
