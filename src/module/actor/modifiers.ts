@@ -201,7 +201,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Sets the ignored property after testing the predicate */
-    test(options: string[]): void {
+    test(options: string[] | Set<string>): void {
         this.ignored = !this.predicate.test(options);
     }
 
@@ -494,8 +494,9 @@ export class StatisticModifier {
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
     calculateTotal(rollOptions: string[] = []): void {
         if (rollOptions.length > 0) {
+            const optionSet = new Set(rollOptions);
             for (const modifier of this._modifiers) {
-                modifier.test(rollOptions);
+                modifier.test(optionSet);
             }
 
             this.applyAdjustments(rollOptions);

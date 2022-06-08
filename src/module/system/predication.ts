@@ -47,7 +47,7 @@ class PredicatePF2e implements RawPredicate {
     }
 
     /** Test this predicate against a domain of discourse */
-    test(options: Set<string> | string[]): boolean {
+    test(options: string[] | Set<string>): boolean {
         if (!this.isValid) {
             console.error("PF2e System | The provided predicate set is malformed.");
             return false;
