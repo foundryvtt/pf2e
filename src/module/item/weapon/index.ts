@@ -9,7 +9,7 @@ import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
-import { MAGIC_SCHOOLS } from "@item/spell/values";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { PhysicalItemPF2e } from "../physical";
@@ -30,7 +30,7 @@ import {
     WeaponReloadTime,
     WeaponTrait,
 } from "./types";
-import { CROSSBOW_WEAPONS, RANGED_WEAPON_GROUPS } from "./values";
+import { CROSSBOW_WEAPONS, RANGED_WEAPON_GROUPS, THROWN_RANGES } from "./values";
 
 class WeaponPF2e extends PhysicalItemPF2e {
     override get isEquipped(): boolean {
@@ -445,7 +445,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttack(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
+    toNPCAttacks(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e>[] {
         const { actor } = this;
         if (!(actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -491,20 +491,36 @@ class WeaponPF2e extends PhysicalItemPF2e {
         } as const;
 
         const toAttackTraits = (traits: WeaponTrait[]): NPCAttackTrait[] => {
-            const actorTraits = actor.traits;
             const newTraits: NPCAttackTrait[] = traits
-                .flatMap((t) => (t === "reach" ? npcReach[this.size] ?? [] : t))
-                .filter((t) => !actorTraits.has(t) && !setHasElement(MAGIC_SCHOOLS, t));
+                .flatMap((t) =>
+                    t === "reach"
+                        ? npcReach[this.size] ?? []
+                        : t === "thrown" && setHasElement(THROWN_RANGES, this.rangeIncrement)
+                        ? (`thrown-${this.rangeIncrement}` as const)
+                        : t
+                )
+                .filter(
+                    // Omitted traits include ...
+                    (t) =>
+                        // Creature traits
+                        !(t in CONFIG.PF2E.creatureTraits) &&
+                        // Magic school and tradition traits
+                        !setHasElement(MAGIC_TRADITIONS, t) &&
+                        !setHasElement(MAGIC_SCHOOLS, t) &&
+                        // Thrown(-N) trait on melee attacks with thrown melee weapons
+                        !(t.startsWith("thrown") && !this.isThrown) &&
+                        // Finesse trait on thrown attacks with thrown melee weapons
+                        !(t === "finesse" && this.isRanged) &&
+                        // Combination trait on melee or thrown attacks with combination weapons
+                        !(t === "combination" && (this.isMelee || this.isThrown)) &&
+                        // Critical fusion trait on thrown attacks with melee usage of combination weapons
+                        !(t === "critical-fusion" && this.isThrown)
+                );
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
             if (actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
                 actorSize.decrement();
                 newTraits.push(...[npcReach[actorSize.value] ?? []].flat());
-            }
-
-            const rangeTrait = `range-increment-${this.rangeIncrement}`;
-            if (objectHasKey(CONFIG.PF2E.npcAttackTraits, rangeTrait) && !this.isThrown) {
-                newTraits.push(rangeTrait);
             }
 
             const reloadTrait = `reload-${this.reload}`;
@@ -536,7 +552,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
             },
         };
 
-        return new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+        return [
+            new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>,
+            ...this.getAltUsages().flatMap((u) => u.toNPCAttacks()),
+        ];
     }
 }
 

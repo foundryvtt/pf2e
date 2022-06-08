@@ -359,7 +359,7 @@ class NPCPF2e extends CreaturePF2e {
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        const generatedMelee = Array.from(strikes.values()).map((w) => w.toNPCAttack());
+        const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
         const items = this.items.contents.concat(generatedMelee);
         for (const item of items) {
             const itemData = item.data;
