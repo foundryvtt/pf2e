@@ -3,7 +3,13 @@
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
         <h3>{{item.name}}</h3>
     </header>
-
+    <div class="tags">
+        {{#each data.traits}}
+            {{#unless trait.mystified}}
+                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
+            {{/unless}}
+        {{/each}}
+    </div>
     <div class="card-content">
         {{{data.description.value}}}
     </div>
