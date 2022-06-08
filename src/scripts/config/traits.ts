@@ -177,6 +177,7 @@ const creatureTraits = {
     psychopomp: "PF2E.TraitPsychopomp",
     qlippoth: "PF2E.TraitQlippoth",
     rakshasa: "PF2E.TraitRakshasa",
+    reflection: "PF2E.TraitReflection",
     sahkil: "PF2E.TraitSahkil",
     samsaran: "PF2E.TraitSamsaran",
     "sea devil": "PF2E.TraitSeaDevil",
@@ -245,6 +246,7 @@ const classTraits: Record<ClassTrait, string> = {
 };
 
 const spellOtherTraits = {
+    amp: "PF2E.TraitAmp",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
@@ -287,6 +289,7 @@ const spellOtherTraits = {
     polymorph: "PF2E.TraitPolymorph",
     possession: "PF2E.TraitPossession",
     prediction: "PF2E.TraitPrediction",
+    psyche: "PF2E.TraitPsyche",
     revelation: "PF2E.TraitRevelation",
     scrying: "PF2E.TraitScrying",
     shadow: "PF2E.TraitShadow",
@@ -546,6 +549,7 @@ const featTraits = {
     concentrate: "PF2E.TraitConcentrate",
     dedication: "PF2E.TraitDedication",
     detection: "PF2E.TraitDetection",
+    deviant: "PF2E.TraitDeviant",
     downtime: "PF2E.TraitDowntime",
     emotion: "PF2E.TraitEmotion",
     esoterica: "PF2E.TraitEsoterica",
@@ -560,6 +564,7 @@ const featTraits = {
     lineage: "PF2E.TraitLineage",
     manipulate: "PF2E.TraitManipulate",
     metamagic: "PF2E.TraitMetamagic",
+    mindshift: "PF2E.TraitMindshift",
     modification: "PF2E.TraitModification",
     move: "PF2E.TraitMove",
     multiclass: "PF2E.TraitMulticlass",
@@ -571,6 +576,7 @@ const featTraits = {
     press: "PF2E.TraitPress",
     rage: "PF2E.TraitRage",
     reckless: "PF2E.TraitReckless",
+    reflection: "PF2E.TraitReflection",
     secret: "PF2E.TraitSecret",
     skill: "PF2E.TraitSkill",
     spellshot: "PF2E.TraitSpellshot",
