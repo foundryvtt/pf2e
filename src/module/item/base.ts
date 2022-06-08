@@ -168,9 +168,17 @@ class ItemPF2e extends Item<ActorPF2e> {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { rulesSelections: {} });
-        this.data.flags.pf2e.grantedBy ??= null;
-        this.data.flags.pf2e.itemGrants ??= [];
+        const { flags } = this.data;
+        flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+
+        // Set item grant default values
+        if (flags.pf2e.grantedBy) {
+            flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
+        }
+        const grants = (flags.pf2e.itemGrants ??= []);
+        for (const grant of grants) {
+            grant.onDelete ??= "detach";
+        }
     }
 
     prepareRuleElements(this: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {

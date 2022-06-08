@@ -25,7 +25,7 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         const data = deepClone(this.data);
         if (this.data.value) {
             const bracketed = this.resolveValue(this.data.value);
-            mergeObject(data, bracketed, { inplace: true, overwrite: true });
+            if (isObject(bracketed)) mergeObject(data, bracketed);
             delete data.value;
         }
         const selector = this.resolveInjectedProperties(data.selector);

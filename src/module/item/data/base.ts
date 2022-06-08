@@ -12,7 +12,7 @@ interface BaseItemSourcePF2e<
     TType extends ItemType = ItemType,
     TSystemSource extends ItemSystemSource = ItemSystemSource
 > extends foundry.data.ItemSource<TType, TSystemSource> {
-    flags: DeepPartial<ItemFlagsPF2e>;
+    flags: ItemSourceFlagsPF2e;
 }
 
 interface BaseItemDataPF2e<
@@ -45,11 +45,29 @@ interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
 interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     pf2e: {
         rulesSelections: Record<string, string | number | object>;
-        itemGrants: string[];
-        grantedBy: string | null;
+        itemGrants: ItemGrantData[];
+        grantedBy: ItemGrantData | null;
         [key: string]: unknown;
     };
 }
+
+interface ItemSourceFlagsPF2e extends DeepPartial<foundry.data.ItemFlags> {
+    pf2e?: {
+        rulesSelections?: Record<string, string | number | object>;
+        itemGrants?: ItemGrantSource[];
+        grantedBy?: ItemGrantSource | null;
+        [key: string]: unknown;
+    };
+}
+
+type ItemGrantData = Required<ItemGrantSource>;
+
+interface ItemGrantSource {
+    id: string;
+    onDelete?: ItemGrantDeleteAction;
+}
+
+type ItemGrantDeleteAction = "cascade" | "detach" | "restrict";
 
 interface ItemLevelData {
     level: {
@@ -81,6 +99,9 @@ export {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     ItemFlagsPF2e,
+    ItemGrantData,
+    ItemGrantDeleteAction,
+    ItemGrantSource,
     ItemLevelData,
     ItemSystemData,
     ItemSystemSource,

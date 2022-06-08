@@ -92,6 +92,7 @@ import { CheckRoll } from "@system/check/roll";
 import { ActionTrait } from "@item/action/data";
 import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
 import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
+import { ItemGrantData } from "@item/data/base";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -1239,8 +1240,8 @@ class CharacterPF2e extends CreaturePF2e {
         for (const feat of feats) {
             const featData = feat.data;
             if (featData.flags.pf2e.grantedBy && !featData.data.location) {
-                const granter = this.items.get(featData.flags.pf2e.grantedBy);
-                if (granter instanceof FeatPF2e) continue;
+                const granter = this.items.get(featData.flags.pf2e.grantedBy.id);
+                if (granter?.isOfType("feat")) continue;
             }
 
             const location = featData.data.location;
@@ -1252,11 +1253,11 @@ class CharacterPF2e extends CreaturePF2e {
                 slotIndex = -1;
             }
 
-            const getGrants = (grantedIds: string[]): GrantedFeat[] => {
-                return grantedIds.flatMap((grantedId: string) => {
-                    const item = this.items.get(grantedId);
-                    return item instanceof FeatPF2e && !item.data.data.location
-                        ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
+            const getGrantedItems = (grants: ItemGrantData[]): GrantedFeat[] => {
+                return grants.flatMap((grant) => {
+                    const item = this.items.get(grant.id);
+                    return item?.isOfType("feat") && !item.data.data.location
+                        ? { feat: item, grants: getGrantedItems(item.data.flags.pf2e.itemGrants) }
                         : [];
                 });
             };
@@ -1265,7 +1266,7 @@ class CharacterPF2e extends CreaturePF2e {
             if (slotIndex !== -1) {
                 const slot = allFeatSlots[slotIndex];
                 slot.feat = featData;
-                slot.grants = getGrants(featData.flags.pf2e.itemGrants);
+                slot.grants = getGrantedItems(featData.flags.pf2e.itemGrants);
                 continue;
             }
 
@@ -1284,7 +1285,7 @@ class CharacterPF2e extends CreaturePF2e {
             const lookedUpGroup = groups[location ?? ""] ?? groups[featType];
             const group = lookedUpGroup && !lookedUpGroup.slotted ? lookedUpGroup : this.featGroups.bonus;
             if (group && !group.slotted) {
-                const grants = getGrants(featData.flags.pf2e.itemGrants);
+                const grants = getGrantedItems(featData.flags.pf2e.itemGrants);
                 group.feats.push({ feat: featData, grants });
             }
         }
