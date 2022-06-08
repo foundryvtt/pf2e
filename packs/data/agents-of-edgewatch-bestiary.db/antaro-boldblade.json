@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "CG"
             },
-            "blurb": "",
+            "blurb": "Male human cleric of Cayden Cailean",
             "creatureType": "",
             "level": {
                 "value": -1
@@ -147,10 +147,10 @@
                         "max": 2,
                         "prepared": {
                             "0": {
-                                "id": "B0WZycEUth7TLPIs"
+                                "id": "Y2E5x6l6i0Wr5eIg"
                             },
                             "1": {
-                                "id": "LYU7SuoPuI90DNqT"
+                                "id": "fAUenmF5glEr8XxL"
                             }
                         },
                         "value": 0
@@ -159,7 +159,7 @@
                         "max": 1,
                         "prepared": {
                             "0": {
-                                "id": "mO8fflCSyq1jfv2z"
+                                "id": "qEaGK7aARS6rd9Rm"
                             }
                         },
                         "value": 0
@@ -240,14 +240,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "mO8fflCSyq1jfv2z",
+            "_id": "qEaGK7aARS6rd9Rm",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "emanation",
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "varies"
@@ -267,8 +267,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -276,7 +278,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[positive]+@item.level*8[healing]]]{2-Action Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -311,8 +313,8 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "necromancy"
@@ -325,7 +327,7 @@
                 },
                 "slug": "heal",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -366,7 +368,7 @@
             "type": "spell"
         },
         {
-            "_id": "B0WZycEUth7TLPIs",
+            "_id": "Y2E5x6l6i0Wr5eIg",
             "data": {
                 "ability": {
                     "value": ""
@@ -394,7 +396,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -436,7 +438,7 @@
                 },
                 "slug": "light",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -479,14 +481,14 @@
             "type": "spell"
         },
         {
-            "_id": "LYU7SuoPuI90DNqT",
+            "_id": "fAUenmF5glEr8XxL",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -549,10 +551,10 @@
                 },
                 "slug": "stabilize",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "heal"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -591,7 +593,7 @@
             "type": "spell"
         },
         {
-            "_id": "CvqNMEeYJFk8B5Uf",
+            "_id": "hoWGylSRg0yrRyqb",
             "data": {
                 "MAP": {
                     "value": ""
@@ -684,7 +686,7 @@
                 "size": "med",
                 "slug": "rapier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -723,7 +725,7 @@
             "type": "weapon"
         },
         {
-            "_id": "pU3Y57Kf8Ys0wWfG",
+            "_id": "pcjYGeT8uR8r3Pqh",
             "data": {
                 "armor": {
                     "value": 2
@@ -741,8 +743,7 @@
                     "value": 0
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -766,10 +767,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -796,7 +797,7 @@
                 "size": "med",
                 "slug": "wooden-shield",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -828,7 +829,7 @@
             "type": "armor"
         },
         {
-            "_id": "GNoQny8KdUr88SvA",
+            "_id": "LIDlCKjcJG6ezK0k",
             "data": {
                 "armor": {
                     "value": 5
@@ -840,14 +841,13 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer's torso, upper arms, and legs. A suit of this armor comes with an undercoat of padded armor (see above) and a pair of gauntlets.</p>"
+                    "value": "<p>This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer's torso, upper arms, and legs. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
                 },
                 "dex": {
                     "value": 1
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -901,7 +901,7 @@
                 "size": "med",
                 "slug": "splint-mail",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -10
