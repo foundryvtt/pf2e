@@ -103,7 +103,12 @@ declare global {
          */
         awaitFirstGesture(): void;
 
-        preload(data: any): void;
+        /**
+         * Request that other connected clients begin preloading a certain sound path.
+         * @param src The source file path requested for preload
+         * @returns A Promise which resolves once the preload is complete
+         */
+        preload(): Promise<Sound>;
 
         /**
          * Play a one-off sound effect which is not part of a Playlist
@@ -122,12 +127,6 @@ declare global {
          * Audio.play({src: "sounds/lock.wav", volume: 0.8, autoplay: true, loop: false}, true);
          */
         static play(data: { src: string; autoplay: boolean; volume: number; loop: boolean }, push: boolean): void;
-
-        /**
-         * Create a Howl object and load it to be ready for later playback
-         * @param data  The audio data to preload
-         */
-        static preload(data: any): void;
 
         /**
          * Returns the volume value based on a range input volume control's position.
