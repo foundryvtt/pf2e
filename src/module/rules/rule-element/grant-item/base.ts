@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
-import { isObject, sluggify } from "@util";
+import { isObject, sluggify, tupleHasValue } from "@util";
 import { REPreCreateParameters, REPreDeleteParameters, RuleElementPF2e, RuleElementSource } from "..";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
@@ -160,11 +160,15 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
         const grants = this.item.data.flags.pf2e.itemGrants ?? [];
+        const DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
+
         const deletionActions = grants.reduce(
             (actions: Record<ItemGrantDeleteAction, Embedded<ItemPF2e>[]>, grant) => {
                 const item = this.actor.items.get(grant.id);
                 const { grantedBy } = item?.data.flags.pf2e ?? {};
-                if (!(item && grantedBy)) return actions;
+                if (!(item && grantedBy && tupleHasValue(DELETE_ACTIONS, grantedBy.onDelete))) {
+                    return actions;
+                }
                 actions[grantedBy.onDelete].push(item);
 
                 return actions;
