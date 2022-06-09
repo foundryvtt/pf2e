@@ -1,9 +1,9 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 type CreateADiversionVariant = "distracting-words" | "gesture" | "trick";
 
 export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "deception");
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "deception");
     let title = "PF2E.Actions.CreateADiversion.";
     const traits = ["mental"];
     switch (options.variant) {
@@ -25,7 +25,7 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
             return;
         }
     }
-    ActionMacros.simpleRollActionCheck({
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -41,8 +41,8 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.CreateADiversion", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.CreateADiversion", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "failure"),
         ],
     });
 }

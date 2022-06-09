@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function commandAnAnimal(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "nature");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "nature");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -18,9 +18,9 @@ export function commandAnAnimal(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.CommandAnAnimal", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.CommandAnAnimal", "failure"),
-            ActionMacros.note(selector, "PF2E.Actions.CommandAnAnimal", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "criticalFailure"),
         ],
     });
 }

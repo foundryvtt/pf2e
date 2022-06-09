@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function maneuverInFlight(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "acrobatics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,9 +17,9 @@ export function maneuverInFlight(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.ManeuverInFlight", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.ManeuverInFlight", "failure"),
-            ActionMacros.note(selector, "PF2E.Actions.ManeuverInFlight", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "criticalFailure"),
         ],
     });
 }

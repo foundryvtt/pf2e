@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function seek(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "perception");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "perception");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,8 +17,8 @@ export function seek(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Seek", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Seek", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Seek", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Seek", "success"),
         ],
     });
 }

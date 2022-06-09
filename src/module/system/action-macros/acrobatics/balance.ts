@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function balance(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "acrobatics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,10 +17,10 @@ export function balance(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Balance", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Balance", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Balance", "failure"),
-            ActionMacros.note(selector, "PF2E.Actions.Balance", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Balance", "criticalFailure"),
         ],
     });
 }

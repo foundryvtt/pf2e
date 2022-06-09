@@ -1,15 +1,15 @@
-import { ActionMacros, SkillActionOptions } from "../..";
+import { ActionMacroHelpers, SkillActionOptions } from "../..";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
 
 export function arcaneSlam(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
 
-    const { actor, token } = ActionMacros.target();
+    const { actor, token } = ActionMacroHelpers.target();
 
-    ActionMacros.simpleRollActionCheck({
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "D",
@@ -42,10 +42,10 @@ export function arcaneSlam(options: SkillActionOptions) {
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => {
             const notes = [
-                ActionMacros.note(selector, "PF2E.Actions.ArcaneSlam", "criticalSuccess"),
-                ActionMacros.note(selector, "PF2E.Actions.ArcaneSlam", "success"),
-                ActionMacros.note(selector, "PF2E.Actions.ArcaneSlam", "failure"),
-                ActionMacros.note(selector, "PF2E.Actions.ArcaneSlam", "criticalFailure"),
+                ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "criticalSuccess"),
+                ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "success"),
+                ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "failure"),
+                ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "criticalFailure"),
             ];
             if (!actor) {
                 const translated = game.i18n.localize("PF2E.Actions.ArcaneSlam.Notes.NoTarget");

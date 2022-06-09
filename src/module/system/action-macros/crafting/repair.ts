@@ -2,11 +2,11 @@ import { PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 import { CharacterPF2e } from "@actor";
 
 async function repair(options: RepairActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "crafting");
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
     const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
@@ -36,7 +36,7 @@ async function repair(options: RepairActionOptions) {
             return;
         })();
 
-    ActionMacros.simpleRollActionCheck({
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -59,9 +59,9 @@ async function repair(options: RepairActionOptions) {
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Repair", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Repair", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Repair", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Repair", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Repair", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Repair", "criticalFailure"),
         ],
         createMessage: false,
         callback: async (result) => {
