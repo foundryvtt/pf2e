@@ -232,9 +232,9 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             const itemId = event.currentTarget.closest("li")?.dataset.itemId ?? "";
             const item = actor.items.get(itemId, { strict: true });
             if (item.isOfType("weapon")) {
-                const attack = item.toNPCAttack().toObject();
-                await actor.createEmbeddedDocuments("Item", [attack]);
-                ui.notifications.info(`Generated NPC attack: ${attack.name}`);
+                const attacks = item.toNPCAttacks().map((a) => a.toObject());
+                await actor.createEmbeddedDocuments("Item", attacks);
+                ui.notifications.info(`Generated NPC attack: ${attacks.at(0)?.name}`);
             }
         });
     }
