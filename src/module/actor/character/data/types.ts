@@ -406,6 +406,7 @@ export {
     CharacterData,
     CharacterDetails,
     CharacterProficiency,
+    CharacterResources,
     CharacterSaves,
     CharacterSkillData,
     CharacterSource,
