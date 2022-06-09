@@ -1,4 +1,3 @@
-import "pixi.js";
 import "./client/application/base";
 import "./client/application/chat-popout";
 import "./client/application/compendium";
@@ -110,7 +109,7 @@ import "./client/pixi/placeables-layer/token-layer";
 import "./client/pixi/placeables-layer/walls-layer";
 import "./client/pixi/shader";
 import "./client/roll";
-import "./client/roll/roll-term";
+import "./client/roll-term";
 import "./client/ui";
 import "./client/ui/context";
 import "./client/ui/dialog";
