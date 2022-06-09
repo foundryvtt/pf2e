@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function pickALock(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "thievery");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "thievery");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "D",
@@ -17,9 +17,9 @@ export function pickALock(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.PickALock", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.PickALock", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.PickALock", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.PickALock", "criticalFailure"),
         ],
     });
 }

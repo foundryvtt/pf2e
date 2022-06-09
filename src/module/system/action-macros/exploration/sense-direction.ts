@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 import { ModifierPF2e } from "@actor/modifiers";
 
 export function senseDirection(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "survival");
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "survival");
 
     const modifiers = (options.modifiers ?? []).concat(
         new ModifierPF2e({
@@ -14,7 +14,7 @@ export function senseDirection(options: SkillActionOptions) {
         })
     );
 
-    ActionMacros.simpleRollActionCheck({
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -29,8 +29,8 @@ export function senseDirection(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.SenseDirection", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.SenseDirection", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.SenseDirection", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.SenseDirection", "success"),
         ],
     });
 }

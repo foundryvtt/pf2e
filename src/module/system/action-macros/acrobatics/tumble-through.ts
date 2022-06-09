@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function tumbleThrough(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "acrobatics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -18,8 +18,8 @@ export function tumbleThrough(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.TumbleThrough", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.TumbleThrough", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TumbleThrough", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TumbleThrough", "failure"),
         ],
     });
 }

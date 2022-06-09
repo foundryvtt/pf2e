@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "../..";
+import { ActionMacroHelpers, SkillActionOptions } from "../..";
 
 export function tamper(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "crafting");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -18,9 +18,9 @@ export function tamper(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Tamper", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Tamper", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Tamper", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Tamper", "criticalFailure"),
         ],
     });
 }

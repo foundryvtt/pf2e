@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function disarm(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -18,9 +18,9 @@ export function disarm(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Disarm", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Disarm", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
         ],
         weaponTrait: "disarm",
     });
