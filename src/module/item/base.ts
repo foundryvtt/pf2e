@@ -7,7 +7,7 @@ import { MigrationList, MigrationRunner } from "@module/migration";
 import { UserPF2e } from "@module/user";
 import { DicePF2e } from "@scripts/dice";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
@@ -171,13 +171,13 @@ class ItemPF2e extends Item<ActorPF2e> {
         const { flags } = this.data;
         flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
 
-        // Set item grant default values
-        if (flags.pf2e.grantedBy) {
+        // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
+        if (isObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
         }
         const grants = (flags.pf2e.itemGrants ??= []);
         for (const grant of grants) {
-            grant.onDelete ??= "detach";
+            if (isObject(grant)) grant.onDelete ??= "detach";
         }
     }
 
