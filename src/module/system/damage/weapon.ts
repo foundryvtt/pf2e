@@ -565,7 +565,7 @@ export class WeaponDamagePF2e {
         const { base } = damage;
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
-        // First, increase the damage die. This can only be done once, so we
+        // First, increase or decrease the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
         const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical));
         const hasDowngrade = diceModifiers.some(
