@@ -37,7 +37,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Hit points
         const conModifier = abilities.con.mod;
-        const maxRestored = Math.max(conModifier, 1) * level * hitPoints.recoveryMultiplier + hitPoints.recoveryBonus;
+        const maxRestored = Math.max(conModifier, 1) * level * hitPoints.recoveryMultiplier + hitPoints.recoveryAddend;
         const hpLost = attributes.hp.max - attributes.hp.value;
         const hpRestored = hpLost >= maxRestored ? maxRestored : hpLost;
         if (hpRestored > 0) {

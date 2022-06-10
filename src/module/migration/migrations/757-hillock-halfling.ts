@@ -16,14 +16,14 @@ export class Migration757HillockHalfling extends MigrationBase {
 
         const rules = itemSource.data.rules;
         const needsRuleElement = !rules.some(
-            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.recoveryBonus"
+            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.recoveryAddend"
         );
 
         if (needsRuleElement) {
             const element: AELikeSource = {
                 key: "ActiveEffectLike",
                 mode: "add",
-                path: "data.attributes.hp.recoveryBonus",
+                path: "data.attributes.hp.recoveryAddend",
                 value: "@actor.level",
             };
             rules.push(element);
