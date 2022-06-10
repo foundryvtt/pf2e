@@ -181,18 +181,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
-    /** @deprecated */
-    get deception(): Statistic {
-        console.warn("creature.deception is deprecated, use creature.skills.deception instead");
-        return this.skills.deception;
-    }
-
-    /** @deprecated */
-    get stealth(): Statistic {
-        console.warn("creature.stealth is deprecated, use creature.skills.stealth instead");
-        return this.skills.stealth;
-    }
-
     get wornArmor(): Embedded<ArmorPF2e> | null {
         return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
     }
