@@ -64,14 +64,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
             if (!objectHasKey(this.data.data.skills, shortForm)) return current;
             const longForm = skill.name;
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
-            const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
             current[longForm] = current[shortForm] = new Statistic(this, {
                 slug: longForm,
+                label: skillName,
                 proficient: skill.visible,
                 domains,
-                check: { adjustments: skill.adjustments, label, type: "skill-check" },
+                check: { adjustments: skill.adjustments, type: "skill-check" },
                 dc: {},
                 modifiers: [...skill.modifiers],
                 notes: skill.notes,
@@ -181,14 +181,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
+    /** @deprecated */
     get deception(): Statistic {
-        const stat = this.data.data.skills.dec as StatisticModifier;
-        return Statistic.from(this, stat, "deception", "PF2E.ActionsCheck.deception", "skill-check");
+        console.warn("creature.deception is deprecated, use creature.skills.deception instead");
+        return this.skills.deception;
     }
 
+    /** @deprecated */
     get stealth(): Statistic {
-        const stat = this.data.data.skills.ste as StatisticModifier;
-        return Statistic.from(this, stat, "stealth", "PF2E.ActionsCheck.stealth", "skill-check");
+        console.warn("creature.stealth is deprecated, use creature.skills.stealth instead");
+        return this.skills.stealth;
     }
 
     get wornArmor(): Embedded<ArmorPF2e> | null {

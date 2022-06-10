@@ -693,12 +693,12 @@ class NPCPF2e extends CreaturePF2e {
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
+                label: CONFIG.PF2E.magicTraditions[tradition],
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
-                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                     modifiers: attackModifiers,
                     domains: attackSelectors,
                 },
@@ -750,6 +750,7 @@ class NPCPF2e extends CreaturePF2e {
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
@@ -759,7 +760,6 @@ class NPCPF2e extends CreaturePF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });

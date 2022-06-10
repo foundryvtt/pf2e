@@ -16,7 +16,7 @@ export function senseMotive(options: SkillActionOptions) {
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
-        difficultyClassStatistic: (target) => target.deception,
+        difficultyClassStatistic: (target) => target.skills.deception,
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.SenseMotive", "success"),

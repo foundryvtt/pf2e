@@ -8,7 +8,7 @@ import { CheckType } from "@system/rolls";
 
 export interface StatisticCheckData {
     type: CheckType;
-    label: string;
+    label?: string;
     adjustments?: DegreeOfSuccessAdjustment[];
     modifiers?: ModifierPF2e[];
     penalties?: MultipleAttackPenaltyPF2e[];
@@ -33,6 +33,7 @@ export interface BaseStatisticData {
     slug: string;
     ability?: AbilityString;
     rank?: ZeroToFour;
+    label: string;
     /** If given and rank is omitted, declares if the statistic is with proficiency */
     proficient?: boolean;
     check?: StatisticCheckData;

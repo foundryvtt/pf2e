@@ -110,9 +110,10 @@ export const InlineRollLinks = {
                     actors.forEach((actor) => {
                         if (actor instanceof CreaturePF2e) {
                             const flatCheck = new Statistic(actor, {
+                                label: "",
                                 slug: "flat-check",
                                 modifiers: [],
-                                check: { label: "", type: "flat-check" },
+                                check: { type: "flat-check" },
                             });
                             if (flatCheck) {
                                 const dc = Number.isInteger(Number(pf2Dc))
