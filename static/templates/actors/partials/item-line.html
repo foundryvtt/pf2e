@@ -18,13 +18,9 @@
         {{/if}}
     {{/if}}
     <span class="item-quantity">
-        {{#if owner}}
-            <a class="item-decrease-quantity">-</a>
-        {{/if}}
+        {{#if owner}}<a class="item-decrease-quantity">&ndash;</a>{{/if}}
         <span>{{item.quantity}}</span>
-        {{#if owner}}
-            <a class="item-increase-quantity">+</a>
-        {{/if}}
+        {{#if owner}}<a class="item-increase-quantity">+</a>{{/if}}
     </span>
 
     {{#if (ne @root.actor.type "npc")}}
@@ -42,13 +38,13 @@
             {{/if}}
 
             {{#if (and canBeEquipped isInvestable)}}
-                <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
+                <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem"></i></a>
             {{/if}}
             {{#if (eq @root.actor.type "character")}}
                 {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=item}}
             {{/if}}
             {{#if item.isDamaged}}
-                <a class="item-control item-repair" title="{{localize 'PF2E.RepairItemTitle'}}"><i class="fas fa-hammer"></i></a>
+                <a class="item-control item-repair" title="{{localize "PF2E.RepairItemTitle"}}"><i class="fas fa-hammer"></i></a>
             {{/if}}
             {{#if @root.user.isGM}}
                 {{#if item.isIdentified}}
