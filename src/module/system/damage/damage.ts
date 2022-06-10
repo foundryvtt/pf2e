@@ -1,29 +1,21 @@
 import { StrikeSelf, AttackTarget } from "@actor/creature/types";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
-import { combineObjects } from "@util";
 
 /** The possible standard damage die sizes. */
-export const DAMAGE_DIE_FACES = new Set(["d4", "d6", "d8", "d10", "d12"] as const);
-export type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
+const dieFacesTuple = ["d4", "d6", "d8", "d10", "d12"] as const;
+const DAMAGE_DIE_FACES = new Set(dieFacesTuple);
+type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 
-export function nextDamageDieSize(dieSize: DamageDieSize) {
-    switch (dieSize) {
-        case "d4":
-            return "d6";
-        case "d6":
-            return "d8";
-        case "d8":
-            return "d10";
-        case "d10":
-            return "d12";
-        case "d12":
-            return "d12";
-    }
+function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
+function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
+function nextDamageDieSize(next: { upgrade: DamageDieSize } | { downgrade: DamageDieSize }): DamageDieSize {
+    const [faces, direction] = "upgrade" in next ? [next.upgrade, 1] : [next.downgrade, -1];
+    return dieFacesTuple[dieFacesTuple.indexOf(faces) + direction] ?? faces;
 }
 
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
-export const DamageCategorization = {
+const DamageCategorization = {
     /**
      * Physical damage; one of bludgeoning, piercing, or slashing, and usually caused by a physical object hitting you.
      */
@@ -43,58 +35,28 @@ export const DamageCategorization = {
      * Map a damage type to it's corresponding damage category. If the type has no category, the type itself will be
      * returned.
      */
-    fromDamageType: (damageType: string) =>
-        CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[damageType] || BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] || damageType,
-
-    /** Adds a custom damage type -> category mapping. This method can be used to override base damage type/category mappings. */
-    addCustomDamageType: (category: string, type: string) => {
-        CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[type] = category;
-    },
-
-    /** Removes the custom mapping for the given type. */
-    removeCustomDamageType: (type: string) => delete CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[type],
+    fromDamageType: (damageType: string) => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] || damageType,
 
     /** Get a set of all damage categories (both base and custom). */
-    allCategories: () =>
-        new Set(
-            Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES).concat(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES))
-        ),
+    allCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
 
     /** Get a set of all of the base rule damage types. */
     baseCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
 
-    /** Get a set of all custom damage categories (exluding the base damage types). */
-    customCategories: () => {
-        const result = new Set(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES));
-        for (const base of DamageCategorization.baseCategories()) result.delete(base);
-
-        return result;
-    },
-
-    /** Get the full current map of damage types -> their current damage category (taking custom mappings into account). */
-    currentTypeMappings: () =>
-        combineObjects(BASE_DAMAGE_TYPES_TO_CATEGORIES, CUSTOM_DAMAGE_TYPES_TO_CATEGORIES, (_first, second) => second),
-
     /** Map a damage category to the set of damage types in it. */
     toDamageTypes: (category: string) => {
         // Get all of the types in the current mappings which map to the given category
-        const types = Object.entries(DamageCategorization.currentTypeMappings())
+        const types = Object.entries(BASE_DAMAGE_TYPES_TO_CATEGORIES)
             .filter(([_key, value]) => value === category)
             .map(([key]) => key);
 
         // And return as a set to eliminate duplicates.
         return new Set(types);
     },
-
-    /** Clear all custom damage type mappings. */
-    clearCustom: () =>
-        Object.keys(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES).forEach((key) => {
-            delete CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[key];
-        }),
 } as const;
 
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */
-export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> = {
+const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> = {
     // The three default physical damage types.
     bludgeoning: DamageCategorization.PHYSICAL,
     piercing: DamageCategorization.PHYSICAL,
@@ -117,9 +79,6 @@ export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> =
     lawful: DamageCategorization.ALIGNMENT,
 } as const;
 
-/** Custom damage type mappings; maps damage types to their damage category. */
-export const CUSTOM_DAMAGE_TYPES_TO_CATEGORIES: Record<string, string> = {};
-
 interface DamageRollContext extends BaseRollContext {
     type: "damage-roll";
     outcome?: DegreeOfSuccessString;
@@ -129,4 +88,11 @@ interface DamageRollContext extends BaseRollContext {
     secret?: boolean;
 }
 
-export { DamageRollContext };
+export {
+    BASE_DAMAGE_TYPES_TO_CATEGORIES,
+    DAMAGE_DIE_FACES,
+    DamageCategorization,
+    DamageDieSize,
+    DamageRollContext,
+    nextDamageDieSize,
+};

@@ -35,40 +35,6 @@ function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     return result;
 }
 
-/**
- * Return a new object that combines all the keys and values from
- * both. If both have the same key, assign the value of the merge function.
- * Example:
- *     // returns {a: 3, b: 5, c: 0}
- *     combineObjects({a: 3, b: 4}, {b: 1, c: 0}, (a, b) => a+b)
- * @param first
- * @param second
- * @param mergeFunction if duplicate keys exist, both values
- * are passed into this function to return the result
- * @return
- */
-function combineObjects<V>(
-    first: Record<RecordKey, V>,
-    second: Record<RecordKey, V>,
-    mergeFunction: (first: V, second: V) => V
-): Record<RecordKey, V> {
-    const combinedKeys = new Set([...Object.keys(first), ...Object.keys(second)]) as Set<RecordKey>;
-
-    const combinedObject: Record<RecordKey, V> = {};
-    for (const name of combinedKeys) {
-        if (name in first && name in second) {
-            combinedObject[name] = mergeFunction(first[name], second[name]);
-        } else if (name in first) {
-            combinedObject[name] = first[name];
-        } else if (name in second) {
-            combinedObject[name] = second[name];
-        }
-    }
-    return combinedObject;
-}
-
-type RecordKey = string | number;
-
 type Optional<T> = T | null | undefined;
 
 /**
@@ -76,11 +42,6 @@ type Optional<T> = T | null | undefined;
  */
 function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
-}
-
-/** Used as a function reference */
-function add(x: number, y: number): number {
-    return x + y;
 }
 
 /**
@@ -353,10 +314,8 @@ export {
     ErrorPF2e,
     Fraction,
     Optional,
-    add,
     addSign,
     applyNTimes,
-    combineObjects,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
