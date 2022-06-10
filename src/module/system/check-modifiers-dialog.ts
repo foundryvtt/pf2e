@@ -96,7 +96,6 @@ export class CheckModifiersDialog extends Application {
             this.context.rollTwice = (event.currentTarget.value || false) as RollTwiceOption;
         });
 
-
         $html.find("[name=rollmode]").on("change", (event) => this.onChangeRollMode(event));
 
         // Dialog settings menu
