@@ -28,7 +28,7 @@ export class Migration757HillockHalfling extends MigrationBase {
                 value: "@actor.level",
             };
             rules.push(element);
-        }                
+        }
     }
 }
 
