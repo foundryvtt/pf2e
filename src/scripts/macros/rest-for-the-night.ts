@@ -33,11 +33,11 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
 
-        const { abilities, attributes, level } = actor;
+        const { abilities, attributes, hitPoints, level } = actor;
 
         // Hit points
         const conModifier = abilities.con.mod;
-        const maxRestored = Math.max(conModifier, 1) * level * actor.hitPoints.recoveryMultiplier;
+        const maxRestored = Math.max(conModifier, 1) * level * hitPoints.recoveryMultiplier + hitPoints.recoveryBonus;
         const hpLost = attributes.hp.max - attributes.hp.value;
         const hpRestored = hpLost >= maxRestored ? maxRestored : hpLost;
         if (hpRestored > 0) {

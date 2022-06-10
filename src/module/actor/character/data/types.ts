@@ -368,6 +368,7 @@ interface CharacterAttributes extends CreatureAttributes {
 
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
+    recoveryBonus: number;
 }
 
 interface GrantedFeat {

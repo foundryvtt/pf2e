@@ -8,6 +8,7 @@ import { Statistic } from "@system/statistic";
 
 interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryMultiplier: number;
+    recoveryBonus: number;
 }
 
 type CharacterSkill = Statistic & { rank: ZeroToFour; ability: AbilityString };
