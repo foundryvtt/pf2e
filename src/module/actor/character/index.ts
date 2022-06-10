@@ -121,6 +121,7 @@ class CharacterPF2e extends CreaturePF2e {
         return {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
+            recoveryAddend: this.data.data.attributes.hp.recoveryAddend,
         };
     }
 
@@ -323,6 +324,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Hit points
         const hitPoints = this.data.data.attributes.hp;
         hitPoints.recoveryMultiplier = 1;
+        hitPoints.recoveryAddend = 0;
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 
