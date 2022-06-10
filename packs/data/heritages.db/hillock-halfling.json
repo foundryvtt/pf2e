@@ -8,7 +8,14 @@
         "description": {
             "value": "<p>Accustomed to a calm life in the hills, your people find rest and relaxation especially replenishing, particularly when indulging in creature comforts. When you regain Hit Points overnight, add [[/r @actor.level]]{add your level} to the Hit Points regained.</p>\n<p>When anyone uses the Medicine skill to @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat your Wounds}, you can eat a snack to [[/r @actor.level]]{add your level} to the Hit Points you regain from their treatment.</p>"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.attributes.hp.recoveryBonus",
+                "value": "@actor.level"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
