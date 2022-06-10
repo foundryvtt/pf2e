@@ -60,8 +60,6 @@ export class CheckModifiersDialog extends Application {
 
     override activateListeners($html: JQuery): void {
         $html.find(".roll").on("click", () => {
-            const rollTwice = $html.find("input[type=radio][name=rollTwice]:checked");
-            this.context.rollTwice = (rollTwice.val() || null) as RollTwiceOption;
             this.resolve(true);
             this.isResolved = true;
             this.close();
@@ -93,6 +91,12 @@ export class CheckModifiersDialog extends Application {
         });
 
         $html.find(".add-modifier-panel").on("click", ".add-modifier", (event) => this.onAddModifier(event));
+
+        $html.find<HTMLInputElement>(".fate input[type=radio]").on("click", (event) => {
+            this.context.rollTwice = (event.currentTarget.value || false) as RollTwiceOption;
+        });
+
+
         $html.find("[name=rollmode]").on("change", (event) => this.onChangeRollMode(event));
 
         // Dialog settings menu
