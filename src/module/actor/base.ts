@@ -1,36 +1,35 @@
-import { isCycle } from "@item/container/helpers";
-import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
-import { ArmorPF2e, type ConditionPF2e } from "@item";
-import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, isObject, objectHasKey } from "@util";
-import type { ActiveEffectPF2e } from "@module/active-effect";
-import { LocalizePF2e } from "@module/system/localize";
-import { ItemTransfer } from "./item-transfer";
-import { RuleElementPF2e } from "@module/rules/rule-element/base";
-import { ActorSheetPF2e } from "./sheet/base";
-import { hasInvestedProperty } from "@item/data/helpers";
-import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseTraitsData, RollOptionFlags } from "./data/base";
-import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
-import { TokenDocumentPF2e } from "@scene";
-import { UserPF2e } from "@module/user";
-import { ConditionSlug } from "@item/condition/data";
-import { MigrationRunner, MigrationList } from "@module/migration";
-import { Size } from "@module/data";
-import { ActorSizePF2e } from "./data/size";
-import { ActorSpellcasting } from "./spellcasting";
-import { Statistic } from "@system/statistic";
-import { TokenEffect } from "./token-effect";
-import { RuleElementSynthetics } from "@module/rules";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@actor/modifiers";
-import { ActorDimensions } from "./types";
-import { CombatantPF2e } from "@module/encounter";
+import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, type ConditionPF2e } from "@item";
+import { ConditionSlug } from "@item/condition/data";
+import { isCycle } from "@item/container/helpers";
+import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { hasInvestedProperty } from "@item/data/helpers";
+import type { ActiveEffectPF2e } from "@module/active-effect";
+import { TokenPF2e } from "@module/canvas";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
+import { CombatantPF2e } from "@module/encounter";
+import { MigrationList, MigrationRunner } from "@module/migration";
+import { RuleElementSynthetics } from "@module/rules";
+import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { LocalizePF2e } from "@module/system/localize";
+import { UserPF2e } from "@module/user";
+import { TokenDocumentPF2e } from "@scene";
+import { DicePF2e } from "@scripts/dice";
+import { Statistic } from "@system/statistic";
+import { ErrorPF2e, isObject, objectHasKey } from "@util";
+import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
+import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
+import { BaseTraitsData, RollOptionFlags } from "./data/base";
+import { ActorSizePF2e } from "./data/size";
 import { ActorInventory } from "./inventory";
+import { ItemTransfer } from "./item-transfer";
+import { ActorSheetPF2e } from "./sheet/base";
+import { ActorSpellcasting } from "./spellcasting";
+import { TokenEffect } from "./token-effect";
+import { ActorDimensions } from "./types";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -440,29 +439,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             this.data.token.flags
         );
         TokenDocumentPF2e.prepareSize(this.data.token, this);
-    }
-
-    getStrikeDescription(weapon: WeaponPF2e) {
-        const flavor = {
-            description: "PF2E.Strike.Default.Description",
-            criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
-            success: "PF2E.Strike.Default.Success",
-        };
-        const traits = weapon.traits;
-        if (traits.has("unarmed")) {
-            flavor.description = "PF2E.Strike.Unarmed.Description";
-            flavor.success = "PF2E.Strike.Unarmed.Success";
-        } else if ([...traits].some((trait) => trait.startsWith("thrown-") || trait === "combination")) {
-            flavor.description = "PF2E.Strike.Combined.Description";
-            flavor.success = "PF2E.Strike.Combined.Success";
-        } else if (weapon.isMelee) {
-            flavor.description = "PF2E.Strike.Melee.Description";
-            flavor.success = "PF2E.Strike.Melee.Success";
-        } else {
-            flavor.description = "PF2E.Strike.Ranged.Description";
-            flavor.success = "PF2E.Strike.Ranged.Success";
-        }
-        return flavor;
     }
 
     /** If there is an active encounter, set roll options for it and this actor's participant */

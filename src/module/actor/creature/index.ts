@@ -610,7 +610,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Removes a custom modifier by slug */
-    async removeCustomModifier(stat: string, modifier: number | string) {
+    async removeCustomModifier(stat: string, modifier: number | string): Promise<void> {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
             customModifiers[stat].splice(modifier, 1);

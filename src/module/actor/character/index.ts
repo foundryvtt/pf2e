@@ -1,43 +1,56 @@
-import { ItemPF2e } from "@item/base";
-import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
+import { CreaturePF2e, FamiliarPF2e } from "@actor";
+import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
+import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
+import { CharacterSource, SaveType } from "@actor/data";
+import { AbilityString } from "@actor/data/base";
+import { ActorSizePF2e } from "@actor/data/size";
 import {
     AbilityModifier,
-    ensureProficiencyOption,
     CheckModifier,
+    ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
-    StatisticModifier,
     ProficiencyModifier,
+    StatisticModifier,
 } from "@actor/modifiers";
-import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import {
-    ABILITY_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_DICTIONARY,
-    SKILL_EXPANDED,
-} from "../data/values";
-import {
-    BaseWeaponProficiencyKey,
-    CharacterArmorClass,
-    CharacterAttributes,
-    CharacterData,
-    CharacterProficiency,
-    CharacterSaves,
-    CharacterStrike,
-    CharacterSystemData,
-    MartialProficiencies,
-    WeaponGroupProficiencyKey,
-    MagicTraditionProficiencies,
-    MartialProficiency,
-    LinkedProficiency,
-    AuxiliaryAction,
-    GrantedFeat,
-    FeatSlot,
-    SlottedFeat,
-} from "./data";
+    AncestryPF2e,
+    BackgroundPF2e,
+    ClassPF2e,
+    ConsumablePF2e,
+    DeityPF2e,
+    FeatPF2e,
+    HeritagePF2e,
+    ItemPF2e,
+    PhysicalItemPF2e,
+    WeaponPF2e,
+} from "@item";
+import { AncestryBackgroundClassManager } from "@item/abc/manager";
+import { ActionTrait } from "@item/action/data";
+import { ARMOR_CATEGORIES } from "@item/armor/data";
+import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
+import { ItemGrantData } from "@item/data/base";
+import { ItemCarryType } from "@item/physical/data";
+import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
+import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
+import { ActiveEffectPF2e } from "@module/active-effect";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
+import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
+import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { UserPF2e } from "@module/user";
+import { CheckRoll } from "@system/check/roll";
+import { DamageRollContext } from "@system/damage/damage";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
+import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
+import { PredicatePF2e } from "@system/predication";
+import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
     getActionGlyph,
@@ -47,52 +60,38 @@ import {
     sortedStringify,
     traitSlugToObject,
 } from "@util";
-import {
-    AncestryPF2e,
-    BackgroundPF2e,
-    ClassPF2e,
-    ConsumablePF2e,
-    DeityPF2e,
-    FeatPF2e,
-    HeritagePF2e,
-    PhysicalItemPF2e,
-    WeaponPF2e,
-} from "@item";
-import { CreaturePF2e } from "../";
-import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
-import { AbilityString } from "@actor/data/base";
-import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { MAGIC_TRADITIONS } from "@item/spell/data";
-import { CharacterSource, SaveType } from "@actor/data";
-import { PredicatePF2e } from "@system/predication";
-import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { fromUUIDs } from "@util/from-uuids";
-import { UserPF2e } from "@module/user";
+import {
+    ABILITY_ABBREVIATIONS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_EXPANDED,
+} from "../data/values";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
-import { ActorSizePF2e } from "@actor/data/size";
-import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
-import { extractRollTwice, extractModifiers, extractNotes, extractRollSubstitutions } from "@module/rules/util";
-import { Statistic } from "@system/statistic";
-import { CHARACTER_SHEET_TABS } from "./data/values";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ItemCarryType } from "@item/physical/data";
-import { StrikeWeaponTraits } from "./strike-weapon-traits";
-import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
-import { DamageRollContext } from "@system/damage/damage";
-import { RollNotePF2e } from "@module/notes";
-import { CheckDC } from "@system/degree-of-success";
-import { LocalizePF2e } from "@system/localize";
+import {
+    AuxiliaryAction,
+    BaseWeaponProficiencyKey,
+    CharacterArmorClass,
+    CharacterAttributes,
+    CharacterData,
+    CharacterProficiency,
+    CharacterSaves,
+    CharacterStrike,
+    CharacterSystemData,
+    FeatSlot,
+    GrantedFeat,
+    LinkedProficiency,
+    MagicTraditionProficiencies,
+    MartialProficiencies,
+    MartialProficiency,
+    SlottedFeat,
+    WeaponGroupProficiencyKey,
+} from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
+import { CHARACTER_SHEET_TABS } from "./data/values";
+import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
-import { FamiliarPF2e } from "@actor/familiar";
-import { CheckRoll } from "@system/check/roll";
-import { ActionTrait } from "@item/action/data";
-import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
-import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
-import { ItemGrantData } from "@item/data/base";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -114,7 +113,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** This PC's ability scores */
-    get abilities() {
+    get abilities(): Abilities {
         return deepClone(this.data.data.abilities);
     }
 
@@ -177,7 +176,7 @@ class CharacterPF2e extends CreaturePF2e {
         return null;
     }
 
-    async performDailyCrafting() {
+    async performDailyCrafting(): Promise<void> {
         const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
         const alchemicalEntries = entries.filter((e) => e.isAlchemical);
         const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
@@ -212,7 +211,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    async insertFeat(feat: FeatPF2e, featType: string, slotId?: string) {
+    async insertFeat(feat: FeatPF2e, featType: string, slotId?: string): Promise<ItemPF2e[]> {
         const group = this.featGroups[featType];
         const location = group?.slotted ? slotId ?? "" : featType;
 
@@ -1696,9 +1695,7 @@ class CharacterPF2e extends CreaturePF2e {
             glyph: "A",
             item: weapon,
             type: "strike" as const,
-            description: flavor.description,
-            criticalSuccess: flavor.criticalSuccess,
-            success: flavor.success,
+            ...flavor,
             options: itemData.data.options?.value ?? [],
             traits: [],
             variants: [],
@@ -1901,6 +1898,29 @@ class CharacterPF2e extends CreaturePF2e {
         return action;
     }
 
+    getStrikeDescription(weapon: WeaponPF2e): { description: string; criticalSuccess: string; success: string } {
+        const flavor = {
+            description: "PF2E.Strike.Default.Description",
+            criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
+            success: "PF2E.Strike.Default.Success",
+        };
+        const traits = weapon.traits;
+        if (traits.has("unarmed")) {
+            flavor.description = "PF2E.Strike.Unarmed.Description";
+            flavor.success = "PF2E.Strike.Unarmed.Success";
+        } else if ([...traits].some((trait) => trait.startsWith("thrown-") || trait === "combination")) {
+            flavor.description = "PF2E.Strike.Combined.Description";
+            flavor.success = "PF2E.Strike.Combined.Success";
+        } else if (weapon.isMelee) {
+            flavor.description = "PF2E.Strike.Melee.Description";
+            flavor.success = "PF2E.Strike.Melee.Success";
+        } else {
+            flavor.description = "PF2E.Strike.Ranged.Description";
+            flavor.success = "PF2E.Strike.Ranged.Success";
+        }
+        return flavor;
+    }
+
     /** Possibly modify this weapon depending on its */
     protected override getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
@@ -1994,14 +2014,14 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Add a proficiency in a weapon group or base weapon */
-    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         const currentProficiencies = this.data.data.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`data.martial.${key}`]: newProficiency });
     }
 
-    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         await this.update({ [`data.martial.-=${key}`]: null });
     }
 
@@ -2071,7 +2091,7 @@ class CharacterPF2e extends CreaturePF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const characterData = this.data.data;
+        const systemData = this.data.data;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
         const level = changed.data?.details?.level;
@@ -2086,7 +2106,7 @@ class CharacterPF2e extends CreaturePF2e {
                 changed.data.attributes.sp.value = Math.clamped(
                     changed.data?.attributes?.sp?.value || 0,
                     0,
-                    characterData.attributes.sp.max
+                    systemData.attributes.sp.max
                 );
             }
 
@@ -2095,7 +2115,7 @@ class CharacterPF2e extends CreaturePF2e {
                 changed.data.attributes.resolve.value = Math.clamped(
                     changed.data?.attributes?.resolve?.value || 0,
                     0,
-                    characterData.attributes.resolve.max
+                    systemData.attributes.resolve.max
                 );
             }
         }

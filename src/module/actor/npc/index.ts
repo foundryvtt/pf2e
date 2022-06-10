@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { VisionLevel, VisionLevels } from "@actor/creature/data";
+import { Abilities, VisionLevel, VisionLevels } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
 import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
@@ -25,7 +25,7 @@ import { CheckRoll } from "@system/check/roll";
 
 class NPCPF2e extends CreaturePF2e {
     /** This NPC's ability scores */
-    get abilities() {
+    get abilities(): Abilities {
         return deepClone(this.data.data.abilities);
     }
 
