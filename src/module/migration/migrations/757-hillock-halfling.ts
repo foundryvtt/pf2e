@@ -16,8 +16,7 @@ export class Migration757HillockHalfling extends MigrationBase {
 
         const rules = itemSource.data.rules;
         const needsRuleElement = !rules.some(
-            (rule: Record<string, unknown>) =>
-                "path" in rule && rule["path"] === "data.attributes.hp.recoveryBonus"
+            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.recoveryBonus"
         );
 
         if (needsRuleElement) {
