@@ -83,6 +83,7 @@ export class HazardPF2e extends ActorPF2e {
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
@@ -91,7 +92,6 @@ export class HazardPF2e extends ActorPF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });

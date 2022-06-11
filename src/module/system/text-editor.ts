@@ -291,6 +291,7 @@ function getCheckDC(
 
                 const stat = new Statistic(actor, {
                     slug: type,
+                    label: name,
                     notes: extractNotes(rollNotes, selectors),
                     domains: selectors,
                     modifiers: [...extractModifiers(statisticsModifiers, selectors)],
