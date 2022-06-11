@@ -24,6 +24,7 @@ import { CheckRoll } from "@system/check/roll";
 import { ZeroToFour } from "@module/data";
 import { AbilityString } from "@actor/data";
 import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { calculateMAP } from "@actor/helpers";
 
 export * from "./data";
 
@@ -273,7 +274,7 @@ class StatisticCheck {
     }
 
     calculateMap(options: { item: ItemPF2e }) {
-        const baseMap = options.item.calculateMap();
+        const baseMap = calculateMAP(options.item);
         const penalties = [...(this.parent.data.check.penalties ?? [])];
         penalties.push({
             label: "PF2E.MultipleAttackPenalty",

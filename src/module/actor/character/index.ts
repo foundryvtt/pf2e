@@ -4,6 +4,7 @@ import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextPara
 import { CharacterSource, SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
+import { calculateMAP } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -1603,7 +1604,7 @@ class CharacterPF2e extends CreaturePF2e {
         );
 
         // Multiple attack penalty
-        const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
+        const multipleAttackPenalty = calculateMAP(weapon);
         {
             const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
             for (const key of selectors) {
