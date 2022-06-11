@@ -66,7 +66,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
-            current[longForm] = current[shortForm] = new Statistic(this, {
+            current[longForm] = new Statistic(this, {
                 slug: longForm,
                 label: skillName,
                 proficient: skill.visible,
@@ -76,6 +76,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 modifiers: [...skill.modifiers],
                 notes: skill.notes,
             });
+
+            if (shortForm !== longForm) {
+                Object.defineProperty(current, shortForm, {
+                    get: () => {
+                        console.warn(
+                            `Shortform skills such as actor.skills.${shortForm} is deprecated. Use actor.skills.${longForm} instead`
+                        );
+                        return current[longForm];
+                    },
+                });
+            }
 
             return current;
         }, {} as CreatureSkills);

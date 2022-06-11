@@ -66,6 +66,7 @@ import {
     SAVE_TYPES,
     SKILL_ABBREVIATIONS,
     SKILL_DICTIONARY,
+    SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
 } from "../data/values";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
@@ -126,20 +127,21 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     override get skills(): CharacterSkills {
-        return Object.entries(super.skills).reduce((skills, [shortForm, skill]) => {
-            if (!(skill && objectHasKey(this.data.data.skills, shortForm))) {
-                return skills;
-            }
+        const skills = super.skills;
+        for (const [key, skill] of Object.entries(skills)) {
+            if (!skill) continue;
+            const originalKey = SKILL_DICTIONARY_REVERSE[skill.slug] ?? skill.slug;
+            if (!objectHasKey(this.data.data.skills, originalKey)) continue;
 
-            const data = this.data.data.skills[shortForm];
-            skills[skill.slug] = skills[shortForm] = mergeObject(skill, {
+            const data = this.data.data.skills[originalKey];
+            skills[key] = mergeObject(skill, {
                 rank: data.rank,
                 ability: data.ability,
                 abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,
             });
+        }
 
-            return skills;
-        }, {} as CharacterSkills);
+        return skills as CharacterSkills;
     }
 
     get heroPoints(): { value: number; max: number } {
@@ -805,7 +807,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             const loreSkill = systemData.skills[shortForm];
             const stat = mergeObject(
-                new StatisticModifier(skill.name, modifiers, this.getRollOptions(domains)),
+                new StatisticModifier(shortForm, modifiers, this.getRollOptions(domains)),
                 loreSkill,
                 { overwrite: false }
             );
