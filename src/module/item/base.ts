@@ -413,35 +413,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         });
     }
 
-    calculateMap(): { label: string; map2: number; map3: number } {
-        return ItemPF2e.calculateMap(this.data);
-    }
-
-    static calculateMap(item: ItemDataPF2e): { label: string; map2: number; map3: number } {
-        if (item.type === "melee" || item.type === "weapon") {
-            // calculate multiple attack penalty tiers
-            const agile = item.data.traits.value.includes("agile");
-            const alternateMAP = ((item.data as any).MAP || {}).value;
-            switch (alternateMAP) {
-                case "1":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -1, map3: -2 };
-                case "2":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -2, map3: -4 };
-                case "3":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -3, map3: -6 };
-                case "4":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -4, map3: -8 };
-                case "5":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
-                default: {
-                    if (agile) return { label: "PF2E.MultipleAttackPenalty", map2: -4, map3: -8 };
-                    else return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
-                }
-            }
-        }
-        return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
-    }
-
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
     static override async createDialog(
         data: { folder?: string } = {},

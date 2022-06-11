@@ -22,6 +22,7 @@ import { SIZE_TO_REACH } from "@actor/creature/values";
 import { VariantCloneParams } from "./types";
 import { StrikeAttackTraits } from "./strike-attack-traits";
 import { CheckRoll } from "@system/check/roll";
+import { calculateMAP } from "@actor/helpers";
 
 class NPCPF2e extends CreaturePF2e {
     /** This NPC's ability scores */
@@ -563,7 +564,7 @@ class NPCPF2e extends CreaturePF2e {
                 };
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const maps = ItemPF2e.calculateMap(meleeData);
+                const maps = calculateMAP(item);
                 const sign = action.totalModifier < 0 ? "" : "+";
                 const attackTrait = {
                     name: "attack",
