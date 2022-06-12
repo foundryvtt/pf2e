@@ -27,7 +27,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 to fortitude saves vs attempts to grapple or shove"
             },
             "hp": {
                 "details": "",
@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-22: Doom of Cassomir"
             }
         },
         "resources": {},
@@ -90,10 +90,10 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(Can't Speak Any Language)",
                 "selected": [],
                 "value": [
-                    "draconic (can't speak any language)"
+                    "draconic"
                 ]
             },
             "rarity": "unique",
@@ -162,16 +162,14 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "entangling-slime"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 10
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": "<p>(range increment 30 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -182,6 +180,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "range",
                         "range-increment-30"
                     ]
                 },
@@ -193,6 +192,102 @@
             "name": "Slime Squirt",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "oc7xbrDpTau5TtjK",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "mEVGHgRvENEV5iBO",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Little Zura gains a +2 to fortitude saves against attempts to grapple or shove.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:grapple",
+                                "action:shove"
+                            ]
+                        },
+                        "selector": "fortitude",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hard to Grapple or Shove",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "CNlSRemg9FTCexWB",
@@ -231,11 +326,11 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Belly Grease",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "ZgWg4uzcMsWkI71E",
+            "_id": "xhifzPptQGYXFtkJ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -247,7 +342,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature struck by a slurk's slime squirt becomes clumsy 1 and takes a -5-foot penalty to Speed for 1 hour or until the slime is removed. The slime can be removed with a total of three Interact actions by the entangled creature or creatures adjacent to the creature.</p>\n<p>These actions don't need to be consecutive or made by the same creature.</p>"
+                    "value": "<p>A creature struck by a slurk's slime squirt becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -5-foot penalty to Speed for 1 hour or until the slime is removed. The slime can be removed with a total of three Interact actions by the entangled creature or creatures adjacent to the creature.</p>\n<p>These actions don't need to be consecutive or made by the same creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -269,13 +364,14 @@
                     "value": ""
                 }
             },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Entangling Slime",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "1DEfwWX6XofTYEWJ",
+            "_id": "4op9bru8YIS2IkSN",
             "data": {
                 "description": {
                     "value": ""
@@ -286,7 +382,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Escape",
+                        "predicate": {
+                            "all": [
+                                "action:escape"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -295,11 +404,17 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to Escape",
+                        "options": "action:escape"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics (+10 to Escape)",
-            "sort": 500000,
+            "name": "Acrobatics",
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -327,7 +442,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -355,7 +470,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
