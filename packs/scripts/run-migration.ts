@@ -151,7 +151,7 @@ function JSONstringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
-        if (key.startsWith("-=")) return;
+        if (key.startsWith("-=") || key.includes(".-=")) return;
 
         if (/^[a-z0-9]{20,}$/g.test(key)) {
             idKeys.push(key);
