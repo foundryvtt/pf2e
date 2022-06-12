@@ -19,6 +19,7 @@
         "level": {
             "value": 13
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -29,7 +30,25 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:maneuver-in-flight"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 5
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },

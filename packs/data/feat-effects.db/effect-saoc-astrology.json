@@ -1,0 +1,141 @@
+{
+    "_id": "6ACbQIpmmemxmoBJ",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>This effect grants you the selected circumstance bonus or penalty to skill checks.</p>\n<hr />\n<p><em>Note: The effect lasts until the end of your turn, and should be manually removed after you have made a skill check.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "-1 penalty",
+                        "value": "minus-one"
+                    },
+                    {
+                        "label": "+1 bonus",
+                        "predicate": {
+                            "not": [
+                                "heir-of-the-saoc"
+                            ]
+                        },
+                        "value": "plus-one"
+                    },
+                    {
+                        "label": "+2 bonus",
+                        "value": "plus-two"
+                    },
+                    {
+                        "label": "+3 bonus",
+                        "predicate": {
+                            "all": [
+                                "heir-of-the-saoc"
+                            ]
+                        },
+                        "value": "plus-three"
+                    },
+                    {
+                        "label": "+4 bonus",
+                        "predicate": {
+                            "all": [
+                                "heir-of-the-saoc"
+                            ]
+                        },
+                        "value": "plus-four"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Human.SaocAstrology.Prompt",
+                "rollOption": "astrology"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "astrology:minus-one"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "astrology-penalty",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "astrology:plus-one"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "astrology-bonus-one",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "astrology:plus-two"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "astrology-bonus-two",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "astrology:plus-three"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "astrology-bonus-three",
+                "type": "circumstance",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "astrology:plus-four"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "astrology-bonus-four",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/spells/guiding-star.webp",
+    "name": "Effect: Saoc Astrology",
+    "type": "effect"
+}
