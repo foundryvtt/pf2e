@@ -2,9 +2,9 @@ import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@item";
 import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
-import { ordinal, objectHasKey, ErrorPF2e, isObject } from "@util";
+import { ordinal, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
-import { SpellData, SpellHeightenLayer } from "./data";
+import { SpellData, SpellHeightenLayer, SpellSource } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -618,11 +618,12 @@ class SpellPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<SpellSource>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
+        const diff = (options.diff ??= true);
 
         const uses = changed.data?.location?.uses;
         if (uses) {
@@ -632,13 +633,12 @@ class SpellPF2e extends ItemPF2e {
         }
 
         // If dragged to outside an actor, location properties should be cleaned up
-        mergeObject(changed, { data: {} });
         const newLocation = changed.data?.location?.value;
-        const locationChanged = newLocation && newLocation !== this.data.data.location.value;
-        if ((!this.actor || locationChanged) && isObject<Record<string, unknown>>(changed.data)) {
-            const data: Record<string, unknown> = changed.data;
-            const locationUpdates: Record<string, unknown> = this.actor ? changed.data.location ?? {} : { value: "" };
-            data.location = locationUpdates;
+        const locationChanged = typeof newLocation === "string" && newLocation !== this.data.data.location.value;
+        if (diff && (!this.actor || locationChanged)) {
+            type SystemSourceWithDeletions = typeof changed["data"] & { location?: Record<`-=${string}`, null> };
+            const data: SystemSourceWithDeletions = (changed.data ??= {});
+            const locationUpdates = (data.location = this.actor ? data.location ?? {} : { value: "" });
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
             const keys = Object.keys(this.data.data.location).filter((k) => k !== "value" && !(k in locationUpdates));
