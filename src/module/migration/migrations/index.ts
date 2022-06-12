@@ -157,3 +157,4 @@ export { Migration754MightyBulwarkAdjustModifiers } from "./754-mighty-bulwark-a
 export { Migration755GrantIdsToData } from "./755-grant-ids-to-data";
 export { Migration756RMStoredResourceMaxes } from "./756-rm-stored-resource-maxes";
 export { Migration757HillockHalfling } from "./757-hillock-halfling";
+export { Migration758PrunePCAttributes } from "./758-prune-pc-attributes";
