@@ -344,7 +344,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ahuizotl has a Medium or smaller creature grabbed with its tail claw</p>\n<p><strong>Effect</strong> The ahuizotl attempts an Athletics check against the creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> If the creature is 10 feet away from the ahuizotl, it is dragged into a square adjacent to the ahuizotl. The ahuizotl can make a jaws Strike against the creature.</p>\n<p><strong>Success</strong> If the creature is 10 feet away from the ahuizotl, it is dragged into a square adjacent to the ahuizotl.</p>\n<p><strong>Failure</strong> The creature is not dragged.</p>\n<p><strong>Critical Failure</strong> The creature is not dragged and the ahuizotl no longer has the creature grabbed.</p>"
+                    "value": "<p><strong>Requirements</strong> The ahuizotl has a Medium or smaller creature grabbed with its tail claw</p>\n<p><strong>Effect</strong> The ahuizotl attempts an @Check[type:athletics] check against the creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> If the creature is 10 feet away from the ahuizotl, it is dragged into a square adjacent to the ahuizotl. The ahuizotl can make a jaws Strike against the creature.</p>\n<p><strong>Success</strong> If the creature is 10 feet away from the ahuizotl, it is dragged into a square adjacent to the ahuizotl.</p>\n<p><strong>Failure</strong> The creature is not dragged.</p>\n<p><strong>Critical Failure</strong> The creature is not dragged and the ahuizotl no longer has the creature grabbed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -456,7 +456,26 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "deception",
+                        "key": "RollOption",
+                        "option": "voice-imitation",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:lie",
+                                "voice-imitation"
+                            ]
+                        },
+                        "selector": "deception",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -469,7 +488,7 @@
                 "variants": {
                     "0": {
                         "label": "+16 when using Voice Imitation",
-                        "options": "voice-imitation"
+                        "options": "action:lie, voice-imitation"
                     }
                 }
             },
