@@ -7,7 +7,7 @@ import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, Dam
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "./predication";
 import { StrikeData, TraitViewData } from "@actor/data/base";
@@ -392,11 +392,11 @@ export class CheckPF2e {
         const { item } = context;
         const itemTraits = item?.isOfType("weapon", "melee")
             ? Array.from(item.traits)
-                  .map((t) => ({
-                      name: t,
-                      label: game.i18n.localize(CONFIG.PF2E.npcAttackTraits[t]),
-                      description: CONFIG.PF2E.traitsDescriptions[t],
-                  }))
+                  .map((t): TraitViewData => {
+                      const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
+                      obj.label = game.i18n.localize(obj.label);
+                      return obj;
+                  })
                   .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                   .map((t): HTMLElement => toTagElement(t, "alt"))
             : [];
