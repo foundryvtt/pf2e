@@ -55,5 +55,12 @@ export const Load = {
 
         // Make available immediately on load for module subclassing
         window.AutomaticBonusProgression = AutomaticBonusProgression;
+
+        // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
+        document.addEventListener("mouseup", (): void => {
+            if (document.activeElement instanceof HTMLButtonElement) {
+                document.activeElement.blur();
+            }
+        });
     },
 };
