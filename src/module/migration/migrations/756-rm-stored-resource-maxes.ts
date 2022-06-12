@@ -1,4 +1,3 @@
-import { CharacterResources } from "@actor/character/data";
 import { ActorSourcePF2e } from "@actor/data";
 import { MigrationBase } from "../base";
 
@@ -6,16 +5,17 @@ import { MigrationBase } from "../base";
 export class Migration756RMStoredResourceMaxes extends MigrationBase {
     static override version = 0.756;
 
-    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+    override async updateActor(source: ActorSourceWithDeletions): Promise<void> {
         if (source.type === "character") {
-            const resources: ResourcesWithDeletions = source.data.resources;
-            resources["focus.-=max"] = null;
-            resources["crafting.infusedReagents.-=max"] = null;
+            source["data.resources.focus.-=max"] = null;
+            source["data.resources.crafting.infusedReagents.-=max"] = null;
+            source["data.resources.-=investiture"] = null;
         }
     }
 }
 
-interface ResourcesWithDeletions extends CharacterResources {
-    "focus.-=max"?: null;
-    "crafting.infusedReagents.-=max"?: null;
-}
+type ActorSourceWithDeletions = ActorSourcePF2e & {
+    "data.resources.focus.-=max"?: null;
+    "data.resources.crafting.infusedReagents.-=max"?: null;
+    "data.resources.-=investiture"?: null;
+};
