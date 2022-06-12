@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function lie(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "deception");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "deception");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -18,8 +18,8 @@ export function lie(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Lie", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Lie", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Lie", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Lie", "failure"),
         ],
     });
 }

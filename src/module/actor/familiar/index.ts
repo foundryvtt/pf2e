@@ -173,6 +173,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             const selectors = save.data.domains ?? [];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED),
@@ -180,7 +181,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });
@@ -289,7 +289,8 @@ export class FamiliarPF2e extends CreaturePF2e {
             modifiers.push(...extractModifiers(statisticsModifiers, selectors).filter(filterModifier));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
-            const stat = mergeObject(new StatisticModifier(label, modifiers), {
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers), {
+                label,
                 ability,
                 value: 0,
                 roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {

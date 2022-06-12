@@ -1,7 +1,6 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString, TraitViewData } from "@actor/data/base";
 import {
-    BaseRawModifier,
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
@@ -364,7 +363,13 @@ export class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
-        getPropertyRuneModifiers(propertyRunes).forEach((modifier) => diceModifiers.push(modifier));
+        diceModifiers.push(...getPropertyRuneModifiers(propertyRunes));
+
+        const runeNotes = propertyRunes.flatMap((r) => {
+            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            return data.map((d) => new RollNotePF2e("strike-damage", d.text, d.predicate, d.outcome));
+        });
+        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
 
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
@@ -560,10 +565,16 @@ export class WeaponDamagePF2e {
         const { base } = damage;
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
-        // First, increase the damage die. This can only be done once, so we
+        // First, increase or decrease the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
-        if (diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
-            base.dieSize = nextDamageDieSize(base.dieSize);
+        const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical));
+        const hasDowngrade = diceModifiers.some(
+            (dm) => dm.enabled && dm.override?.downgrade && (critical || !dm.critical)
+        );
+        if (hasUpgrade && !hasDowngrade) {
+            base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
+        } else if (hasDowngrade && !hasUpgrade) {
+            base.dieSize = nextDamageDieSize({ downgrade: base.dieSize });
         }
 
         // Override next, to ensure the dice stacking works properly
@@ -866,7 +877,7 @@ export class WeaponDamagePF2e {
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
-    modifiers: BaseRawModifier[];
+    modifiers: (DiceModifierPF2e | ModifierPF2e)[];
     weapon: WeaponPF2e | null;
     options: string[];
 }

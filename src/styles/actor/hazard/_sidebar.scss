@@ -9,14 +9,6 @@
     padding: 10px 8px 8px 8px;
     width: 220px;
 
-    .sidebar_label {
-        font-weight: initial;
-        text-transform: capitalize;
-        font-size: var(--font-size-12);
-        border: none;
-        margin-bottom: 2px;
-    }
-
     .sidebar-title {
         display: flex;
         justify-content: space-between;
@@ -78,6 +70,9 @@
     .sidebar-saves {
         display: flex;
         justify-content: space-between;
+        h2 {
+            font-size: var(--font-size-18);
+        }
         .save {
             align-items: center;
             display: flex;
@@ -85,11 +80,19 @@
             flex-direction: column;
             font-size: var(--font-size-18);
         }
-        .save-name {
-            cursor: pointer;
-        }
-        input[value=""] {
+        input {
+            max-width: 50px;
             text-align: center;
+        }
+    }
+
+    .rollable {
+        cursor: pointer;
+        &:hover {
+            text-shadow: 0 0 8px var(--color-shadow-primary);
+            i {
+                animation: rotation 2s infinite linear;
+            }
         }
     }
 }

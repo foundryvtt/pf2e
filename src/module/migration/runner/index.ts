@@ -50,7 +50,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     ): Promise<void> {
         const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
         const updateGroup: TDocument["data"]["_source"][] = [];
-        for (const document of collection) {
+        // Have familiars go last so that their data migration and re-preparation happen after their master's
+        for (const document of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1))) {
             if (updateGroup.length === 50) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true });
@@ -97,7 +98,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 );
                 await item.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true });
             } catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         }
 

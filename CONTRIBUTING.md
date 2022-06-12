@@ -8,7 +8,7 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 The project uses webpack to package the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 
-* Clone the repo into a local folder in your dev environment `git clone https://gitlab.com/hooking/foundry-vtt---pathfinder-2e.git master`
+* Clone the repo into a local folder in your dev environment `git clone https://github.com/foundryvtt/pf2e.git master`
 
 * Install the Javascript dependencies with `npm ci`
 
@@ -22,7 +22,7 @@ The project uses webpack to package the SASS files needed for a build and can cr
 
 ## How to Help
 
-As a project, we are using a modified gitlab flow, with a development branch (master) for development and a release branch (release) that contains one commit per release. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in gitlab. Then push your branch to gitlab and open a merge request for your branch to our development branch. After being reviewed it can be merged into the project by one of the project maintainers.
+As a project, we are using a modified gitlab flow, with a development branch (master) for development and a release branch (release) that contains one commit per release. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in GitHub. Then push your branch to GitHub and open a pull request for your branch to our development branch. After being reviewed it can be pulled into the project by one of the project maintainers.
 
 ### Compendium content
 
@@ -33,4 +33,4 @@ As new OGL content is released by Paizo, we would like to incorporate it as soon
 
 ### Prettier
 
-We have started to integrate Prettier into this project but it is still early days. Please do not submit any merge requests with reformatted / auto-formatted code outside of what you are actively contributing to. Unfortunately there is a lot of technical debt in this project and we will be biting it off in small chunks.
+We have started to integrate Prettier into this project, but it is still early days. Please do not submit any merge requests with reformatted / auto-formatted code outside what you are actively contributing to. Unfortunately there is a lot of technical debt in this project, and we will be biting it off in small chunks.

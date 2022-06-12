@@ -22,14 +22,14 @@ import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProfi
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 
-export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
     private knownFormulas: Record<string, CraftingFormula> = {};
 
     // Non-persisted tweaks to formula data
     private formulaQuantities: Record<string, number> = {};
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "character"],
             width: 750,
@@ -41,7 +41,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    override get template() {
+    override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
         return `systems/pf2e/templates/actors/character/${template}.html`;
     }
@@ -325,7 +325,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    private prepareSpellcasting(sheetData: CharacterSheetData) {
+    private prepareSpellcasting(sheetData: CharacterSheetData): void {
         sheetData.spellcastingEntries = [];
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
@@ -344,7 +344,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
     }
 
-    protected async prepareCraftingEntries() {
+    protected async prepareCraftingEntries(): Promise<CraftingEntriesSheetData> {
         const actorCraftingEntries = await this.actor.getCraftingEntries();
         const craftingEntries: CraftingEntriesSheetData = {
             dailyCrafting: false,
@@ -903,17 +903,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onIncrementModifierValue(event: JQuery.ClickEvent) {
+    private onIncrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepUp();
     }
 
-    private onDecrementModifierValue(event: JQuery.ClickEvent) {
+    private onDecrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepDown();
     }
 
-    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>) {
+    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const modifier = Number(parent.find(".add-modifier-value input[type=number]").val()) || 1;
@@ -937,7 +937,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onRemoveCustomModifier(event: JQuery.ClickEvent) {
+    private onRemoveCustomModifier(event: JQuery.ClickEvent): void {
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const slug = $(event.currentTarget).attr("data-slug") ?? "";
         const errors: string[] = [];
@@ -1004,7 +1004,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    protected override async _onDrop(event: ElementDragEvent) {
+    protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData = JSON.parse(dataString ?? "");
         if ("pf2e" in dropData && dropData.pf2e.type === "CraftingFormula") {
@@ -1024,6 +1024,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return;
             }
         }
+
         return super._onDrop(event);
     }
 
@@ -1046,8 +1047,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    /** Get the font-awesome icon used to display a certain level of dying */
-    private getDyingIcon(level: number) {
+    /** Get the font-awesome icon used to display a certain dying value */
+    private getDyingIcon(value: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const doomed = this.object.data.data.attributes.doomed.value || 0;
         const circle = '<i class="far fa-circle"></i>';
@@ -1071,13 +1072,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[dyingLevel] += dyingLevel === maxDying ? redClose : "";
         }
 
-        return icons[level];
+        return icons[value];
     }
 
-    /**
-     * Get the font-awesome icon used to display a certain level of wounded
-     */
-    private getWoundedIcon(level: number) {
+    /** Get the font-awesome icon used to display a certain wounded value */
+    private getWoundedIcon(value: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-dot-circle"></i>';
@@ -1091,7 +1090,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[i] = iconHtml;
         }
 
-        return icons[level];
+        return icons[value];
     }
 
     /** Get the font-awesome icon used to display hero points */
@@ -1106,6 +1105,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 }
 
-export interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
 }
+
+export { CharacterSheetPF2e };

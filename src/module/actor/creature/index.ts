@@ -63,19 +63,30 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
             if (!objectHasKey(this.data.data.skills, shortForm)) return current;
             const longForm = skill.name;
-            const skillName = game.i18n.localize(CONFIG.PF2E.skills[shortForm]) || skill.name;
-            const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
+            const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
-            current[shortForm] = new Statistic(this, {
+            current[longForm] = new Statistic(this, {
                 slug: longForm,
+                label: skillName,
                 proficient: skill.visible,
                 domains,
-                check: { adjustments: skill.adjustments, label, type: "skill-check" },
+                check: { adjustments: skill.adjustments, type: "skill-check" },
                 dc: {},
                 modifiers: [...skill.modifiers],
                 notes: skill.notes,
             });
+
+            if (shortForm !== longForm) {
+                Object.defineProperty(current, shortForm, {
+                    get: () => {
+                        console.warn(
+                            `Shortform skills such as actor.skills.${shortForm} is deprecated. Use actor.skills.${longForm} instead`
+                        );
+                        return current[longForm];
+                    },
+                });
+            }
 
             return current;
         }, {} as CreatureSkills);
@@ -179,16 +190,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     get perception(): Statistic {
         const stat = this.data.data.attributes.perception as StatisticModifier;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
-    }
-
-    get deception(): Statistic {
-        const stat = this.data.data.skills.dec as StatisticModifier;
-        return Statistic.from(this, stat, "deception", "PF2E.ActionsCheck.deception", "skill-check");
-    }
-
-    get stealth(): Statistic {
-        const stat = this.data.data.skills.ste as StatisticModifier;
-        return Statistic.from(this, stat, "stealth", "PF2E.ActionsCheck.stealth", "skill-check");
     }
 
     get wornArmor(): Embedded<ArmorPF2e> | null {
@@ -432,7 +433,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const modifiers = extractModifiers(statisticsModifiers, domains, {
             test: [proficiency, ...this.getRollOptions(domains)],
         });
-        const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
+        const notes = rollNotes.initiative?.map((n) => n.clone()) ?? [];
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
             ability: checkType,
@@ -610,7 +611,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Removes a custom modifier by slug */
-    async removeCustomModifier(stat: string, modifier: number | string) {
+    async removeCustomModifier(stat: string, modifier: number | string): Promise<void> {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
             customModifiers[stat].splice(modifier, 1);
@@ -762,9 +763,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const selfItem =
             params.viewOnly || params.item.isOfType("spell")
                 ? params.item
-                : ((actions
-                      .map((a) => a.item)
-                      .find((weapon) => {
+                : actions
+                      .map((a): AttackItem => a.item)
+                      .find((weapon): weapon is I => {
                           // Find the matching weapon or melee item
                           if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
                           if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
@@ -775,7 +776,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                               weapon.isOfType("weapon") &&
                               params.item.isMelee === weapon.isMelee
                           );
-                      }) ?? params.item) as I);
+                      }) ?? params.item;
 
         const traitSlugs: ActionTrait[] = ["attack" as const];
         for (const adjustment of this.synthetics.strikeAdjustments) {

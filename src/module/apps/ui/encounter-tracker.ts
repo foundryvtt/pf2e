@@ -7,13 +7,6 @@ import { eventToRollParams } from "@scripts/sheet-util";
 export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     sortable!: Sortable;
 
-    /** Fix Foundry setting the title to "Combat Tracker" unlocalized */
-    static override get defaultOptions(): CombatTrackerOptions {
-        const options = super.defaultOptions;
-        options.title = "SIDEBAR.TabCombat";
-        return options;
-    }
-
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
         const tracker = $html[0].querySelector<HTMLOListElement>("#combat-tracker");

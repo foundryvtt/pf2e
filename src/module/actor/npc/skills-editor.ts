@@ -36,7 +36,6 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
                 skill.isLore = true;
                 trainedSkills[key] = skill;
             } else if (skill.visible) {
-                skill.label = game.i18n.localize("PF2E.Skill" + skill.name);
                 trainedSkills[key] = skill;
             } else {
                 untrainedSkills[key] = skill;

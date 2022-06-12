@@ -83,7 +83,7 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
     })
     .help(false)
     .version(false)
-    .parse();
+    .parseSync();
 
 const packsPath = (() => {
     try {

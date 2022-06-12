@@ -8,8 +8,7 @@ declare global {
      * @see {@link JournalDirectory} The JournalDirectory sidebar directory
      */
     class Journal extends WorldCollection<JournalEntry> {
-        /** @override */
-        static documentName: "JournalEntry";
+        static override documentName: "JournalEntry";
 
         /** Open Socket listeners which transact JournalEntry data */
         protected static _activateSocketListeners(socket: io.Socket): void;

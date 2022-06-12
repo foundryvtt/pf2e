@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function squeeze(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "acrobatics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -17,9 +17,9 @@ export function squeeze(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Squeeze", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Squeeze", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Squeeze", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Squeeze", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Squeeze", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Squeeze", "criticalFailure"),
         ],
     });
 }

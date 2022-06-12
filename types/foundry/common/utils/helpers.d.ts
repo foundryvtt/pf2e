@@ -65,7 +65,7 @@ declare global {
              * @example <caption>Deleting an existing object key</caption>
              * mergeObject({k1: "v1", k2: "v2"}, {"-=k1": null});   // {k2: "v2"}
              */
-            function mergeObject<T, U = T>(
+            function mergeObject<T extends object, U extends object = T>(
                 original: T,
                 other?: U,
                 { insertKeys, insertValues, overwrite, inplace, enforceTypes }?: MergeObjectOptions,

@@ -39,6 +39,7 @@ export function registerTemplates() {
 
         // Actor Sheets Partials (Hazards)
         "systems/pf2e/templates/actors/hazard/partials/header.html",
+        "systems/pf2e/templates/actors/hazard/partials/sidebar.html",
 
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
@@ -134,6 +135,11 @@ export function registerTemplates() {
         "systems/pf2e/templates/compendium-browser/spell-browser.html",
         "systems/pf2e/templates/compendium-browser/browser-settings.html",
         "systems/pf2e/templates/compendium-browser/filters.html",
+
+        // Action Partial
+        "systems/pf2e/templates/system/actions/repair/chat-button-partial.html",
+        "systems/pf2e/templates/system/actions/repair/repair-result-partial.html",
+        "systems/pf2e/templates/system/actions/repair/item-heading-partial.html",
     ];
     return loadTemplates(templatePaths);
 }

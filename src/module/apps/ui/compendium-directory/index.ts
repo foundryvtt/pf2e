@@ -5,7 +5,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/system/ui/compendium-directory.html",
+            template: "systems/pf2e/templates/sidebar/compendium-directory.html",
             filters: [
                 {
                     inputSelector: "input[name=search]",

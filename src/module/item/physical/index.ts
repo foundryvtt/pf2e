@@ -35,6 +35,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get size(): Size {
+        this.folder;
         return this.data.data.size;
     }
 
@@ -93,6 +94,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get isTemporary(): boolean {
         return this.data.data.temporary;
+    }
+
+    get isDamaged(): boolean {
+        return this.data.data.hp.value > 0 && this.data.data.hp.value < this.data.data.hp.max;
     }
 
     get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {

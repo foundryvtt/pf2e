@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function shove(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -18,9 +18,9 @@ export function shove(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Shove", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Shove", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Shove", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Shove", "criticalFailure"),
         ],
         weaponTrait: "shove",
     });

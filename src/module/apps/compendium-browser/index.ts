@@ -1,21 +1,15 @@
 import { Progress } from "./progress";
 import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
-import {
-    CompendiumBrowserActionTab,
-    CompendiumBrowserBestiaryTab,
-    CompendiumBrowserEquipmentTab,
-    CompendiumBrowserFeatTab,
-    CompendiumBrowserHazardTab,
-    CompendiumBrowserSpellTab,
-} from "./tabs/index";
+import { BrowserTab } from "./tabs";
 import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
-import { CheckBoxdata, RangesData } from "./tabs/data";
+import { CheckboxData, RangesData } from "./tabs/data";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import noUiSlider from "nouislider";
 import { SpellcastingEntryPF2e } from "@item";
+import Tagify from "@yaireo/tagify";
 
 class PackLoader {
     loadedPacks: {
@@ -87,12 +81,12 @@ export class CompendiumBrowser extends Application {
         super(options);
 
         this.tabs = {
-            action: new CompendiumBrowserActionTab(this),
-            bestiary: new CompendiumBrowserBestiaryTab(this),
-            equipment: new CompendiumBrowserEquipmentTab(this),
-            feat: new CompendiumBrowserFeatTab(this),
-            hazard: new CompendiumBrowserHazardTab(this),
-            spell: new CompendiumBrowserSpellTab(this),
+            action: new BrowserTab.Actions(this),
+            bestiary: new BrowserTab.Bestiary(this),
+            equipment: new BrowserTab.Equipment(this),
+            feat: new BrowserTab.Feats(this),
+            hazard: new BrowserTab.Hazards(this),
+            spell: new BrowserTab.Spells(this),
         };
         this.loadSettings();
         this.initCompendiumList();
@@ -332,6 +326,7 @@ export class CompendiumBrowser extends Application {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const activeTabName = this.activeTab;
+        const html = $html.get(0)!;
 
         // Settings Tab
         if (activeTabName === "settings") {
@@ -364,7 +359,7 @@ export class CompendiumBrowser extends Application {
             this.render(true);
         });
 
-        $controlArea.find('button[data-action="clear-filter"]').on("click", (event) => {
+        $controlArea.find("button[data-action=clear-filter]").on("click", (event) => {
             event.stopImmediatePropagation();
             const filterType = event.currentTarget.parentElement?.parentElement?.dataset.filterType;
             const filterName = event.currentTarget.parentElement?.parentElement?.dataset.filterName ?? "";
@@ -399,7 +394,7 @@ export class CompendiumBrowser extends Application {
                 const filters = currentTab.filterData[filterType];
                 if (filters && objectHasKey(filters, filterName)) {
                     // This needs a type assertion because it resolves to never for some reason
-                    const filter = filters[filterName] as CheckBoxdata | RangesData;
+                    const filter = filters[filterName] as CheckboxData | RangesData;
                     filter.isExpanded = !filter.isExpanded;
                     this.render(true);
                 }
@@ -434,8 +429,8 @@ export class CompendiumBrowser extends Application {
 
         // TODO: Support any generated select element
         $controlArea.find<HTMLSelectElement>(".timefilter select").on("change", (event) => {
-            if (!currentTab.filterData?.dropdowns?.timefilter) return;
-            currentTab.filterData.dropdowns.timefilter.selected = event.target.value;
+            if (!currentTab.filterData?.selects?.timefilter) return;
+            currentTab.filterData.selects.timefilter.selected = event.target.value;
             this.clearScrollLimit();
             this.render(true);
         });
@@ -477,6 +472,44 @@ export class CompendiumBrowser extends Application {
         });
 
         if (!currentTab) return;
+
+        // Multiselects using tagify
+        for (const [key, data] of Object.entries(currentTab.filterData.multiselects ?? {})) {
+            const multiselect = html.querySelector<HTMLInputElement>(`input[name=${key}][data-tagify-select]`);
+            if (!multiselect) continue;
+
+            new Tagify(multiselect, {
+                enforceWhitelist: true,
+                keepInvalidTags: false,
+                editTags: false,
+                tagTextProp: "label",
+                dropdown: {
+                    closeOnSelect: false,
+                    enabled: 0,
+                    fuzzySearch: false,
+                    mapValueTo: "label",
+                    maxItems: data.options.length,
+                    searchKeys: ["label"],
+                },
+                whitelist: data.options,
+            });
+
+            multiselect.addEventListener("change", () => {
+                const selections: unknown = JSON.parse(multiselect.value || "[]");
+                const isValid =
+                    Array.isArray(selections) &&
+                    selections.every(
+                        (s: unknown): s is { value: string; label: string } =>
+                            isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
+                    );
+
+                if (isValid) {
+                    data.selected = selections;
+                    this.render();
+                }
+            });
+        }
+
         // Slider filters
         for (const [name, data] of Object.entries(currentTab.filterData.sliders ?? {})) {
             const $slider = $html.find(`div.slider-${name}`);
@@ -509,7 +542,7 @@ export class CompendiumBrowser extends Application {
                 $maxLabel.text(max);
 
                 this.clearScrollLimit();
-                this.render(true);
+                this.render();
             });
 
             // Set styling
@@ -539,12 +572,14 @@ export class CompendiumBrowser extends Application {
             .children("a.item-link, a.actor-link")
             .on("click", (event) => {
                 const entry = $(event.currentTarget).closest(".item")[0].dataset;
-                const id = entry.entryId ?? "";
-                const compendium = entry.entryCompendium;
-                const pack = game.packs.get(compendium ?? "");
-                pack?.getDocument(id).then((document) => {
-                    document!.sheet.render(true);
-                });
+                const compendiumId = entry.entryCompendium ?? "";
+                const docId = entry.entryId ?? "";
+                game.packs
+                    .get(compendiumId)
+                    ?.getDocument(docId)
+                    .then((document) => {
+                        document?.sheet?.render(true);
+                    });
             });
 
         // Add an item to selected tokens' actors' inventories

@@ -36,17 +36,13 @@
                                     <div class="actions-title">
                                         <div class="action-name">
                                             <h4>{{action.name}}</h4>
-                                            {{#if action.origin}}
-                                                <div class="action-options" data-item-id="{{action.origin.id}}">
-                                                    {{#with action.origin.ammo.charges}}
+                                            {{#if action.item}}
+                                                <div class="action-options" data-item-id="{{action.item.id}}">
+                                                    {{#with action.item.ammo.charges}}
                                                         {{#if (gt max 1)}}
                                                             <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
                                                         {{/if}}
                                                     {{/with}}
-
-                                                    {{#if (eq action.origin.type "weapon")}}
-                                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
-                                                    {{/if}}
                                                 </div>
                                             {{/if}}
                                         </div>

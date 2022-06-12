@@ -52,14 +52,14 @@ export class GhostTemplate extends MeasuredTemplate {
         super.destroy(options);
     }
 
-    drawPreview() {
+    async drawPreview(): Promise<void> {
         this.layer.activate();
-        this.draw();
+        await this.draw();
         this.layer.preview.addChild(this);
         this.activatePreviewListeners();
     }
 
-    activatePreviewListeners() {
+    activatePreviewListeners(): void {
         canvas.stage.on("mousemove", this._onMouseMove);
         canvas.stage.on("mousedown", this._onLeftClick);
         canvas.stage.on("rightdown", this.destroy.bind(this));

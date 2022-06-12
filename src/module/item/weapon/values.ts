@@ -90,7 +90,8 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "wounding",
 ] as const);
 
-const WEAPON_RANGES = new Set([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 150, 180, 240, 300] as const);
+const THROWN_RANGES = new Set([10, 15, 20, 30, 40, 60, 100] as const);
+const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 80, 90, 120, 140, 150, 180, 240, 300] as const);
 
 // Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
 const CROSSBOW_WEAPONS = new Set([
@@ -108,6 +109,7 @@ export {
     CROSSBOW_WEAPONS,
     MELEE_WEAPON_GROUPS,
     RANGED_WEAPON_GROUPS,
+    THROWN_RANGES,
     WEAPON_CATEGORIES,
     WEAPON_GROUPS,
     WEAPON_MATERIAL_EFFECTS,

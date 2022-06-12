@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { VisionLevel, VisionLevels } from "@actor/creature/data";
+import { Abilities, VisionLevel, VisionLevels } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
 import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
@@ -22,10 +22,11 @@ import { SIZE_TO_REACH } from "@actor/creature/values";
 import { VariantCloneParams } from "./types";
 import { StrikeAttackTraits } from "./strike-attack-traits";
 import { CheckRoll } from "@system/check/roll";
+import { calculateMAP } from "@actor/helpers";
 
 class NPCPF2e extends CreaturePF2e {
     /** This NPC's ability scores */
-    get abilities() {
+    get abilities(): Abilities {
         return deepClone(this.data.data.abilities);
     }
 
@@ -270,7 +271,7 @@ class NPCPF2e extends CreaturePF2e {
                 { overwrite: false }
             );
             stat.base = base;
-            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -314,11 +315,11 @@ class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
                 ...extractModifiers(statisticsModifiers, domains),
             ];
-            const notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            const notes = extractNotes(rollNotes, domains);
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
 
             const stat = mergeObject(
-                new StatisticModifier(name, modifiers, this.getRollOptions(domains)),
+                new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
                 {
                     ability,
                     expanded: skill,
@@ -359,7 +360,7 @@ class NPCPF2e extends CreaturePF2e {
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        const generatedMelee = Array.from(strikes.values()).map((w) => w.toNPCAttack());
+        const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
         const items = this.items.contents.concat(generatedMelee);
         for (const item of items) {
             const itemData = item.data;
@@ -386,11 +387,11 @@ class NPCPF2e extends CreaturePF2e {
                 ].flat();
 
                 const stat = mergeObject(
-                    new StatisticModifier(itemData.name, modifiers, this.getRollOptions(domains)),
+                    new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
                     data.skills[shortform],
                     { overwrite: false }
                 );
-                stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+                stat.notes = extractNotes(rollNotes, domains);
                 stat.itemID = itemData._id;
                 stat.base = base;
                 stat.expanded = skill;
@@ -442,7 +443,6 @@ class NPCPF2e extends CreaturePF2e {
             } else if (item instanceof MeleePF2e) {
                 const meleeData = item.data;
                 const modifiers: ModifierPF2e[] = [];
-                const notes: RollNotePF2e[] = [];
 
                 // traits
                 const traits = meleeData.data.traits.value;
@@ -484,7 +484,7 @@ class NPCPF2e extends CreaturePF2e {
                 ];
                 modifiers.push(...extractModifiers(statisticsModifiers, domains));
                 modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
-                notes.push(...domains.flatMap((key) => duplicate(rollNotes[key] ?? [])));
+                const notes = extractNotes(rollNotes, domains);
 
                 // action image
                 const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
@@ -500,21 +500,13 @@ class NPCPF2e extends CreaturePF2e {
 
                 const statistic = new StatisticModifier(meleeData.name, modifiers, this.getRollOptions(domains));
 
-                const attackTrait: TraitViewData = {
-                    name: "attack",
-                    label: CONFIG.PF2E.featTraits.attack,
-                    description: CONFIG.PF2E.traitsDescriptions.attack,
-                };
-                const strikeTraits = [
-                    attackTrait,
-                    ...traits.map(
-                        (trait): TraitViewData => ({
-                            name: trait,
-                            label: CONFIG.PF2E.npcAttackTraits[trait] ?? trait,
-                            description: CONFIG.PF2E.traitsDescriptions[trait],
-                        })
-                    ),
-                ];
+                const traitObjects = traits.map(
+                    (t): TraitViewData => ({
+                        name: t,
+                        label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
+                        description: CONFIG.PF2E.traitsDescriptions[t],
+                    })
+                );
 
                 const action: NPCStrike = mergeObject(statistic, {
                     type: "strike" as const,
@@ -527,7 +519,7 @@ class NPCPF2e extends CreaturePF2e {
                     additionalEffects,
                     item,
                     weapon: item,
-                    traits: strikeTraits,
+                    traits: traitObjects,
                     options: [],
                     variants: [],
                     success: "",
@@ -544,15 +536,6 @@ class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
-                if (
-                    action.attackRollType === "PF2E.NPCAttackRanged" &&
-                    !action.traits.some((trait) => trait.name === "range")
-                ) {
-                    action.traits.splice(1, 0, {
-                        name: "range",
-                        label: game.i18n.localize("PF2E.TraitRange"),
-                    });
-                }
                 // Add a damage roll breakdown
                 action.damageBreakdown = Object.values(meleeData.data.damageRolls).flatMap((roll) => {
                     const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
@@ -581,8 +564,13 @@ class NPCPF2e extends CreaturePF2e {
                 };
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const maps = ItemPF2e.calculateMap(meleeData);
+                const maps = calculateMAP(item);
                 const sign = action.totalModifier < 0 ? "" : "+";
+                const attackTrait = {
+                    name: "attack",
+                    label: CONFIG.PF2E.featTraits.attack,
+                    description: CONFIG.PF2E.traitsDescriptions.attack,
+                };
 
                 action.variants = [
                     null,
@@ -618,7 +606,7 @@ class NPCPF2e extends CreaturePF2e {
                                     notes: rollNotes,
                                     dc: args.dc ?? context.dc,
                                     rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, rollOptions),
-                                    traits: action.traits,
+                                    traits: [attackTrait],
                                 },
                                 args.event
                             );
@@ -644,7 +632,7 @@ class NPCPF2e extends CreaturePF2e {
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
                             context.self.item.data,
                             context.self.actor,
-                            action.traits,
+                            [attackTrait],
                             deepClone(statisticsModifiers),
                             this.cloneSyntheticsRecord(damageDice),
                             1,
@@ -706,12 +694,12 @@ class NPCPF2e extends CreaturePF2e {
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
+                label: CONFIG.PF2E.magicTraditions[tradition],
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
-                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                     modifiers: attackModifiers,
                     domains: attackSelectors,
                 },
@@ -763,6 +751,7 @@ class NPCPF2e extends CreaturePF2e {
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
@@ -772,7 +761,6 @@ class NPCPF2e extends CreaturePF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });
@@ -953,9 +941,9 @@ class NPCPF2e extends CreaturePF2e {
 interface NPCPF2e {
     readonly data: NPCData;
 
-    get sheet(): NPCSheetPF2e;
+    _sheet: NPCSheetPF2e<this> | null;
 
-    _sheet: NPCSheetPF2e | null;
+    get sheet(): NPCSheetPF2e<this>;
 }
 
 export { NPCPF2e };

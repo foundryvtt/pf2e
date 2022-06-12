@@ -1,3 +1,4 @@
+// Live Hazard Sheet
 .pf2e.sheet.hazard {
     .container {
         position: relative;
@@ -698,6 +699,7 @@
     }
 }
 
+// Dev Hazard Sheet
 .sheet.hazard:not(.pf2e) {
     ul, ol {
         @include p-reset;
@@ -770,10 +772,21 @@
             font-size: 0.8rem;
             padding: 4px 8px;
 
-            h4 {
+            h3, input {
+                font-size: var(--font-size-15);
+                font-weight: 600;
+            }
+
+            h3 {
                 flex: auto;
-                margin-bottom: 0px;
-                text-transform: uppercase;
+                display: flex;
+                align-items: baseline;
+                gap: 4px;
+            }
+
+            input {
+                color: inherit;
+                width: auto;
             }
 
             .controls {
@@ -819,9 +832,15 @@
         }
     }
 
-    .editing {
-        .editor, .hazard-editor, .tox {
-            min-height: 100px;
-        }
+    // When the editor is open, fill more space so the user has something to work with
+    .tox.tox-tinymce {
+        // !important to work around tox's limitations and a foundry issue where initial height is overwritten
+        height: 200px!important;
+    }
+
+    // Hide editor button for those controlled by section controls
+    // In the current version of foundry, not rendering the button in handlebars auto opens the prompt instead.
+    .hazard-editor .editor .editor-edit {
+        display: none;
     }
 }

@@ -4,11 +4,12 @@ import { ItemPF2e } from "@item";
 import { ActionDefaultOptions } from "@system/action-macros";
 import { LocalizePF2e } from "@system/localize";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { CharacterAttributes, CharacterResources } from "@actor/character/data";
 
 /** A macro for the Rest for the Night quasi-action */
 export async function restForTheNight(options: ActionDefaultOptions): Promise<ChatMessagePF2e[]> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
-    const characters = actors.filter((actor): actor is CharacterPF2e => actor?.data.type === "character");
+    const characters = actors.filter((a): a is CharacterPF2e => a?.data.type === "character");
     if (actors.length === 0) {
         ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NoPCTokenSelected"));
         return [];
@@ -27,18 +28,22 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
     const messages: PreCreate<ChatMessageSourcePF2e>[] = [];
 
     for (const actor of characters) {
-        const abilities = actor.data.data.abilities;
-        const attributes = actor.attributes;
-        const resources = actor.data.data.resources;
-        const reagents = resources.crafting.infusedReagents;
+        const actorUpdates: ActorUpdates = { attributes: {}, resources: {} };
+        const itemUpdates: EmbeddedDocumentUpdateData<ItemPF2e>[] = [];
+        // A list of messages informing the user of updates made due to rest
+        const statements: string[] = [];
+
+        const { abilities, attributes, hitPoints, level } = actor;
 
         // Hit points
         const conModifier = abilities.con.mod;
-        const level = actor.level;
-        const maxRestored = Math.max(conModifier, 1) * level * actor.hitPoints.recoveryMultiplier;
+        const maxRestored = Math.max(conModifier, 1) * level * hitPoints.recoveryMultiplier + hitPoints.recoveryAddend;
         const hpLost = attributes.hp.max - attributes.hp.value;
         const hpRestored = hpLost >= maxRestored ? maxRestored : hpLost;
-        attributes.hp.value += hpRestored;
+        if (hpRestored > 0) {
+            actorUpdates.attributes.hp = { value: (attributes.hp.value += hpRestored) };
+            statements.push(game.i18n.format(translations.Message.HitPoints, { hitPoints: hpRestored }));
+        }
 
         // Conditions
         const RECOVERABLE_CONDITIONS = ["doomed", "drained", "fatigued", "wounded"] as const;
@@ -51,7 +56,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Fatigued condition
         if (actor.hasCondition("fatigued")) {
-            actor.decreaseCondition("fatigued");
+            await actor.decreaseCondition("fatigued");
             conditionChanges.fatigued = "removed";
         }
 
@@ -72,68 +77,60 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Restore wand charges
         const items = actor.itemTypes;
-        const wands = items.consumable.filter(
-            (item) => item.consumableType === "wand" && item.charges.current < item.charges.max
-        );
-        const updateData: EmbeddedDocumentUpdateData<ItemPF2e>[] = wands.map((wand) => ({
-            _id: wand.id,
-            "data.charges.value": 1,
-        }));
-        const wandRecharged = updateData.length > 0;
+        const wands = items.consumable.filter((i) => i.consumableType === "wand" && i.charges.current < i.charges.max);
+        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "data.charges.value": 1 })));
+        const wandRecharged = itemUpdates.length > 0;
 
         // Restore reagents
-        const restoreReagents = reagents && reagents.value < reagents.max;
-        if (restoreReagents) reagents.value = reagents.max;
-
-        // Construct messages
-        const statements: string[] = [];
+        const resources = actor.data.data.resources;
+        const reagents = resources.crafting.infusedReagents;
+        if (reagents && reagents.value < reagents.max) {
+            actorUpdates.resources.crafting = { infusedReagents: { value: reagents.max } };
+            statements.push(game.i18n.localize(translations.Message.InfusedReagents));
+        }
 
         // Spellcasting entries and focus points
         const spellcastingRecharge = actor.spellcasting.recharge();
-        updateData.push(...spellcastingRecharge.itemUpdates);
+        itemUpdates.push(...spellcastingRecharge.itemUpdates);
+        if (spellcastingRecharge.actorUpdates?.["data.resources.focus.value"]) {
+            actorUpdates.resources.focus = { value: spellcastingRecharge.actorUpdates?.["data.resources.focus.value"] };
+        }
 
         // Stamina points
         const staminaEnabled = !!game.settings.get("pf2e", "staminaVariant");
         const stamina = attributes.sp;
         const resolve = attributes.resolve;
-        const prerest = { stamina: stamina.value, resolve: resolve.value };
 
         if (staminaEnabled) {
             if (stamina.value < stamina.max) {
-                stamina.value = stamina.max;
+                actorUpdates.attributes.sp = { value: stamina.max };
                 statements.push(game.i18n.localize(translations.Message.StaminaPoints));
             }
             if (resolve.value < resolve.max) {
-                resolve.value = resolve.max;
+                actorUpdates.attributes.resolve = { value: resolve.max };
                 statements.push(game.i18n.localize(translations.Message.Resolve));
             }
         }
 
-        // Updated actor with the sweet fruits of rest
-        if (
-            hpRestored > 0 ||
-            stamina.value > prerest.stamina ||
-            resolve.value > prerest.resolve ||
-            spellcastingRecharge.actorUpdates ||
-            restoreReagents
-        ) {
-            actor.update({
-                "data.attributes": attributes,
-                "data.resources": resources,
-                ...spellcastingRecharge.actorUpdates,
-            });
-        }
-        if (updateData.length > 0) {
-            actor.updateEmbeddedDocuments("Item", updateData);
-        }
-
-        // Remove temporary crafted items
+        // Collect temporary crafted items to remove
         const temporaryItems = actor.inventory.filter((i) => i.isTemporary).map((i) => i.id);
-        if (temporaryItems.length > 0) await actor.deleteEmbeddedDocuments("Item", temporaryItems);
 
-        // Hit-point restoration
-        if (hpRestored > 0) {
-            statements.push(game.i18n.format(translations.Message.HitPoints, { hitPoints: hpRestored }));
+        const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
+        const hasItemUpdates = itemUpdates.length > 0;
+        const removeTempItems = temporaryItems.length > 0;
+
+        // Updated actor with the sweet fruits of rest
+        if (hasActorUpdates) {
+            await actor.update({ data: actorUpdates }, { render: !(hasItemUpdates || removeTempItems) });
+        }
+
+        if (hasItemUpdates) {
+            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: !removeTempItems });
+        }
+
+        if (removeTempItems) {
+            await actor.deleteEmbeddedDocuments("Item", temporaryItems);
+            statements.push(game.i18n.localize(translations.Message.TemporaryItems));
         }
 
         if (spellcastingRecharge.actorUpdates) {
@@ -144,17 +141,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
             statements.push(game.i18n.localize(translations.Message.SpellSlots));
         }
 
-        if (restoreReagents) {
-            statements.push(game.i18n.localize(translations.Message.InfusedReagents));
-        }
-
         // Wand recharge
         if (wandRecharged) {
             statements.push(game.i18n.localize(translations.Message.WandsCharges));
-        }
-
-        if (temporaryItems.length) {
-            statements.push(game.i18n.localize(translations.Message.TemporaryItems));
         }
 
         // Conditions removed
@@ -187,4 +176,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
     }
 
     return ChatMessagePF2e.createDocuments(messages);
+}
+
+interface ActorUpdates {
+    attributes: DeepPartial<CharacterAttributes>;
+    resources: DeepPartial<CharacterResources>;
 }

@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor/base";
 import { LootPF2e } from "@actor/loot";
 import { PhysicalItemPF2e } from "@item";
-import { Coins, PhysicalItemType } from "@item/physical/data";
+import { Coins } from "@item/physical/data";
+import { PhysicalItemType } from "@item/physical/types";
 import { SheetOptions } from "@module/sheet/helpers";
 
 export interface InventoryItem<D extends PhysicalItemPF2e = PhysicalItemPF2e> {

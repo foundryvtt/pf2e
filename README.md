@@ -1,8 +1,8 @@
-# PF2e System for FoundryVTT
+# The Official Pathfinder Second Edition Game System for FoundryVTT
 
-> ⚔️ This is a community created game system to run Pathfinder Second Edition games on FoundryVTT.
+This system uses trademarks and/or copyrights owned by Paizo Inc., which are used with permission granted as part of the partnership agreement between Foundry Gaming LLC and Paizo Inc. This officially recognized game system was created and is maintained by the PF2E For Foundry VTT volunteer development team, and is published for free with the endorsement of Foundry Gaming LLC. 
 
-This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This system is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com.
+If you would like to undertake a similar project, much of what this system includes is covered under Paizo's extremely generous Community Use Policy. For more information please visit https://paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit https://paizo.com.
 
 ## Shoutouts
 
@@ -29,13 +29,13 @@ If you have any suggestions or feedback, please contact us on Discord in the #pf
 
 **Content Usage and Licensing:**
 
-- Any Pathfinder Second Edition information used under the Paizo Inc. Community Use Policy (<https://paizo.com/community/communityuse>)
+- Any Pathfinder Second Edition information used with permission granted by the license agreement between Paizo. Inc and Foundry Gaming LLC
 - Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
 - License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
 
 **Virtual Table Top Platform Licenses:**
 
-- Foundry VTT support is covered by the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
+- This Game System for Foundry Virtual Tabletop is licensed under the [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
 
 ## Patch Notes
 

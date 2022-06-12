@@ -19,11 +19,47 @@
         "level": {
             "value": 13
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpeedTypesClimb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.SpeedTypesSwim",
+                        "value": "swim"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Hobgoblin.WarConditioning.Prompt",
+                "rollOption": "conditioning"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": {
+                    "all": [
+                        "conditioning:climb"
+                    ]
+                },
+                "selector": "climb",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": {
+                    "all": [
+                        "conditioning:swim"
+                    ]
+                },
+                "selector": "swim",
+                "value": 20
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },

@@ -54,9 +54,9 @@ declare global {
 
         get uuid(): ItemUUID;
 
-        _sheet: ItemSheet<Item> | null;
+        _sheet: ItemSheet<this> | null;
 
-        get sheet(): ItemSheet<Item>;
+        get sheet(): ItemSheet<this>;
 
         getFlag(scope: string, key: string): any;
         getFlag(scope: "core", key: "sourceId"): string | undefined;

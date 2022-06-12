@@ -4,6 +4,8 @@
  * Render the HUD container
  */
 declare class HeadsUpDisplay extends Application {
+    constructor(...args: [ApplicationOptions]);
+
     /** Token HUD */
     token: TokenHUD;
 
@@ -15,8 +17,6 @@ declare class HeadsUpDisplay extends Application {
 
     /** Chat Bubbles */
     bubbles: ChatBubbles;
-
-    constructor(...args: any[]);
 
     align(): void;
 }

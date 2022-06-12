@@ -67,6 +67,7 @@ declare global {
 
         /**
          * If the form is not editable, disable its input fields
+         * @param form The form HTML
          */
         protected _disableFields(form: HTMLElement): void;
 
@@ -125,14 +126,7 @@ declare global {
         /** Activate a TinyMCE editor instance present within the form */
         protected _activateEditor(div: JQuery | HTMLElement): void;
 
-        /**
-         * By default, when the editor is saved treat it as a form submission event
-         */
-        protected _onEditorSave(target: any, element: JQuery | HTMLElement, content: string): void;
-
-        /**
-         * Activate a FilePicker instance present within the form
-         */
+        /** Activate a FilePicker instance present within the form */
         protected _activateFilePicker(button: JQuery | HTMLElement): void;
 
         /**
@@ -146,9 +140,15 @@ declare global {
     }
 
     class FormDataExtended extends FormData {
-        constructor(form: HTMLElement, options?: { editors?: any; dtypes?: any[] });
+        constructor(form: HTMLElement, options?: { editors?: Record<string, TinyMCEEditorData>; dtypes?: string[] });
 
-        toObject(): any;
+        /**
+         * Process the HTML form element to populate the FormData instance.
+         * @param form The HTML form
+         */
+        process(form: HTMLFormElement): void;
+
+        toObject(): Record<string, unknown>;
     }
 
     interface FormApplicationData<O extends {} = {}> {

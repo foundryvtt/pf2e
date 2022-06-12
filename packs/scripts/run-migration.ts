@@ -36,6 +36,9 @@ import { Migration748BatchConsumablePricing } from "@module/migration/migrations
 import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
 import { Migration752StrikeVsWeaponTraits } from "@module/migration/migrations/752-strike-vs-weapon-traits";
 import { Migration753WeaponReloadTimes } from "@module/migration/migrations/753-weapon-reload-times";
+import { Migration754MightyBulwarkAdjustModifiers } from "@module/migration/migrations/754-mighty-bulwark-adjust-modifiers";
+import { Migration755GrantIdsToData } from "@module/migration/migrations/755-grant-ids-to-data";
+import { Migration757HillockHalfling } from "@module/migration/migrations/757-hillock-halfling";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -68,6 +71,9 @@ const migrations: MigrationBase[] = [
     new Migration749AssuranceREs(),
     new Migration752StrikeVsWeaponTraits(),
     new Migration753WeaponReloadTimes(),
+    new Migration754MightyBulwarkAdjustModifiers(),
+    new Migration755GrantIdsToData(),
+    new Migration757HillockHalfling(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -104,27 +110,28 @@ type CompendiumSource = CompendiumDocument["data"]["_source"];
 
 const actorTypes = ["character", "npc", "hazard", "loot", "familiar", "vehicle"];
 const itemTypes = [
-    "backpack",
-    "treasure",
-    "weapon",
-    "armor",
-    "kit",
-    "melee",
-    "consumable",
-    "equipment",
+    "action",
     "ancestry",
+    "armor",
     "background",
+    "backpack",
     "class",
+    "condition",
+    "consumable",
+    "effect",
+    "equipment",
     "feat",
+    "formula",
+    "heritage",
+    "kit",
     "lore",
     "martial",
-    "action",
+    "melee",
     "spell",
     "spellcastingEntry",
     "status",
-    "condition",
-    "effect",
-    "formula",
+    "treasure",
+    "weapon",
 ];
 
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {

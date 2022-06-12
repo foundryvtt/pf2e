@@ -25,7 +25,7 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         const data = deepClone(this.data);
         if (this.data.value) {
             const bracketed = this.resolveValue(this.data.value);
-            mergeObject(data, bracketed, { inplace: true, overwrite: true });
+            if (isObject(bracketed)) mergeObject(data, bracketed);
             delete data.value;
         }
         const selector = this.resolveInjectedProperties(data.selector);
@@ -43,7 +43,8 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
             const isValidOverride = (override: unknown): override is DamageDiceOverride => {
                 return (
                     isObject<DamageDiceOverride>(override) &&
-                    (typeof override.upgrade === "boolean" ||
+                    ((typeof override.upgrade === "boolean" && !("downgrade" in override)) ||
+                        (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
                         setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
                         setHasElement(DAMAGE_TYPES, override.damageType))
                 );
@@ -51,8 +52,8 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
 
             if (!isValidOverride(data.override)) {
                 this.failValidation(
-                    "The override property must be an object with one property of `upgrade` (boolean), `dieSize` (d6-d12),",
-                    "or `damageType` (recognized damage type)"
+                    "The override property must be an object with one property of `upgrade` (boolean),",
+                    "`downgrade (boolean)`, `dieSize` (d6-d12), or `damageType` (recognized damage type)"
                 );
                 return;
             }

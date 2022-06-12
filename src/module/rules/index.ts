@@ -103,7 +103,10 @@ class RuleElements {
                         return new REConstructor(data, item, options);
                     } catch (error) {
                         if (!options?.suppressWarnings) {
-                            console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
+                            const { name, uuid } = item;
+                            console.warn(
+                                `PF2e System | Failed to construct rule element ${data.key} on item ${name} (${uuid})`
+                            );
                             console.warn(error);
                         }
                         return null;
@@ -111,7 +114,8 @@ class RuleElements {
                 })();
                 if (rule) rules.push(rule);
             } else {
-                console.warn(`PF2e System | Unrecognized rule element ${data.key}`);
+                const { name, uuid } = item;
+                console.warn(`PF2e System | Unrecognized rule element ${data.key} on item ${name} (${uuid})`);
             }
         }
         return rules;

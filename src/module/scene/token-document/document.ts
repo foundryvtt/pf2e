@@ -6,7 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e } from "@module/encounter";
 import { PrototypeTokenDataPF2e } from "@actor/data/base";
 
-export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized?: true;
 
@@ -264,7 +264,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     }
 }
 
-export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     readonly data: TokenDataPF2e<this>;
 
     readonly _object: TokenPF2e | null;
@@ -275,7 +275,9 @@ export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends
 
     get combatant(): Embedded<CombatantPF2e> | null;
 
-    _sheet: TokenConfigPF2e | null;
+    _sheet: TokenConfigPF2e<this> | null;
 
-    get sheet(): TokenConfigPF2e;
+    get sheet(): TokenConfigPF2e<this>;
 }
+
+export { TokenDocumentPF2e };

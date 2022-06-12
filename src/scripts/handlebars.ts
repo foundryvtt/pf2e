@@ -25,6 +25,10 @@ export function registerHandlebarsHelpers() {
         return fn();
     });
 
+    Handlebars.registerHelper("nor", (...args: unknown[]): boolean => {
+        return !args.slice(0, -1).some((a) => !!a);
+    });
+
     Handlebars.registerHelper("any", (...args) => {
         const opts = args.pop();
         return args.some((v) => !!v) ? opts : opts.inverse;

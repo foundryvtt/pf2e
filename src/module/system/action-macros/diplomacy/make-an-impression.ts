@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function makeAnImpression(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "diplomacy");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "diplomacy");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -18,9 +18,9 @@ export function makeAnImpression(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.MakeAnImpression", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.MakeAnImpression", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.MakeAnImpression", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.MakeAnImpression", "criticalFailure"),
         ],
     });
 }

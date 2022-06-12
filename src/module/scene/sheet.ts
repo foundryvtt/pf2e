@@ -1,7 +1,7 @@
 import { ErrorPF2e } from "@util";
 import { ScenePF2e } from ".";
 
-export class SceneConfigPF2e extends SceneConfig<ScenePF2e> {
+export class SceneConfigPF2e<TScene extends ScenePF2e> extends SceneConfig<TScene> {
     /** Hide Unrestricted Vision Range settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);

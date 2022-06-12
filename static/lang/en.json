@@ -39,13 +39,14 @@
         "CombatantRemove": "Remove Participant",
         "CombatantStatus": "Participant Status",
         "CombatantUpdate": "Update Participant",
-        "Settings": "Encounter Tracker Settings",
         "End": "End Encounter",
         "EndConfirmation": "End this encounter and empty the turn tracker?",
         "EndTitle": "End Encounter?",
         "NoneActive": "There is no active Encounter in your currently viewed Scene.",
         "NoneRemaining": "There are no participants remaining in this Encounter that are not defeated.",
         "ResourceHint": "Choose an attribute to track for each participant.",
+        "Settings": "Encounter Tracker Settings",
+        "SidebarTitle": "Encounter Tracker",
         "SkipDefeatedHint": "Automatically bypass participants marked as defeated?",
         "UnknownCombatant": "Unknown Participant"
     },
@@ -436,6 +437,38 @@
                 "Grip": {
                     "Title": "Change Grip (1H)",
                     "Description": "{actor} releases a hand from their {weapon}."
+                }
+            },
+            "Repair": {
+                "Chat": {
+                    "ItemRepaired": "{itemName} was repaired for {repairedDamage} points of damage for a total of {afterRepairHitPoints} out of {maximumHitPoints} Hit Points.",
+                    "ItemDamaged": "{itemName} was dealt {damageDealt} points of damage for a total of {afterDamageHitPoints} out of {maximumHitPoints} Hit Points."
+                },
+                "Error": {
+                    "ItemReferenceMismatch": "Only accepts physical items for Repair from an actor."
+                },
+                "Labels": {
+                    "DamageMitigatedByHardness": "The critically failed Repair attempt caused no damage to the item due to hardness.",
+                    "DealItemDamage": "Deal {value} damage to item",
+                    "Hardness": "Hardness",
+                    "ItemLevelRepairDC": "Item level {level} repair DC",
+                    "RestoreItemHitPoints": "Restore {value} Hit Points to item",
+                    "RollItemDamage": "Roll {value} damage"
+                },
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You restore 10 Hit Points to the item, plus an additional 10 Hit Points per proficiency rank you have in Crafting (a total of 20 HP if you're trained, 30 HP if you're an expert, 40 HP if you're a master, or 50 HP if you're legendary).",
+                    "success": "<strong>Success</strong> You restore 5 Hit Points to the item, plus an additional 5 per proficiency rank you have in Crafting (for a total of 10 HP if you are trained, 15 HP if you're an expert, 20 HP if you're a master, or 25 HP if you're legendary).",
+                    "criticalFailure": "<strong>Critical Failure</strong> You deal 2d6 damage to the item. Apply the item's Hardness to this damage."
+                },
+                "SelectItemDialog": {
+                    "CancelButtonLabel": "Cancel",
+                    "RepairButtonLabel": "Repair",
+                    "DropItemZoneLabel": "Drag item here...",
+                    "Title": "Select item to Repair"
+                },
+                "Title": "Repair",
+                "Warning": {
+                    "NotPhysicalItem": "Specified item {item} is not a physical item."
                 }
             },
             "Request": {
@@ -882,7 +915,6 @@
         "BrowserFilterTraditions": "Traditions",
         "BrowserFilterTraits": "Traits",
         "BrowserFilterWeaponFilters": "Weapon Filters",
-        "BrowserFilterWeaponTraits": "Weapon Traits",
         "BrowserSearchPlaceholder": "Search Text",
         "BrowserSearchTitle": "Right click for guide",
         "BrowserSortyByLabel": "Sort by",
@@ -2299,6 +2331,7 @@
             "Message": "Remove {proficiency} proficiency?"
         },
         "RemoveSpellcastingEntryTitle": "Remove Spellcasting Entry",
+        "RepairItemTitle": "Attempt to Repair Item",
         "Repost": "Post prompt to chat",
         "RerollMenu": {
             "ErrorNoActor": "No actor is associated to the roll",
@@ -2826,13 +2859,7 @@
         "SpellAbilityLabel": "Spell Ability",
         "SpellAbilityModLabel": "+ Mod",
         "SpellArea": "Area: {areaSize} {areaUnit} {areaType}",
-        "SpellAttack": {
-            "arcane": "Arcane Spell Attack",
-            "divine": "Divine Spell Attack",
-            "occult": "Occult Spell Attack",
-            "primal": "Primal Spell Attack",
-            "focus": "Focus Spell Attack"
-        },
+        "SpellAttackWithTradition": "{tradition} Spell Attack",
         "SpellAttackLabel": "Spell Attack",
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
@@ -3656,7 +3683,6 @@
         "TraitRadiation": "Radiation",
         "TraitRage": "Rage",
         "TraitRakshasa": "Rakshasa",
-        "TraitRange": "Range",
         "TraitRange5": "Range 5 ft",
         "TraitRange10": "Range 10 ft",
         "TraitRange15": "Range 15 ft",

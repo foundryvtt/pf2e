@@ -26,7 +26,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
-        overrides: DeepPartial<this["data"]["_source"]>;
+        overrides: DeepPartial<this["data"]["_source"]> & { token?: TParent["data"]["_source"] };
 
         /**
          * A cached array of image paths which can be used for this Actor's token.
@@ -178,9 +178,11 @@ declare global {
 
         get collection(): Actors<this>;
 
-        _sheet: ActorSheet<Actor, Item> | null;
+        _sheet: ActorSheet<this, Item> | null;
 
-        get sheet(): ActorSheet<Actor, Item>;
+        get sheet(): ActorSheet<this, Item>;
+
+        get folder(): Folder<this> | null;
 
         deleteEmbeddedDocuments(
             embeddedName: "ActiveEffect",

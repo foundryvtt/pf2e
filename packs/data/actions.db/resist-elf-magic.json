@@ -16,7 +16,44 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "resist-elf-magic"
+                    ],
+                    "any": [
+                        "magical",
+                        "divine",
+                        "primal",
+                        "occult"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "resist-elf-magic",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "arcane"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "resist-elf-magic",
+                "value": 1
+            },
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "option": "resist-elf-magic",
+                "toggleable": true
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
