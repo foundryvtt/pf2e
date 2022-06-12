@@ -111,6 +111,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
     *  Pathfinder Adventure: Night of the Gray Death © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: Shadows at Sundown © 2022, Paizo Inc.; Author: Landon Winkler.
+    *  Pathfinder Adventure: Crown of the Kobold King Anniversary Edition © 2022, Paizo Inc.; Authors: Jason Bulmahn, Tim Hitchcock, Nicholas Logue, and F. Wesley Schneider
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -197,7 +198,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Bounty #16: Boom Town Betrayal © 2021, Paizo Inc.; Author: Logan Harper
     * Pathfinder Society Bounty #17: Sodden Stories © 2021, Paizo Inc.; Author: Michael Bramnik
     * Pathfinder Society Bounty #18: From Family Lost © 2022, Paizo Inc.; Author: Alexi Greer
-    * Pathfinder Society Bounty #19: Grim Tidings © 2021, Paizo Inc.; Author: Cat Evans
+    * Pathfinder Society Bounty #19: Grim Tidings © 2022, Paizo Inc.; Author: Cat Evans
+    * Pathfinder Society Bounty #20: Burden in Bloodcove © 2022, Paizo Inc.; Author: Dana Ebert
 
     * Pathfinder Society Intro #1: The Second Confirmation © 2021, Paizo Inc.; Author: Thurston Hillman.
     * Pathfinder Society Intro #2: United In Purpose © 2021, Paizo Inc.; Author: Brian Duckwitz.
@@ -278,7 +280,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 3-6) © 2022, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
 	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
-
+	* Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
+	* Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
+	* Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
+	  
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
@@ -307,6 +312,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Lost Omens Absalom, City of Lost Omens © 2021, Paizo Inc.; Authors: Allie Bustion, John Compton, Jeremy Corff, Katina Davis, Vanessa Hoskins, James Jacobs, Virginia Jordan, Erik Mona, Matt Morris, Liane Merciel, Dave Nelson, Samantha Phelan, Jessica Redekop, Mikhail Rekun, Brian Richmond, David N. Ross, Simone D. Sallé, Shahreena Shahrani, Abigail Slater, Chris Spivey, Diego Valdez, and Skylar- James Wall.
     * Pathfinder Lost Omens Monsters of Myth © 2021, Paizo Inc.; Authors: James Case, John Compton, Dana Ebert, Joshua Kim, Aaron Lascano, Luis Loza, Ron Lundeen, Stephanie Lundeen, Liane Merciel, Andrew Mullen, Michael Sayre, Sen H.H.S., Shay Snow, and Jason Tondro.
     * Pathfinder Lost Omens Knights of Lastwall © 2022, Paizo Inc.; Authors: Banana Chan, Jessica Catalan, Ryan Costello, Katina Davis, Alastor Guzman, Ron Lundeen, Ianara Natividad, Erin Roberts, Ashton Sperry, and Isabelle Thorne
+    * Pathfinder Lost Omens Travel Guide © 2022, Paizo Inc.; Authors: Rigby Bendele, Katina Davis, Dana Ebert, Dustin Knight, Aaron Lascano, Ron Lundeen, Stephanie Lundeen, Ianara Natividad, Dave Nelson, Jessica Redekop, Nathan Reinecke, Mikhail Rekun, Erin Roberts, Simone Sallé, and Diego Valdez
 
 *  Free Adventures
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
