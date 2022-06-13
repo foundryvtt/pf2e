@@ -1,15 +1,15 @@
 {
-    "_id": "r5i3MkSNgNBYa5Cm",
+    "_id": "8PH89qtfwyFvggMq",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 1
             },
             "con": {
-                "mod": 4
+                "mod": 2
             },
             "dex": {
-                "mod": 5
+                "mod": 4
             },
             "int": {
                 "mod": -2
@@ -18,62 +18,62 @@
                 "mod": 1
             },
             "wis": {
-                "mod": 3
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 21
+                "value": 18
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 70,
+                "max": 35,
                 "temp": 0,
-                "value": 70
+                "value": 35
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 11
+                "value": 8
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25"
+                "value": "30"
             }
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "NG"
             },
             "blurb": "",
             "creatureType": "Elemental",
             "level": {
-                "value": 4
+                "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>These creatures look like roiling clouds of black smoke churning above a mound of burning refuse. Leering faces form and fade in the smoke above, while the burning trash writhes in spasmodic lurches, obviously alive.</p>",
+            "publicNotes": "<p>Ember foxes resemble their canid namesakes, save for the flames that make their fur and the tips of their long whiskers flicker and glow.</p>",
             "source": {
-                "value": "Pathfinder Bestiary 2"
+                "value": "Pathfinder Society Scenario #2-14: Lost in Flames"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 12
+                "value": 6
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 13
+                "value": 10
             },
             "will": {
                 "saveDetail": "",
-                "value": 9
+                "value": 8
             }
         },
         "traits": {
@@ -94,9 +94,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -108,10 +107,10 @@
             },
             "rarity": "common",
             "senses": {
-                "value": "darkvision, smoke vision"
+                "value": "darkvision"
             },
             "size": {
-                "value": "med"
+                "value": "sm"
             },
             "traits": {
                 "custom": "",
@@ -125,7 +124,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "AcMqqRGXMA4crSZt",
+            "_id": "OYFgzf5Q5j6UeJhf",
             "data": {
                 "attack": {
                     "value": ""
@@ -134,18 +133,35 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 10
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d6+3",
-                        "damageType": "bludgeoning"
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire1d4.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -154,6 +170,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "agile",
                         "finesse"
                     ]
                 },
@@ -162,55 +179,12 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Burning Lash",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "TWEbrceKTc0P1GrD",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": "<p>[[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "range-increment-20"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Ember Ball",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "3cCdl7Qgc7kTT6at",
+            "_id": "1Re8gJ0YTH6TxfLa",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -251,23 +225,23 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "F7GzmZlJ6PXy8Cm5",
+            "_id": "JlQUb1sbsYfmz5Vi",
             "data": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The filth fire ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                    "value": "<p><strong>Trigger</strong> An adjacent ally is targeted by an effect that deals fire damage</p>\n<hr />\n<p><strong>Effect</strong> The ember fox drapes itself across its ally, granting the ally fire resistance 10 against the incoming attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -289,64 +263,19 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 400000,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Cloak in Embers",
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "nxblqBzJUsncnJ9t",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>Toxic materials and churning rubbish within the filth fire's body explode in one of three ways. The filth fire chooses the effect, but it can't make the same choice twice in a row.</p>\n<ul>\n<li><strong>Fiery Beam</strong> (evocation, fire, primal) The filth fire expels a @Template[type:line|distance:30] of flame that deals [[/r {3d6}[fire]]]{3d6 fire damage} with a @Check[type:reflex|dc:21|basic:true|traits:evocation,fire,primal|overrideTraits:true] save.</li>\n<li><strong>Shrapnel Blast</strong> (evocation, primal) The filth fire shoots jagged rubbish out in a @Template[type:emanation|distance:5] that deals [[/r {2d12}[piercing]]]{2d12 piercing damage} with a @Check[type:reflex|dc:21|basic:true|traits:evocation,primal|overrideTraits:true] save.</li>\n<li><strong>Toxic Fumes</strong> (evocation, poison, primal) The filth fire belches a @Template[type:cone|distance:15] of toxic smoke that deals [[/r {2d6}[poison]]]{2d6 poison damage} (@Check[type:fortitude|dc:21|basic:true|traits:evocation,poison,primal|overrideTraits:true] save). A creature that fails is also @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</li>\n</ul>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "evocation",
-                        "fire",
-                        "primal",
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Noxious Burst",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "gS2LKyhge1gOmyOc",
+            "_id": "K88ybFLIDe8JiIpc",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 13
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -364,17 +293,17 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 400000,
             "type": "lore"
         },
         {
-            "_id": "2GjrFPTkBk1x5WAl",
+            "_id": "3gELHyEHWFMD8TBp",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 9
+                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -392,16 +321,44 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 500000,
+            "type": "lore"
+        },
+        {
+            "_id": "MLDNdECK81YFHIuA",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 600000,
             "type": "lore"
         }
     ],
-    "name": "Filth Fire",
+    "name": "Ember Fox (PFS 2-14)",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Filth Fire",
+        "name": "Ember Fox",
         "width": 1
     },
     "type": "npc"
