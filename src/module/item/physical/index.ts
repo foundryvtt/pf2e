@@ -157,6 +157,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,
@@ -164,11 +165,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => key)
-            .map((string) => {
-                const delimitedPrefix = prefix ? `${prefix}:` : "";
-                return `${delimitedPrefix}${string}`;
-            });
+            .map(([key]) => `${delimitedPrefix}${key}`);
 
         return [baseOptions, physicalItemOptions].flat();
     }
