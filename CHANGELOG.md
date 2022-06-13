@@ -1,5 +1,81 @@
 # Changelog
 
+## Version 3.11.0
+
+### New Features
+* (stwlam) Add support for throwing melee weapons with Thrown trait--currently the weapon isn't lost when thrown, pending accounting of mitigating abilities
+* (stwlam) Add secret feature allowing one to generate [redacted] from [redacted] on NPCs
+* (Supe) Add syntax highlighter and linter for Rule Element editing
+* (Supe) Add new (in-testing) Hazard sheet
+
+## Core System Improvements
+* (Anathema) Rework readme for official status and license info
+* (Friz) Add logic to grey Inventory, Effect and Notes tabs for NPC if relative tab is empty
+* (JDCalvert) Make the AdjustStrike rule element replace existing traits of the same type and lower value
+* (nikolaj-a) Add Repair and Treat Disease action macros
+* (stwlam) Allow searching for any physical item trait in equipment browser: will expand to other browser tabs in future release
+* (stwlam) Add support for die faces downgrade in Damage Dice rule element
+* (stwlam) Strictly separate action and weapon traits in strike roll cards
+* (stwlam) Preserve search text when resetting filters in compendium browser
+* (Supe) Add support for containers on all actor types with inventories (all except familiars)
+* (Supe) Report offending item when rule element fails to build
+* (kolontaev) Add additive modifier to the recovery rate from a night's rest
+
+## Bugfixes
+* (kolontaev) Fix bug causing check dialog to reset its roll-twice option under some circumstances
+* (stwlam) Fix Rest for the Night procedure inadvertantly saving prepared PC data and causing various adverse effects
+* (stwlam) Fix issue causing archetypes granting weapon proficiencies to interfere with some weapon damage effects (e.g., Archer Dedication and Gravity Weapon)
+* (stwlam) Fix issue causing unlinked tokens to not re-render when receiving a token-light effect
+* (stwlam) Prevent spell data from being wiped on item permission updates
+
+## Data Updates
+* (Arthana) Add traits for feat & actions chat cards
+* (Dana) Add Student of the Staff automation
+* (InfamousSky) Add icons to Guns and Gears and Knights of Lastwall spells/equipment
+* (InfamousSky) Review FotRP book 2 chapters 2 & 3 and toolbox
+* (Abaddon) Review AoA scarlet triad agent
+* (Abaddon) Review B2 raven, raven swarm
+* (avagdu) Make corrections for omblin leadbuster, brimstone rat, and bugbear marauder
+* (kageru) Fix typo in shadows at sundown bestiary
+* (kolontaev) Unify style of Critical Hit/Fumble Deck
+* (rectulo) Fix a typo in the Clay Golem's Vulnerable to Disintegrate ability
+* (rectulo) Fix Bottled Sunlight minimum damage
+* (rectulo) Update the format of the Vortex pull ability of the Ancient bronze dragon (spellcaster)
+* (Roxim) Add Black Cat Curse effect and tweak a few EC NPCs
+* (Roxim) Brushup Extinction Curse Book 3 NPCs
+* (Shandyan) Adding macro links to Grippli feats
+* (Shandyan) Automate Goblin, Half-Elf, Half-Orc, Halfling, and Hobgoblin feats
+* (Simone Miraglia) Process ChoiceSets' predicates injected properties
+* (SoldierC4) Add poison resistance to Oracle of Bones curse
+* (SpartanCPA) Add effects for Energy Mutagen
+* (SpartanCPA) Brush up some AV hazards
+* (SpartanCPA) Add Peachwood Talisman
+* (SpartanCPA) Add Knockdown ability to Jaul's Wolf
+* (SpartanCPA) Add an effect for Methodical Debilitations
+* (SpartanCPA) Add automation to the Gloom Blade
+* (SpartanCPA) Add rules to Draconic Momentum
+* (SpartanCPA) Audit Forest and Sea Dragons
+* (SpartanCPA) Audit Ralldar (Age of Ashes)
+* (SpartanCPA) Correct the Alignment of Soul Eater
+* (SpartanCPA) Harmonize formatting of all Alchemical Golems
+* (SpartanCPA) Remove NPCs from Age of Ashes compendium that are republished in Core/Lost Omens lines
+* (SpartanCPA) Update heightening effect of Day's Weight spell
+* (stwlam) Add/update some weapon icons
+* (stwlam) Add inline roll to Devil's Keep boon
+* (stwlam) Automatically resolve Boost Eidolon damage bonus
+* (stwlam) Consolidate Scholar backgrounds into single item, remove no-longer-referenced Assurance feats
+* (stwlam) Correct spellcasting tradition and ability of Sajan's focus spells
+* (stwlam) Fix rule-element predication on Disrupting Weapons spell effect
+* (stwlam) Fix spelling of Metronomic Hammer and Gravelands Herbalist
+* (stwlam) Have Animal Instinct unarmed strikes require Rage effect
+* (stwlam) Require weapon with reload 0 for double-shot/triple-shot
+* (stwlam) Set expert deity's weapon proficiency in correct warpriest doctrine
+* (TMun) Add missing Ghost ability Fade
+* (TMun) Correct Ghost Charge rule element
+* (TMun) Correct Saddleback Bunyip Size
+* (TMun) Add/update NPCS in PFS 1-19, 1-22, 1-23, 2-14, 2-15, 2-18, 2-20, and 2-22
+
+
 ## Version 3.10.4
 
 ### Bugfixes
@@ -15,7 +91,7 @@
 * (Friz) Fix details of Sulfur Bomb failure effect
 * (Friz) Fixed consumable type of multiple Feather Tokens
 * (kageru) Fix malformed roll expressions in pfs-3 bestiary
-* (Koncookie) Fixed ability modifiers of multiple creatures
+* (Koncookie) Fix ability modifiers of multiple creatures
 * (LebombJames) Add reload time to Shobhad Longrifle
 * (Manni) Fix details on Thanadaemon and Stygira
 * (Manni) Remove duplicate Negative Healing ability from Giant Crawling Hand
@@ -31,18 +107,19 @@
 * (stwlam) Fix rule elements on Boastful Hunter
 * (stwlam) Link Magic Fang spell effect from spell description, update icon
 * (stwlam) Remove ability to strike while in pest form
+* (Tikael) Add more vampire family abilities
+* (Tikael) Fix construct armor rule elements
+* (Tikael) Localize rule elements on Sterling Dynamo Dedication
+* (Tikael) Grant Champion's reactions for each Cause class feature
 * (TMun) Add/update NPCs from PFS scenarios 3-05, 3-06, 3-07, 3-08, 3-09, 3-11, 3-12, 3-13, 3-14
 * (TMun) Add effect area to Storm of Vengeance
 * (TMun) Add spell-heightening data to Subconscious Suggestion
 * (TMun) Convert Ice Storm to new spell format
 * (TMun) Convert Planetar Sword into current data entry standard and add missing change shape ability
 * (TMun) Fix details of Hydraulic Torrent spell
-* (TMun) Fix golem anti-magic description for Lazurite-Infused Stone Golem
+* (TMun) Fix Golem Anti-Magic description for Lazurite-Infused Stone Golem
 * (TMun) Set perception to +8 per private note on Ninth Army Ruffian
-* (Tikael) Add more vampire family abilities
-* (Tikael) Fix construct armor rule elements
-* (Tikael) Localize rule elements on Sterling Dynamo Dedication
-* (Vindico) Add archetype journals for several BotD archetypes
+* (Vindico) Add archetype journals for several Book of the Dead archetypes
 
 
 ## Version 3.10.3
@@ -121,6 +198,7 @@
 
 ### New Features
 * (stwlam) Add new "Roll Twice" and "Substitute Roll" rule elements, implementing effects like True Spike and Assurance, respectively
+* (stwlam) Register a keybinding to cycle a mouse-hovered token stack
 * (Supe) Implement fixed level spell heightening (e.g., Acid Splash)
 
 ### Core System Improvements
@@ -184,7 +262,6 @@
 * (stwlam) Add Skeleton trait to Skeleton ancestry feats
 * (stwlam) Add rule elements to Wrestler Dedication
 * (stwlam) Prune redundant Assurance feats with no other compendium references
-* (stwlam) Register a keybinding to cycle a mouse-hovered token stack
 * (stwlam) Sort localized sheet tags
 * (telekenunes) Add Automation for the Martial Experience Feat
 * (telekenunes) Added Energize Wings effect
