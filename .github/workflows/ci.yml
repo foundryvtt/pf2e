@@ -1,10 +1,12 @@
 name: PF2e System CI
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
+  push:
+    branches: [master, release-v9]
+  workflow_dispatch:
+    branches: [master, release-v9]
 
 jobs:
   build:
@@ -15,21 +17,50 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install Deps
-      run: |
-        npm ci
+      - name: Cache NPM Deps
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
 
-    - name: Build
-      run: |
-        npm run build
+      - name: Install NPM Deps
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: |
+          npm ci
 
-    - name: Test
-      run: |
-        npm run test
+      - name: Cache Packs
+        id: cache-packs
+        uses: actions/cache@v3
+        with:
+          path: packs/
+          key: packs-${{ hashFiles('packs/**/*') }}
+
+      - name: Build Packs
+        if: ${{ steps.cache-packs.outputs.cache-hit != 'true' }}
+        run: |
+          npm run build:packs
+
+      - name: Webpack
+        run: |
+          node_modules/.bin/webpack --mode production
+
+      - name: Test
+        run: |
+          npm run test
+
+      - name: Cache Build
+        uses: actions/cache@v3
+        if: ${{ github.ref_name == 'release-v9' }}
+        with:
+          path: dist/
+          key: build-${{ hashFiles('dist/') }}
+          restore-keys: |
+            build-
