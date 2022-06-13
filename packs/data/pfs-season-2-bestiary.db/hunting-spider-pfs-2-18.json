@@ -1,21 +1,21 @@
 {
-    "_id": "rCErTabCxzPbR0ON",
+    "_id": "KVvRtfyqewytq40f",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2
-            },
-            "con": {
-                "mod": 4
-            },
-            "dex": {
-                "mod": 2
-            },
-            "int": {
                 "mod": -4
             },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
             "str": {
-                "mod": 5
+                "mod": 2
             },
             "wis": {
                 "mod": 2
@@ -24,48 +24,44 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 22
+                "value": 17
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 125,
+                "max": 16,
                 "temp": 0,
-                "value": 125
+                "value": 16
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 12
+                "value": 7
             },
             "speed": {
                 "otherSpeeds": [
                     {
                         "type": "climb",
-                        "value": "10"
-                    },
-                    {
-                        "type": "swim",
-                        "value": "10"
+                        "value": "25"
                     }
                 ],
-                "value": "20"
+                "value": "25"
             }
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "N"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Animal",
             "level": {
-                "value": 6
+                "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Hunting spiders are the most common type of giant spider, though not the largest.</p>\n<hr />\n<p>Few everyday vermin inspire as much dread as the infamous spider.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario #2-18: The Fanciful March of Urwal"
             }
@@ -74,52 +70,44 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 17
+                "value": 6
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 13
+                "value": 9
             },
             "will": {
                 "saveDetail": "",
-                "value": 13
+                "value": 5
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
                 "value": []
             },
-            "dr": [
-                {
-                    "type": "poison",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
+            "dr": [],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": []
             },
-            "rarity": "uncommon",
+            "rarity": "common",
             "senses": {
-                "value": "darkvision"
+                "value": "darkvision, web sense"
             },
             "size": {
-                "value": "med"
+                "value": "sm"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "aberration"
+                    "animal"
                 ]
             }
         }
@@ -127,22 +115,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2fw4H5Q9NB0Lq7DQ",
+            "_id": "IUA7ZWVTepsameDv",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "hunting-spider-venom"
+                    ]
                 },
                 "bonus": {
-                    "total": 14,
-                    "value": 17
+                    "value": 9
                 },
                 "damageRolls": {
-                    "0": {
-                        "damage": "2d10+9",
-                        "damageType": "slashing"
+                    "dez5f2j66zdt2xxl3dsr": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -156,19 +146,61 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tree Claws",
+            "name": "Fangs",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "U845IJKZpNBSVKwx",
+            "_id": "ir8tXGoz964QTWmv",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "web-trap"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Web",
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "UW8qbPcbWR2N4HcI",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -209,14 +241,14 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "nmiINLl4XQwyT4oE",
+            "_id": "DbfLZXVZVTQMJoyI",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -225,7 +257,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the forest rot takes fire damage, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its turn.</p>"
+                    "value": "<p>The hunting spider has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -248,12 +280,12 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Flame-Scorched",
-            "sort": 300000,
+            "name": "Web Sense",
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "oEduKuW4WaDIp98Z",
+            "_id": "4lmj5hd20I5GvQJz",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -265,7 +297,133 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature damages the dragon forest rot.</p>\n<hr />\n<p><strong>Effect</strong> The dragon forest rot sprays spores on the triggering creature. The spores deal [[/r {2d6+9}[piercing]]]{2d6+9 piercing damage} with a @Check[type:fortitude|dc:23|basic:true] save. On a critical failure, the triggering creature gains weakness to slashing 5 for the next 4 rounds.</p>"
+                    "value": "<p><strong>Requirement</strong> Initiative has not yet been rolled.</p>\n<p><strong>Trigger</strong> A creature touches the hunting spider's web while the spider is on it.</p>\n<hr />\n<p><strong>Effect</strong> The hunting spider automatically notices the creature and Strides, Climbs, or Descends on a Web before it rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spring Upon Prey",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "tHBnPDgoj9trVlBk",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The hunting spider moves straight down up to 40 feet, suspended by a web line. It can hang from the web or drop off. The distance it Descends on a Web doesn't count for falling damage.</p>\n<p>A creature that successfully Strikes the web (AC 20, Hardness 3, 5 HP) severs it, causing the spider to fall.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "move"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Descend on a Web",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "egV0y60X9Okkmuoc",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d10}[poison]]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hunting Spider Venom",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "Qy7s2ZDFTvr7xR1m",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature hit by the hunting spider's web attack is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and stuck to the nearest surface until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 17).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -287,106 +445,47 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spores",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "b3SbLDyYjM3QmXhM",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:23] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. On a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to the of all dragon forest rots for 1 minute.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 500000,
+            "name": "Web Trap",
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "WDttWBnICVwt2mYo",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The dragon forest rot breathes a toxic cloud that deals [[/r {7d6}[poison]]]{7d6 poison damage} in a @Template[type:cone|distance:15] (@Check[type:fortitude|dc:23|basic:true] save).</p>\n<p>It can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "evocation",
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "ldXfL2I2YBAW4zH0",
+            "_id": "xHMvCThRFk7vVesc",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 15
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 900000,
+            "type": "lore"
+        },
+        {
+            "_id": "CEl4JWNUQwuJRSbY",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -404,17 +503,17 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
-            "_id": "hTeQyuEffMowJLJO",
+            "_id": "CAW51DkD6zerH6gN",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 13
+                    "value": 7
                 },
                 "proficient": {
                     "value": 0
@@ -431,17 +530,17 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 800000,
+            "name": "Stealth",
+            "sort": 1100000,
             "type": "lore"
         }
     ],
-    "name": "Insidious Dragon Forest Rot",
+    "name": "Hunting Spider (PFS 2-18)",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Insidious Dragon Forest Rot",
+        "name": "Hunting Spider",
         "width": 1
     },
     "type": "npc"
