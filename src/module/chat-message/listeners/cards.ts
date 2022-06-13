@@ -5,8 +5,9 @@ import { StrikeData } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { coinsToString, multiplyCoins, multiplyPrice } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
@@ -73,7 +74,7 @@ export const ChatCards = {
                 else if (action === "spellAttack3") spell?.rollAttack(event, 3);
                 else if (action === "spellDamage") spell?.rollDamage(event);
                 else if (action === "spellCounteract") spell?.rollCounteract(event);
-                else if (action === "spellTemplate") item.placeTemplate(event);
+                else if (action === "spellTemplate") spell?.placeTemplate();
                 // Consumable usage
                 else if (action === "consume") {
                     if (item instanceof ConsumablePF2e) {
@@ -104,39 +105,44 @@ export const ChatCards = {
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = $card.attr("data-strike-index");
                 const strikeName = $card.attr("data-strike-name");
+                const altUsage = message.data.flags.pf2e.context?.altUsage ?? null;
+
                 const strikeAction = ((): StrikeData | null => {
-                    const action = actor.data.data.actions.at(Number(strikeIndex));
-                    return (
-                        (message.data.flags.pf2e.context?.altUsage === "melee" ? action?.meleeUsage : action) ?? null
-                    );
+                    const action = actor.data.data.actions.at(Number(strikeIndex)) ?? null;
+                    return altUsage
+                        ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ??
+                              null
+                        : action;
                 })();
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
                     switch (sluggify(action ?? "")) {
                         case "strike-attack":
-                            strikeAction.variants[0].roll({ event: event, options });
+                            strikeAction.variants[0].roll({ event, altUsage, options });
                             break;
                         case "strike-attack2":
-                            strikeAction.variants[1].roll({ event: event, options });
+                            strikeAction.variants[1].roll({ event, altUsage, options });
                             break;
                         case "strike-attack3":
-                            strikeAction.variants[2].roll({ event: event, options });
+                            strikeAction.variants[2].roll({ event, altUsage, options });
                             break;
                         case "strike-damage":
-                            strikeAction.damage?.({ event: event, options });
+                            strikeAction.damage?.({ event, altUsage, options });
                             break;
                         case "strike-critical":
-                            strikeAction.critical?.({ event: event, options });
+                            strikeAction.critical?.({ event, altUsage, options });
                             break;
                     }
+                } else if (action === "repair-item") {
+                    await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = multiplyPrice(item.price, quantity);
-                    const coinsToRemove = $button.hasClass("full") ? craftingCost : multiplyCoins(craftingCost, 0.5);
+                    const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
+                    const coinsToRemove = $button.hasClass("full") ? craftingCost : craftingCost.scale(0.5);
                     if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                         return;
@@ -148,7 +154,7 @@ export const ChatCards = {
                             user: game.user.id,
                             content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                                 actorName: actor.name,
-                                cost: coinsToString(coinsToRemove),
+                                cost: coinsToRemove.toString(),
                                 quantity: quantity,
                                 itemName: item.name,
                             }),
@@ -170,7 +176,7 @@ export const ChatCards = {
                         user: game.user.id,
                         content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
-                            cost: coinsToString(coinsToRemove),
+                            cost: coinsToRemove.toString(),
                             quantity: quantity,
                             itemName: item.name,
                         }),
@@ -181,9 +187,9 @@ export const ChatCards = {
                     const item = await fromUuid(itemUuid);
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = multiplyPrice(item.price, quantity);
-                    const materialCosts = multiplyCoins(craftingCost, 0.5);
-                    const coinsToRemove = multiplyCoins(materialCosts, 0.1);
+                    const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
+                    const materialCosts = craftingCost.scale(0.5);
+                    const coinsToRemove = materialCosts.scale(0.1);
                     if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     } else {
@@ -191,7 +197,7 @@ export const ChatCards = {
                             user: game.user.id,
                             content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                                 actorName: actor.name,
-                                cost: coinsToString(coinsToRemove),
+                                cost: coinsToRemove.toString(),
                             }),
                             speaker: { alias: actor.name },
                         });

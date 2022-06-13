@@ -8,7 +8,7 @@ export const RenderCombatTrackerConfig = {
             const $iconFormGroup = $formGroups.last().clone();
             $iconFormGroup.find("label").text(game.i18n.localize("PF2E.SETTINGS.DeathIcon.Name"));
             $iconFormGroup.find("p.notes").text(game.i18n.localize("PF2E.SETTINGS.DeathIcon.Hint"));
-            const replacement = await renderTemplate("systems/pf2e/templates/system/ui/combat-tracker-config.html", {
+            const replacement = await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/config.html", {
                 value: game.settings.get("pf2e", "deathIcon"),
             });
             $iconFormGroup.find("input").replaceWith(replacement);

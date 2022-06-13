@@ -1,21 +1,19 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ItemPF2e, ConditionPF2e, FeatPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { ConditionPF2e, FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { getContainerMap } from "@item/container/helpers";
-import { ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
-import { PhysicalItemType } from "@item/physical/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
-import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
+import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
+import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey } from "@util";
+import { ErrorPF2e, groupBy, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -24,14 +22,14 @@ import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProfi
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 
-export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
     private knownFormulas: Record<string, CraftingFormula> = {};
 
     // Non-persisted tweaks to formula data
     private formulaQuantities: Record<string, number> = {};
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "character"],
             width: 750,
@@ -43,7 +41,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    override get template() {
+    override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
         return `systems/pf2e/templates/actors/character/${template}.html`;
     }
@@ -170,8 +168,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;
-        const weaponCategories: Set<string> = WEAPON_CATEGORIES;
-        const isWeaponProficiency = (key: string): boolean => weaponCategories.has(key) || /\bweapon\b/.test(key);
+
+        const isWeaponProficiency = (key: string): boolean =>
+            setHasElement(WEAPON_CATEGORIES, key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
             .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
@@ -214,24 +213,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): void {
         const actorData = sheetData.actor;
 
-        // Inventory
-        interface InventorySheetData {
-            label: string;
-            items: PhysicalItemData[];
-            investedItemCount?: number;
-            investedMax?: number;
-            overInvested?: boolean;
-        }
-
-        const inventory: Record<Exclude<PhysicalItemType, "book">, InventorySheetData> = {
-            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
-            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
-            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
-            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
-            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
-            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
-        };
-
         // Actions
         const actions: Record<string, { label: string; actions: any[] }> = {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
@@ -243,24 +224,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores: LoreData[] = [];
-
-        // Iterate through items, allocating to containers
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-
-        const bulkItems = itemsFromActorData(actorData);
-        const bulkItemsById = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap({
-            items: actorData.items.filter(isPhysicalData),
-            bulkItemsById,
-            bulkConfig,
-            actorSize: this.actor.size,
-        });
-        sheetData.hasRealContainers = this.actor.itemTypes.backpack.some((c) => c.data.data.stowing);
-
-        let investedCount = 0; // Tracking invested items
-        const investedMax = actorData.data.resources.investiture.max;
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
@@ -274,10 +237,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
                 itemData.assetValue = item.assetValue;
-
-                const containerData = containers.get(itemData._id)!;
-                itemData.containerData = containerData;
-                itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
 
                 // Read-Only Equipment
@@ -289,32 +248,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ) {
                     readonlyEquipment.push(itemData);
                     actorData.hasEquipment = true;
-                }
-
-                itemData.canBeEquipped = !containerData.isInContainer;
-                itemData.isSellableTreasure =
-                    itemData.showEdit && physicalData.type === "treasure" && physicalData.data.stackGroup !== "coins";
-                if (isInvested) {
-                    investedCount += 1;
-                }
-
-                // Inventory
-                if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity = physicalData.data.quantity || 0;
-                    itemData.data.weight.value = physicalData.data.weight.value || 0;
-                    const bulkItem = bulkItemsById.get(physicalData._id);
-                    const [approximatedBulk] = calculateBulk({
-                        items: bulkItem === undefined ? [] : [bulkItem],
-                        bulkConfig: bulkConfig,
-                        actorSize: this.actor.data.data.traits.size.value,
-                    });
-                    itemData.totalWeight = formatBulk(approximatedBulk);
-                    itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
-                    if (physicalData.type === "book") {
-                        inventory.equipment.items.push(itemData);
-                    } else {
-                        inventory[physicalData.type].items.push(itemData);
-                    }
                 }
             }
 
@@ -364,10 +297,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        inventory.equipment.investedItemCount = investedCount; // Tracking invested items
-        inventory.equipment.investedMax = investedMax;
-        inventory.equipment.overInvested = investedMax < investedCount;
-
         // assign mode to actions
         Object.values(actions)
             .flatMap((section) => section.actions)
@@ -378,8 +307,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         // Assign and return
-        actorData.inventory = inventory;
-
         actorData.featSlots = this.actor.featGroups;
         actorData.pfsBoons = this.actor.pfsBoons;
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
@@ -389,21 +316,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        const [bulk] = calculateBulk({
-            items: bulkItems,
-            bulkConfig: bulkConfig,
-            actorSize: this.actor.data.data.traits.size.value,
-        });
         actorData.data.attributes.encumbrance = calculateEncumbrance(
             actorData.data.abilities.str.mod,
             bonusEncumbranceBulk,
             bonusLimitBulk,
-            bulk,
-            actorData.data?.traits?.size?.value ?? "med"
+            this.actor.inventory.bulk,
+            this.actor.size
         );
     }
 
-    private prepareSpellcasting(sheetData: CharacterSheetData) {
+    private prepareSpellcasting(sheetData: CharacterSheetData): void {
         sheetData.spellcastingEntries = [];
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
@@ -422,7 +344,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
     }
 
-    protected async prepareCraftingEntries() {
+    protected async prepareCraftingEntries(): Promise<CraftingEntriesSheetData> {
         const actorCraftingEntries = await this.actor.getCraftingEntries();
         const craftingEntries: CraftingEntriesSheetData = {
             dailyCrafting: false,
@@ -545,9 +467,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const damageButton of $damageButtons) {
             const $button = $(damageButton);
             const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
-            const meleeUsage = Boolean($button.attr("data-melee-usage"));
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, damageButton.dataset.altUsage)
+                ? damageButton.dataset.altUsage
+                : null;
+
             const strike = this.getStrikeFromDOM($button[0]);
-            strike?.[method]?.({ getFormula: true, meleeUsage }).then((formula) => {
+            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
                 if (!formula) return;
                 $button.attr({ title: formula });
                 $button.tooltipster({
@@ -978,17 +903,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onIncrementModifierValue(event: JQuery.ClickEvent) {
+    private onIncrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepUp();
     }
 
-    private onDecrementModifierValue(event: JQuery.ClickEvent) {
+    private onDecrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepDown();
     }
 
-    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>) {
+    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const modifier = Number(parent.find(".add-modifier-value input[type=number]").val()) || 1;
@@ -1012,7 +937,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onRemoveCustomModifier(event: JQuery.ClickEvent) {
+    private onRemoveCustomModifier(event: JQuery.ClickEvent): void {
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const slug = $(event.currentTarget).attr("data-slug") ?? "";
         const errors: string[] = [];
@@ -1079,7 +1004,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    protected override async _onDrop(event: ElementDragEvent) {
+    protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData = JSON.parse(dataString ?? "");
         if ("pf2e" in dropData && dropData.pf2e.type === "CraftingFormula") {
@@ -1099,6 +1024,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return;
             }
         }
+
         return super._onDrop(event);
     }
 
@@ -1121,8 +1047,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    /** Get the font-awesome icon used to display a certain level of dying */
-    private getDyingIcon(level: number) {
+    /** Get the font-awesome icon used to display a certain dying value */
+    private getDyingIcon(value: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const doomed = this.object.data.data.attributes.doomed.value || 0;
         const circle = '<i class="far fa-circle"></i>';
@@ -1146,13 +1072,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[dyingLevel] += dyingLevel === maxDying ? redClose : "";
         }
 
-        return icons[level];
+        return icons[value];
     }
 
-    /**
-     * Get the font-awesome icon used to display a certain level of wounded
-     */
-    private getWoundedIcon(level: number) {
+    /** Get the font-awesome icon used to display a certain wounded value */
+    private getWoundedIcon(value: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-dot-circle"></i>';
@@ -1166,7 +1090,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[i] = iconHtml;
         }
 
-        return icons[level];
+        return icons[value];
     }
 
     /** Get the font-awesome icon used to display hero points */
@@ -1181,6 +1105,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 }
 
-export interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
 }
+
+export { CharacterSheetPF2e };

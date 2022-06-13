@@ -23,73 +23,45 @@
         }
     }
 
-    .header {
-        display: grid;
-        grid-template-columns: 26px 3fr 1fr 1fr;
-        column-gap: 6px;
-        align-items: center;
-        color: $light-text;
-        background-color: $primary-accent;
-        border-radius: 3px 3px 0px 0px;
-        padding: 6px;
-    }
-
     .body {
         padding: 0px;
-        border-left: 1px solid $primary-accent;
-        border-right: 1px solid $primary-accent;
-        border-bottom: 1px solid $primary-accent;
 
         ul.item-list {
-            list-style: none;
-            margin: 0px;
-            padding: 0px;
-            display: grid;
+            & > :first-child {
+                border-radius: 3px 3px 0px 0px;
+            }
 
-            .category-header {
+            .inventory-header {
                 background-color: $secondary-accent;
                 display: flex;
                 flex: 1;
                 flex-direction: row;
                 flex-wrap: nowrap;
-                width: 100%;
-                padding: 4px 12px;
-                text-align: center;
                 color: white;
-                justify-content: space-between;
                 align-items: baseline;
 
                 h4 {
                     margin: 0px;
                 }
+
+                div {
+                    border: none;
+                }
             }
 
-            li.list-item {
-                display: grid;
-                grid-template-columns: 26px 3fr 1fr 2fr;
-                column-gap: 6px;
-                align-items: center;
-                padding: 2px 6px;
+            li.item {
+                border-left: 1px solid $primary-accent;
+                border-right: 1px solid $primary-accent;
+                border-bottom: 1px solid $primary-accent;
 
                 &:not(:last-child) {
                     border-bottom: 1px solid $faded-color;
                 }
 
-                .item-icon {
+                .item-image {
                     border: 2px solid $faded-color;
                     border-radius: 3px;
-                    width: 26px;
-                    height: 26px;
-                    background-size: 26px 26px;
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
-
-                .item-name {
-                    h4 {
-                        margin: 0;
-                    }
+                    margin: 2px 4px 2px 6px;
                 }
 
                 &[data-item-rarity="common"] {
@@ -128,20 +100,11 @@
                     }
                 }
 
-                .item-quantity {
-                    text-align: right;
-                }
-
                 .controls .item-toggle-equip {
                     color: rgba(black, 0.4);
                     &.active {
                         color: rgba(black, 0.75);
                     }
-                }
-
-                .item-summary {
-                    grid-column: 1/-1;
-                    margin-top: 0.5em;
                 }
             }
         }
@@ -156,19 +119,5 @@
         background-color: $primary-accent;
         color: $light-text;
         border-radius: 0px 0px 3px 3px;
-    }
-}
-
-.items-controls {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: baseline;
-    padding: 4px 12px;
-
-    a {
-        margin: 0px 6px;
     }
 }

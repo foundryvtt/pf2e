@@ -1,7 +1,6 @@
 import { HooksPF2e } from "@scripts/hooks";
 
 import { TemplatePreloader } from "@util/template-preloader";
-import "@system/measure";
 import "./styles/main.scss";
 
 HooksPF2e.listen();

@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function grapple(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -18,10 +18,10 @@ export function grapple(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Grapple", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Grapple", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Grapple", "failure"),
-            ActionMacros.note(selector, "PF2E.Actions.Grapple", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Grapple", "criticalFailure"),
         ],
         weaponTrait: "grapple",
     });

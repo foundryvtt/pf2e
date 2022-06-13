@@ -36,17 +36,13 @@
                                     <div class="actions-title">
                                         <div class="action-name">
                                             <h4>{{action.name}}</h4>
-                                            {{#if action.origin}}
-                                                <div class="action-options" data-item-id="{{action.origin.id}}">
-                                                    {{#with action.origin.ammo.charges}}
+                                            {{#if action.item}}
+                                                <div class="action-options" data-item-id="{{action.item.id}}">
+                                                    {{#with action.item.ammo.charges}}
                                                         {{#if (gt max 1)}}
                                                             <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
                                                         {{/if}}
                                                     {{/with}}
-
-                                                    {{#if (eq action.origin.type "weapon")}}
-                                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
-                                                    {{/if}}
                                                 </div>
                                             {{/if}}
                                         </div>
@@ -56,11 +52,17 @@
                                         {{/if}}
                                     </div>
                                 </div>
-                                {{#if (and action.meleeUsage (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
-                                    <div class="melee-usage">
-                                        <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
-                                        {{#> attackDamage action.meleeUsage isMeleeUsage=true}}{{/attackDamage}}
-                                    </div>
+                                {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
+                                    {{#each action.altUsages as |usage|}}
+                                        <div class="alt-usage">
+                                            {{#if usage.item.isThrown}}
+                                                <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" title="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
+                                            {{else}}
+                                                <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" title="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
+                                            {{/if}}
+                                            {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
+                                        </div>
+                                    {{/each}}
                                 {{/if}}
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
@@ -201,14 +203,19 @@
 {{#*inline "attackDamage"}}
     <div class="button-group tags">
         {{#each variants as |variant vi|}}
-            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}" data-melee-usage="{{../isMeleeUsage}}"
+            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
+                {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
                 {{#if (eq vi 0)}}<span class="activity-icon">{{../glyph}}</span>{{/if}}
                 {{variant.label}}
             </button>
         {{/each}}
-        <button type="button" class="tag damage" data-action="strike-damage" data-melee-usage="{{isMeleeUsage}}">{{localize "PF2E.DamageLabel"}}</button>
-        <button type="button" class="tag damage" data-action="strike-critical" data-melee-usage="{{isMeleeUsage}}">{{localize "PF2E.CriticalDamageLabel"}}</button>
+        <button type="button" class="tag damage" data-action="strike-damage"
+            {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+        >{{localize "PF2E.DamageLabel"}}</button>
+        <button type="button" class="tag damage" data-action="strike-critical"
+            {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+        >{{localize "PF2E.CriticalDamageLabel"}}</button>
         {{#if ammunition}}
             <select name="ammo-used"{{#if ammunition.selected}} data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
                 {{#select ammunition.selected.id}}

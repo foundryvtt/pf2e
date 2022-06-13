@@ -1,20 +1,20 @@
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ErrorPF2e, sluggify } from "@util";
-import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementOptions } from "../rules";
-import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData, ItemType } from "./data";
-import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { MeleeSystemData } from "./melee/data";
-import { ItemSheetPF2e } from "./sheet/base";
 import { isCreatureData } from "@actor/data/helpers";
-import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
-import { UserPF2e } from "@module/user";
-import { MigrationRunner, MigrationList } from "@module/migration";
-import { GhostTemplate } from "@module/ghost-measured-template";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
+import { MigrationList, MigrationRunner } from "@module/migration";
+import { UserPF2e } from "@module/user";
+import { DicePF2e } from "@scripts/dice";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
+import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
+import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
+import { isItemSystemData, isPhysicalData } from "./data/helpers";
+import { PHYSICAL_ITEM_TYPES } from "./physical/values";
+import { MeleeSystemData } from "./melee/data";
+import type { PhysicalItemPF2e } from "./physical";
+import { ItemSheetPF2e } from "./sheet/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -62,10 +62,12 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType<T extends ItemType>(
-        ...types: T[]
-    ): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
-        return types.some((t) => this.data.type === t);
+    isOfType(type: "physical"): this is PhysicalItemPF2e;
+    isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
+    isOfType(...types: (ItemType | "physical")[]): boolean {
+        return types.some((t) =>
+            t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.data.type) : this.data.type === t
+        );
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
@@ -166,9 +168,17 @@ class ItemPF2e extends Item<ActorPF2e> {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { rulesSelections: {} });
-        this.data.flags.pf2e.grantedBy ??= null;
-        this.data.flags.pf2e.itemGrants ??= [];
+        const { flags } = this.data;
+        flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+
+        // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
+        if (isObject(flags.pf2e.grantedBy)) {
+            flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
+        }
+        const grants = (flags.pf2e.itemGrants ??= []);
+        for (const grant of grants) {
+            if (isObject(grant)) grant.onDelete ??= "detach";
+        }
     }
 
     prepareRuleElements(this: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
@@ -269,7 +279,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
-        const traits: string[] = deepClone(this.data.data.traits?.value ?? []).sort();
+        const traits: string[] = [...(this.data.data.traits?.value ?? [])].sort();
         const customTraits =
             this.data.data.traits?.custom
                 .trim()
@@ -301,14 +311,12 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (this.actor?.data.type !== "npc" && this.actor?.data.type !== "hazard") {
+        if (this.actor?.data.type !== "hazard") {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
         // Prepare roll data
         const itemData: any = this.getChatData();
-        const rollData: (NPCSystemData | HazardSystemData) & { item?: unknown; itemBonus?: number } = duplicate(
-            this.actor.data.data
-        );
+        const rollData: HazardSystemData & { item?: unknown; itemBonus?: number } = deepClone(this.actor.data.data);
         const parts = ["@itemBonus"];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
 
@@ -350,16 +358,14 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
         if (this.data.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (this.actor.data.type !== "npc" && this.actor.data.type !== "hazard") {
+        if (this.actor.data.type !== "hazard") {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
 
         // Get item and actor data and format it for the damage roll
         const item = this.data;
         const itemData = item.data;
-        const rollData: (NPCSystemData | HazardSystemData) & { item?: MeleeSystemData } = duplicate(
-            this.actor.data.data
-        );
+        const rollData: HazardSystemData & { item?: MeleeSystemData } = deepClone(this.actor.data.data);
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 
@@ -405,84 +411,6 @@ class ItemPF2e extends Item<ActorPF2e> {
                 left: window.innerWidth - 710,
             },
         });
-    }
-
-    createTemplate() {
-        const itemData =
-            this.data.type === "consumable" && this.data.data.spell?.data
-                ? duplicate(this.data.data.spell.data)
-                : this.toObject();
-        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
-
-        const templateConversion: Record<string, string> = {
-            burst: "circle",
-            emanation: "circle",
-            line: "ray",
-            cone: "cone",
-            rect: "rect",
-        };
-
-        const areaType = templateConversion[itemData.data.area.areaType];
-
-        const templateData: any = {
-            t: areaType,
-            distance: (Number(itemData.data.area.value) / 5) * (canvas.dimensions?.distance ?? 0),
-            flags: {
-                pf2e: {
-                    origin: {
-                        type: this.type,
-                        uuid: this.uuid,
-                        name: this.name,
-                        slug: this.slug,
-                        traits: deepClone(this.data.data.traits?.value ?? []),
-                    },
-                },
-            },
-        };
-
-        if (areaType === "ray") {
-            templateData.width = canvas.dimensions?.distance ?? 0;
-        } else if (areaType === "cone") {
-            templateData.angle = 90;
-        }
-
-        templateData.user = game.user.id;
-        templateData.fillColor = game.user.color;
-        const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-        return new GhostTemplate(measuredTemplateDoc);
-    }
-
-    placeTemplate(_event: JQuery.ClickEvent) {
-        this.createTemplate().drawPreview();
-    }
-
-    calculateMap(): { label: string; map2: number; map3: number } {
-        return ItemPF2e.calculateMap(this.data);
-    }
-
-    static calculateMap(item: ItemDataPF2e): { label: string; map2: number; map3: number } {
-        if (item.type === "melee" || item.type === "weapon") {
-            // calculate multiple attack penalty tiers
-            const agile = item.data.traits.value.includes("agile");
-            const alternateMAP = ((item.data as any).MAP || {}).value;
-            switch (alternateMAP) {
-                case "1":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -1, map3: -2 };
-                case "2":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -2, map3: -4 };
-                case "3":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -3, map3: -6 };
-                case "4":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -4, map3: -8 };
-                case "5":
-                    return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
-                default: {
-                    if (agile) return { label: "PF2E.MultipleAttackPenalty", map2: -4, map3: -8 };
-                    else return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
-                }
-            }
-        }
-        return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
@@ -593,7 +521,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         user: UserPF2e
     ): Promise<void> {
         // Set default icon
-        if (this.data._source.img === "icons/svg/item-bag.svg") {
+        if (this.data._source.img === foundry.data.ItemData.DEFAULT_ICON) {
             this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 

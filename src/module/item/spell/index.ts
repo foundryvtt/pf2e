@@ -1,11 +1,10 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@item";
-import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
-import { ordinal, objectHasKey, ErrorPF2e, isObject } from "@util";
+import { ordinal, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
-import { MagicSchool, SpellData, SpellHeightenLayer, SpellTrait } from "./data";
+import { SpellData, SpellHeightenLayer, SpellSource } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -23,6 +22,8 @@ import { extractModifiers } from "@module/rules/util";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { UserPF2e } from "@module/user";
 import { StatisticRollParameters } from "@system/statistic";
+import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -35,7 +36,7 @@ class SpellPF2e extends ItemPF2e {
     original?: SpellPF2e;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
-    trickMagicEntry?: TrickMagicItemEntry;
+    trickMagicEntry: TrickMagicItemEntry | null = null;
 
     get baseLevel(): OneToTen {
         return this.data.data.level.value;
@@ -80,7 +81,7 @@ class SpellPF2e extends ItemPF2e {
         return this.data.data.category.value === "ritual";
     }
 
-    get components() {
+    get components(): Record<SpellComponent, boolean> & { value: string } {
         const components = this.data.data.components;
         const results: string[] = [];
         if (components.focus) results.push(game.i18n.localize("PF2E.SpellComponentShortF"));
@@ -94,12 +95,12 @@ class SpellPF2e extends ItemPF2e {
     }
 
     /** Returns true if this spell has unlimited uses, false otherwise. */
-    get unlimited() {
+    get unlimited(): boolean {
         // In the future handle at will and constant
         return this.isCantrip;
     }
 
-    get isVariant() {
+    get isVariant(): boolean {
         return !!this.original;
     }
 
@@ -108,7 +109,7 @@ class SpellPF2e extends ItemPF2e {
         this.isFromConsumable = context.fromConsumable ?? false;
     }
 
-    private computeCastLevel(castLevel?: number) {
+    private computeCastLevel(castLevel?: number): number {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) {
             return (
@@ -230,7 +231,7 @@ class SpellPF2e extends ItemPF2e {
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(this: SpellPF2e, castLevel: number): SpellPF2e | null {
+    loadVariant(castLevel: number): SpellPF2e | null {
         if (this.original) {
             return this.original.loadVariant(castLevel);
         }
@@ -239,12 +240,12 @@ class SpellPF2e extends ItemPF2e {
         const heightenEntries = this.getHeightenLayers(castLevel);
         if (heightenEntries.length === 0) return null;
 
-        const override = this.toObject(true);
+        const override = this.toObject();
         for (const overlay of heightenEntries) {
             mergeObject(override.data, overlay.data);
         }
 
-        mergeObject(override.data, { heightenedLevel: { value: castLevel } });
+        override.data = mergeObject(override.data, { heightenedLevel: { value: castLevel } });
         const variantSpell = new SpellPF2e(override, { parent: this.actor });
         variantSpell.original = this;
         return variantSpell;
@@ -260,7 +261,52 @@ class SpellPF2e extends ItemPF2e {
             .sort((first, second) => first.level - second.level);
     }
 
-    override prepareBaseData() {
+    createTemplate(): GhostTemplate {
+        const templateConversion = {
+            burst: "circle",
+            emanation: "circle",
+            line: "ray",
+            cone: "cone",
+            rect: "rect",
+        } as const;
+
+        const { area } = this.data.data;
+        const areaType = templateConversion[area.areaType];
+
+        const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
+            t: areaType,
+            distance: (Number(area.value) / 5) * (canvas.dimensions?.distance ?? 0),
+            flags: {
+                pf2e: {
+                    origin: {
+                        type: this.type,
+                        uuid: this.uuid,
+                        name: this.name,
+                        slug: this.slug,
+                        traits: deepClone(this.data.data.traits?.value ?? []),
+                    },
+                },
+            },
+        };
+
+        if (areaType === "ray") {
+            templateData.width = canvas.dimensions?.distance ?? 0;
+        } else if (areaType === "cone") {
+            templateData.angle = 90;
+        }
+
+        templateData.user = game.user.id;
+        templateData.fillColor = game.user.color;
+
+        const templateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+        return new GhostTemplate(templateDoc);
+    }
+
+    placeTemplate(): void {
+        this.createTemplate().drawPreview();
+    }
+
+    override prepareBaseData(): void {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.data.data.level.value = Math.clamped(this.data.data.level.value, 1, 10) as OneToTen;
@@ -440,25 +486,25 @@ class SpellPF2e extends ItemPF2e {
         };
     }
 
-    rollAttack(
+    async rollAttack(
         this: Embedded<SpellPF2e>,
         event: JQuery.ClickEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {}
-    ) {
+    ): Promise<void> {
         // Prepare roll data
         const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            statistic.check.roll({ ...eventToRollParams(event), ...context, item: this, attackNumber });
+            await statistic.check.roll({ ...eventToRollParams(event), ...context, item: this, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
     }
 
-    rollDamage(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent) {
+    async rollDamage(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent): Promise<void> {
         const castLevel = (() => {
             const button = event.currentTarget;
             const card = button.closest("*[data-spell-lvl]");
@@ -486,7 +532,7 @@ class SpellPF2e extends ItemPF2e {
         })();
 
         // Call the roll helper utility
-        DicePF2e.damageRoll({
+        await DicePF2e.damageRoll({
             event,
             item: this,
             parts: [formula],
@@ -572,11 +618,12 @@ class SpellPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<SpellSource>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
+        const diff = (options.diff ??= true);
 
         const uses = changed.data?.location?.uses;
         if (uses) {
@@ -586,13 +633,12 @@ class SpellPF2e extends ItemPF2e {
         }
 
         // If dragged to outside an actor, location properties should be cleaned up
-        mergeObject(changed, { data: {} });
         const newLocation = changed.data?.location?.value;
-        const locationChanged = newLocation && newLocation !== this.data.data.location.value;
-        if ((!this.actor || locationChanged) && isObject<Record<string, unknown>>(changed.data)) {
-            const data: Record<string, unknown> = changed.data;
-            const locationUpdates: Record<string, unknown> = this.actor ? changed.data.location ?? {} : { value: "" };
-            data.location = locationUpdates;
+        const locationChanged = typeof newLocation === "string" && newLocation !== this.data.data.location.value;
+        if (diff && (!this.actor || locationChanged)) {
+            type SystemSourceWithDeletions = typeof changed["data"] & { location?: Record<`-=${string}`, null> };
+            const data: SystemSourceWithDeletions = (changed.data ??= {});
+            const locationUpdates = (data.location = this.actor ? data.location ?? {} : { value: "" });
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
             const keys = Object.keys(this.data.data.location).filter((k) => k !== "value" && !(k in locationUpdates));

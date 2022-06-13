@@ -45,12 +45,10 @@
                 "details": "water walk",
                 "otherSpeeds": [
                     {
-                        "label": "Fly",
                         "type": "fly",
                         "value": "100"
                     },
                     {
-                        "label": "Swim",
                         "type": "swim",
                         "value": "50"
                     }
@@ -151,7 +149,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -230,7 +228,7 @@
                     "dc": 26,
                     "item": 0,
                     "mod": 0,
-                    "value": 16
+                    "value": 18
                 },
                 "tradition": {
                     "value": "divine"
@@ -254,7 +252,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -299,7 +297,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "touch"
+                    "value": "self"
                 },
                 "rules": [],
                 "save": {
@@ -317,7 +315,7 @@
                 },
                 "slug": "endure-elements",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -362,7 +360,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -390,6 +388,19 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 2
@@ -425,7 +436,7 @@
                 },
                 "slug": "water-walk",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -470,7 +481,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -533,7 +544,7 @@
                 },
                 "slug": "create-water",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -728,7 +739,7 @@
                 "rules": [],
                 "slug": "darkvision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -773,7 +784,7 @@
                 "rules": [],
                 "slug": "wavesense",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -818,7 +829,7 @@
                 "rules": [],
                 "slug": "at-will-spells",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -855,7 +866,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -863,7 +874,7 @@
                 "rules": [],
                 "slug": "constant-spells",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -945,7 +956,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "fed-by-metal",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "Fed by Metal",
+                        "predicate": {
+                            "all": [
+                                "fed-by-metal"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -991,7 +1022,7 @@
                 "rules": [],
                 "slug": "frightful-presence",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -1038,7 +1069,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "liquefy",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": {
+                            "all": [
+                                "liquefy"
+                            ]
+                        },
+                        "type": "fire",
+                        "value": 15
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": {
+                            "all": [
+                                "liquefy"
+                            ]
+                        },
+                        "type": "physical",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1161,7 +1220,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d8+6}[bludgeoning]]]{2d8+6 bludgeoning damage}, @Check[type:fortitude|dc:26|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {2d8+6}[bludgeoning]]]{2d8+6 bludgeoning}, @Check[type:fortitude|dc:26|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1169,7 +1228,7 @@
                 "rules": [],
                 "slug": "constrict",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -1211,7 +1270,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1296,7 +1364,7 @@
                 "rules": [],
                 "slug": "grab",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",

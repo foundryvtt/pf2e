@@ -19,11 +19,14 @@ declare global {
      * @example <caption>Retrieve an existing Actor</caption>
      * let actor = game.actors.get(actorId);
      */
-    class Actor<TParent extends TokenDocument = TokenDocument> extends ActorConstructor {
+    class Actor<
+        TParent extends TokenDocument = TokenDocument,
+        TItemTypeMap extends ItemTypeMap = ItemTypeMap
+    > extends ActorConstructor {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
-        overrides: DeepPartial<this["data"]["_source"]>;
+        overrides: DeepPartial<this["data"]["_source"]> & { token?: TParent["data"]["_source"] };
 
         /**
          * A cached array of image paths which can be used for this Actor's token.
@@ -38,7 +41,7 @@ declare global {
         get img(): ImagePath;
 
         /** Provide an object which organizes all embedded Item instances by their type */
-        get itemTypes(): Record<string, Embedded<Item>[]>;
+        get itemTypes(): { [K in keyof TItemTypeMap]: Embedded<TItemTypeMap[K]>[] };
 
         /** Test whether an Actor is a synthetic representation of a Token (if true) or a full Document (if false) */
         get isToken(): boolean;
@@ -175,9 +178,11 @@ declare global {
 
         get collection(): Actors<this>;
 
-        _sheet: ActorSheet<Actor, Item> | null;
+        _sheet: ActorSheet<this, Item> | null;
 
-        get sheet(): ActorSheet<Actor, Item>;
+        get sheet(): ActorSheet<this, Item>;
+
+        get folder(): Folder<this> | null;
 
         deleteEmbeddedDocuments(
             embeddedName: "ActiveEffect",
@@ -216,3 +221,5 @@ declare global {
 
     type ActorUUID = `Actor.${string}` | CompendiumUUID;
 }
+
+type ItemTypeMap = Record<string, Item>;

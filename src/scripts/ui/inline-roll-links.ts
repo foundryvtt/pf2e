@@ -1,7 +1,7 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
-import { GhostTemplate } from "@module/ghost-measured-template";
+import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -14,14 +14,17 @@ const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword
 
 export const InlineRollLinks = {
     injectRepostElement: ($links: JQuery): void => {
-        if (!game.user.isGM) return;
-
         for (const link of $links) {
-            if (link.querySelector("[data-pf2-repost]")) continue;
+            if (link.querySelector("i[data-pf2-repost]")) {
+                link.classList.add("with-repost");
+                continue;
+            }
 
+            if (!game.user.isGM) continue;
+
+            link.classList.add("with-repost");
             const child = document.createElement("i");
-            child.classList.add("fas");
-            child.classList.add("fa-comment-alt");
+            child.classList.add("fas", "fa-comment-alt");
             child.setAttribute("data-pf2-repost", "");
             child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
             link.appendChild(child);
@@ -43,7 +46,7 @@ export const InlineRollLinks = {
             return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
         };
 
-        $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
+        $repostLinks.filter("i[data-pf2-repost]").on("click", (event) => {
             const target = event.currentTarget;
             const parent = target.parentElement;
             const document = documentFromDOM(target);
@@ -107,9 +110,10 @@ export const InlineRollLinks = {
                     actors.forEach((actor) => {
                         if (actor instanceof CreaturePF2e) {
                             const flatCheck = new Statistic(actor, {
+                                label: "",
                                 slug: "flat-check",
                                 modifiers: [],
-                                check: { label: "", type: "flat-check" },
+                                check: { type: "flat-check" },
                             });
                             if (flatCheck) {
                                 const dc = Number.isInteger(Number(pf2Dc))
@@ -189,7 +193,7 @@ export const InlineRollLinks = {
             }
         });
 
-        $links.filter("[data-pf2-effect-area]").on("click", (event) => {
+        $links.filter("[data-pf2-effect-area]").on("click", async (event) => {
             const {
                 pf2EffectArea,
                 pf2Distance,
@@ -231,9 +235,9 @@ export const InlineRollLinks = {
                     };
                 }
 
-                const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-                const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
-                ghostTemplate.drawPreview();
+                const templateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                const ghostTemplate = new GhostTemplate(templateDoc);
+                await ghostTemplate.drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }

@@ -6,7 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e } from "@module/encounter";
 import { PrototypeTokenDataPF2e } from "@actor/data/base";
 
-export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized?: true;
 
@@ -242,7 +242,19 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        super._onUpdate(changed, options, userId);
+        if (this.isLinked) {
+            super._onUpdate(changed, options, userId);
+        } else {
+            // Handle updates to unlinked tokens' light data via actor overrides
+            const preUpdate = this.data.light.toObject(false);
+            super._onUpdate(changed, options, userId);
+            const postUpdate = this.data.light.toObject(false);
+            const diff = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdate, postUpdate);
+            if (canvas.ready && Object.keys(diff).length > 0) {
+                mergeObject(changed, { light: diff });
+                this.object._onUpdate(changed, options, userId);
+            }
+        }
 
         game.pf2e.effectPanel.refresh();
 
@@ -252,7 +264,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     }
 }
 
-export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     readonly data: TokenDataPF2e<this>;
 
     readonly _object: TokenPF2e | null;
@@ -263,7 +275,9 @@ export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends
 
     get combatant(): Embedded<CombatantPF2e> | null;
 
-    _sheet: TokenConfigPF2e | null;
+    _sheet: TokenConfigPF2e<this> | null;
 
-    get sheet(): TokenConfigPF2e;
+    get sheet(): TokenConfigPF2e<this>;
 }
+
+export { TokenDocumentPF2e };

@@ -15,12 +15,13 @@ import { HeritageData } from "@item/heritage";
 import type { KitData, KitSource } from "@item/kit/data";
 import type { LoreData, LoreSource } from "@item/lore/data";
 import type { MeleeData, MeleeSource } from "@item/melee/data";
+import { PhysicalItemType } from "@item/physical/types";
 import type { SpellData, SpellSource } from "@item/spell/data";
 import type { SpellcastingEntryData, SpellcastingEntrySource } from "@item/spellcasting-entry/data";
 import type { TreasureData, TreasureSource } from "@item/treasure/data";
 import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
-import { PhysicalItemTraits, PhysicalItemType } from "../physical/data";
+import { PhysicalItemTraits } from "../physical/data";
 import { ItemTraits } from "./base";
 
 export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];

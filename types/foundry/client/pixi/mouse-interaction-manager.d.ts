@@ -51,7 +51,7 @@ declare class MouseInteractionManager {
     /**
      * Bound handlers which can be added and removed
      */
-    handlers: { [x: string]: Function };
+    handlers: Record<string, Function>;
 
     /**
      * The drag handling time
@@ -81,14 +81,10 @@ declare class MouseInteractionManager {
         options?: object
     );
 
-    /**
-     * Get the target
-     */
-    get target(): any;
+    /** Get the target */
+    get target(): PlaceableObject;
 
-    /**
-     * Activate interactivity for the handled object
-     */
+    /** Activate interactivity for the handled object */
     activate(): MouseInteractionManager;
 
     /**
@@ -104,11 +100,9 @@ declare class MouseInteractionManager {
      * @param action    The action being attempted
      * @param event     The event being handled
      */
-    callback(action: string, event: Event): any;
+    callback(action: string, event: Event): unknown;
 
-    /**
-     * A reference to the possible interaction states which can be observed
-     */
+    /** A reference to the possible interaction states which can be observed */
     get states(): { [x: string]: number };
 
     /* -------------------------------------------- */
@@ -144,15 +138,11 @@ declare class MouseInteractionManager {
     /*  Hover In and Hover Out                      */
     /* -------------------------------------------- */
 
-    /**
-     * Handle mouse-over events which activate downstream listeners and do not stop propagation.
-     */
-    protected _handleMouseOver(event: Event): any;
+    /** Handle mouse-over events which activate downstream listeners and do not stop propagation. */
+    protected _handleMouseOver(event: Event): void;
 
-    /**
-     * Handle mouse-out events which terminate hover workflows and do not stop propagation.
-     */
-    protected _handleMouseOut(event: Event): any;
+    /** Handle mouse-out events which terminate hover workflows and do not stop propagation. */
+    protected _handleMouseOut(event: Event): void;
 
     /* -------------------------------------------- */
     /*  Left Click and Double Click                 */
@@ -162,7 +152,7 @@ declare class MouseInteractionManager {
      * Handle mouse-down events which activate downstream listeners.
      * Stop further propagation only if the event is allowed by either single or double-click.
      */
-    protected _handleMouseDown(event: Event): any;
+    protected _handleMouseDown(event: Event): void;
 
     /**
      * Handle mouse-down which trigger a single left-click workflow.
@@ -172,7 +162,7 @@ declare class MouseInteractionManager {
     /**
      * Handle mouse-down which trigger a single left-click workflow.
      */
-    protected _handleClickLeft2(event: Event): any;
+    protected _handleClickLeft2(event: Event): void;
 
     /* -------------------------------------------- */
     /*  Right Click and Double Click                */
@@ -182,7 +172,7 @@ declare class MouseInteractionManager {
      * Handle right-click mouse-down events.
      * Stop further propagation only if the event is allowed by either single or double-click.
      */
-    protected _handleRightDown(event: Event): any;
+    protected _handleRightDown(event: Event): void;
 
     /**
      * Handle single right-click actions.
@@ -192,30 +182,22 @@ declare class MouseInteractionManager {
     /**
      * Handle double right-click actions.
      */
-    protected _handleClickRight2(event: Event): any;
+    protected _handleClickRight2(event: Event): void;
 
     /* -------------------------------------------- */
     /*  Drag and Drop                               */
     /* -------------------------------------------- */
 
-    /**
-     * Handle mouse movement during a drag workflow
-     */
-    protected _handleMouseMove(event: Event): any;
+    /** Handle mouse movement during a drag workflow */
+    protected _handleMouseMove(event: Event): void;
 
-    /**
-     * Handle the beginning of a new drag start workflow, moving all controlled objects on the layer
-     */
-    protected _handleDragStart(event: Event): any;
+    /** Handle the beginning of a new drag start workflow, moving all controlled objects on the layer */
+    protected _handleDragStart(event: Event): void;
 
-    /**
-     * Handle the continuation of a drag workflow, moving all controlled objects on the layer
-     */
-    protected _handleDragMove(event: Event): any;
+    /** Handle the continuation of a drag workflow, moving all controlled objects on the layer */
+    protected _handleDragMove(event: Event): void;
 
-    /**
-     * Handle mouse up events which may optionally conclude a drag workflow
-     */
+    /** Handle mouse up events which may optionally conclude a drag workflow */
     protected _handleMouseUp(event: Event): void;
 
     /**

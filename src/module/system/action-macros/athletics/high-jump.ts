@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function highJump(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "D",
@@ -17,10 +17,10 @@ export function highJump(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.HighJump", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.HighJump", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.HighJump", "failure"),
-            ActionMacros.note(selector, "PF2E.Actions.HighJump", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "criticalFailure"),
         ],
     });
 }

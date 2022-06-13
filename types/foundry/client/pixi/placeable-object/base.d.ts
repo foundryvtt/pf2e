@@ -139,21 +139,21 @@ declare global {
         abstract refresh(): this;
 
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
-        protected _onCreate(
-            data: this["document"]["data"]["_source"],
-            options: DocumentModificationContext,
+        _onCreate(
+            data: TDocument["data"]["_source"],
+            options: DocumentModificationContext<TDocument>,
             userId: string
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is updated with new data */
-        protected _onUpdate(
-            changed: DocumentUpdateData<this["document"]>,
-            options: DocumentModificationContext,
+        _onUpdate(
+            changed: DocumentUpdateData<TDocument>,
+            options: DocumentModificationContext<TDocument>,
             userId: string
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
 
         /* -------------------------------------------- */
         /*  Methods                                     */

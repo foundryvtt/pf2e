@@ -1,3 +1,4 @@
+// Live Hazard Sheet
 .pf2e.sheet.hazard {
     .container {
         position: relative;
@@ -27,7 +28,7 @@
         .editHazardButton {
             display: flex;
             align-items: center;
-            font-size: 10px;
+            font-size: var(--font-size-10);
             text-align: center;
         }
 
@@ -106,7 +107,7 @@
 
     .pf-heading {
         @include serif-condensed;
-        font-size: 24px;
+        font-size: var(--font-size-24);
         line-height: 24px;
         color: #fff;
         background: var(--primary-background);
@@ -155,7 +156,7 @@
     }
 
     .pf-large {
-        font-size: 26px;
+        font-size: var(--font-size-26);
         height: 32px;
     }
 
@@ -169,13 +170,13 @@
 
             .ac-value {
                 height: 16px;
-                font-size: 12px;
+                font-size: var(--font-size-12);
                 width: 46px;
             }
 
             .ac-item {
                 height: 13px;
-                font-size: 11px;
+                font-size: var(--font-size-11);
                 width: 46px;
             }
         }
@@ -191,7 +192,7 @@
             width: 64px;
             border: 1px solid;
             border-radius: 33px;
-            font-size: 42px;
+            font-size: var(--font-size-42);
             text-align: center;
         }
 
@@ -255,7 +256,7 @@
         background: var(--secondary-background);
         color: white;
         align-self: center;
-        font-size: 15px;
+        font-size: var(--font-size-15);
     }
 
     .npc-defense {
@@ -265,7 +266,7 @@
             background: var(--secondary-background);
             color: white;
             align-self: center;
-            font-size: 15px;
+            font-size: var(--font-size-15);
         }
     }
 
@@ -276,7 +277,7 @@
             background: var(--secondary-background);
             color: white;
             align-self: center;
-            font-size: 15px;
+            font-size: var(--font-size-15);
         }
     }
 
@@ -285,7 +286,7 @@
         width: 30px;
         height: 30px;
         margin: 3px;
-        font-size: 28px;
+        font-size: var(--font-size-28);
         text-align: center;
         background: #fff;
         border: 1px solid;
@@ -294,7 +295,7 @@
     .npc-defense .defense-score {
         @include serif-condensed;
         grid-area: auto;
-        font-size: 28px;
+        font-size: var(--font-size-28);
         text-align: center;
         background: var(--secondary-background);
         color: white;
@@ -304,7 +305,7 @@
             width: 30px;
             height: 30px;
             margin: 3px;
-            font-size: 28px;
+            font-size: var(--font-size-28);
             text-align: center;
             background: #fff;
             border: 1px solid;
@@ -313,14 +314,14 @@
 
     .defense-item {
         grid-area: auto;
-        font-size: 11px;
+        font-size: var(--font-size-11);
         height: 13px;
     }
 
     .defense .defense-item-value, .defense-item-value {
         grid-area: auto;
         height: 16px;
-        font-size: 12px;
+        font-size: var(--font-size-12);
     }
 
     .traits-list {
@@ -338,7 +339,7 @@
 
     .melee-buttons {
         button {
-            font-size: 10px;
+            font-size: var(--font-size-10);
             line-height: 12px;
             margin: 0;
             border: 1px groove darkgray;
@@ -353,7 +354,7 @@
 
     .defense-list input.stat-detail {
         display: flex;
-        font-size: 13px;
+        font-size: var(--font-size-13);
         height: 18px;
         background: rgba(183, 91, 91, 0.2);
         color: black;
@@ -461,7 +462,7 @@
             justify-content: end;
             flex-direction: column;
             margin-left: 4em;
-            font-size: 10px;
+            font-size: var(--font-size-10);
             font-weight: normal;
         }
     }
@@ -547,7 +548,7 @@
         display: block;
 
         &.recall-knowledge button {
-            font-size: 10px;
+            font-size: var(--font-size-10);
             line-height: 12px;
             margin: 0;
             border: 1px groove darkgray;
@@ -674,7 +675,7 @@
         justify-content: flex-end;
 
         a {
-            font-size: 10px;
+            font-size: var(--font-size-10);
             color: #666;
             margin-right: 4px;
         }
@@ -698,6 +699,7 @@
     }
 }
 
+// Dev Hazard Sheet
 .sheet.hazard:not(.pf2e) {
     ul, ol {
         @include p-reset;
@@ -770,10 +772,21 @@
             font-size: 0.8rem;
             padding: 4px 8px;
 
-            h4 {
+            h3, input {
+                font-size: var(--font-size-15);
+                font-weight: 600;
+            }
+
+            h3 {
                 flex: auto;
-                margin-bottom: 0px;
-                text-transform: uppercase;
+                display: flex;
+                align-items: baseline;
+                gap: 4px;
+            }
+
+            input {
+                color: inherit;
+                width: auto;
             }
 
             .controls {
@@ -819,9 +832,15 @@
         }
     }
 
-    .editing {
-        .editor, .hazard-editor, .tox {
-            min-height: 100px;
-        }
+    // When the editor is open, fill more space so the user has something to work with
+    .tox.tox-tinymce {
+        // !important to work around tox's limitations and a foundry issue where initial height is overwritten
+        height: 200px!important;
+    }
+
+    // Hide editor button for those controlled by section controls
+    // In the current version of foundry, not rendering the button in handlebars auto opens the prompt instead.
+    .hazard-editor .editor .editor-edit {
+        display: none;
     }
 }

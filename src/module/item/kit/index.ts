@@ -1,5 +1,7 @@
 import { ActorPF2e } from "@actor/index";
 import { ContainerPF2e, ItemPF2e, PhysicalItemPF2e } from "@item/index";
+import { Price } from "@item/physical/data";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { DENOMINATIONS } from "@item/physical/values";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e, isObject } from "@util";
@@ -11,8 +13,11 @@ class KitPF2e extends ItemPF2e {
         return Object.values(this.data.data.items);
     }
 
-    get price() {
-        return this.data.data.price;
+    get price(): Price {
+        return {
+            value: new CoinsPF2e(this.data.data.price.value),
+            per: this.data.data.price.per ?? 1,
+        };
     }
 
     /** Expand a tree of kit entry data into a list of physical items */

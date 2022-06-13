@@ -7,10 +7,10 @@ import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, Dam
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "./predication";
-import { StrikeData, StrikeTrait } from "@actor/data/base";
+import { StrikeData, TraitViewData } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget } from "@actor/creature/types";
@@ -50,8 +50,8 @@ export interface RollParameters {
 export interface StrikeRollParams extends RollParameters {
     /** Retrieve the formula of the strike roll without following through to the end */
     getFormula?: true;
-    /** The strike is to use the melee usage of a combination weapon */
-    meleeUsage?: boolean;
+    /** The strike is involve throwing a thrown melee weapon or to use the melee usage of a combination weapon */
+    altUsage?: "thrown" | "melee" | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
 }
@@ -81,7 +81,7 @@ export interface BaseRollContext {
     /** If this is an attack, the target of that attack */
     target?: AttackTarget | null;
     /** Any traits for the check. */
-    traits?: StrikeTrait[];
+    traits?: TraitViewData[];
     /** The outcome a roll (usually relevant only to rerolls) */
     outcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
     /** The outcome prior to being changed by abilities raising or lowering degree of success */
@@ -112,6 +112,8 @@ export interface CheckRollContext extends BaseRollContext {
     isReroll?: boolean;
     /** D20 results substituted for an actual roll */
     substitutions?: RollSubstitution[];
+    /** Is the weapon used in this attack roll an alternative usage? */
+    altUsage?: "thrown" | "melee" | null;
 }
 
 interface CheckTargetFlag {
@@ -119,13 +121,13 @@ interface CheckTargetFlag {
     token?: TokenDocumentUUID;
 }
 
-type ContextFlagOmissions = "actor" | "token" | "item" | "target" | "createMessage";
-export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmissions>> {
+type ContextFlagOmission = "actor" | "token" | "item" | "target" | "altUsage" | "createMessage";
+export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
     target: CheckTargetFlag | null;
-    altUsage?: "melee" | "thrown";
+    altUsage?: "thrown" | "melee" | null;
 }
 
 interface RerollOptions {
@@ -214,17 +216,6 @@ export class CheckPF2e {
             }
         })();
 
-        const modifierBreakdown = check.modifiers
-            .filter((m) => m.enabled)
-            .map((m) => `<span class="tag tag_alt">${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`)
-            .join("");
-
-        const optionBreakdown = extraTags
-            .map((o) => `<span class="tag tag_secondary">${game.i18n.localize(o)}</span>`)
-            .join("");
-
-        const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
@@ -248,6 +239,7 @@ export class CheckPF2e {
             return data;
         })();
 
+        const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
         const roll = await new RollCls(`${dice}${totalModifierPart}`, rollData).evaluate({ async: true });
 
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
@@ -279,42 +271,30 @@ export class CheckPF2e {
 
         const item = context.item ?? null;
 
-        const degreeFlavor = await this.createFlavorMarkup({ degree, target: context.target ?? null });
-        let flavor = `<h4 class="action">${check.name}</h4>${degreeFlavor}`;
+        const flavor = await (async (): Promise<string> => {
+            const result = await this.createResultFlavor({ degree, target: context.target ?? null });
+            const tags = this.createTagFlavor({ check, context, extraTags });
 
-        if (context.traits) {
-            const traits = context.traits
-                .map((trait) => {
-                    trait.label = game.i18n.localize(trait.label);
-                    return trait;
-                })
-                .sort((a, b) => a.label.localeCompare(b.label))
-                .map((trait) => {
-                    const $trait = $("<span>").addClass("tag").attr({ "data-trait": trait.name }).text(trait.label);
-                    if (trait.description) $trait.attr({ "data-description": trait.description });
-                    return $trait.prop("outerHTML");
-                })
+            const incapacitationNote = (): HTMLElement => {
+                const note = document.createElement("p");
+                note.classList.add("compact-text");
+                const title = document.createElement("strong");
+                title.innerText = `${game.i18n.localize("PF2E.TraitIncapacitation")}:`;
+                note.append(title, game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort"));
+                return note;
+            };
+            const incapacitation =
+                item?.isOfType("spell") && item.traits.has("incapacitation") ? incapacitationNote() : "";
+
+            const header = document.createElement("h4");
+            header.classList.add("action");
+            header.innerHTML = check.name;
+
+            return [header, result ?? [], tags, notes, incapacitation]
+                .flat()
+                .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
-
-            const otherTags = ((): string[] => {
-                if (item instanceof WeaponPF2e && item.isRanged) {
-                    // Show the range increment for ranged weapons
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", {
-                        range: item.rangeIncrement ?? 10,
-                    });
-                    return [`<span class="tag tag_secondary">${label}</span>`];
-                } else {
-                    return [];
-                }
-            })().join("");
-            flavor += `<div class="tags">\n${traits}\n${otherTags}</div><hr />`;
-        }
-        flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
-
-        if (context.options?.includes("incapacitation")) {
-            flavor += `<p class="compact-text"><strong>${game.i18n.localize("PF2E.TraitIncapacitation")}:</strong> `;
-            flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort")}</p>`;
-        }
+        })();
 
         const secret = context.secret ?? context.options?.includes("secret") ?? false;
 
@@ -340,9 +320,6 @@ export class CheckPF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
         delete contextFlag.item;
-        if (item?.data.flags.pf2e.comboMeleeUsage) {
-            contextFlag.altUsage = "melee";
-        }
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
@@ -381,6 +358,88 @@ export class CheckPF2e {
         }
 
         return roll;
+    }
+
+    private static createTagFlavor({ check, context, extraTags }: CreateTagFlavorParams): HTMLElement[] {
+        interface TagObject {
+            label: string;
+            name?: string;
+            description?: string;
+        }
+
+        const toTagElement = (tag: TagObject, cssClass: string | null = null): HTMLElement => {
+            const span = document.createElement("span");
+            span.classList.add("tag");
+            if (cssClass) span.classList.add(`tag_${cssClass}`);
+
+            span.innerText = tag.label;
+
+            if (tag.name) span.dataset.slug = tag.name;
+            if (tag.description) span.dataset.description = tag.description;
+
+            return span;
+        };
+
+        const traits =
+            context.traits
+                ?.map((trait) => {
+                    trait.label = game.i18n.localize(trait.label);
+                    return trait;
+                })
+                .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
+                .map((t) => toTagElement(t)) ?? [];
+
+        const { item } = context;
+        const itemTraits = item?.isOfType("weapon", "melee")
+            ? Array.from(item.traits)
+                  .map((t): TraitViewData => {
+                      const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
+                      obj.label = game.i18n.localize(obj.label);
+                      return obj;
+                  })
+                  .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
+                  .map((t): HTMLElement => toTagElement(t, "alt"))
+            : [];
+
+        const properties = ((): HTMLElement[] => {
+            if (item?.isOfType("weapon") && item.isRanged) {
+                // Show the range increment for ranged weapons
+                const range = item.rangeIncrement ?? 10;
+                const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range });
+                return [
+                    toTagElement(
+                        { name: range.toString(), label, description: "PF2E.Item.Weapon.RangeIncrementN.Hint" },
+                        "secondary"
+                    ),
+                ];
+            } else {
+                return [];
+            }
+        })();
+
+        const traitsAndProperties = document.createElement("div");
+        traitsAndProperties.className = "tags";
+        if (itemTraits.length === 0 && properties.length === 0) {
+            traitsAndProperties.append(...traits);
+        } else {
+            const verticalBar = document.createElement("hr");
+            verticalBar.className = "vr";
+            traitsAndProperties.append(...[traits, verticalBar, itemTraits, properties].flat());
+        }
+
+        const modifiers = check.modifiers
+            .filter((m) => m.enabled)
+            .map((modifier) => {
+                const sign = modifier.modifier < 0 ? "" : "+";
+                const label = `${modifier.label} ${sign}${modifier.modifier}`;
+                return toTagElement({ name: modifier.slug, label }, "transparent");
+            });
+        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: t }, "transparent"));
+        const modifiersAndExtras = document.createElement("div");
+        modifiersAndExtras.className = "tags";
+        modifiersAndExtras.append(...modifiers, ...tagsFromOptions);
+
+        return [traitsAndProperties, document.createElement("hr"), modifiersAndExtras];
     }
 
     /** Reroll a rolled check given a chat message. */
@@ -454,8 +513,8 @@ export class CheckPF2e {
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
                   const target = message.data.flags.pf2e.context?.target ?? null;
-                  const flavor = await this.createFlavorMarkup({ degree, target });
-                  $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
+                  const flavor = await this.createResultFlavor({ degree, target });
+                  if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
               })()
             : oldFlavor;
@@ -506,8 +565,8 @@ export class CheckPF2e {
         return element.innerHTML;
     }
 
-    private static async createFlavorMarkup({ degree, target }: CreateFlavorMarkupParams): Promise<string> {
-        if (!degree) return "";
+    private static async createResultFlavor({ degree, target }: CreateResultFlavorParams): Promise<HTMLElement | null> {
+        if (!degree) return null;
 
         const { dc } = degree;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
@@ -552,7 +611,7 @@ export class CheckPF2e {
         const translations = LocalizePF2e.translations.PF2E.Check;
 
         // DC, circumstance adjustments, and the target's name
-        const dcData = ((): FlavorTemplateData["dc"] => {
+        const dcData = ((): ResultFlavorTemplateData["dc"] => {
             const dcType = game.i18n.localize(
                 objectHasKey(translations.DC.Specific, dc.slug)
                     ? translations.DC.Specific[dc.slug]
@@ -608,7 +667,7 @@ export class CheckPF2e {
         })();
 
         // The result: degree of success (with adjustment if applicable) and visibility setting
-        const resultData = ((): FlavorTemplateData["result"] => {
+        const resultData = ((): ResultFlavorTemplateData["result"] => {
             const offset = {
                 value: new Intl.NumberFormat(game.i18n.lang, {
                     maximumFractionDigits: 0,
@@ -645,60 +704,57 @@ export class CheckPF2e {
         })();
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
-        const markup = await (async (): Promise<string> => {
-            const rendered = await renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.html", {
-                target: targetData,
-                dc: dcData,
-                result: resultData,
+        const rendered = await renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.html", {
+            target: targetData,
+            dc: dcData,
+            result: resultData,
+        });
+
+        const html = parseHTML(rendered);
+        const { convertXMLNode } = TextEditorPF2e;
+
+        if (targetData) {
+            convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });
+        }
+        convertXMLNode(html, "dc", { visibility: dcData.visibility, whose: "target" });
+        if (dcData.adjustment) {
+            const { adjustment } = dcData;
+            convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
+
+            // Add circumstance bonuses/penalties for tooltip content
+            const adjustedNode = convertXMLNode(html, "adjusted", {
+                classes: ["adjusted-dc", adjustment.direction],
             });
-            const html = parseHTML(rendered);
+            if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
+            adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
+        }
+        convertXMLNode(html, "degree", {
+            visibility: resultData.visibility,
+            classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
+        });
+        convertXMLNode(html, "offset", { visibility: dcData.visibility, whose: "target" });
 
-            const { convertXMLNode } = TextEditorPF2e;
-            if (targetData) {
-                convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });
+        if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
+            // If target and DC are both hidden from view, hide both
+            const targetDC = html.querySelector<HTMLElement>(".target-dc");
+            if (targetDC) targetDC.dataset.visibility = dcData.visibility;
+
+            // If result is also hidden, hide everything
+            if (resultData.visibility === dcData.visibility) {
+                html.dataset.visibility = dcData.visibility;
             }
-            convertXMLNode(html, "dc", { visibility: dcData.visibility, whose: "target" });
-            if (dcData.adjustment) {
-                const { adjustment } = dcData;
-                convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
+        }
 
-                // Add circumstance bonuses/penalties for tooltip content
-                const adjustedNode = convertXMLNode(html, "adjusted", {
-                    classes: ["adjusted-dc", adjustment.direction],
-                });
-                if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
-                adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
-            }
-            convertXMLNode(html, "degree", {
-                visibility: resultData.visibility,
-                classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
-            });
-            convertXMLNode(html, "offset", { visibility: dcData.visibility, whose: "target" });
-
-            if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
-                // If target and DC are both hidden from view, hide both
-                const targetDC = html.querySelector<HTMLElement>(".target-dc");
-                if (targetDC) targetDC.dataset.visibility = dcData.visibility;
-
-                // If result is also hidden, hide everything
-                if (resultData.visibility === dcData.visibility) {
-                    html.dataset.visibility = dcData.visibility;
-                }
-            }
-
-            return html.outerHTML;
-        })();
-
-        return markup;
+        return html;
     }
 }
 
-interface CreateFlavorMarkupParams {
+interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
     target?: AttackTarget | CheckTargetFlag | null;
 }
 
-interface FlavorTemplateData {
+interface ResultFlavorTemplateData {
     dc: {
         markup: string;
         visibility: UserVisibility;
@@ -714,9 +770,12 @@ interface FlavorTemplateData {
     };
 }
 
-/**
- * @category PF2
- */
+interface CreateTagFlavorParams {
+    check: CheckModifier;
+    context: CheckRollContext;
+    extraTags: string[];
+}
+
 export class DamageRollPF2e {
     static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function) {
         // Change the base damage type in case it was overridden

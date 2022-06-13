@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-22: Doom of Cassomir"
             }
         },
         "resources": {},
@@ -92,7 +92,9 @@
                 ]
             },
             "rarity": "common",
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
@@ -108,21 +110,31 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "xfPN9SEWowytSRxe",
+            "_id": "VbNPr9Nnf4Ip7FuL",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 1
+                },
+                "baseItem": "leather-armor",
+                "category": "light",
+                "check": {
+                    "value": -1
+                },
                 "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": 4
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "1"
                 },
+                "group": "leather",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -135,6 +147,10 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -142,35 +158,63 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "gp": 2
+                    }
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
+                "propertyRune1": {
                     "value": ""
                 },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "leather-armor",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": 0
+                },
                 "stackGroup": null,
+                "strength": {
+                    "value": 10
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "empty bottle (3)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "name": "Leather Armor",
             "sort": 100000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "Lf4jq9WOt9jjtAvx",
+            "_id": "ukU2dW9O6eAhB6yd",
             "data": {
                 "baseItem": null,
                 "containerId": null,
@@ -206,14 +250,14 @@
                 "price": {
                     "value": {}
                 },
-                "quantity": 1,
+                "quantity": 3,
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "vial",
                 "source": {
                     "value": ""
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -223,26 +267,59 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.wvOYIeJjU3UDVgMG"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/vial.webp",
+            "name": "Empty Bottle",
             "sort": 200000,
             "type": "equipment"
         },
         {
-            "_id": "mq4brWt1V6EVqxiK",
+            "_id": "MhmaYubwS1oApenK",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "drug"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
                 "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>Alcohol is a common substance available in stunning variety. The Price of a dose of alcohol depends on the specific beverage. You can't recover from the sickened condition from alcohol while affected.</p>\n<p>If you fail a saving throw against alcohol other than initial saves, the affliction's stage doesn't increase; the only way to increase the stage of alcohol's affliction is to consume more alcohol.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:12]</p>\n<p><strong>Onset</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> +1 item bonus to saving throws against fear (10 minutes)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed}, +1 item bonus to saving throws against fear effects (10 minutes)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, flat-footed, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (10 minutes)</p>\n<p><strong>Stage 4</strong> clumsy 2 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (10 minutes)</p>\n<p><strong>Stage 5</strong> clumsy 2, sickened 2, and stupefied 2 (10 minutes)</p>\n<p><strong>Stage 6</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (8 hours)</p>\n<p><strong>Stage 7</strong> death</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -266,32 +343,66 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 1,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "alcohol",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Gamemastery Guide"
                 },
-                "stackGroup": null,
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": "",
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "drug",
+                        "ingested",
+                        "poison"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "whiskey (1 bottle)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UMAXLDpI6YLSfYX1"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/drugs/alcohol.webp",
+            "name": "Whiskey",
             "sort": 300000,
-            "type": "equipment"
+            "type": "consumable"
         },
         {
             "_id": "Iqrkm5pIDKJcHkZn",
@@ -355,7 +466,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, thrown 20 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -367,6 +478,7 @@
                     "rarity": "common",
                     "value": [
                         "agile",
+                        "range",
                         "thrown-20"
                     ]
                 },
@@ -434,12 +546,36 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dockhand Interacts to either draw a bottle of alcohol or pick up a nearby unattended bottle of alcohol and drink the whole thing. For 1 minute, the dockhand gains a[[/r +2 # item bonus to melee damage]] item bonus to melee damage rolls and saving throws against fear, but they become clumsy 1</p>"
+                    "value": "<p>The dockhand Interacts to either draw a bottle of alcohol or pick up a nearby unattended bottle of alcohol and drink the whole thing. For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "Taken a swig of alcohol in past minute",
+                        "option": "swig",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "Taken a swig of alcohol in past minute",
+                        "predicate": {
+                            "all": [
+                                "swig"
+                            ],
+                            "not": [
+                                "range"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -520,6 +656,34 @@
             "type": "lore"
         },
         {
+            "_id": "VV23M5FDg16qYKvc",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Groetus Lore",
+            "sort": 1000000,
+            "type": "lore"
+        },
+        {
             "_id": "rHXw7f7fDMmwCKnG",
             "data": {
                 "description": {
@@ -544,34 +708,6 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "Q96MzmmP6tZxKFqT",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
             "sort": 1100000,
             "type": "lore"
         }

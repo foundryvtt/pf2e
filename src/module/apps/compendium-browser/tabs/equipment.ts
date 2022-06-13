@@ -1,4 +1,4 @@
-import { coinsToString, coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
@@ -60,8 +60,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
                     const priceValue = itemData.data.price.value;
-                    const priceCoins = typeof priceValue === "string" ? coinStringToCoins(priceValue) : priceValue;
-                    const coinValue = coinValueInCopper(priceCoins);
+                    const priceCoins =
+                        typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
+                    const coinValue = priceCoins.copperValue;
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
@@ -84,8 +85,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         level: itemData.data.level?.value ?? 0,
                         category: itemData.data.category ?? "",
                         group: itemData.data.group ?? "",
-                        consumableType: itemData.data.consumableType?.value ?? "",
-                        price: coinsToString(priceCoins, { reduce: false }),
+                        price: priceCoins,
                         priceInCopper: coinValue,
                         traits: itemData.data.traits.value,
                         rarity: itemData.data.traits.rarity,
@@ -109,7 +109,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             this.filterData.checkboxes.weaponTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups)
         );
-        this.filterData.checkboxes.weaponTraits.options = this.generateCheckboxOptions(CONFIG.PF2E.weaponTraits);
+
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions({
+            ...CONFIG.PF2E.armorTraits,
+            ...CONFIG.PF2E.consumableTraits,
+            ...CONFIG.PF2E.equipmentTraits,
+            ...CONFIG.PF2E.weaponTraits,
+        });
+
         this.filterData.checkboxes.itemtypes.options = this.generateCheckboxOptions({
             weapon: "ITEM.TypeWeapon",
             armor: "ITEM.TypeArmor",
@@ -120,14 +127,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             kit: "ITEM.TypeKit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.consumableType.options = this.generateCheckboxOptions(CONFIG.PF2E.consumableTypes);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }
 
     protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, ranges, search, sliders } = this.filterData;
+        const { checkboxes, multiselects, ranges, search, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
@@ -140,33 +146,40 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 return false;
         }
         // Item type
-        if (checkboxes.itemtypes.selected.length) {
-            if (!checkboxes.itemtypes.selected.includes(entry.type)) return false;
-        }
-        // Consumbale type
-        if (checkboxes.consumableType.selected.length) {
-            if (!checkboxes.consumableType.selected.includes(entry.consumableType)) return false;
+        if (checkboxes.itemtypes.selected.length > 0 && !checkboxes.itemtypes.selected.includes(entry.type)) {
+            return false;
         }
         // Armor
-        if (checkboxes.armorTypes.selected.length) {
-            if (!this.arrayIncludes(checkboxes.armorTypes.selected, [entry.category, entry.group])) return false;
+        if (
+            checkboxes.armorTypes.selected.length > 0 &&
+            !this.arrayIncludes(checkboxes.armorTypes.selected, [entry.category, entry.group])
+        ) {
+            return false;
         }
         // Weapons
-        if (checkboxes.weaponTypes.selected.length) {
-            if (!this.arrayIncludes(checkboxes.weaponTypes.selected, [entry.category, entry.group])) return false;
+        if (
+            checkboxes.weaponTypes.selected.length > 0 &&
+            !this.arrayIncludes(checkboxes.weaponTypes.selected, [entry.category, entry.group])
+        ) {
+            return false;
         }
         // Traits
-        if (checkboxes.weaponTraits.selected.length) {
-            if (!(entry.type === "weapon" && this.arrayIncludes(checkboxes.weaponTraits.selected, entry.traits)))
-                return false;
+        if (
+            multiselects.traits.selected.length > 0 &&
+            !this.arrayIncludes(
+                multiselects.traits.selected.map((s) => s.value),
+                entry.traits
+            )
+        ) {
+            return false;
         }
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (checkboxes.source.selected.length > 0 && !checkboxes.source.selected.includes(entry.source)) {
+            return false;
         }
         // Rarity
-        if (checkboxes.rarity.selected.length) {
-            if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
+        if (checkboxes.rarity.selected.length > 0 && !checkboxes.rarity.selected.includes(entry.rarity)) {
+            return false;
         }
         return true;
     }
@@ -178,11 +191,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 lower = lower.replaceAll(translated, english);
                 upper = upper.replaceAll(translated, english);
             }
-            const min = coinValueInCopper(coinStringToCoins(lower));
-            const max = coinValueInCopper(coinStringToCoins(upper));
             return {
-                min,
-                max,
+                min: CoinsPF2e.fromString(lower).copperValue,
+                max: CoinsPF2e.fromString(upper).copperValue,
                 inputMin: lower,
                 inputMax: upper,
             };
@@ -207,12 +218,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                consumableType: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterConsumable",
-                    options: {},
-                    selected: [],
-                },
                 armorTypes: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterArmorFilters",
@@ -225,16 +230,17 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                weaponTraits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterWeaponTraits",
-                    options: {},
-                    selected: [],
-                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
                     options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
                     selected: [],
                 },
             },

@@ -2,7 +2,7 @@
     <form>
         <div class="form-group">
             <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
-            <select name="spellcasting-type" {{#if entry}}disabled{{/if}}>
+            <select name="spellcasting-type" {{disabled entry}}>
             {{#select data.spellcastingType}}
             {{#each spellcastingTypes as |label mode|}}
                 <option value="{{mode}}">{{localize label}}</option>

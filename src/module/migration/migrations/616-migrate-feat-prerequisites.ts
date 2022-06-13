@@ -1,13 +1,14 @@
 import { ItemSourcePF2e } from "@item/data";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 export class Migration616MigrateFeatPrerequisites extends MigrationBase {
     static override version = 0.616;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
-        if (itemData.type === "feat") {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type === "feat") {
             const update: { value: string }[] = [];
-            const prerequisites: any = itemData.data.prerequisites;
+            const prerequisites: AnyOldPrereqValue = source.data.prerequisites;
             if (prerequisites.value) {
                 if (typeof prerequisites.value === "string") {
                     update.push({ value: prerequisites.value });
@@ -15,7 +16,7 @@ export class Migration616MigrateFeatPrerequisites extends MigrationBase {
                     for (const p of prerequisites.value) {
                         if (p) {
                             update.push({
-                                value: p?.value ? p.value : p,
+                                value: isObject(p) && typeof p.value === "string" ? p.value : String(p),
                             });
                         }
                     }
@@ -29,7 +30,9 @@ export class Migration616MigrateFeatPrerequisites extends MigrationBase {
                     }
                 }
             }
-            itemData.data.prerequisites = { value: update };
+            source.data.prerequisites = { value: update };
         }
     }
 }
+
+type AnyOldPrereqValue = Record<string | number, string | { value?: unknown } | string[] | { value?: unknown }[]>;

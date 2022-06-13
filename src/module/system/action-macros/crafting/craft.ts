@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 interface CraftActionOptions extends SkillActionOptions {
     difficultyClass?: CheckDC;
@@ -84,7 +84,7 @@ class SelectItemDialog extends Application {
 }
 
 export async function craft(options: CraftActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "crafting");
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
     const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
@@ -110,7 +110,7 @@ export async function craft(options: CraftActionOptions) {
         visibility: "all",
     };
 
-    ActionMacros.simpleRollActionCheck({
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -124,10 +124,10 @@ export async function craft(options: CraftActionOptions) {
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.Craft", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.Craft", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.Craft", "failure"),
-            ActionMacros.note(selector, "PF2E.Actions.Craft", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "criticalFailure"),
         ],
         createMessage: false,
         callback: async (result) => {

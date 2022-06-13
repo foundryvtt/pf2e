@@ -1,3 +1,10 @@
+import { ActionTrait } from "@item/action/data";
+import { ArmorTrait } from "@item/armor/data";
+import { ConsumableTrait } from "@item/consumable/data";
+import { EquipmentTrait } from "@item/equipment/data";
+import type { PhysicalItemPF2e } from "@item/physical";
+import { WeaponTrait } from "@item/weapon/types";
+import { Size, ValuesList } from "@module/data";
 import {
     ActionCost,
     BaseItemDataPF2e,
@@ -7,16 +14,10 @@ import {
     ItemSystemSource,
     ItemTraits,
 } from "../data/base";
-import type { PhysicalItemPF2e } from "@item/physical";
-import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES } from "../data/values";
-import { EquipmentTrait } from "@item/equipment/data";
-import { ArmorTrait } from "@item/armor/data";
-import { WeaponTrait } from "@item/weapon/data";
-import { ConsumableTrait } from "@item/consumable/data";
-import { Size, ValuesList } from "@module/data";
-import { ActionTrait } from "@item/action/data";
+import type { ITEM_CARRY_TYPES } from "../data/values";
+import { CoinsPF2e } from "./helpers";
+import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { UsageDetails } from "./usage";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
@@ -32,8 +33,6 @@ type BasePhysicalItemData<
     TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
 > = Omit<BasePhysicalItemSource, "data" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
 
-type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
-
 interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     traits: PhysicalItemTraits;
     quantity: number;
@@ -41,11 +40,12 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     hp: PhysicalItemHitPoints;
     hardness: number;
     weight: {
-        value: number;
-    };
-    equippedBulk: {
         value: string;
     };
+    equippedBulk: {
+        value: string | null;
+    };
+    /** This is unused, remove when inventory bulk refactor is complete */
     unequippedBulk: {
         value: string;
     };
@@ -73,6 +73,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
 
 interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
     price: Price;
+    bulk: BulkData;
     traits: PhysicalItemTraits;
     temporary: boolean;
     usage: UsageDetails;
@@ -83,6 +84,18 @@ type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData
         invested: boolean | null;
     };
 };
+
+/** The item's bulk in Light bulk units, given the item is of medium size */
+interface BulkData {
+    /** Held or stowed bulk */
+    heldOrStowed: number;
+    /** Worn bulk, if different than when held or stowed */
+    worn: number | null;
+    /** The applicable bulk value between the above two */
+    value: number;
+    /** The quantity of this item necessary to amount to the above bulk quantities: anything less is negligible */
+    per: number;
+}
 
 interface ActivatedEffectData {
     activation: {
@@ -170,19 +183,19 @@ interface PhysicalItemHitPoints {
 }
 
 interface Coins {
-    pp: number;
-    gp: number;
-    sp: number;
-    cp: number;
+    pp?: number;
+    gp?: number;
+    sp?: number;
+    cp?: number;
 }
 
 interface PartialPrice {
-    value: Partial<Coins>;
+    value: Coins;
     per?: number;
 }
 
 interface Price extends PartialPrice {
-    value: Coins;
+    value: CoinsPF2e;
     per: number;
 }
 
@@ -203,7 +216,6 @@ export {
     PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalItemTraits,
-    PhysicalItemType,
     PhysicalSystemData,
     PhysicalSystemSource,
     Price,

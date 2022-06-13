@@ -1,30 +1,33 @@
-import { PhysicalItemPF2e } from "../physical";
-import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
-import { LocalizePF2e } from "@module/system/localize";
-import {
-    BaseWeaponType,
-    CROSSBOW_WEAPONS,
-    RANGED_WEAPON_GROUPS,
-    WeaponCategory,
-    WeaponData,
-    WeaponGroup,
-    WeaponMaterialData,
-    WeaponPropertyRuneType,
-    WeaponRangeIncrement,
-    WeaponSource,
-    WeaponTrait,
-} from "./data";
-import { coinValueInCopper, noCoins } from "@item/treasure/helpers";
-import { ErrorPF2e, tupleHasValue } from "@util";
-import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { ActorSizePF2e } from "@actor/data/size";
+import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
+import { MeleeSource } from "@item/data";
+import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
-import { MeleePF2e } from "@item/melee";
-import { MeleeSource } from "@item/data";
-import { MeleeDamageRoll } from "@item/melee/data";
-import { NPCPF2e } from "@actor";
-import { ConsumablePF2e } from "@item";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { CoinsPF2e } from "@item/physical/helpers";
+import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
+import { LocalizePF2e } from "@module/system/localize";
+import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import {
+    getStrikingDice,
+    RuneValuationData,
+    WeaponPropertyRuneData,
+    WEAPON_PROPERTY_RUNES,
+    WEAPON_VALUATION_DATA,
+} from "../runes";
+import { WeaponData, WeaponMaterialData, WeaponSource } from "./data";
+import {
+    BaseWeaponType,
+    WeaponCategory,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponRangeIncrement,
+    WeaponReloadTime,
+    WeaponTrait,
+} from "./types";
+import { CROSSBOW_WEAPONS, RANGED_WEAPON_GROUPS, THROWN_RANGES } from "./values";
 
 class WeaponPF2e extends PhysicalItemPF2e {
     override get isEquipped(): boolean {
@@ -76,8 +79,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.range;
     }
 
-    get reload(): string | null {
-        return this.data.data.reload.value;
+    get reload(): WeaponReloadTime | null {
+        return this.data.data.reload.value || null;
     }
 
     get isSpecific(): boolean {
@@ -90,6 +93,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     get isRanged(): boolean {
         return this.rangeIncrement !== null;
+    }
+
+    get isThrown(): boolean {
+        return this.isRanged && this.reload === "-";
     }
 
     override get material(): WeaponMaterialData {
@@ -135,6 +142,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
+                thrown: this.isThrown,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
@@ -171,30 +179,32 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         AutomaticBonusProgression.cleanupRunes(this);
 
-        // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
-        const traitsArray = this.data.data.traits.value;
-        if (traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
-            this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
+        const traitsArray = systemData.traits.value;
+        // Thrown weapons always have a reload of "-"
+        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+            this.data.data.reload.value = "-";
         }
 
-        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
+        // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;
-        const mandatoryRanged = rangedWeaponGroups.has(this.group ?? "") || traitSet.has("thrown");
+        const mandatoryRanged = setHasElement(RANGED_WEAPON_GROUPS, systemData.group) || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
 
             if (traitSet.has("combination")) this.data.data.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
-            const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
-            if (this.group === "bow" && crossbowWeapons.has(this.baseType ?? "")) {
-                this.data.data.traits.otherTags.push("crossbow");
+            if (this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType)) {
+                systemData.traits.otherTags.push("crossbow");
             }
         }
 
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
         const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
         if (mandatoryMelee) this.data.data.range = null;
+
+        // Set whether the ammunition or weapon itself should be consumed
+        systemData.reload.consume = this.isMelee ? null : this.reload !== null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.data.flags.pf2e.comboMeleeUsage ??= false;
@@ -251,10 +261,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this.data).bulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-        const modifiedPrice = mergeObject(noCoins(), { gp: runeValue + materialValue });
+        const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
 
         const basePrice = this.price.value;
-        const modifiedIsHigher = coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice);
+        const modifiedIsHigher = modifiedPrice.copperValue > basePrice.copperValue;
         const highestPrice = modifiedIsHigher ? modifiedPrice : basePrice;
         systemData.price.value = highestPrice;
 
@@ -282,13 +292,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     getRunesData(): RuneValuationData[] {
         const systemData = this.data.data;
+        const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
             WEAPON_VALUATION_DATA.striking[systemData.strikingRune.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune1.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune2.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune3.value ?? ""],
-            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune4.value ?? ""],
+            propertyRuneData[systemData.propertyRune1.value ?? ""],
+            propertyRuneData[systemData.propertyRune2.value ?? ""],
+            propertyRuneData[systemData.propertyRune3.value ?? ""],
+            propertyRuneData[systemData.propertyRune4.value ?? ""],
         ].filter((datum): datum is RuneValuationData => !!datum);
     }
 
@@ -382,10 +393,44 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    /**
+     * Get the "alternative usages" of a weapon: melee (in the case of combination weapons) and thrown (in the case
+     * of thrown melee weapons)
+     * @param [options.recurse=true] Whether to get the alternative usages of alternative usages
+     */
+    getAltUsages(options?: { recurse?: boolean }): this[];
+    getAltUsages({ recurse = true } = {}): WeaponPF2e[] {
+        const meleeUsage = this.toMeleeUsage();
+
+        return [
+            this.toThrownUsage() ?? [],
+            meleeUsage ?? [],
+            // Some combination weapons have a melee usage that is throwable
+            recurse ? meleeUsage?.toThrownUsage() ?? [] : [],
+        ].flat();
+    }
+
+    /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
+    private toThrownUsage(): this | null {
+        const traits = this.data.data.traits.value;
+        const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
+        if (this.isRanged || !thrownTrait) return null;
+
+        const range = Number(/(\d{1,3})$/.exec(thrownTrait)!.at(1)) as WeaponRangeIncrement;
+        const newTraits = deepClone(traits);
+        newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
+        const overlay: DeepPartial<WeaponSource> = {
+            data: {
+                range,
+                traits: { value: newTraits },
+            },
+        };
+
+        return this.clone(overlay, { keepId: true });
+    }
+
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
-    toMeleeUsage(this: Embedded<WeaponPF2e>): Embedded<WeaponPF2e> | null;
-    toMeleeUsage(this: WeaponPF2e): WeaponPF2e | null;
-    toMeleeUsage(): Embedded<WeaponPF2e> | WeaponPF2e | null {
+    private toMeleeUsage(): this | null {
         const { meleeUsage } = this.data.data;
         if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
 
@@ -409,41 +454,117 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttack(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
-        if (!(this.actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
+    toNPCAttacks(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e>[] {
+        const { actor } = this;
+        if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
-        const damageRoll = ((): MeleeDamageRoll => {
+        const baseDamage = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
             const ability = this.rangeIncrement ? "dex" : "str";
-            const modifier = this.actor.data.data.abilities[ability].mod;
-            const actorLevel = this.actor.level;
+            const actorLevel = actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
                 Math.abs(dice - Math.round(actorLevel / 4)) < Math.abs(closest - Math.round(actorLevel / 4))
                     ? dice
                     : closest
             );
-            const constant = modifier > 0 ? ` + ${modifier}` : modifier < 0 ? ` - ${-1 * modifier}` : "";
+
+            // Approximate weapon specialization
+            const constant = ((): string => {
+                const fromAbility = actor.abilities[ability].mod;
+                const totalModifier = fromAbility + (actor.level > 1 ? dice : 0);
+                const sign = totalModifier < 0 ? " - " : " + ";
+                return totalModifier === 0 ? "" : [sign, totalModifier].join("");
+            })();
+
             return {
                 damage: `${dice}${weaponDamage.die}${constant}`,
                 damageType: weaponDamage.damageType,
             };
         })();
+        const fromPropertyRunes = this.data.data.runes.property
+            .flatMap((r) => WEAPON_PROPERTY_RUNES[r].damage?.dice ?? [])
+            .map(
+                (d): MeleeDamageRoll => ({
+                    damage: `${d.diceNumber}${d.dieSize}`,
+                    damageType: d.damageType ?? baseDamage.damageType,
+                })
+            );
+
+        const npcReach = {
+            tiny: null,
+            sm: "reach-10",
+            med: "reach-10",
+            lg: "reach-15",
+            huge: "reach-20",
+            grg: "reach-25",
+        } as const;
+
+        const toAttackTraits = (traits: WeaponTrait[]): NPCAttackTrait[] => {
+            const newTraits: NPCAttackTrait[] = traits
+                .flatMap((t) =>
+                    t === "reach"
+                        ? npcReach[this.size] ?? []
+                        : t === "thrown" && setHasElement(THROWN_RANGES, this.rangeIncrement)
+                        ? (`thrown-${this.rangeIncrement}` as const)
+                        : t
+                )
+                .filter(
+                    // Omitted traits include ...
+                    (t) =>
+                        // Creature traits
+                        !(t in CONFIG.PF2E.creatureTraits) &&
+                        // Magic school and tradition traits
+                        !setHasElement(MAGIC_TRADITIONS, t) &&
+                        !setHasElement(MAGIC_SCHOOLS, t) &&
+                        // Thrown(-N) trait on melee attacks with thrown melee weapons
+                        !(t.startsWith("thrown") && !this.isThrown) &&
+                        // Finesse trait on thrown attacks with thrown melee weapons
+                        !(t === "finesse" && this.isRanged) &&
+                        // Combination trait on melee or thrown attacks with combination weapons
+                        !(t === "combination" && (this.isMelee || this.isThrown)) &&
+                        // Critical fusion trait on thrown attacks with melee usage of combination weapons
+                        !(t === "critical-fusion" && this.isThrown)
+                );
+
+            const actorSize = new ActorSizePF2e({ value: actor.size });
+            if (actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
+                actorSize.decrement();
+                newTraits.push(...[npcReach[actorSize.value] ?? []].flat());
+            }
+
+            const reloadTrait = `reload-${this.reload}`;
+            if (objectHasKey(CONFIG.PF2E.npcAttackTraits, reloadTrait)) {
+                newTraits.push(reloadTrait);
+            }
+
+            return newTraits.sort();
+        };
+
         const source: PreCreate<MeleeSource> = {
-            name: this.name,
+            name: this.data._source.name,
             type: "melee",
             data: {
+                weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
                     // Give an attack bonus approximating a high-threat NPC
-                    value: Math.ceil((this.actor.level * 3) / 2) - 1,
+                    value: Math.round(1.5 * this.actor.level + 7),
                 },
-                damageRolls: {
-                    [randomID()]: damageRoll,
+                damageRolls: [baseDamage, fromPropertyRunes]
+                    .flat()
+                    .reduce(
+                        (rolls: Record<string, MeleeDamageRoll>, roll) => mergeObject(rolls, { [randomID()]: roll }),
+                        {}
+                    ),
+                traits: {
+                    value: toAttackTraits(this.data.data.traits.value),
                 },
-                weaponType: { value: this.isMelee ? "melee" : "ranged" },
             },
         };
 
-        return new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+        return [
+            new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>,
+            ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks()),
+        ];
     }
 }
 

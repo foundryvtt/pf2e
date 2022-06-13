@@ -55,11 +55,10 @@
             "level": {
                 "value": 3
             },
-            "nethysUrl": "",
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario #2-15: A Dirge for Sarkoris"
             }
         },
         "resources": {},
@@ -96,14 +95,12 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Slashing",
                     "type": "slashing",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -113,7 +110,7 @@
             },
             "rarity": "uncommon",
             "senses": {
-                "value": ""
+                "value": "darkvision"
             },
             "size": {
                 "value": "med"
@@ -130,6 +127,75 @@
     },
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
+        {
+            "_id": "9bp7co5kobroqnid",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Slowed",
+                "description": {
+                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "slowed"
+                },
+                "modifiers": [],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "slowed",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 1
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/slowed.webp",
+            "name": "Slowed",
+            "sort": 100000,
+            "type": "condition"
+        },
         {
             "_id": "1LFcOVY8d1aK048n",
             "data": {
@@ -162,9 +228,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "unarmed"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -172,7 +236,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 200000,
             "type": "melee"
         },
         {
@@ -216,7 +280,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 200000,
+            "sort": 300000,
             "type": "melee"
         },
         {
@@ -240,7 +304,7 @@
                 "rules": [],
                 "slug": "darkvision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -261,7 +325,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -301,7 +365,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -332,7 +396,7 @@
                 ],
                 "slug": "negative-healing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary 2"
                 },
                 "traits": {
                     "custom": "",
@@ -353,7 +417,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -369,7 +433,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An infected creature can't cure conditions given by demonplague until it has been cured of the disease;</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 day);</p>\n<p><strong>Stage 4 @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}</strong> and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3} (1 day);</p>\n<p><strong>Stage 5</strong> dead, rising as a demonplague zombie immediately.</p>"
+                    "value": "<p>An infected creature can't cure conditions given by demonplague until it has been cured of the disease;</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and stupefied 2 (1 day);</p>\n<p><strong>Stage 4</strong> Fatigued and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3} (1 day);</p>\n<p><strong>Stage 5</strong> dead, rising as a demonplague zombie immediately.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -396,7 +460,52 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Demonplague",
-            "sort": 600000,
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "JUWAHMNKRm0L3wJW",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -424,7 +533,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         }
     ],

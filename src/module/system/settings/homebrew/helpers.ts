@@ -1,24 +1,11 @@
 import { isObject } from "@util";
-import { ConfigPF2eHomebrewRecord, HomebrewElements } from ".";
 
-/** User-defined type guard for checking that an object is a well-formed flag of module-provided homebrew elements */
-export function isHomebrewFlag(
-    flag: object & { [K in string]?: unknown }
-): flag is Record<ConfigPF2eHomebrewRecord, Record<string, string | LabelAndDescription> | undefined> {
-    const entries = Object.entries(flag);
-    const settings: readonly string[] = HomebrewElements.SETTINGS;
-    return (
-        entries.length > 0 &&
-        entries.every(
-            ([key, value]) =>
-                settings.includes(key) &&
-                (typeof value === "string" ||
-                    (isObject(value) &&
-                        Object.entries(value).every(
-                            ([_hbKey, hbLabel]) =>
-                                typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel))
-                        )))
-        )
+/** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
+export function isHomebrewFlagCategory(
+    value: object & { [K in string]?: unknown }
+): value is Record<string, string | LabelAndDescription> {
+    return Object.entries(value).every(
+        ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel))
     );
 }
 

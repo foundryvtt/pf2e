@@ -1,0 +1,58 @@
+name: PF2e System CD
+
+on:
+  workflow_dispatch:
+    branches: [release-v9]
+  workflow_run:
+    branches: [release-v9]
+    workflows: [PF2e System CI]
+    types: [completed]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Fetch Build
+        uses: actions/cache@v3
+        with:
+          path: dist/
+          key: build-
+
+      - name: Update Manifest
+        run: |
+          perl -pi -e 's/(?<="version": )"([^"]+)"/"$1.$ENV{GITHUB_RUN_NUMBER}"/' dist/system.json
+          SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
+          echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
+
+      - name: Zip Files
+        working-directory: ./dist
+        run: zip -r ./pf2e.zip ./*
+
+      - name: Create Version Release
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          name: ${{ env.systemVersion }}
+          allowUpdates: false
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './dist/system.json,./dist/pf2e.zip'
+          tag: ${{ env.systemVersion }}
+
+      - name: Create Latest Release
+        id: create_latest_release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Latest
+          allowUpdates: true
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './dist/system.json,./dist/pf2e.zip'
+          tag: latest

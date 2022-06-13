@@ -1,21 +1,13 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import {
-    BaseWeaponType,
-    WeaponCategory,
-    WeaponDamage,
-    WeaponGroup,
-    WeaponRangeIncrement,
-    WeaponSource,
-    WeaponTrait,
-    WEAPON_CATEGORIES,
-    WEAPON_GROUPS,
-} from "@item/weapon/data";
+import { WeaponDamage, WeaponSource } from "@item/weapon/data";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement, WeaponTrait } from "@item/weapon/types";
+import { WEAPON_CATEGORIES, WEAPON_GROUPS } from "@item/weapon/values";
 import { DamageType } from "@system/damage";
-import { RuleElementOptions } from "./base";
 import { objectHasKey, setHasElement, sluggify } from "@util";
+import { RuleElementData, RuleElementPF2e, RuleElementSource } from "./";
+import { RuleElementOptions } from "./base";
 
 /**
  * Create an ephemeral strike on an actor

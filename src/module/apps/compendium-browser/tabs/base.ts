@@ -1,5 +1,5 @@
 import { CompendiumBrowser } from "..";
-import { BaseFilterData, CheckBoxOptions, RangesData } from "./data";
+import { BaseFilterData, CheckboxOptions, RangesData } from "./data";
 import { sluggify } from "@util";
 import { TabName } from "../data";
 
@@ -45,7 +45,8 @@ export abstract class CompendiumBrowserTab {
 
     /** Reset all filters */
     resetFilters(): void {
-        this.filterData = duplicate(this.defaultFilterData);
+        const { search } = this.filterData;
+        this.filterData = mergeObject(this.defaultFilterData, { search }, { inplace: false });
     }
 
     /** Load and prepare the compendium index and set filter options */
@@ -94,7 +95,7 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Generates a localized and sorted CheckBoxOptions object from config data */
-    protected generateCheckboxOptions(configData: Record<string, string>, sort = true): CheckBoxOptions {
+    protected generateCheckboxOptions(configData: Record<string, string>, sort = true): CheckboxOptions {
         // Localize labels for sorting
         const localized = Object.entries(configData).reduce(
             (result, [key, label]) => ({
@@ -112,12 +113,31 @@ export abstract class CompendiumBrowserTab {
                     selected: false,
                 },
             }),
-            {} as CheckBoxOptions
+            {} as CheckboxOptions
         );
     }
 
+    protected generateMultiselectOptions<T extends string>(
+        optionsRecord: Record<T, string>,
+        sort?: boolean
+    ): { value: T; label: string }[];
+    protected generateMultiselectOptions(
+        optionsRecord: Record<string, string>,
+        sort = true
+    ): { value: string; label: string }[] {
+        const options = Object.entries(optionsRecord).map(([value, label]) => ({
+            value,
+            label: game.i18n.localize(label),
+        }));
+        if (sort) {
+            options.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+        }
+
+        return options;
+    }
+
     /** Generates a sorted CheckBoxOptions object from a sources Set */
-    protected generateSourceCheckboxOptions(sources: Set<string>): CheckBoxOptions {
+    protected generateSourceCheckboxOptions(sources: Set<string>): CheckboxOptions {
         return [...sources].sort().reduce(
             (result, source) => ({
                 ...result,
@@ -126,7 +146,7 @@ export abstract class CompendiumBrowserTab {
                     selected: false,
                 },
             }),
-            {} as CheckBoxOptions
+            {} as CheckboxOptions
         );
     }
 

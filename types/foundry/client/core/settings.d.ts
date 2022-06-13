@@ -111,13 +111,6 @@ declare global {
          * @param value The data to assign to the setting key
          */
         set(module: string, key: string, value: unknown): Promise<unknown>;
-
-        /**
-         * Update the setting storage with a new value
-         * @param key
-         * @param value
-         */
-        update(key: string, value: any): Promise<any>;
     }
 
     interface SettingRegistration extends Omit<SettingConfig, "config" | "key" | "namespace" | "scope"> {

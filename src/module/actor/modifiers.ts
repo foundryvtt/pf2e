@@ -5,7 +5,7 @@ import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { RollNotePF2e } from "../notes";
 import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "../system/damage";
 
-export const PROFICIENCY_RANK_OPTION = [
+const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
     "proficiency:trained",
     "proficiency:expert",
@@ -13,7 +13,7 @@ export const PROFICIENCY_RANK_OPTION = [
     "proficiency:legendary",
 ] as const;
 
-export function ensureProficiencyOption(options: string[], rank: number): void {
+function ensureProficiencyOption(options: string[], rank: number): void {
     if (rank >= 0) options.push(`skill:rank:${rank}`, PROFICIENCY_RANK_OPTION[rank]);
 }
 
@@ -21,7 +21,7 @@ export function ensureProficiencyOption(options: string[], rank: number): void {
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
  */
-export const MODIFIER_TYPE = {
+const MODIFIER_TYPE = {
     ABILITY: "ability",
     PROFICIENCY: "proficiency",
     CIRCUMSTANCE: "circumstance",
@@ -31,7 +31,7 @@ export const MODIFIER_TYPE = {
     UNTYPED: "untyped",
 } as const;
 
-export const MODIFIER_TYPES = new Set([
+const MODIFIER_TYPES = new Set([
     "ability",
     "circumstance",
     "item",
@@ -41,9 +41,9 @@ export const MODIFIER_TYPES = new Set([
     "untyped",
 ] as const);
 
-export type ModifierType = SetElement<typeof MODIFIER_TYPES>;
+type ModifierType = SetElement<typeof MODIFIER_TYPES>;
 
-export interface BaseRawModifier {
+interface BaseRawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */
     slug?: string;
     /** The display name of this modifier; can be a localization key (see en.json). */
@@ -80,22 +80,22 @@ export interface BaseRawModifier {
     hideIfDisabled?: boolean;
 }
 
-export interface ModifierAdjustment {
+interface ModifierAdjustment {
     /** A slug for matching against modifiers: `null` will match against all modifiers within a selector */
     slug: string | null;
     predicate: PredicatePF2e;
     damageType?: DamageType;
     relabel?: string;
     suppress: boolean;
-    getNewValue(current: number): number;
-    getDamageType(current: DamageType | null): DamageType | null;
+    getNewValue?: (current: number) => number;
+    getDamageType?: (current: DamageType | null) => DamageType | null;
 }
 
-export interface RawModifier extends BaseRawModifier {
+interface RawModifier extends BaseRawModifier {
     modifier: number;
 }
 
-export interface DeferredValueParams {
+interface DeferredValueParams {
     /** An object to merge into roll data for `Roll.replaceFormulaData` */
     resolvables?: Record<string, unknown>;
     /** An object to merge into standard options for `RuleElementPF2e#resolveInjectedProperties` */
@@ -103,10 +103,10 @@ export interface DeferredValueParams {
     /** Roll Options to get against a predicate (if available) */
     test?: string[];
 }
-export type DeferredValue<T> = (options?: DeferredValueParams) => T;
+type DeferredValue<T> = (options?: DeferredValueParams) => T;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
-export class ModifierPF2e implements RawModifier {
+class ModifierPF2e implements RawModifier {
     slug: string;
     label: string;
     modifier: number;
@@ -201,7 +201,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Sets the ignored property after testing the predicate */
-    test(options: string[]): void {
+    test(options: string[] | Set<string>): void {
         this.ignored = !this.predicate.test(options);
     }
 
@@ -228,10 +228,8 @@ type ModifierOrderedParams = [
     notes?: string
 ];
 
-export type MinimalModifier = Pick<ModifierPF2e, "slug" | "type" | "modifier">;
-
 // Ability scores
-export const AbilityModifier = {
+const AbilityModifier = {
     /**
      * Create a modifier from a given ability type and score.
      * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
@@ -250,14 +248,14 @@ export const AbilityModifier = {
 };
 
 // proficiency ranks
-export const UNTRAINED = {
+const UNTRAINED = {
     atLevel: (_level: number) => {
         const modifier = (game.settings.get("pf2e", "proficiencyUntrainedModifier") as number | null) ?? 0;
         return new ModifierPF2e("PF2E.ProficiencyLevel0", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 };
 
-export const TRAINED = {
+const TRAINED = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyTrainedModifier") ?? 2;
@@ -268,7 +266,7 @@ export const TRAINED = {
     },
 };
 
-export const EXPERT = {
+const EXPERT = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyExpertModifier") ?? 4;
@@ -279,7 +277,7 @@ export const EXPERT = {
     },
 };
 
-export const MASTER = {
+const MASTER = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyMasterModifier") ?? 6;
@@ -290,7 +288,7 @@ export const MASTER = {
     },
 };
 
-export const LEGENDARY = {
+const LEGENDARY = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyLegendaryModifier") ?? 8;
@@ -301,7 +299,7 @@ export const LEGENDARY = {
     },
 };
 
-export const ProficiencyModifier = {
+const ProficiencyModifier = {
     /**
      * Create a modifier for a given proficiency level of some ability.
      * @param level The level of the character which this modifier is being applied to.
@@ -369,7 +367,7 @@ function applyStacking(
  * @param modifiers The list of modifiers to apply stacking rules for.
  * @returns The total modifier provided by the given list of modifiers.
  */
-export function applyStackingRules(modifiers: ModifierPF2e[]): number {
+function applyStackingRules(modifiers: ModifierPF2e[]): number {
     let total = 0;
     const highestBonus: Record<string, ModifierPF2e> = {};
     const lowestPenalty: Record<string, ModifierPF2e> = {};
@@ -417,7 +415,7 @@ export function applyStackingRules(modifiers: ModifierPF2e[]): number {
  * modifiers, even of the same type, but the stacking rules are applied to ensure that only a single bonus and penalty
  * of each type is applied to the total modifier.
  */
-export class StatisticModifier {
+class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
     name: string;
     /** The list of modifiers which affect the statistic. */
@@ -494,8 +492,9 @@ export class StatisticModifier {
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
     calculateTotal(rollOptions: string[] = []): void {
         if (rollOptions.length > 0) {
+            const optionSet = new Set(rollOptions);
             for (const modifier of this._modifiers) {
-                modifier.test(rollOptions);
+                modifier.test(optionSet);
             }
 
             this.applyAdjustments(rollOptions);
@@ -520,7 +519,7 @@ export class StatisticModifier {
             type ResolvedAdjustment = { value: number; relabel: string | null };
             const resolvedAdjustment = adjustments.reduce(
                 (resolved: ResolvedAdjustment, adjustment) => {
-                    const newValue = adjustment.getNewValue(resolved.value);
+                    const newValue = adjustment.getNewValue?.(resolved.value) ?? resolved.value;
                     if (newValue !== resolved.value) {
                         resolved.value = newValue;
                         resolved.relabel = adjustment.relabel ?? null;
@@ -537,7 +536,7 @@ export class StatisticModifier {
 
             // If applicable, change the damage type of this modifier, using only the final adjustment found
             modifier.damageType = adjustments.reduce(
-                (damageType: DamageType | null, adjustment) => adjustment.getDamageType(damageType),
+                (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
                 modifier.damageType
             );
         }
@@ -548,7 +547,7 @@ export class StatisticModifier {
  * Represents the list of modifiers for a specific check.
  * @category PF2
  */
-export class CheckModifier extends StatisticModifier {
+class CheckModifier extends StatisticModifier {
     /**
      * @param name The name of this check modifier.
      * @param statistic The statistic modifier to copy fields from.
@@ -559,9 +558,12 @@ export class CheckModifier extends StatisticModifier {
     }
 }
 
-export interface DamageDiceOverride {
-    /** Upgrade the damage dice to the next size */
+interface DamageDiceOverride {
+    /** Upgrade the damage dice to the next higher size (maximum d12) */
     upgrade?: boolean;
+
+    /** Downgrade the damage dice to the next lower size (minimum d4) */
+    downgrade?: boolean;
 
     /** Override with a set dice size */
     dieSize?: DamageDieSize;
@@ -574,7 +576,7 @@ export interface DamageDiceOverride {
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
  */
-export class DiceModifierPF2e implements BaseRawModifier {
+class DiceModifierPF2e implements BaseRawModifier {
     slug: string;
     /**
      * Formerly both a slug and label; should prefer separately set slugs and labels
@@ -627,11 +629,11 @@ export class DiceModifierPF2e implements BaseRawModifier {
 }
 
 type PartialParameters = Partial<Omit<DamageDicePF2e, "predicate">> & Pick<DamageDicePF2e, "selector" | "slug">;
-export interface DamageDiceParameters extends PartialParameters {
+interface DamageDiceParameters extends PartialParameters {
     predicate?: RawPredicate;
 }
 
-export class DamageDicePF2e extends DiceModifierPF2e {
+class DamageDicePF2e extends DiceModifierPF2e {
     /** The selector used to determine when *has a stroke*  */
     selector: string;
 
@@ -651,3 +653,30 @@ export class DamageDicePF2e extends DiceModifierPF2e {
         return new DamageDicePF2e(this);
     }
 }
+
+export {
+    AbilityModifier,
+    BaseRawModifier,
+    CheckModifier,
+    DamageDiceOverride,
+    DamageDicePF2e,
+    DeferredValue,
+    DeferredValueParams,
+    DiceModifierPF2e,
+    EXPERT,
+    LEGENDARY,
+    MASTER,
+    MODIFIER_TYPE,
+    MODIFIER_TYPES,
+    ModifierAdjustment,
+    ModifierPF2e,
+    ModifierType,
+    PROFICIENCY_RANK_OPTION,
+    ProficiencyModifier,
+    RawModifier,
+    StatisticModifier,
+    TRAINED,
+    UNTRAINED,
+    applyStackingRules,
+    ensureProficiencyOption,
+};

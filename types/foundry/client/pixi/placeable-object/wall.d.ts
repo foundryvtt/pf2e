@@ -3,8 +3,8 @@
  * Walls are used to restrict Token movement or visibility as well as to define the areas of effect for ambient lights
  * and sounds.
  */
-declare class Wall extends PlaceableObject<WallDocument> {
-    constructor(document?: WallDocument);
+declare class Wall<TDocument extends WallDocument = WallDocument> extends PlaceableObject<TDocument> {
+    constructor(document?: TDocument);
 
     /** An reference the Door Control icon associated with this Wall, if any */
     protected doorControl: DoorControl | null;
@@ -104,11 +104,19 @@ declare class Wall extends PlaceableObject<WallDocument> {
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    protected _onCreate(data: foundry.data.WallSource, options: DocumentModificationContext, userId: string): void;
+    override _onCreate(
+        data: foundry.data.WallSource,
+        options: DocumentModificationContext<TDocument>,
+        userId: string
+    ): void;
 
-    protected _onUpdate(changed: DocumentUpdateData, options: DocumentModificationContext, userId: string): void;
+    override _onUpdate(
+        changed: DocumentUpdateData,
+        options: DocumentModificationContext<TDocument>,
+        userId: string
+    ): void;
 
-    protected _onDelete(options: DocumentModificationContext, userId: string): void;
+    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
 
     /**
      * Callback actions when a wall that contains a door is moved or its state is changed
@@ -139,9 +147,9 @@ declare class Wall extends PlaceableObject<WallDocument> {
 
     protected _onDragLeftMove(event: PIXI.InteractionEvent): void;
 
-    protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this["document"][]>;
+    protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<TDocument[]>;
 }
 
-declare interface Wall extends PlaceableObject<WallDocument> {
+declare interface Wall {
     get layer(): WallsLayer<this>;
 }

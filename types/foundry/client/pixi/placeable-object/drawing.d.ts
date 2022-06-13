@@ -100,7 +100,7 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
 
     protected override _onRelease(options?: object): void;
 
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+    override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
 
     /** Handle text entry in an active text tool */
     protected _onDrawingTextKeydown(event: KeyboardEvent): void;

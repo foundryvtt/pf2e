@@ -47,6 +47,7 @@ import { ActorsPF2e } from "@module/collection/actors";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import { UserVisibility } from "@scripts/ui/user-visibility";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 declare global {
     interface Game {
@@ -74,6 +75,7 @@ declare global {
             variantRules: {
                 AutomaticBonusProgression: typeof AutomaticBonusProgression;
             };
+            Coins: typeof CoinsPF2e;
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
@@ -169,8 +171,8 @@ declare global {
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
-        get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
         get(module: "pf2e", setting: "nathMode"): boolean;
+        get(module: "pf2e", setting: "npcAttacksFromWeapons"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
@@ -179,6 +181,16 @@ declare global {
     interface ClientSettingsMap {
         get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & { default: string };
         get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
+    }
+
+    interface RollMathProxy {
+        eq: (a: number, b: number) => boolean;
+        gt: (a: number, b: number) => boolean;
+        gte: (a: number, b: number) => boolean;
+        lt: (a: number, b: number) => boolean;
+        lte: (a: number, b: number) => boolean;
+        ne: (a: number, b: number) => boolean;
+        ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
     }
 
     const BUILD_MODE: "development" | "production";

@@ -1,3 +1,5 @@
+@import "inventory";
+
 .sheet-navigation {
     min-width: 375px;
 }
@@ -5,10 +7,10 @@
 aside .sidebar {
     .save-roll input[type=number] {
         width: 3ch;
-        font-size: 20px;
+        font-size: var(--font-size-20);
         height: 24px;
     }
-    
+
     .hitpoints .container {
         display: grid;
     }
@@ -26,7 +28,7 @@ aside .sidebar {
 
 header.char-header {
     .char-details {
-        font-size: 13px;
+        font-size: var(--font-size-13);
         font-weight: normal;
     }
 }
@@ -83,25 +85,6 @@ header.char-header {
         .detailsInput {
             margin-bottom: 8px;
         }
-    }
-
-    .inventory {
-        padding-bottom: 5px;
-    }
-    .inventory,
-    .inventory .inventory-list {
-        height: 100%;
-    }
-    .inventory .item-controls a.item-toggle-equip,
-    .inventory .item-controls a.item-toggle-invest {
-        display: none;
-    }
-    .inventory .item-controls {
-        flex: 0 0 55px;
-        justify-content: flex-end;
-    }
-    .inventory ol:last-child {
-        margin-bottom: 0px;
     }
 }
 

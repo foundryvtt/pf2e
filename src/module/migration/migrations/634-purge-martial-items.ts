@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { WeaponSource } from "@item/data";
-import { WeaponCategory, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory } from "@item/weapon/types";
 import { MigrationBase } from "../base";
 
 export class Migration634PurgeMartialItems extends MigrationBase {

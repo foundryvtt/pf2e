@@ -1,8 +1,6 @@
-import { AbilityString, StrikeTrait } from "@actor/data/base";
-import { WeaponData } from "@item/data";
-import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { AbilityString, TraitViewData } from "@actor/data/base";
 import {
-    BaseRawModifier,
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
@@ -11,17 +9,18 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
-import { RollNotePF2e } from "@module/notes";
-import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { PredicatePF2e } from "@system/predication";
-import { setHasElement, sluggify } from "@util";
-import { extractModifiers } from "@module/rules/util";
-import { DeferredModifier, StrikeAdjustment } from "@module/rules/rule-element/data";
+import { WeaponPF2e } from "@item";
+import { WeaponData } from "@item/data";
+import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
-import { WeaponPF2e } from "@item";
+import { RollNotePF2e } from "@module/notes";
+import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
+import { DeferredModifier, StrikeAdjustment } from "@module/rules/rule-element/data";
+import { extractModifiers } from "@module/rules/util";
+import { PredicatePF2e } from "@system/predication";
+import { setHasElement, sluggify } from "@util";
+import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -85,7 +84,7 @@ export class WeaponDamagePF2e {
     static calculateStrikeNPC(
         weapon: any,
         actor: NPCPF2e,
-        traits: StrikeTrait[] = [],
+        traits: TraitViewData[] = [],
         statisticsModifiers: Record<string, DeferredModifier[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
@@ -197,7 +196,7 @@ export class WeaponDamagePF2e {
     static calculate(
         weapon: WeaponData,
         actor: CharacterPF2e | NPCPF2e,
-        traits: StrikeTrait[] = [],
+        traits: TraitViewData[] = [],
         statisticsModifiers: Record<string, DeferredModifier[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
@@ -213,7 +212,8 @@ export class WeaponDamagePF2e {
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
         // Always add all weapon traits to the options
-        options = traits.map((t) => t.name).concat(options);
+        options.push(...traits.map((t) => t.name));
+        options.sort();
 
         if (proficiencyRank >= 0) {
             options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
@@ -363,7 +363,13 @@ export class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
-        getPropertyRuneModifiers(propertyRunes).forEach((modifier) => diceModifiers.push(modifier));
+        diceModifiers.push(...getPropertyRuneModifiers(propertyRunes));
+
+        const runeNotes = propertyRunes.flatMap((r) => {
+            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            return data.map((d) => new RollNotePF2e("strike-damage", d.text, d.predicate, d.outcome));
+        });
+        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
 
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
@@ -559,10 +565,16 @@ export class WeaponDamagePF2e {
         const { base } = damage;
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
-        // First, increase the damage die. This can only be done once, so we
+        // First, increase or decrease the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
-        if (diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
-            base.dieSize = nextDamageDieSize(base.dieSize);
+        const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical));
+        const hasDowngrade = diceModifiers.some(
+            (dm) => dm.enabled && dm.override?.downgrade && (critical || !dm.critical)
+        );
+        if (hasUpgrade && !hasDowngrade) {
+            base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
+        } else if (hasDowngrade && !hasUpgrade) {
+            base.dieSize = nextDamageDieSize({ downgrade: base.dieSize });
         }
 
         // Override next, to ensure the dice stacking works properly
@@ -865,7 +877,7 @@ export class WeaponDamagePF2e {
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
-    modifiers: BaseRawModifier[];
+    modifiers: (DiceModifierPF2e | ModifierPF2e)[];
     weapon: WeaponPF2e | null;
     options: string[];
 }

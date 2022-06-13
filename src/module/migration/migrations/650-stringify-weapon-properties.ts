@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
-import { WeaponCategory, WeaponRangeIncrement, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponRangeIncrement } from "@item/weapon/types";
 import { MigrationBase } from "../base";
 
 /** Ensure weapon categories and ranges have valid properties */

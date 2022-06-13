@@ -1,7 +1,7 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { stackDefinitions } from "@item/physical/bulk";
 import { Coins, Price } from "@item/physical/data";
-import { multiplyPrice } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { Rarity } from "@module/data";
 import { calculateDC } from "@module/dc";
 
@@ -58,7 +58,7 @@ export class CraftingFormula implements CraftingFormulaData {
     }
 
     get cost(): Coins {
-        return multiplyPrice(this.price, this.batchSize);
+        return CoinsPF2e.fromPrice(this.price, this.batchSize);
     }
 
     get minimumBatchSize(): number {

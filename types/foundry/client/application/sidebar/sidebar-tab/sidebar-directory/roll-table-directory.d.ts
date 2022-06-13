@@ -1,7 +1,4 @@
 /** A directory list of RollTable Documents in the Sidebar. */
-declare class RollTableDirectory extends SidebarDirectory<RollTable> {
+declare class RollTableDirectory<TRollTable extends RollTable = RollTable> extends SidebarDirectory<TRollTable> {
     static override documentName: "RollTable";
-
-    /** @todo Declare properties */
-    [key: string]: any;
 }

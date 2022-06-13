@@ -2,13 +2,14 @@ import { LootPF2e } from "@actor";
 import { type ContainerPF2e, ItemPF2e } from "@item";
 import { PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
-import { coinStringToCoins, multiplyPrice, noCoins } from "@item/treasure/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
-import { isObject } from "@util";
+import { isObject, sluggify } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
-import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
+import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
+import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
@@ -34,6 +35,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get size(): Size {
+        this.folder;
         return this.data.data.size;
     }
 
@@ -58,8 +60,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** The monetary value of the entire item stack */
-    get assetValue(): Coins {
-        return multiplyPrice(this.price, this.quantity);
+    get assetValue(): CoinsPF2e {
+        return CoinsPF2e.fromPrice(this.price, this.quantity);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -94,6 +96,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.temporary;
     }
 
+    get isDamaged(): boolean {
+        return this.data.data.hp.value > 0 && this.data.data.hp.value < this.data.data.hp.max;
+    }
+
     get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
         const systemData = this.data.data;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
@@ -124,6 +130,15 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this._container;
     }
 
+    /** Returns the bulk of this item and all sub-containers */
+    get bulk(): Bulk {
+        const { value, per } = this.data.data.bulk;
+        const bulkRelevantQuantity = Math.floor(this.quantity / per);
+        return new Bulk({ light: value })
+            .convertToSize(this.size, this.actor?.size ?? this.size)
+            .times(bulkRelevantQuantity);
+    }
+
     get activations() {
         return Object.values(this.data.data.activations ?? {}).map((action) => {
             const components: string[] = [];
@@ -146,7 +161,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             equipped: this.isEquipped,
             magical: this.isMagical,
             uninvested: this.isInvested === false,
-            [`material:${this.material.precious?.type}`]: !!this.material,
+            [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
             .map(([key]) => key)
@@ -167,14 +182,21 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.preciousMaterialGrade.value ||= null;
         systemData.containerId ||= null;
         systemData.stackGroup ||= null;
+        systemData.equippedBulk.value ||= null;
+        systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
 
         // Temporary: prevent noise from items pre migration 746
         if (typeof systemData.price.value === "string") {
-            systemData.price.value = coinStringToCoins(systemData.price.value);
+            systemData.price.value = CoinsPF2e.fromString(systemData.price.value);
+        }
+
+        // Ensure infused items are always temporary
+        if (systemData.traits.value.includes("infused")) {
+            systemData.temporary = true;
         }
 
         // Normalize and fill price data
-        systemData.price.value = mergeObject(noCoins(), this.isTemporary ? {} : systemData.price.value);
+        systemData.price.value = new CoinsPF2e(systemData.temporary ? {} : systemData.price.value);
         systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status
@@ -190,6 +212,22 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             equipped.carryType = "worn";
             equipped.inSlot = false;
         }
+
+        // Temporary conversion of scattershot bulk data into a single object
+        systemData.bulk = (() => {
+            const stackData = stackDefinitions[systemData.stackGroup ?? ""] ?? null;
+            const per = stackData?.size ?? 1;
+
+            const heldOrStowed = stackData?.lightBulk ?? weightToBulk(systemData.weight.value)?.toLightBulk() ?? 0;
+            const worn = systemData.equippedBulk.value
+                ? weightToBulk(systemData.equippedBulk.value)?.toLightBulk() ?? 0
+                : null;
+
+            const { carryType } = systemData.equipped;
+            const value = this.isEquipped && carryType === "worn" ? worn ?? heldOrStowed : heldOrStowed;
+
+            return { heldOrStowed, worn, value, per };
+        })();
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId) {

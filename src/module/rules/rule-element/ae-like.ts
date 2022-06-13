@@ -1,5 +1,6 @@
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { isObject } from "@util";
+import { isObject, objectHasKey } from "@util";
 import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
 
 /**
@@ -8,6 +9,15 @@ import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions
  */
 class AELikeRuleElement extends RuleElementPF2e {
     static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
+
+    /**
+     * Pattern to match data.skills.${longForm} paths for replacement
+     * Temporary solution until skill data is represented in long form
+     */
+    static SKILL_LONG_FORM_PATH = ((): RegExp => {
+        const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
+        return new RegExp(String.raw`(?<=^data\.skills\.)(?:${skillLongForms})\b`);
+    })();
 
     constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data = deepClone(data);
@@ -77,7 +87,12 @@ class AELikeRuleElement extends RuleElementPF2e {
         this.validateData();
         if (!this.test(rollOptions)) return;
 
-        this.data.path = this.resolveInjectedProperties(this.data.path);
+        // Convert long-form skill slugs in paths to short forms
+        this.data.path = this.resolveInjectedProperties(this.data.path).replace(
+            AELikeRuleElement.SKILL_LONG_FORM_PATH,
+            (match) => (objectHasKey(SKILL_EXPANDED, match) ? SKILL_EXPANDED[match].shortform : match)
+        );
+
         // Do not proceed if injected-property resolution failed
         if (/\bundefined\b/.test(this.path)) return;
 

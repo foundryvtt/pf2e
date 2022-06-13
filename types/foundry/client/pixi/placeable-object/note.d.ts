@@ -45,7 +45,11 @@ declare class Note<TDocument extends NoteDocument = NoteDocument> extends Placea
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onUpdate(data: TDocument["data"]): void;
+    override _onUpdate(
+        changed: DeepPartial<TDocument["data"]["_source"]>,
+        options: DocumentModificationContext<TDocument>,
+        userId: string
+    ): void;
 
     protected override _canHover(user: User): boolean;
 }

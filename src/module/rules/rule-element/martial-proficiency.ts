@@ -4,7 +4,7 @@ import { MartialProficiency } from "@actor/character/data";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ProficiencyRank } from "@item/data";
-import { WeaponCategory } from "@item/weapon/data";
+import { WeaponCategory } from "@item/weapon/types";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 
@@ -20,19 +20,31 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
     }
 
     private validateData(): void {
-        const validRanks: string[] = PROFICIENCY_RANKS.filter((rank) => rank !== "untrained");
-        const { data } = this;
-        if (
-            !(
-                typeof data.slug === "string" &&
-                data.definition instanceof Object &&
-                PredicatePF2e.validate(data.definition) &&
-                ((typeof data.sameAs === "string" && data.sameAs in CONFIG.PF2E.weaponCategories) ||
-                    !("sameAs" in data)) &&
-                ((typeof data.maxRank === "string" && validRanks.includes(data.maxRank)) || !("maxRank" in data))
-            )
-        ) {
-            this.failValidation("A martial proficiency must have a slug and definition");
+        const data = this.data;
+
+        if (typeof data.slug !== "string") {
+            this.failValidation("A martial proficiency must have a slug");
+        }
+
+        if (!(this.data.definition instanceof Object)) {
+            this.failValidation("A martial proficiency must have a definition");
+        }
+
+        if (!PredicatePF2e.validate(data.definition)) {
+            this.failValidation('The "definition" property is invalid');
+        }
+
+        if ("sameAs" in data) {
+            if (typeof data.sameAs !== "string" || !(data.sameAs in CONFIG.PF2E.weaponCategories)) {
+                this.failValidation('The "sameAs" property is invalid');
+            }
+        }
+
+        if ("maxRank" in data) {
+            const validRanks: string[] = PROFICIENCY_RANKS.filter((rank) => rank !== "untrained");
+            if (!(typeof data.maxRank === "string") || !validRanks.includes(data.maxRank)) {
+                this.failValidation('The "maxRank" property is invalid');
+            }
         }
     }
 

@@ -16,7 +16,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     get name(): string;
 
     /** A reference to the Document class definition which is contained within this DocumentCollection. */
-    get documentClass(): new (...args: any[]) => TDocument;
+    get documentClass(): ConstructorOf<TDocument>;
 
     /** A reference to the named Document class which is contained within this DocumentCollection. */
     abstract get documentName(): string | null;

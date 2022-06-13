@@ -39,13 +39,14 @@
         "CombatantRemove": "Remove Participant",
         "CombatantStatus": "Participant Status",
         "CombatantUpdate": "Update Participant",
-        "Settings": "Encounter Tracker Settings",
         "End": "End Encounter",
         "EndConfirmation": "End this encounter and empty the turn tracker?",
         "EndTitle": "End Encounter?",
         "NoneActive": "There is no active Encounter in your currently viewed Scene.",
         "NoneRemaining": "There are no participants remaining in this Encounter that are not defeated.",
         "ResourceHint": "Choose an attribute to track for each participant.",
+        "Settings": "Encounter Tracker Settings",
+        "SidebarTitle": "Encounter Tracker",
         "SkipDefeatedHint": "Automatically bypass participants marked as defeated?",
         "UnknownCombatant": "Unknown Participant"
     },
@@ -118,6 +119,10 @@
                     "TemporaryItems": "Temporary items removed.",
                     "WandsCharges": "Wands recharged."
                 }
+            },
+            "Strike": {
+                "MeleeLabel": "Melee Strike: {weapon}",
+                "RangedLabel": "Ranged Strike: {weapon}"
             }
         },
         "ActionActionTypeLabel": "Action Type",
@@ -434,6 +439,38 @@
                     "Description": "{actor} releases a hand from their {weapon}."
                 }
             },
+            "Repair": {
+                "Chat": {
+                    "ItemRepaired": "{itemName} was repaired for {repairedDamage} points of damage for a total of {afterRepairHitPoints} out of {maximumHitPoints} Hit Points.",
+                    "ItemDamaged": "{itemName} was dealt {damageDealt} points of damage for a total of {afterDamageHitPoints} out of {maximumHitPoints} Hit Points."
+                },
+                "Error": {
+                    "ItemReferenceMismatch": "Only accepts physical items for Repair from an actor."
+                },
+                "Labels": {
+                    "DamageMitigatedByHardness": "The critically failed Repair attempt caused no damage to the item due to hardness.",
+                    "DealItemDamage": "Deal {value} damage to item",
+                    "Hardness": "Hardness",
+                    "ItemLevelRepairDC": "Item level {level} repair DC",
+                    "RestoreItemHitPoints": "Restore {value} Hit Points to item",
+                    "RollItemDamage": "Roll {value} damage"
+                },
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You restore 10 Hit Points to the item, plus an additional 10 Hit Points per proficiency rank you have in Crafting (a total of 20 HP if you're trained, 30 HP if you're an expert, 40 HP if you're a master, or 50 HP if you're legendary).",
+                    "success": "<strong>Success</strong> You restore 5 Hit Points to the item, plus an additional 5 per proficiency rank you have in Crafting (for a total of 10 HP if you are trained, 15 HP if you're an expert, 20 HP if you're a master, or 25 HP if you're legendary).",
+                    "criticalFailure": "<strong>Critical Failure</strong> You deal 2d6 damage to the item. Apply the item's Hardness to this damage."
+                },
+                "SelectItemDialog": {
+                    "CancelButtonLabel": "Cancel",
+                    "RepairButtonLabel": "Repair",
+                    "DropItemZoneLabel": "Drag item here...",
+                    "Title": "Select item to Repair"
+                },
+                "Title": "Repair",
+                "Warning": {
+                    "NotPhysicalItem": "Specified item {item} is not a physical item."
+                }
+            },
             "Request": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target agrees to your request without qualifications.",
@@ -512,6 +549,14 @@
                 },
                 "Title": "Swim"
             },
+            "Tamper": {
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> Your tampering is incredibly effective. If you tampered with a weapon, the enemy takes a –2 circumstance penalty to attack rolls and damage rolls with that weapon. If you tampered with armor, the armor hampers the enemy's movement, making the enemy flat-footed and inflicting a –10-foot penalty to its Speeds. The effect lasts until the enemy Interacts to remove it, regardless of which one you used. @Compendium[pf2e.feat-effects.rzcpTJU9MvW1x1gz]{Effect: Armor Tampered With (Critical Success)} @Compendium[pf2e.feat-effects.o7qm13OmaYOMwgib]{Effect: Weapon Tampered With (Critical Success)}",
+                    "success": "<strong>Success</strong> Your tampering is temporarily effective. As critical success, but the effect ends at the start of your next turn, even if the enemy doesn't Interact to end it. @Compendium[pf2e.feat-effects.IfRkgjyh0JzGalIy]{Effect: Armor Tampered With (Success)} @Compendium[pf2e.feat-effects.4QWayYR3JSL9bk2T]{Effect: Weapon Tampered With (Success)}",
+                    "criticalFailure": "<strong>Critical Failure</strong> Your tampering backfires dramatically, creating a small explosion from your own tools or gear. You take [[/r {@details.level.value}[fire] # Tamper Backfire]]{fire damage equal to your level}."
+                },
+                "Title": "Tamper"
+            },
             "Track": {
                 "Notes": {
                     "success": "<strong>Success</strong> You find the trail or continue to follow the one you're already following.",
@@ -519,6 +564,14 @@
                     "criticalFailure": "<strong>Critical Failure</strong> You lose the trail and can't try again for 24 hours."
                 },
                 "Title": "Track"
+            },
+            "TreatDisease": {
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the disease.<br/>@Compendium[pf2e.equipment-effects.id20P4pj7zDKeLmy]{Effect: Treat Disease (Critical Success)}",
+                    "success": "<strong>Success</strong> You grant the creature a +2 circumstance bonus to its next saving throw against the disease.<br/>@Compendium[pf2e.equipment-effects.Ee2xfKX1yyqGIDZj]{Effect: Treat Disease (Success)}",
+                    "criticalFailure": "<strong>Critical Failure</strong> Your efforts cause the creature to take a –2 circumstance penalty to its next save against the disease.<br/>@Compendium[pf2e.equipment-effects.5oYKYXAexr0vhx84]{Effect: Treat Disease (Critical Failure)}"
+                },
+                "Title": "Treat Disease"
             },
             "TreatPoison": {
                 "Notes": {
@@ -862,7 +915,6 @@
         "BrowserFilterTraditions": "Traditions",
         "BrowserFilterTraits": "Traits",
         "BrowserFilterWeaponFilters": "Weapon Filters",
-        "BrowserFilterWeaponTraits": "Weapon Traits",
         "BrowserSearchPlaceholder": "Search Text",
         "BrowserSearchTitle": "Right click for guide",
         "BrowserSortyByLabel": "Sort by",
@@ -1816,21 +1868,24 @@
                 },
                 "MeleeUsage": {
                     "Label": "Melee Usage",
-                    "Hint": "A combination weapon has a firearm form or usage and a melee weapon form or usage. Switching between the melee weapon usage and the firearm usage requires an Interact action. However, if your last action was a successful melee Strike against a foe using a combination weapon, you can make a firearm Strike with the combination weapon against that foe without fully switching to the firearm usage, firing the firearm just as you hit with the melee attack. In this case, the combination weapon returns to its melee usage after the firearm Strike.",
-                    "StrikeLabel": {
-                        "Ranged": "Ranged Strike: {weapon}",
-                        "Melee": "Melee Strike: {weapon}"
-                    }
+                    "Hint": "A combination weapon has a firearm form or usage and a melee weapon form or usage. Switching between the melee weapon usage and the firearm usage requires an Interact action. However, if your last action was a successful melee Strike against a foe using a combination weapon, you can make a firearm Strike with the combination weapon against that foe without fully switching to the firearm usage, firing the firearm just as you hit with the melee attack. In this case, the combination weapon returns to its melee usage after the firearm Strike."
                 },
                 "NoRangeMelee": "None (Melee)",
                 "OtherTags": {
                     "Label": "Other Tags",
                     "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present."
                 },
-                "RangeIncrementN": "Range Increment {range} ft.",
+                "RangeIncrementN": {
+                    "Label": "Range Increment {range} ft.",
+                    "Hint": "Ranged and thrown weapons have a range increment. Attacks with these weapons work normally up to that distance. Attack rolls beyond a weapon's range increment take a –2 penalty for each additional multiple of that increment between you and the target. Attacks beyond the sixth range increment are impossible."
+                },
+                "ReloadOneMinute": "1 min",
                 "SpecificMagicWeapon": {
                     "Label": "Specific Magic Weapon",
                     "Hint": "Marking this weapon as a <i>specific magic weapon</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from a precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades."
+                },
+                "ThrownUsage": {
+                    "Label": "Thrown Usage"
                 }
             },
             "Rules": {
@@ -2066,7 +2121,7 @@
             "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum}).",
             "Summary": {
                 "Documents": "Documents",
-                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/SajryVzCyf\">Discord</a> for community support.",
+                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://github.com/foundryvtt/pf2e/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/SajryVzCyf\">Discord</a> for community support.",
                 "Migrated": "Migrated",
                 "Remigrate": "Remigrate",
                 "Title": "Migration Summary",
@@ -2276,7 +2331,8 @@
             "Message": "Remove {proficiency} proficiency?"
         },
         "RemoveSpellcastingEntryTitle": "Remove Spellcasting Entry",
-        "Repost": "Post to Chat",
+        "RepairItemTitle": "Attempt to Repair Item",
+        "Repost": "Post prompt to chat",
         "RerollMenu": {
             "ErrorNoActor": "No actor is associated to the roll",
             "ErrorCantDelete": "You are unable to delete the original roll.",
@@ -2324,7 +2380,7 @@
         "SETTINGS": {
             "Settings": "Settings",
             "Sidebar": {
-                "Guide": "Guide",
+                "Wiki": "Wiki",
                 "Changelog": "Changelog",
                 "Discord": "Discord"
             },
@@ -2803,13 +2859,7 @@
         "SpellAbilityLabel": "Spell Ability",
         "SpellAbilityModLabel": "+ Mod",
         "SpellArea": "Area: {areaSize} {areaUnit} {areaType}",
-        "SpellAttack": {
-            "arcane": "Arcane Spell Attack",
-            "divine": "Divine Spell Attack",
-            "occult": "Occult Spell Attack",
-            "primal": "Primal Spell Attack",
-            "focus": "Focus Spell Attack"
-        },
+        "SpellAttackWithTradition": "{tradition} Spell Attack",
         "SpellAttackLabel": "Spell Attack",
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
@@ -3633,7 +3683,6 @@
         "TraitRadiation": "Radiation",
         "TraitRage": "Rage",
         "TraitRakshasa": "Rakshasa",
-        "TraitRange": "Range",
         "TraitRange5": "Range 5 ft",
         "TraitRange10": "Range 10 ft",
         "TraitRange15": "Range 15 ft",
@@ -5140,6 +5189,7 @@
             "Inventory": {
                 "Header": {
                     "NameLabel": "Name",
+                    "ValueLabel": "Value",
                     "QuantityLabel": "Quantity"
                 }
             },

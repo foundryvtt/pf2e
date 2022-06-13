@@ -9,19 +9,6 @@
                 align-items: flex-start;
             }
 
-            .melee-usage {
-                flex-basis: 100%;
-                margin-left: calc(3em - 2px);
-                position: relative;
-
-                img.melee-icon {
-                    border: none;
-                    position: absolute;
-                    left: -1.5em;
-                    top: calc(0.5em - 3px);
-                }
-            }
-
             .ammo-remaining {
                 white-space: nowrap;
                 margin-right: 8px;
@@ -61,27 +48,20 @@
 
             .button-group {
                 flex-wrap: nowrap;
-                font-size: 14px;
+                font-size: var(--font-size-14);
 
                 button {
                     @include button;
-                    @include micro;
-                    margin: 0;
                     border: none;
-                    padding: 3px 5px;
-                    color: white;
-                    font-weight: 500;
-                    border-radius: 2px;
                     flex: 0;
+                    height: 2em;
+                    margin: 0;
+                    padding: 0 0.5em;
                     white-space: nowrap;
-                    width: auto;
-                    line-height: 14px;
-                    vertical-align: middle;
 
                     span.activity-icon {
-                        line-height: 14px;
-                        font-size: 14px;
-                        margin: 0;
+                        font-size: var(--font-size-16);
+                        padding-right: 2px;
                     }
 
                     &:not(:disabled) {
@@ -97,6 +77,19 @@
                             text-shadow: 0 0 2px white;
                         }
                     }
+                }
+            }
+
+            .alt-usage {
+                flex-basis: 100%;
+                margin-left: calc(3em - 2px);
+                position: relative;
+
+                img.alt-usage-icon {
+                    border: none;
+                    position: absolute;
+                    left: -1.5em;
+                    top: 0.15em;
                 }
             }
 
@@ -127,7 +120,7 @@
 
                     span.activity-icon {
                         line-height: 14px;
-                        font-size: 14px;
+                        font-size: var(--font-size-14);
                         margin: 0 0 0 2px;
                     }
 

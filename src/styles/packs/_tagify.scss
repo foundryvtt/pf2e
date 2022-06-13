@@ -1,0 +1,46 @@
+.tagify {
+    --tag-bg: var(--primary);
+    --tag-hover: var(--primary);
+    --tag-remove-btn-color: var(--color-text-trait);
+    --tag-text-color: var(--color-text-trait);
+    --tags-border-color: var(--color-border-light-tertiary);
+    --tags-focus-border-color: var(--color-border-light-tertiary);
+    --tags-hover-border-color: var(--color-border-light-tertiary);
+
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    padding: 0.05em;
+
+    &__input {
+        margin: 0;
+    }
+
+    tag {
+        border: 2px solid var(--color-border-trait);
+        border-radius: 0;
+        margin: 0;
+        padding: 1px;
+
+        x {
+            align-items: start;
+            margin: 0;
+        }
+
+        > div {
+            border-radius: 0;
+            display: flex;
+            font: 500 var(--font-size-11) var(--sans-serif);
+            padding: 0.15em;
+
+            .tagify__tag-text {
+                text-transform: uppercase;
+            }
+        }
+
+        &__removeBtn {
+            align-items: baseline;
+        }
+    }
+
+}

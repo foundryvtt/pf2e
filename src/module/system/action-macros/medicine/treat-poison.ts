@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function treatPoison(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "medicine");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "medicine");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,9 +17,9 @@ export function treatPoison(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.TreatPoison", "criticalSuccess"),
-            ActionMacros.note(selector, "PF2E.Actions.TreatPoison", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.TreatPoison", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TreatPoison", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TreatPoison", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TreatPoison", "criticalFailure"),
         ],
     });
 }

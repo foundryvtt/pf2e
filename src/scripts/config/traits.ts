@@ -2,9 +2,8 @@ import { AlignmentTrait } from "@actor/creature/types";
 import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
 import { PreciousMaterialType } from "@item/physical/types";
-import { MagicSchool } from "@item/spell/data";
-import { MagicTradition } from "@item/spellcasting-entry/data";
-import { OtherWeaponTag } from "@item/weapon/data";
+import { MagicSchool, MagicTradition } from "@item/spell/types";
+import { OtherWeaponTag } from "@item/weapon/types";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits

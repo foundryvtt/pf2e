@@ -19,10 +19,35 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:command-an-animal",
+                        {
+                            "or": [
+                                "target:pony",
+                                "target:riding-dog"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

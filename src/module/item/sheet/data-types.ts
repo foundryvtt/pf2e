@@ -20,7 +20,7 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     isPhysical: boolean;
     user: { isGM: boolean };
     enabledRulesUI: boolean;
-    ruleEditing: string | null;
+    ruleEditing: boolean;
     ruleSelection: {
         selected: string | null;
         types: Record<string, string>;

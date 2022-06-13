@@ -1,44 +1,19 @@
-import { ItemPF2e } from "@item/base";
-import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
+import { CreaturePF2e, FamiliarPF2e } from "@actor";
+import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
+import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
+import { CharacterSource, SaveType } from "@actor/data";
+import { AbilityString } from "@actor/data/base";
+import { ActorSizePF2e } from "@actor/data/size";
+import { calculateMAP } from "@actor/helpers";
 import {
     AbilityModifier,
-    ensureProficiencyOption,
     CheckModifier,
+    ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
-    StatisticModifier,
     ProficiencyModifier,
+    StatisticModifier,
 } from "@actor/modifiers";
-import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
-import {
-    ABILITY_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_DICTIONARY,
-    SKILL_EXPANDED,
-} from "../data/values";
-import {
-    BaseWeaponProficiencyKey,
-    CharacterArmorClass,
-    CharacterAttributes,
-    CharacterData,
-    CharacterProficiency,
-    CharacterSaves,
-    CharacterStrike,
-    CharacterSystemData,
-    MartialProficiencies,
-    WeaponGroupProficiencyKey,
-    MagicTraditionProficiencies,
-    MartialProficiency,
-    LinkedProficiency,
-    AuxiliaryAction,
-    GrantedFeat,
-    FeatSlot,
-    SlottedFeat,
-} from "./data";
-import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -47,47 +22,78 @@ import {
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
+    ItemPF2e,
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
-import { CreaturePF2e } from "../";
-import {
-    WeaponCategory,
-    WeaponDamage,
-    WeaponSource,
-    WeaponSystemSource,
-    WeaponTrait,
-    WEAPON_CATEGORIES,
-} from "@item/weapon/data";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
-import { AbilityString, StrikeTrait } from "@actor/data/base";
-import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { MAGIC_TRADITIONS } from "@item/spell/data";
-import { CharacterSource, SaveType } from "@actor/data";
-import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { fromUUIDs } from "@util/from-uuids";
-import { UserPF2e } from "@module/user";
-import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
-import { ActorSizePF2e } from "@actor/data/size";
+import { ActionTrait } from "@item/action/data";
+import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
-import { extractRollTwice, extractModifiers, extractNotes, extractRollSubstitutions } from "@module/rules/util";
-import { Statistic } from "@system/statistic";
-import { CHARACTER_SHEET_TABS } from "./data/values";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ItemGrantData } from "@item/data/base";
 import { ItemCarryType } from "@item/physical/data";
-import { StrikeWeaponTraits } from "./strike-weapon-traits";
-import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
-import { DamageRollContext } from "@system/damage/damage";
+import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
+import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
+import { ActiveEffectPF2e } from "@module/active-effect";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
+import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
+import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { UserPF2e } from "@module/user";
+import { CheckRoll } from "@system/check/roll";
+import { DamageRollContext } from "@system/damage/damage";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
+import { PredicatePF2e } from "@system/predication";
+import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import {
+    ErrorPF2e,
+    getActionGlyph,
+    objectHasKey,
+    setHasElement,
+    sluggify,
+    sortedStringify,
+    traitSlugToObject,
+} from "@util";
+import { fromUUIDs } from "@util/from-uuids";
+import {
+    ABILITY_ABBREVIATIONS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_DICTIONARY_REVERSE,
+    SKILL_EXPANDED,
+} from "../data/values";
+import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
+import {
+    AuxiliaryAction,
+    BaseWeaponProficiencyKey,
+    CharacterArmorClass,
+    CharacterAttributes,
+    CharacterData,
+    CharacterProficiency,
+    CharacterSaves,
+    CharacterStrike,
+    CharacterSystemData,
+    FeatSlot,
+    GrantedFeat,
+    LinkedProficiency,
+    MagicTraditionProficiencies,
+    MartialProficiencies,
+    MartialProficiency,
+    SlottedFeat,
+    WeaponGroupProficiencyKey,
+} from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
+import { CHARACTER_SHEET_TABS } from "./data/values";
+import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
-import { FamiliarPF2e } from "@actor/familiar";
-import { CheckRoll } from "@system/check/roll";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -109,7 +115,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** This PC's ability scores */
-    get abilities() {
+    get abilities(): Abilities {
         return deepClone(this.data.data.abilities);
     }
 
@@ -117,24 +123,26 @@ class CharacterPF2e extends CreaturePF2e {
         return {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
+            recoveryAddend: this.data.data.attributes.hp.recoveryAddend,
         };
     }
 
     override get skills(): CharacterSkills {
-        return Object.entries(super.skills).reduce((skills, [shortForm, skill]) => {
-            if (!(skill && objectHasKey(this.data.data.skills, shortForm))) {
-                return skills;
-            }
+        const skills = super.skills;
+        for (const [key, skill] of Object.entries(skills)) {
+            if (!skill) continue;
+            const originalKey = SKILL_DICTIONARY_REVERSE[skill.slug] ?? skill.slug;
+            if (!objectHasKey(this.data.data.skills, originalKey)) continue;
 
-            const data = this.data.data.skills[shortForm];
-            skills[shortForm] = mergeObject(skill, {
+            const data = this.data.data.skills[originalKey];
+            skills[key] = mergeObject(skill, {
                 rank: data.rank,
                 ability: data.ability,
                 abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,
             });
+        }
 
-            return skills;
-        }, {} as CharacterSkills);
+        return skills as CharacterSkills;
     }
 
     get heroPoints(): { value: number; max: number } {
@@ -172,7 +180,7 @@ class CharacterPF2e extends CreaturePF2e {
         return null;
     }
 
-    async performDailyCrafting() {
+    async performDailyCrafting(): Promise<void> {
         const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
         const alchemicalEntries = entries.filter((e) => e.isAlchemical);
         const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
@@ -207,7 +215,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    async insertFeat(feat: FeatPF2e, featType: string, slotId?: string) {
+    async insertFeat(feat: FeatPF2e, featType: string, slotId?: string): Promise<ItemPF2e[]> {
         const group = this.featGroups[featType];
         const location = group?.slotted ? slotId ?? "" : featType;
 
@@ -290,7 +298,11 @@ class CharacterPF2e extends CreaturePF2e {
             this[property] = null;
 
             if (property === "deity") {
-                details.deities = { primary: null, secondary: null, domains: {} };
+                details.deities = {
+                    primary: null,
+                    secondary: null,
+                    domains: {},
+                };
             } else if (property !== "background") {
                 details[property] = null;
             }
@@ -315,6 +327,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Hit points
         const hitPoints = this.data.data.attributes.hp;
         hitPoints.recoveryMultiplier = 1;
+        hitPoints.recoveryAddend = 0;
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 
@@ -339,10 +352,10 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting-tradition proficiencies
         systemData.proficiencies = {
-            traditions: MAGIC_TRADITIONS.reduce(
-                (accumulated: DeepPartial<MagicTraditionProficiencies>, tradition) => ({
+            traditions: Array.from(MAGIC_TRADITIONS).reduce(
+                (accumulated: DeepPartial<MagicTraditionProficiencies>, t) => ({
                     ...accumulated,
-                    [tradition]: { rank: 0 },
+                    [t]: { rank: 0 },
                 }),
                 {}
             ),
@@ -350,16 +363,14 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Resources
         const { resources } = this.data.data;
-        resources.investiture = { value: 0, max: 10 };
-        resources.focus ??= { value: 0, max: 0 };
-        resources.focus.max = 0;
-        resources.crafting ??= {
-            infusedReagents: {
-                value: 0,
-                max: 0,
-            },
-        };
         resources.heroPoints.max = 3;
+        resources.investiture = { value: 0, max: 10 };
+
+        resources.focus = mergeObject({ value: 0, max: 0 }, resources.focus ?? {});
+        resources.focus.max = 0;
+
+        resources.crafting = mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
+        resources.crafting.infusedReagents.max = 0;
 
         // Size
         this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
@@ -523,7 +534,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
@@ -580,7 +591,7 @@ class CharacterPF2e extends CreaturePF2e {
                 systemData.attributes.classDC,
                 { overwrite: false }
             );
-            stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.value = 10 + stat.totalModifier;
             stat.ability = systemData.details.keyability.value;
             stat.breakdown = [game.i18n.localize("PF2E.ClassDCBase")]
@@ -740,7 +751,7 @@ class CharacterPF2e extends CreaturePF2e {
                 })
                 .join(", ");
             stat.value = stat.totalModifier;
-            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.rank = skill.rank;
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
@@ -797,13 +808,14 @@ class CharacterPF2e extends CreaturePF2e {
 
             const loreSkill = systemData.skills[shortForm];
             const stat = mergeObject(
-                new StatisticModifier(skill.name, modifiers, this.getRollOptions(domains)),
+                new StatisticModifier(shortForm, modifiers, this.getRollOptions(domains)),
                 loreSkill,
                 { overwrite: false }
             );
+            stat.label = skill.name;
             stat.ability = "int";
             stat.itemID = skill._id;
-            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = extractNotes(rollNotes, domains);
             stat.rank = rank ?? 0;
             stat.shortform = shortForm;
             stat.expanded = skill;
@@ -881,6 +893,7 @@ class CharacterPF2e extends CreaturePF2e {
             // assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
+                label: CONFIG.PF2E.magicTraditions[tradition],
                 ability: entry.ability,
                 rank,
                 modifiers: extractModifiers(statisticsModifiers, baseSelectors),
@@ -889,7 +902,6 @@ class CharacterPF2e extends CreaturePF2e {
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
-                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                     modifiers: extractModifiers(statisticsModifiers, attackSelectors),
                     domains: attackSelectors,
                 },
@@ -931,11 +943,12 @@ class CharacterPF2e extends CreaturePF2e {
         this.prepareInitiative();
 
         // Resources
-        const { resources } = this.data.data;
-        resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
+        const { focus, crafting } = this.data.data.resources;
+        focus.max = Math.clamped(focus.max, 0, 3);
+        crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
-        if (!resources.focus.max && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
-            resources.focus.max = 1;
+        if (focus.max === 0 && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
+            focus.max = 1;
         }
 
         // Set a roll option for whether this character has a familiar
@@ -1023,12 +1036,22 @@ class CharacterPF2e extends CreaturePF2e {
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
-                const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
-                bulwarkModifier.predicate = new PredicatePF2e({
-                    all: ["damaging-effect"],
-                    not: ["self:armor:bulwark-all"],
+                const bulwarkModifier = new ModifierPF2e({
+                    slug: "bulwark",
+                    type: MODIFIER_TYPE.UNTYPED,
+                    label: CONFIG.PF2E.armorTraits.bulwark,
+                    modifier: 3,
+                    predicate: { all: ["damaging-effect"] },
                 });
                 modifiers.push(bulwarkModifier);
+
+                // Add a modifier adjustment to be picked up by the construction of this saving throw's Statistic
+                const reflexAdjustments = (this.synthetics.modifierAdjustments[saveType] ??= []);
+                reflexAdjustments.push({
+                    slug: "dex",
+                    predicate: new PredicatePF2e({ all: ["damaging-effect"] }),
+                    suppress: true,
+                });
             }
 
             // Add custom modifiers and roll notes relevant to this save.
@@ -1037,6 +1060,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 ability: save.ability,
                 rank: save.rank,
                 notes: extractNotes(rollNotes, selectors),
@@ -1044,17 +1068,9 @@ class CharacterPF2e extends CreaturePF2e {
                 domains: selectors,
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });
-
-            if (affectedByBulwark) {
-                stat.abilityModifier?.predicate.not.push(
-                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
-                    "self:armor:bulwark-all"
-                );
-            }
 
             saves[saveType] = stat;
             mergeObject(this.data.data.saves[saveType], stat.getCompatData());
@@ -1227,8 +1243,8 @@ class CharacterPF2e extends CreaturePF2e {
         for (const feat of feats) {
             const featData = feat.data;
             if (featData.flags.pf2e.grantedBy && !featData.data.location) {
-                const granter = this.items.get(featData.flags.pf2e.grantedBy);
-                if (granter instanceof FeatPF2e) continue;
+                const granter = this.items.get(featData.flags.pf2e.grantedBy.id);
+                if (granter?.isOfType("feat")) continue;
             }
 
             const location = featData.data.location;
@@ -1240,11 +1256,11 @@ class CharacterPF2e extends CreaturePF2e {
                 slotIndex = -1;
             }
 
-            const getGrants = (grantedIds: string[]): GrantedFeat[] => {
-                return grantedIds.flatMap((grantedId: string) => {
-                    const item = this.items.get(grantedId);
-                    return item instanceof FeatPF2e && !item.data.data.location
-                        ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
+            const getGrantedItems = (grants: ItemGrantData[]): GrantedFeat[] => {
+                return grants.flatMap((grant) => {
+                    const item = this.items.get(grant.id);
+                    return item?.isOfType("feat") && !item.data.data.location
+                        ? { feat: item, grants: getGrantedItems(item.data.flags.pf2e.itemGrants) }
                         : [];
                 });
             };
@@ -1253,7 +1269,7 @@ class CharacterPF2e extends CreaturePF2e {
             if (slotIndex !== -1) {
                 const slot = allFeatSlots[slotIndex];
                 slot.feat = featData;
-                slot.grants = getGrants(featData.flags.pf2e.itemGrants);
+                slot.grants = getGrantedItems(featData.flags.pf2e.itemGrants);
                 continue;
             }
 
@@ -1272,7 +1288,7 @@ class CharacterPF2e extends CreaturePF2e {
             const lookedUpGroup = groups[location ?? ""] ?? groups[featType];
             const group = lookedUpGroup && !lookedUpGroup.slotted ? lookedUpGroup : this.featGroups.bonus;
             if (group && !group.slotted) {
-                const grants = getGrants(featData.flags.pf2e.itemGrants);
+                const grants = getGrantedItems(featData.flags.pf2e.itemGrants);
                 group.feats.push({ feat: featData, grants });
             }
         }
@@ -1475,14 +1491,15 @@ class CharacterPF2e extends CreaturePF2e {
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
-        // If a weapon matches against a linked proficiency, add the `sameAs` category to the weapon's item roll options
+        // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
+        // item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
             "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
         );
-        weaponRollOptions.push(...equivalentCategories);
+        const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
         const syntheticRanks = Object.values(systemData.martial)
-            .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponRollOptions))
+            .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
@@ -1516,7 +1533,7 @@ class CharacterPF2e extends CreaturePF2e {
             ...this.getRollOptions(baseSelectors),
             ...weaponTraits, // always add weapon traits as options
             ...weaponRollOptions,
-            ...meleeOrRanged,
+            meleeOrRanged,
         ];
         ensureProficiencyOption(baseOptions, proficiencyRank);
 
@@ -1547,7 +1564,7 @@ class CharacterPF2e extends CreaturePF2e {
         })();
 
         // Extract weapon roll notes
-        const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
+        const attackRollNotes = extractNotes(rollNotes, selectors);
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
         if (weapon.group === "bomb" && !ABP.isEnabled) {
@@ -1566,7 +1583,9 @@ class CharacterPF2e extends CreaturePF2e {
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
 
             if (potencyRune) {
-                const property = getPropertyRunes(itemData, getPropertySlots(itemData));
+                const property = getPropertyRunes(itemData, getPropertySlots(itemData)).filter(
+                    (r): r is WeaponPropertyRuneType => setHasElement(WEAPON_PROPERTY_RUNE_TYPES, r)
+                );
                 potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, type: "item", property });
             }
             return potency.length > 0
@@ -1585,7 +1604,7 @@ class CharacterPF2e extends CreaturePF2e {
         );
 
         // Multiple attack penalty
-        const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
+        const multipleAttackPenalty = calculateMAP(weapon);
         {
             const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
             for (const key of selectors) {
@@ -1671,7 +1690,7 @@ class CharacterPF2e extends CreaturePF2e {
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
-        const meleeUsage = weapon.toMeleeUsage();
+        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
@@ -1681,14 +1700,12 @@ class CharacterPF2e extends CreaturePF2e {
             glyph: "A",
             item: weapon,
             type: "strike" as const,
-            description: flavor.description,
-            criticalSuccess: flavor.criticalSuccess,
-            success: flavor.success,
+            ...flavor,
             options: itemData.data.options?.value ?? [],
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
-            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories }) : null,
+            altUsages,
             auxiliaryActions,
         });
 
@@ -1710,61 +1727,43 @@ class CharacterPF2e extends CreaturePF2e {
             action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
-        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const attackTrait: StrikeTrait = {
-            name: "attack",
-            label: CONFIG.PF2E.featTraits.attack,
-            description: CONFIG.PF2E.traitsDescriptions.attack,
-        };
-
-        const toStrikeTrait = (trait: WeaponTrait) => {
-            // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
-            // in use, which can include what are normally NPC-only traits
-            const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
-            const traitObject: StrikeTrait = {
-                name: trait,
-                label,
-                description: traitDescriptions[trait] ?? "",
-            };
-
-            // look for toggleable traits
-            if (trait.startsWith("versatile-")) {
-                traitObject.rollName = "damage-roll";
-                traitObject.rollOption = trait;
-            }
-
-            return traitObject;
-        };
-        action.traits = [attackTrait].concat([...weaponTraits].map(toStrikeTrait));
+        const strikeTraits: ActionTrait[] = ["attack" as const];
+        for (const adjustment of this.synthetics.strikeAdjustments) {
+            adjustment.adjustTraits?.(weapon, strikeTraits);
+        }
+        action.traits = strikeTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
             .join(", ");
 
-        const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-        const flavorText = weaponTraits.has("combination")
-            ? weapon.isMelee
-                ? game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Melee", { weapon: weapon.name })
-                : game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Ranged", { weapon: weapon.name })
-            : `${strikeLabel}: ${action.name}`;
+        const checkName = game.i18n.format(
+            weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+            { weapon: weapon.name }
+        );
+
+        const mapZeroLabel = ((): string => {
+            const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
+            const value = action.totalModifier;
+            const sign = value < 0 ? "" : "+";
+            return `${strike} ${sign}${value}`;
+        })();
 
         const labels: [string, string, string] = [
-            `${game.i18n.localize("PF2E.RuleElement.Strike")} ${action.totalModifier < 0 ? "" : "+"}${
-                action.totalModifier
-            }`,
+            mapZeroLabel,
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
         ];
         const checkModifiers = [
-            (otherModifiers: ModifierPF2e[]) => new CheckModifier(flavorText, action, otherModifiers),
+            (otherModifiers: ModifierPF2e[]) => new CheckModifier(checkName, action, otherModifiers),
             (otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(flavorText, action, [
+                new CheckModifier(checkName, action, [
                     ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
             (otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier(flavorText, action, [
+                new CheckModifier(checkName, action, [
                     ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
                 ]),
@@ -1826,7 +1825,6 @@ class CharacterPF2e extends CreaturePF2e {
                     }
 
                     const item = context.self.item;
-                    const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
                     const rollTwice = extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
 
                     const checkContext: CheckRollContext = {
@@ -1834,10 +1832,11 @@ class CharacterPF2e extends CreaturePF2e {
                         target: context.target,
                         item,
                         type: "attack-roll",
+                        altUsage: args.altUsage ?? null,
                         options: finalRollOptions,
-                        notes,
+                        notes: attackRollNotes,
                         dc,
-                        traits,
+                        traits: context.traits,
                         rollTwice,
                     };
 
@@ -1874,17 +1873,16 @@ class CharacterPF2e extends CreaturePF2e {
                 const options = Array.from(
                     new Set([args.options, context.options, action.options, baseOptions, incrementOption].flat())
                 );
-                const traits = [attackTrait, [...context.self.item.traits].map((t) => toStrikeTrait(t))].flat();
 
                 const damage = WeaponDamagePF2e.calculate(
                     context.self.item.data,
                     context.self.actor,
-                    traits,
+                    context.traits,
                     statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
                     options,
-                    rollNotes,
+                    this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
                     synthetics.strikeAdjustments
@@ -1903,6 +1901,29 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         return action;
+    }
+
+    getStrikeDescription(weapon: WeaponPF2e): { description: string; criticalSuccess: string; success: string } {
+        const flavor = {
+            description: "PF2E.Strike.Default.Description",
+            criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
+            success: "PF2E.Strike.Default.Success",
+        };
+        const traits = weapon.traits;
+        if (traits.has("unarmed")) {
+            flavor.description = "PF2E.Strike.Unarmed.Description";
+            flavor.success = "PF2E.Strike.Unarmed.Success";
+        } else if ([...traits].some((trait) => trait.startsWith("thrown-") || trait === "combination")) {
+            flavor.description = "PF2E.Strike.Combined.Description";
+            flavor.success = "PF2E.Strike.Combined.Success";
+        } else if (weapon.isMelee) {
+            flavor.description = "PF2E.Strike.Melee.Description";
+            flavor.success = "PF2E.Strike.Melee.Success";
+        } else {
+            flavor.description = "PF2E.Strike.Ranged.Description";
+            flavor.success = "PF2E.Strike.Ranged.Success";
+        }
+        return flavor;
     }
 
     /** Possibly modify this weapon depending on its */
@@ -1998,14 +2019,14 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Add a proficiency in a weapon group or base weapon */
-    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         const currentProficiencies = this.data.data.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`data.martial.${key}`]: newProficiency });
     }
 
-    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         await this.update({ [`data.martial.-=${key}`]: null });
     }
 
@@ -2075,7 +2096,7 @@ class CharacterPF2e extends CreaturePF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const characterData = this.data.data;
+        const systemData = this.data.data;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
         const level = changed.data?.details?.level;
@@ -2090,7 +2111,7 @@ class CharacterPF2e extends CreaturePF2e {
                 changed.data.attributes.sp.value = Math.clamped(
                     changed.data?.attributes?.sp?.value || 0,
                     0,
-                    characterData.attributes.sp.max
+                    systemData.attributes.sp.max
                 );
             }
 
@@ -2099,7 +2120,7 @@ class CharacterPF2e extends CreaturePF2e {
                 changed.data.attributes.resolve.value = Math.clamped(
                     changed.data?.attributes?.resolve?.value || 0,
                     0,
-                    characterData.attributes.resolve.max
+                    systemData.attributes.resolve.max
                 );
             }
         }

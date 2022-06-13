@@ -1,12 +1,12 @@
-import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DiceModifierPF2e } from "@actor/modifiers";
-import { isBlank } from "@util";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize } from "@system/damage/damage";
-import { PredicateStatement, RawPredicate } from "@system/predication";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { RawPredicate } from "@system/predication";
+import { isBlank } from "@util";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
-import type { OtherWeaponTag, StrikingRuneType, WeaponTrait } from "./weapon/data";
+import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "./weapon/types";
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
     let slots = 0;
@@ -63,7 +63,7 @@ interface RuneDiceModifier {
     predicate?: RawPredicate;
 }
 
-function toModifiers(rune: string, dice: RuneDiceModifier[]): DiceModifierPF2e[] {
+function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): DiceModifierPF2e[] {
     dice = deepClone(dice);
     return dice.map((die) => {
         return new DiceModifierPF2e({
@@ -79,11 +79,7 @@ function toModifiers(rune: string, dice: RuneDiceModifier[]): DiceModifierPF2e[]
 
 interface RollNoteData {
     outcome?: DegreeOfSuccessString[];
-    predicate?: {
-        all?: PredicateStatement[];
-        any?: PredicateStatement[];
-        not?: PredicateStatement[];
-    };
+    predicate?: RawPredicate;
     text: string;
 }
 
@@ -96,11 +92,7 @@ export interface WeaponPropertyRuneData {
             damageType?: string;
             diceNumber?: number;
             dieSize?: DamageDieSize;
-            predicate?: {
-                all?: PredicateStatement[];
-                any?: PredicateStatement[];
-                not?: PredicateStatement[];
-            };
+            predicate?: RawPredicate;
         }[];
         notes?: RollNoteData[];
     };
@@ -114,7 +106,7 @@ export interface WeaponPropertyRuneData {
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
-export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } = {
+export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropertyRuneData> = {
     anarchic: {
         damage: {
             dice: [
@@ -899,7 +891,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
 };
 
-export function getPropertyRuneModifiers(runes: string[]): DiceModifierPF2e[] {
+export function getPropertyRuneModifiers(runes: WeaponPropertyRuneType[]): DiceModifierPF2e[] {
     return runes.flatMap((rune) => {
         const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
         if (runeConfig) {

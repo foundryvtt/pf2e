@@ -37,13 +37,13 @@ declare global {
 
         protected override _onCreate(
             data: this["data"]["_source"],
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["data"]["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 

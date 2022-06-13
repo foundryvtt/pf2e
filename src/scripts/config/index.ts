@@ -29,7 +29,13 @@ import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
+import {
+    BaseWeaponType,
+    MeleeWeaponGroup,
+    RangedWeaponGroup,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+} from "@item/weapon/types";
 import enJSON from "../../../static/lang/en.json";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
 import {
@@ -61,6 +67,7 @@ import { FeatType } from "@item/feat/data";
 import { DeityDomain } from "@item/deity/types";
 import { sluggify } from "@util";
 import { Alignment } from "@actor/creature/types";
+import { WeaponReloadTime } from "@item/weapon/types";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -672,10 +679,10 @@ const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
 
 const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
 
-const weaponPropertyRunes: Record<string, string> = {
+const weaponPropertyRunes = {
     ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
         return { ...accumulated, [slug]: rune.name };
-    }, {}),
+    }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
 // Creature and Equipment Sizes
@@ -725,6 +732,15 @@ const deityDomains = Object.keys(enJSON.PF2E.Item.Deity.Domain).reduce((domains,
         },
     };
 }, {} as Record<DeityDomain, { label: string; description: string }>);
+
+const weaponReload: Record<WeaponReloadTime, string> = {
+    "-": "—", // Reload value for thrown weapons
+    0: "0",
+    1: "1",
+    2: "2",
+    3: "3",
+    10: "PF2E.Item.Weapon.ReloadOneMinute",
+};
 
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
@@ -1203,14 +1219,7 @@ export const PF2ECONFIG = {
         5: "-5/-10",
     },
 
-    weaponReload: {
-        "-": "-",
-        0: "0",
-        1: "1",
-        2: "2",
-        3: "3",
-        30: "1 min",
-    },
+    weaponReload,
 
     armorTypes: {
         unarmored: "PF2E.ArmorTypeUnarmored",

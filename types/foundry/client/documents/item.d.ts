@@ -54,13 +54,14 @@ declare global {
 
         get uuid(): ItemUUID;
 
-        _sheet: ItemSheet<Item> | null;
+        _sheet: ItemSheet<this> | null;
 
-        get sheet(): ItemSheet<Item>;
+        get sheet(): ItemSheet<this>;
 
         getFlag(scope: string, key: string): any;
         getFlag(scope: "core", key: "sourceId"): string | undefined;
     }
 
-    type ItemUUID = `Item.${string}` | `Actor.${string}.Item.${string}` | CompendiumUUID;
+    type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
+    type ItemUUID = WorldDocumentUUID<Item> | EmbeddedItemUUID | CompendiumUUID;
 }

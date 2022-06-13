@@ -196,7 +196,7 @@ export interface ArmorClassData {
     dexCap?: DexterityModifierCapData;
 }
 
-export interface StrikeTrait {
+export interface TraitViewData {
     /** The name of this action. */
     name: string;
     /** The label for this action which will be rendered on the UI. */
@@ -226,7 +226,7 @@ export interface StrikeData extends StatisticModifier {
     /** A description of what happens on a success. */
     success: string;
     /** Any traits this strike has. */
-    traits: StrikeTrait[];
+    traits: TraitViewData[];
     /** Any options always applied to this strike. */
     options: string[];
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
@@ -256,7 +256,7 @@ export interface StrikeData extends StatisticModifier {
     /** The item that generated this strike */
     origin?: Embedded<ItemPF2e> | null;
     /** The weapon or melee item--possibly ephemeral--being used for the strike */
-    item?: WeaponPF2e | MeleePF2e;
+    item: WeaponPF2e | MeleePF2e;
 }
 
 export interface RollToggle {
