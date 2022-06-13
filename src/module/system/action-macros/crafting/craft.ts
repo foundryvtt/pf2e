@@ -3,7 +3,77 @@ import { PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers } from "../helpers";
+import { SkillActionOptions } from "../types";
+
+export async function craft(options: CraftActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
+
+    // resolve item
+    const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
+
+    // ensure item is a valid crafting target
+    if (!item) {
+        console.warn("PF2e System | No item selected to craft: aborting");
+        return;
+    } else if (!(item instanceof PhysicalItemPF2e)) {
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name }));
+        return;
+    }
+
+    // check for sufficient proficiency in crafting skill
+    // check that actor has the necessary feats to craft item
+
+    const quantity = options.quantity ?? 1;
+
+    // figure out DC from item
+    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+    const dc: CheckDC = options.difficultyClass ?? {
+        value: calculateDC(item.level, { proficiencyWithoutLevel }),
+        visibility: "all",
+    };
+
+    ActionMacroHelpers.simpleRollActionCheck({
+        actors: options.actors,
+        statName: property,
+        actionGlyph: options.glyph,
+        title: "PF2E.Actions.Craft.Title",
+        subtitle,
+        modifiers: options.modifiers,
+        rollOptions: ["all", checkType, stat, "action:craft"],
+        extraOptions: ["action:craft"],
+        traits: ["downtime", "manipulate"],
+        checkType,
+        event: options.event,
+        difficultyClass: dc,
+        extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "criticalFailure"),
+        ],
+        createMessage: false,
+        callback: async (result) => {
+            // react to check result, creating the item in the actor's inventory on a success
+            if (result.message instanceof ChatMessagePF2e) {
+                const messageData = result.message.data;
+                const flavor = await (async () => {
+                    if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
+                        return await renderCraftingInline(item, result.roll, quantity, result.actor);
+                    }
+                    return "";
+                })();
+                if (flavor) {
+                    messageData.update({ flavor: messageData.flavor + flavor });
+                }
+                ChatMessage.create(messageData);
+            } else {
+                console.error("PF2E | Unable to amend chat message with craft result.", result.message);
+            }
+            options.callback?.(result);
+        },
+    });
+}
 
 interface CraftActionOptions extends SkillActionOptions {
     difficultyClass?: CheckDC;
@@ -81,73 +151,4 @@ class SelectItemDialog extends Application {
             new SelectItemDialog(resolve).render(true);
         });
     }
-}
-
-export async function craft(options: CraftActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
-
-    // resolve item
-    const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
-
-    // ensure item is a valid crafting target
-    if (!item) {
-        console.warn("PF2e System | No item selected to craft: aborting");
-        return;
-    } else if (!(item instanceof PhysicalItemPF2e)) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name }));
-        return;
-    }
-
-    // check for sufficient proficiency in crafting skill
-    // check that actor has the necessary feats to craft item
-
-    const quantity = options.quantity ?? 1;
-
-    // figure out DC from item
-    const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-    const dc: CheckDC = options.difficultyClass ?? {
-        value: calculateDC(item.level, { proficiencyWithoutLevel }),
-        visibility: "all",
-    };
-
-    ActionMacroHelpers.simpleRollActionCheck({
-        actors: options.actors,
-        statName: property,
-        actionGlyph: options.glyph,
-        title: "PF2E.Actions.Craft.Title",
-        subtitle,
-        modifiers: options.modifiers,
-        rollOptions: ["all", checkType, stat, "action:craft"],
-        extraOptions: ["action:craft"],
-        traits: ["downtime", "manipulate"],
-        checkType,
-        event: options.event,
-        difficultyClass: dc,
-        extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Craft", "criticalFailure"),
-        ],
-        createMessage: false,
-        callback: async (result) => {
-            // react to check result, creating the item in the actor's inventory on a success
-            if (result.message instanceof ChatMessagePF2e) {
-                const messageData = result.message.data;
-                const flavor = await (async () => {
-                    if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
-                        return await renderCraftingInline(item, result.roll, quantity, result.actor);
-                    }
-                    return "";
-                })();
-                if (flavor) {
-                    messageData.update({ flavor: messageData.flavor + flavor });
-                }
-                ChatMessage.create(messageData);
-            } else {
-                console.error("PF2E | Unable to amend chat message with craft result.", result.message);
-            }
-            options.callback?.(result);
-        },
-    });
 }

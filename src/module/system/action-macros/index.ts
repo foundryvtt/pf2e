@@ -16,8 +16,7 @@ import { whirlingThrow } from "./athletics/whirling-throw";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { tamper } from "./class/inventor/tamper";
-import { craft } from "./crafting/craft";
-import { repair } from "./crafting/repair";
+import { craft, repair } from "./crafting";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
 import { impersonate } from "./deception/impersonate";
@@ -29,7 +28,6 @@ import { request } from "./diplomacy/request";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
-import { ActionMacroHelpers } from "./helpers";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatDisease } from "./medicine/treat-disease";
@@ -38,77 +36,74 @@ import { commandAnAnimal } from "./nature/command-an-animal";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
-import { ActionDefaultOptions, SkillActionOptions } from "./types";
+export { ActionMacroHelpers } from "./helpers";
+export { ActionDefaultOptions, SkillActionOptions } from "./types";
 
-const ActionMacros = {
-    macros: {
-        // Basic
-        seek,
-        senseMotive,
+export const ActionMacros = {
+    // Basic
+    seek,
+    senseMotive,
 
-        // Ancestry
-        arcaneSlam,
+    // Ancestry
+    arcaneSlam,
 
-        // Class
-        tamper,
+    // Class
+    tamper,
 
-        // Exploration
-        avoidNotice,
-        senseDirection,
-        track,
+    // Exploration
+    avoidNotice,
+    senseDirection,
+    track,
 
-        // Acrobatics
-        balance,
-        maneuverInFlight,
-        squeeze,
-        tumbleThrough,
+    // Acrobatics
+    balance,
+    maneuverInFlight,
+    squeeze,
+    tumbleThrough,
 
-        // Athletics
-        climb,
-        disarm,
-        forceOpen,
-        grapple,
-        highJump,
-        longJump,
-        shove,
-        swim,
-        trip,
-        whirlingThrow,
+    // Athletics
+    climb,
+    disarm,
+    forceOpen,
+    grapple,
+    highJump,
+    longJump,
+    shove,
+    swim,
+    trip,
+    whirlingThrow,
 
-        // Crafting
-        craft,
-        repair,
+    // Crafting
+    craft,
+    repair,
 
-        // Deception
-        createADiversion,
-        feint,
-        impersonate,
-        lie,
+    // Deception
+    createADiversion,
+    feint,
+    impersonate,
+    lie,
 
-        // Diplomacy
-        bonMot,
-        gatherInformation,
-        makeAnImpression,
-        request,
+    // Diplomacy
+    bonMot,
+    gatherInformation,
+    makeAnImpression,
+    request,
 
-        // Intimidation
-        coerce,
-        demoralize,
+    // Intimidation
+    coerce,
+    demoralize,
 
-        // Medicine
-        treatDisease,
-        treatPoison,
+    // Medicine
+    treatDisease,
+    treatPoison,
 
-        // Nature
-        commandAnAnimal,
+    // Nature
+    commandAnAnimal,
 
-        // Stealth
-        hide,
-        sneak,
+    // Stealth
+    hide,
+    sneak,
 
-        // Thievery
-        pickALock,
-    },
+    // Thievery
+    pickALock,
 };
-
-export { ActionDefaultOptions, ActionMacroHelpers, ActionMacros, SkillActionOptions };

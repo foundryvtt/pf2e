@@ -2,8 +2,9 @@ import { PhysicalItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
-import { ActionMacroHelpers, SkillActionOptions } from "..";
+import { ActionMacroHelpers } from "../helpers";
 import { CharacterPF2e } from "@actor";
+import { SkillActionOptions } from "../types";
 
 async function repair(options: RepairActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
