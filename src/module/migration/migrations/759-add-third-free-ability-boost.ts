@@ -7,6 +7,10 @@ import { MigrationBase } from "../base";
 export class Migration759AddThirdFreeAbilityBoost extends MigrationBase {
     static override version = 0.759;
 
+    private get freeAbilityBoost(): AbilityString[] {
+        return ["cha", "con", "dex", "int", "str", "wis"];
+    }
+
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "background") return;
 
@@ -17,19 +21,15 @@ export class Migration759AddThirdFreeAbilityBoost extends MigrationBase {
         if (Object.keys(itemSource.data.boosts).length < 3) {
             itemSource.data.boosts = {
                 "0": {
-                    value: freeAbilityBoost(),
+                    value: this.freeAbilityBoost,
                 },
                 "1": {
-                    value: freeAbilityBoost(),
+                    value: this.freeAbilityBoost,
                 },
                 "2": {
-                    value: freeAbilityBoost(),
+                    value: this.freeAbilityBoost,
                 },
             };
         }
     }
-}
-
-function freeAbilityBoost(): AbilityString[] {
-    return ["cha", "con", "dex", "int", "str", "wis"];
 }
