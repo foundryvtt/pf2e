@@ -74,7 +74,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 
-    /** The range of this weapon, or null if a melee weapon */
+    /** The range increment of this weapon, or null if a melee weapon */
     get rangeIncrement(): WeaponRangeIncrement | null {
         return this.data.data.range;
     }
@@ -147,7 +147,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
             this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
-        ].flat();
+        ]
+            .flat()
+            .sort();
     }
 
     override prepareBaseData(): void {
@@ -181,7 +183,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
-        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d+)?$/.test(t))) {
             this.data.data.reload.value = "-";
         }
 

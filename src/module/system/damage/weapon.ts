@@ -91,14 +91,8 @@ export class WeaponDamagePF2e {
         options: string[] = [],
         rollNotes: Record<string, RollNotePF2e[]>
     ): DamageTemplate {
-        // adapt weapon type (melee, ranged, thrown)
-        if (!weapon.data.range) {
-            weapon.data.range =
-                Number(traits.find((trait) => /^(?:range|thrown)-/.test(trait.name))?.name.replace(/\D/g, "")) || null;
-        }
-
         // ensure the base damage object exists
-        weapon.data.damage = weapon.data.damage ?? {};
+        weapon.data.damage ??= {};
 
         const damageRolls = Array.isArray(weapon.data.damageRolls)
             ? weapon.data.damageRolls
@@ -167,9 +161,11 @@ export class WeaponDamagePF2e {
                 weapon.data.damage.dice = dice || 0;
                 weapon.data.damage.die = die || "";
                 const strengthMod = actor.data.data.abilities.str.mod;
+                const weaponTraits: string[] = weapon.data.traits.value;
+
                 if (WeaponDamagePF2e.strengthModToDamage(weapon)) {
                     modifier -= strengthMod;
-                } else if (traits.some((trait) => trait.name === "propulsive")) {
+                } else if (weaponTraits.some((t) => t === "propulsive")) {
                     modifier -= strengthMod < 0 ? -strengthMod : Math.round(strengthMod / 2);
                 }
                 weapon.data.damage.modifier = modifier;
@@ -224,7 +220,7 @@ export class WeaponDamagePF2e {
 
         // Determine ability modifier
         {
-            const isMelee = weapon.data.range === null;
+            const isMelee = !!weapon.document?.isMelee;
             options.push(isMelee ? "melee" : "ranged");
             const strengthModValue = actorData.data.abilities.str.mod;
             const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
@@ -853,7 +849,7 @@ export class WeaponDamagePF2e {
 
     /** Determine whether a strike's damage includes the actor's strength modifier */
     static strengthModToDamage(weaponData: WeaponData): boolean {
-        const isMelee = weaponData.data.range === null;
+        const isMelee = !!weaponData.document?.isMelee;
         const traits = weaponData.data.traits.value;
         return isMelee || (!traits.includes("splash") && traits.some((t) => /^thrown(?:-\d{1,2})?/.test(t)));
     }
