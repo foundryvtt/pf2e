@@ -17,17 +17,23 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - name: Fetch Build
-        uses: actions/cache@v3
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          path: dist/
-          key: build-
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
 
       - name: Update Manifest
         run: |
-          perl -pi -e 's/(?<="version": )"([^"]+)"/"$1.$ENV{GITHUB_RUN_NUMBER}"/' dist/system.json
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
+          perl -pi -e 's/(?<="version": )"([^"]+)"/"$1.$ENV{GITHUB_RUN_NUMBER}"/' dist/system.json
 
       - name: Zip Files
         working-directory: ./dist
@@ -37,13 +43,13 @@ jobs:
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ env.systemVersion }}
+          name: ${{ env.systemVersion }}.${{ github.run_number }}
           allowUpdates: false
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './dist/system.json,./dist/pf2e.zip'
-          tag: ${{ env.systemVersion }}
+          tag: ${{ env.systemVersion }}.${{ github.run_number }}
 
       - name: Create Latest Release
         id: create_latest_release
