@@ -10,7 +10,8 @@ class CoinsPF2e implements Coins {
     gp: number;
     pp: number;
 
-    constructor(data: Coins = {}) {
+    constructor(data?: Coins | null) {
+        data ??= {};
         this.cp = data.cp ?? 0;
         this.sp = data.sp ?? 0;
         this.gp = data.gp ?? 0;
