@@ -210,9 +210,11 @@ export class WeaponDamagePF2e {
         const diceModifiers: DiceModifierPF2e[] = [];
         const numericModifiers: ModifierPF2e[] = [];
         let baseDamageDie = weapon.data.damage.die;
-        let baseDamageType = weapon.data.damage.damageType;
+        const baseDamageType = weapon.data.damage.damageType;
+        const weaponTraits = weapon.data.traits.value;
+
         // Always add all weapon traits to the options
-        options.push(...traits.map((t) => t.name));
+        options.push(...weaponTraits);
         options.sort();
 
         if (proficiencyRank >= 0) {
@@ -227,7 +229,7 @@ export class WeaponDamagePF2e {
             const strengthModValue = actorData.data.abilities.str.mod;
             const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
                 ? strengthModValue
-                : traits.some((t) => t.name === "propulsive")
+                : weaponTraits.some((t) => t === "propulsive")
                 ? strengthModValue < 0
                     ? strengthModValue
                     : Math.floor(strengthModValue / 2)
@@ -269,35 +271,18 @@ export class WeaponDamagePF2e {
         }
 
         // Kickback trait
-        if (traits.some((trait) => trait.name === "kickback")) {
+        if (weaponTraits.some((t) => t === "kickback")) {
             // For NPCs, subtract from the base damage and add back as an untype bonus
             if (actor instanceof NPCPF2e) weapon.data.damage.modifier -= 1;
             numericModifiers.push(new ModifierPF2e({ label: CONFIG.PF2E.weaponTraits.kickback, modifier: 1 }));
         }
 
         // Two-Hand trait
-        const twoHandTrait = traits.find(
-            (t) => t.name.toLowerCase().startsWith("two-hand-") && (weapon.data?.equipped?.handsHeld ?? 0) >= 2
+        const twoHandTrait = weaponTraits.find(
+            (t) => t.startsWith("two-hand-") && (weapon.data?.equipped?.handsHeld ?? 0) >= 2
         );
         if (twoHandTrait) {
-            baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf("-") + 1) as DamageDieSize;
-        }
-
-        // Versatile trait
-        const versatileTrait = traits.find(
-            // utilizing the css class here is a dirty (and hopefully temporary!) hack
-            (t) => t.name.toLowerCase().startsWith("versatile-") && t.cssClass === "toggled-on"
-        );
-        if (versatileTrait && options.some((o) => o === versatileTrait.rollOption)) {
-            const dmg = {
-                b: "bludgeoning",
-                p: "piercing",
-                s: "slashing",
-                fire: "fire",
-                positive: "positive",
-            } as const;
-            baseDamageType =
-                dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf("-") + 1) as "b" | "p" | "s"];
+            baseDamageDie = twoHandTrait.substring(twoHandTrait.lastIndexOf("-") + 1) as DamageDieSize;
         }
 
         // Custom damage
@@ -377,7 +362,7 @@ export class WeaponDamagePF2e {
         }
 
         // Backstabber trait
-        if (traits.some((t) => t.name === "backstabber") && options.includes("target:condition:flat-footed")) {
+        if (weaponTraits.some((t) => t === "backstabber") && options.includes("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 modifier: potency > 2 ? 2 : 1,
@@ -388,9 +373,8 @@ export class WeaponDamagePF2e {
 
         // Deadly trait
         const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;
-        const deadlyTraits = traits.filter((t) => t.name.startsWith("deadly-"));
-        for (const trait of deadlyTraits) {
-            const slug = trait.name;
+        const deadlyTraits = weaponTraits.filter((t) => t.startsWith("deadly-"));
+        for (const slug of deadlyTraits) {
             const diceNumber = (() => {
                 const baseNumber = Number(/-(\d)d\d{1,2}$/.exec(slug)?.at(1)) || 1;
                 return strikingDice > 1 ? strikingDice * baseNumber : baseNumber;
@@ -406,13 +390,13 @@ export class WeaponDamagePF2e {
         }
 
         // Fatal trait
-        traits
-            .filter((t) => t.name.startsWith("fatal-d"))
+        weaponTraits
+            .filter((t) => t.startsWith("fatal-d"))
             .forEach((t) => {
-                const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
+                const dieSize = t.substring(t.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        label: traitLabels[t.name],
+                        label: traitLabels[t],
                         diceNumber: 1,
                         dieSize,
                         critical: true,
