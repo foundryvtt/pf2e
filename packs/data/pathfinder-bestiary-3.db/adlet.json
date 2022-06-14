@@ -27,7 +27,7 @@
                 "value": 30
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -90,8 +90,6 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
                     "value": 10
                 }
@@ -123,7 +121,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "xfsdu9bQZ2cXEvks",
+            "_id": "2dwXilE1hqrwdBdk",
             "data": {
                 "MAP": {
                     "value": ""
@@ -147,8 +145,8 @@
                     "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -171,10 +169,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -196,16 +194,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 2,
                 "range": null,
@@ -216,7 +214,7 @@
                 "size": "med",
                 "slug": "spear",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -248,7 +246,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
-            "name": "+1 Striking Spear",
+            "name": "Spear",
             "sort": 100000,
             "type": "weapon"
         },
@@ -393,7 +391,7 @@
             "type": "melee"
         },
         {
-            "_id": "01ilz97XBaKB0Kz1",
+            "_id": "bcflm5XlNEDnnGZ3",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -438,7 +436,7 @@
             "type": "action"
         },
         {
-            "_id": "c98PM0QPXi4xWm6M",
+            "_id": "iQBwvNjlgULNrpOy",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -495,7 +493,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of an adlet's jaws Strike attacks one of the adlet's allies</p>\n<hr />\n<p><strong>Effect</strong> The adlet makes a jaws Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within reach of an adlet's jaws Strike attacks one of the adlet's allies.</p>\n<hr />\n<p><strong>Effect</strong> The adlet makes a jaws Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -580,12 +578,21 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Weapons wielded by an adlet gain the effect of the @Compendium[pf2e.equipment-srd.Frost]{Frost} property rune.</p>"
+                    "value": "<p>Weapons wielded by an adlet gain the effect of the <em>@Compendium[pf2e.equipment-srd.Frost]{Frost}</em> property rune.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.WeaponPropertyRune.frost.Note.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -627,7 +634,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
