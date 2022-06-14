@@ -718,6 +718,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
         const targetActor = context.target?.actor;
+
         return {
             ...context,
             dc: targetActor?.attributes.ac
@@ -793,7 +794,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-        const rollOptions = Array.from(new Set([selfOptions, targetOptions].flat()));
+        const rollOptions = Array.from(
+            new Set([
+                ...selfOptions,
+                ...targetOptions,
+                // Backward compatibility for predication looking for an "attack" trait by its lonesome
+                "attack",
+            ])
+        );
 
         // Calculate distance and set as a roll option
         const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
