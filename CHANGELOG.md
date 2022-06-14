@@ -8,6 +8,10 @@
 * (Supe) Handle aberrant price values on items
 * (Supe) Show strike descriptions in new hazard sheet
 
+### Data Updates
+* (Manni) Changed name of magic weapons on several Bestiary 2 creatures to base weapon names
+
+
 ## Version 3.11.0
 
 #### New Features
