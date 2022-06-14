@@ -42,6 +42,14 @@ class ContainerPF2e extends PhysicalItemPF2e {
         );
     }
 
+    /** Move the contents of this container into the next-higher container or otherwise the main actor inventory */
+    async ejectContents(): Promise<void> {
+        if (!this.actor) return;
+
+        const updates = this.contents.map((i) => ({ _id: i.id, "data.containerId": this.container?.id ?? null }));
+        await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
+    }
+
     override getChatData(this: Embedded<ContainerPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);

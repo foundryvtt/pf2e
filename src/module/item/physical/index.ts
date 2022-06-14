@@ -258,6 +258,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             this.data.data.equipped.carryType = "stowed";
             delete this.data.data.equipped.inSlot;
         }
+
+        // Clear the container reference if it turns out to be stale
+        if (this._container && !this.actor.items.has(this._container.id)) {
+            this._container = this.data.data.containerId = null;
+        }
     }
 
     /** Can the provided item stack with this item? */
