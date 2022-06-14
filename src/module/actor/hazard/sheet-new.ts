@@ -25,6 +25,14 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         return "systems/pf2e/templates/actors/hazard/sheet-new.html";
     }
 
+    override get title() {
+        if (this.editing) {
+            return game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title });
+        }
+
+        return super.title;
+    }
+
     get editing() {
         return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
