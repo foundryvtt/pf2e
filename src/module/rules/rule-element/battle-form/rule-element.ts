@@ -61,6 +61,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "tendril",
         "tentacle",
         "tongue",
+        "trunk",
+        "tusk",
         "vine",
         "water-spout",
         "wave",
