@@ -9,11 +9,12 @@ import { DicePF2e } from "@scripts/dice";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
+import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { MeleeSystemData } from "./melee/data";
 import type { PhysicalItemPF2e } from "./physical";
+import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
@@ -500,6 +501,14 @@ class ItemPF2e extends Item<ActorPF2e> {
         const actor = context.parent;
         if (actor) {
             const items = ids.flatMap((id) => actor.items.get(id) ?? []);
+
+            // If a container is being deleted, its contents need to have their containerId references updated
+            const containers = items.filter((i): i is Embedded<ContainerPF2e> => i.isOfType("backpack"));
+            for (const container of containers) {
+                await container.ejectContents();
+            }
+
+            // Run RE pre-delete callbacks
             for (const item of items) {
                 for (const rule of item.rules) {
                     await rule.preDelete?.({ pendingItems: items, context });
