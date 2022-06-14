@@ -19,11 +19,49 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "curse",
+                        "origin:trait:hag"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "curse",
+                        "origin:trait:hag"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "curse",
+                        "origin:trait:hag"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class=\"compact-text\"><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Human.WitchWarden.SaveNote]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },

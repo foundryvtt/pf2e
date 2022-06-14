@@ -19,6 +19,7 @@
         "level": {
             "value": 13
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -29,7 +30,13 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "5+(max(1,floor(@actor.level/2)))"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
