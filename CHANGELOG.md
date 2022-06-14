@@ -1,14 +1,22 @@
 # Changelog
 
+## Version 3.11.1
+
+### Bugfixes
+* (stwlam) Fix failed import of repair action macro
+* (stwlam) Restore functionality of several damage-related weapon traits
+* (Supe) Handle aberrant price values on items
+* (Supe) Show strike descriptions in new hazard sheet
+
 ## Version 3.11.0
 
-### New Features
+#### New Features
 * (stwlam) Add support for throwing melee weapons with Thrown trait--currently the weapon isn't lost when thrown, pending accounting of mitigating abilities
 * (stwlam) Add secret feature allowing one to generate [redacted] from [redacted] on NPCs
 * (Supe) Add syntax highlighter and linter for Rule Element editing
 * (Supe) Add new (in-testing) Hazard sheet
 
-## Core System Improvements
+### Core System Improvements
 * (Anathema) Rework readme for official status and license info
 * (Friz) Add logic to grey Inventory, Effect and Notes tabs for NPC if relative tab is empty
 * (JDCalvert) Make the AdjustStrike rule element replace existing traits of the same type and lower value
@@ -21,14 +29,14 @@
 * (Supe) Report offending item when rule element fails to build
 * (kolontaev) Add additive modifier to the recovery rate from a night's rest
 
-## Bugfixes
+### Bugfixes
 * (kolontaev) Fix bug causing check dialog to reset its roll-twice option under some circumstances
 * (stwlam) Fix Rest for the Night procedure inadvertantly saving prepared PC data and causing various adverse effects
 * (stwlam) Fix issue causing archetypes granting weapon proficiencies to interfere with some weapon damage effects (e.g., Archer Dedication and Gravity Weapon)
 * (stwlam) Fix issue causing unlinked tokens to not re-render when receiving a token-light effect
 * (stwlam) Prevent spell data from being wiped on item permission updates
 
-## Data Updates
+### Data Updates
 * (Arthana) Add traits for feat & actions chat cards
 * (Dana) Add Student of the Staff automation
 * (InfamousSky) Add icons to Guns and Gears and Knights of Lastwall spells/equipment
