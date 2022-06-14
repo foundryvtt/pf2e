@@ -479,6 +479,7 @@ class NPCPF2e extends CreaturePF2e {
                     `${meleeData._id}-attack`,
                     `${unarmedOrWeapon}-attack-roll`,
                     `${meleeOrRanged}-attack-roll`,
+                    "strike-attack-roll",
                     "attack-roll",
                     "all",
                 ];
@@ -514,8 +515,7 @@ class NPCPF2e extends CreaturePF2e {
                     description: item.description,
                     imageUrl,
                     sourceId: item.id,
-                    attackRollType:
-                        meleeData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
+                    attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
                     additionalEffects,
                     item,
                     weapon: item,
@@ -552,12 +552,7 @@ class NPCPF2e extends CreaturePF2e {
                 }
 
                 const getRangeIncrement = (distance: number | null): number | null => {
-                    const weaponIncrement =
-                        Number(
-                            meleeData.data.traits.value
-                                .find((t) => t.startsWith("range-increment-"))
-                                ?.replace("range-increment-", "")
-                        ) || null;
+                    const weaponIncrement = item.rangeIncrement;
                     return typeof distance === "number" && typeof weaponIncrement === "number"
                         ? Math.max(Math.ceil(distance / weaponIncrement), 1)
                         : null;
@@ -587,16 +582,32 @@ class NPCPF2e extends CreaturePF2e {
                             const rollNotes = notes.concat(attackEffects);
                             const context = this.getAttackRollContext({ item, viewOnly: false });
                             // Always add all weapon traits as options
-                            const rollOptions = (args.options ?? [])
-                                .concat(context.options)
-                                .concat(meleeData.data.traits.value);
+                            const rollOptions = [
+                                args.options ?? [],
+                                context.options,
+                                meleeData.data.traits.value,
+                                context.self.item.getRollOptions("weapon"),
+                            ].flat();
+
+                            // Legacy support for "melee", "ranged", and "thrown" roll options
+                            if (item.isThrown) {
+                                rollOptions.push("ranged", "thrown");
+                            } else if (item.isRanged) {
+                                rollOptions.push("ranged");
+                            } else {
+                                rollOptions.push("melee");
+                            }
 
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                             const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
+                            const checkName = game.i18n.format(
+                                item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+                                { weapon: item.name }
+                            );
 
                             const roll = await CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action, otherModifiers),
+                                new CheckModifier(checkName, action, otherModifiers),
                                 {
                                     actor: context.self.actor,
                                     item: context.self.item,

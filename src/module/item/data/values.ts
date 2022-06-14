@@ -1,6 +1,4 @@
-declare const CONFIG: ConfigPF2e;
-
-export class MystifiedTraits {
+class MystifiedTraits {
     private static mystifiedTraits: Set<string> = new Set();
 
     static compile(): void {
@@ -20,10 +18,9 @@ export class MystifiedTraits {
     }
 }
 
-export const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
+const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
 
-export const RANGE_TRAITS = [
-    "range",
+const RANGE_TRAITS = [
     "range-5",
     "range-10",
     "range-15",
@@ -80,3 +77,5 @@ export const RANGE_TRAITS = [
     "range-increment-310",
     "range-increment-320",
 ] as const;
+
+export { ITEM_CARRY_TYPES, MystifiedTraits, RANGE_TRAITS };

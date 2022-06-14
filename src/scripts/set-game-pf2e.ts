@@ -43,7 +43,7 @@ export const SetGamePF2e = {
             raiseAShield,
             restForTheNight,
             steelYourResolve,
-            ...ActionMacros.macros,
+            ...ActionMacros,
         };
 
         const initSafe: Partial<typeof game["pf2e"]> = {

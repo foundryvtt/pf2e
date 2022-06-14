@@ -1,12 +1,13 @@
 import * as fs from "fs";
 import * as path from "path";
-import { isObject, setHasElement, sluggify } from "@util";
+import { isObject, setHasElement, sluggify, tupleHasValue } from "@util";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { ActorSourcePF2e } from "@actor/data";
 import { RuleElementSource } from "@module/rules";
 import { FEAT_TYPES } from "@item/feat/values";
+import { SIZES } from "@module/data";
 
 export interface PackMetadata {
     system: string;
@@ -165,6 +166,7 @@ export class CompendiumPack {
         docSource.flags ??= {};
         docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
+            this.assertSizeValid(docSource);
             docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
                 item.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
@@ -300,5 +302,13 @@ export class CompendiumPack {
 
     private isPackData(packData: unknown[]): packData is CompendiumSource[] {
         return packData.every((maybeDocSource: unknown) => this.isDocumentSource(maybeDocSource));
+    }
+
+    private assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
+        if ("items" in source && "traits" in source.data && source.type !== "character") {
+            if (!tupleHasValue(SIZES, source.data.traits.size.value)) {
+                throw PackError(`Actor size on ${source.name} (${source._id}) is invalid.`);
+            }
+        }
     }
 }
