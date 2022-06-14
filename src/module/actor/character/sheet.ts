@@ -6,7 +6,6 @@ import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
@@ -313,16 +312,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-
-        const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
-        const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        actorData.data.attributes.encumbrance = calculateEncumbrance(
-            actorData.data.abilities.str.mod,
-            bonusEncumbranceBulk,
-            bonusLimitBulk,
-            this.actor.inventory.bulk,
-            this.actor.size
-        );
     }
 
     private prepareSpellcasting(sheetData: CharacterSheetData): void {

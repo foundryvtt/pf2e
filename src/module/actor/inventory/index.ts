@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e, TreasurePF2e } from "@item";
-import { Bulk, computeTotalBulk } from "@item/physical/bulk";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
 import { groupBy } from "@util";
+import { InventoryBulk } from "./bulk";
 
 class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
     constructor(public readonly actor: ActorPF2e, entries?: Embedded<PhysicalItemPF2e>[]) {
@@ -34,9 +34,8 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         return null;
     }
 
-    get bulk(): Bulk {
-        const topLevel = this.filter((item) => !item.isInContainer);
-        return computeTotalBulk(topLevel, this.actor);
+    get bulk(): InventoryBulk {
+        return new InventoryBulk(this.actor);
     }
 
     async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
@@ -188,4 +187,4 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
     }
 }
 
-export { ActorInventory };
+export { ActorInventory, InventoryBulk };

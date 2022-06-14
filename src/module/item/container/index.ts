@@ -1,6 +1,7 @@
+import { InventoryBulk } from "@actor/inventory";
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
-import { Bulk, computeTotalBulk, weightToBulk } from "@item/physical/bulk";
+import { Bulk, weightToBulk } from "@item/physical/bulk";
 import { ContainerData } from "./data";
 import { hasExtraDimensionalParent } from "./helpers";
 
@@ -17,14 +18,14 @@ class ContainerPF2e extends PhysicalItemPF2e {
         return this.data.data.collapsed;
     }
 
-    get capacity() {
+    get capacity(): { value: Bulk; max: Bulk } {
         return {
-            value: computeTotalBulk(this.contents.contents, this.actor),
+            value: InventoryBulk.computeTotalBulk(this.contents.contents, this.actor?.size ?? "med"),
             max: weightToBulk(this.data.data.bulkCapacity.value) || new Bulk(),
         };
     }
 
-    get capacityPercentage() {
+    get capacityPercentage(): number {
         const { value, max } = this.capacity;
         return Math.min(100, Math.floor((value.toLightBulk() / max.toLightBulk()) * 100));
     }

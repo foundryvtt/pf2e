@@ -132,7 +132,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): void;
 
-    protected prepareInventory() {
+    protected prepareInventory(): SheetInventory {
         const invested = this.actor.inventory.invested;
         const sections: SheetInventory["sections"] = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), type: "weapon", items: [] },
@@ -176,7 +176,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         sections.equipment.overInvested = !!invested && invested.max < invested.value;
-        return { sections };
+        return { sections, bulk: this.actor.inventory.bulk };
     }
 
     protected findActiveList() {
