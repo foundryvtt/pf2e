@@ -1,7 +1,5 @@
-import { ActorPF2e } from "@actor";
-import type { PhysicalItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
-import { applyNTimes, groupBy, Optional, sum } from "@util";
+import { applyNTimes, Optional } from "@util";
 import { PhysicalItemData } from "../data";
 import { isEquipped } from "./usage";
 
@@ -369,50 +367,4 @@ export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] =
         extraDimensionalContainer,
         size,
     });
-}
-
-/** Non-stowing containers are not "real" and thus shouldn't split stack groups */
-export function flattenNonStowing(items: PhysicalItemPF2e[]): PhysicalItemPF2e[] {
-    return items
-        .map((item) => {
-            if (item.isOfType("backpack") && !item.stowsItems) {
-                return flattenNonStowing(item.contents.contents);
-            }
-            return item;
-        })
-        .flat();
-}
-
-export function computeTotalBulk(items: PhysicalItemPF2e[], actor: ActorPF2e | null) {
-    items = flattenNonStowing(items);
-
-    // Figure out which items have stack groups and which don't
-    const nonStackingItems = items.filter(
-        (i) => i.isOfType("backpack") || (i.data.data.bulk.per === 1 && i.data.data.baseItem)
-    );
-    const nonStackingIds = new Set(nonStackingItems.map((item) => item.id));
-    const stackingItems = items.filter((item) => !nonStackingIds.has(item.id));
-
-    // Compute non-stacking bulks
-    const baseBulk = nonStackingItems
-        .map((item) => item.bulk)
-        .reduce((first, second) => first.plus(second), new Bulk());
-
-    // Group by stack group, then combine into quantities, then compute bulk from combined quantities
-    const stackingBehaviors = stackingItems.map((item) => ({
-        per: item.data.data.bulk.per,
-        item,
-        group: item.data.data.baseItem,
-        bulk: new Bulk({ light: item.data.data.bulk.value }).convertToSize(item.size, actor?.size ?? item.size),
-    }));
-    const grouped = groupBy(stackingBehaviors, (data) => `${data.group}-${data.per}-${data.bulk.toLightBulk()}`);
-    const bulks = [...grouped.values()].map((dataEntries) => {
-        const { bulk, per } = dataEntries[0]; // guaranteed to have at least one with groupBy
-        const quantity = sum(dataEntries.map((entry) => entry.item.quantity));
-        const bulkRelevantQuantity = Math.floor(quantity / per);
-        return bulk.times(bulkRelevantQuantity);
-    });
-
-    // Combine non-stacking and stacking bulks together
-    return baseBulk.plus(bulks.reduce((first, second) => first.plus(second), new Bulk()));
 }
