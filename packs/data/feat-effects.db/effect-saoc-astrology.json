@@ -19,7 +19,7 @@
                 "choices": [
                     {
                         "label": "-1 penalty",
-                        "value": "minus-one"
+                        "value": -1
                     },
                     {
                         "label": "+1 bonus",
@@ -28,11 +28,11 @@
                                 "heir-of-the-saoc"
                             ]
                         },
-                        "value": "plus-one"
+                        "value": 1
                     },
                     {
                         "label": "+2 bonus",
-                        "value": "plus-two"
+                        "value": 2
                     },
                     {
                         "label": "+3 bonus",
@@ -41,7 +41,7 @@
                                 "heir-of-the-saoc"
                             ]
                         },
-                        "value": "plus-three"
+                        "value": 3
                     },
                     {
                         "label": "+4 bonus",
@@ -50,72 +50,18 @@
                                 "heir-of-the-saoc"
                             ]
                         },
-                        "value": "plus-four"
+                        "value": 4
                     }
                 ],
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Human.SaocAstrology.Prompt",
-                "rollOption": "astrology"
+                "flag": "saocBonusChoice"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "astrology:minus-one"
-                    ]
-                },
                 "selector": "skill-check",
-                "slug": "astrology-penalty",
                 "type": "circumstance",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "astrology:plus-one"
-                    ]
-                },
-                "selector": "skill-check",
-                "slug": "astrology-bonus-one",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "astrology:plus-two"
-                    ]
-                },
-                "selector": "skill-check",
-                "slug": "astrology-bonus-two",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "astrology:plus-three"
-                    ]
-                },
-                "selector": "skill-check",
-                "slug": "astrology-bonus-three",
-                "type": "circumstance",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "astrology:plus-four"
-                    ]
-                },
-                "selector": "skill-check",
-                "slug": "astrology-bonus-four",
-                "type": "circumstance",
-                "value": 4
+                "value": "{item|flags.pf2e.rulesSelections.saocBonusChoice}"
             }
         ],
         "source": {
