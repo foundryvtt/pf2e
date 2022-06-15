@@ -14,7 +14,7 @@ import { ScenePF2e } from "@module/scene";
  * - Test that your changes work. We have unit tests in tests/module/migration.test.ts as well as you
  *   should add your migration to packs/run-migration
  */
-export abstract class MigrationBase {
+abstract class MigrationBase {
     /**
      * This is the schema version. Make sure it matches the new version in system.json
      */
@@ -27,12 +27,15 @@ export abstract class MigrationBase {
      * migrations after this in a batch. Use this if you are adding items to actors for instance.
      */
     requiresFlush = false;
+}
 
+/** Optional methods */
+interface MigrationBase {
     /**
      * Update the actor to the latest schema version.
      * @param actor This should be effectively a `ActorSourcePF2e` from the previous version.
      */
-    async updateActor(_actor: ActorSourcePF2e): Promise<void> {}
+    updateActor?(_actor: ActorSourcePF2e): Promise<void>;
 
     /**
      * Update the item to the latest schema version.
@@ -40,38 +43,35 @@ export abstract class MigrationBase {
      * @param actor If the item is part of an actor, this is set to the actor. For instance
      * if you only want to update items that are on a npc you can do that here.
      */
-    async updateItem(_item: ItemSourcePF2e, _actor?: ActorSourcePF2e): Promise<void> {}
-}
+    updateItem?(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void>;
 
-/** Optional methods */
-export interface MigrationBase {
     /**
      * Update the macro to the latest schema version.
      * @param macroData Macro data to update. This should be a `MacroData` from the previous version.
      */
-    updateMacro?(_macroData: foundry.data.MacroSource): Promise<void>;
+    updateMacro?(macroData: foundry.data.MacroSource): Promise<void>;
 
     /**
      * Update the rollable table to the latest schema version.
      * @param tableData Rolltable data to update. This should be a `RollTableData` from the previous version.
      */
-    updateTable?(_tableData: foundry.data.RollTableSource): Promise<void>;
+    updateTable?(tableData: foundry.data.RollTableSource): Promise<void>;
 
     /**
      * Update the token to the latest schema version.
      * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
      */
     updateToken?(
-        _tokenData: foundry.data.TokenSource,
-        _actor: Readonly<ActorPF2e | null>,
-        _scene: Readonly<ScenePF2e | null>
+        tokenData: foundry.data.TokenSource,
+        actor: Readonly<ActorPF2e | null>,
+        scene: Readonly<ScenePF2e | null>
     ): Promise<void>;
 
     /**
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */
-    updateUser?(_userData: foundry.data.UserSource): Promise<void>;
+    updateUser?(userData: foundry.data.UserSource): Promise<void>;
 
     /**
      * Run migrations for this schema version.
@@ -80,3 +80,5 @@ export interface MigrationBase {
      */
     migrate?(): Promise<void>;
 }
+
+export { MigrationBase };

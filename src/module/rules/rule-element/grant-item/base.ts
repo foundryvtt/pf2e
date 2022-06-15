@@ -86,7 +86,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
             const actorWithNewItem = this.actor.toObject();
             actorWithNewItem.items.push(grantedSource);
             for (const migration of migrations) {
-                await migration.updateItem(grantedSource, actorWithNewItem);
+                await migration.updateItem?.(grantedSource, actorWithNewItem);
             }
             grantedSource.data.schema.version = MigrationRunner.LATEST_SCHEMA_VERSION;
         }
