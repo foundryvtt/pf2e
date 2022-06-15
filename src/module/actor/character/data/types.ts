@@ -89,7 +89,7 @@ interface CharacterSystemData extends CreatureSystemData {
     };
 
     /** Player skills, used for various skill checks. */
-    skills: { [K in SkillAbbreviation]: CharacterSkillData };
+    skills: Record<SkillAbbreviation, CharacterSkillData>;
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
