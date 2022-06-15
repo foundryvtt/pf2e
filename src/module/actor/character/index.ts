@@ -978,6 +978,9 @@ class CharacterPF2e extends CreaturePF2e {
             stat.notes = extractNotes(synthetics.rollNotes, domains);
             stat.rank = skill.rank;
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                console.warn(
+                    `Rolling skill checks via actor.data.data.skills.${shortForm}.roll() is deprecated, use actor.skills.${longForm}.check.roll() instead`
+                );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
@@ -1051,6 +1054,9 @@ class CharacterPF2e extends CreaturePF2e {
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                console.warn(
+                    `Rolling skill checks via actor.data.data.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
+                );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                 const rollOptions = args.options ?? [];
                 ensureProficiencyOption(rollOptions, rank);
