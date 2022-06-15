@@ -112,7 +112,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.replaceSelf) {
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
-            await this.runGrantedItemPreCreates(args, tempGranted);
+            await this.runGrantedItemPreCreates(args, tempGranted, context);
             return;
         }
 
@@ -127,8 +127,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedFlags = mergeObject(grantedSource.flags ?? {}, { pf2e: {} });
         grantedFlags.pf2e.grantedBy = { id: itemSource._id };
 
-        // Run the granted item's preCreate callbacks
-        await this.runGrantedItemPreCreates(args, tempGranted);
+        // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
+        if (!args.reevaluation) {
+            await this.runGrantedItemPreCreates(args, tempGranted, context);
+        }
 
         pendingItems.push(grantedSource);
     }
@@ -149,7 +151,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const itemSource = this.item.toObject();
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
-        await this.preCreate({ itemSource, pendingItems, context });
+        await this.preCreate({ itemSource, pendingItems, context, reevaluation: true });
 
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? [];
@@ -213,7 +215,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
     /** Run the preCreate callbacks of REs from the granted item */
     private async runGrantedItemPreCreates(
         originalArgs: Omit<REPreCreateParameters, "ruleSource">,
-        grantedItem: Embedded<ItemPF2e>
+        grantedItem: Embedded<ItemPF2e>,
+        context: DocumentModificationContext<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
         if (grantedItem.data.data.rules) {
@@ -224,6 +227,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
                     ...originalArgs,
                     itemSource: grantedSource,
                     ruleSource,
+                    context,
                 });
             }
         }
