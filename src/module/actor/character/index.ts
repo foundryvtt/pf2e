@@ -79,6 +79,7 @@ import {
     CharacterData,
     CharacterProficiency,
     CharacterSaves,
+    CharacterSkillData,
     CharacterStrike,
     CharacterSystemData,
     FeatSlot,
@@ -629,7 +630,7 @@ class CharacterPF2e extends CreaturePF2e {
                         type: MODIFIER_TYPE.ITEM,
                         slug,
                         modifier: wornArmor.acBonus,
-                        adjustments: this.getModifierAdjustments(["ac"], slug),
+                        adjustments: this.getModifierAdjustments(["all", "ac"], slug),
                     })
                 );
             }
@@ -683,183 +684,8 @@ class CharacterPF2e extends CreaturePF2e {
             statisticsModifiers.speed.push(() => speedPenalty);
         }
 
-        // Skill modifiers
-
-        // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
-        const skills: Partial<CharacterSystemData["skills"]> = {};
-
-        for (const shortForm of SKILL_ABBREVIATIONS) {
-            const skill = systemData.skills[shortForm];
-            const longForm = SKILL_DICTIONARY[shortForm];
-
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
-            const modifiers = [
-                AbilityModifier.fromScore(skill.ability, systemData.abilities[skill.ability].value),
-                ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
-            ];
-            for (const modifier of modifiers) {
-                modifier.adjustments = this.getModifierAdjustments(domains, modifier.slug);
-            }
-
-            // Indicate that the strength requirement of this actor's armor is met
-            if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
-                for (const selector of ["skill-check", "initiative"]) {
-                    const rollOptions = (this.rollOptions[selector] ??= {});
-                    // Nullish assign to not overwrite setting by rule element
-                    rollOptions["self:armor:strength-requirement-met"] ??= true;
-                }
-            }
-
-            if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
-                const slug = "armor-check-penalty";
-                const armorCheckPenalty = new ModifierPF2e({
-                    slug,
-                    label: "PF2E.ArmorCheckPenalty",
-                    modifier: wornArmor.checkPenalty,
-                    type: MODIFIER_TYPE.UNTYPED,
-                    adjustments: this.getModifierAdjustments(domains, slug),
-                });
-
-                // Set requirements for ignoring the check penalty according to skill
-                armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
-                if (["acr", "ath"].includes(shortForm)) {
-                    armorCheckPenalty.predicate.not.push(
-                        "self:armor:strength-requirement-met",
-                        "self:armor:trait:flexible"
-                    );
-                } else if (shortForm === "ste" && wornArmor.traits.has("noisy")) {
-                    armorCheckPenalty.predicate.not.push({
-                        and: ["self:armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
-                    });
-                } else {
-                    armorCheckPenalty.predicate.not.push("self:armor:strength-requirement-met");
-                }
-
-                modifiers.push(armorCheckPenalty);
-            }
-
-            modifiers.push(...extractModifiers(statisticsModifiers, domains));
-
-            const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
-                overwrite: false,
-            });
-            stat.breakdown = stat.modifiers
-                .filter((modifier) => modifier.enabled)
-                .map((modifier) => {
-                    const prefix = modifier.modifier < 0 ? "" : "+";
-                    return `${modifier.label} ${prefix}${modifier.modifier}`;
-                })
-                .join(", ");
-            stat.value = stat.totalModifier;
-            stat.notes = extractNotes(rollNotes, domains);
-            stat.rank = skill.rank;
-            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                const label = game.i18n.format("PF2E.SkillCheckWithName", {
-                    skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
-                });
-                const rollOptions = args.options ?? [];
-                ensureProficiencyOption(rollOptions, skill.rank);
-                if (args.dc && stat.adjustments) {
-                    args.dc.adjustments = stat.adjustments;
-                }
-
-                // Get just-in-time roll options from rule elements
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(domains, rollOptions);
-                }
-
-                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
-                const substitutions = extractRollSubstitutions(synthetics.rollSubstitutions, domains, rollOptions);
-                const context: CheckRollContext = {
-                    actor: this,
-                    type: "skill-check",
-                    options: rollOptions,
-                    dc: args.dc,
-                    rollTwice,
-                    substitutions,
-                    notes: stat.notes,
-                };
-
-                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
-
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                }
-
-                return roll;
-            };
-
-            skills[shortForm] = stat;
-        }
-
-        // Lore skills
-        for (const item of itemTypes.lore) {
-            const skill = item.data;
-            // normalize skill name to lower-case and dash-separated words
-            const shortForm = sluggify(skill.name) as SkillAbbreviation;
-            const rank = skill.data.proficient.value;
-
-            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
-            const modifiers = [
-                AbilityModifier.fromScore("int", systemData.abilities.int.value),
-                ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                ...extractModifiers(statisticsModifiers, domains),
-            ];
-
-            const loreSkill = systemData.skills[shortForm];
-            const stat = mergeObject(
-                new StatisticModifier(shortForm, modifiers, this.getRollOptions(domains)),
-                loreSkill,
-                { overwrite: false }
-            );
-            stat.label = skill.name;
-            stat.ability = "int";
-            stat.itemID = skill._id;
-            stat.notes = extractNotes(rollNotes, domains);
-            stat.rank = rank ?? 0;
-            stat.shortform = shortForm;
-            stat.expanded = skill;
-            stat.value = stat.totalModifier;
-            stat.lore = true;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
-                const rollOptions = args.options ?? [];
-                ensureProficiencyOption(rollOptions, rank);
-
-                // Get just-in-time roll options from rule elements
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(domains, rollOptions);
-                }
-
-                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
-                const substitutions = extractRollSubstitutions(synthetics.rollSubstitutions, domains, rollOptions);
-                const context: CheckRollContext = {
-                    actor: this,
-                    type: "skill-check",
-                    options: rollOptions,
-                    dc: args.dc,
-                    rollTwice,
-                    substitutions,
-                    notes: stat.notes,
-                };
-
-                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
-
-                for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                }
-
-                return roll;
-            };
-
-            skills[shortForm] = stat;
-        }
-
-        systemData.skills = skills as Required<typeof skills>;
+        // Skills
+        systemData.skills = this.prepareSkills();
 
         // Speeds
         systemData.attributes.speed = this.prepareSpeed("land");
@@ -1012,9 +838,10 @@ class CharacterPF2e extends CreaturePF2e {
         // Some rules specify ignoring the Free Hand trait
         const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
+        // `
     }
 
-    prepareSaves(): void {
+    private prepareSaves(): void {
         const systemData = this.data.data;
         const { wornArmor } = this;
         const { rollNotes, statisticsModifiers } = this.synthetics;
@@ -1077,6 +904,187 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
+    }
+
+    private prepareSkills(): Record<SkillAbbreviation, CharacterSkillData> {
+        const systemData = this.data.data;
+
+        // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
+        const { synthetics, wornArmor } = this;
+
+        const skills = Array.from(SKILL_ABBREVIATIONS).reduce((builtSkills, shortForm) => {
+            const skill = systemData.skills[shortForm];
+            const longForm = SKILL_DICTIONARY[shortForm];
+
+            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
+            const modifiers = [
+                AbilityModifier.fromScore(skill.ability, systemData.abilities[skill.ability].value),
+                ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
+            ];
+            for (const modifier of modifiers) {
+                modifier.adjustments = this.getModifierAdjustments(domains, modifier.slug);
+            }
+
+            // Indicate that the strength requirement of this actor's armor is met
+            if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
+                for (const selector of ["skill-check", "initiative"]) {
+                    const rollOptions = (this.rollOptions[selector] ??= {});
+                    // Nullish assign to not overwrite setting by rule element
+                    rollOptions["self:armor:strength-requirement-met"] ??= true;
+                }
+            }
+
+            if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
+                const slug = "armor-check-penalty";
+                const armorCheckPenalty = new ModifierPF2e({
+                    slug,
+                    label: "PF2E.ArmorCheckPenalty",
+                    modifier: wornArmor.checkPenalty,
+                    type: MODIFIER_TYPE.UNTYPED,
+                    adjustments: this.getModifierAdjustments(domains, slug),
+                });
+
+                // Set requirements for ignoring the check penalty according to skill
+                armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
+                if (["acr", "ath"].includes(shortForm)) {
+                    armorCheckPenalty.predicate.not.push(
+                        "self:armor:strength-requirement-met",
+                        "self:armor:trait:flexible"
+                    );
+                } else if (shortForm === "ste" && wornArmor.traits.has("noisy")) {
+                    armorCheckPenalty.predicate.not.push({
+                        and: ["self:armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
+                    });
+                } else {
+                    armorCheckPenalty.predicate.not.push("self:armor:strength-requirement-met");
+                }
+
+                modifiers.push(armorCheckPenalty);
+            }
+
+            modifiers.push(...extractModifiers(synthetics.statisticsModifiers, domains));
+
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
+                overwrite: false,
+            });
+            stat.breakdown = stat.modifiers
+                .filter((modifier) => modifier.enabled)
+                .map((modifier) => {
+                    const prefix = modifier.modifier < 0 ? "" : "+";
+                    return `${modifier.label} ${prefix}${modifier.modifier}`;
+                })
+                .join(", ");
+            stat.value = stat.totalModifier;
+            stat.notes = extractNotes(synthetics.rollNotes, domains);
+            stat.rank = skill.rank;
+            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                const label = game.i18n.format("PF2E.SkillCheckWithName", {
+                    skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
+                });
+                const rollOptions = args.options ?? [];
+                ensureProficiencyOption(rollOptions, skill.rank);
+                if (args.dc && stat.adjustments) {
+                    args.dc.adjustments = stat.adjustments;
+                }
+
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, rollOptions);
+                }
+
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(synthetics.rollSubstitutions, domains, rollOptions);
+                const context: CheckRollContext = {
+                    actor: this,
+                    type: "skill-check",
+                    options: rollOptions,
+                    dc: args.dc,
+                    rollTwice,
+                    substitutions,
+                    notes: stat.notes,
+                };
+
+                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                }
+
+                return roll;
+            };
+
+            builtSkills[shortForm] = stat;
+            return builtSkills;
+        }, {} as Record<SkillAbbreviation, CharacterSkillData>);
+
+        // Lore skills
+        for (const item of this.itemTypes.lore) {
+            const skill = item.data;
+            // normalize skill name to lower-case and dash-separated words
+            const shortForm = sluggify(skill.name) as SkillAbbreviation;
+            const rank = skill.data.proficient.value;
+
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
+            const modifiers = [
+                AbilityModifier.fromScore("int", systemData.abilities.int.value),
+                ProficiencyModifier.fromLevelAndRank(this.level, rank),
+                ...extractModifiers(synthetics.statisticsModifiers, domains),
+            ];
+
+            const loreSkill = systemData.skills[shortForm];
+            const stat = mergeObject(
+                new StatisticModifier(shortForm, modifiers, this.getRollOptions(domains)),
+                loreSkill,
+                { overwrite: false }
+            );
+            stat.label = skill.name;
+            stat.ability = "int";
+            stat.itemID = skill._id;
+            stat.notes = extractNotes(synthetics.rollNotes, domains);
+            stat.rank = rank ?? 0;
+            stat.shortform = shortForm;
+            stat.expanded = skill;
+            stat.value = stat.totalModifier;
+            stat.lore = true;
+            stat.breakdown = stat.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .join(", ");
+            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
+                const rollOptions = args.options ?? [];
+                ensureProficiencyOption(rollOptions, rank);
+
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, rollOptions);
+                }
+
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(synthetics.rollSubstitutions, domains, rollOptions);
+                const context: CheckRollContext = {
+                    actor: this,
+                    type: "skill-check",
+                    options: rollOptions,
+                    dc: args.dc,
+                    rollTwice,
+                    substitutions,
+                    notes: stat.notes,
+                };
+
+                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                }
+
+                return roll;
+            };
+
+            skills[shortForm] = stat;
+        }
+
+        return skills;
     }
 
     override prepareSpeed(movementType: "land"): CreatureSpeeds;
