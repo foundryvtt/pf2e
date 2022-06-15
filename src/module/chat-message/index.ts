@@ -166,7 +166,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     override prepareData(): void {
         super.prepareData();
 
-        const rollData = this.actor?.getRollData();
+        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
         this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
     }
 
