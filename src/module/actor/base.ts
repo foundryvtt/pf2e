@@ -460,13 +460,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     getModifierAdjustments(selectors: string[], slug: string): ModifierAdjustment[] {
-        return Array.from(
+        const adjustmentsRecord = this.synthetics.modifierAdjustments;
+        const selectorMatches = Array.from(
             new Set(
-                selectors
-                    .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
-                    .filter((a) => [slug, null].includes(a.slug))
+                selectors.includes("all")
+                    ? Object.values(adjustmentsRecord).flat()
+                    : selectors.flatMap((s) => adjustmentsRecord[s] ?? [])
             )
         );
+
+        return selectorMatches.filter((a) => [slug, null].includes(a.slug));
     }
 
     /* -------------------------------------------- */
