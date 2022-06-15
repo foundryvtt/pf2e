@@ -27,7 +27,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": "+1 circumstance to all saves vs. disease, poison, and radiation"
             },
             "hp": {
                 "details": "",
@@ -97,7 +97,7 @@
             },
             "rarity": "rare",
             "senses": {
-                "value": "low-light vision"
+                "value": "(+5 to Sense Motive); low-light vision"
             },
             "size": {
                 "value": "med"
@@ -114,7 +114,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VWWAr4etOWw3Vsa6",
+            "_id": "wmuBiyyhPbixVygJ",
             "data": {
                 "MAP": {
                     "value": ""
@@ -138,8 +138,8 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -207,7 +207,7 @@
                 "size": "med",
                 "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -246,7 +246,7 @@
             "type": "weapon"
         },
         {
-            "_id": "OIZLasEucPfIOgyv",
+            "_id": "IyWXofmrhv9S9Bcu",
             "data": {
                 "MAP": {
                     "value": ""
@@ -270,8 +270,8 @@
                     "value": "<p>Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -339,7 +339,7 @@
                 "size": "med",
                 "slug": "hand-crossbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -374,7 +374,7 @@
             "type": "weapon"
         },
         {
-            "_id": "60wCNKLrFmp6CQr1",
+            "_id": "Shr1X38PRPEB55Oe",
             "data": {
                 "activation": {
                     "condition": "",
@@ -411,8 +411,7 @@
                     "value": null
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -451,7 +450,7 @@
                 "size": "med",
                 "slug": "bolts",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -627,7 +626,7 @@
             "type": "melee"
         },
         {
-            "_id": "sbFqRQAmJParFwfu",
+            "_id": "AuPR3E2MyY05z9N2",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -672,6 +671,65 @@
             "type": "action"
         },
         {
+            "_id": "wMD2GLX6aqo2KE1s",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "disease",
+                                "poison",
+                                "radiation"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Circumstance to All Saves vs Disease, Poison, and Radiation",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
             "_id": "S9RBBqUiQCE9JKB1",
             "data": {
                 "actionCategory": {
@@ -684,12 +742,36 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The android takes a -1 circumstance penalty to Diplomacy and Performance checks, and to Perception checks to Sense Motive.</p>"
+                    "value": "<p>The android takes a -1 circumstance penalty to Diplomacy and Performance checks, and to Perception checks to @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:sense-motive"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "diplomacy",
+                        "type": "circumstance",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "performance",
+                        "type": "circumstance",
+                        "value": -1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -708,7 +790,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Emotionally Unaware",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -748,11 +830,11 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nanite Surge",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "Rubn1my2aY6utJPZ",
+            "_id": "OH7aLLnIFKP4SaLG",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -764,7 +846,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The android infiltrator deals an additional 1d6 precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The android infiltrator deals an additional [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -797,9 +879,9 @@
                         "selector": "strike-damage"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -813,9 +895,14 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -843,7 +930,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -871,7 +958,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -899,7 +986,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -927,7 +1014,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -955,7 +1042,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Engineering Lore",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -983,7 +1070,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1011,7 +1098,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1039,7 +1126,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],
