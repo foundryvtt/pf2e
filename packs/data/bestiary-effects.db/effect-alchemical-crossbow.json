@@ -3,7 +3,7 @@
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>Vilree's crossbow can deliver bolts that are alchemically infused. As an action, she can slot an alchemical bomb into the crossbow, and the next 3 attacks she makes with it deal 1d6 damage of the type dealt by the bomb. These attacks never deal splash damage.</p>"
+            "value": "<p>The Alchemical Crossbow deals an additional 1d6 damage of the type dealt by the bomb used.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -36,10 +36,10 @@
                 ],
                 "flag": "damageChoice",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+                "prompt": "Choose a bomb to add to the crossbow:"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "damageType": "{item|flags.pf2e.rulesSelections.damageChoice}",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
