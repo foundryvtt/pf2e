@@ -1,5 +1,36 @@
 # Changelog
 
+## Version 3.11.2
+
+### New Features
+* (Supe) Add a roll inspection dialog, accessible from chat message context menu (currently supports check rolls)
+
+### Core System Improvements
+* (Supe) Show when the beta hazard sheet is in edit mode in the application titlebar, display source and author
+
+### Bugfixes
+* (stwlam) Restore legacy support for RE predication checking "attack" trait (affected Draconic Rage, among other abilities)
+* (stwlam) Fix localization of spell traditions in chat cards
+* (stwlam) Fix players not being able to see save DCs from their own spells
+* (stwlam) Include modifier adjustments and roll substitutions in action macros
+* (stwlam) Fix issue causing modifier adjustments to not be included on manually-added modifiers
+* (stwlam) Remove reference to non-existent success note for corrosive rune
+* (stwlam) Fix issue causing container contents to disappear when the container is deleted
+
+### Data Updates
+* (avagdu) Audit NPCs in Fall of Plaguestone compendium
+* (Manni) Localize persistent damage notes in several NPCs
+* (Manni) Review Bestary 2: Changed name of magic weapon to base weapon
+* (Manni) Fix HP details field of Ice Mephit and Yamaraj
+* (NullWolf) Add missing Peachwood equipment
+* (NullWolf) Fix rule element in Effect: Boost Eidolon
+* (Shandyan) Add rule elements to human feats
+* (stwlam) Fix description and rune on Victory Plate (Greater)
+* (stwlam) Fix flag name for ChoiceSet in Effect: Alchemical Strike
+* (stwlam) Make corrections to Elephant Form effect, link from spell description
+* (TMun) Add complex hazards from Book of the Dead
+
+
 ## Version 3.11.1
 
 ### Bugfixes
