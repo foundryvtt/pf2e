@@ -146,6 +146,11 @@ class CharacterPF2e extends CreaturePF2e {
         return skills as CharacterSkills;
     }
 
+    get lores(): CharacterSkills {
+        const lores = Object.entries(this.skills).filter(([key]) => !(key in SKILL_DICTIONARY_REVERSE));
+        return Object.fromEntries(lores) as CharacterSkills;
+    }
+
     get heroPoints(): { value: number; max: number } {
         return deepClone(this.data.data.resources.heroPoints);
     }
@@ -2103,6 +2108,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
+
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
@@ -2178,11 +2184,13 @@ interface CharacterPF2e {
         dataId: string[],
         context?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[]>;
+
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         dataId: string[],
         context?: DocumentModificationContext
     ): Promise<ItemPF2e[]>;
+
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         dataId: string[],
