@@ -204,7 +204,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         if (actor instanceof CharacterPF2e) {
             return Object.entries(actor.lores).map(([value, statistic]) => ({
                 value,
-                label: statistic?.label ?? value,
+                label: statistic.label,
             }));
         } else {
             return [];
