@@ -175,6 +175,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     private referenceChoices(reference: string): PickableThing<string>[] {
         if (reference === "lores") {
             return this.getLoreChoices();
+        } else if (reference === "skills") {
+            return this.getSkillChoices();
         }
         return this.choicesFromPath(reference);
     }
@@ -190,13 +192,19 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 }))
             );
         }
-
-        // special handling for lores, since these are not defined in CONFIG
-        if (path === "skills") {
-            result.push(...this.getLoreChoices());
-        }
-
         return result;
+    }
+
+    private getSkillChoices(): PickableThing<string>[] {
+        const actor = this.actor;
+        if (actor instanceof CharacterPF2e) {
+            return Object.entries(actor.skills).map(([value, statistic]) => ({
+                value,
+                label: statistic?.label ?? value,
+            }));
+        } else {
+            return [];
+        }
     }
 
     private getLoreChoices(): PickableThing<string>[] {
