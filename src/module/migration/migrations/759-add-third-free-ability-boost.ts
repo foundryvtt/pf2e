@@ -16,7 +16,7 @@ export class Migration759AddThirdFreeAbilityBoost extends MigrationBase {
 
         const slug = itemSource.data.slug ?? sluggify(itemSource.name);
 
-        if (!(slug === "amnesiac" || slug === "discarded-duplicate")) return;
+        if (!["amnesiac", "discarded-duplicate"].includes(slug)) return;
 
         if (Object.keys(itemSource.data.boosts).length < 3) {
             itemSource.data.boosts = {
