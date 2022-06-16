@@ -662,24 +662,23 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     return;
                 }
                 await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
-                craftItem(formula.item, itemQuantity, this.actor, true);
-                return;
+
+                return craftItem(formula.item, itemQuantity, this.actor, true);
             }
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
                 const itemId = itemUuid?.split(".").pop() ?? "";
-                if (isSpellConsumable(itemId)) {
-                    craftSpellConsumable(formula.item, itemQuantity, this.actor);
-                    return;
+                if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
+                    return craftSpellConsumable(formula.item, itemQuantity, this.actor);
                 }
-                craftItem(formula.item, itemQuantity, this.actor);
-                return;
+
+                return craftItem(formula.item, itemQuantity, this.actor);
             }
 
             const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visibility: "all",
-                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                adjustments: this.actor.data.data.skills.cra.adjustments,
                 scope: "check",
             };
 
@@ -1009,12 +1008,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const craftingFormulas = await this.actor.getCraftingFormulas();
                 const formula = craftingFormulas.find((f) => f.uuid === dropData.pf2e.itemUuid);
 
-                if (formula) await craftingEntry.prepareFormula(formula);
-                return;
+                if (formula) return craftingEntry.prepareFormula(formula);
             }
+        } else {
+            return super._onDrop(event);
         }
-
-        return super._onDrop(event);
     }
 
     /**

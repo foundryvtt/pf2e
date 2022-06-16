@@ -35,7 +35,7 @@ export class CraftingEntry implements CraftingEntryData {
         if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
 
         this.preparedFormulas = this.actorPreparedFormulas
-            .map((prepData): PreparedFormula | undefined => {
+            .map((prepData): PreparedFormula | null => {
                 const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
                 if (formula) {
                     return Object.assign(new CraftingFormula(formula.item), {
@@ -44,12 +44,12 @@ export class CraftingEntry implements CraftingEntryData {
                         isSignatureItem: prepData.isSignatureItem,
                     });
                 }
-                return;
+                return null;
             })
-            .filter((prepData): prepData is PreparedFormula => prepData !== undefined);
+            .filter((prepData): prepData is PreparedFormula => !!prepData);
     }
 
-    get formulas() {
+    get formulas(): (PreparedFormula | null)[] {
         const formulas: (PreparedFormula | null)[] = [];
         Object.assign(formulas, this.preparedFormulas);
         if (this.maxSlots > 0) {
@@ -62,11 +62,11 @@ export class CraftingEntry implements CraftingEntryData {
         return formulas;
     }
 
-    get formulasByLevel() {
+    get formulasByLevel(): Record<string, PreparedFormula[]> {
         return Object.fromEntries(groupBy(this.preparedFormulas, (prepData) => prepData.level));
     }
 
-    get reagentCost() {
+    get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
         const fieldDiscoveryQuantity = this.preparedFormulas
@@ -90,7 +90,7 @@ export class CraftingEntry implements CraftingEntryData {
         return !!data && !!data.name && !!data.selector && !!data.actorPreparedFormulas;
     }
 
-    async prepareFormula(formula: CraftingFormula) {
+    async prepareFormula(formula: CraftingFormula): Promise<void> {
         this.checkEntryRequirements(formula);
 
         if (this.isAlchemical && this.preparedFormulas.some((f) => f.uuid === formula.uuid)) {
@@ -103,7 +103,7 @@ export class CraftingEntry implements CraftingEntryData {
             this.preparedFormulas.push(prepData);
         }
 
-        this.updateActorEntryFormulas();
+        return this.updateActorEntryFormulas();
     }
 
     checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
@@ -131,22 +131,23 @@ export class CraftingEntry implements CraftingEntryData {
         return true;
     }
 
-    async unprepareFormula(index: number, itemUUID: string) {
+    async unprepareFormula(index: number, itemUUID: string): Promise<void> {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;
         this.preparedFormulas.splice(index, 1);
 
-        this.updateActorEntryFormulas();
+        return this.updateActorEntryFormulas();
     }
 
-    async increaseFormulaQuantity(index: number, itemUUID: string) {
+    async increaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;
         prepData.quantity ? (prepData.quantity += 1) : (prepData.quantity = 2);
-        this.updateActorEntryFormulas();
+
+        return this.updateActorEntryFormulas();
     }
 
-    async decreaseFormulaQuantity(index: number, itemUUID: string) {
+    async decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;
         prepData.quantity ? (prepData.quantity -= 1) : (prepData.quantity = 0);
@@ -154,10 +155,11 @@ export class CraftingEntry implements CraftingEntryData {
             await this.unprepareFormula(index, itemUUID);
             return;
         }
-        this.updateActorEntryFormulas();
+
+        return this.updateActorEntryFormulas();
     }
 
-    async setFormulaQuantity(index: number, itemUUID: string, quantity: number) {
+    async setFormulaQuantity(index: number, itemUUID: string, quantity: number): Promise<void> {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;
         prepData.quantity = quantity;
@@ -165,24 +167,27 @@ export class CraftingEntry implements CraftingEntryData {
             await this.unprepareFormula(index, itemUUID);
             return;
         }
-        this.updateActorEntryFormulas();
+
+        return this.updateActorEntryFormulas();
     }
 
-    async toggleFormulaExpended(index: number, itemUUID: string) {
+    async toggleFormulaExpended(index: number, itemUUID: string): Promise<void> {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;
         prepData.expended = !prepData.expended;
-        this.updateActorEntryFormulas();
+
+        return this.updateActorEntryFormulas();
     }
 
-    async toggleSignatureItem(index: number, itemUUID: string) {
+    async toggleSignatureItem(index: number, itemUUID: string): Promise<void> {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;
         prepData.isSignatureItem = !prepData.isSignatureItem;
-        this.updateActorEntryFormulas();
+
+        return this.updateActorEntryFormulas();
     }
 
-    async updateActorEntryFormulas() {
+    async updateActorEntryFormulas(): Promise<void> {
         const actorPreparedFormulas = this.preparedFormulas.map((data) => {
             return {
                 itemUUID: data.item.uuid,
