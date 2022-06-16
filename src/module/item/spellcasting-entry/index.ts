@@ -10,7 +10,7 @@ import {
 } from "./data";
 import { SpellPF2e } from "@item/spell";
 import { goesToEleven, OneToFour, OneToTen, ZeroToTen } from "@module/data";
-import { groupBy, ErrorPF2e, sluggify } from "@util";
+import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
@@ -452,7 +452,6 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
     override getRollOptions(prefix = this.type): string[] {
         return [
-            `${prefix}:${sluggify(this.name)}`,
             `${prefix}:${this.ability}`,
             `${prefix}:${this.tradition}`,
             `${prefix}:${this.data.data.prepared.value}`,
