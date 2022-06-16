@@ -94,7 +94,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
-import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
+import { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, CreateAuxiliaryParams } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -144,6 +144,11 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         return skills as CharacterSkills;
+    }
+
+    get lores(): Record<string, CharacterSkill> {
+        const lores = Object.entries(this.skills).filter(([key]) => !(key in SKILL_DICTIONARY_REVERSE));
+        return Object.fromEntries(lores) as Record<string, CharacterSkill>;
     }
 
     get heroPoints(): { value: number; max: number } {
@@ -2103,6 +2108,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
+
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
@@ -2178,11 +2184,13 @@ interface CharacterPF2e {
         dataId: string[],
         context?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[]>;
+
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         dataId: string[],
         context?: DocumentModificationContext
     ): Promise<ItemPF2e[]>;
+
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         dataId: string[],
