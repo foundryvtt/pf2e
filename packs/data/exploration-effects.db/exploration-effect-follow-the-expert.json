@@ -1,0 +1,81 @@
+{
+    "_id": "VCSpuc3Tf3XWMkd3",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": "skills",
+                "flag": "followTheExpertSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "expert",
+                        "sort": 1,
+                        "value": 2
+                    },
+                    {
+                        "label": "master",
+                        "sort": 2,
+                        "value": 3
+                    },
+                    {
+                        "label": "legendary",
+                        "sort": 3,
+                        "value": 4
+                    }
+                ],
+                "flag": "followTheExpertProficiency",
+                "key": "ChoiceSet",
+                "prompt": "Select expert's proficiency in skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.followTheExpertSkill}",
+                "slug": "followTheExpertProficiencyModifier",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.followTheExpertSkill}",
+                "slug": "followTheExpertCircumstanceModifier",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.followTheExpertProficiency}"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/spells/favorable-review.webp",
+    "name": "Exploration Effect: Follow The Expert",
+    "type": "effect"
+}
