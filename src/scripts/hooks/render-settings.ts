@@ -1,6 +1,7 @@
 import { MigrationSummary } from "@module/apps/migration-summary";
 import { fontAwesomeIcon } from "@util";
 
+/** Attach system buttons and other knickknacks to the settings sidebar */
 export const RenderSettings = {
     listen: (): void => {
         Hooks.on("renderSettings", async (_app, $html) => {

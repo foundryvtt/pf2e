@@ -61,11 +61,23 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        $html.find('button[data-action="remigrate"]').on("click", async (event) => {
+        $html.find("button[data-action=remigrate]").on("click", async (event) => {
+            const { LATEST_SCHEMA_VERSION, RECOMMENDED_SAFE_VERSION } = MigrationRunner;
+            const lowestVersions = {
+                actor:
+                    game.actors.size > 0
+                        ? Math.min(...game.actors.map((a) => a.schemaVersion ?? 0))
+                        : LATEST_SCHEMA_VERSION,
+                item:
+                    game.items.size > 0
+                        ? Math.min(...game.items.map((a) => a.schemaVersion ?? 0))
+                        : LATEST_SCHEMA_VERSION,
+            };
             const lowestSchemaVersion = Math.max(
-                Math.min(0, ...game.actors.map((actor) => actor.schemaVersion ?? 0)),
-                MigrationRunner.RECOMMENDED_SAFE_VERSION
+                Math.min(lowestVersions.actor, lowestVersions.item),
+                RECOMMENDED_SAFE_VERSION
             );
+
             $html.find(".docs-successful").text("...");
 
             try {
@@ -80,7 +92,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             }
         });
 
-        $html.find('button[data-action="close"]').on("click", () => this.close());
+        $html.find("button[data-action=close]").on("click", () => this.close());
     }
 }
 
