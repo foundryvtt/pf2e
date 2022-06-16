@@ -3,6 +3,7 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import { TokenDocumentPF2e } from "@scene";
+import { CheckRoll } from "@system/check/roll";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { CheckType } from "@system/rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
@@ -13,7 +14,7 @@ interface CheckResultCallback {
     actor: ActorPF2e;
     message?: ChatMessage;
     outcome: DegreeOfSuccessString | null | undefined;
-    roll: Rolled<Roll>;
+    roll: Rolled<CheckRoll>;
 }
 
 interface SimpleRollActionCheckOptions {
