@@ -10,6 +10,7 @@ import {
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
+import { extractRollSubstitutions } from "@module/rules/util";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckType } from "@system/rolls";
@@ -101,17 +102,21 @@ export class ActionMacroHelpers {
                         : []),
                 ].shift();
                 if (weapon) {
-                    check.push(this.getWeaponPotencyModifier(weapon, actor));
+                    const modifier = this.getWeaponPotencyModifier(weapon, stat.name);
+                    if (modifier) check.push(modifier);
                 }
 
                 const weaponTraits = weapon?.traits;
 
                 // Modifier from roller's equipped weapon with -2 ranged penalty
                 if (options.weaponTraitWithPenalty === "ranged-trip" && weaponTraits?.has("ranged-trip")) {
+                    const slug = "ranged-trip";
+
                     check.push(
                         new ModifierPF2e({
+                            slug,
+                            adjustments: actor.getModifierAdjustments([stat.name], slug),
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            slug: "ranged-trip",
                             label: CONFIG.PF2E.weaponTraits["ranged-trip"],
                             modifier: -2,
                         })
@@ -160,6 +165,11 @@ export class ActionMacroHelpers {
                         ? { token: target, actor: targetActor, distance }
                         : null;
                 const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
+                const substitutions = extractRollSubstitutions(
+                    actor.synthetics.rollSubstitutions,
+                    [stat.name],
+                    finalOptions
+                );
 
                 CheckPF2e.roll(
                     check,
@@ -172,6 +182,7 @@ export class ActionMacroHelpers {
                         type: options.checkType,
                         options: finalOptions,
                         notes,
+                        substitutions,
                         traits: traitObjects,
                         title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
@@ -196,19 +207,31 @@ export class ActionMacroHelpers {
         };
     }
 
-    private static getWeaponPotencyModifier(item: WeaponPF2e, actor: ActorPF2e): ModifierPF2e {
+    private static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
+        const itemBonus = item.data.data.runes.potency;
+        const slug = "potency";
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
-            return new ModifierPF2e(
-                item.data.name,
-                actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
-                MODIFIER_TYPE.POTENCY
-            );
+            return new ModifierPF2e({
+                slug,
+                type: MODIFIER_TYPE.POTENCY,
+                label: item.name,
+                modifier: item.actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
+                adjustments: item.actor.getModifierAdjustments([selector], slug),
+            });
+        } else if (itemBonus > 0) {
+            return new ModifierPF2e({
+                slug,
+                type: MODIFIER_TYPE.ITEM,
+                label: item.name,
+                modifier: itemBonus,
+                adjustments: item.actor.getModifierAdjustments([selector], slug),
+            });
         } else {
-            return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM);
+            return null;
         }
     }
 
-    private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e[] {
+    private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): Embedded<WeaponPF2e>[] {
         return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
     }
 }

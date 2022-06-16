@@ -9,11 +9,12 @@ import { DicePF2e } from "@scripts/dice";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
+import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { MeleeSystemData } from "./melee/data";
 import type { PhysicalItemPF2e } from "./physical";
+import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
@@ -65,9 +66,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
     isOfType(...types: (ItemType | "physical")[]): boolean {
-        return types.some((t) =>
-            t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.data.type) : this.data.type === t
-        );
+        return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
@@ -87,10 +86,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const options = [`${delimitedPrefix}${slug}`, ...traits.map((t) => `${delimitedPrefix}${t}`)];
         if ("level" in this.data.data) options.push(`${delimitedPrefix}level:${this.data.data.level.value}`);
         if (["item", ""].includes(prefix)) {
-            const itemType =
-                this.data.type === "feat" && ["classfeature", "ancestryfeature"].includes(this.data.data.featType.value)
-                    ? "feature"
-                    : this.data.type;
+            const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${delimitedPrefix}type:${itemType}`);
         }
 
@@ -112,7 +108,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
+        const template = `systems/pf2e/templates/chat/${this.type}-card.html`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = !isObjectEmpty(data) ? data : nearestItem.dataset || {};
@@ -201,7 +197,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`
             );
             return;
-        } else if (latestSource.type !== this.data.type) {
+        } else if (latestSource.type !== this.type) {
             ui.notifications.error(
                 `The compendium source for "${this.name}" is of a different type than what is present on this actor.`
             );
@@ -278,7 +274,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         });
     }
 
-    protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
+    protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
         const traits: string[] = [...(this.data.data.traits?.value ?? [])].sort();
         const customTraits =
             this.data.data.traits?.custom
@@ -288,8 +284,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
-            const label = dictionary[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
-            const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
+            const label = dictionary[trait] ?? trait;
+            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
             return {
                 value: trait,
@@ -311,7 +307,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (this.actor?.data.type !== "hazard") {
+        if (!this.actor?.isOfType("hazard")) {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
         // Prepare roll data
@@ -357,8 +353,8 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
-        if (this.data.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (this.actor.data.type !== "hazard") {
+        if (!this.isOfType("melee")) throw ErrorPF2e("Wrong item type!");
+        if (!this.actor.isOfType("hazard")) {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
 
@@ -375,8 +371,6 @@ class ItemPF2e extends Item<ActorPF2e> {
                 if (itemData.damageRolls[key].damage) parts.push(itemData.damageRolls[key].damage);
                 partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
             });
-        } else {
-            parts = [(itemData as any).damage.die];
         }
 
         // Set the title of the roll
@@ -500,6 +494,14 @@ class ItemPF2e extends Item<ActorPF2e> {
         const actor = context.parent;
         if (actor) {
             const items = ids.flatMap((id) => actor.items.get(id) ?? []);
+
+            // If a container is being deleted, its contents need to have their containerId references updated
+            const containers = items.filter((i): i is Embedded<ContainerPF2e> => i.isOfType("backpack"));
+            for (const container of containers) {
+                await container.ejectContents();
+            }
+
+            // Run RE pre-delete callbacks
             for (const item of items) {
                 for (const rule of item.rules) {
                     await rule.preDelete?.({ pendingItems: items, context });

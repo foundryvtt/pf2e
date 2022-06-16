@@ -9,10 +9,12 @@ import { Statistic } from "./statistic";
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}) {
+    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string {
         const enriched = super.enrichHTML(this.enrichString(content, options), options);
         const $html = $("<div>").html(enriched);
-        UserVisibilityPF2e.process($html);
+        const actor = options.rollData?.actor ?? null;
+        UserVisibilityPF2e.process($html, { actor });
+
         return $html.html();
     }
 
@@ -338,13 +340,14 @@ function getCheckDC(
     return "0";
 }
 
-type EnrichHTMLOptionsPF2e = EnrichHTMLOptions & {
+interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
     rollData?: {
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
         mod?: number;
+        [key: string]: unknown;
     };
-};
+}
 
 interface ConvertXMLNodeOptions {
     /** The value of the data-visibility attribute to add to the span element */

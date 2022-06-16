@@ -40,6 +40,12 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             return message.isRerollable && actor instanceof CharacterPF2e && actor.heroPoints.value > 0;
         };
 
+        const canShowRollDetails: ContextOptionCondition = ($li): boolean => {
+            const message = game.messages.get($li.data("messageId"), { strict: true });
+            const rulesEnabled = game.settings.get("pf2e", "enabledRulesUI");
+            return game.user.isGM && rulesEnabled && !!message.data.flags.pf2e.context;
+        };
+
         const applyDamage = async ($li: JQuery, multiplier: number): Promise<void> => {
             const messageId = $li.attr("data-message-id") ?? "";
             const roll = game.messages.get(messageId, { strict: true }).roll;
@@ -52,6 +58,15 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const options = super._getEntryContextOptions();
         options.push(
+            {
+                name: "PF2E.ChatRollDetails.Select",
+                icon: '<i class="fas fa-search"></i>',
+                condition: canShowRollDetails,
+                callback: ($li) => {
+                    const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
+                    message.showDetails();
+                },
+            },
             {
                 name: "PF2E.DamageButton.FullContext",
                 icon: '<i class="fas fa-heart-broken"></i>',

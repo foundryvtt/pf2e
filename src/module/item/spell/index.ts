@@ -455,7 +455,11 @@ class SpellPF2e extends ItemPF2e {
             systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
 
-        const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
+        const traits = this.traitChatData({
+            ...CONFIG.PF2E.spellTraits,
+            ...CONFIG.PF2E.magicSchools,
+            ...CONFIG.PF2E.magicTraditions,
+        });
 
         // Embedded item string for consumable fetching.
         // This needs to be refactored in the future so that injecting DOM strings isn't necessary

@@ -81,18 +81,18 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }
         });
 
-        $html.find('[data-action="damage-create"]').on("click", (event) => {
+        $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
             const baseKey = this.getOverlayFromEvent(event) ?? "data";
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({ [`${baseKey}.damage.value.${randomID()}`]: emptyDamage });
         });
 
-        $html.find('[data-action="damage-delete"]').on("click", (event) => {
+        $html.find("[data-action=damage-delete]").on("click", (event) => {
             event.preventDefault();
             const overlayData = this.getOverlayFromEvent(event);
             const baseKey = overlayData?.base ?? "data";
-            const id = $(event.target).closest("[data-action='damage-delete']").attr("data-id");
+            const id = $(event.target).closest("[data-action=damage-delete]").attr("data-id");
             if (id) {
                 const values = { [`${baseKey}.damage.value.-=${id}`]: null };
                 if (!overlayData) {
@@ -102,18 +102,18 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }
         });
 
-        $html.find('[data-action="heightening-interval-create"]').on("click", (event) => {
+        $html.find("[data-action=heightening-interval-create]").on("click", (event) => {
             event.preventDefault();
             const baseKey = this.getOverlayFromEvent(event)?.base ?? "data";
             this.item.update({ [`${baseKey}.heightening`]: DEFAULT_INTERVAL_SCALING });
         });
 
         // Event used to delete all heightening, not just a particular one
-        $html.find('[data-action="heightening-delete"]').on("click", () => {
+        $html.find("[data-action=heightening-delete]").on("click", () => {
             this.item.update({ "data.-=heightening": null });
         });
 
-        $html.find('[data-action="heightening-fixed-create"]').on("click", () => {
+        $html.find("[data-action=heightening-fixed-create]").on("click", () => {
             const highestLevel = this.item.getHeightenLayers().at(-1)?.level;
             const available = this.getAvailableHeightenLevels();
             const level = highestLevel && highestLevel < 10 ? highestLevel + 1 : available.at(0);
@@ -122,7 +122,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             this.item.update({ "data.heightening": { type: "fixed", levels: { [level]: {} } } });
         });
 
-        $html.find('[data-action="overlay-delete"]').on("click", async (event) => {
+        $html.find("[data-action=overlay-delete]").on("click", async (event) => {
             const overlay = this.getOverlayFromEvent(event);
             if (!overlay) return;
 
@@ -141,10 +141,10 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         });
 
         // Adds a property to an existing overlay
-        $html.find('[data-action="overlay-add-property"]').on("click", (event) => {
+        $html.find("[data-action=overlay-add-property]").on("click", (event) => {
             event.preventDefault();
             const overlay = this.getOverlayFromEvent(event);
-            const property = $(event.target).closest("[data-action='overlay-add-property']").attr("data-property");
+            const property = $(event.target).closest("[data-action=overlay-add-property]").attr("data-property");
 
             if (overlay && overlay.data && property && !(property in overlay.data)) {
                 // Retrieve the default value for this property, which is either the
@@ -169,10 +169,10 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         });
 
         // Removes a property from an existing overlay
-        $html.find('[data-action="overlay-remove-property"]').on("click", (event) => {
+        $html.find("[data-action=overlay-remove-property]").on("click", (event) => {
             event.preventDefault();
             const overlayData = this.getOverlayFromEvent(event);
-            const property = $(event.target).closest("[data-action='overlay-remove-property']").attr("data-property");
+            const property = $(event.target).closest("[data-action=overlay-remove-property]").attr("data-property");
             if (overlayData && property) {
                 const updates = { [`${overlayData.base}.-=${property}`]: null };
                 if (property === "damage") {
@@ -182,7 +182,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }
         });
 
-        $html.find(`[data-action="change-level"]`).on("change", (event) => {
+        $html.find("[data-action=change-level]").on("change", (event) => {
             const overlay = this.getOverlayFromEvent(event);
             if (!overlay) return;
 

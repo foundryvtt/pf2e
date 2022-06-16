@@ -327,6 +327,9 @@ class NPCPF2e extends CreaturePF2e {
                     value: 0,
                     visible: false,
                     roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                        console.warn(
+                            `Rolling skill checks via actor.data.data.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                        );
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         const rollOptions = args.options ?? [];
                         const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
@@ -405,6 +408,9 @@ class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
                 stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                    console.warn(
+                        `Rolling skill checks via actor.data.data.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                    );
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);

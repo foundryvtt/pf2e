@@ -1,10 +1,10 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
@@ -169,8 +169,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Roll skill checks
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
-            const key = event.currentTarget.parentElement?.getAttribute("data-skill") ?? "";
-            this.actor.skills[key]?.check.roll(eventToRollParams(event));
+            const skill = event.currentTarget.parentElement?.dataset.skill ?? "";
+            const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
+            const rollParams = eventToRollParams(event);
+            this.actor.skills[key]?.check.roll(rollParams);
         });
 
         // strikes

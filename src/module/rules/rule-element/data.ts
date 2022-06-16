@@ -60,6 +60,8 @@ export interface REPreCreateParameters<T extends RuleElementSource = RuleElement
     pendingItems: PreCreate<ItemSourcePF2e>[];
     /** The context object from the `ItemPF2e.createDocuments` call */
     context: DocumentModificationContext<ItemPF2e>;
+    /** Whether this preCreate run is from a pre-update reevaluation */
+    reevaluation?: boolean;
 }
 
 export interface REPreDeleteParameters {

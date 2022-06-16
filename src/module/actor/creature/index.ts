@@ -81,7 +81,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 Object.defineProperty(current, shortForm, {
                     get: () => {
                         console.warn(
-                            `Shortform skills such as actor.skills.${shortForm} is deprecated. Use actor.skills.${longForm} instead`
+                            `Short-form skill abbreviations such as actor.skills.${shortForm} are deprecated.`,
+                            `Use actor.skills.${longForm} instead.`
                         );
                         return current[longForm];
                     },
@@ -304,12 +305,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.data.data.customModifiers ??= {});
-        Object.values(customModifiers).forEach((modifiers: RawModifier[]) => {
-            [...modifiers].forEach((modifier: RawModifier) => {
-                const index = modifiers.indexOf(modifier);
-                modifiers[index] = new ModifierPF2e(modifier);
-            });
-        });
+        for (const selector of Object.keys(customModifiers)) {
+            customModifiers[selector] = customModifiers[selector].map(
+                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier)
+            );
+        }
 
         // Set base actor-shield data for PCs NPCs
         if (this.isOfType("character", "npc")) {
@@ -507,14 +507,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected override prepareSynthetics(): void {
         super.prepareSynthetics();
-        const systemData = this.data.data;
+        const { customModifiers } = this.data.data;
 
         // Custom modifiers
-        systemData.customModifiers ??= {};
         const { statisticsModifiers } = this.synthetics;
-        for (const [selector, modifiers] of Object.entries(systemData.customModifiers)) {
+        for (const [selector, modifiers] of Object.entries(customModifiers)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers.map((m) => () => m));
+            syntheticModifiers.push(
+                ...modifiers.map((modifier) => () => {
+                    modifier.adjustments = this.getModifierAdjustments([selector], modifier.slug);
+                    return modifier;
+                })
+            );
         }
     }
 
@@ -718,6 +722,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
         const targetActor = context.target?.actor;
+
         return {
             ...context,
             dc: targetActor?.attributes.ac
@@ -793,7 +798,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-        const rollOptions = Array.from(new Set([selfOptions, targetOptions].flat()));
+        const rollOptions = Array.from(
+            new Set([
+                ...selfOptions,
+                ...targetOptions,
+                // Backward compatibility for predication looking for an "attack" trait by its lonesome
+                "attack",
+            ])
+        );
 
         // Calculate distance and set as a roll option
         const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
