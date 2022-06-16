@@ -94,7 +94,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
-import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
+import { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, CreateAuxiliaryParams } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -146,9 +146,9 @@ class CharacterPF2e extends CreaturePF2e {
         return skills as CharacterSkills;
     }
 
-    get lores(): CharacterSkills {
+    get lores(): Record<string, CharacterSkill> {
         const lores = Object.entries(this.skills).filter(([key]) => !(key in SKILL_DICTIONARY_REVERSE));
-        return Object.fromEntries(lores) as CharacterSkills;
+        return Object.fromEntries(lores) as Record<string, CharacterSkill>;
     }
 
     get heroPoints(): { value: number; max: number } {
