@@ -1,4 +1,3 @@
-import { CreatureTraitsData } from "@actor/creature/data";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { SaveType } from "@actor/data";
 import { HitPointsData, PerceptionData } from "@actor/data/base";
@@ -6,7 +5,15 @@ import { ActionData, EffectData, ItemDataPF2e } from "@item/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
 import { FlattenedCondition } from "@system/conditions";
 import { NPCPF2e } from ".";
-import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
+import {
+    NPCArmorClass,
+    NPCAttributes,
+    NPCSaveData,
+    NPCSkillData,
+    NPCStrike,
+    NPCSystemData,
+    NPCTraitsData,
+} from "./data";
 
 interface ActionsDetails {
     label: string;
@@ -61,7 +68,7 @@ interface NPCSystemSheetData extends NPCSystemData {
     };
     sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & { labelShort?: string }>;
-    traits: CreatureTraitsData & {
+    traits: NPCTraitsData & {
         size: {
             localizedName?: string;
         };
