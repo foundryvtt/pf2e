@@ -4,16 +4,10 @@ import { EffectPF2e, ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
-import {
-    BracketedValue,
-    RuleElementSource,
-    RuleElementData,
-    RuleValue,
-    REPreCreateParameters,
-    REPreDeleteParameters,
-} from "./data";
+import { BracketedValue, RuleElementSource, RuleElementData, RuleValue } from "./data";
 import { isObject } from "@util";
 import { CheckRoll } from "@system/check/roll";
+import { ItemSourcePF2e } from "@item/data";
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -45,13 +39,9 @@ abstract class RuleElementPF2e {
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
         this.key = data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
-        data = deepClone(data);
-
         this.suppressWarnings = options.suppressWarnings ?? false;
 
-        const validActorType = (this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
-            item.actor.data.type
-        );
+        const validActorType = this.constructor.validActorTypes.includes(item.actor.data.type);
 
         if (!validActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
@@ -306,6 +296,26 @@ abstract class RuleElementPF2e {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace RuleElementPF2e {
+    export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
+        /** The source partial of the rule element's parent item to be created */
+        itemSource: PreCreate<ItemSourcePF2e>;
+        /** The source of the rule in `itemSource`'s `data.rules` array */
+        ruleSource: T;
+        /** All items pending creation in a `ItemPF2e.createDocuments` call */
+        pendingItems: PreCreate<ItemSourcePF2e>[];
+        /** The context object from the `ItemPF2e.createDocuments` call */
+        context: DocumentModificationContext<ItemPF2e>;
+        /** Whether this preCreate run is from a pre-update reevaluation */
+        reevaluation?: boolean;
+    }
+
+    export interface PreDeleteParams {
+        /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
+        pendingItems: Embedded<ItemPF2e>[];
+        /** The context object from the `ItemPF2e.deleteDocuments` call */
+        context: DocumentModificationContext<ItemPF2e>;
+    }
+
     export interface AfterRollParams {
         roll: Rolled<CheckRoll> | null;
         selectors: string[];
@@ -322,6 +332,8 @@ interface RuleElementOptions {
 }
 
 interface RuleElementPF2e {
+    constructor: typeof RuleElementPF2e;
+
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
      * elements
@@ -362,17 +374,15 @@ interface RuleElementPF2e {
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
-     * @see REPreCreateParameters
      */
-    preCreate?({ ruleSource, itemSource, pendingItems, context }: REPreCreateParameters): Promise<void>;
+    preCreate?({ ruleSource, itemSource, pendingItems, context }: RuleElementPF2e.PreCreateParams): Promise<void>;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
-     * @see REPreDeleteParameters
      */
-    preDelete?({ pendingItems, context }: REPreDeleteParameters): Promise<void>;
+    preDelete?({ pendingItems, context }: RuleElementPF2e.PreDeleteParams): Promise<void>;
 
     /**
      * Runs after an item holding this rule is added to an actor. If you modify or add the rule after the item
