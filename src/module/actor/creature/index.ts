@@ -133,6 +133,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
+        if (!Array.isArray(senses)) return VisionLevels.NORMAL;
+
         const senseTypes = senses
             .map((sense) => sense.type)
             .filter((senseType) => ["lowLightVision", "darkvision"].includes(senseType));

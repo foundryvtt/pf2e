@@ -1,5 +1,6 @@
-import { CreatureAttributes } from "@actor/creature/data";
+import { CharacterAttributes } from "@actor/character/data";
 import { ActorSourcePF2e } from "@actor/data";
+import { NPCAttributesSource } from "@actor/npc/data";
 import { MigrationBase } from "../base";
 
 /** Make attributes.shield ephemeral on PCs and NPCs */
@@ -21,4 +22,4 @@ export class Migration712ActorShieldStructure extends MigrationBase {
     }
 }
 
-type WithDeletableShield = CreatureAttributes & { shield?: unknown; "-=shield"?: null };
+type WithDeletableShield = (NPCAttributesSource | CharacterAttributes) & { shield?: unknown; "-=shield"?: null };

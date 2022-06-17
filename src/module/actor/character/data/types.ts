@@ -9,11 +9,13 @@ import {
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
+    CreatureTraitsData,
     HeldShieldData,
     SaveData,
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 import { SaveType } from "@actor/data";
 import {
     AbilityBasedStatistic,
@@ -90,6 +92,8 @@ interface CharacterSystemData extends CreatureSystemData {
 
     /** Player skills, used for various skill checks. */
     skills: Record<SkillAbbreviation, CharacterSkillData>;
+
+    traits: CharacterTraitsData;
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
@@ -369,6 +373,10 @@ interface CharacterAttributes extends CreatureAttributes {
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
     recoveryAddend: number;
+}
+
+interface CharacterTraitsData extends CreatureTraitsData {
+    senses: CreatureSensePF2e[];
 }
 
 interface GrantedFeat {

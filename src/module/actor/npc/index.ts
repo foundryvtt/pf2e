@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { Abilities, VisionLevel, VisionLevels } from "@actor/creature/data";
+import { Abilities } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
 import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
@@ -42,11 +42,6 @@ class NPCPF2e extends CreaturePF2e {
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.traits.has("weak");
-    }
-
-    /** NPCs with sufficient permissions can always see (for now) */
-    override get visionLevel(): VisionLevel {
-        return VisionLevels.NORMAL;
     }
 
     /** Users with limited permission can loot a dead NPC */
