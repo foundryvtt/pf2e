@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { DC_SLUGS, SKILL_EXPANDED } from "@actor/data/values";
+import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import {
     CheckModifier,
     ensureProficiencyOption,
@@ -14,7 +14,7 @@ import { extractRollSubstitutions } from "@module/rules/util";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckType } from "@system/rolls";
-import { setHasElement } from "@util";
+import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { SimpleRollActionCheckOptions } from "./types";
 
@@ -33,13 +33,18 @@ export class ActionMacroHelpers {
                     stat,
                     subtitle: "PF2E.ActionsCheck.perception",
                 };
-            default:
+            default: {
+                const slug = sluggify(stat);
+                const shortForm = setHasElement(SKILL_LONG_FORMS, slug) ? SKILL_EXPANDED[slug].shortform : slug;
+                const property = `data.data.skills.${shortForm}`;
+
                 return {
                     checkType: "skill-check",
-                    property: `data.data.skills.${SKILL_EXPANDED[stat]?.shortform ?? stat}`,
+                    property,
                     stat,
                     subtitle: `PF2E.ActionsCheck.${stat}`,
                 };
+            }
         }
     }
 

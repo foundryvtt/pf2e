@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
 import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
 import { MeleeData } from "@item/data";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
@@ -15,7 +15,7 @@ import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { SIZE_TO_REACH } from "@actor/creature/values";
@@ -303,7 +303,8 @@ class NPCPF2e extends CreaturePF2e {
 
         // default all skills to untrained
         data.skills = {};
-        for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
+        for (const skill of SKILL_LONG_FORMS) {
+            const { ability, shortform } = SKILL_EXPANDED[skill];
             const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
@@ -366,7 +367,9 @@ class NPCPF2e extends CreaturePF2e {
                 // override untrained skills if defined in the NPC data
                 const skill = sluggify(itemData.name); // normalize skill name to lower-case and dash-separated words
                 // assume lore, if skill cannot be looked up
-                const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: "int", shortform: skill };
+                const { ability, shortform } = objectHasKey(SKILL_EXPANDED, skill)
+                    ? SKILL_EXPANDED[skill]
+                    : { ability: "int" as const, shortform: skill };
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
@@ -394,7 +397,7 @@ class NPCPF2e extends CreaturePF2e {
                 stat.base = base;
                 stat.expanded = skill;
                 stat.label = itemData.name;
-                stat.lore = !SKILL_EXPANDED[skill];
+                stat.lore = !objectHasKey(SKILL_EXPANDED, skill);
                 stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
