@@ -168,7 +168,7 @@ interface SkillExpanded {
     shortform: SkillAbbreviation;
 }
 
-export const SKILL_EXPANDED: Record<string, SkillExpanded> = {
+export const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
     acrobatics: { ability: "dex", shortform: "acr" },
     arcana: { ability: "int", shortform: "arc" },
     athletics: { ability: "str", shortform: "ath" },

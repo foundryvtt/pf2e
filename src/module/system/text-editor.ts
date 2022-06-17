@@ -228,7 +228,7 @@ class TextEditorPF2e extends TextEditor {
             default: {
                 // Skill or Lore
                 const shortForm = (() => {
-                    if (SKILL_EXPANDED[params.type]) {
+                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
                         return SKILL_EXPANDED[params.type].shortform;
                     } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
                         return params.type;
@@ -325,7 +325,7 @@ function getCheckDC(
             default: {
                 // Skill or Lore
                 const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
-                if (SKILL_EXPANDED[type]) {
+                if (objectHasKey(SKILL_EXPANDED, type)) {
                     // Long form
                     selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);
                 } else if (objectHasKey(SKILL_DICTIONARY, type)) {
