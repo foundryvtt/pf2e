@@ -15,18 +15,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "battle-form",
-                        "death-effects"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
-            },
-            {
                 "hasHands": true,
                 "key": "BattleForm",
                 "overrides": {
@@ -99,12 +87,18 @@
                 }
             },
             {
-                "key": "Note",
+                "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "battle-form"
+                        "death-effects"
                     ]
                 },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Note",
                 "selector": "strike-damage",
                 "text": "<p class=\"compact-text\"><strong>Daemon Form (Ceustodaemon)</strong> any successful jaws or claw Strike deals an additional [[/r {1d6}]]{1d6 damage}, and you take the same amount of damage</p>"
             },
@@ -113,11 +107,6 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "battle-form"
-                    ]
-                },
                 "selector": "strike-damage"
             }
         ],

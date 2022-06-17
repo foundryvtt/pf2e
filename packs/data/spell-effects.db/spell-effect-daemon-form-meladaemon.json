@@ -15,18 +15,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "battle-form",
-                        "death-effects"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
-            },
-            {
                 "hasHands": true,
                 "key": "BattleForm",
                 "overrides": {
@@ -100,12 +88,18 @@
                 }
             },
             {
-                "key": "Note",
+                "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "battle-form"
+                        "death-effects"
                     ]
                 },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Note",
                 "selector": "claw-damage",
                 "text": "<p class=\"compact-text\"><strong>Daemon Form (Meladaemon)</strong> @Localize[PF2E.PersistentDamage.Bleed1d6.success], and you can spend an action after a hit to @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} the target</p>"
             },
@@ -114,11 +108,6 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "battle-form"
-                    ]
-                },
                 "selector": "strike-damage"
             },
             {
@@ -126,11 +115,6 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "battle-form"
-                    ]
-                },
                 "selector": "claw-damage"
             }
         ],
