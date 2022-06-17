@@ -8,7 +8,6 @@ import { ChoiceSetData, ChoiceSetPackQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
 import { ItemType } from "@item/data";
 import { CharacterStrike } from "@actor/character/data";
-import { CharacterPF2e } from "@actor";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -135,7 +134,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 ? await this.queryCompendium(this.data.choices)
                 : []
             : typeof this.data.choices === "string"
-            ? this.referenceChoices(this.data.choices)
+            ? this.choicesFromPath(this.data.choices)
             : [];
 
         interface ItemChoice extends PickableThing<string> {
@@ -172,51 +171,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
     }
 
-    private referenceChoices(reference: string): PickableThing<string>[] {
-        if (reference === "lores") {
-            return this.getLoreChoices();
-        } else if (reference === "skills") {
-            return this.getSkillChoices();
-        }
-        return this.choicesFromPath(reference);
-    }
-
     private choicesFromPath(path: string): PickableThing<string>[] {
-        const result = [];
         const choiceObject: unknown = getProperty(CONFIG.PF2E, path) ?? getProperty(this.actor, path) ?? {};
         if (isObject<string>(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
-            result.push(
-                ...Object.entries(choiceObject).map(([value, label]) => ({
-                    value,
-                    label: String(label),
-                }))
-            );
-        }
-        return result;
-    }
-
-    private getSkillChoices(): PickableThing<string>[] {
-        const actor = this.actor;
-        if (actor instanceof CharacterPF2e) {
-            return Object.entries(actor.skills).map(([value, statistic]) => ({
+            return Object.entries(choiceObject).map(([value, label]) => ({
                 value,
-                label: statistic?.label ?? value,
+                label: String(label),
             }));
-        } else {
-            return [];
         }
-    }
 
-    private getLoreChoices(): PickableThing<string>[] {
-        const actor = this.actor;
-        if (actor instanceof CharacterPF2e) {
-            return Object.entries(actor.lores).map(([value, statistic]) => ({
-                value,
-                label: statistic.label,
-            }));
-        } else {
-            return [];
-        }
+        return [];
     }
 
     private choicesFromOwnedItems(predicate = new PredicatePF2e(), includeHandwraps = false): PickableThing<string>[] {
