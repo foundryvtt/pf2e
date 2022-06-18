@@ -280,7 +280,7 @@ class CharacterPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData: DeepPartial<CharacterSystemData> & { abilities: object } = this.data.data;
+        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.data.data;
 
         // Flags
         const { flags } = this.data;
@@ -798,13 +798,6 @@ class CharacterPF2e extends CreaturePF2e {
                 : spellDC && !classDC
                 ? { ...spellDC }
                 : { rank: 0, value: 0 };
-        })();
-
-        // Expose the higher between highest spellcasting DC and (if present) class DC
-        this.data.data.attributes.classOrSpellDC = ((): { rank: number; value: number } => {
-            const spellDC = this.data.data.attributes.spellDC ?? { rank: 0, value: 0 };
-            const { classDC } = this.data.data.attributes;
-            return spellDC.value > classDC.value ? { ...spellDC } : { rank: classDC.rank, value: classDC.value };
         })();
 
         // Initiative
