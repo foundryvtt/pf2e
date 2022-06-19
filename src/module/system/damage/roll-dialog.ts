@@ -204,15 +204,19 @@ export class DamageRollModifiersDialog extends Application {
             }
             content += "</div>";
         }
-        rollData.total = Math.max(rollData.total, 1);
-        content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
-
         // Combine the rolls into a single roll of a dice pool
         const roll = (() => {
-            if (rolls.length === 1) return rolls[0];
             const pool = PoolTerm.fromRolls(rolls);
+            // Work around above cobbling together roll card template above while constructing the actual roll
+            const firstResult = pool.results.at(0);
+            if (rollData.total === 0 && firstResult?.result === 0) {
+                rollData.total = 1;
+                firstResult.result = 1;
+            }
             return Roll.fromTerms([pool]);
         })();
+
+        content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
 
         const { self, target } = context;
         const item = self?.item ?? null;
