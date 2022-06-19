@@ -438,7 +438,7 @@ export class CheckPF2e {
                 const label = `${modifier.label} ${sign}${modifier.modifier}`;
                 return toTagElement({ name: modifier.slug, label }, "transparent");
             });
-        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: t }, "transparent"));
+        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
         const modifiersAndExtras = document.createElement("div");
         modifiersAndExtras.className = "tags";
         modifiersAndExtras.append(...modifiers, ...tagsFromOptions);
