@@ -785,7 +785,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
                           );
                       }) ?? params.item;
 
-        const traitSlugs: ActionTrait[] = ["attack" as const];
+        const traitSlugs: ActionTrait[] = [
+            "attack" as const,
+            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
+            // the manipulate trait."
+            selfItem.isOfType("weapon") && selfItem.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
+        ].flat();
         for (const adjustment of this.synthetics.strikeAdjustments) {
             if (selfItem.isOfType("weapon", "melee")) {
                 adjustment.adjustTraits?.(selfItem, traitSlugs);
