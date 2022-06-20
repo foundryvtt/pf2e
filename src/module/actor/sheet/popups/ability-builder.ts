@@ -57,7 +57,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             ...super.defaultOptions,
             token: null,
             id: "ability-builder",
-            classes: ["loot-actor-popup"],
+            classes: ["ability-builder-popup"],
             title: game.i18n.localize("PF2E.AbilityScoresHeader"),
             template: "systems/pf2e/templates/actors/ability-builder.html",
             width: "auto",
