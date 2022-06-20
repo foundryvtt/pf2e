@@ -97,23 +97,44 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             return;
         }
 
-        // Drop accepted: create a new button and replace the drop zone with it
-        const choicesLength = this.choices.push({ value: droppedItem.uuid, label: droppedItem.name });
+        // Drop accepted: Add to button list or select menu
+        const newChoice = { value: droppedItem.uuid, label: droppedItem.name };
+        const choicesLength = this.choices.push(newChoice);
 
-        $("#choice-set-prompt").css({ height: "unset" });
-        const $dropZone = this.element.find(".drop-zone");
-        const $newButton = $("<button>")
-            .attr({ type: "button" })
-            .addClass("with-image")
-            .val(choicesLength - 1)
-            .append($("<img>").attr({ src: droppedItem.img }), $("<span>").text(droppedItem.name));
+        const prompt = document.querySelector<HTMLElement>(`#${this.id}`);
+        const dropZone = prompt?.querySelector(".drop-zone");
+        if (!prompt) throw ErrorPF2e("Unexpected error retrieving ChoiceSet dialog");
 
-        $newButton.on("click", (event) => {
-            this.selection = this.getSelection(event.originalEvent!) ?? null;
-            this.close();
-        });
+        // The dialog will resize when the following DOM change occurs, so allow it to dynamically adjust
+        prompt.style.height = "unset";
 
-        $dropZone.replaceWith($newButton);
+        if (this.selectMenu) {
+            // SELECT MENU
+            const { whitelist } = this.selectMenu.settings;
+            const menuChoice = { value: String(choicesLength - 1), label: newChoice.label };
+            // Assert to accommodate impossible type specified by Tagify
+            whitelist?.push(menuChoice.value as string & { label: string; value: string });
+
+            this.selectMenu.setPersistedData(whitelist, "whitelist");
+            this.selectMenu.addTags([menuChoice], true, true);
+            this.selectMenu.setReadonly(true);
+
+            dropZone?.remove();
+        } else {
+            // BUTTON LIST
+            const $newButton = $("<button>")
+                .attr({ type: "button" })
+                .addClass("with-image")
+                .val(choicesLength - 1)
+                .append($("<img>").attr({ src: droppedItem.img }), $("<span>").text(droppedItem.name));
+
+            $newButton.on("click", (event) => {
+                this.selection = this.getSelection(event.originalEvent!) ?? null;
+                this.close();
+            });
+
+            if (dropZone) $(dropZone).replaceWith($newButton);
+        }
     }
 
     override _canDragDrop(): boolean {

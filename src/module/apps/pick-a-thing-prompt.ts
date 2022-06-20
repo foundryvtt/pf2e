@@ -14,6 +14,9 @@ abstract class PickAThingPrompt<T> extends Application {
 
     protected choices: PickableThing<T>[] = [];
 
+    /** If the number of choices is beyond a certain length, a select menu is presented instead of a list of buttons */
+    protected selectMenu?: Tagify<{ value: string; label: string }>;
+
     protected predicate: PredicatePF2e;
 
     protected allowNoSelection: boolean;
@@ -102,7 +105,7 @@ abstract class PickAThingPrompt<T> extends Application {
         const select = html.querySelector<HTMLInputElement>("input[data-tagify-select]");
         if (!select) return;
 
-        const tagified = new Tagify(select, {
+        this.selectMenu = new Tagify(select, {
             enforceWhitelist: true,
             keepInvalidTags: false,
             mode: "select",
@@ -120,7 +123,7 @@ abstract class PickAThingPrompt<T> extends Application {
                 .map((c, index) => ({ value: index.toString(), label: c.label })),
         });
 
-        tagified.DOM.input.spellcheck = false;
+        this.selectMenu.DOM.input.spellcheck = false;
     }
 
     /** Close the dialog, applying the effect with configured target or warning the user that something went wrong. */
