@@ -436,19 +436,21 @@ class CharacterPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
 
-    // this needs to run before active-effects, but after the prepare embedded documents step is
-    // run are completed. This allows things like apex items to apply after the ability scores
-    // are calculated
-    override preActiveEffects(): void {
-        this.setAbilityScores();
-    }
-
     /** After AE-likes have been applied, set numeric roll options */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
+    }
+
+    /**
+     * Immediately after boosts from this PC's ancestry, background, and class have been acquired, set ability scores
+     * according to them.
+     */
+    override prepareDataFromItems(): void {
+        super.prepareDataFromItems();
+        this.setAbilityScores();
     }
 
     override prepareDerivedData(): void {

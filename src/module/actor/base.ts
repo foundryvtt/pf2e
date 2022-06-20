@@ -370,13 +370,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         );
         this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
 
-        // Prepare data among owned items as well as actor-data preparation performed by items
+        this.prepareDataFromItems();
+    }
+
+    /** Prepare data among owned items as well as actor-data preparation performed by items */
+    protected prepareDataFromItems(): void {
         for (const item of this.items) {
             item.prepareSiblingData?.();
             item.prepareActorData?.();
         }
 
-        // Rule elements
         this.rules = this.prepareRuleElements();
     }
 

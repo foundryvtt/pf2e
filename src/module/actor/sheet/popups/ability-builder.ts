@@ -98,7 +98,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             }
         });
 
-        $html.find('button[data-action="ancestry-boost"]').on("click", async (event) => {
+        $html.find("button[data-action=ancestry-boost]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
 
             const boostToRemove = Object.entries(thisActor.ancestry?.data.data.boosts ?? {}).find(
@@ -121,7 +121,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             }
         });
 
-        $html.find('button[data-action="voluntary-flaw"]').on("click", async (event) => {
+        $html.find("button[data-action=voluntary-flaw]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
 
             const flawToRemove = Object.entries(thisActor.ancestry?.data.data.voluntaryFlaws ?? {}).find(
@@ -150,7 +150,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             }
         });
 
-        $html.find('button[data-action="voluntary-boost"]').on("click", async (event) => {
+        $html.find("button[data-action=voluntary-boost]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
 
             const boostToRemove = Object.entries(thisActor.ancestry?.data.data.voluntaryBoosts ?? {}).find(
@@ -173,7 +173,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             }
         });
 
-        $html.find('button[data-action="background-boost"]').on("click", async (event) => {
+        $html.find("button[data-action=background-boost]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
 
             const boostToRemove = Object.entries(thisActor.background?.data.data.boosts ?? {}).find(
@@ -196,7 +196,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             }
         });
 
-        $html.find('button[data-action="class-keyAbility"]').on("click", async (event) => {
+        $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
             await thisActor.class?.update({
                 [`data.keyAbility.selected`]: ability,
@@ -335,7 +335,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             }
         }
 
-        // do some house-keeping and make sure they can't do things multiple times
+        // Do some house-keeping and make sure they can't do things multiple times
         for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
             if (ancestryBoosts[ability].lockedFlaw) {
                 ancestryBoosts[ability].canVoluntaryFlaw = false;
@@ -403,7 +403,7 @@ export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptio
             const choices = Object.values(thisActor.background.data.data.boosts)[0].value.map((ability) =>
                 game.i18n.localize(CONFIG.PF2E.abilities[ability])
             );
-            tooltip = game.i18n.format("PF2E.AbilityBuilder.BackgroundBoostDescription", {
+            tooltip = game.i18n.format("PF2E.Actor.Character.AbilityBuilder.BackgroundBoostDescription", {
                 a: choices[0],
                 b: choices[1],
             });
