@@ -8,17 +8,18 @@
         line-height: 1;
         border-bottom: 1px solid var(--primary);
     }
+
     select {
         width: calc(100% - 6px);
         background-color: var(--alt);
         border: 1px solid darken($alt-color, 8);
         &:disabled {
-          cursor: initial;
+            cursor: initial;
         }
     }
 
     hr {
-      margin: 10px 6px 10px 0;
+        margin: 10px 6px 10px 0;
     }
 
     .pc {
@@ -35,37 +36,38 @@
             font-weight: 700;
             width: calc(100% - 6px);
             i {
-              position: relative;
-              right: -2px;
-              top: -2px;
-              float: right;
+                position: relative;
+                right: -2px;
+                top: -2px;
+                float: right;
             }
 
             span.value {
-              display: inline-block;
-              max-width: 87%;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
+                display: inline-block;
+                max-width: 87%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
     }
 
     button[data-action=edit-ability-scores] {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: auto;
-        height: 20px;
-        margin: -1;
-        border: 1px solid rgba(211, 204, 188, 1);
         background: transparent;
-        outline: none;
         border-radius: 2px 2px 0 0;
-        font-size: 12px;
-        line-height: 12px;
+        border: 1px solid rgba(211, 204, 188, 1);
+        bottom: 0;
         color: var(--primary);
+        cursor: pointer;
+        font-size: var(--font-size-12);
+        height: 20px;
+        line-height: var(--font-size-12);
+        margin: -1;
+        outline: none;
+        position: absolute;
+        right: 0;
         text-transform: uppercase;
+        width: auto;
     }
 
     .character-details {
@@ -147,7 +149,7 @@
                 top: 0;
                 right: -11px;
                 background: url("../assets/sheet/banner-bg2.webp") no-repeat
-                    right;
+                            right;
             }
         }
 
@@ -207,13 +209,13 @@
             margin-bottom: 8px;
 
             span {
-              width: 100%;
+                width: 100%;
             }
 
             &_ethnicity,
             &_nationality {
-              flex: 50%;
-              margin-bottom: 0;
+                flex: 50%;
+                margin-bottom: 0;
             }
         }
     }
@@ -267,11 +269,11 @@
                 margin-bottom: 0;
             }
             &_bonus-bulk {
-              flex: 1 20%;
+                flex: 1 20%;
 
-              &.encumbered {
-                  margin-right: 7px;
-              }
+                &.encumbered {
+                    margin-right: 7px;
+                }
             }
 
             label,
@@ -345,7 +347,7 @@
 
                 i.fas {
                     position: absolute;
-                    font-size: 12px;
+                    font-size: var(--font-size-12);
                     bottom: 4px;
                     left: 2px;
                 }
@@ -363,7 +365,7 @@
                 justify-content: center;
                 input {
                     width: 100%;
-                    font-size: 16px;
+                    font-size: var(--font-size-16);
                     line-height: 16px;
                     border: none;
                     text-align: center;
@@ -372,7 +374,7 @@
                 }
                 div {
                     text-align: center;
-                    font-size: 16px;
+                    font-size: var(--font-size-16);
                     line-height: 16px;
                     height: 16px;
                 }
@@ -380,7 +382,7 @@
             h3.ability-mod {
                 grid-area: mod;
 
-                font-size: 24px;
+                font-size: var(--font-size-24);
                 font-family: var(--serif);
                 font-weight: 700;
                 height: 46px;

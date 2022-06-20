@@ -6,15 +6,17 @@
     $flaw-locked-color: #5E0000;
     $neutral-color: var(--alt);
 
-    background: url('../assets/sheet/background.webp');
+    background: url("../assets/sheet/background.webp");
     background-repeat: repeat-x, no-repeat;
     background-size: cover;
     background-attachment: local;
     height: 100%;
     padding: 10px 20px 10px 20px;
-
-    button:focus:not(:focus-visible) { box-shadow: none }
     position: relative;
+
+    button:focus:not(:focus-visible) {
+        box-shadow: none;
+    }
 
     .background-stripes {
         position: absolute;
@@ -78,7 +80,7 @@
         h3 {
             grid-column: 1 / 4;
             align-self: start;
-            font-size: 24px;
+            font-size: var(--font-size-24);
         }
         .hint-container {
             grid-column: 1 / 4;
@@ -112,7 +114,7 @@
             text-align: center;
 
             &.extra {
-                animation: glow 0.25s infinite alternate;
+                animation: glow 0.5s infinite alternate;
             }
         }
 
@@ -125,53 +127,60 @@
             }
         }
     }
+
     .row-column {
-        text-align: center;
+        align-items: center;
         display: flex;
         flex-direction: column;
-
         justify-content: center;
-        align-items: center;
+        text-align: center;
 
         button {
-            width: 54px;
-            height: 14px;
-            border: 0;
-            margin-top: 4px;
-            margin-bottom: 4px;
-            outline: 1px solid $boost-color;
+            border: none;
             color: $boost-color;
-            font-size: 10px;
-            line-height: 10px;
+            font-size: var(--font-size-10);
+            height: 14px;
+            line-height: var(--font-size-10);
+            margin-bottom: 4px;
+            margin-top: 4px;
+            outline: 1px solid $boost-color;
             position: relative;
             text-transform: uppercase;
+            width: 54px;
 
             &:hover {
                 box-shadow: 0 0 5px $boost-color;
-                &.unavailable {
+                cursor: pointer;
+
+                &.key-ability.selected {
                     box-shadow: none;
+                    cursor: default;
+                }
+
+                &.unavailable {
                     background: rgba(0, 0, 0, 0.04);
+                    box-shadow: none;
                     color: rgba($boost-color, 0.4);
+                    cursor: not-allowed;
                     outline-color: rgba($boost-color, 0.4);
                 }
             }
 
             i.fas {
-                position: absolute;
+                font-size: var(--font-size-8);
                 left: 3px;
+                line-height: var(--font-size-8);
                 margin: auto;
-                font-size: 6px;
-                font-size: 8px;
-                line-height: 8px;
+                position: absolute;
             }
 
             &.hidden {
-                display: block;
-                visibility: hidden;
-                pointer-events: none;
                 background: rgba(0, 0, 0, 0.04);
                 color: rgba($boost-color, 0.4);
+                display: block;
                 outline-color: rgba($boost-color, 0.4);
+                pointer-events: none;
+                visibility: hidden;
             }
 
             &.unavailable {
@@ -260,10 +269,8 @@
 
             .value {
                 height: 40px;
-                font-size: 24px;
-                font-family: var(--serif);
-                font-weight: 700;
-                line-height: 30px;
+                font: 700 var(--font-size-24) var(--serif);
+                line-height: var(--font-size-30);
             }
 
             input {
@@ -271,9 +278,7 @@
                 flex-grow: 0;
                 height: 30px;
                 color: var(--text-dark);
-                font-family: var(--serif);
-                font-weight: 500;
-                font-size: 24px;
+                font: 500 var(--font-size-24) var(--serif);
                 border: 0;
                 border-bottom: 1px solid #D3CCBC;
                 border-radius: 0;
@@ -323,16 +328,16 @@
         h3 {
             color: var(--primary);
             font-variant: small-caps;
-            font-size: 20px;
-            line-height: 16px;
+            font-size: var(--font-size-20);
+            line-height: var(--font-size-16);
             font-family: var(--sans-serif-condensed);
             font-weight: 500;
         }
 
         p {
             font-style: italic;
-            font-size: 12px;
-            line-height: 14px;
+            font-size: var(--font-size-12);
+            line-height: var(--font-size-14);
             font-family: var(--sans-serif);
             font-weight: 500;
             margin-bottom: 3px;
@@ -347,37 +352,28 @@
 
     .title {
         color: var(--primary);
+        font: 500 var(--font-size-10) var(--sans-serif-condensed);
+        line-height: var(--font-size-10);
         text-transform: uppercase;
-        font-size: 10px;
-        line-height: 10px;
-        font-family: var(--sans-serif-condensed);
-        font-weight: 500;
     }
 
     div[data-tooltip-content] .description {
-        text-decoration: underline;
+        text-decoration: underline dotted;
         text-underline-offset: 2px;
     }
 
 
     .description {
-        font-size: 16px;
-        font-family: var(--serif);
-        font-weight: 600;
+        font: 600 var(--font-size-16) var(--serif);
     }
 
     h3 {
-        font-size: 20px;
-        line-height: 16px;
-        font-family: var(--serif-condensed);
-        font-weight: 400;
+        font: 400 var(--font-size-20) var(--serif-condensed);
+        line-height: var(--font-size-16);
     }
 
     h4 {
-        font-size: 9px;
-        font-family: var(--sans-serif);
-        font-weight: 400;
-        line-height: 9px;
+        font: 400 var(--font-size-9) var(--sans-serif);
         text-transform: uppercase;
         color: #605856;
     }
@@ -396,7 +392,7 @@
             align-items: center;
 
             i {
-                font-size: 5px;
+                font-size: var(--font-size-5);
                 margin-right: 5px;
             }
         }
