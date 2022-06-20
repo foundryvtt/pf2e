@@ -41,8 +41,7 @@
                         </div>
                         <div class="hpac-value">{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
                     </div>
-                    <div class="hp-ac rollable perception" title="{{data.attributes.perception.breakdown}}"
-                        data-perception-check>
+                    <div class="hp-ac rollable perception" title="{{data.attributes.perception.breakdown}}" data-action="perception-check">
                         <div class="hpac-label">
                             <i class="fas fa-eye"></i>
                             <h4>{{localize "PF2E.Familiar.Perception"}}</h4>
@@ -91,13 +90,9 @@
                         {{#if data.master.id}}
                         <div class="skills-list">
                             {{#each data.skills}}
-                            <div class="skills-item" title="{{this.breakdown}}" data-skill-check="{{@key}}">
-                                <div class="skills-score">
-                                    {{numberFormat this.value decimals=0 sign=true}}
-                                </div>
-                                <div class="skills-name">
-                                    {{localize this.label}}
-                                </div>
+                            <div class="skill-name rollable" title="{{this.breakdown}}" data-skill="{{@key}}">
+                                <div class="score">{{numberFormat this.value decimals=0 sign=true}}</div>
+                                <div class="name">{{localize this.label}}</div>
                             </div>
                             {{/each}}
                         </div>

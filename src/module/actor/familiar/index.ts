@@ -70,10 +70,9 @@ export class FamiliarPF2e extends CreaturePF2e {
             will: {},
         };
 
-        // Fields not filled in template.json nor used but that still need to exist are created during preparation
-        // so they can exist pleasantly while they do nothing. They should either be automated via specific familiar item type,
-        // or added to template.json and manually edited. Doing either requires developer investment and interest into
-        // something that is regularly buffed to be even more pointless, uninteresting, and worthless.
+        // Fields that need to exist for sheet compatibility so that they can exist pleasantly while doing nothing.
+        // They should be automated via specific familiar item types, or added to template.json and manually edited.
+        // This requires dev investment and interest aimed at what amounts to feat expensive set dressing (familiars).
         systemData.traits = mergeObject(systemData.traits, {
             dv: [],
             di: [],

@@ -1,16 +1,13 @@
 import { CharacterPF2e } from "@actor";
-import { SKILL_DICTIONARY } from "@actor/data/values";
+import { CreatureSheetPF2e } from "@actor/creature/sheet";
 import { FamiliarPF2e } from "@actor/familiar";
-import { ActorSheetPF2e } from "@actor/sheet/base";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { objectHasKey } from "@util";
 import { FamiliarSheetData } from "./types";
 
 /**
  * @category Actor
  */
-export class FamiliarSheetPF2e extends ActorSheetPF2e<FamiliarPF2e> {
+export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -63,16 +60,7 @@ export class FamiliarSheetPF2e extends ActorSheetPF2e<FamiliarPF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        // rollable stats
-
-        $html.find<HTMLElement>("[data-skill-check] *").on("click", (event) => {
-            const skill = event.currentTarget.closest<HTMLElement>("[data-skill-check]")?.dataset.skillCheck ?? "";
-            const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
-            const rollParams = eventToRollParams(event);
-            this.actor.skills[key]?.check.roll(rollParams);
-        });
-
-        $html.find("[data-perception-check] *").on("click", (event) => {
+        $html.find("[data-action=perception-check]").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "perception"]);
             this.actor.attributes.perception.roll({ event, options });
         });

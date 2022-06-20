@@ -170,7 +170,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Roll skill checks
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
-            const skill = event.currentTarget.parentElement?.dataset.skill ?? "";
+            const skill = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
             const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
             const rollParams = eventToRollParams(event);
             this.actor.skills[key]?.check.roll(rollParams);
