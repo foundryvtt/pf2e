@@ -1,26 +1,7 @@
 {
     "_id": "TMDFyqQtryffdHvE",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 12
-            },
-            "con": {
-                "value": 16
-            },
-            "dex": {
-                "value": 14
-            },
-            "int": {
-                "value": 12
-            },
-            "str": {
-                "value": 19
-            },
-            "wis": {
-                "value": 12
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,24 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "con",
+                        "int"
+                    ],
+                    "5": [
+                        "str",
+                        "con",
+                        "wis",
+                        "cha"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -105,11 +104,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -212,6 +211,7 @@
                 },
                 "boosts": {
                     "0": {
+                        "selected": "str",
                         "value": [
                             "cha",
                             "con",
@@ -225,6 +225,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "dex",
                         "value": [
                             "str",
                             "dex",
@@ -267,7 +268,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "normal"
+                "vision": "normal",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -604,6 +607,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "str",
                     "value": [
                         "dex",
                         "str"
@@ -775,12 +779,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "con",
                         "value": [
                             "con",
                             "wis"
                         ]
                     },
                     "1": {
+                        "selected": "str",
                         "value": [
                             "cha",
                             "con",
