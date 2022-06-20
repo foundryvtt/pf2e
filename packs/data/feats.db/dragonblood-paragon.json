@@ -29,6 +29,28 @@
         },
         "rules": [
             {
+  "key": "ChoiceSet",
+  "choices": [
+    {
+      "label": "PF2E.Kobold.DragonbloodParagon.Dracomancer",
+      "value": "dracomancer"
+    },
+    {
+      "label": "PF2E.Kobold.DragonbloodParagon.KoboldBreath",
+      "value": "koboldbreath"
+    },
+    {
+      "label": "PF2E.Kobold.DragonbloodParagon.StrongjawKobold",
+      "value": "strongjawkobold"
+    },
+    {
+      "label": "PF2E.Kobold.DragonbloodParagon.VenomtailKobold",
+      "value": "venomtailkobold"
+    }
+  ],
+  "rollOption": "dragonbloodParagon"
+},
+            {
                 "definition": {
                     "all": [
                         "weapon:jaws"
@@ -37,7 +59,12 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "weapon-traits",
-                "value": "deadly-d6"
+                "value": "deadly-d6",
+                  "predicate": {
+    "all": [
+      "dragonbloodParagon:strongjawkobold"
+    ]
+  }
             }
         ],
         "source": {
