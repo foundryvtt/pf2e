@@ -49,7 +49,7 @@ import {
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isCycle } from "@item/container/helpers";
 import { isEquipped } from "@item/physical/usage";
-import { ArmorSource } from "@item/data";
+import { ArmorSource, ItemType } from "@item/data";
 import { SIZE_TO_REACH } from "./values";
 import { ActionTrait } from "@item/action/data";
 
@@ -58,24 +58,40 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "condition", "effect"];
+    }
+
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
         return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
             if (!objectHasKey(this.data.data.skills, shortForm)) return current;
             const longForm = skill.name;
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
-            const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
-            current[longForm] = current[shortForm] = new Statistic(this, {
+            current[longForm] = new Statistic(this, {
                 slug: longForm,
+                label: skillName,
                 proficient: skill.visible,
                 domains,
-                check: { adjustments: skill.adjustments, label, type: "skill-check" },
+                check: { adjustments: skill.adjustments, type: "skill-check" },
                 dc: {},
                 modifiers: [...skill.modifiers],
                 notes: skill.notes,
             });
+
+            if (shortForm !== longForm) {
+                Object.defineProperty(current, shortForm, {
+                    get: () => {
+                        console.warn(
+                            `Short-form skill abbreviations such as actor.skills.${shortForm} are deprecated.`,
+                            `Use actor.skills.${longForm} instead.`
+                        );
+                        return current[longForm];
+                    },
+                });
+            }
 
             return current;
         }, {} as CreatureSkills);
@@ -121,6 +137,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
+        if (!Array.isArray(senses)) return VisionLevels.NORMAL;
+
         const senseTypes = senses
             .map((sense) => sense.type)
             .filter((senseType) => ["lowLightVision", "darkvision"].includes(senseType));
@@ -179,16 +197,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     get perception(): Statistic {
         const stat = this.data.data.attributes.perception as StatisticModifier;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
-    }
-
-    get deception(): Statistic {
-        const stat = this.data.data.skills.dec as StatisticModifier;
-        return Statistic.from(this, stat, "deception", "PF2E.ActionsCheck.deception", "skill-check");
-    }
-
-    get stealth(): Statistic {
-        const stat = this.data.data.skills.ste as StatisticModifier;
-        return Statistic.from(this, stat, "stealth", "PF2E.ActionsCheck.stealth", "skill-check");
     }
 
     get wornArmor(): Embedded<ArmorPF2e> | null {
@@ -303,12 +311,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.data.data.customModifiers ??= {});
-        Object.values(customModifiers).forEach((modifiers: RawModifier[]) => {
-            [...modifiers].forEach((modifier: RawModifier) => {
-                const index = modifiers.indexOf(modifier);
-                modifiers[index] = new ModifierPF2e(modifier);
-            });
-        });
+        for (const selector of Object.keys(customModifiers)) {
+            customModifiers[selector] = customModifiers[selector].map(
+                (rawModifier: RawModifier) => new ModifierPF2e(rawModifier)
+            );
+        }
 
         // Set base actor-shield data for PCs NPCs
         if (this.isOfType("character", "npc")) {
@@ -506,14 +513,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected override prepareSynthetics(): void {
         super.prepareSynthetics();
-        const systemData = this.data.data;
+        const { customModifiers } = this.data.data;
 
         // Custom modifiers
-        systemData.customModifiers ??= {};
         const { statisticsModifiers } = this.synthetics;
-        for (const [selector, modifiers] of Object.entries(systemData.customModifiers)) {
+        for (const [selector, modifiers] of Object.entries(customModifiers)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers.map((m) => () => m));
+            syntheticModifiers.push(
+                ...modifiers.map((modifier) => () => {
+                    modifier.adjustments = this.getModifierAdjustments([selector], modifier.slug);
+                    return modifier;
+                })
+            );
         }
     }
 
@@ -610,7 +621,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Removes a custom modifier by slug */
-    async removeCustomModifier(stat: string, modifier: number | string) {
+    async removeCustomModifier(stat: string, modifier: number | string): Promise<void> {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
             customModifiers[stat].splice(modifier, 1);
@@ -717,6 +728,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
         const targetActor = context.target?.actor;
+
         return {
             ...context,
             dc: targetActor?.attributes.ac
@@ -732,7 +744,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected getDamageRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
-        const context = this.getStrikeRollContext({ ...params, domains: ["all", "damage-roll"] });
+        const context = this.getStrikeRollContext({ ...params, domains: ["all", "strike-damage", "damage-roll"] });
         return {
             ...context,
             options: Array.from(new Set(context.options)),
@@ -777,7 +789,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
                           );
                       }) ?? params.item;
 
-        const traitSlugs: ActionTrait[] = ["attack" as const];
+        const traitSlugs: ActionTrait[] = [
+            "attack" as const,
+            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
+            // the manipulate trait."
+            selfItem.isOfType("weapon") && selfItem.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
+        ].flat();
         for (const adjustment of this.synthetics.strikeAdjustments) {
             if (selfItem.isOfType("weapon", "melee")) {
                 adjustment.adjustTraits?.(selfItem, traitSlugs);
@@ -792,7 +809,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-        const rollOptions = Array.from(new Set([selfOptions, targetOptions].flat()));
+        const rollOptions = Array.from(
+            new Set([
+                ...selfOptions,
+                ...targetOptions,
+                // Backward compatibility for predication looking for an "attack" trait by its lonesome
+                "attack",
+            ])
+        );
 
         // Calculate distance and set as a roll option
         const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;

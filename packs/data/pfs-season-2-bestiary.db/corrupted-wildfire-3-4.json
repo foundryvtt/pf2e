@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario #2-14: Lost in Flames"
             }
         },
         "resources": {},
@@ -94,9 +94,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "4"
+                    "value": 4
                 }
             ],
             "languages": {
@@ -147,9 +146,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire1d4.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -193,9 +209,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire1d4.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -314,7 +347,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The burning sap that makes up the corrupted wildfire's body sputters and pops, ejecting a cloud of acrid that smoke in a 10 foot emanation that lasts for 1 round.</p>\n<p>This smoke provides concealment to all creatures within, and deals [[/r {1d6}[poison]]]{1d6 poison damage} to any creature that enters or begins its turn in the cloud (@Check[type:fortitude|dc:20|basic:true]).</p>\n<p>A creature that fails is also @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p>The burning sap that makes up the corrupted wildfire's body sputters and pops, ejecting a cloud of acrid that smoke in a @Template[type:emanation|distance:10] that lasts for 1 round.</p>\n<p>This smoke provides concealment to all creatures within, and deals [[/r {1d6}[poison]]]{1d6 poison damage} to any creature that enters or begins its turn in the cloud (@Check[type:fortitude|dc:20|basic:true]).</p>\n<p>A creature that fails is also @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -5,8 +5,13 @@ import { SaveType, SAVE_TYPES } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
+import { ItemType } from "@item/data";
 
 export class HazardPF2e extends ActorPF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "action", "melee"];
+    }
+
     get rarity(): Rarity {
         return this.data.data.traits.rarity;
     }
@@ -83,6 +88,7 @@ export class HazardPF2e extends ActorPF2e {
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
@@ -91,7 +97,6 @@ export class HazardPF2e extends ActorPF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });

@@ -60,7 +60,7 @@
                     align-items: baseline;
                     text-transform: capitalize;
                     gap: 0.25em;
-                    
+
                     input {
                         font-weight: bold;
                         width: calc(100% - 6px);
@@ -81,11 +81,11 @@
                             }
                         }
                     }
-    
+
                     .charname-value {
                         flex: 1 1;
                     }
-    
+
                     .familiar-title {
                         flex: 0 1;
                         text-align: right;
@@ -152,20 +152,20 @@
                                     border: 1px solid transparent;
                                     background: none;
                                     height: auto;
-    
+
                                     &:hover, &:focus {
                                         border: 1px solid black;
                                         box-shadow: 0 0 10px #00005a;
                                     }
                                 }
-    
+
                                 .total-hp{
                                     flex-grow: 1;
                                 }
                             }
 
 
-                            
+
                             &.rollable {
                                 cursor: pointer;
                                 margin-bottom: 1px;
@@ -188,7 +188,7 @@
                             flex-direction: row;
                             justify-content: space-between;
                             padding-bottom: 1px;
-                
+
                             .saves {
                                 display: flex;
                                 flex-direction: column;
@@ -196,17 +196,17 @@
                                 column-gap: 0.5em;
                                 margin-bottom: 1px;
                                 cursor: pointer;
-                    
-                                .save-name {
+
+                                .name {
                                     font-weight: bold;
                                     text-transform: capitalize;
                                 }
-                    
-                                .save-val {
+
+                                .value {
                                     font-style: normal;
                                 }
                             }
-                
+
                             .saves:hover {
                                 margin-bottom: 0px;
                                 border-bottom: 1px solid #323232;
@@ -221,7 +221,7 @@
             display: flex;
             flex-direction: column;
             margin: 6px 6px;
-    
+
             .section-header {
                 display: flex;
                 flex: 0;
@@ -237,14 +237,14 @@
                 color: #f5efe0;
                 font-size: 0.8rem;
                 padding: 4px 8px;
-    
+
                 h4 {
                     flex: auto;
                     margin-bottom: 0px;
                     text-transform: uppercase;
                 }
             }
-    
+
             .section-body {
                 display: flex;
                 flex: auto;
@@ -256,7 +256,7 @@
                 padding: 4px;
                 border: 1px solid $primary-color;
                 border-radius: 0px 0px 3px 3px;
-                    
+
                 input {
                     font-family: var(--body-serif);
                     font-weight: bold;
@@ -288,7 +288,7 @@
                 &[type="text"] {
                     background-color: rgba(0, 0, 0, 0.05);
                 }
-    
+
                 &:focus {
                     box-shadow: none;
                 }
@@ -318,7 +318,7 @@
             .familiar-senses {
                 flex-basis: 30%;
                 height: min-content;
-                
+
                 .tags {
                     margin: 0;
                     padding: 0;
@@ -334,13 +334,13 @@
                 flex-basis: 30%;
             }
         }
-        
+
         .detail{
             display: flex;
             flex-direction: column;
             flex-wrap: nowrap;
             margin-top: 3px;
-        
+
             .detail-label {
                 font-size: var(--font-size-10);
                 font-weight: 800;
@@ -364,7 +364,7 @@
                 &[type="text"] {
                     background-color: rgba(0, 0, 0, 0.05);
                 }
-    
+
                 &:focus {
                     box-shadow: none;
                 }
@@ -398,7 +398,7 @@
             .familiar-senses {
                 flex-basis: 50%;
                 height: min-content;
-                
+
 
                 .tags {
                     margin: 0;
@@ -415,13 +415,13 @@
                 flex-basis: 30%;
             }
         }
-        
+
         .detail{
             display: flex;
             flex-direction: column;
             flex-wrap: nowrap;
             margin-top: 3px;
-        
+
             .detail-label {
                 font-size: var(--font-size-10);
                 font-weight: 800;
@@ -463,7 +463,7 @@
                 gap: 1em;
             }
         }
-        
+
         .main-section {
             display: flex;
             flex-direction: row;
@@ -481,15 +481,15 @@
             display: flex;
             flex-direction: column;
             width: 150px;
-            
+
             .skills-list {
                 display: flex;
                 column-gap: 0.25em;
                 row-gap: 0.25em;
                 flex-direction: column;
                 justify-content: center;
-                
-                .skills-item {
+
+                .skill-name {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -500,26 +500,24 @@
                     font-size: var(--font-size-14);
 
                     font-family: var(--serif);
-                    
+
                     &:hover {
                         padding: none;
                         border: 1px solid #323232;
                     }
+
+                    .name {
+                        flex: 4;
+                    }
+
+                    .score {
+                        flex: 1;
+                        text-align: center;
+                        padding-left: 1em;
+                        color: var(--primary);
+                        font-weight: bold;
+                    }
                 }
-                
-                
-                .skills-name {
-                    flex: 4;
-                }
-        
-                .skills-score {
-                    flex: 1;
-                    text-align: center;
-                    padding-left: 1em;
-                    color: var(--primary);
-                    font-weight: bold;
-                }
-            
             }
 
             .skills-attack {
@@ -541,14 +539,14 @@
             flex-wrap: wrap;
             width: 100%;
             padding: 0;
-    
+
             .separator {
                 flex: 0 0 1px;
                 height: 32px;
                 margin-right: 4px;
                 border-left: 2px solid #323232;
             }
-    
+
             > .effect {
                 display: flex;
                 flex: 0 0 64;
@@ -556,7 +554,7 @@
                 margin-right: 4px;
                 margin-bottom: 4px;
                 border-bottom: none !important;
-    
+
                 .item-image {
                     background-size: cover;
                     border: 1px solid #323232;
@@ -564,7 +562,7 @@
                     border-radius: 3px;
                     width: 64px;
                 }
-    
+
                 .item-image:hover {
                     border: 1px solid #f5efe0;
                     border-radius: 3px;
@@ -576,12 +574,12 @@
             list-style: none;
             margin: 0px;
             padding: 0px;
-            
+
             li {
                 .title-block {
                     font-style: block;
                 }
-    
+
                 .save-val {
                     font-style: italic;
                 }
@@ -589,7 +587,7 @@
 
             .familiar-ability {
                 font-style: italic;
-            }   
+            }
 
             &:nth-child(odd) {
                 background-color: rgba(0, 0, 0, 0.1);
@@ -603,7 +601,7 @@
             .item-list {
                 list-style: none;
                 padding-left: 0;
-                
+
                 .item-header {
                     display: flex;
                     flex-direction: row;
@@ -617,7 +615,7 @@
                         h4 {
                             @include p-reset;
                         }
-                        
+
                         &:hover {
                             h4 {
                                 color: var(--primary);

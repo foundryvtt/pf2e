@@ -19,10 +19,33 @@
         "level": {
             "value": 9
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse"
+                    ],
+                    "any": [
+                        "weapon:melee",
+                        "weapon:trait:unarmed"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "target:condition:flat-footed"
+                    ]
+                },
+                "property": "traits",
+                "value": "backstabber"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

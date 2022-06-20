@@ -6,7 +6,6 @@ import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
@@ -21,15 +20,16 @@ import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
+import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 
-export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
     private knownFormulas: Record<string, CraftingFormula> = {};
 
     // Non-persisted tweaks to formula data
     private formulaQuantities: Record<string, number> = {};
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "character"],
             width: 750,
@@ -41,7 +41,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    override get template() {
+    override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
         return `systems/pf2e/templates/actors/character/${template}.html`;
     }
@@ -313,19 +313,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-
-        const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
-        const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        actorData.data.attributes.encumbrance = calculateEncumbrance(
-            actorData.data.abilities.str.mod,
-            bonusEncumbranceBulk,
-            bonusLimitBulk,
-            this.actor.inventory.bulk,
-            this.actor.size
-        );
     }
 
-    private prepareSpellcasting(sheetData: CharacterSheetData) {
+    private prepareSpellcasting(sheetData: CharacterSheetData): void {
         sheetData.spellcastingEntries = [];
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
@@ -344,7 +334,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
     }
 
-    protected async prepareCraftingEntries() {
+    protected async prepareCraftingEntries(): Promise<CraftingEntriesSheetData> {
         const actorCraftingEntries = await this.actor.getCraftingEntries();
         const craftingEntries: CraftingEntriesSheetData = {
             dailyCrafting: false,
@@ -624,6 +614,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
+        $html.find("button[data-action=edit-ability-scores]").on("click", async (event) => {
+            event.preventDefault();
+            await new AbilityBuilderPopup(this.actor, {}).render(true);
+        });
+
         const $craftingTab = $html.find(".tab.crafting");
 
         const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");
@@ -673,24 +668,23 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     return;
                 }
                 await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
-                craftItem(formula.item, itemQuantity, this.actor, true);
-                return;
+
+                return craftItem(formula.item, itemQuantity, this.actor, true);
             }
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
                 const itemId = itemUuid?.split(".").pop() ?? "";
-                if (isSpellConsumable(itemId)) {
-                    craftSpellConsumable(formula.item, itemQuantity, this.actor);
-                    return;
+                if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
+                    return craftSpellConsumable(formula.item, itemQuantity, this.actor);
                 }
-                craftItem(formula.item, itemQuantity, this.actor);
-                return;
+
+                return craftItem(formula.item, itemQuantity, this.actor);
             }
 
             const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visibility: "all",
-                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                adjustments: this.actor.data.data.skills.cra.adjustments,
                 scope: "check",
             };
 
@@ -903,17 +897,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onIncrementModifierValue(event: JQuery.ClickEvent) {
+    private onIncrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepUp();
     }
 
-    private onDecrementModifierValue(event: JQuery.ClickEvent) {
+    private onDecrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepDown();
     }
 
-    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>) {
+    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const modifier = Number(parent.find(".add-modifier-value input[type=number]").val()) || 1;
@@ -937,7 +931,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onRemoveCustomModifier(event: JQuery.ClickEvent) {
+    private onRemoveCustomModifier(event: JQuery.ClickEvent): void {
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const slug = $(event.currentTarget).attr("data-slug") ?? "";
         const errors: string[] = [];
@@ -1004,7 +998,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    protected override async _onDrop(event: ElementDragEvent) {
+    protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData = JSON.parse(dataString ?? "");
         if ("pf2e" in dropData && dropData.pf2e.type === "CraftingFormula") {
@@ -1020,11 +1014,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const craftingFormulas = await this.actor.getCraftingFormulas();
                 const formula = craftingFormulas.find((f) => f.uuid === dropData.pf2e.itemUuid);
 
-                if (formula) await craftingEntry.prepareFormula(formula);
-                return;
+                if (formula) return craftingEntry.prepareFormula(formula);
             }
+        } else {
+            return super._onDrop(event);
         }
-        return super._onDrop(event);
     }
 
     /**
@@ -1046,8 +1040,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    /** Get the font-awesome icon used to display a certain level of dying */
-    private getDyingIcon(level: number) {
+    /** Get the font-awesome icon used to display a certain dying value */
+    private getDyingIcon(value: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const doomed = this.object.data.data.attributes.doomed.value || 0;
         const circle = '<i class="far fa-circle"></i>';
@@ -1071,13 +1065,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[dyingLevel] += dyingLevel === maxDying ? redClose : "";
         }
 
-        return icons[level];
+        return icons[value];
     }
 
-    /**
-     * Get the font-awesome icon used to display a certain level of wounded
-     */
-    private getWoundedIcon(level: number) {
+    /** Get the font-awesome icon used to display a certain wounded value */
+    private getWoundedIcon(value: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-dot-circle"></i>';
@@ -1091,7 +1083,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[i] = iconHtml;
         }
 
-        return icons[level];
+        return icons[value];
     }
 
     /** Get the font-awesome icon used to display hero points */
@@ -1106,6 +1098,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 }
 
-export interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
 }
+
+export { CharacterSheetPF2e };

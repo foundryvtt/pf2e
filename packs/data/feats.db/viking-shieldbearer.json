@@ -19,7 +19,7 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -27,6 +27,27 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Shield Block"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.longsword",
+                        "value": "longsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.battle-axe",
+                        "value": "battle-axe"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Human.VikingShieldbearer.Prompt",
+                "flag": "weaponChoice"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-{item|flags.pf2e.rulesSelections.weaponChoice}.rank",
+                "value": 1
             }
         ],
         "source": {

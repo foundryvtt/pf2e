@@ -2,6 +2,7 @@ import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "./base";
 import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage/calculation";
 import { MAGIC_SCHOOLS } from "@item/spell/values";
+import { SkillLongForm } from "./types";
 
 export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
@@ -154,8 +155,11 @@ export const SKILL_DICTIONARY = {
     sur: "survival",
     thi: "thievery",
 } as const;
-
 export const SKILL_LONG_FORMS = new Set(Object.values(SKILL_DICTIONARY));
+
+export const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
+    Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation])
+);
 
 export const DC_SLUGS = new Set(["ac", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
 
@@ -164,7 +168,7 @@ interface SkillExpanded {
     shortform: SkillAbbreviation;
 }
 
-export const SKILL_EXPANDED: Record<string, SkillExpanded> = {
+export const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
     acrobatics: { ability: "dex", shortform: "acr" },
     arcana: { ability: "int", shortform: "arc" },
     athletics: { ability: "str", shortform: "ath" },

@@ -27,7 +27,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -61,7 +61,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>During the cataclysmic events of Earthfall, a fraction of the Azlanti populace was mutated by their hated alghollthu enemies to survive in the ocean depths. Commonly called \"gillmen\" or sometimes \"Low Azlanti,\" azarketis primarily live in the Arcadian Ocean, Inner Sea, and ruins of Azlant. They retain the imperious attitude and violet eyes of their ancestors, but they have hairless bodies, prominent gills, and webbed hands and feet. Most have innate hydrokinetic powers, which they use to make tiny currents, cushion their dives, and read the weather. Whether this power springs from the latent magic of their Azlanti heritage or alghollthu meddling is unknown.</p>\n<p>Azarketis endured centuries of alghollthu enslavement and experimentation before being abandoned by their alghollthu masters. In the ages since, azarketis have built their own settlements and societies, traveled the breadth of Golarion's waterways, and explored both the ruins of their shattered empire and the myriad cultures that dot the coasts of the world.</p>\n<p>Proud of their heritage, azarketi are secretive and territorial. They don't take kindly to outsiders in their underwater settlements or explorers seeking to pillage the ruins of Azlant. Only a few build relationships with coastal or island settlements, defending them from aquatic dangers or supporting naval trade.</p>\n<hr />\n<p>This rakish azarketi explores the wrecks and ruins of the Inner Sea's coasts. At home above and below the waves, they fight to protect their discoveries, their life, and their reputation.</p>",
+            "publicNotes": "<p>This rakish azarketi explores the wrecks and ruins of the Inner Sea's coasts. At home above and below the waves, they fight to protect their discoveries, their life, and their reputation.</p>\n<hr />\n<p>During the cataclysmic events of Earthfall, a fraction of the Azlanti populace was mutated by their hated alghollthu enemies to survive in the ocean depths. Commonly called \"gillmen\" or sometimes \"Low Azlanti,\" azarketis primarily live in the Arcadian Ocean, Inner Sea, and ruins of Azlant. They retain the imperious attitude and violet eyes of their ancestors, but they have hairless bodies, prominent gills, and webbed hands and feet. Most have innate hydrokinetic powers, which they use to make tiny currents, cushion their dives, and read the weather. Whether this power springs from the latent magic of their Azlanti heritage or alghollthu meddling is unknown.</p>\n<p>Azarketis endured centuries of alghollthu enslavement and experimentation before being abandoned by their alghollthu masters. In the ages since, azarketis have built their own settlements and societies, traveled the breadth of Golarion's waterways, and explored both the ruins of their shattered empire and the myriad cultures that dot the coasts of the world.</p>\n<p>Proud of their heritage, azarketi are secretive and territorial. They don't take kindly to outsiders in their underwater settlements or explorers seeking to pillage the ruins of Azlant. Only a few build relationships with coastal or island settlements, defending them from aquatic dangers or supporting naval trade.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -121,7 +121,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "q2GzrdUWHXbMrSBY",
+            "_id": "YWE0A2ihRKBDR01j",
             "data": {
                 "MAP": {
                     "value": ""
@@ -166,13 +166,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -194,16 +194,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -214,7 +214,7 @@
                 "size": "med",
                 "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -254,7 +254,7 @@
             "type": "weapon"
         },
         {
-            "_id": "VbgSVtQtPinJseuW",
+            "_id": "URmrJWnzS3wuje5D",
             "data": {
                 "MAP": {
                     "value": ""
@@ -347,7 +347,7 @@
                 "size": "med",
                 "slug": "trident",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -512,7 +512,7 @@
             "type": "melee"
         },
         {
-            "_id": "WZ43kHVdXJkt1Xda",
+            "_id": "aMgKVhdJKyEfpoK9",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -557,7 +557,7 @@
             "type": "action"
         },
         {
-            "_id": "T8OsL0He5HFoFbJ0",
+            "_id": "dQW2DvGO2PSM5XBY",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -619,7 +619,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "hydration",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hydration"
+                            ]
+                        },
+                        "selector": "fortitude",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -659,7 +678,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "hydraulic-deflection",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hydraulic-deflection"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -697,7 +735,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While the azarketi explorer is submerged just below the water's surface, they have cover from attacks made by creatures out of the water.</p>"
+                    "value": "<p>While the azarketi explorer is submerged just below the water's surface, they have @Compendium[pf2e.equipment-effects.Cover]{Cover} from attacks made by creatures out of the water.</p>"
                 },
                 "requirements": {
                     "value": ""

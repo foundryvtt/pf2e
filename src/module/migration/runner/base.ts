@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.755;
+    static LATEST_SCHEMA_VERSION = 0.758;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -75,10 +75,10 @@ export class MigrationRunnerBase {
         const current = deepClone(item);
 
         for await (const migration of migrations) {
-            await migration.updateItem(current);
+            await migration.updateItem?.(current);
             // Handle embedded spells
             if (current.type === "consumable" && current.data.spell.data) {
-                await migration.updateItem(current.data.spell.data);
+                await migration.updateItem?.(current.data.spell.data);
             }
         }
         if (migrations.length > 0) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
@@ -90,12 +90,12 @@ export class MigrationRunnerBase {
         const currentActor = deepClone(actor);
 
         for await (const migration of migrations) {
-            await migration.updateActor(currentActor);
+            await migration.updateActor?.(currentActor);
             for await (const currentItem of currentActor.items) {
-                await migration.updateItem(currentItem, currentActor);
+                await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
                 if (currentItem.type === "consumable" && currentItem.data.spell.data) {
-                    await migration.updateItem(currentItem.data.spell.data, currentActor);
+                    await migration.updateItem?.(currentItem.data.spell.data, currentActor);
                 }
             }
         }

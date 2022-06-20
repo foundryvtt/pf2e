@@ -1,8 +1,8 @@
-import { ActionMacros, SkillActionOptions } from "..";
+import { ActionMacroHelpers, SkillActionOptions } from "..";
 
 export function gatherInformation(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "diplomacy");
-    ActionMacros.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "diplomacy");
+    ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -17,8 +17,8 @@ export function gatherInformation(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacros.note(selector, "PF2E.Actions.GatherInformation", "success"),
-            ActionMacros.note(selector, "PF2E.Actions.GatherInformation", "criticalFailure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "success"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalFailure"),
         ],
     });
 }

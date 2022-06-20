@@ -1,9 +1,7 @@
-import { NPCPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { ActorSizePF2e } from "@actor/data/size";
-import { ConsumablePF2e } from "@item";
+import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { MeleeSource } from "@item/data";
-import { MeleePF2e } from "@item/melee";
 import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -12,7 +10,6 @@ import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/mater
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import { PhysicalItemPF2e } from "../physical";
 import {
     getStrikingDice,
     RuneValuationData,
@@ -77,7 +74,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 
-    /** The range of this weapon, or null if a melee weapon */
+    /** The range increment of this weapon, or null if a melee weapon */
     get rangeIncrement(): WeaponRangeIncrement | null {
         return this.data.data.range;
     }
@@ -150,7 +147,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
             this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
-        ].flat();
+        ]
+            .flat()
+            .sort();
     }
 
     override prepareBaseData(): void {
@@ -184,7 +183,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
-        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+        if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d+)?$/.test(t))) {
             this.data.data.reload.value = "-";
         }
 
@@ -396,9 +395,21 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
-    getAltUsages(): this[];
-    getAltUsages(): WeaponPF2e[] {
-        return [this.toThrownUsage() ?? [], this.toMeleeUsage() ?? []].flat();
+    /**
+     * Get the "alternative usages" of a weapon: melee (in the case of combination weapons) and thrown (in the case
+     * of thrown melee weapons)
+     * @param [options.recurse=true] Whether to get the alternative usages of alternative usages
+     */
+    getAltUsages(options?: { recurse?: boolean }): this[];
+    getAltUsages({ recurse = true } = {}): WeaponPF2e[] {
+        const meleeUsage = this.toMeleeUsage();
+
+        return [
+            this.toThrownUsage() ?? [],
+            meleeUsage ?? [],
+            // Some combination weapons have a melee usage that is throwable
+            recurse ? meleeUsage?.toThrownUsage() ?? [] : [],
+        ].flat();
     }
 
     /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
@@ -447,7 +458,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     /** Generate a melee item from this weapon for use by NPCs */
     toNPCAttacks(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e>[] {
         const { actor } = this;
-        if (!(actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
+        if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const baseDamage = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
@@ -554,7 +565,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         return [
             new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>,
-            ...this.getAltUsages().flatMap((u) => u.toNPCAttacks()),
+            ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks()),
         ];
     }
 }

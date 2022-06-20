@@ -1,4 +1,4 @@
-import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../";
+import { RuleElementPF2e, RuleElementOptions } from "../";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
@@ -59,7 +59,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * Adjust the effect's name and set the targetId from the user's selection, or set the entire rule element to be
      * ignored if no selection was made.
      */
-    override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
+    override async preCreate({ ruleSource }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
         const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
 
         const predicate = this.resolveInjectedProperties(this.data.predicate ?? new PredicatePF2e({}));

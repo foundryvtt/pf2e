@@ -24,6 +24,7 @@ import { CheckRoll } from "@system/check/roll";
 import { ZeroToFour } from "@module/data";
 import { AbilityString } from "@actor/data";
 import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { calculateMAP } from "@actor/helpers";
 
 export * from "./data";
 
@@ -79,9 +80,12 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     slug: string;
 
+    label: string;
+
     constructor(public actor: ActorPF2e, public readonly data: T, public options?: RollOptionParameters) {
         this.slug = data.slug;
         this.ability = data.ability ?? null;
+        this.label = game.i18n.localize(data.label);
 
         // Add some base modifiers depending on data values
         this.modifiers = [data.modifiers ?? []].flat();
@@ -124,7 +128,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         return new Statistic(actor, {
             slug,
             domains,
-            check: { adjustments: stat.adjustments, label, type },
+            label,
+            check: { adjustments: stat.adjustments, type },
             dc: {},
             modifiers: [...stat.modifiers],
             notes: stat.notes,
@@ -234,7 +239,6 @@ class StatisticCheck {
     domains: string[];
     mod: number;
     modifiers: ModifierPF2e[];
-    label: string;
 
     #stat: StatisticModifier;
 
@@ -242,11 +246,27 @@ class StatisticCheck {
         const data = parent.data;
         this.domains = (parent.data.domains ?? []).concat(data.check.domains ?? []);
         this.modifiers = parent.modifiers.concat(data.check.modifiers ?? []);
-        this.label = game.i18n.localize(data.check.label);
 
         const rollOptions = parent.createRollOptions(this.domains, options);
         this.#stat = new StatisticModifier(this.label, this.modifiers, rollOptions);
         this.mod = this.#stat.totalModifier;
+    }
+
+    get label() {
+        const parentLabel = this.parent.label;
+        const data = this.parent.data;
+        if (data.check.label) return game.i18n.localize(data.check.label);
+
+        switch (data.check.type) {
+            case "skill-check":
+                return game.i18n.format("PF2E.SkillCheckWithName", { skillName: parentLabel });
+            case "saving-throw":
+                return game.i18n.format("PF2E.SavingThrowWithName", { saveName: parentLabel });
+            case "spell-attack-roll":
+                return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
+            default:
+                return parentLabel;
+        }
     }
 
     createRollOptions(args: RollOptionParameters = {}): string[] {
@@ -254,7 +274,7 @@ class StatisticCheck {
     }
 
     calculateMap(options: { item: ItemPF2e }) {
-        const baseMap = options.item.calculateMap();
+        const baseMap = calculateMAP(options.item);
         const penalties = [...(this.parent.data.check.penalties ?? [])];
         penalties.push({
             label: "PF2E.MultipleAttackPenalty",

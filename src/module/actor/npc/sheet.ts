@@ -1,6 +1,6 @@
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { DicePF2e } from "@scripts/dice";
-import { ABILITY_ABBREVIATIONS, SAVE_TYPES } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
@@ -8,7 +8,7 @@ import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ConditionPF2e, SpellcastingEntryPF2e } from "@item";
 import { EffectData } from "@item/data";
-import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
 import { Size } from "@module/data";
 import { NPCSkillData } from "./data";
 import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
@@ -451,8 +451,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
                 sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }
-
-        sheetData.isSpellcaster = this.actor.isSpellcaster;
     }
 
     private get isWeak(): boolean {
@@ -495,33 +493,28 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         });
     }
 
-    private async onClickRollable(event: JQuery.ClickEvent): Promise<void> {
+    private async onClickRollable(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): Promise<void> {
         event.preventDefault();
-        const $label = $(event.currentTarget).closest(".rollable");
-
-        const ability = $label.parent().attr("data-attribute") as "perception" | AbilityString;
-        const skill = $label.parent().attr("data-skill") as SkillAbbreviation;
-        const save = $label.parent().attr("data-save");
-
+        const label = event.currentTarget.closest<HTMLElement>(".rollable");
+        const { attribute, save, skill } = label?.parentElement?.dataset ?? {};
         const rollParams = eventToRollParams(event);
 
-        if (ability) {
-            switch (ability) {
-                case "perception":
-                    this.rollPerception(event);
-                    break;
-                default:
-                    this.rollAbility(event, ability);
+        if (attribute) {
+            if (attribute === "perception") {
+                await this.rollPerception(event);
+            } else if (setHasElement(ABILITY_ABBREVIATIONS, attribute)) {
+                this.rollAbility(event, attribute);
             }
         } else if (skill) {
-            const extraRollOptions = $(event.currentTarget)
-                .attr("data-options")
+            const extraRollOptions = event.currentTarget.dataset.options
                 ?.split(",")
                 .map((o) => o.trim())
                 .filter((o) => !!o);
-            this.actor.skills[skill]?.check.roll({ ...rollParams, extraRollOptions });
+
+            const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
+            await this.actor.skills[key]?.check.roll({ ...rollParams, extraRollOptions });
         } else if (objectHasKey(this.actor.saves, save)) {
-            this.actor.saves[save].check.roll(rollParams);
+            await this.actor.saves[save].check.roll(rollParams);
         }
     }
 

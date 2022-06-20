@@ -24,8 +24,6 @@ import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
-import { craft } from "@system/action-macros/crafting/craft";
-import { repair } from "@system/action-macros/crafting/repair";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
@@ -45,7 +43,7 @@ export const SetGamePF2e = {
             raiseAShield,
             restForTheNight,
             steelYourResolve,
-            ...ActionMacros.macros,
+            ...ActionMacros,
         };
 
         const initSafe: Partial<typeof game["pf2e"]> = {
@@ -76,10 +74,6 @@ export const SetGamePF2e = {
         };
 
         mergeObject(game.pf2e, initSafe);
-
-        // Workaround for strange import bug
-        game.pf2e.actions.craft = craft;
-        game.pf2e.actions.repair = repair;
     },
 
     onSetup: (): void => {},

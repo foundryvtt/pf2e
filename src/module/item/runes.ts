@@ -236,10 +236,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     corrosive: {
         damage: {
             dice: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
-            notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.corrosive.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.corrosive.Note.success" },
-            ],
+            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.corrosive.Note.criticalSuccess" }],
         },
         level: 8,
         // name: "PF2E.WeaponPropertyRune.corrosive.Name", // wait for translations to catch up

@@ -7,7 +7,7 @@ import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -110,9 +110,10 @@ export const InlineRollLinks = {
                     actors.forEach((actor) => {
                         if (actor instanceof CreaturePF2e) {
                             const flatCheck = new Statistic(actor, {
+                                label: "",
                                 slug: "flat-check",
                                 modifiers: [],
-                                check: { label: "", type: "flat-check" },
+                                check: { type: "flat-check" },
                             });
                             if (flatCheck) {
                                 const dc = Number.isInteger(Number(pf2Dc))
@@ -160,10 +161,14 @@ export const InlineRollLinks = {
                 }
                 default: {
                     const skillActors = actors.filter((actor): actor is CreaturePF2e => "skills" in actor.data.data);
-                    const skill = SKILL_EXPANDED[pf2Check!]?.shortform ?? pf2Check!;
+                    const skill = objectHasKey(SKILL_EXPANDED, pf2Check)
+                        ? SKILL_EXPANDED[pf2Check].shortform
+                        : pf2Check ?? "";
                     for (const actor of skillActors) {
-                        const skillCheck = actor.data.data.skills[skill ?? ""];
-                        if (skill && skillCheck) {
+                        const statModifier = objectHasKey(actor.data.data.skills, skill)
+                            ? actor.data.data.skills[skill]
+                            : null;
+                        if (skill && statModifier) {
                             const dcValue =
                                 pf2Dc === "@self.level"
                                     ? ((): number => {
@@ -183,7 +188,7 @@ export const InlineRollLinks = {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            skillCheck.roll({ event, options, dc });
+                            statModifier.roll({ event, options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
                         }

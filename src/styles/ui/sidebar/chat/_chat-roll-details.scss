@@ -1,0 +1,70 @@
+.chat-roll-details {
+    .window-content {
+        display: grid;
+        grid-template: "summary summary" max-content
+                        "options modifiers" 1fr
+                        / 1fr 1fr;
+        gap: 1em;
+        width: 100%;
+        flex: 1 1 auto;
+        overflow: hidden;
+    }
+
+    .summary {
+        grid-area: summary;
+    }
+
+    .roll-options, .modifiers {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .roll-options {
+        ul {
+            @include scrollbar;
+            @include p-reset;
+            flex: 1 0 0;
+            list-style-type: none;
+            border-radius: 3px;
+            white-space: nowrap;
+            border: 1px solid var(--color-border-dark-tertiary);
+            overflow-x: auto;
+        }
+        li {
+            user-select: text;
+            line-height: 1.5em;
+            padding-left: 5px;
+            &:nth-child(even) {
+                background-color: #00000011;
+            }
+        }
+    }
+
+    .modifier-list {
+        @include scrollbar;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        .modifier {
+            border: 1px solid black;
+            border-radius: 3px;
+            padding: 4px;
+            &.disabled {
+                border-style: dashed;
+                opacity: 0.6;
+            }
+
+            h4 {
+                font-size: 1.1em;
+            }
+
+            & > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+        }
+    }
+}

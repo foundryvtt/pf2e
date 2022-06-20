@@ -38,7 +38,7 @@ import { createSheetTags } from "@module/sheet/helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
 import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
+import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -132,7 +132,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): void;
 
-    protected prepareInventory() {
+    protected prepareInventory(): SheetInventory {
         const invested = this.actor.inventory.invested;
         const sections: SheetInventory["sections"] = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), type: "weapon", items: [] },
@@ -176,7 +176,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         sections.equipment.overInvested = !!invested && invested.max < invested.value;
-        return { sections };
+        return { sections, bulk: this.actor.inventory.bulk };
     }
 
     protected findActiveList() {
@@ -810,20 +810,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     protected override async _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
         const sources = Array.isArray(itemSource) ? itemSource : [itemSource];
-        const pcOnlyItems = ["ancestry", "background", "class", "feat"];
-        if (this.actor.type !== "character") {
-            for (const datum of [...sources]) {
-                if (pcOnlyItems.includes(datum.type)) {
-                    ui.notifications.error(
-                        game.i18n.format("PF2E.Item.CannotAddType", {
-                            type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
-                        })
-                    );
-                    sources.findSplice((item) => item === datum);
-                }
-            }
+        const validTypes = this.object.allowedItemTypes;
+        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES);
+
+        const invalidSources = sources.filter((source) => !validTypes.some((type) => source.type === type));
+        for (const datum of invalidSources) {
+            ui.notifications.error(
+                game.i18n.format("PF2E.Item.CannotAddType", {
+                    type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                })
+            );
         }
-        return super._onDropItemCreate(sources);
+
+        return super._onDropItemCreate(sources.filter((source) => !invalidSources.includes(source)));
     }
 
     async onDropItem(data: DropCanvasItemDataPF2e) {

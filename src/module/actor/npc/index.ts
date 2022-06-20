@@ -1,10 +1,10 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { VisionLevel, VisionLevels } from "@actor/creature/data";
+import { Abilities } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
 import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
-import { MeleeData } from "@item/data";
+import { ItemType, MeleeData } from "@item/data";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
@@ -15,17 +15,22 @@ import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { VariantCloneParams } from "./types";
 import { StrikeAttackTraits } from "./strike-attack-traits";
 import { CheckRoll } from "@system/check/roll";
+import { calculateMAP } from "@actor/helpers";
 
 class NPCPF2e extends CreaturePF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
+    }
+
     /** This NPC's ability scores */
-    get abilities() {
+    get abilities(): Abilities {
         return deepClone(this.data.data.abilities);
     }
 
@@ -41,11 +46,6 @@ class NPCPF2e extends CreaturePF2e {
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.traits.has("weak");
-    }
-
-    /** NPCs with sufficient permissions can always see (for now) */
-    override get visionLevel(): VisionLevel {
-        return VisionLevels.NORMAL;
     }
 
     /** Users with limited permission can loot a dead NPC */
@@ -307,7 +307,8 @@ class NPCPF2e extends CreaturePF2e {
 
         // default all skills to untrained
         data.skills = {};
-        for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
+        for (const skill of SKILL_LONG_FORMS) {
+            const { ability, shortform } = SKILL_EXPANDED[skill];
             const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
@@ -326,6 +327,9 @@ class NPCPF2e extends CreaturePF2e {
                     value: 0,
                     visible: false,
                     roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                        console.warn(
+                            `Rolling skill checks via actor.data.data.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                        );
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         const rollOptions = args.options ?? [];
                         const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
@@ -367,7 +371,9 @@ class NPCPF2e extends CreaturePF2e {
                 // override untrained skills if defined in the NPC data
                 const skill = sluggify(itemData.name); // normalize skill name to lower-case and dash-separated words
                 // assume lore, if skill cannot be looked up
-                const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: "int", shortform: skill };
+                const { ability, shortform } = objectHasKey(SKILL_EXPANDED, skill)
+                    ? SKILL_EXPANDED[skill]
+                    : { ability: "int" as const, shortform: skill };
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
@@ -395,7 +401,7 @@ class NPCPF2e extends CreaturePF2e {
                 stat.base = base;
                 stat.expanded = skill;
                 stat.label = itemData.name;
-                stat.lore = !SKILL_EXPANDED[skill];
+                stat.lore = !objectHasKey(SKILL_EXPANDED, skill);
                 stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
@@ -404,6 +410,9 @@ class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
                 stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                    console.warn(
+                        `Rolling skill checks via actor.data.data.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                    );
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
@@ -478,6 +487,7 @@ class NPCPF2e extends CreaturePF2e {
                     `${meleeData._id}-attack`,
                     `${unarmedOrWeapon}-attack-roll`,
                     `${meleeOrRanged}-attack-roll`,
+                    "strike-attack-roll",
                     "attack-roll",
                     "all",
                 ];
@@ -513,8 +523,7 @@ class NPCPF2e extends CreaturePF2e {
                     description: item.description,
                     imageUrl,
                     sourceId: item.id,
-                    attackRollType:
-                        meleeData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
+                    attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
                     additionalEffects,
                     item,
                     weapon: item,
@@ -551,19 +560,14 @@ class NPCPF2e extends CreaturePF2e {
                 }
 
                 const getRangeIncrement = (distance: number | null): number | null => {
-                    const weaponIncrement =
-                        Number(
-                            meleeData.data.traits.value
-                                .find((t) => t.startsWith("range-increment-"))
-                                ?.replace("range-increment-", "")
-                        ) || null;
+                    const weaponIncrement = item.rangeIncrement;
                     return typeof distance === "number" && typeof weaponIncrement === "number"
                         ? Math.max(Math.ceil(distance / weaponIncrement), 1)
                         : null;
                 };
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const maps = ItemPF2e.calculateMap(meleeData);
+                const maps = calculateMAP(item);
                 const sign = action.totalModifier < 0 ? "" : "+";
                 const attackTrait = {
                     name: "attack",
@@ -586,16 +590,32 @@ class NPCPF2e extends CreaturePF2e {
                             const rollNotes = notes.concat(attackEffects);
                             const context = this.getAttackRollContext({ item, viewOnly: false });
                             // Always add all weapon traits as options
-                            const rollOptions = (args.options ?? [])
-                                .concat(context.options)
-                                .concat(meleeData.data.traits.value);
+                            const rollOptions = [
+                                args.options ?? [],
+                                context.options,
+                                meleeData.data.traits.value,
+                                context.self.item.getRollOptions("weapon"),
+                            ].flat();
+
+                            // Legacy support for "melee", "ranged", and "thrown" roll options
+                            if (item.isThrown) {
+                                rollOptions.push("ranged", "thrown");
+                            } else if (item.isRanged) {
+                                rollOptions.push("ranged");
+                            } else {
+                                rollOptions.push("melee");
+                            }
 
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                             const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
+                            const checkName = game.i18n.format(
+                                item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+                                { weapon: item.name }
+                            );
 
                             const roll = await CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action, otherModifiers),
+                                new CheckModifier(checkName, action, otherModifiers),
                                 {
                                     actor: context.self.actor,
                                     item: context.self.item,
@@ -693,12 +713,12 @@ class NPCPF2e extends CreaturePF2e {
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
+                label: CONFIG.PF2E.magicTraditions[tradition],
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
-                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                     modifiers: attackModifiers,
                     domains: attackSelectors,
                 },
@@ -750,6 +770,7 @@ class NPCPF2e extends CreaturePF2e {
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
@@ -759,7 +780,6 @@ class NPCPF2e extends CreaturePF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });

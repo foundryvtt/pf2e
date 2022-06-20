@@ -1,25 +1,31 @@
-import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
-import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
-import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
-import { RollNotePF2e } from "@module/notes";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { ZeroToThree } from "@module/data";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify } from "@util";
-import { TokenDocumentPF2e } from "@scene";
-import { PredicatePF2e } from "./predication";
-import { StrikeData, TraitViewData } from "@actor/data/base";
-import { ChatMessageSourcePF2e } from "@module/chat-message/data";
-import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget } from "@actor/creature/types";
-import { LocalizePF2e } from "./localize";
-import { Check } from "./check";
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { TextEditorPF2e } from "./text-editor";
-import { CheckRoll } from "./check/roll";
+import { StrikeData, TraitViewData } from "@actor/data/base";
+import { ItemPF2e, WeaponPF2e } from "@item";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { ZeroToThree } from "@module/data";
+import { RollNotePF2e } from "@module/notes";
 import { RollSubstitution } from "@module/rules/rule-element/data";
+import { TokenDocumentPF2e } from "@scene";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { UserVisibility } from "@scripts/ui/user-visibility";
+import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
+import { Check } from "./check";
+import { CheckModifiersDialog } from "./check-modifiers-dialog";
+import { CheckRoll } from "./check/roll";
+import {
+    CheckDC,
+    DegreeOfSuccess,
+    DegreeOfSuccessString,
+    DEGREE_ADJUSTMENTS,
+    DEGREE_OF_SUCCESS_STRINGS,
+} from "./degree-of-success";
+import { LocalizePF2e } from "./localize";
+import { PredicatePF2e } from "./predication";
+import { TextEditorPF2e } from "./text-editor";
 
 export interface RollDataPF2e extends RollData {
     rollerId?: string;
@@ -136,16 +142,14 @@ interface RerollOptions {
 }
 
 export class CheckPF2e {
-    /**
-     * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
-     */
+    /** Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down. */
     static async roll(
         check: CheckModifier,
         context: CheckRollContext = {},
         event: JQuery.TriggeredEvent | null = null,
         callback?: (
-            roll: Rolled<Roll>,
-            outcome: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null | undefined,
+            roll: Rolled<CheckRoll>,
+            outcome: DegreeOfSuccessString | null | undefined,
             message: ChatMessagePF2e
         ) => Promise<void> | void
     ): Promise<Rolled<CheckRoll> | null> {
@@ -392,11 +396,11 @@ export class CheckPF2e {
         const { item } = context;
         const itemTraits = item?.isOfType("weapon", "melee")
             ? Array.from(item.traits)
-                  .map((t) => ({
-                      name: t,
-                      label: game.i18n.localize(CONFIG.PF2E.npcAttackTraits[t]),
-                      description: CONFIG.PF2E.traitsDescriptions[t],
-                  }))
+                  .map((t): TraitViewData => {
+                      const obj = traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits);
+                      obj.label = game.i18n.localize(obj.label);
+                      return obj;
+                  })
                   .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                   .map((t): HTMLElement => toTagElement(t, "alt"))
             : [];
@@ -434,7 +438,7 @@ export class CheckPF2e {
                 const label = `${modifier.label} ${sign}${modifier.modifier}`;
                 return toTagElement({ name: modifier.slug, label }, "transparent");
             });
-        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: t }, "transparent"));
+        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
         const modifiersAndExtras = document.createElement("div");
         modifiersAndExtras.className = "tags";
         modifiersAndExtras.append(...modifiers, ...tagsFromOptions);

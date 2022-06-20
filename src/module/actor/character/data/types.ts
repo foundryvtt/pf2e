@@ -9,11 +9,13 @@ import {
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
+    CreatureTraitsData,
     HeldShieldData,
     SaveData,
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 import { SaveType } from "@actor/data";
 import {
     AbilityBasedStatistic,
@@ -70,6 +72,33 @@ interface CharacterSystemData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: Abilities;
 
+    /** Character build data, currently containing ability boosts and flaws */
+    build: {
+        abilities: {
+            /**
+               Whether this PC's ability scores are being manually entered rather than drawn from ancestry, background,
+               and class
+            */
+            manual: boolean;
+            /** Key ability score options drawn from class and class features */
+            keyOptions: AbilityString[];
+            boosts: {
+                ancestry: AbilityString[];
+                background: AbilityString[];
+                class: AbilityString | null;
+                1: AbilityString[];
+                5: AbilityString[];
+                10: AbilityString[];
+                15: AbilityString[];
+                20: AbilityString[];
+            };
+
+            flaws: {
+                ancestry: AbilityString[];
+            };
+        };
+    };
+
     /** The three save types. */
     saves: CharacterSaves;
 
@@ -89,7 +118,9 @@ interface CharacterSystemData extends CreatureSystemData {
     };
 
     /** Player skills, used for various skill checks. */
-    skills: { [K in SkillAbbreviation]: CharacterSkillData };
+    skills: Record<SkillAbbreviation, CharacterSkillData>;
+
+    traits: CharacterTraitsData;
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
@@ -304,7 +335,7 @@ interface CharacterAttributes extends CreatureAttributes {
     classDC: ClassDCData;
     /** The best spell DC, used for certain saves related to feats */
     spellDC: { rank: number; value: number } | null;
-    /** the higher between highest spellcasting DC and (if present) class DC */
+    /** The higher between highest spellcasting DC and (if present) class DC */
     classOrSpellDC: { rank: number; value: number };
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
@@ -368,6 +399,11 @@ interface CharacterAttributes extends CreatureAttributes {
 
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
+    recoveryAddend: number;
+}
+
+interface CharacterTraitsData extends CreatureTraitsData {
+    senses: CreatureSensePF2e[];
 }
 
 interface GrantedFeat {
@@ -406,6 +442,7 @@ export {
     CharacterData,
     CharacterDetails,
     CharacterProficiency,
+    CharacterResources,
     CharacterSaves,
     CharacterSkillData,
     CharacterSource,

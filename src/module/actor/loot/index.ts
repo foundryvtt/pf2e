@@ -5,12 +5,16 @@ import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { LootData, LootSource } from "./data";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e, ItemType } from "@item/data";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
 import { CoinsPF2e } from "@item/physical/helpers";
 
 export class LootPF2e extends ActorPF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical"];
+    }
+
     get isLoot(): boolean {
         return this.data.data.lootSheetType === "Loot";
     }

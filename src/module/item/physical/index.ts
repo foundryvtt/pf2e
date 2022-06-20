@@ -157,6 +157,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,
@@ -164,11 +165,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => key)
-            .map((string) => {
-                const delimitedPrefix = prefix ? `${prefix}:` : "";
-                return `${delimitedPrefix}${string}`;
-            });
+            .map(([key]) => `${delimitedPrefix}${key}`);
 
         return [baseOptions, physicalItemOptions].flat();
     }
@@ -260,6 +257,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.isStowed) {
             this.data.data.equipped.carryType = "stowed";
             delete this.data.data.equipped.inSlot;
+        }
+
+        // Clear the container reference if it turns out to be stale
+        if (this._container && !this.actor.items.has(this._container.id)) {
+            this._container = this.data.data.containerId = null;
         }
     }
 

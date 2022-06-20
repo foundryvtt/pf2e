@@ -8,6 +8,7 @@ import {
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseTraitsData,
+    BaseTraitsSource,
     HitPointsData,
     InitiativeData,
     Rollable,
@@ -52,7 +53,7 @@ interface CreatureSystemSource extends ActorSystemSource {
     };
 
     /** Traits, languages, and other information. */
-    traits?: CreatureTraitsData;
+    traits?: CreatureTraitsSource;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers?: Record<string, RawModifier[]>;
@@ -115,17 +116,22 @@ type Language = keyof ConfigPF2e["PF2E"]["languages"];
 type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
 type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
+interface CreatureTraitsSource extends BaseTraitsSource {
+    traits: BaseTraitsData["traits"] & {
+        /** Actual Pathfinder traits */
+        traits: CreatureTraits;
+    };
+    /** Languages which this actor knows and can speak. */
+    languages: ValuesList<Language>;
+}
+
 interface CreatureTraitsData extends BaseTraitsData {
     traits: BaseTraitsData["traits"] & {
         /** Actual Pathfinder traits */
         traits: CreatureTraits;
     };
-    /** A list of special senses this character has. */
-    senses: CreatureSensePF2e[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
-    /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
-    attitude: { value: Attitude };
 }
 
 type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
@@ -149,6 +155,8 @@ interface CreatureAttributes extends BaseActorAttributes {
         /** Its reach for the purpose of manipulate actions, usually the same as its general reach */
         manipulate: number;
     };
+
+    senses: { value: string } | CreatureSensePF2e[];
 
     speed: CreatureSpeeds;
 }
@@ -244,6 +252,7 @@ export {
     CreatureSystemSource,
     CreatureTrait,
     CreatureTraitsData,
+    CreatureTraitsSource,
     CreatureType,
     HeldShieldData,
     InitiativeRollParams,

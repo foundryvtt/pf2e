@@ -31,12 +31,12 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     protected validateData(): void {
-        if (Number.isNaN(this.priority)) {
-            return this.warn("priority");
-        }
-
         if (!AELikeRuleElement.CHANGE_MODES.includes(this.data.mode)) {
             return this.warn("mode");
+        }
+
+        if (Number.isNaN(this.priority)) {
+            return this.warn("priority");
         }
 
         const actor = this.item.actor;

@@ -9,10 +9,12 @@ import { Statistic } from "./statistic";
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}) {
+    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string {
         const enriched = super.enrichHTML(this.enrichString(content, options), options);
         const $html = $("<div>").html(enriched);
-        UserVisibilityPF2e.process($html);
+        const actor = options.rollData?.actor ?? null;
+        UserVisibilityPF2e.process($html, { actor });
+
         return $html.html();
     }
 
@@ -226,7 +228,7 @@ class TextEditorPF2e extends TextEditor {
             default: {
                 // Skill or Lore
                 const shortForm = (() => {
-                    if (SKILL_EXPANDED[params.type]) {
+                    if (objectHasKey(SKILL_EXPANDED, params.type)) {
                         return SKILL_EXPANDED[params.type].shortform;
                     } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
                         return params.type;
@@ -291,6 +293,7 @@ function getCheckDC(
 
                 const stat = new Statistic(actor, {
                     slug: type,
+                    label: name,
                     notes: extractNotes(rollNotes, selectors),
                     domains: selectors,
                     modifiers: [...extractModifiers(statisticsModifiers, selectors)],
@@ -322,7 +325,7 @@ function getCheckDC(
             default: {
                 // Skill or Lore
                 const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
-                if (SKILL_EXPANDED[type]) {
+                if (objectHasKey(SKILL_EXPANDED, type)) {
                     // Long form
                     selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);
                 } else if (objectHasKey(SKILL_DICTIONARY, type)) {
@@ -337,13 +340,14 @@ function getCheckDC(
     return "0";
 }
 
-type EnrichHTMLOptionsPF2e = EnrichHTMLOptions & {
+interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
     rollData?: {
         actor?: ActorPF2e | null;
         item?: ItemPF2e | null;
         mod?: number;
+        [key: string]: unknown;
     };
-};
+}
 
 interface ConvertXMLNodeOptions {
     /** The value of the data-visibility attribute to add to the span element */

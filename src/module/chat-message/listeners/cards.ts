@@ -13,7 +13,7 @@ import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
 
 export const ChatCards = {
-    listen: ($html: JQuery) => {
+    listen: ($html: JQuery): void => {
         const selectors = [".card-buttons button", ".message-buttons button", "button[data-action=consume]"].join(",");
         $html.find(selectors).on("click", async (event) => {
             event.preventDefault();
@@ -35,8 +35,7 @@ export const ChatCards = {
             if (!game.user.isGM && !actor.isOwner && action !== "save") return;
 
             if (item && !action?.startsWith("strike-")) {
-                const spell =
-                    item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
+                const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
                 const strike: StatisticModifier =
                     "actions" in actor.data.data
                         ? actor.data.data.actions.find((a: StatisticModifier) => a.item === item.id) ?? null
@@ -148,7 +147,7 @@ export const ChatCards = {
                         return;
                     }
 
-                    if (isSpellConsumable(item.id)) {
+                    if (isSpellConsumable(item.id) && item.isOfType("consumable")) {
                         craftSpellConsumable(item, quantity, actor);
                         ChatMessagePF2e.create({
                             user: game.user.id,

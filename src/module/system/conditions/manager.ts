@@ -343,15 +343,18 @@ export class ConditionManager {
         if (exists) return null;
 
         source._id = randomID(16);
-        const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
+        const sources = [source, ...this.createAdditionallyAppliedConditions(source, actor)];
         await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
 
-    private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
+    private static createAdditionallyAppliedConditions(
+        baseCondition: ConditionSource,
+        actor: ActorPF2e
+    ): ConditionSource[] {
         const conditionsToCreate: ConditionSource[] = [];
 
-        baseCondition.data.alsoApplies.linked.forEach((linked) => {
+        for (const linked of baseCondition.data.alsoApplies.linked) {
             const conditionSource = this.getCondition(linked.condition).toObject();
             if (linked.value) {
                 conditionSource.data.value.value = linked.value;
@@ -364,11 +367,18 @@ export class ConditionManager {
             // Add linked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added linked condition
-            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
-        });
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource, actor));
+        }
 
-        baseCondition.data.alsoApplies.unlinked.forEach((unlinked) => {
+        for (const unlinked of baseCondition.data.alsoApplies.unlinked) {
             const conditionSource = this.getCondition(unlinked.condition).toObject();
+
+            // Unlinked conditions can be abandoned, so we need to prevent duplicates
+            const exists = actor.itemTypes.condition.some(
+                (existing) => existing.data.data.base === conditionSource.data.base
+            );
+            if (exists) continue;
+
             if (unlinked.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
                 conditionSource.data.value.value = unlinked.value;
@@ -379,8 +389,8 @@ export class ConditionManager {
             // Add unlinked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added condition
-            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
-        });
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource, actor));
+        }
 
         return conditionsToCreate;
     }

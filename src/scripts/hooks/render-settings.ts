@@ -1,6 +1,7 @@
 import { MigrationSummary } from "@module/apps/migration-summary";
 import { fontAwesomeIcon } from "@util";
 
+/** Attach system buttons and other knickknacks to the settings sidebar */
 export const RenderSettings = {
     listen: (): void => {
         Hooks.on("renderSettings", async (_app, $html) => {
@@ -9,11 +10,11 @@ export const RenderSettings = {
             const $guideLog = $systemRow.clone().empty().removeClass("system").addClass("system-info");
             const links = {
                 guide: {
-                    url: "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/wikis/Getting-Started-Guide/Getting-Started",
-                    label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Guide"),
+                    url: "https://github.com/foundryvtt/pf2e/wiki",
+                    label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Wiki"),
                 },
                 changelog: {
-                    url: "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/release-v9/CHANGELOG.md",
+                    url: "https://github.com/foundryvtt/pf2e/blob/release-v9/CHANGELOG.md",
                     label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Changelog"),
                 },
                 discord: {

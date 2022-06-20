@@ -69,6 +69,15 @@ export class FamiliarPF2e extends CreaturePF2e {
             reflex: {},
             will: {},
         };
+
+        // Fields that need to exist for sheet compatibility so that they can exist pleasantly while doing nothing.
+        // They should be automated via specific familiar item types, or added to template.json and manually edited.
+        // This requires dev investment and interest aimed at what amounts to feat expensive set dressing (familiars).
+        systemData.traits = mergeObject(systemData.traits, {
+            dv: [],
+            di: [],
+            dr: [],
+        });
     }
 
     /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
@@ -173,6 +182,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             const selectors = save.data.domains ?? [];
             const stat = new Statistic(this, {
                 slug: saveType,
+                label: saveName,
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED),
@@ -180,7 +190,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ],
                 check: {
                     type: "saving-throw",
-                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
                 dc: {},
             });

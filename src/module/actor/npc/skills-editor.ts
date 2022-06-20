@@ -1,9 +1,9 @@
 import type { NPCPF2e } from "@actor";
-import { SKILL_EXPANDED } from "@actor/data/values";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import { NPCSkillData } from "@actor/npc/data";
 import { LorePF2e } from "@item";
 import { LoreSource } from "@item/data";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, objectHasKey } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */
 export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
@@ -30,7 +30,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const trainedSkills: Record<string, NPCSkillData> = {};
         const untrainedSkills: Record<string, NPCSkillData> = {};
 
-        const skills = this.npc.data.data.skills;
+        const { skills } = this.npc.data.data;
         for (const [key, skill] of Object.entries(skills)) {
             if (this.isLoreSkill(key)) {
                 skill.isLore = true;
@@ -135,9 +135,9 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * @param skillId ID of the skill to check.
      */
     private isRegularSkill(skillId: string): boolean {
-        for (const key of Object.keys(SKILL_EXPANDED)) {
-            if (key === skillId) return true;
-            if (SKILL_EXPANDED[key].shortform === skillId) return true;
+        for (const longForm of SKILL_LONG_FORMS) {
+            if (longForm === skillId) return true;
+            if (SKILL_EXPANDED[longForm].shortform === skillId) return true;
         }
 
         return false;
@@ -148,11 +148,11 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * @param skillId ID of the skill.
      */
     private findSkillName(skillId: string): string {
-        for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
-            const skillData = SKILL_EXPANDED[skillDataId];
+        for (const longForm of SKILL_LONG_FORMS) {
+            const skillData = SKILL_EXPANDED[longForm];
 
             if (skillData.shortform === skillId) {
-                return skillDataId;
+                return longForm;
             }
         }
 
@@ -167,18 +167,20 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * @param skillId ID of the skill to search for.
      */
     private findSkillItem(skillId: string): Embedded<LorePF2e> | null {
-        const skill = this.npc.data.data.skills[skillId];
+        const { skills } = this.npc.data.data;
+        const skillData = objectHasKey(skills, skillId) ? skills[skillId] : null;
 
-        if (skill === undefined) {
+        if (!skillData) {
             console.error(`No skill found with skill id ${skillId}`);
             return null;
         }
 
-        if (skill.itemID === undefined) {
-            console.error(`Skill has no itemID defined.`);
+        const loreItem = this.npc.items.get(skillData.itemID ?? "");
+        if (!loreItem?.isOfType("lore")) {
+            console.error("Lore item not found");
             return null;
         }
 
-        return this.npc.itemTypes.lore.find((item) => item.id === skill.itemID) ?? null;
+        return loreItem;
     }
 }

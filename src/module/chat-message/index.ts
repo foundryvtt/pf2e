@@ -15,6 +15,7 @@ import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { TextEditorPF2e } from "@system/text-editor";
+import { ChatRollDetails } from "./chat-roll-details";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -150,6 +151,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
+    async showDetails() {
+        if (!this.data.flags.pf2e.context) return;
+        new ChatRollDetails(this).render(true);
+    }
+
     /** Get the token of the speaker if possible */
     get token(): Embedded<TokenDocumentPF2e> | null {
         if (!game.scenes) return null;
@@ -166,7 +172,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     override prepareData(): void {
         super.prepareData();
 
-        const rollData = this.actor?.getRollData();
+        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
         this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
     }
 
