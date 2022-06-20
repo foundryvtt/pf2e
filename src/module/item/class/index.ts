@@ -47,7 +47,9 @@ class ClassPF2e extends ABCItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.data.keyAbility.selected ??= null;
+
+        const { keyAbility } = this.data.data;
+        keyAbility.selected ??= keyAbility.value.length === 1 ? keyAbility.value[0]! : null;
     }
 
     /** Prepare a character's data derived from their class */
@@ -61,8 +63,10 @@ class ClassPF2e extends ABCItemPF2e {
         const { attributes, build, details, martial, saves } = this.actor.data.data;
 
         // Add base key ability options
-        build.abilities.keyOptions = [...this.data.data.keyAbility.value];
-        build.abilities.boosts.class = this.data.data.keyAbility.selected;
+
+        const { keyAbility } = this.data.data;
+        build.abilities.keyOptions = [...keyAbility.value];
+        build.abilities.boosts.class = keyAbility.selected;
 
         attributes.classhp = this.hpPerLevel;
 
