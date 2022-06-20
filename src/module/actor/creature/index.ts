@@ -744,7 +744,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected getDamageRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
-        const context = this.getStrikeRollContext({ ...params, domains: ["all", "damage-roll"] });
+        const context = this.getStrikeRollContext({ ...params, domains: ["all", "strike-damage", "damage-roll"] });
         return {
             ...context,
             options: Array.from(new Set(context.options)),
