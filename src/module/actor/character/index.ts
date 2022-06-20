@@ -112,7 +112,7 @@ class CharacterPF2e extends CreaturePF2e {
     deityBoonsCurses!: FeatData[];
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        const abcItems = ["ancestry", "background", "class"] as const;
+        const abcItems = ["ancestry", "heritage", "background", "class"] as const;
         return [...super.allowedItemTypes, ...abcItems, "physical", "deity", "feat", "action", "lore"];
     }
 
