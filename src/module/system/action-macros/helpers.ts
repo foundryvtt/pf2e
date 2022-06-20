@@ -86,24 +86,31 @@ export class ActionMacroHelpers {
                 title += `<b>${game.i18n.localize(options.title)}</b>`;
                 title += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
                 const content = (await options.content?.(title)) ?? title;
-                const stat = getProperty(actor, options.statName) as StatisticModifier;
-                const modifiers =
-                    typeof options.modifiers === "function" ? options.modifiers(actor) : options.modifiers;
-                const check = new CheckModifier(content, stat, modifiers ?? []);
 
                 const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+                const selfToken = actor.getActiveTokens(false, true).shift();
                 const finalOptions = [
                     actor.getRollOptions(options.rollOptions),
                     options.extraOptions,
                     options.traits,
                     targetOptions,
+                    !!target?.object &&
+                    !!selfToken?.object.isFlanking(target.object, { reach: actor.getReach({ action: "attack" }) })
+                        ? "self:flanking"
+                        : [],
                 ].flat();
+                const selfActor = actor.getContextualClone(finalOptions.filter((o) => o.startsWith("self:")));
+
+                const stat = getProperty(selfActor, options.statName) as StatisticModifier;
+                const modifiers =
+                    typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers;
+                const check = new CheckModifier(content, stat, modifiers ?? []);
 
                 // modifier from roller's equipped weapon
                 const weapon = [
-                    ...(options.weaponTrait ? this.getApplicableEquippedWeapons(actor, options.weaponTrait) : []),
+                    ...(options.weaponTrait ? this.getApplicableEquippedWeapons(selfActor, options.weaponTrait) : []),
                     ...(options.weaponTraitWithPenalty
-                        ? this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
+                        ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
                         : []),
                 ].shift();
                 if (weapon) {
@@ -120,7 +127,7 @@ export class ActionMacroHelpers {
                     check.push(
                         new ModifierPF2e({
                             slug,
-                            adjustments: actor.getModifierAdjustments([stat.name], slug),
+                            adjustments: selfActor.getModifierAdjustments([stat.name], slug),
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
                             label: CONFIG.PF2E.weaponTraits["ranged-trip"],
                             modifier: -2,
@@ -157,10 +164,11 @@ export class ActionMacroHelpers {
                     label: actionTraits[trait] ?? trait,
                 }));
 
-                const selfToken = actor.getActiveTokens(false, true).shift();
                 const distance = ((): number | null => {
                     const reach =
-                        actor instanceof CreaturePF2e ? actor.getReach({ action: "attack", weapon }) ?? null : null;
+                        selfActor instanceof CreaturePF2e
+                            ? selfActor.getReach({ action: "attack", weapon }) ?? null
+                            : null;
                     return selfToken?.object && target?.object
                         ? selfToken.object.distanceTo(target.object, { reach })
                         : null;
@@ -179,7 +187,7 @@ export class ActionMacroHelpers {
                 CheckPF2e.roll(
                     check,
                     {
-                        actor,
+                        actor: selfActor,
                         token: selfToken,
                         createMessage: options.createMessage,
                         target: targetInfo,
@@ -237,6 +245,10 @@ export class ActionMacroHelpers {
     }
 
     private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): Embedded<WeaponPF2e>[] {
-        return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
+        if (actor.isOfType("character")) {
+            return actor.data.data.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
+        } else {
+            return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
+        }
     }
 }
