@@ -614,9 +614,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        $html.find("button[data-action=edit-ability-scores]").on("click", async (event) => {
-            event.preventDefault();
-            await new AbilityBuilderPopup(this.actor, {}).render(true);
+        $html.find("button[data-action=edit-ability-scores]").on("click", async () => {
+            await new AbilityBuilderPopup(this.actor).render(true);
         });
 
         const $craftingTab = $html.find(".tab.crafting");
