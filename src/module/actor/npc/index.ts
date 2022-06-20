@@ -4,7 +4,7 @@ import { SaveType } from "@actor/data";
 import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
-import { MeleeData } from "@item/data";
+import { ItemType, MeleeData } from "@item/data";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
@@ -25,6 +25,10 @@ import { CheckRoll } from "@system/check/roll";
 import { calculateMAP } from "@actor/helpers";
 
 class NPCPF2e extends CreaturePF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
+    }
+
     /** This NPC's ability scores */
     get abilities(): Abilities {
         return deepClone(this.data.data.abilities);

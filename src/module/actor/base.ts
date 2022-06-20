@@ -79,6 +79,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return (this._itemTypes ??= super.itemTypes);
     }
 
+    get allowedItemTypes(): (ItemType | "physical")[] {
+        return [];
+    }
+
     /** The compendium source ID of the actor **/
     get sourceId(): ActorUUID | null {
         return this.data.flags.core?.sourceId ?? null;
