@@ -69,6 +69,16 @@ export class FamiliarPF2e extends CreaturePF2e {
             reflex: {},
             will: {},
         };
+
+        // Fields not filled in template.json nor used but that still need to exist are created during preparation
+        // so they can exist pleasantly while they do nothing. They should either be automated via specific familiar item type,
+        // or added to template.json and manually edited. Doing either requires developer investment and interest into
+        // something that is regularly buffed to be even more pointless, uninteresting, and worthless.
+        systemData.traits = mergeObject(systemData.traits, {
+            dv: [],
+            di: [],
+            dr: [],
+        });
     }
 
     /** Active effects on a familiar require a master, so wait until embedded documents are prepared */

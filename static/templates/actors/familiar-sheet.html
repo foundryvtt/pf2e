@@ -67,10 +67,9 @@
                     {{#if data.master.id}}
                     <div class="saves-list">
                         {{#each data.saves}}
-                        <div class="saves saving-throw rollable" title="{{this.breakdown}}"
-                            data-saving-throw="{{@key}}">
-                            <div class="save-name">{{localize this.label}}</div>
-                            <div class="save-val">{{numberFormat this.value decimals=0 sign=true}}</div>
+                        <div class="saves save-name rollable" title="{{this.breakdown}}" data-save="{{@key}}">
+                            <div class="name">{{localize this.label}}</div>
+                            <div class="value">{{numberFormat this.value decimals=0 sign=true}}</div>
                         </div>
                         {{/each}}
                     </div>
@@ -149,7 +148,7 @@
                     <div class="familiar-content">
                         <div class="detail">
                             <div class="detail-label">{{localize "PF2E.Familiar.TotalNumberFamiliarAbilities"}}</div>
-                            <div title="{{familiarAbilities.breakdown}}">
+                            <div>
                                 <h4>{{numberFormat familiarAbilities.value decimals=0}}</h4>
                             </div>
                         </div>
@@ -201,7 +200,7 @@
                         <ol class="item-list">
                             {{#each items as |item idx|}}
                             {{#if (eq item.type "condition")}}
-                            <li class="list-row expandable" data-item-id="{{item._id}}">
+                            <li class="item list-row expandable" data-item-id="{{item._id}}">
                                 <div class="item-header">
                                     <div class="item-name">
                                         <div class="item-image" style="background-image: url({{item.img}})">
@@ -236,7 +235,7 @@
                         <ol class="item-list">
                             {{#each items as |item idx|}}
                             {{#if (eq item.type "effect")}}
-                            <li class="list-row expandable" data-item-id="{{item._id}}">
+                            <li class="item list-row expandable" data-item-id="{{item._id}}">
                                 <div class="item-header">
                                     <div class="item-name">
                                         <div class="item-image" style="background-image: url({{item.img}})">
@@ -253,9 +252,7 @@
                                     </div>
                                     {{/if}}
                                 </div>
-                                <div class="item-summary">
-                                    <p>{{{enrichHTML item.data.description.value}}}</p>
-                                </div>
+                                <div class="item-summary"></div>
                             </li>
                             {{/if}}
                             {{/each}}
