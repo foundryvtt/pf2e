@@ -280,7 +280,7 @@ class CharacterPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData: DeepPartial<CharacterSystemData> = this.data.data;
+        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.data.data;
 
         // Flags
         const { flags } = this.data;
@@ -297,6 +297,32 @@ class CharacterPF2e extends CreaturePF2e {
             ),
             flags.pf2e.sheetTabs ?? {}
         );
+
+        // Build selections: boosts and skill trainings
+        systemData.build = {
+            abilities: {
+                manual: Object.keys(systemData.abilities).length > 0,
+                keyOptions: [],
+                boosts: {
+                    ancestry: [],
+                    background: [],
+                    class: null,
+                    1: systemData.build?.abilities?.boosts?.[1] ?? [],
+                    5: systemData.build?.abilities?.boosts?.[5] ?? [],
+                    10: systemData.build?.abilities?.boosts?.[10] ?? [],
+                    15: systemData.build?.abilities?.boosts?.[15] ?? [],
+                    20: systemData.build?.abilities?.boosts?.[20] ?? [],
+                },
+                flaws: {
+                    ancestry: [],
+                },
+            },
+        };
+
+        // Base ability scores
+        for (const abbrev of ABILITY_ABBREVIATIONS) {
+            systemData.abilities[abbrev] = mergeObject({ value: 10 }, systemData.abilities[abbrev] ?? {});
+        }
 
         // Actor document and data properties from items
         const { details } = this.data.data;
@@ -410,15 +436,21 @@ class CharacterPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
 
-    /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
+    /** After AE-likes have been applied, set numeric roll options */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        for (const ability of Object.values(this.data.data.abilities)) {
-            ability.mod = Math.floor((ability.value - 10) / 2);
-        }
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
+    }
+
+    /**
+     * Immediately after boosts from this PC's ancestry, background, and class have been acquired, set ability scores
+     * according to them.
+     */
+    override prepareDataFromItems(): void {
+        super.prepareDataFromItems();
+        this.setAbilityScores();
     }
 
     override prepareDerivedData(): void {
@@ -745,7 +777,7 @@ class CharacterPF2e extends CreaturePF2e {
             entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
-        // Expose best spellcasting dc to character attributes
+        // Expose best spellcasting DC to character attributes
         if (itemTypes.spellcastingEntry.length > 0) {
             const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
                 return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
@@ -795,6 +827,50 @@ class CharacterPF2e extends CreaturePF2e {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
+        }
+    }
+
+    private setAbilityScores(): void {
+        const { build, details } = this.data.data;
+
+        if (!build.abilities.manual) {
+            for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
+                // Skip applying boosts from levels higher than the character's
+                if (typeof section === "number" && this.level < section) {
+                    continue;
+                }
+
+                const boosts = build.abilities.boosts[section];
+                if (typeof boosts === "string") {
+                    // Class's key ability score
+                    const ability = this.data.data.abilities[boosts];
+                    ability.value += ability.value >= 18 ? 1 : 2;
+                } else if (Array.isArray(boosts)) {
+                    for (const abbrev of boosts) {
+                        const ability = this.data.data.abilities[abbrev];
+                        ability.value += ability.value >= 18 ? 1 : 2;
+                    }
+                }
+
+                // Optional and non-optional flaws only come from the ancestry section
+                const flaws = section === "ancestry" ? build.abilities.flaws[section] : [];
+                for (const abbrev of flaws) {
+                    const ability = this.data.data.abilities[abbrev];
+                    ability.value -= 2;
+                }
+            }
+
+            details.keyability.value = build.abilities.boosts.class ?? "str";
+        }
+
+        // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.value = Math.clamped(ability.value, 8, 30);
+        }
+
+        // Set modifiers
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.mod = Math.floor((ability.value - 10) / 2);
         }
     }
 
@@ -2176,6 +2252,49 @@ class CharacterPF2e extends CreaturePF2e {
         const preCreateDeletions = deletionTypes.flatMap((t): ItemPF2e[] => itemTypes[t]).map((i) => i.id);
         if (preCreateDeletions.length > 0) {
             await this.deleteEmbeddedDocuments("Item", preCreateDeletions, { render: false });
+        }
+    }
+
+    /** Toggle between boost-driven and manual management of ability scores */
+    async toggleAbilityManagement(): Promise<void> {
+        if (Object.keys(this.data._source.data.abilities).length === 0) {
+            // Add stored ability scores for manual management
+            const baseAbilities = Array.from(ABILITY_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, { value: 10 }>, abbrev) => ({
+                    ...accumulated,
+                    [abbrev]: { value: 10 as const },
+                }),
+                {}
+            );
+            await this.update({ "data.abilities": baseAbilities });
+        } else {
+            // Delete stored ability scores for boost-driven management
+            const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, null>, abbrev) => ({
+                    ...accumulated,
+                    [`-=${abbrev}`]: null,
+                }),
+                {}
+            );
+            await this.update({ "data.abilities": deletions });
+        }
+    }
+
+    /** Toggle between boost-driven and manual management of ability scores */
+    async toggleVoluntaryFlaw(): Promise<void> {
+        if (!this.ancestry) return;
+        if (Object.keys(this.ancestry?.data._source.data.voluntaryFlaws || []).length === 0) {
+            await this.ancestry.update({
+                "data.voluntaryBoosts.vb": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+                "data.voluntaryFlaws.vf1": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+                "data.voluntaryFlaws.vf2": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+            });
+        } else {
+            await this.ancestry.update({
+                "data.voluntaryBoosts.-=vb": null,
+                "data.voluntaryFlaws.-=vf1": null,
+                "data.voluntaryFlaws.-=vf2": null,
+            });
         }
     }
 }

@@ -189,4 +189,8 @@ export function registerHandlebarsHelpers() {
         }
         return new CoinsPF2e(value);
     });
+
+    Handlebars.registerHelper("contains", function (arr: object[], element: object) {
+        return Array.isArray(arr) && arr.includes(element);
+    });
 }

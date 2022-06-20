@@ -49,6 +49,7 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html",
+        "systems/pf2e/templates/actors/ability-builder.html",
 
         // SVG icons
         "systems/pf2e/templates/actors/character/icons/d20.html",
