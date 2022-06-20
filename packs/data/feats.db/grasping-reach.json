@@ -25,7 +25,7 @@
         },
         "rules": [
             {
-                "domain": "all",
+                "domain": "strike-damage",
                 "key": "RollOption",
                 "label": "Grasping Reach Grip Adjusted",
                 "option": "grasping-reach",
@@ -39,20 +39,15 @@
                 "predicate": {
                     "all": [
                         "melee",
-                        "weapon:hands-held:2",
+                        "weapon:usage:hands:2",
                         "grasping-reach"
                     ],
-                    "any": [
-                        "weapon:damage:die:faces:6",
-                        "weapon:damage:die:faces:8",
-                        "weapon:damage:die:faces:10",
-                        "weapon:damage:die:faces:12"
-                    ],
                     "not": [
-                        "weapon:traits:reach"
+                        "weapon:traits:reach",
+                        "weapon:damage:die:faces:4"
                     ]
                 },
-                "selector": "damage"
+                "selector": "strike-damage"
             }
         ],
         "source": {
