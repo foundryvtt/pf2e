@@ -1,8 +1,7 @@
-import { ActorPF2e } from "../../base";
 import { CharacterPF2e } from "@actor/character";
 import { Abilities } from "@actor/creature/data";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { AbilityString } from "@actor/data/base";
+import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 
 class BoostFlawState {
@@ -17,7 +16,7 @@ class BoostFlawState {
 }
 type BoostFlawRow = Record<AbilityString, BoostFlawState>;
 
-interface PopupData extends DocumentSheetData<ActorPF2e> {
+interface PopupData extends DocumentSheetData<CharacterPF2e> {
     abilityScores?: Abilities;
     abilities?: Record<AbilityString, string>;
     ancestry?: Embedded<AncestryPF2e> | null;
@@ -52,7 +51,7 @@ type PopupOptions = ActorSheetOptions;
 /**
  * @category Other
  */
-export class AbilityBuilderPopup extends DocumentSheet<ActorPF2e, PopupOptions> {
+export class AbilityBuilderPopup extends DocumentSheet<CharacterPF2e, PopupOptions> {
     static override get defaultOptions(): PopupOptions {
         const options: PopupOptions = {
             ...super.defaultOptions,
@@ -70,11 +69,7 @@ export class AbilityBuilderPopup extends DocumentSheet<ActorPF2e, PopupOptions> 
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-
         const thisActor = this.object;
-        if (!(thisActor instanceof CharacterPF2e)) {
-            return;
-        }
 
         $html.find("div[data-tooltip-content]").tooltipster({
             contentAsHTML: true,
@@ -208,7 +203,7 @@ export class AbilityBuilderPopup extends DocumentSheet<ActorPF2e, PopupOptions> 
             });
         });
 
-        $html.find('button[data-action="level"]').on("click", async (event) => {
+        $html.find("button[data-action=level]").on("click", async (event) => {
             const ability: AbilityString = $(event.currentTarget).attr("data-ability") as AbilityString;
             const level = ($(event.currentTarget).attr("data-level") ?? "1") as "1" | "5" | "10" | "15" | "20";
             let boosts = thisActor.data._source.data.build?.abilities?.boosts?.[level] ?? [];
