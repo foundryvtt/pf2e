@@ -5,8 +5,13 @@ import { SaveType, SAVE_TYPES } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
+import { ItemType } from "@item/data";
 
 export class HazardPF2e extends ActorPF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "action", "melee"];
+    }
+
     get rarity(): Rarity {
         return this.data.data.traits.rarity;
     }

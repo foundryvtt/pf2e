@@ -49,7 +49,7 @@ import {
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isCycle } from "@item/container/helpers";
 import { isEquipped } from "@item/physical/usage";
-import { ArmorSource } from "@item/data";
+import { ArmorSource, ItemType } from "@item/data";
 import { SIZE_TO_REACH } from "./values";
 import { ActionTrait } from "@item/action/data";
 
@@ -57,6 +57,10 @@ import { ActionTrait } from "@item/action/data";
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
+
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "condition", "effect"];
+    }
 
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {

@@ -29,7 +29,7 @@ import {
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
+import { FeatData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ItemGrantData } from "@item/data/base";
 import { ItemCarryType } from "@item/physical/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
@@ -110,6 +110,11 @@ class CharacterPF2e extends CreaturePF2e {
     featGroups!: Record<string, FeatSlot | undefined>;
     pfsBoons!: FeatData[];
     deityBoonsCurses!: FeatData[];
+
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        const abcItems = ["ancestry", "background", "class"] as const;
+        return [...super.allowedItemTypes, ...abcItems, "physical", "deity", "feat", "action", "lore"];
+    }
 
     get keyAbility(): AbilityString {
         return this.data.data.details.keyability.value || "str";
