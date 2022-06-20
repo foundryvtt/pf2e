@@ -1,9 +1,9 @@
-import { AbilityString } from "@actor/data/base";
+import { AbilityString } from "@actor/types";
+import { RollNotePF2e } from "@module/notes";
+import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "@system/damage";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { RollNotePF2e } from "../notes";
-import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "../system/damage";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",

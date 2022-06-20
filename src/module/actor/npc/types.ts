@@ -1,6 +1,6 @@
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
-import { SaveType } from "@actor/data";
 import { HitPointsData, PerceptionData } from "@actor/data/base";
+import { SaveType } from "@actor/types";
 import { ActionData, EffectData, ItemDataPF2e } from "@item/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
 import { FlattenedCondition } from "@system/conditions";

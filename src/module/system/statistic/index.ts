@@ -1,3 +1,5 @@
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
+import { calculateMAP } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -6,8 +8,15 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
+import { AbilityString } from "@actor/types";
+import { ItemPF2e } from "@item";
+import { ZeroToFour } from "@module/data";
+import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { CheckRoll } from "@system/check/roll";
+import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollContext, CheckType } from "@system/rolls";
-import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
+import { isObject } from "@util";
 import {
     BaseStatisticData,
     StatisticChatData,
@@ -16,15 +25,6 @@ import {
     StatisticDataWithCheck,
     StatisticDataWithDC,
 } from "./data";
-import { ItemPF2e } from "@item";
-import { CheckDC } from "@system/degree-of-success";
-import { isObject } from "@util";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckRoll } from "@system/check/roll";
-import { ZeroToFour } from "@module/data";
-import { AbilityString } from "@actor/data";
-import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
-import { calculateMAP } from "@actor/helpers";
 
 export * from "./data";
 

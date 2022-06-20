@@ -1,5 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { CreatureData, SaveType } from "@actor/data";
+import { HitPointsSummary } from "@actor/base";
+import { CreatureData } from "@actor/data";
+import { StrikeData } from "@actor/data/base";
 import {
     CheckModifier,
     ensureProficiencyOption,
@@ -8,10 +10,26 @@ import {
     RawModifier,
     StatisticModifier,
 } from "@actor/modifiers";
-import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
-import { RuleElementSynthetics } from "@module/rules";
+import { SaveType } from "@actor/types";
+import { SKILL_DICTIONARY } from "@actor/values";
+import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ActionTrait } from "@item/action/data";
+import { isCycle } from "@item/container/helpers";
+import { ArmorSource, ItemType } from "@item/data";
+import { EquippedData, ItemCarryType } from "@item/physical/data";
+import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
+import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
+import { CombatantPF2e } from "@module/encounter";
+import { RuleElementSynthetics } from "@module/rules";
+import { extractModifiers, extractRollTwice } from "@module/rules/util";
+import { LightLevels } from "@module/scene/data";
+import { UserPF2e } from "@module/user";
+import { DamageType } from "@system/damage";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CheckPF2e, CheckRollContext } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -23,19 +41,7 @@ import {
     VisionLevel,
     VisionLevels,
 } from "./data";
-import { LightLevels } from "@module/scene/data";
-import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
-import { CombatantPF2e } from "@module/encounter";
-import { HitPointsSummary } from "@actor/base";
-import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
-import { extractModifiers, extractRollTwice } from "@module/rules/util";
-import { DamageType } from "@system/damage";
-import { StrikeData } from "@actor/data/base";
 import {
     Alignment,
     AlignmentTrait,
@@ -46,12 +52,7 @@ import {
     StrikeRollContext,
     StrikeRollContextParams,
 } from "./types";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isCycle } from "@item/container/helpers";
-import { isEquipped } from "@item/physical/usage";
-import { ArmorSource, ItemType } from "@item/data";
 import { SIZE_TO_REACH } from "./values";
-import { ActionTrait } from "@item/action/data";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {

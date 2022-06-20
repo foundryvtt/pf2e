@@ -1,15 +1,16 @@
 import {
-    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
+    CreatureAttributes,
     CreatureSystemData,
-    SkillAbbreviation,
     CreatureSystemSource,
     CreatureTraitsData,
+    SkillAbbreviation,
 } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
-import { AbilityString, Rollable } from "@actor/data/base";
+import { Rollable } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
+import { AbilityString } from "@actor/types";
 import type { FamiliarPF2e } from ".";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;

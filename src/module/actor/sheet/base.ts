@@ -1,44 +1,42 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { CharacterPF2e, CreaturePF2e, NPCPF2e, type ActorPF2e } from "@actor";
+import { RollFunction } from "@actor/data/base";
+import { SaveType } from "@actor/types";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values";
+import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { FolderPF2e } from "@module/folder";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { createSheetTags } from "@module/sheet/helpers";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
+import { LocalizePF2e } from "@system/localize";
 import {
     BasicConstructorOptions,
-    TagSelectorBasic,
     ResistanceSelector,
-    SenseSelector,
-    SpeedSelector,
-    WeaknessSelector,
-    TagSelectorType,
-    TAG_SELECTOR_TYPES,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SenseSelector,
+    SpeedSelector,
+    TagSelectorBasic,
     TagSelectorOptions,
+    TagSelectorType,
+    TAG_SELECTOR_TYPES,
+    WeaknessSelector,
 } from "@system/tag-selector";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
-import { LocalizePF2e } from "@system/localize";
-import type { ActorPF2e } from "../base";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
+import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { SaveType } from "@actor/data";
-import { RollFunction } from "@actor/data/base";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { FolderPF2e } from "@module/folder";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
-import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CreaturePF2e } from "@actor/creature";
-import { createSheetTags } from "@module/sheet/helpers";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
-import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

@@ -6,7 +6,7 @@ import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { CONDITION_SLUGS } from "@actor/data/values";
+import { CONDITION_SLUGS } from "@actor/values";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {

@@ -3,7 +3,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { EffectPF2e } from "@item/effect";
 import { MacroPF2e } from "@module/macro";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { SKILL_DICTIONARY } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/values";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { StatisticModifier } from "@actor/modifiers";
 import { LocalizePF2e } from "@system/localize";

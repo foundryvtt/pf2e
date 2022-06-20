@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
+import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import {
     CheckModifier,
     ensureProficiencyOption,

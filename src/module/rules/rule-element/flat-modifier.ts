@@ -1,9 +1,10 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
+import { ActorType } from "@actor/data";
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@actor/modifiers";
-import { AbilityString, ActorType } from "@actor/data";
+import { AbilityString } from "@actor/types";
+import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { setHasElement, sluggify } from "@util";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof

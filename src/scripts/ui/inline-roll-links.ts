@@ -1,6 +1,6 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
-import { SKILL_EXPANDED } from "@actor/data/values";
+import { SKILL_EXPANDED } from "@actor/values";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";

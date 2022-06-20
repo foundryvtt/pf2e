@@ -1,4 +1,4 @@
-import { SKILL_ABBREVIATIONS } from "@actor/data/values";
+import { SKILL_ABBREVIATIONS } from "@actor/values";
 import { EffectPF2e, ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro";
 import { createActionMacro, createItemMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar";

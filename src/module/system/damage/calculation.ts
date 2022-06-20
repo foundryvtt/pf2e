@@ -1,5 +1,4 @@
-import { Alignment } from "@actor/creature/types";
-import { ModeOfBeing } from "@actor/data";
+import { Alignment, ModeOfBeing } from "@actor/creature/types";
 import { isChaotic, isEvil, isGood, isLawful } from "@system/alignment";
 import { groupBy, sum } from "@util";
 
@@ -380,7 +379,7 @@ function findHighestModifier<T extends Weakness | Resistance>(
         .reverse()[0];
 }
 
-export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
+export function removeAlignmentDamage(damage: Damage, alignment: Alignment): void {
     if (!isEvil(alignment)) {
         damage.delete("good");
     }
@@ -395,7 +394,7 @@ export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
     }
 }
 
-export function removePositiveOrNegativeDamage(damage: Damage, modeOfBeing: ModeOfBeing) {
+export function removePositiveOrNegativeDamage(damage: Damage, modeOfBeing: ModeOfBeing): void {
     if (modeOfBeing === "living") {
         damage.delete("positive");
     } else if (modeOfBeing === "undead") {
