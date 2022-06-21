@@ -268,7 +268,7 @@ export class WeaponDamagePF2e {
 
         // Kickback trait
         if (weaponTraits.some((t) => t === "kickback")) {
-            // For NPCs, subtract from the base damage and add back as an untype bonus
+            // For NPCs, subtract from the base damage and add back as an untyped bonus
             if (actor instanceof NPCPF2e) weapon.data.damage.modifier -= 1;
             numericModifiers.push(new ModifierPF2e({ label: CONFIG.PF2E.weaponTraits.kickback, modifier: 1 }));
         }

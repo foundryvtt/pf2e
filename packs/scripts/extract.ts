@@ -767,7 +767,7 @@ async function extractPacks() {
 
     populateIdNameMap();
 
-    // Silly windows users
+    // Silly Windows users
     args.packDb = args.packDb.toLowerCase();
 
     const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])

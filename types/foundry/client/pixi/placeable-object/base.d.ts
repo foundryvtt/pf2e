@@ -163,7 +163,7 @@ declare global {
          * Assume control over a PlaceableObject, flagging it as controlled and enabling downstream behaviors
          * @param options               Additional options which modify the control request
          * @param options.releaseOthers Release any other controlled objects first
-         * @return                      A flag denoting whether or not control was successful
+         * @return                      A flag denoting whether control was successful
          */
         control(options?: { releaseOthers?: boolean }): boolean;
 

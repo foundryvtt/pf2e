@@ -427,7 +427,7 @@ declare global {
         defaultFontFamily: string;
 
         /**
-         * Available Weather Effects implemntations
+         * Available Weather Effects implementations
          */
         weatherEffects: any;
 

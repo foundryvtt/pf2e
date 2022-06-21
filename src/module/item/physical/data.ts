@@ -89,7 +89,7 @@ type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData
 interface BulkData {
     /** Held or stowed bulk */
     heldOrStowed: number;
-    /** Worn bulk, if different than when held or stowed */
+    /** Worn bulk, if different from when held or stowed */
     worn: number | null;
     /** The applicable bulk value between the above two */
     value: number;

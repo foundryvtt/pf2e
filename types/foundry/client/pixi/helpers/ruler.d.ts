@@ -108,7 +108,7 @@ declare class Ruler extends PIXI.Container {
      * A helper method to return an Array of Ray objects constructed from the waypoints of the measurement
      * @param {Array<PIXI.Point>} waypoints   An Array of waypoint {x, y} Objects
      * @param {PIXI.Point} destination        An optional destination point to append to the existing waypoints
-     * @return {Array.<Ray>}                  An Array of Ray objects which represent the segemnts of the waypoint path
+     * @return {Array.<Ray>}                  An Array of Ray objects which represent the segments of the waypoint path
      * @private
      */
     public _getRaysFromWaypoints(waypoints: [PIXI.Point], destination: PIXI.Point): [Ray];

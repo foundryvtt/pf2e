@@ -32,7 +32,7 @@ declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
     static registerSheet(scope: string, sheetClass: ConstructorOf<ActorSheet>, options?: RegisterSheetOptions): void;
 
     /**
-     * Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use
+     * Unregister an Actor sheet class, removing it from the list of available sheet Applications to use
      * See DocumentSheetConfig.unregisterSheet for details
      */
     static unregisterSheet(scope: string, sheetClass: ConstructorOf<ActorSheet>): void;

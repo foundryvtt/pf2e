@@ -295,8 +295,8 @@ type CharacterDetails = CreatureDetails & {
         allies: string;
         /** Character enemies (user-provided field). value is HTML */
         enemies: string;
-        /** Character organaizations (user-provided field). value is HTML */
-        organaizations: string;
+        /** Character organizations (user-provided field). value is HTML */
+        organizations: string;
     };
 
     /** The amount of experience this character has. */

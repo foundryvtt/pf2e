@@ -276,12 +276,12 @@ export class CompendiumBrowser extends Application {
             throw ErrorPF2e(`Unknown tab "${tab}"`);
         }
 
-        // Initialize Tab if it is not already initialzed
+        // Initialize Tab if it is not already initialized
         if (!this.tabs[tab]?.isInitialized) {
             await this.tabs[tab].init();
         }
 
-        // Set filterData for this tab if intitial values were given
+        // Set filterData for this tab if initial values were given
         if (this.initialFilter.length || this.initialMaxLevel) {
             const currentTab = this.tabs[tab];
             currentTab.resetFilters();

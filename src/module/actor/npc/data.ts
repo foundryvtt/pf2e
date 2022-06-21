@@ -146,7 +146,7 @@ type NPCDetails = CreatureDetails & {
     creatureType: string;
     /** A very brief description */
     blurb: string;
-    /** The in depth descripton and any other public notes */
+    /** The in depth description and any other public notes */
     publicNotes: string;
     /** The private GM notes */
     privateNotes: string;

@@ -24,7 +24,7 @@ export const Setup = {
             // Some of game.pf2e must wait until the setup phase
             SetGamePF2e.onSetup();
 
-            // Forced panning is intrinsicly annoying, so set default to false
+            // Forced panning is intrinsically annoying, so set default to false
             game.settings.settings.get("core.chatBubblesPan").default = false;
 
             // Set Hover by Owner as defaults for Default Token Configuration

@@ -33,7 +33,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         if (fromMaster) this.sheet.render(false);
     }
 
-    /** Set base emphemeral data for later updating by derived-data preparation */
+    /** Set base ephemeral data for later updating by derived-data preparation */
     override prepareBaseData() {
         super.prepareBaseData();
 

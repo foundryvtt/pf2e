@@ -41,7 +41,7 @@ declare class SceneControls extends Application {
     get activeTool(): string | null;
 
     /**
-     * Return the actively controled tool
+     * Return the actively controlled tool
      */
     get tool(): SceneControlTool | null;
 

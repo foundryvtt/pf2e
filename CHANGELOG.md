@@ -1443,7 +1443,7 @@
 * (Tikael) Correct Imp skills
 * (Tikael) Fix condition links in Arsenic
 * (Tikael) Brush up compendium content for Age of Ashes books 2 and 3
-* (Tikael) Fix small errors on actors in in AoA books 5 and 6
+* (Tikael) Fix small errors on actors in AoA books 5 and 6
 * (Tikael) Move compendium inline templates to (at)Template
 * (Tikael) Remove parenthetical traits and quantities from descriptions
 * (Tikael) Set heritages and ancestry features to level 0

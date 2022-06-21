@@ -286,7 +286,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return JSON.stringify(thisData) === JSON.stringify(otherData);
     }
 
-    /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
+    /* Retrieve substitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
         const mystifiedData: MystifiedData = this.data.data.identification[status];
 

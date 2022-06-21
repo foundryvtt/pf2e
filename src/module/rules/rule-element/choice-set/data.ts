@@ -9,7 +9,7 @@ interface ChoiceSetData extends RuleElementData {
     prompt?: string;
     /**
      * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
-     * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
+     * `CONFIG.PF2E`, and the `PromptChoice` array is composed of its entries.
      */
     choices:
         | string

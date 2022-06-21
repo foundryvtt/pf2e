@@ -67,7 +67,7 @@ declare global {
          * Stop playback of a specific Sound within this Playlist.
          * Determine which other sounds should remain playing, if any.
          * @param sound The desired sound that should play
-         * @returns The updated Plaaylist
+         * @returns The updated Playlist
          */
         stopSound(sound: PlaylistSound): Promise<this | undefined>;
         /**

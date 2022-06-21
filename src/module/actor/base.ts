@@ -321,7 +321,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
-        // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
+        // Set up the basic structure of pf2e flags with roll options, preserving options in the "all" domain
         const { flags } = this.data;
         const rollOptionsAll = flags.pf2e?.rollOptions?.all ?? {};
         rollOptionsAll[`self:type:${this.type}`] = true;
@@ -742,7 +742,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             return null;
         }
 
-        // Limit the amount of items transfered to how many are actually available.
+        // Limit the amount of items transferred to how many are actually available.
         quantity = Math.min(quantity, item.quantity);
 
         // Remove the item from the source if we are transferring all of it; otherwise, subtract the appropriate number.

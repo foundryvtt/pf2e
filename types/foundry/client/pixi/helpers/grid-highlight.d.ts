@@ -9,7 +9,7 @@ declare class GridHighlight extends PIXI.Graphics {
     positions: Set<string>;
 
     /**
-     * Record a position that is highlighted and return whether or not it should be rendered
+     * Record a position that is highlighted and return whether it should be rendered
      * @param x The x-coordinate to highlight
      * @param y The y-coordinate to highlight
      * @return Whether or not to draw the highlight for this location

@@ -141,7 +141,7 @@ type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetail?: str
 
 type CreatureSaves = Record<SaveType, SaveData>;
 
-/** Miscallenous but mechanically relevant creature attributes.  */
+/** Miscellaneous but mechanically relevant creature attributes.  */
 interface CreatureAttributes extends BaseActorAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };

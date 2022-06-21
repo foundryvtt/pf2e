@@ -52,7 +52,7 @@ export abstract class CompendiumBrowserTab {
     /** Load and prepare the compendium index and set filter options */
     protected async loadData(): Promise<void> {}
 
-    /** Prepare the the filterData object of this tab */
+    /** Prepare the filterData object of this tab */
     protected prepareFilterData(): void {}
 
     /** Filter indexData */

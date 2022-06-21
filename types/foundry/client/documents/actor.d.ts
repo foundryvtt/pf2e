@@ -65,7 +65,7 @@ declare global {
          * If the canvas is not currently active, or there are no linked actors, the returned Array will be empty.
          * If the Actor is a synthetic token actor, only the exact Token which it represents will be returned.
          *
-         * @param [linked=false]   Limit results to Tokens which are linked to the Actor. Otherwise return all Tokens,
+         * @param [linked=false]   Limit results to Tokens which are linked to the Actor. Otherwise, return all Tokens,
                                    even those which are not linked.
          * @param [document=false] Return the Document instance rather than the PlaceableObject
          * @return An array of Token instances in the current Scene which reference this Actor.

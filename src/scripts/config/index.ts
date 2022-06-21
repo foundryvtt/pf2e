@@ -743,7 +743,7 @@ const weaponReload: Record<WeaponReloadTime, string> = {
 };
 
 export const PF2ECONFIG = {
-    chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
+    chatDamageButtonShieldToggle: false, // Couldn't call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently that's also used by FoundryVTT, and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
     statusEffects: {

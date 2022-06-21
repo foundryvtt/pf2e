@@ -32,7 +32,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
-    /** Is this a damage (or a manually-inputed non-D20) roll? */
+    /** Is this a damage (or a manually-inputted non-D20) roll? */
     get isDamageRoll(): boolean {
         if (this.isRoll && this.roll.terms.some((term) => term instanceof FateDie || term instanceof Coin)) {
             return false;

@@ -15,7 +15,7 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/character/partials/header.html",
         "systems/pf2e/templates/actors/character/partials/granted-feat.html",
 
-        // Actor Sheets Partials (CRB-Syle Sidebar)
+        // Actor Sheets Partials (CRB-Style Sidebar)
         "systems/pf2e/templates/actors/character/sidebar/armor-class.html",
         "systems/pf2e/templates/actors/character/sidebar/class-dc.html",
         "systems/pf2e/templates/actors/character/sidebar/health.html",

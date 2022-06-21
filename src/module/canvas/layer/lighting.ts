@@ -4,7 +4,7 @@ import { TokenPF2e } from "../token";
 export class LightingLayerPF2e<
     TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
 > extends LightingLayer<TAmbientLight> {
-    /** Temporarilly disable the refreshLighting hook */
+    /** Temporarily disable the refreshLighting hook */
     noRefreshHooks = false;
 
     get lightingLevel(): number {

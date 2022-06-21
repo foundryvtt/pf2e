@@ -94,7 +94,7 @@ declare global {
         }): void;
 
         /**
-         * Play a single audio effect by it's source path and Howl ID
+         * Play a single audio effect by its source path and Howl ID
          */
         play(src: string, id: number): void;
 

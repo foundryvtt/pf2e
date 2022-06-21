@@ -168,7 +168,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get canAct(): boolean {
-        // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
+        // Accommodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
         const traits = this.data.data.traits.traits.value;
         const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
 
@@ -552,7 +552,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * @param item       The item
      * @param carryType  Location to be set to
      * @param handsHeld  Number of hands being held
-     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
+     * @param inSlot     Whether the item is in the slot or not. Equivalent to "equipped" previously
      */
     async adjustCarryType(
         item: Embedded<PhysicalItemPF2e>,

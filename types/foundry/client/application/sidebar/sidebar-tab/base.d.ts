@@ -12,7 +12,7 @@ declare global {
         protected _popout: this;
 
         /**
-         * Denote whether or not this is the original version of the sidebar tab, or a pop-out variant
+         * Denote whether this is the original version of the sidebar tab, or a pop-out variant
          */
         protected _original: this;
 

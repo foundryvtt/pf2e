@@ -6,7 +6,7 @@ declare global {
      *
      * A few critical assumptions:
      * 1) This application is used to only edit one object at a time
-     * 2) The template used contains one (and only one) HTML <form> as it's outer-most element
+     * 2) The template used contains one (and only one) HTML <form> as its outermost element
      * 3) This abstract layer has no knowledge of what is being updated, so the implementation must define _updateObject
      *
      * @param object    Some object or entity which is the target to be updated.

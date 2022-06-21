@@ -19,7 +19,7 @@ declare global {
         /**
          * Return the recommended String alias for this message.
          * The alias could be a Token name in the case of in-character messages or dice rolls.
-         * Alternatively it could be a User name in the case of OOC chat or whispers.
+         * Alternatively it could be a User's name in the case of OOC chat or whispers.
          */
         get alias(): string;
 
@@ -76,8 +76,8 @@ declare global {
          * First assume that the currently controlled Token is the speaker
          *
          * @param [scene] The Scene in which the speaker resides
-         * @param [actor] The Actor whom is speaking
-         * @param [token] The Token whom is speaking
+         * @param [actor] The Actor who is speaking
+         * @param [token] The Token who is speaking
          * @param [alias] The name of the speaker to display
          * @returns The identified speaker data
          */

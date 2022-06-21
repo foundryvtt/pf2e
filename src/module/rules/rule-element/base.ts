@@ -349,7 +349,7 @@ interface RuleElementPF2e {
      */
     beforePrepareData?(): void;
 
-    /** Run after all actor preparation callbacks have been run so you should see all final values here. */
+    /** Run after all actor preparation callbacks have been run, so you should see all final values here. */
     afterPrepareData?(): void;
 
     /**
@@ -371,14 +371,14 @@ interface RuleElementPF2e {
     preUpdateActor?(): Promise<void>;
 
     /**
-     * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
+     * Runs before this rules element's parent item is created. The item is temporarily constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
      */
     preCreate?({ ruleSource, itemSource, pendingItems, context }: RuleElementPF2e.PreCreateParams): Promise<void>;
 
     /**
-     * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
+     * Runs before this rules element's parent item is created. The item is temporarily constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
      */

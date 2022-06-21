@@ -202,8 +202,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /**
-     * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
-     * or creating a new spell if its not.
+     * Adds a spell to this spellcasting entry, either moving it from another one if it's the same actor,
+     * or creating a new spell if it's not.
      */
     async addSpell(spell: SpellPF2e, targetLevel?: number): Promise<SpellPF2e | null> {
         const actor = this.actor;

@@ -170,7 +170,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
     }
 }
 
-/** Score the trait value. If it's a dice roll, use the average roll, otherwise just use the number */
+/** Score the trait value. If it's a die roll, use the average roll, otherwise just use the number */
 function getTraitScore(traitValue: string) {
     const traitValueMatch = traitValue.match(/(\d*)d(\d+)/);
     return traitValueMatch

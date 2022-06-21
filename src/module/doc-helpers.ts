@@ -14,7 +14,7 @@ async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: 
     const sourceSchemaVersion = Number(source.data?.schema?.version) || 0;
     const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
     if (foundry.utils.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
-        // Refuse to import if the schema version on the document is higher than the system schema verson;
+        // Refuse to import if the schema version on the document is higher than the system schema version;
         ui.notifications.error(
             game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
                 sourceName: game.i18n.localize("DOCUMENT.Actor"),

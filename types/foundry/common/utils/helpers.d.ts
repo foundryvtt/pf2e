@@ -127,7 +127,7 @@ declare global {
             function expandObject<T extends object>(obj: object, _d?: number): T;
 
             /**
-             * A simple function to test whether or not an Object is empty
+             * A simple function to test whether an Object is empty
              * @param obj    The object to test
              * @return       Is the object empty?
              */
@@ -172,7 +172,7 @@ declare global {
              * @param key      The string key
              * @param value    The value to be assigned
              *
-             * @return {Boolean}        A flag for whether or not the object was updated
+             * @return {Boolean}        A flag for whether the object was updated
              */
             function setProperty(object: object, key: string, value: any): boolean;
 

@@ -596,7 +596,7 @@ class DiceModifierPF2e implements BaseRawModifier {
     /** The damage category of these dice. */
     category?: string;
     damageType?: string | null;
-    /** If true, these dice overide the base damage dice of the weapon. */
+    /** If true, these dice override the base damage dice of the weapon. */
     override?: DamageDiceOverride;
     ignored: boolean;
     enabled: boolean;

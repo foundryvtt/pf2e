@@ -77,7 +77,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get folder(): Folder | null;
 
     /**
-     * A boolean indicator for whether or not the current game User has ownership rights for this Document.
+     * A boolean indicator for whether the current game User has ownership rights for this Document.
      * Different Document types may have more specialized rules for what constitutes ownership.
      */
     get isOwner(): boolean;
@@ -109,7 +109,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get uuid(): DocumentUUID;
 
     /**
-     * A boolean indicator for whether or not the current game User has at least limited visibility for this Document.
+     * A boolean indicator for whether the current game User has at least limited visibility for this Document.
      * Different Document types may have more specialized rules for what determines visibility.
      */
     get visible(): boolean;

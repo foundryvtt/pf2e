@@ -276,7 +276,7 @@ declare global {
         get combat(): TCombat | null;
 
         /**
-         * A state variable which tracks whether or not the game session is currently paused
+         * A state variable which tracks whether the game session is currently paused
          */
         get paused(): boolean;
 

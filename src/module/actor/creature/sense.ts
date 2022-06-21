@@ -42,7 +42,7 @@ export class CreatureSensePF2e implements SenseData {
                 // Low-light vision and darkvision are always acute with no range limit
                 return buildLabel(this.type);
             case "scent":
-                // Vague scent is assume and ommitted
+                // Vague scent is assume and omitted
                 return this.acuity === "vague" ? null : buildLabel(this.type, this.acuity, range);
             default:
                 return buildLabel(this.type, this.acuity, range);

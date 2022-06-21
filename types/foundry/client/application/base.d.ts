@@ -112,7 +112,7 @@ declare global {
         getData(options?: Partial<ApplicationOptions>): object | Promise<object>;
 
         /**
-         * Render the Application by evaluating it's HTML template against the object of data provided by the getData method
+         * Render the Application by evaluating its HTML template against the object of data provided by the getData method
          * If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls
          *
          * @param force     Add the rendered application to the DOM if it is not already present. If false, the

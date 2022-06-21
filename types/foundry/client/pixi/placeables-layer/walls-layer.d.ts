@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-    /** The Walls canvas layer which provides a container for Wall objects within the rendered Scen */
+    /** The Walls canvas layer which provides a container for Wall objects within the rendered Scene */
     class WallsLayer<TWall extends Wall<WallDocument> = Wall<WallDocument>> extends PlaceablesLayer<TWall> {
         constructor();
 

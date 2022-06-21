@@ -75,7 +75,7 @@ export interface SpellSheetOverlayData {
     id: string | null;
     /** Base path to the property, dot delimited */
     base: string;
-    /** Base path to the spell override data, dot delimited. Currently this is the same as base */
+    /** Base path to the spell override data, dot delimited. Currently, this is the same as base */
     dataPath: string;
     level: number;
     data: Partial<SpellSystemData>;

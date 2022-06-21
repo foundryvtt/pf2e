@@ -88,7 +88,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 itemData.data.bonus.total = Number(itemData.data.bonus.value) || 0;
                 itemData.data.isAgile = isAgile;
 
-                // get formated traits for read-only npc sheet
+                // get formatted traits for read-only npc sheet
                 itemData.traits = traits.map((trait) => ({
                     label: weaponTraits[trait] ?? trait.charAt(0).toUpperCase() + trait.slice(1),
                     description: traitsDescriptions[trait] ?? "",
@@ -104,7 +104,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     Number(itemData.data.actions.value) || 1
                 ).imageUrl;
 
-                // get formated traits for read-only npc sheet
+                // get formatted traits for read-only npc sheet
                 const traits: string[] = itemData.data.traits.value;
                 const traitObjects = traits.map((trait) => ({
                     label: weaponTraits[trait] || trait.charAt(0).toUpperCase() + trait.slice(1),

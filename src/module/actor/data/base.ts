@@ -211,7 +211,7 @@ export interface TraitViewData {
     description?: string;
 }
 
-/** An strike which a character can use. */
+/** A strike which a character can use. */
 export interface StrikeData extends StatisticModifier {
     /** The type of action; currently just 'strike'. */
     type: "strike";
@@ -243,7 +243,7 @@ export interface StrikeData extends StatisticModifier {
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction<StrikeRollParams> }[];
 
-    /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
+    /** Ammunition choices and selected ammo if this is an ammo consuming weapon. */
     ammunition?: {
         compatible: RawObject<ConsumableData>[];
         incompatible: RawObject<ConsumableData>[];

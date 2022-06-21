@@ -346,7 +346,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             speed.label = objectHasKey(configSpeedTypes, speedName) ? configSpeedTypes[speedName] : "";
         });
         // Make sure regular speed has no `feet` at the end, we will add it localized later on
-        // This is usally the case for NPCs from the compendium
+        // This is usually the case for NPCs from the compendium
         if (typeof sheetData.attributes.speed.value === "string") {
             sheetData.attributes.speed.value = sheetData.attributes.speed.value.replace("feet", "").trim();
         }

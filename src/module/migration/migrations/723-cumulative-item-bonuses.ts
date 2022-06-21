@@ -8,7 +8,7 @@ import { MigrationBase } from "../base";
 export class Migration723CumulativeItemBonuses extends MigrationBase {
     static override version = 0.723;
 
-    /** Feat items: Animal Skin, Mountance Stance, Mountance Quake, and Mountance Stronghold */
+    /** Feat items: Animal Skin, Mountain Stance, Mountain Quake, and Mountain Stronghold */
     private stanceFeats = (async (): Promise<Record<string, FeatPF2e | undefined>> => {
         const documents: ClientDocument[] = await fromUUIDs([
             "Compendium.pf2e.feats-srd.ZPclfDmiHzEqblry", // Animal Skin

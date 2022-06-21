@@ -107,7 +107,7 @@ declare global {
          * Roll initiative for one or multiple Combatants within the Combat entity
          * @param ids A Combatant id or Array of ids for which to roll
          * @param [options={}] Additional options which modify how initiative rolls are created or presented.
-         * @param [options.formula]           A non-default initiative formula to roll. Otherwise the system default is used.
+         * @param [options.formula]           A non-default initiative formula to roll. Otherwise, the system default is used.
          * @param [options.updateTurn=true]   Update the Combat turn after adding new initiative scores to keep the turn on the same Combatant.
          * @param [options.messageOptions={}] Additional options with which to customize created Chat Messages
          * @return A promise which resolves to the updated Combat entity once updates are complete.
@@ -146,7 +146,7 @@ declare global {
         /**
          * Define how the array of Combatants is sorted in the displayed list of the tracker.
          * This method can be overridden by a system or module which needs to display combatants in an alternative order.
-         * By default sort by initiative, next falling back to name, lastly tie-breaking by combatant id.
+         * By default, sort by initiative, next falling back to name, lastly tie-breaking by combatant id.
          */
         protected _sortCombatants(a: Embedded<TCombatant>, b: Embedded<TCombatant>): number;
 

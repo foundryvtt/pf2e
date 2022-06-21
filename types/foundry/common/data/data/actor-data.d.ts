@@ -1,7 +1,7 @@
 declare module foundry {
     module data {
         /**
-         * The data schema for a Actor document.
+         * The data schema for an Actor document.
          * @see BaseActor
          *
          * @param data Initial data used to construct the data object

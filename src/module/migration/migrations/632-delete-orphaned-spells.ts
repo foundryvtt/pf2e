@@ -2,7 +2,7 @@ import { MigrationBase } from "../base";
 import { SpellcastingEntrySource, SpellSource } from "@item/data";
 import { ActorSourcePF2e } from "@actor/data";
 
-/** Delete owned spells with no corresponding spellcastiong entry */
+/** Delete owned spells with no corresponding spellcasting entry */
 export class Migration632DeleteOrphanedSpells extends MigrationBase {
     static override version = 0.632;
 

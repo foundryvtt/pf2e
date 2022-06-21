@@ -52,7 +52,7 @@ declare class Localization {
     setLanguage(lang: string): Promise<void>;
 
     /**
-     * Localize a string by drawing a translation from the available translations dictionary, if available
+     * Localize a string by drawing a translation from the available translations' dictionary, if available
      * If a translation is not available, the original string is returned
      * @param stringId  The string ID to translate
      * @return          The translated string

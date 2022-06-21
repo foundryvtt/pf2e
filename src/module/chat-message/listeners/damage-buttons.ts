@@ -147,7 +147,7 @@ function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
             ok: {
                 label: "Ok",
                 callback: async ($dialog: JQuery) => {
-                    // In case of healing, multipler will have negative sign. The user will expect that positive
+                    // In case of healing, multiplier will have negative sign. The user will expect that positive
                     // modifier would increase healing value, while negative would decrease.
                     const adjustment = (Number($dialog.find('[name="modifier"]').val()) || 0) * Math.sign(multiplier);
                     applyDamage(message, multiplier, adjustment);

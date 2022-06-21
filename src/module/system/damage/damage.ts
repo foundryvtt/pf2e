@@ -40,12 +40,12 @@ const DamageCategorization = {
     /** Get a set of all damage categories (both base and custom). */
     allCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
 
-    /** Get a set of all of the base rule damage types. */
+    /** Get a set of all the base rule damage types. */
     baseCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
 
     /** Map a damage category to the set of damage types in it. */
     toDamageTypes: (category: string) => {
-        // Get all of the types in the current mappings which map to the given category
+        // Get all the types in the current mappings which map to the given category
         const types = Object.entries(BASE_DAMAGE_TYPES_TO_CATEGORIES)
             .filter(([_key, value]) => value === category)
             .map(([key]) => key);

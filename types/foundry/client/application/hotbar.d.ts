@@ -6,8 +6,8 @@ declare global {
      * The Hotbar is a UI element at the bottom of the screen which contains Macros as interactive buttons.
      * The Hotbar supports 5 pages of global macros which can be dragged and dropped to organize as you wish.
      *
-     * Left clicking a Macro button triggers its effect.
-     * Right clicking the button displays a context menu of Macro options.
+     * Left-clicking a Macro button triggers its effect.
+     * Right-clicking the button displays a context menu of Macro options.
      * The number keys 1 through 0 activate numbered hotbar slots.
      * Pressing the delete key while hovering over a Macro will remove it from the bar.
      *

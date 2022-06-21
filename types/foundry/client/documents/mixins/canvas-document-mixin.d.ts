@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /**
-     * A specialized sub-class of the ClientDocumentMixin which is used for document types that are intended to be
+     * A specialized subclass of the ClientDocumentMixin which is used for document types that are intended to be
      * represented upon the game Canvas.
      * @mixin
      */

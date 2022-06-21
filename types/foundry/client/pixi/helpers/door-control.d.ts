@@ -2,7 +2,7 @@
 declare class DoorControl extends PIXI.Container {
     constructor(wall: Wall);
 
-    /** Draw the DoorControl icon, displaying it's icon texture and border */
+    /** Draw the DoorControl icon, displaying its icon texture and border */
     draw(): Promise<this>;
 
     /** Get the icon texture to use for the Door Control icon based on the door state */

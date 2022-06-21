@@ -12,7 +12,7 @@ type StackDefinitions = Record<string, StackDefinition | undefined>;
 
 /**
  * hard coded for now but could be made configurable later on.
- * Describes each stack group by how much items belong in a stack
+ * Describes each stack group by how many items belong in a stack
  * and how much bulk a single stack produces. Bulk type has to be
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
@@ -260,7 +260,7 @@ export class BulkItem {
         // some containers like a backpack or back of holding reduce total bulk if
         // items are put into it
         negateBulk = new Bulk(),
-        // extra dimensional containers cease to work when nested inside each other
+        // extradimensional containers cease to work when nested inside each other
         extraDimensionalContainer = false,
         size = "med",
     }: {
@@ -357,7 +357,7 @@ export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] =
         id,
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
         negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
-        // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
+        // this stuff overrides bulk, so we don't want to default to 0 bulk if undefined
         unequippedBulk: weightToBulk(normalizeWeight(unequippedBulk)),
         equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
         holdsItems: nestedItems,

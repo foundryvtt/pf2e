@@ -6,7 +6,7 @@
  * @param key {String}      The string key
  * @param value             The value to be assigned
  *
- * @return A flag for whether or not the object was updated
+ * @return A flag for whether the object was updated
  */
 function setProperty(obj: Record<string, any>, key: string, value: any): boolean {
     let target = obj;
@@ -69,7 +69,7 @@ function expandObject(obj: any, _d = 0) {
 }
 
 /**
- * A simple function to test whether or not an Object is empty
+ * A simple function to test whether an Object is empty
  * @param obj The object to test
  * @return Is the object empty?
  */

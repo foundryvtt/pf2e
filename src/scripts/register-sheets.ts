@@ -58,7 +58,7 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    // Regiser NPC Sheet
+    // Register NPC Sheet
     Actors.registerSheet("pf2e", NPCSheetPF2e, {
         types: ["npc"],
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),

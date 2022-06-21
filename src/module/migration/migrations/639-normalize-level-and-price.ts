@@ -23,7 +23,7 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
         const system: PhysicalDataOld = itemData.data;
         const price = system.price;
 
-        // This is new data being run through an old migration, shouldn't happen but we should appease typescript
+        // This is new data being run through an old migration, shouldn't happen, but we should appease typescript
         if (typeof price.value !== "string" && isObject(price.value)) {
             return;
         }

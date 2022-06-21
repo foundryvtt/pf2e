@@ -12,7 +12,7 @@ export class CraftingFormula implements CraftingFormulaData {
     /** Some items can be created in multiples with a single crafting check */
     batchSize: number;
 
-    /** Whether or not this formula is saved directly on the actor and can be deleted */
+    /** Whether this formula is saved directly on the actor and can be deleted */
     deletable: boolean;
 
     constructor(

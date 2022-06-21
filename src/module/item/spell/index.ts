@@ -162,7 +162,7 @@ class SpellPF2e extends ItemPF2e {
 
         const formulas: string[] = [];
         for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
-            // Currently unable to handle display of perisistent and splash damage
+            // Currently unable to handle display of persistent and splash damage
             if (damage.type.subtype) continue;
 
             const parts: (string | number)[] = [];

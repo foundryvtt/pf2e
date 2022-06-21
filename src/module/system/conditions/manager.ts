@@ -61,7 +61,7 @@ export class ConditionManager {
                 // First condition, or new max achieved.
 
                 if (!source.data.active) {
-                    // New MAX is inactive, neet to make it active.
+                    // New MAX is inactive, need to make it active.
                     const update = updates.get(source._id) ?? source;
                     update.data.active = true;
                     updates.set(update._id, update);
@@ -328,7 +328,7 @@ export class ConditionManager {
     }
 
     /**
-     * A convience alias for adding a condition to an actor
+     * A convenience alias for adding a condition to an actor
      * @param name  A collection of conditions to retrieve modifiers from.
      * @param actor The actor to add the condition to.
      */

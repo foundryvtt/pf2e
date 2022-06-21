@@ -6,7 +6,7 @@ import { RuleElementOptions, RuleElementPF2e } from "./base";
 import { RuleElementSource } from "./data";
 
 /**
- * Set a roll option at a specificed domain
+ * Set a roll option at a specified domain
  * @category RuleElement
  */
 class RollOptionRuleElement extends RuleElementPF2e {
@@ -16,7 +16,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
     /**
      * The value of the roll option: either a boolean or a string resolves to a boolean
-     * If omitted, it defaults to `true` unless also `togglable`, in which case to `false`.
+     * If omitted, it defaults to `true` unless also `toggleable`, in which case to `false`.
      */
     value: string | boolean;
 

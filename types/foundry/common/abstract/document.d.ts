@@ -87,7 +87,7 @@ declare global {
                  * @param [data={}]                Additional data which overrides current document data at the time of creation
                  * @param [options={}]             Additional options which customize the creation workflow
                  * @param [options.save=false]    Save the clone to the World database?
-                 * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
+                 * @param [options.keepId=false]  Keep the original Document ID? Otherwise, the ID will become undefined
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(

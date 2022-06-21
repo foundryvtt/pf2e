@@ -135,7 +135,7 @@ declare global {
                  * @see utils.mergeObject
                  * @param data New values with which to update the Data object
                  * @param options Options which determine how the new data is merged
-                 * @returns The changed keys and values which are different than the previous data
+                 * @returns The changed keys and values which are different from the previous data
                  */
                 update(data?: DocumentUpdateData, options?: DocumentModificationContext): DeepPartial<this["_source"]>;
 

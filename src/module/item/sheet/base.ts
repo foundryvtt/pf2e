@@ -437,7 +437,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if (!hasMultipleSheets && sheetButton) {
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
-        // Convenenience utility for data entry; may make available to general users in the future
+        // Convenience utility for data entry; may make available to general users in the future
         if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
             buttons.unshift({
                 label: "Refresh",

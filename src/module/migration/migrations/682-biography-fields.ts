@@ -13,7 +13,7 @@ interface CharacterSystemDataOld extends CharacterSystemData {
     };
 }
 
-/** change Biography fields on characters. Public to appearanc, Private to campaignNotes */
+/** change Biography fields on characters. Public to appearance, Private to campaignNotes */
 export class Migration682BiographyFields extends MigrationBase {
     static override version = 0.682;
 

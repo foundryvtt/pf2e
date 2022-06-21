@@ -58,7 +58,7 @@ declare global {
         /* -------------------------------------------- */
 
         /**
-         * A point is contained with the area of the source if it is within both the FOV circle as well as the LOS polygon.
+         * A point is contained with the area of the source if it is within both the FOV circle and the LOS polygon.
          * @param point The point to test
          * @returns Is the point contained
          */

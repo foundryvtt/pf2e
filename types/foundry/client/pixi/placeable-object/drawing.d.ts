@@ -31,7 +31,7 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
 
     override get bounds(): NormalizedRectangle;
 
-    /** A Boolean flag for whether or not the Drawing utilizes a tiled texture background */
+    /** A Boolean flag for whether the Drawing utilizes a tiled texture background */
     get isTiled(): boolean;
 
     /** A Boolean flag for whether or not the Drawing is a Polygon type (either linear or freehand) */

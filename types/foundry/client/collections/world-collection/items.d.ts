@@ -18,7 +18,7 @@ declare class Items<TItem extends Item> extends WorldCollection<TItem> {
     static registerSheet(scope: string, sheetClass: ConstructorOf<ItemSheet>, options?: RegisterSheetOptions): void;
 
     /**
-     * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
+     * Unregister an Item sheet class, removing it from the list of available sheet Applications to use
      * See DocumentSheetConfig.unregisterSheet for details
      */
     static unregisterSheet(scope: string, sheetClass: ConstructorOf<ItemSheet>, types?: string[]): void;
