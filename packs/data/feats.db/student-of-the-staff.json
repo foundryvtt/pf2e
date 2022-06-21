@@ -32,6 +32,10 @@
         },
         "rules": [
             {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
@@ -39,10 +43,6 @@
                         "self:effect:arcane-cascade"
                     ]
                 },
-                "critical": true,
-                "dieSize": "d6",
-                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
-                "diceNumber": 1,
                 "selector": "damage"
             },
             {
