@@ -1,4 +1,4 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
 import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";

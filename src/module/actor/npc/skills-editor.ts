@@ -1,6 +1,6 @@
 import type { NPCPF2e } from "@actor";
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
 import { NPCSkillData } from "@actor/npc/data";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { LorePF2e } from "@item";
 import { LoreSource } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@util";

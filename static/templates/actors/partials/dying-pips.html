@@ -1,0 +1,19 @@
+<span class="pips">
+    {{#if (eq data.attributes.dying.max 0)}}
+        <i class="fas fa-skull"></i>
+    {{else if (gte data.attributes.dying.value data.attributes.dying.max)}}
+        {{#times data.attributes.dying.max}}
+            <i class="fas fa-skull"></i>
+        {{/times}}
+    {{else}}
+        {{#times data.attributes.dying.value}}
+            <i class="fas fa-times-circle"></i>
+        {{/times}}
+        {{#times (sub data.attributes.dying.max data.attributes.dying.value)}}
+            <i class="far fa-circle"></i>
+        {{/times}}
+        {{#times data.attributes.doomed.value}}
+            <i class="fas fa-skull"></i>
+        {{/times}}
+    {{/if}}
+</span>

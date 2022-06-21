@@ -1,5 +1,5 @@
 import { CharacterPF2e } from "@actor";
-import { AbilityString } from "@actor/data";
+import { AbilityString } from "@actor/types";
 import { SpellPF2e } from "@item";
 import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";

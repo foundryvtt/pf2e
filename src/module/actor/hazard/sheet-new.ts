@@ -1,11 +1,11 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { ErrorPF2e, objectHasKey } from "@util";
-import { HazardPF2e } from ".";
+import { ActorSheetPF2e } from "@actor/sheet/base";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { SAVE_TYPES } from "@actor/data";
+import { ErrorPF2e, objectHasKey } from "@util";
+import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
 
 /** In development version of the hazard sheet. */

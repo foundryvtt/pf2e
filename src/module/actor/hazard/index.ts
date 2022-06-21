@@ -1,11 +1,12 @@
-import { HazardData } from "./data";
-import { ActorPF2e } from "@actor/index";
-import { Rarity } from "@module/data";
-import { SaveType, SAVE_TYPES } from "@actor/data";
+import { ActorPF2e } from "@actor";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { extractNotes, extractModifiers } from "@module/rules/util";
-import { Statistic } from "@system/statistic";
+import { SaveType } from "@actor/types";
+import { SAVE_TYPES } from "@actor/values";
 import { ItemType } from "@item/data";
+import { Rarity } from "@module/data";
+import { extractModifiers, extractNotes } from "@module/rules/util";
+import { Statistic } from "@system/statistic";
+import { HazardData } from "./data";
 
 export class HazardPF2e extends ActorPF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {

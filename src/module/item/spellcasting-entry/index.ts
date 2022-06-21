@@ -1,4 +1,12 @@
 import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
+import { AbilityString } from "@actor/types";
+import { ItemPF2e, SpellPF2e } from "@item";
+import { MagicTradition } from "@item/spell/types";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { goesToEleven, OneToFour, OneToTen, ZeroToTen } from "@module/data";
+import { UserPF2e } from "@module/user";
+import { Statistic } from "@system/statistic";
+import { ErrorPF2e, groupBy } from "@util";
 import {
     ActiveSpell,
     SlotKey,
@@ -8,15 +16,6 @@ import {
     SpellcastingSlotLevel,
     SpellPrepEntry,
 } from "./data";
-import { SpellPF2e } from "@item/spell";
-import { goesToEleven, OneToFour, OneToTen, ZeroToTen } from "@module/data";
-import { groupBy, ErrorPF2e } from "@util";
-import { ItemPF2e } from "../base";
-import { UserPF2e } from "@module/user";
-import { Statistic } from "@system/statistic";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { AbilityString } from "@actor/data";
 
 class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     private _spells: Collection<Embedded<SpellPF2e>> | null = null;

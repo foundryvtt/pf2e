@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
+import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { extractModifiers, extractNotes } from "@module/rules/util";

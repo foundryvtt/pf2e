@@ -16,10 +16,8 @@ import {
     SkillData,
 } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
-import { SaveType } from "@actor/data";
 import {
     AbilityBasedStatistic,
-    AbilityString,
     ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
@@ -27,6 +25,7 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/data";
 import { FeatData, ProficiencyRank } from "@item/data";

@@ -1,5 +1,5 @@
-import { AbilityString } from "@actor/data";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { AbilityString } from "@actor/types";
+import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
 import { setHasElement, sluggify } from "@util";

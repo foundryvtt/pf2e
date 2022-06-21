@@ -532,44 +532,6 @@
             }
         }
 
-        .effects-list {
-            display: flex;
-            flex: 1 0 auto;
-            flex-direction: row;
-            flex-wrap: wrap;
-            width: 100%;
-            padding: 0;
-
-            .separator {
-                flex: 0 0 1px;
-                height: 32px;
-                margin-right: 4px;
-                border-left: 2px solid #323232;
-            }
-
-            > .effect {
-                display: flex;
-                flex: 0 0 64;
-                height: 64px;
-                margin-right: 4px;
-                margin-bottom: 4px;
-                border-bottom: none !important;
-
-                .item-image {
-                    background-size: cover;
-                    border: 1px solid #323232;
-                    border-bottom: 1px solid #323232;
-                    border-radius: 3px;
-                    width: 64px;
-                }
-
-                .item-image:hover {
-                    border: 1px solid #f5efe0;
-                    border-radius: 3px;
-                }
-            }
-        }
-
         ul.familiar-abilities-list {
             list-style: none;
             margin: 0px;
@@ -594,72 +556,17 @@
             }
         }
 
-        .effects {
-            .list-row {
+        .effects-list {
+            @include p-reset;
+            @include effects-list;
+
+            .item {
+                @include p-reset;
                 margin: 0.25em 0;
-            }
-            .item-list {
-                list-style: none;
-                padding-left: 0;
-
-                .item-header {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    .item-name {
-                        display: flex;
-                        align-items: center;
-                        cursor: pointer;
-                        h4 {
-                            @include p-reset;
-                        }
-
-                        &:hover {
-                            h4 {
-                                color: var(--primary);
-                            }
-                        }
-                    }
-                    .item-controls {
-                        margin-left: none;
-                    }
-                }
-            }
-
-            .list-row.expandable .item-summary {
-                display: none;
-            }
-
-            .list-row.expanded .item-summary {
-                display: inline-block;
-            }
-
-            .item-image {
-                height: 32px;
-                width: 32px;
-                background-repeat: no-repeat;
-                background-size: 32px 32px;
-                margin-right: 0.5em;
-
-                i {
-                    display: none;
-                    font-size: 2em;
-                    color: var(--primary);
-                }
-                &:hover {
-                    background: none !important;
-                    i {
-                        display: block;
-                    }
-                }
             }
 
             .item-summary {
-                font-weight: normal;
                 font-size: var(--font-size-12);
-                width: auto;
             }
         }
     }

@@ -1,4 +1,4 @@
-import { AbilityString } from "@actor/data/base";
+import { AbilityString } from "@actor/types";
 import { ABCSystemData } from "@item/abc/data";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { ZeroToFour } from "@module/data";

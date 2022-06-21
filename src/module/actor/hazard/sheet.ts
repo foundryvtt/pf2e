@@ -1,9 +1,9 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { ErrorPF2e } from "@util";
-import { HazardPF2e } from ".";
+import { ActorSheetPF2e } from "@actor/sheet/base";
+import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { SAVE_TYPES } from "@actor/data";
+import { ErrorPF2e } from "@util";
+import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {

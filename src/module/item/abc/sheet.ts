@@ -1,7 +1,7 @@
-import { AbilityString } from "@actor/data";
+import { AbilityString } from "@actor/types";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { FeatType } from "@item/feat/data";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item/index";
 import { LocalizePF2e } from "@system/localize";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ABCSheetData } from "../sheet/data-types";

@@ -1,10 +1,10 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
+import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ConditionPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
@@ -71,6 +71,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             rarity: CONFIG.PF2E.rarityTraits,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
+            conditions: game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition),
         };
     }
 
@@ -286,6 +287,26 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Spell Browser
         $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
+
+        // Decrease effect value
+        $html.find(".effects-list .decrement").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await this.actor.decreaseCondition(effect);
+            }
+        });
+
+        // Increase effect value
+        $html.find(".effects-list .increment").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await this.actor.increaseCondition(effect);
+            }
+        });
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {

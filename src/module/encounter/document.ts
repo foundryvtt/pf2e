@@ -1,7 +1,7 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
-import { SKILL_DICTIONARY } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/values";
 import { UserPF2e } from "@module/user";
 import { ScenePF2e } from "@scene";
 import { LocalizePF2e } from "@system/localize";

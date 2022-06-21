@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AbilityString, TraitViewData } from "@actor/data/base";
+import { TraitViewData } from "@actor/data/base";
 import {
     DamageDiceOverride,
     DamageDicePF2e,
@@ -9,6 +9,7 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
+import { AbilityString } from "@actor/types";
 import { WeaponPF2e } from "@item";
 import { WeaponData } from "@item/data";
 import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";

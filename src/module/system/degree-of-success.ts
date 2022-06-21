@@ -1,4 +1,4 @@
-import { DCSlug } from "@actor/data";
+import { DCSlug } from "@actor/types";
 import { ZeroToThree } from "@module/data";
 import { PredicatePF2e } from "./predication";
 import { RollDataPF2e } from "./rolls";
