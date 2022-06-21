@@ -45,7 +45,7 @@ export class Migration682BiographyFields extends MigrationBase {
         old.details.biography.catchphrases ??= "";
         old.details.biography.allies ??= "";
         old.details.biography.enemies ??= "";
-        old.details.biography.organaizations ??= "";
+        old.details.biography.organizations ??= "";
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
