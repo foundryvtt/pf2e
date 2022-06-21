@@ -1,5 +1,4 @@
 import type { ItemPF2e } from "@item";
-import { ActorTraitsRuleElement } from "@module/rules/rule-element/actor-traits";
 import {
     RuleElementData,
     RuleElementOptions,
@@ -7,6 +6,7 @@ import {
     RuleElementSource,
     RuleElementSynthetics,
 } from "./rule-element";
+import { ActorTraitsRuleElement } from "./rule-element/actor-traits";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
 import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
 import { AdjustStrikeRuleElement } from "./rule-element/adjust-strike";
@@ -17,6 +17,7 @@ import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
 import { CraftingEntryRuleElement } from "./rule-element/crafting/entry";
 import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size";
+import { CritSpecRuleElement } from "./rule-element/crit-spec";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap";
 import { HealingRuleElement } from "./rule-element/fast-healing";
@@ -29,13 +30,13 @@ import { WeaknessRuleElement } from "./rule-element/iwr/weakness";
 import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
-import { SubstituteRollRuleElement } from "./rule-element/substitute-roll";
 import { RollNoteRuleElement } from "./rule-element/roll-note";
 import { RollOptionRuleElement } from "./rule-element/roll-option";
 import { RollTwiceRuleElement } from "./rule-element/roll-twice";
 import { SenseRuleElement } from "./rule-element/sense";
 import { StrikeRuleElement } from "./rule-element/strike";
 import { StrikingRuleElement } from "./rule-element/striking";
+import { SubstituteRollRuleElement } from "./rule-element/substitute-roll";
 import { TempHPRuleElement } from "./rule-element/temp-hp";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon";
 import { TokenImageRuleElement } from "./rule-element/token-image";
@@ -59,6 +60,7 @@ class RuleElements {
         CraftingEntry: CraftingEntryRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
         CreatureSize: CreatureSizeRuleElement,
+        CriticalSpecialization: CritSpecRuleElement,
         DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
         FastHealing: HealingRuleElement,

@@ -48,6 +48,7 @@ import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/valu
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
+import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
@@ -1956,8 +1957,8 @@ class CharacterPF2e extends CreaturePF2e {
                 const incrementOption =
                     typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
                 args.options ??= [];
-                const options = Array.from(
-                    new Set([args.options, context.options, action.options, baseOptions, incrementOption].flat())
+                const options = new Set(
+                    [args.options, context.options, action.options, baseOptions, incrementOption].flat().sort()
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
@@ -1967,13 +1968,30 @@ class CharacterPF2e extends CreaturePF2e {
                     statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
-                    options,
+                    Array.from(options),
                     this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
+
+                // Find a critical specialization note
+                const critSpecs = context.self.actor.synthetics.criticalSpecalizations;
+                if (outcome === "criticalSuccess" && !args.getFormula && critSpecs.standard.length > 0) {
+                    // If an alternate critical specialization effect is available, apply it only if there is also a
+                    // qualifying non-alternate
+                    const standard = critSpecs.standard
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .pop();
+                    const alternate = critSpecs.alternate
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .pop();
+                    const note = standard ? alternate ?? standard : null;
+
+                    if (note) damage.notes.push(note);
+                }
+
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {

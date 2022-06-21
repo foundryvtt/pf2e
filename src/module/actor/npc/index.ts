@@ -797,10 +797,10 @@ class NPCPF2e extends CreaturePF2e {
         const description = sourceItemData.data.description.value;
         if (description) {
             notes.push(
-                new RollNotePF2e(
-                    "all",
-                    `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`
-                )
+                new RollNotePF2e({
+                    selector: "all",
+                    text: `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`,
+                })
             );
         }
         const formatItemName = (item: ItemPF2e): string => {
@@ -821,7 +821,7 @@ class NPCPF2e extends CreaturePF2e {
             const item = this.items.find(
                 (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
             );
-            const note = new RollNotePF2e("all", "");
+            const note = new RollNotePF2e({ selector: "all", text: "" });
             if (item) {
                 // Get description from the actor item.
                 note.text = formatNoteText(formatItemName(item), item);

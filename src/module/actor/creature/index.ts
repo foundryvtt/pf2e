@@ -682,10 +682,26 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
 
         const notes = [
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.critSuccess),
+                outcome: ["criticalSuccess"],
+            }),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.success),
+                outcome: ["success"],
+            }),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.failure),
+                outcome: ["failure"],
+            }),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.critFailure),
+                outcome: ["criticalFailure"],
+            }),
         ];
 
         const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
