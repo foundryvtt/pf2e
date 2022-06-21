@@ -1,7 +1,6 @@
 import { HitPointsSummary } from "@actor/base";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "@actor/data";
-import { SkillLongForm } from "@actor/data/types";
+import { AbilityString, SkillLongForm } from "@actor/types";
 import { WeaponPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
 import { Statistic } from "@system/statistic";

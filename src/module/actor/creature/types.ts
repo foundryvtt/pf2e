@@ -16,6 +16,8 @@ type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
+type ModeOfBeing = "living" | "undead" | "construct" | "object";
+
 interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
     actor: A;
     token: TokenDocumentPF2e | null;
@@ -84,6 +86,7 @@ export {
     CreatureSheetData,
     GetReachParameters,
     IsFlatFootedParams,
+    ModeOfBeing,
     SpellcastingSheetData,
     StrikeRollContext,
     StrikeRollContextParams,

@@ -1,4 +1,5 @@
-import { ActorSourcePF2e, SAVE_TYPES } from "@actor/data";
+import { ActorSourcePF2e } from "@actor/data";
+import { SAVE_TYPES } from "@actor/values";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 

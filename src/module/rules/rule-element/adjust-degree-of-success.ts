@@ -1,6 +1,6 @@
 import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/degree-of-success";
 import { tupleHasValue } from "@util";

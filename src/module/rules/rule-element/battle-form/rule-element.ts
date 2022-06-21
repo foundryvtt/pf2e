@@ -10,7 +10,7 @@ import { TempHPRuleElement } from "../temp-hp";
 import { CharacterPF2e } from "@actor";
 import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
-import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";

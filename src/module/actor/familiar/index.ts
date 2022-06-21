@@ -1,17 +1,17 @@
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { CreaturePF2e, CharacterPF2e } from "@actor";
-import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { CheckPF2e, RollParameters } from "@system/rolls";
-import { ItemSourcePF2e } from "@item/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ItemPF2e } from "@item";
-import { FamiliarData, FamiliarSystemData } from "./data";
+import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { CreatureSaves, LabeledSpeed } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { Statistic } from "@system/statistic";
-import { SaveType } from "@actor/data";
+import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { SaveType } from "@actor/types";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
+import { ItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data";
+import { ActiveEffectPF2e } from "@module/active-effect";
 import { extractModifiers, extractRollTwice } from "@module/rules/util";
 import { CheckRoll } from "@system/check/roll";
+import { CheckPF2e, RollParameters } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import { FamiliarData, FamiliarSystemData } from "./data";
 
 export class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
@@ -78,11 +78,6 @@ export class FamiliarPF2e extends CreaturePF2e {
             di: [],
             dr: [],
         });
-    }
-
-    /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
-    override applyActiveEffects(): void {
-        return;
     }
 
     override prepareDerivedData(): void {

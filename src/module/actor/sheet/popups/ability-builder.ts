@@ -1,7 +1,7 @@
-import { CharacterPF2e } from "@actor/character";
+import { CharacterPF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
-import { AbilityString } from "@actor/data/base";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { AbilityString } from "@actor/types";
+import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 
 class BoostFlawState {

@@ -1,4 +1,6 @@
+import { ModeOfBeing } from "@actor/creature/types";
 import { ModifierAdjustment } from "@actor/modifiers";
+import { ActorDimensions, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
@@ -21,7 +23,7 @@ import { DicePF2e } from "@scripts/dice";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
+import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
 import { ActorInventory } from "./inventory";
@@ -29,7 +31,6 @@ import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { ActorDimensions } from "./types";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.

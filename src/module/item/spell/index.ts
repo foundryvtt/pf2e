@@ -1,14 +1,4 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@item";
-import { DamageCategorization, DamageType } from "@system/damage";
-import { OneToTen } from "@module/data";
-import { ordinal, objectHasKey, ErrorPF2e } from "@util";
-import { DicePF2e } from "@scripts/dice";
-import { SpellData, SpellHeightenLayer, SpellSource } from "./data";
-import { ItemSourcePF2e } from "@item/data";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { ChatMessagePF2e } from "@module/chat-message";
 import {
     AbilityModifier,
     ensureProficiencyOption,
@@ -16,14 +6,24 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
-import { AbilityString } from "@actor/data";
-import { CheckPF2e } from "@system/rolls";
-import { extractModifiers } from "@module/rules/util";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { UserPF2e } from "@module/user";
-import { StatisticRollParameters } from "@system/statistic";
-import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { AbilityString } from "@actor/types";
+import { ItemConstructionContextPF2e, ItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { OneToTen } from "@module/data";
+import { extractModifiers } from "@module/rules/util";
+import { UserPF2e } from "@module/user";
+import { DicePF2e } from "@scripts/dice";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { DamageCategorization, DamageType } from "@system/damage";
+import { CheckPF2e } from "@system/rolls";
+import { StatisticRollParameters } from "@system/statistic";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { ErrorPF2e, objectHasKey, ordinal } from "@util";
+import { SpellData, SpellHeightenLayer, SpellSource } from "./data";
+import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;

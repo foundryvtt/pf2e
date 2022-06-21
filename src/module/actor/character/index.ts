@@ -1,8 +1,7 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
-import { CharacterSource, SaveType } from "@actor/data";
-import { AbilityString } from "@actor/data/base";
+import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAP } from "@actor/helpers";
 import {
@@ -14,6 +13,15 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
+import {
+    ABILITY_ABBREVIATIONS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_DICTIONARY_REVERSE,
+    SKILL_EXPANDED,
+} from "@actor/values";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -62,14 +70,6 @@ import {
     traitSlugToObject,
 } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
-import {
-    ABILITY_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_DICTIONARY,
-    SKILL_DICTIONARY_REVERSE,
-    SKILL_EXPANDED,
-} from "../data/values";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import {
     AuxiliaryAction,

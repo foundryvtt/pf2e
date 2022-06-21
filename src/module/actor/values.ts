@@ -1,8 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "./base";
-import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage/calculation";
+import { AbilityString, SkillLongForm } from "@actor/types";
 import { MAGIC_SCHOOLS } from "@item/spell/values";
-import { SkillLongForm } from "./types";
+import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage/calculation";
 
 export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 

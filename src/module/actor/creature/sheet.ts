@@ -4,7 +4,7 @@ import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";

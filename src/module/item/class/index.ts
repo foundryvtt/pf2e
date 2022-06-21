@@ -1,12 +1,12 @@
 import { CharacterPF2e } from "@actor";
-import { SAVE_TYPES } from "@actor/data/values";
+import { SaveType } from "@actor/types";
+import { SAVE_TYPES } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { sluggify } from "@util";
 import { ClassData, ClassTrait } from "./data";
-import { SaveType } from "@actor/data";
 
 class ClassPF2e extends ABCItemPF2e {
     get attacks() {
