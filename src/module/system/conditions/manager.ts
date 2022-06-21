@@ -2,10 +2,10 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { ConditionData, ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CONDITION_SLUGS } from "@actor/values";
 
 /** A helper class to manage PF2e Conditions. */
@@ -448,6 +448,12 @@ export class ConditionManager {
                 // Value is zero, remove the status.
                 await this.deleteConditions([itemId], actor);
             } else {
+                // Cap the value if its a capped condition
+                const cappedConditions = ["dying", "wounded", "doomed"] as const;
+                if (actor instanceof CreaturePF2e && tupleHasValue(cappedConditions, condition.slug)) {
+                    value = Math.min(value, actor.attributes[condition.slug].max);
+                }
+
                 // Apply new value.
                 await condition.update({ "data.value.value": value });
                 console.debug(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
