@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ConditionPF2e, FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
@@ -134,11 +134,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Is the character's key ability score overridden by an Active Effect?
         sheetData.data.details.keyability.singleOption = this.actor.class?.data.data.keyAbility.value.length === 1;
 
-        sheetData.data.effects = {};
-
-        sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
-            this.actor.itemTypes.condition
-        );
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
@@ -583,36 +578,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
-
-        // Decrease effect value
-        $html.find(".tab.effects .effects-list .decrement").on("click", async (event) => {
-            const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor.decreaseCondition(effect);
-            }
-        });
-
-        // Increase effect value
-        $html.find(".tab.effects .effects-list .increment").on("click", async (event) => {
-            type ConditionName = "dying" | "wounded" | "doomed";
-            const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                if (["dying", "wounded", "doomed"].includes(effect.slug)) {
-                    const condition = effect.slug as ConditionName;
-                    this.actor.increaseCondition(condition, {
-                        max: this.actor.data.data.attributes[condition].max,
-                    });
-                } else {
-                    await actor.increaseCondition(effect);
-                }
-            }
-        });
 
         $html.find("button[data-action=edit-ability-scores]").on("click", async () => {
             await new AbilityBuilderPopup(this.actor).render(true);
