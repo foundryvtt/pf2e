@@ -50,7 +50,12 @@ export function arcaneSlam(options: SkillActionOptions) {
             if (!actor) {
                 const translated = game.i18n.localize("PF2E.Actions.ArcaneSlam.Notes.NoTarget");
                 notes.unshift(
-                    new RollNotePF2e(selector, `<p class="compact-text">${translated}</p>`, new PredicatePF2e(), [])
+                    new RollNotePF2e({
+                        selector,
+                        text: `<p class="compact-text">${translated}</p>`,
+                        predicate: new PredicatePF2e(),
+                        outcome: [],
+                    })
                 );
             }
             return notes;

@@ -349,7 +349,15 @@ export class WeaponDamagePF2e {
 
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
-            return data.map((d) => new RollNotePF2e("strike-damage", d.text, d.predicate, d.outcome));
+            return data.map(
+                (d) =>
+                    new RollNotePF2e({
+                        selector: "strike-damage",
+                        text: d.text,
+                        predicate: d.predicate,
+                        outcome: d.outcome,
+                    })
+            );
         });
         (rollNotes["strike-damage"] ??= []).push(...runeNotes);
 
