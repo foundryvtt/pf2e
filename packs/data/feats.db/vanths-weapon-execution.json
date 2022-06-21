@@ -29,44 +29,16 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "staff-damage",
-                "text": "﻿<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "bo-staff-damage",
-                "text": "﻿<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "longbow-damage",
-                "text": "﻿<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBow]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "composite-longbow-damage",
-                "text": "﻿<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBow]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "sycthe-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPolearm]</p>"
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "any": [
+                        "weapon:base:bo-staff",
+                        "weapon:base:longbow",
+                        "weapon:base:composite-longbow",
+                        "weapon:base:scythe",
+                        "weapon:base:staff"
+                    ]
+                }
             }
         ],
         "source": {
