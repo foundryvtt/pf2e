@@ -46,6 +46,7 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/partials/item-line.html",
         "systems/pf2e/templates/actors/partials/carry-type.html",
         "systems/pf2e/templates/actors/partials/conditions.html",
+        "systems/pf2e/templates/actors/partials/dying-pips.html",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",

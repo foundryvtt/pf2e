@@ -22,6 +22,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
     override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
         const sheetData = await super.getData(options);
+        const { actor } = this;
 
         // Update save labels
         if (sheetData.data.saves) {
@@ -63,7 +64,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         return {
             ...sheetData,
-            languages: createSheetTags(CONFIG.PF2E.languages, this.actor.data.data.traits.languages),
+            languages: createSheetTags(CONFIG.PF2E.languages, actor.data.data.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
@@ -71,7 +72,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             rarity: CONFIG.PF2E.rarityTraits,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
-            conditions: game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition),
+            conditions: game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition),
+            dying: {
+                maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
+                remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
+                remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
+            },
         };
     }
 

@@ -48,15 +48,12 @@ import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/valu
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { DamageRollContext } from "@system/damage/damage";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckDC } from "@system/degree-of-success";
-import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
@@ -470,13 +467,6 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Get the itemTypes object only once for the entire run of the method
         const itemTypes = this.itemTypes;
-
-        // Set dying, doomed, and wounded statuses according to embedded conditions
-        for (const conditionName of ["dying", "doomed", "wounded"] as const) {
-            const condition = itemTypes.condition.find((condition) => condition.slug === conditionName);
-            const status = systemData.attributes[conditionName];
-            status.value = Math.min(condition?.value ?? 0, status.max);
-        }
 
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
@@ -2124,45 +2114,6 @@ class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         await this.update({ [`data.martial.-=${key}`]: null });
-    }
-
-    /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
-        const dying = this.data.data.attributes.dying.value;
-        if (!dying) return null;
-
-        const translations = LocalizePF2e.translations.PF2E;
-        const { Recovery } = translations;
-
-        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-        const recoveryDC = this.data.data.attributes.dying.recoveryDC;
-
-        const dc: CheckDC = {
-            label: game.i18n.format(translations.Recovery.rollingDescription, {
-                dying,
-                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
-            }),
-            value: recoveryDC + dying,
-            visibility: "all",
-        };
-
-        const notes = [
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
-        ];
-
-        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
-        const token = this.getActiveTokens(false, true).shift();
-
-        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
-
-        // No automated update yet, not sure if Community wants that.
-        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */
