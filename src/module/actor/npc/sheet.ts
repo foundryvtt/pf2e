@@ -6,7 +6,7 @@ import { NPCPF2e } from "@actor/index";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { ConditionPF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellcastingEntryPF2e } from "@item";
 import { EffectData } from "@item/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { Size } from "@module/data";
@@ -74,7 +74,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
-        sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
@@ -205,26 +204,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             event.preventDefault();
             const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
-        });
-
-        $html.find(".decrement").on("click", async (event) => {
-            const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor.decreaseCondition(effect);
-            }
-        });
-
-        $html.find(".increment").on("click", async (event) => {
-            const actor = this.actor;
-            const $target = $(event.currentTarget);
-            const parent = $target.parents(".item");
-            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor.increaseCondition(effect);
-            }
         });
 
         $html.find(".item-control.generate-attack").on("click", async (event) => {

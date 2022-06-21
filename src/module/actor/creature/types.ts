@@ -10,6 +10,7 @@ import { CreaturePF2e } from ".";
 import { SheetOptions } from "@module/sheet/helpers";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
 import { TraitViewData } from "@actor/data/base";
+import { FlattenedCondition } from "@system/conditions";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
@@ -73,6 +74,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
+    conditions: FlattenedCondition[];
 }
 
 type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
