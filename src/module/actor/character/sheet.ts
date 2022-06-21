@@ -101,13 +101,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
 
-        // Update dying icon and container width
-        sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
-
-        // Update wounded
-        sheetData.data.attributes.wounded.icon = this.getWoundedIcon(sheetData.data.attributes.wounded.value);
-        sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
-
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
             `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`
@@ -1002,52 +995,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return super._onSortItem(event, itemData);
-    }
-
-    /** Get the font-awesome icon used to display a certain dying value */
-    private getDyingIcon(value: number): string {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const doomed = this.object.data.data.attributes.doomed.value || 0;
-        const circle = '<i class="far fa-circle"></i>';
-        const cross = '<i class="fas fa-times-circle"></i>';
-        const skull = '<i class="fas fa-skull"></i>';
-        const redOpen = "<span>";
-        const redClose = "</span>";
-        const icons: Record<number, string> = {};
-
-        for (let dyingLevel = 0; dyingLevel <= maxDying; dyingLevel++) {
-            icons[dyingLevel] = dyingLevel === maxDying ? redOpen : "";
-            for (let column = 1; column <= maxDying; column++) {
-                if (column >= maxDying - doomed || dyingLevel === maxDying) {
-                    icons[dyingLevel] += skull;
-                } else if (dyingLevel < column) {
-                    icons[dyingLevel] += circle;
-                } else {
-                    icons[dyingLevel] += cross;
-                }
-            }
-            icons[dyingLevel] += dyingLevel === maxDying ? redClose : "";
-        }
-
-        return icons[value];
-    }
-
-    /** Get the font-awesome icon used to display a certain wounded value */
-    private getWoundedIcon(value: number): string {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-dot-circle"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
-
-        for (let i = 0; i < maxDying; i++) {
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
-        }
-
-        return icons[value];
     }
 
     /** Get the font-awesome icon used to display hero points */

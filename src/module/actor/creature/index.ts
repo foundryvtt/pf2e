@@ -21,11 +21,15 @@ import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
+import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
 import { extractModifiers, extractRollTwice } from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
+import { CheckRoll } from "@system/check/roll";
 import { DamageType } from "@system/damage";
+import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CheckPF2e, CheckRollContext } from "@system/rolls";
 import { Statistic } from "@system/statistic";
@@ -425,6 +429,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Handle caps derived from dying
         attributes.wounded.max = Math.max(0, attributes.dying.max - 1);
         attributes.doomed.max = attributes.dying.max;
+
+        // Set dying, doomed, and wounded statuses according to embedded conditions
+        for (const conditionName of ["doomed", "wounded", "dying"] as const) {
+            const condition = this.itemTypes.condition.find((condition) => condition.slug === conditionName);
+            const status = attributes[conditionName];
+            if (conditionName === "dying") {
+                status.max -= attributes.doomed.value;
+            }
+            status.value = Math.min(condition?.value ?? 0, status.max);
+        }
     }
 
     protected prepareInitiative(): void {
@@ -641,6 +655,43 @@ export abstract class CreaturePF2e extends ActorPF2e {
         } else {
             throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
         }
+    }
+
+    /**
+     * Roll a Recovery Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     */
+    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
+        const { dying } = this.attributes;
+
+        if (!dying?.value) return null;
+
+        const translations = LocalizePF2e.translations.PF2E;
+        const { Recovery } = translations;
+
+        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+        const recoveryDC = dying.recoveryDC;
+
+        const dc: CheckDC = {
+            label: game.i18n.format(translations.Recovery.rollingDescription, {
+                dying: dying.value,
+                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
+            }),
+            value: recoveryDC + dying.value,
+            visibility: "all",
+        };
+
+        const notes = [
+            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
+        ];
+
+        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
+        const token = this.getActiveTokens(false, true).shift();
+
+        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */

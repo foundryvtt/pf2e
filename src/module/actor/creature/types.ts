@@ -75,6 +75,11 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
     conditions: FlattenedCondition[];
+    dying: {
+        maxed: boolean;
+        remainingDying: number;
+        remainingWounded: number;
+    };
 }
 
 type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
