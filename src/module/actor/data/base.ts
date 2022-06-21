@@ -209,7 +209,6 @@ interface TraitViewData {
     description?: string;
 }
 
-
 /** A strike which a character can use. */
 interface StrikeData extends StatisticModifier {
     /** The type of action; currently just 'strike'. */
