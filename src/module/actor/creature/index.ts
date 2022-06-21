@@ -345,6 +345,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 enabled: true,
             },
         ];
+
+        attributes.doomed = { value: 0, max: 3 };
+        attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
+        attributes.wounded = { value: 0, max: 3 };
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -417,6 +421,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
         }
+
+        // Handle caps derived from dying
+        attributes.wounded.max = Math.max(0, attributes.dying.max - 1);
+        attributes.doomed.max = attributes.dying.max;
     }
 
     protected prepareInitiative(): void {

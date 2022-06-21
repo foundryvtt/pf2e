@@ -352,10 +352,6 @@ class CharacterPF2e extends CreaturePF2e {
         perception.ability = "wis";
         perception.rank ??= 0;
 
-        attributes.doomed = { value: 0, max: 3 };
-        attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
-        attributes.wounded = { value: 0, max: 3 };
-
         // Hit points
         const hitPoints = this.data.data.attributes.hp;
         hitPoints.recoveryMultiplier = 1;

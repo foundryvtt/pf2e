@@ -154,6 +154,13 @@ interface CreatureAttributes extends BaseActorAttributes {
     senses: { value: string } | CreatureSensePF2e[];
 
     speed: CreatureSpeeds;
+
+    /** The current dying level (and maximum) for this creature. */
+    dying: ValueAndMax & { recoveryDC: number };
+    /** The current wounded level (and maximum) for this creature. */
+    wounded: ValueAndMax;
+    /** The current doomed level (and maximum) for this creature. */
+    doomed: ValueAndMax;
 }
 
 interface CreatureSpeeds extends StatisticModifier {
