@@ -355,13 +355,6 @@ interface CharacterAttributes extends CreatureAttributes {
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
     bonusEncumbranceBulk: number;
 
-    /** The current dying level (and maximum) for this character. */
-    dying: { value: number; max: number; recoveryDC: number };
-    /** The current wounded level (and maximum) for this character. */
-    wounded: { value: number; max: number };
-    /** The current doomed level (and maximum) for this character. */
-    doomed: { value: number; max: number };
-
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };
 
