@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 3.11.3
+
+### Bugfixes
+* (stwlam) Fix a pair of bugs in creature inventories:
+  * Players could view the item sheets of unidentified items
+  * Carry-type menus disappeared from NPC inventories
+
+
 ## Version 3.11.2
 
 ### New Features
