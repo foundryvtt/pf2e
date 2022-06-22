@@ -835,12 +835,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const selfToken =
             canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
-        const reach = !params.item.isOfType("spell")
-            ? this.getReach({ action: "attack", weapon: params.item })
-            : undefined;
+        const [reach, isMelee] = !params.item.isOfType("spell")
+            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
+            : [undefined, false];
 
         const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && selfToken?.isFlanking(targetToken, { reach })) {
+        if (targetToken && isMelee && selfToken?.isFlanking(targetToken, { reach })) {
             selfOptions.push("self:flanking");
         }
 
