@@ -1,24 +1,24 @@
 {
-    "_id": "o13KISidrNovd4jp",
+    "_id": "NAX7nXWzSkrjjsrq",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 5
-            },
-            "con": {
-                "mod": 1
-            },
-            "dex": {
-                "mod": 4
-            },
-            "int": {
                 "mod": -2
             },
-            "str": {
+            "con": {
+                "mod": 4
+            },
+            "dex": {
                 "mod": 2
             },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 7
+            },
             "wis": {
-                "mod": 5
+                "mod": 2
             }
         },
         "attributes": {
@@ -30,42 +30,47 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
-                "max": 140,
+                "details": "",
+                "max": 125,
                 "temp": 0,
-                "value": 140
+                "value": 125
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 16
+                "value": 15
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "20"
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": "25"
+                    }
+                ],
+                "value": "25"
             }
         },
         "details": {
             "alignment": {
-                "value": "CE"
+                "value": "N"
             },
-            "blurb": "Variant Bodak",
-            "creatureType": "",
+            "blurb": "",
+            "creatureType": "Animal",
             "level": {
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Megalanias, like their smaller cousins the giant monitor lizards, strike fast and use their powerful bite to grip their prey. They prefer to swallow their prey whole rather than risk others getting a bite of a hard-won meal.</p>",
             "source": {
-                "value": "Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination"
+                "value": "Pathfinder Society Scenario #2-00: The King in Thorns"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 12
+                "value": 17
             },
             "reflex": {
                 "saveDetail": "",
@@ -73,47 +78,39 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 18
+                "value": 13
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
+            "ci": [],
             "di": {
                 "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
+                "value": []
             },
             "dr": [],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 10
-                }
-            ],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "abyssal",
-                    "cyclops",
-                    "jotun"
+                    "common",
+                    "mwangi"
                 ]
             },
-            "rarity": "rare",
+            "rarity": "uncommon",
             "senses": {
-                "value": "darkvision, lifesense 60 feet"
+                "value": "low-light vision, scent (imprecise) 60 feet"
             },
             "size": {
-                "value": "lg"
+                "value": "huge"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "undead"
+                    "animal"
                 ]
             }
         }
@@ -121,25 +118,25 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "r59OH3onkRwvxzWX",
+            "_id": "yKOp4n7Sk96x65EX",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "grab",
+                        "megalania-venom"
+                    ]
                 },
                 "bonus": {
-                    "value": 16
+                    "value": 18
                 },
                 "damageRolls": {
-                    "b7tfxwiyo2p3edwm3ikx": {
-                        "damage": "2d6+4",
-                        "damageType": "bludgeoning"
-                    },
-                    "eydrrizchhl1znt4xif4": {
-                        "damage": "1d6",
-                        "damageType": "negative"
+                    "0": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -154,8 +151,6 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
                         "reach-10"
                     ]
                 },
@@ -164,12 +159,12 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "rutRfoXlabnMaMCs",
+            "_id": "uzav7YxjDugksaRl",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -181,13 +176,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "darkvision",
+                "slug": "low-light-vision",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -205,16 +200,16 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "name": "Low-Light Vision",
             "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "A7m7BLdSJ9TptGzR",
+            "_id": "Wyf2nzKbV2LhVCMO",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -226,13 +221,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "lifesense",
+                "slug": "scent",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -250,149 +245,16 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense 60 feet",
+            "name": "Scent (Imprecise) 60 feet",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "HouMzEpqPvzQjVjw",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "source": {
-                    "value": "Pathfinder Bestiary 2"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "wfYvmKHkGU8nKveB",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Trigger</strong> The cyclops bodak is about to roll a d20;</p>\n<hr />\n<p><strong>Effect</strong> The bodak peers into an occluded spectrum of all possible futures. It gets a success (but not a critical success) on the roll instead of rolling.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divination",
-                        "fortune",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Flash of Insight",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "9HRRnXQ7UNOEMvDD",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>If exposed to direct sunlight, the cyclops bodak can't use actions with the death trait and it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. The slowed value increases by 1 each time the cyclops bodak ends its turn in sunlight. If the bodak loses all its actions this way, it is destroyed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sunlight Vulnerability",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "rM8TcwgNXsJXgzLQ",
+            "_id": "YkuWnKDR7iQkfOh8",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -404,7 +266,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any humanoid who dies while @Compendium[pf2e.conditionitems.Drained]{Drained} or @Compendium[pf2e.conditionitems.Doomed]{Doomed} by a cyclops bodak rises as an autonomous @Compendium[pf2e.pathfinder-bestiary-2.Bodak]{Bodak} 24 hours after its death.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -418,8 +280,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "necromancy",
-                        "occult"
+                        "poison"
                     ]
                 },
                 "trigger": {
@@ -430,12 +291,12 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bodak Spawn",
-            "sort": 700000,
+            "name": "Megalania Venom",
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "ZgCTtYIP3bHhvsfZ",
+            "_id": "o6dcBgCrq9s6bVuO",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -444,27 +305,24 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>The cyclops bodak stares at a living creature within 30 feet that it can sense with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense}. That creature must attempt a @Check[type:fortitude|dc:25] save. If the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained}, the bodak gains a number of temporary Hit Points equal to 5 times the value of the drained condition the target gained.</p>\n<p>Multiple exposures to this ability can increase a creature's drained condition to a maximum of 4. If the cyclops bodak is destroyed, any @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition a creature has gained from Death Gaze are removed.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> The creature is doomed 1 and @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
+                    "value": "<p>Large, 2d10+7 bludgeoning, Rupture 16</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "death",
-                        "necromancy",
-                        "occult",
-                        "visual"
+                        "attack"
                     ]
                 },
                 "trigger": {
@@ -474,69 +332,63 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Death Gaze",
-            "sort": 800000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "Rb1NHnvsGZkZ5dr9",
+            "_id": "AhkuOBFHV5aW2vlI",
             "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
                 "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
                     "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "n92B89NdpyEJmrbY",
-            "data": {
-                "description": {
+                },
+                "trigger": {
                     "value": ""
                 },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
+                "weapon": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "type": "lore"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "type": "action"
         },
         {
-            "_id": "3MWPdavC946S0mnm",
+            "_id": "Nu5VBEBB4ncwfmHm",
             "data": {
                 "description": {
                     "value": ""
@@ -559,18 +411,18 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1100000,
+            "name": "Athletics",
+            "sort": 700000,
             "type": "lore"
         },
         {
-            "_id": "uiUoLO2JfVE7h0F5",
+            "_id": "wFm0orDzTFZM4jHL",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 17
+                    "value": 15
                 },
                 "proficient": {
                     "value": 0
@@ -587,18 +439,63 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "sort": 800000,
+            "type": "lore"
+        },
+        {
+            "_id": "cbhhzA952sTW7Nlb",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "terrain:undergrowth"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+17 in Undergrowth",
+                        "options": "terrain:undergrowth"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
-    "name": "Cyclops Bodak",
+    "name": "Awakened Megalania",
     "token": {
         "disposition": -1,
-        "height": 1,
+        "height": 3,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Cyclops Bodak",
-        "width": 1
+        "name": "Megalania",
+        "width": 3
     },
     "type": "npc"
 }
