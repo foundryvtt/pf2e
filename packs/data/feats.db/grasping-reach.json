@@ -36,13 +36,8 @@
                         "weapon:melee",
                         "weapon:usage:hands:2"
                     ],
-                    "any": [
-                        "weapon:damage:die:faces:6",
-                        "weapon:damage:die:faces:8",
-                        "weapon:damage:die:faces:10",
-                        "weapon:damage:die:faces:12"
-                    ],
                     "not": [
+                        "weapon:damage:die:faces:4",
                         "weapon:trait:reach"
                     ]
                 },
@@ -62,11 +57,17 @@
                     "downgrade": true
                 },
                 "predicate": {
-                    "any": [
+                    "all": [
+                        "weapon:melee",
+                        "weapon:usage:hands:2",
                         "grasping-reach"
+                    ],
+                    "not": [
+                        "weapon:traits:reach",
+                        "weapon:damage:die:faces:4"
                     ]
                 },
-                "selector": "damage"
+                "selector": "strike-damage"
             }
         ],
         "source": {
