@@ -2,13 +2,13 @@
     "_id": "weYZzyMmlCIC2TZt",
     "data": {
         "actionCategory": {
-            "value": "interaction"
+            "value": ""
         },
         "actionType": {
-            "value": "action"
+            "value": "passive"
         },
         "actions": {
-            "value": 1
+            "value": null
         },
         "description": {
             "value": "<p>You can extend a tangle of vines or tendrils to support your arms and extend your reach. When you wield a melee weapon that requires two hands, doesn't have reach, and deals at least 1d6 damage, you can change between a typical two-handed grip and an extended two-handed grasp using an Interact action. Weapons wielded in your extended grasp gain reach of 10 feet. This grasp is less stable and powerful than a typical grip, reducing the weapon's damage die by 1 step.</p>"
@@ -25,10 +25,36 @@
         },
         "rules": [
             {
-                "domain": "strike-damage",
+                "domain": "all",
                 "key": "RollOption",
                 "option": "grasping-reach",
                 "toggleable": true
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:melee",
+                        "weapon:usage:hands:2"
+                    ],
+                    "any": [
+                        "weapon:damage:die:faces:6",
+                        "weapon:damage:die:faces:8",
+                        "weapon:damage:die:faces:10",
+                        "weapon:damage:die:faces:12"
+                    ],
+                    "not": [
+                        "weapon:trait:reach"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "grasping-reach"
+                    ]
+                },
+                "property": "weapon-traits",
+                "value": "reach"
             },
             {
                 "key": "DamageDice",
@@ -36,17 +62,11 @@
                     "downgrade": true
                 },
                 "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        "weapon:usage:hands:2",
+                    "any": [
                         "grasping-reach"
-                    ],
-                    "not": [
-                        "weapon:traits:reach",
-                        "weapon:damage:die:faces:4"
                     ]
                 },
-                "selector": "strike-damage"
+                "selector": "damage"
             }
         ],
         "source": {
