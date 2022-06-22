@@ -856,7 +856,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The vexgit makes a +9 spell attack against a creature or unattended object. If they succeed, the vexgit deals [[/r 1d6]] damage (doubled on a critical hit) to a metal item the target is wearing or holding, ignoring its Hardness. If they hit an unattended metal item, the item takes this damage automatically.</p>\n<p>If a creature uses @Compendium[pf2e.bestiary-ability-glossary-srd.Shield Block]{Shield Block} with a metal shield against this attack, the shield is automatically @Compendium[pf2e.conditionitems.Broken]{Broken}, but no other item is rusted on that attack.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The vexgit makes a [[/r {1d20+9}#Spell Attack]]{+9 spell attack} against a creature or unattended object. If they succeed, the vexgit deals [[/r 1d6]] damage (doubled on a critical hit) to a metal item the target is wearing or holding, ignoring its Hardness. If they hit an unattended metal item, the item takes this damage automatically.</p>\n<p>If a creature uses @Compendium[pf2e.bestiary-ability-glossary-srd.Shield Block]{Shield Block} with a metal shield against this attack, the shield is automatically @Compendium[pf2e.conditionitems.Broken]{Broken}, but no other item is rusted on that attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -994,7 +994,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Craft Traps",
+                        "predicate": {
+                            "all": [
+                                "action:craft-traps"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1003,6 +1016,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 traps",
+                        "options": "action:craft-traps"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
@@ -1039,7 +1058,7 @@
             "type": "lore"
         },
         {
-            "_id": "PirykPy2M3XzgZBI",
+            "_id": "e3XyV4HjxKBZucFh",
             "data": {
                 "description": {
                     "value": ""
@@ -1059,10 +1078,16 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "See Clacking Exoskeleton",
+                        "options": ""
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth (see clacking exoskeleton)",
+            "name": "Stealth",
             "sort": 1700000,
             "type": "lore"
         },
