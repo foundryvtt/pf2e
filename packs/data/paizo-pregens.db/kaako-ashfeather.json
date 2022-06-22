@@ -3746,6 +3746,36 @@
                         "mode": "upgrade",
                         "path": "data.martial.unarmed.rank",
                         "value": 2
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": {
+                            "all": [
+                                "target:condition:flat-footed"
+                            ],
+                            "any": [
+                                {
+                                    "and": [
+                                        {
+                                            "or": [
+                                                "weapon:trait:agile",
+                                                "weapon:trait:finesse"
+                                            ]
+                                        },
+                                        {
+                                            "or": [
+                                                "weapon:category:simple",
+                                                "weapon:category:unarmed"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "weapon:base:rapier",
+                                "weapon:base:sap",
+                                "weapon:base:shortbow",
+                                "weapon:base:shortsword"
+                            ]
+                        }
                     }
                 ],
                 "slug": "weapon-tricks",

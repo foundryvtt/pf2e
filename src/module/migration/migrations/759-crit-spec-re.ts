@@ -284,6 +284,27 @@ export class Migration759CritSpecRE extends MigrationBase {
                 ];
                 return;
             }
+            case "mauler-dedication": {
+                source.data.rules.push({
+                    key: "CriticalSpecialization",
+                    predicate: {
+                        all: [
+                            "weapon:melee",
+                            { or: ["weapon:category:simple", "weapon:category:martial"] },
+                            {
+                                or: [
+                                    "weapon:usage:hands:2",
+                                    "weapon:trait:two-hand-d6",
+                                    "weapon:trait:two-hand-d8",
+                                    "weapon:trait:two-hand-d10",
+                                    "weapon:trait:two-hand-d12",
+                                ],
+                            },
+                        ],
+                    },
+                });
+                return;
+            }
             case "orc-weapon-carnage": {
                 source.data.rules = [
                     {
@@ -324,6 +345,19 @@ export class Migration759CritSpecRE extends MigrationBase {
                     key: critSpecKey,
                     predicate: { all: ["weapon:group:club"] },
                 });
+                return;
+            }
+            case "sun-sling": {
+                source.data.rules.push({
+                    key: critSpecKey,
+                    predicate: {
+                        all: ["weapon:id:{item|_id}", "feat:suns-fury"],
+                    },
+                });
+                return;
+            }
+            case "suns-fury": {
+                source.data.rules = [];
                 return;
             }
             case "third-doctrine-warpriest": {

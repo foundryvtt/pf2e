@@ -39,6 +39,7 @@ import { Migration753WeaponReloadTimes } from "@module/migration/migrations/753-
 import { Migration754MightyBulwarkAdjustModifiers } from "@module/migration/migrations/754-mighty-bulwark-adjust-modifiers";
 import { Migration755GrantIdsToData } from "@module/migration/migrations/755-grant-ids-to-data";
 import { Migration757HillockHalfling } from "@module/migration/migrations/757-hillock-halfling";
+import { Migration759CritSpecRE } from "@module/migration/migrations/759-crit-spec-re";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -74,6 +75,7 @@ const migrations: MigrationBase[] = [
     new Migration754MightyBulwarkAdjustModifiers(),
     new Migration755GrantIdsToData(),
     new Migration757HillockHalfling(),
+    new Migration759CritSpecRE(),
 ];
 
 global.deepClone = <T>(original: T): T => {
