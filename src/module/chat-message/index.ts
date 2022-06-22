@@ -46,26 +46,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the actor associated with this chat message */
     get actor(): ActorPF2e | null {
-        const fromItem = ((): ActorPF2e | null => {
-            const origin = this.data.flags.pf2e?.origin ?? null;
-            const match = /^(Actor|Scene)\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-            switch (match[1]) {
-                case "Actor": {
-                    return game.actors.get(match[2]) ?? null;
-                }
-                case "Scene": {
-                    const scene = game.scenes.get(match[2]);
-                    const tokenId = /(?<=Token\.)(\w+)/.exec(origin!.uuid)?.[1] ?? "";
-                    const token = scene?.tokens.get(tokenId);
-                    return token?.actor ?? null;
-                }
-                default: {
-                    return null;
-                }
-            }
-        })();
-
-        return fromItem ?? ChatMessagePF2e.getSpeakerActor(this.data.speaker);
+        return ChatMessagePF2e.getSpeakerActor(this.data.speaker);
     }
 
     /** If this is a check or damage roll, it will have target information */
