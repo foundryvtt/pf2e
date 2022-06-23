@@ -104,6 +104,7 @@ declare global {
 
     const CONFIG: ConfigPF2e;
     const canvas: CanvasPF2e;
+
     namespace globalThis {
         // eslint-disable-next-line no-var
         var game: Game<
@@ -117,6 +118,9 @@ declare global {
             ScenePF2e,
             UserPF2e
         >;
+
+        // eslint-disable-next-line no-var
+        var ui: FoundryUI<CompendiumDirectoryPF2e>;
     }
 
     interface Window {
