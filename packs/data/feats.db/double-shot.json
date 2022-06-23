@@ -25,25 +25,22 @@
         },
         "rules": [
             {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "double-shot",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
                         "double-shot",
-                        "weapon:ranged",
                         "weapon:reload:0"
-                    ],
-                    "not": [
-                        "self:effect:multishot-stance"
                     ]
                 },
-                "selector": "attack",
+                "selector": "ranged-attack-roll",
+                "slug": "double-shot",
                 "value": -2
-            },
-            {
-                "domain": "attack-roll",
-                "key": "RollOption",
-                "option": "double-shot",
-                "toggleable": true
             }
         ],
         "source": {
