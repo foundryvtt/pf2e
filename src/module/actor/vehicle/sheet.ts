@@ -1,7 +1,6 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
-import { VehicleTrait } from "./data";
 import { isPhysicalData } from "@item/data/helpers";
 import { PhysicalItemPF2e } from "@item";
 
@@ -23,28 +22,11 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     override async getData() {
         const sheetData: any = await super.getData();
 
-        // update properties
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
         sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
 
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
-        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
-
-        // Update broken threshold
-        if (sheetData.data.attributes !== undefined) {
-            sheetData.data.attributes.hp.brokenThreshold = Math.floor(sheetData.data.attributes.hp.max / 2);
-        }
-
-        // Update save labels
-        sheetData.data.saves.fortitude.label = CONFIG.PF2E.saves["fortitude"];
-        sheetData.data.traits.traits.selected = sheetData.data.traits.traits.value.reduce(
-            (traits: { [K in VehicleTrait]?: string }, trait: VehicleTrait) => ({
-                ...traits,
-                [trait]: CONFIG.PF2E.vehicleTraits[trait],
-            }),
-            {}
-        );
 
         this.prepareItems(sheetData);
 
