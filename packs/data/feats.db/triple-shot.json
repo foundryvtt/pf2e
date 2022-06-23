@@ -29,26 +29,30 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "Triple Shot",
-                "predicate": {
+                "domain": "ranged-attack-roll",
+                "enabledIf": {
                     "all": [
-                        "triple-shot",
-                        "weapon:ranged",
-                        "weapon:reload:0"
-                    ],
-                    "not": [
-                        "self:effect:multishot-stance"
+                        "double-shot"
                     ]
                 },
-                "selector": "attack",
-                "value": -4
-            },
-            {
-                "domain": "attack-roll",
                 "key": "RollOption",
                 "option": "triple-shot",
+                "priority": 51,
                 "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": {
+                    "all": [
+                        "double-shot",
+                        "triple-shot"
+                    ]
+                },
+                "relabel": "{item|name}",
+                "selector": "ranged-attack-roll",
+                "slug": "double-shot",
+                "value": -4
             }
         ],
         "source": {
