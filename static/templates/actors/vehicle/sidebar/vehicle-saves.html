@@ -1,20 +1,16 @@
 <div class="sidebar_title">
-  <h2>{{localize 'PF2E.SavesHeader'}}</h2>
+    <h2>{{localize "PF2E.SavesHeader"}}</h2>
 </div>
 <ul class="sidebar-saves">
-  {{#each data.saves as |save sid|}}
-  <li class="roll-data" data-save="{{sid}}">
-
-    <h2 class="sidebar_label">{{localize save.label}}</h2>
-
-    <div class="save-roll" title="{{localize save.label}}">
-      {{#if ../owner}}
-      <a class="roll-icon save-name">
-        {{> systems/pf2e/templates/actors/character/icons/d20.html}}
-      </a>
-      {{/if}}
-      <input name="data.saves.{{sid}}.value" type="number" value="{{save.value}}" data-dtype="Number" placeholder="0" />
-    </div>
-  </li>
-  {{/each}}
+    <li class="roll-data" data-save="fortitude">
+        <h2 class="sidebar_label">{{localize "PF2E.SavesFortitude"}}</h2>
+        <div class="save-roll">
+            {{#if options.editable}}
+                <a class="roll-icon save-name">
+                    {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+                </a>
+            {{/if}}
+            <input name="data.saves.fortitude.value" type="number" value="{{data.saves.fortitude.value}}" placeholder="0" />
+        </div>
+    </li>
 </ul>

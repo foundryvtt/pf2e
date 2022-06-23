@@ -4,20 +4,18 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" />
         </h1>
         <div class="traits-bar">
-            {{#if isNotCommon}}
-                <span class="trait {{data.traits.rarity}}">{{localize actorRarity}}</span>
-            {{/if}}
+            {{#unless (eq data.traits.rarity "common")}}
+                <span class="trait {{data.traits.rarity}}" data-trait="{{data.traits.rarity}}">{{localize actorRarity}}</span>
+            {{/unless}}
             <span class="trait size">{{localize actorSize}}</span>
-            {{#each actor.data.traits.traits.selected as |trait id|}}
-                <span class="trait">{{localize trait}}</span>
+            {{#each traits as |trait|}}
+                <span class="trait" data-trait="{{trait.value}}">{{trait.label}}</span>
             {{/each}}
         </div>
     </div>
     <div class="char-level">
         <div class="level">
-            <label>
-                {{localize "PF2E.vehicle.VehicleLevelLabel"}}
-            </label>
+            <label>{{localize "PF2E.vehicle.VehicleLevelLabel"}}</label>
             <input name="data.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" size="2" />
         </div>
     </div>

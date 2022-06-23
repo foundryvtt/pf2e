@@ -669,7 +669,11 @@ const hazardTraits = {
 };
 
 const vehicleTraits = {
+    ...magicSchools,
+    artifact: "PF2E.TraitArtifact",
+    clockwork: "PF2E.TraitClockwork",
     magical: "PF2E.TraitMagical",
+    teleportation: "PF2E.TraitTeleportation",
 };
 
 export {
