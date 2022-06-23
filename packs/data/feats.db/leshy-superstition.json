@@ -19,10 +19,35 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "leshy-superstition"
+                    ],
+                    "any": [
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "leshy-superstition",
+                "toggleable": true
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
