@@ -1,9 +1,9 @@
 {
-    "_id": "6A8jsLR7upLGuRiv",
+    "_id": "neZPoQF4hW3A31dd",
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Lastwall Soup]{Lastwall Soup}</p>\n<p>The creature gains a +2 item bonus to Stealth checks and DCs against undead.</p"
+            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Lastwall Soup (Greater)]{Lastwall Soup (Greater)}</p>\n<p>The creature gains a +4 item bonus to Stealth checks and DCs against undead and 10 temporary hit points.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -12,12 +12,11 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 9
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Lastwall Soup (vs. undead)",
                 "predicate": {
                     "any": [
                         "target:trait:undead",
@@ -26,11 +25,15 @@
                 },
                 "selector": "stealth",
                 "type": "item",
-                "value": 2
+                "value": 4
+            },
+            {
+                "key": "TempHP",
+                "value": 10
             }
         ],
         "source": {
-            "value": "Pathfinder Lost Omens: Character Guide"
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
         },
         "start": {
             "initiative": null,
@@ -42,11 +45,11 @@
         },
         "traits": {
             "custom": "",
-            "rarity": "common",
+            "rarity": "uncommon",
             "value": []
         }
     },
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/lastwall-soup.webp",
-    "name": "Effect: Lastwall Soup",
+    "name": "Effect: Lastwall Soup (Greater)",
     "type": "effect"
 }
