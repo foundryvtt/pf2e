@@ -20,6 +20,7 @@ interface BaseActorSourcePF2e<
     TSystemSource extends ActorSystemSource = ActorSystemSource
 > extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
     flags: DeepPartial<ActorFlagsPF2e>;
+    token: PrototypeTokenSourcePF2e;
 }
 
 interface BaseActorDataPF2e<
@@ -271,6 +272,14 @@ interface RollToggle {
 interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
     roll: RollFunction;
+}
+
+interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
+    flags: foundry.data.PrototypeTokenData["flags"] & {
+        pf2e?: {
+            linkToActorSize?: boolean;
+        };
+    };
 }
 
 interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
