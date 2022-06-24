@@ -124,7 +124,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vRcZuOzfy6tt92br",
+            "_id": "Lx5Q366mof1O0MPp",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -172,7 +172,7 @@
             "_id": "4vjdVbvQ2cPvkxA1",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -186,7 +186,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "perception",
+                        "key": "RollOption",
+                        "option": "seek-quarry",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "seek-quarry"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -209,7 +228,7 @@
             "type": "action"
         },
         {
-            "_id": "IJffP5czfxph3ouJ",
+            "_id": "9X9mEo92lODvZP6d",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -306,7 +325,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><span class=\"pf2-icon\">1</span> to <span class=\"pf2-icon\">3</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The city guards engage in a coordinated melee attack against each enemy within 10 feet, with a @Check[type:reflex|dc:19|basic:true] save. The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">1</span> [[/r 1d10]] piercing or slashing damage</p>\n<p><span class=\"pf2-icon\">2</span> [[/r 1d10+7]] piercing or slashing damage</p>\n<p><span class=\"pf2-icon\">3</span> [[/r 1d10+10]] piercing or slashing damage</p>"
+                    "value": "<p><span class=\"pf2-icon\">1</span> to <span class=\"pf2-icon\">3</span></p>\n<p><strong>Frequency</strong> once per round.</p>\n<hr />\n<p><strong>Effect</strong> The city guards engage in a coordinated melee attack against each enemy within @Template[type:emanation|distance:10]{10 feet}, with a @Check[type:reflex|dc:19|basic:true] save. The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">1</span> [[/r {1d10}[piercing]]]{1d10 piercing damage} or [[/r {1d10}[slashing]]]{1d10 slashing damage}</p>\n<p><span class=\"pf2-icon\">2</span> [[/r {1d10+7}[piercing]]]{1d10+7 piercing damage} or [[/r {1d10+7}[slashing]]]{1d10+7 slashing damage}</p>\n<p><span class=\"pf2-icon\">3</span> [[/r {1d10+10}[piercing]]]{1d10+10 piercing damage} or [[/r {1d10+10}[slashing]]]{1d10+10 slashing damage}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -346,7 +365,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the city guards Stride, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed.</p>\n<p>This works just like a Gargantuan creature moving; for instance, if any square of the guards enters difficult terrain, the extra movement cost applies to all the guards.</p>"
+                    "value": "<p>Whenever the city guards Stride, they first @Compendium[pf2e.bestiary-ability-glossary-srd.Form Up]{Form Up} as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed.</p>\n<p>This works just like a Gargantuan creature moving; for instance, if any square of the guards enters difficult terrain, the extra movement cost applies to all the guards.</p>"
                 },
                 "requirements": {
                     "value": ""
