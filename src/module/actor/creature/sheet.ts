@@ -175,6 +175,31 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
         });
 
+        // Toggle Dying or Wounded
+        $html.find(".dots.dying, .dots.wounded").on("click contextmenu", (event) => {
+            type ConditionName = "dying" | "wounded";
+            const condition = Array.from(event.delegateTarget.classList).find((className): className is ConditionName =>
+                ["dying", "wounded"].includes(className)
+            );
+            if (condition) {
+                const currentMax = this.actor.data.data.attributes[condition]?.max;
+                if (event.type === "click" && currentMax) {
+                    this.actor.increaseCondition(condition, { max: currentMax });
+                } else if (event.type === "contextmenu") {
+                    this.actor.decreaseCondition(condition);
+                }
+            }
+        });
+
+        // Roll recovery flat check when Dying
+        $html
+            .find("[data-action=recovery-check]")
+            .tooltipster({ theme: "crb-hover" })
+            .filter(":not(.disabled)")
+            .on("click", (event) => {
+                this.actor.rollRecovery(event);
+            });
+
         // Roll skill checks
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
             const skill = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";

@@ -2,7 +2,7 @@
     <!-- HEADER -->
     <div class="familiar-sheet-header">
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-        <div class="header-row">
+        <div class="header-content">
             <div class="charname">
                 <input class=" charname-value" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "
                     PF2E.NPC.Familiar"}}" spellcheck="false" />
@@ -11,70 +11,73 @@
                 <label class="familiar-title"> {{data.details.level.value}}</label>
                 {{/if}}
             </div>
-            <div class="traits">
-                {{#each traits as |trait|}}
-                <span data-trait="{{trait.value}}" title="{{trait.description}}">{{localize trait.label}}</span>
-                {{/each}}
-                <span title={{localize "PF2E.Size" }}>{{localize size}}</span>
+            <div class="sub-header">
+                <div class="traits">
+                    {{#each traits as |trait|}}
+                    <span data-trait="{{trait.value}}" title="{{trait.description}}">{{localize trait.label}}</span>
+                    {{/each}}
+                    <span title="{{localize "PF2E.Size" }}">{{localize size}}</span>
+                </div>
+                <div>
+                    <label for="{{actor._id}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
+                    <select id="{{actor._id}}-master" name="data.master.id">
+                        {{#select master.id}}
+                        <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
+                        {{#each masters as |eligible idx|}}
+                        <option value="{{eligible.id}}">{{eligible.name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
             </div>
-            <hr>
-            <div class="details-section">
+            <section class="details-section">
                 <div class="hp-section">
-                    <div class="hp-ac">
-                        <div class="hpac-label">
-                            <i class="fas fa-heart"></i>
-                            <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
-                        </div>
-                        <div class="hpac-value">
-                            <input class="current-hp" id="{{actor._id}}-hit-points" type="number"
-                                name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
-                                data-dtype="Number" />
-                            <div>/ </div>
-                            <div class="total-hp" title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}
-                            </div>
+                    <div class="label">
+                        <i class="fas fa-heart"></i>
+                        <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
+                    </div>
+                    <div class="value">
+                        <input class="current-hp" id="{{actor._id}}-hit-points" type="number"
+                            name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
+                            data-dtype="Number" />
+                        <div>/ </div>
+                        <div class="total-hp" title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</div>
+                        <div class="temp-hp">
+                            (+<input name="data.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0"/>)
                         </div>
                     </div>
-                    <div class="hp-ac" title="{{data.attributes.ac.breakdown}}">
-                        <div class="hpac-label">
-                            <i class="fas fa-shield-alt"></i>
-                            <h4>{{localize "PF2E.ArmorClassLabel"}}</h4>
-                        </div>
-                        <div class="hpac-value">{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
+                    <div class="label">
+                        <i class="fas fa-heart-broken"></i>
+                        <h4>{{localize "PF2E.condition.dying.name"}}</h4>
                     </div>
-                    <div class="hp-ac rollable perception" title="{{data.attributes.perception.breakdown}}" data-action="perception-check">
-                        <div class="hpac-label">
-                            <i class="fas fa-eye"></i>
-                            <h4>{{localize "PF2E.Familiar.Perception"}}</h4>
-                        </div>
-                        <div class="hpac-value">{{numberFormat data.attributes.perception.value decimals=0 sign=true}}
-                        </div>
+                    <div class="value dying-section">
+                        {{#if data.attributes.dying.value}}
+                            <a class="rollable roll-icon" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
+                                <i class="fas fa-dice-d20"></i>
+                            </a>
+                        {{/if}}
+                        <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
+                            <span class="pips">{{> systems/pf2e/templates/actors/partials/dying-pips.html}}</span>
+                        </a>
                     </div>
                 </div>
-                <div class="master-section">
-                    <div>
-                        <label for="{{actor._id}}-master"><strong>{{localize
-                                "PF2E.Familiar.MasterActor"}}</strong></label>
-                        <select id="{{actor._id}}-master" name="data.master.id">
-                            {{#select master.id}}
-                            <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
-                            {{#each masters as |eligible idx|}}
-                            <option value="{{eligible.id}}">{{eligible.name}}</option>
-                            {{/each}}
-                            {{/select}}
-                        </select>
-                    </div>
+                <div class="defenses-section">
                     {{#if data.master.id}}
-                    <div class="saves-list">
+                    <div class="defenses-list">
+                        <div class="ac" title="{{data.attributes.ac.breakdown}}">
+                            <div class="name">{{localize "PF2E.ArmorClassShortLabel"}}</div>
+                            <div class="value"><i class="fas fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
+                        </div>
                         {{#each data.saves}}
-                        <div class="saves save-name rollable" title="{{this.breakdown}}" data-save="{{@key}}">
+                        <a class="saves save-name rollable" title="{{this.breakdown}}" data-save="{{@key}}">
                             <div class="name">{{localize this.label}}</div>
                             <div class="value">{{numberFormat this.value decimals=0 sign=true}}</div>
-                        </div>
+                        </a>
                         {{/each}}
                     </div>
                     {{/if}}
                 </div>
-            </div>
+            </section>
         </div>
     </div>
     <hr>
@@ -89,6 +92,12 @@
                     <div class="skills-content">
                         {{#if data.master.id}}
                         <div class="skills-list">
+                            <div class="skill-name rollable perception" title="{{data.attributes.perception.breakdown}}" data-action="perception-check">
+                                <div class="score">{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</div>
+                                <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
+                            </div>
+                        </div>
+                        <div class="skills-list">
                             {{#each data.skills}}
                             <div class="skill-name rollable" title="{{this.breakdown}}" data-skill="{{@key}}">
                                 <div class="score">{{numberFormat this.value decimals=0 sign=true}}</div>
@@ -96,7 +105,6 @@
                             </div>
                             {{/each}}
                         </div>
-                        <hr>
                         <div class="rollable skills-attack" title="{{data.attack.breakdown}}" data-attack-roll="">
                             <strong>{{localize "PF2E.Familiar.AttackRoll"}}</strong>
                             <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
