@@ -7,6 +7,7 @@ import {
     BaseTraitsData,
 } from "@actor/data/base";
 import { ValuesList } from "@module/data";
+import { StatisticCompatData } from "@system/statistic";
 import { VehiclePF2e } from ".";
 
 /** The stored source data of a vehicle actor */
@@ -52,17 +53,14 @@ interface VehicleSystemData extends ActorSystemData {
         speed: number;
     };
     saves: {
-        fortitude: {
-            rank: number;
-            value: number;
-            saveDetail: string;
-        };
+        fortitude: VehicleFortitudeSaveData;
     };
 
     traits: VehicleTraitsData;
+}
 
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
+interface VehicleFortitudeSaveData extends StatisticCompatData {
+    saveDetail: string;
 }
 
 type VehicleTrait = keyof ConfigPF2e["PF2E"]["vehicleTraits"];
