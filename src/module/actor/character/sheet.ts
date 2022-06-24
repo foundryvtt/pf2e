@@ -540,29 +540,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             minWidth: 120,
         });
 
-        // Toggle Dying, Wounded, or Doomed
-        $html
-            .find("aside > .sidebar > .hitpoints")
-            .find(".dots.dying, .dots.wounded")
-            .on("click contextmenu", (event) => {
-                type ConditionName = "dying" | "wounded";
-                const condition = Array.from(event.delegateTarget.classList).find(
-                    (className): className is ConditionName => ["dying", "wounded"].includes(className)
-                );
-                if (condition) {
-                    this.onClickDyingWounded(condition, event);
-                }
-            });
-
-        // Roll recovery flat check when Dying
-        $html
-            .find("a[data-action=recovery-check]")
-            .tooltipster({ theme: "crb-hover" })
-            .filter(":not(.disabled)")
-            .on("click", (event) => {
-                this.actor.rollRecovery(event);
-            });
-
         $html
             .find("a[data-action=rest]")
             .tooltipster({ theme: "crb-hover" })
@@ -902,15 +879,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             ui.notifications.error(errors.join(" "));
         } else {
             this.actor.removeCustomModifier(stat, slug);
-        }
-    }
-
-    /** Handle cycling of dying, wounded, or doomed */
-    private onClickDyingWounded(condition: "dying" | "wounded", event: JQuery.TriggeredEvent) {
-        if (event.type === "click") {
-            this.actor.increaseCondition(condition, { max: this.actor.data.data.attributes[condition].max });
-        } else if (event.type === "contextmenu") {
-            this.actor.decreaseCondition(condition);
         }
     }
 
