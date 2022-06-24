@@ -96,7 +96,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get isThrown(): boolean {
-        return this.isRanged && this.reload === "-";
+        return this.isRanged && this.data.data.traits.value.some((t) => t.startsWith("thrown"));
     }
 
     override get material(): WeaponMaterialData {
@@ -105,7 +105,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Does this weapon require ammunition in order to make a strike? */
     get requiresAmmo(): boolean {
-        return this.isRanged && ![null, "-"].includes(this.reload);
+        return this.isRanged && !this.isThrown && ![null, "-"].includes(this.reload);
     }
 
     get ammo(): Embedded<ConsumablePF2e> | null {
@@ -188,7 +188,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
         if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d+)?$/.test(t))) {
-            this.data.data.reload.value = "-";
+            this.data.data.reload.value ??= "-";
         }
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
