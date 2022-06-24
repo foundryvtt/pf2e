@@ -36,6 +36,7 @@ import { Migration760SeparateNoteTitle } from "@module/migration/migrations/760-
 const { window } = new JSDOM();
 globalThis.document = window.document;
 globalThis.HTMLElement = window.HTMLElement;
+globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
     new Migration730DeruneHandwraps(),

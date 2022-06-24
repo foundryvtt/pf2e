@@ -23,19 +23,19 @@ export class RollNotePF2e {
     }
 
     #createText(title: string | null, text: string) {
-        if (!title) return game.i18n.localize(text);
-
         const paragraph = document.createElement("p");
         paragraph.className = "compact-text";
         if (this.visibility) {
             paragraph.dataset.visibility = this.visibility;
         }
 
-        const strong = document.createElement("strong");
-        strong.innerHTML = game.i18n.localize(title);
-
+        if (title) {
+            const strong = document.createElement("strong");
+            strong.innerHTML = game.i18n.localize(title);
+            paragraph.append(strong);
+        }
         const textNode = document.createTextNode([" ", game.i18n.localize(text)].join(""));
-        paragraph.append(strong, textNode);
+        paragraph.append(textNode);
 
         return paragraph.outerHTML;
     }
