@@ -968,7 +968,7 @@ class CharacterPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            this.data.data.saves[saveType] = mergeObject(this.data.data.saves[saveType], stat.getCompatData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;

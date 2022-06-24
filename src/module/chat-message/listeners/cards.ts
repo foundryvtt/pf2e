@@ -222,30 +222,25 @@ export const ChatCards = {
             const dc = Number($(event.currentTarget).attr("data-dc"));
             const itemTraits = item.data.data.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
-                const actor = t.actor;
-                if (!actor) return;
-                const save = actor.saves?.[saveType];
+                const save = t.actor?.saves?.[saveType];
+                if (!save) return;
 
-                if (save) {
-                    const rollOptions: string[] = [];
-                    if (item instanceof SpellPF2e) {
-                        rollOptions.push("magical", "spell");
-                        if (Object.keys(item.data.data.damage.value).length > 0) {
-                            rollOptions.push("damaging-effect");
-                        }
+                const rollOptions: string[] = [];
+                if (item instanceof SpellPF2e) {
+                    rollOptions.push("magical", "spell");
+                    if (Object.keys(item.data.data.damage.value).length > 0) {
+                        rollOptions.push("damaging-effect");
                     }
-
-                    rollOptions.push(...itemTraits);
-
-                    save.check.roll({
-                        ...eventToRollParams(event),
-                        dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        item,
-                        extraRollOptions: rollOptions,
-                    });
-                } else {
-                    actor.rollSave(event, saveType);
                 }
+
+                rollOptions.push(...itemTraits);
+
+                save.check.roll({
+                    ...eventToRollParams(event),
+                    dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
+                    item,
+                    extraRollOptions: rollOptions,
+                });
             }
         } else {
             ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
