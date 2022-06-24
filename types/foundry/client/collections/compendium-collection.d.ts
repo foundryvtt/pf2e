@@ -27,6 +27,9 @@ declare global {
         /** The named game setting which contains Compendium configurations. */
         static CONFIG_SETTING: "compendiumConfiguration";
 
+        /** The default index fields which should be retrieved for each Compendium document type */
+        static INDEX_FIELDS: Record<CompendiumDocumentType, string[]>;
+
         /**
          * Create a new Compendium Collection using provided metadata.
          * @param metadata The compendium metadata used to create the new pack
