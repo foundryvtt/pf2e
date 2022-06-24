@@ -82,7 +82,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get allowedItemTypes(): (ItemType | "physical")[] {
-        return [];
+        return ["condition", "effect"];
     }
 
     /** The compendium source ID of the actor **/
