@@ -19,11 +19,39 @@
         "level": {
             "value": 17
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "weapon:melee"
+                    ]
+                },
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "dex-based",
+                "type": "status",
+                "value": -1
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
