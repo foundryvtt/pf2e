@@ -1,6 +1,6 @@
 import { CharacterPF2e, CreaturePF2e, NPCPF2e, type ActorPF2e } from "@actor";
 import { RollFunction } from "@actor/data/base";
-import { SaveType } from "@actor/types";
+import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
@@ -232,13 +232,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {
             event.preventDefault();
-            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save") as SaveType;
-            const save = this.actor.saves?.[saveType];
-            if (save) {
-                save.check.roll(eventToRollParams(event));
-            } else {
-                this.actor.rollSave(event, saveType);
+            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save");
+            if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
             }
+
+            this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
         });
 
         $html.find(".roll-init").on("click", (event) => {

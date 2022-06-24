@@ -112,4 +112,6 @@ export class HazardPF2e extends ActorPF2e {
 
 export interface HazardPF2e {
     readonly data: HazardData;
+
+    saves: { [K in SaveType]?: Statistic };
 }

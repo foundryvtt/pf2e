@@ -140,5 +140,7 @@ export class LootPF2e extends ActorPF2e {
 export interface LootPF2e extends ActorPF2e {
     readonly data: LootData;
 
+    readonly saves?: never;
+
     get hitPoints(): null;
 }
