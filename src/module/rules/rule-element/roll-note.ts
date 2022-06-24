@@ -39,18 +39,28 @@ export class RollNoteRuleElement extends RuleElementPF2e {
     }
 
     #isValid(data: RollNoteSource): data is RollNoteData {
-        const titleIsValid = data.title === null || (typeof data.title === "string" && data.title.length > 0);
         const textIsValidBracket = isObject<{ brackets: unknown }>(data.text) && Array.isArray(data.text.brackets);
-        const textIsValid = textIsValidBracket || (typeof data.text === "string" && data.text.length > 0);
-        const visibilityIsValid =
-            data.visibility === null || (data.visibility === "string" && ["owner", "gm"].includes(data.visibility));
-        const outcomesAreValid =
-            Array.isArray(data.outcome) && data.outcome.every((o) => tupleHasValue(DEGREE_OF_SUCCESS_STRINGS, o));
 
-        return [titleIsValid, textIsValid, visibilityIsValid, outcomesAreValid].every((v) => v);
+        const tests = {
+            title: data.title === null || (typeof data.title === "string" && data.title.length > 0),
+            text: textIsValidBracket || (typeof data.text === "string" && data.text.length > 0),
+            visibility:
+                data.visibility === null ||
+                (typeof data.visibility === "string" && ["owner", "gm"].includes(data.visibility)),
+            outcome:
+                Array.isArray(data.outcome) && data.outcome.every((o) => tupleHasValue(DEGREE_OF_SUCCESS_STRINGS, o)),
+        };
+
+        for (const [property, result] of Object.entries(tests)) {
+            if (!result) this.failValidation(`"${property}" property is missing or invalid`);
+        }
+
+        return Object.values(tests).every((t) => t);
     }
 
     override beforePrepareData(): void {
+        if (this.ignored) return;
+
         const selector = this.resolveInjectedProperties(this.data.selector);
         const title = this.title ? this.resolveInjectedProperties(this.title) : null;
         const text = this.resolveInjectedProperties(String(this.resolveValue(this.text, "", { evaluate: false })));
