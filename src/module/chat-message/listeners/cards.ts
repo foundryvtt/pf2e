@@ -28,7 +28,6 @@ export const ChatCards = {
             // Get the actor and item from the chat message
             const item = message.item;
             const actor = item?.actor ?? message.actor;
-
             if (!actor) return;
 
             // Confirm roll permission
@@ -210,19 +209,24 @@ export const ChatCards = {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    rollActorSaves: async (ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> => {
+    rollActorSaves: async (
+        event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>,
+        item: Embedded<ItemPF2e>
+    ): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr("data-save");
-            if (!tupleHasValue(SAVE_TYPES, save)) {
-                throw ErrorPF2e(`"${save}" is not a recognized save type`);
+            const saveType = event.currentTarget.dataset.save;
+            if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
             }
 
-            const dc = Number($(ev.currentTarget).attr("data-dc"));
+            const dc = Number($(event.currentTarget).attr("data-dc"));
             const itemTraits = item.data.data.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 if (!actor) return;
-                if (actor.saves) {
+                const save = actor.saves?.[saveType];
+
+                if (save) {
                     const rollOptions: string[] = [];
                     if (item instanceof SpellPF2e) {
                         rollOptions.push("magical", "spell");
@@ -231,19 +235,16 @@ export const ChatCards = {
                         }
                     }
 
-                    if (itemTraits) {
-                        rollOptions.push(...itemTraits);
-                        rollOptions.push(...itemTraits.map((trait) => `trait:${trait}`));
-                    }
+                    rollOptions.push(...itemTraits);
 
-                    actor.saves[save]?.check.roll({
-                        ...eventToRollParams(ev),
+                    save.check.roll({
+                        ...eventToRollParams(event),
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
                         item,
                         extraRollOptions: rollOptions,
                     });
                 } else {
-                    actor.rollSave(ev, save);
+                    actor.rollSave(event, saveType);
                 }
             }
         } else {
