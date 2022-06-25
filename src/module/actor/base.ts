@@ -22,7 +22,8 @@ import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, isObject, objectHasKey } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, tupleHasValue } from "@util";
+import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { BaseTraitsData, RollOptionFlags } from "./data/base";
@@ -32,6 +33,7 @@ import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
+import { CREATURE_ACTOR_TYPES } from "./values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -207,10 +209,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** A means of checking this actor's type without risk of circular import references */
+    isOfType(type: "creature"): this is CreaturePF2e;
     isOfType<T extends ActorType>(
         ...types: T[]
-    ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
-        return types.some((t) => this.data.type === t);
+    ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]>;
+    isOfType<T extends ActorType | "creature">(...types: T[]): boolean {
+        return types.some((t) => (t === "creature" ? tupleHasValue(CREATURE_ACTOR_TYPES, this.type) : this.type === t));
     }
 
     /** Whether this actor is an ally of the provided actor */
