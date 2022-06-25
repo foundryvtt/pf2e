@@ -213,28 +213,32 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** Reindex compendiums to include image path (workaround of V9 bug) and compile search index */
     async onReady(): Promise<void> {
-        for (const pack of game.packs.filter((p) => p.index.size > 0)) {
-            if (pack.private && !game.user.isGM) continue;
+        console.debug("PF2e System | Reindexing compendiums and compiling search index");
+        const packs = game.packs.filter(
+            (p) => p.index.size > 0 && p.documentName !== "JournalEntry" && (game.user.isGM || !p.private)
+        );
 
-            if (pack.documentName !== "JournalEntry" && !pack.index.contents.at(0)?.img) {
-                const fields = CompendiumCollection.INDEX_FIELDS[pack.documentName];
-                // Due to *another* indexing bug, this is prone to butting heads with the BB/AV modules, which are also
-                // working around the aforementioned bug
-                try {
-                    await pack.getIndex({ fields });
-                } catch {
-                    console.debug(
-                        "File-system permission error encountered while attempting to reindex",
-                        `${pack.metadata.package}.${pack.metadata.name}`
-                    );
+        for (const pack of packs) {
+            // Due to *another* indexing bug, this is prone to butting heads with the BB/AV modules, which are also
+            // working around the aforementioned bug
+            try {
+                if (!pack.indexed) {
+                    await pack.getIndex();
                 }
+            } catch {
+                console.debug(
+                    "File-system permission error encountered while attempting to reindex",
+                    `${pack.metadata.package}.${pack.metadata.name}`
+                );
             }
+
             const contents = pack.index.map((i) => ({
                 ...i,
                 pack: `${pack.metadata.package}.${pack.metadata.name}`,
             }));
             this.searchEngine.addAll(contents);
         }
+        console.debug("PF2e System | Finished reindexing compendiums and compiling search index");
     }
 }
 
