@@ -1,9 +1,8 @@
+import { fontAwesomeIcon } from "@util";
 import MiniSearch, { SearchResult } from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
 export class CompendiumDirectoryPF2e extends CompendiumDirectory {
-    private static readonly contentSelector = "ol.directory-list";
-
     readonly searchEngine: MiniSearch<CompendiumIndexData>;
 
     constructor(options?: ApplicationOptions) {
@@ -30,13 +29,8 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         return {
             ...options,
+            filters: [{ inputSelector: "input[name=search]", contentSelector: "ol.directory-list" }],
             template: "systems/pf2e/templates/sidebar/compendium-directory.html",
-            filters: [
-                {
-                    inputSelector: "input[name=search]",
-                    contentSelector: CompendiumDirectoryPF2e.contentSelector,
-                },
-            ],
         };
     }
 
@@ -101,6 +95,33 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         });
     }
 
+    /** Add a context menu for content search results */
+    protected override _contextMenu($html: JQuery): void {
+        super._contextMenu($html);
+
+        ContextMenu.create(this, $html, "ul.doc-matches > li", [
+            {
+                name: "COMPENDIUM.ImportEntry",
+                icon: fontAwesomeIcon("download").outerHTML,
+                condition: ($li) => {
+                    const { packId } = $li.get(0)?.dataset ?? {};
+                    const collection = game.packs.get(packId ?? "", { strict: true });
+                    const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
+
+                    return documentClass.canUserCreate(game.user);
+                },
+                callback: ($li) => {
+                    const { packId, documentId } = $li.get(0)?.dataset ?? {};
+                    if (!(packId && documentId)) return;
+                    const packCollection = game.packs.get(packId, { strict: true });
+                    const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
+
+                    return worldCollection.importFromCompendium(packCollection, documentId, {}, { renderSheet: true });
+                },
+            },
+        ]);
+    }
+
     /** System compendium search */
     protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
         const { searchMode } = this;
@@ -117,7 +138,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         };
         const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
         const packRows = Array.from(
-            document.querySelectorAll<HTMLOListElement>(`${CompendiumDirectoryPF2e.contentSelector} li.compendium-pack`)
+            this.element.get(0)?.querySelectorAll<HTMLOListElement>("li.compendium-pack") ?? []
         );
 
         // Display matching compendium rows along with any document matches within each compendium
@@ -139,6 +160,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             for (const match of docMatches.filter((m) => m.pack === packRow.dataset.pack)) {
                 const matchRow = ((): HTMLLIElement => {
                     const li = document.createElement("li");
+                    li.dataset.packId = match.pack;
                     li.dataset.documentId = match.id;
                     const matchUUID = `Compendium.${match.pack}.${match.id}` as const;
                     li.dataset.matchUuid = matchUUID;
@@ -193,15 +215,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
     protected override _onDragStart(event: ElementDragEvent): void {
         const dragElement = event.currentTarget;
-        if (!dragElement.dataset.matchUuid) return;
-        const [packId, docId] = /^Compendium\.(.+)\.([A-Za-z0-9]{16})$/
-            .exec(dragElement.dataset.matchUuid)
-            ?.slice(1, 3) ?? [null, null];
-        if (!(packId && docId)) return;
+        const { packId, documentId } = dragElement.dataset;
+        if (!(packId && documentId)) return;
 
-        const pack = game.packs.get(packId);
-        const indexEntry = pack?.index.get(docId);
-        if (!(pack && indexEntry)) return;
+        const pack = game.packs.get(packId, { strict: true });
+        const indexEntry = pack?.index.get(documentId, { strict: true });
 
         // Clean up old drag preview
         document.querySelector("#pack-search-drag-preview")?.remove();
@@ -220,7 +238,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             JSON.stringify({
                 type: pack.documentName,
                 pack: pack.collection,
-                id: docId,
+                id: documentId,
             })
         );
     }
