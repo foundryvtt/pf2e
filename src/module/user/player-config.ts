@@ -9,7 +9,7 @@ export class PlayerConfigPF2e extends FormApplication {
         showEffectPanel: true,
         showRollDialogs: true,
         darkvisionFilter: false,
-        searchPackContent: false,
+        searchPackContents: false,
     };
 
     static override get defaultOptions(): Required<FormApplicationOptions> {
@@ -78,5 +78,5 @@ export interface UserSettingsPF2e {
     showEffectPanel: boolean;
     showRollDialogs: boolean;
     darkvisionFilter: boolean;
-    searchPackContent: boolean;
+    searchPackContents: boolean;
 }

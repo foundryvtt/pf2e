@@ -6,8 +6,6 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     readonly searchEngine: MiniSearch<CompendiumIndexData>;
 
-    private searchPackContent = game.user.settings.searchPackContent;
-
     constructor(options?: ApplicationOptions) {
         super(options);
 
@@ -18,6 +16,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             searchOptions: { combineWith: "AND", prefix: true },
             storeFields: ["img", "name", "pack", "type"],
         });
+    }
+
+    /** Whether this application is in search mode */
+    private get searchMode(): boolean {
+        return game.user.settings.searchPackContents;
     }
 
     /** Include ability to search and drag document search results */
@@ -52,7 +55,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     override getData(options?: Partial<ApplicationOptions>): CompendiumDirectoryDataPF2e {
         return {
             ...super.getData(options),
-            searchContent: game.user.settings.searchPackContent,
+            searchContents: game.user.settings.searchPackContents,
         };
     }
 
@@ -69,18 +72,28 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             game.pf2e.compendiumBrowser.render(true);
         });
 
+        html.querySelector("input[name=search]")?.setAttribute(
+            "placeholder",
+            game.i18n.localize(
+                game.user.settings.searchPackContents ? "COMPENDIUM.SearchContents.Placeholder" : "COMPENDIUM.Filter"
+            )
+        );
+
         // Manage toggle for switching between compendium and compendium-content searching
-        const searchContent = html.querySelector<HTMLButtonElement>("button[data-action=toggle-search-content]");
+        const searchContent = html.querySelector<HTMLButtonElement>("button[data-action=toggle-search-contents]");
         searchContent?.addEventListener("click", async () => {
-            const newValue = !game.user.settings.searchPackContent;
-            await game.user.update({ "flags.pf2e.settings.searchPackContent": newValue });
-            this.searchPackContent = newValue;
+            const newValue = !game.user.settings.searchPackContents;
+            await game.user.update({ "flags.pf2e.settings.searchPackContents": newValue });
+
+            const input = html.querySelector("input[name=search]");
 
             // Show the button as compressed or not
             if (newValue) {
                 searchContent.classList.add("active");
+                input?.setAttribute("placeholder", game.i18n.localize("COMPENDIUM.SearchContents.Placeholder"));
             } else {
                 searchContent.classList.remove("active");
+                input?.setAttribute("placeholder", game.i18n.localize("COMPENDIUM.Filter"));
             }
 
             // Trigger a new search
@@ -90,8 +103,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** System compendium search */
     protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
+        const { searchMode } = this;
         // Match documents within each compendium by name
-        const docMatches = this.searchPackContent && query.length > 0 ? this.searchEngine.search(query) : [];
+        const docMatches = searchMode && query.length > 0 ? this.searchEngine.search(query) : [];
         const packsFromDocMatches = new Set<string>(docMatches.map((m: SearchResult) => m.pack));
 
         // Match compendiums by name
@@ -99,7 +113,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         const matchesQuery = (pack: CompendiumCollection): boolean => {
             const packId = `${pack.metadata.package}.${pack.metadata.name}`;
-            return packsFromDocMatches.has(packId) || regexp.test(packId);
+            return searchMode ? packsFromDocMatches.has(packId) : regexp.test(pack.title);
         };
         const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
         const packRows = Array.from(
@@ -243,5 +257,5 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 }
 
 interface CompendiumDirectoryDataPF2e extends CompendiumDirectoryData {
-    searchContent: boolean;
+    searchContents: boolean;
 }
