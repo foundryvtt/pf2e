@@ -108,6 +108,7 @@ import "./client/pixi/placeables-layer/tiles-layer";
 import "./client/pixi/placeables-layer/token-layer";
 import "./client/pixi/placeables-layer/walls-layer";
 import "./client/pixi/shader";
+import "./client/pixi/special-effect";
 import "./client/roll";
 import "./client/roll-term";
 import "./client/ui";

@@ -120,7 +120,7 @@ declare global {
         >;
 
         // eslint-disable-next-line no-var
-        var ui: FoundryUI<CompendiumDirectoryPF2e>;
+        var ui: FoundryUI<ActorPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
     }
 
     interface Window {

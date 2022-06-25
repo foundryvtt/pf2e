@@ -1,42 +1,91 @@
-/** A shared pattern for the sidebar directory which Actors, Items, and Scenes all use */
-declare class SidebarDirectory<TDocument extends ClientDocument> extends SidebarTab {
-    /** References to the set of Documents that are displayed in the Sidebar */
-    documents: TDocument[];
+export {};
 
-    /** Reference the set of Folders which exist in this Sidebar */
-    folders: Folder[];
+declare global {
+    /** A shared pattern for the sidebar directory which Actors, Items, and Scenes all use */
+    class SidebarDirectory<TDocument extends WorldDocument> extends SidebarTab<SidebarDirectoryOptions> {
+        /** References to the set of Documents that are displayed in the Sidebar */
+        documents: TDocument[];
 
-    /** A reference to the named Document type that this Sidebar Directory instance displays */
-    static documentName: string;
+        /** Reference the set of Folders which exist in this Sidebar */
+        folders: Folder[];
 
-    /* -------------------------------------------- */
-    /*  Initialization Helpers                      */
-    /* -------------------------------------------- */
+        /** A reference to the named Document type that this Sidebar Directory instance displays */
+        static documentName: string;
 
-    /** Initialize the content of the directory by categorizing folders and entities into a hierarchical tree structure. */
-    initialize(): void;
+        /** The path to the template partial which renders a single Document within this directory */
+        static documentPartial: string;
 
-    /**
-     * Given an entity type and a list of entities, set up the folder tree for that entity
-     * @param folders   The Array of Folder objects to organize
-     * @param entities  The Array of Entity objects to organize
-     * @param sortMode  How should entities or Folders be sorted? (a)lphabetic or (n)umeric
-     * @return          A tree structure containing the folders and entities
-     */
-    static setupFolders(
-        folders: Folder[],
-        entities: foundry.abstract.Document[],
-        sortMode: string
-    ): { root: boolean; content: foundry.abstract.Document[]; children: any[] };
+        /** The path to the template partial which renders a single Folder within this directory */
+        static folderPartial: string;
 
-    static get collection(): foundry.utils.Collection<ClientDocument>;
+        static override get defaultOptions(): SidebarDirectoryOptions;
 
-    /** Collapse all subfolders in this directory */
-    collapseAll(): void;
+        /** The WorldCollection instance which this Sidebar Directory displays. */
+        static get collection(): WorldCollection<WorldDocument>;
 
-    /**
-     * Default folder context actions
-     * @param html The context menu HTML being rendered for the directory
-     */
-    protected _contextMenu(html: JQuery): void;
+        /** Initialize the content of the directory by categorizing folders and documents into a hierarchical tree structure. */
+        initialize(): void;
+
+        /**
+         * Given a Document type and a list of Document instances, set up the Folder tree
+         * @param folders   The Array of Folder objects to organize
+         * @param documents The Array of Document objects to organize
+         * @return A tree structure containing the folders and documents
+         */
+        static setupFolders(
+            folders: Folder[],
+            documents: WorldDocument[]
+        ): { root: boolean; content: WorldDocument[]; children: Folder[] };
+
+        /**
+         * Populate a single folder with child folders and content
+         * This method is called recursively when building the folder tree
+         */
+        protected static _populate(
+            folder: Folder,
+            folders: Folder[],
+            documents: WorldDocument[],
+            { allowChildren }?: { allowChildren?: boolean }
+        ): [Folder[], WorldDocument[]];
+
+        /**
+         * Sort two Documents by name, alphabetically.
+         * @return A value > 0 if b should be sorted before a.
+         *         A value < 0 if a should be sorted before b.
+         *         0 if the position of a and b should not change.
+         */
+        protected static _sortAlphabetical(a: WorldDocument, b: WorldDocument): number;
+
+        protected override _render(force?: boolean, options?: RenderOptions): Promise<void>;
+
+        protected override _renderInner(data: object): Promise<JQuery>;
+
+        protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void;
+
+        /** Collapse all subfolders in this directory */
+        collapseAll(): void;
+
+        /* -------------------------------------------- */
+        /*  Event Listeners and Handlers                */
+        /* -------------------------------------------- */
+
+        /** Activate event listeners triggered within the Actor Directory HTML */
+        override activateListeners(html: JQuery): void;
+
+        /**
+         * Default folder context actions
+         * @param html The context menu HTML being rendered for the directory
+         */
+        protected _contextMenu(html: JQuery): void;
+    }
+
+    interface SidebarDirectoryOptions extends ApplicationOptions {
+        /**
+         * A list of data property keys that will trigger a re-render of the tab if they are updated on a Document that
+         * this tab is responsible for.
+         */
+        renderUpdateKeys: string[];
+        /** The CSS selector that activates the context menu for displayed Documents. */
+        contextMenuSelector: string;
+    }
 }
