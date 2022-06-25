@@ -6,13 +6,18 @@ import "./notifications";
 import "./tabs";
 
 declare global {
-    interface FoundryUI<TCompendiumDirectory extends CompendiumDirectory> {
-        actors: ActorDirectory;
-        chat: ChatLog;
+    interface FoundryUI<
+        TActor extends Actor,
+        TItem extends Item,
+        TChatLog extends ChatLog,
+        TCompendiumDirectory extends CompendiumDirectory
+    > {
+        actors: ActorDirectory<TActor>;
+        chat: TChatLog;
         combat: CombatTracker<Combat>;
         compendium: TCompendiumDirectory;
         controls: SceneControls;
-        items: ItemDirectory;
+        items: ItemDirectory<TItem>;
         notifications: Notifications;
         settings: Settings;
         tables: RollTableDirectory;

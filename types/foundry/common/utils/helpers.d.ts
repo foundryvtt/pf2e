@@ -77,7 +77,7 @@ declare global {
              * @param token Some passed token
              * @return      The named type of the token
              */
-            function getType(token: any): string;
+            function getType(token: unknown): string;
 
             /**
              * A temporary shim to invert an object, flipping keys and values
@@ -172,9 +172,9 @@ declare global {
              * @param key      The string key
              * @param value    The value to be assigned
              *
-             * @return {Boolean}        A flag for whether or not the object was updated
+             * @return A flag for whether or not the object was updated
              */
-            function setProperty(object: object, key: string, value: any): boolean;
+            function setProperty(object: object, key: string, value: unknown): boolean;
 
             /**
              * Encode a url-like string by replacing any characters which need encoding
@@ -288,6 +288,7 @@ declare global {
         var mergeObject: typeof foundry.utils.mergeObject;
         var setProperty: typeof foundry.utils.setProperty;
         var randomID: typeof foundry.utils.randomID;
+        /* eslint-enable no-var */
 
         /**
          * Load a single texture and return a Promise which resolves once the texture is ready to use
@@ -295,7 +296,5 @@ declare global {
          * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
          */
         function loadTexture(src: string, { fallback }?: { fallback?: ImagePath }): Promise<PIXI.Texture>;
-
-        /* eslint-enable no-var */
     }
 }

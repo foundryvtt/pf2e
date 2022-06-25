@@ -148,21 +148,15 @@ declare global {
 
         /** Configuration for the Macro document */
         Macro: {
-            documentClass: {
-                new (data: PreCreate<TMacro["data"]["_source"]>, context?: DocumentConstructionContext<TMacro>): TMacro;
-            };
+            documentClass: ConstructorOf<TMacro>;
             collection: typeof Macros;
             sidebarIcon: string;
         };
 
         /** Configuration for Scene document */
         Scene: {
-            documentClass: {
-                new (data: PreCreate<TScene["data"]["_source"]>, context?: DocumentConstructionContext<TScene>): TScene;
-            };
-
+            documentClass: ConstructorOf<TScene>;
             collection: typeof Scenes;
-            notesClass: any;
             sidebarIcon: string;
         };
 
@@ -181,9 +175,7 @@ declare global {
 
         /** Configuration for the User document */
         User: {
-            documentClass: {
-                new (data: PreCreate<TUser["data"]["_source"]>, context?: DocumentConstructionContext<TUser>): TUser;
-            };
+            documentClass: ConstructorOf<TUser>;
             collection: typeof Users;
             permissions: undefined;
         };
@@ -247,7 +239,7 @@ declare global {
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
         Token: {
             documentClass: ConstructorOf<TTokenDocument>;
-            objectClass: new (...args: any[]) => TTokenDocument["object"];
+            objectClass: ConstructorOf<TTokenDocument["object"]>;
             layerClass: ConstructorOf<TTokenDocument["object"]["layer"]>;
             prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
@@ -436,29 +428,19 @@ declare global {
             [key: string]: string | undefined;
         };
 
-        /**
-         * Suggested font families that are displayed wherever a choice is presented
-         */
+        /** Suggested font families that are displayed wherever a choice is presented */
         fontFamilies: string[];
 
-        /**
-         * The default font family used for text labels on the PIXI Canvas
-         */
+        /** The default font family used for text labels on the PIXI Canvas */
         defaultFontFamily: string;
 
-        /**
-         * Available Weather Effects implemntations
-         */
-        weatherEffects: any;
+        /** Available Weather Effects implemntations */
+        weatherEffects: Record<string, SpecialEffect>;
 
-        /**
-         * An array of status effect icons which can be applied to Tokens
-         */
+        /** An array of status effect icons which can be applied to Tokens */
         statusEffects: string[];
 
-        /**
-         * A mapping of core audio effects used which can be replaced by systems or mods
-         */
+        /** A mapping of core audio effects used which can be replaced by systems or mods */
         sounds: {
             dice: AudioPath;
             lock: string;
@@ -466,17 +448,13 @@ declare global {
             combat: string;
         };
 
-        /**
-         * Define the set of supported languages for localization
-         */
+        /** Define the set of supported languages for localization */
         supportedLanguages: {
             en: string;
             [key: string]: string;
         };
 
-        /**
-         * Maximum canvas zoom scale
-         */
+        /** Maximum canvas zoom scale */
         maxCanvasZoom: number;
 
         /* -------------------------------------------- */

@@ -1,10 +1,12 @@
-/**
- * A directory list of Item entities in the Sidebar
- * @see {@link Item}
- */
-declare class ItemDirectory extends SidebarDirectory<Item> {
-    static override documentName: "Item";
+export {};
 
-    /** @todo Declare properties */
-    [key: string]: any;
+declare global {
+    /** The sidebar directory which organizes and displays world-level Item documents. */
+    class ItemDirectory<TItem extends Item> extends SidebarDirectory<TItem> {
+        static override documentName: "Item";
+
+        protected override _canDragDrop(selector: string): boolean;
+
+        protected override _getEntryContextOptions(): EntryContextOption[];
+    }
 }

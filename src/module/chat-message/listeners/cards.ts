@@ -1,7 +1,6 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { StrikeData } from "@actor/data/base";
-import { StatisticModifier } from "@actor/modifiers";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
@@ -35,10 +34,8 @@ export const ChatCards = {
 
             if (item && !action?.startsWith("strike-")) {
                 const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
-                const strike: StatisticModifier =
-                    "actions" in actor.data.data
-                        ? actor.data.data.actions.find((a: StatisticModifier) => a.item === item.id) ?? null
-                        : null;
+                const strikes: StrikeData[] = actor.isOfType("character", "npc") ? actor.data.data.actions : [];
+                const strike = strikes.find((a) => a.item.id === item.id) ?? null;
                 const rollOptions = actor.getRollOptions(["all", "attack-roll"]);
 
                 if (action === "weaponAttack") {
@@ -55,11 +52,11 @@ export const ChatCards = {
                     }
                 } else if (action === "weaponDamage") {
                     if (strike && rollOptions) {
-                        strike.damage({ event: event, options: rollOptions });
+                        strike.damage?.({ event: event, options: rollOptions });
                     }
                 } else if (action === "weaponDamageCritical" || action === "criticalDamage") {
                     if (strike && rollOptions) {
-                        strike.critical({ event: event, options: rollOptions });
+                        strike.critical?.({ event: event, options: rollOptions });
                     }
                 } else if (action === "npcAttack" && item instanceof MeleePF2e) item.rollNPCAttack(event);
                 else if (action === "npcAttack2" && item instanceof MeleePF2e) item.rollNPCAttack(event, 2);
