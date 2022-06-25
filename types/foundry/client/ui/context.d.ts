@@ -21,7 +21,7 @@ declare global {
         constructor(
             element: HTMLElement | JQuery,
             selector: string,
-            menuItems: ContextMenuItem[],
+            menuItems: ContextMenuEntry[],
             { eventName }?: { eventName?: string }
         );
 
@@ -35,13 +35,29 @@ declare global {
         eventName: string;
 
         /** The array of menu items being rendered */
-        menuItems: ContextMenuItem[];
+        menuItems: ContextMenuEntry[];
 
         /** Track which direction the menu is expanded in */
         protected _expandUp: boolean;
 
         /** A convenience accessor to the context menu HTML object */
         get menu(): JQuery;
+
+        /**
+         * Create a ContextMenu for this Application and dispatch hooks.
+         * @param app       The Application this ContextMenu belongs to.
+         * @param html      The Application's rendered HTML.
+         * @param selector  The target CSS selector which activates the menu.
+         * @param menuItems The array of menu items being rendered.
+         * @param [hookName="EntryContext"]  The name of the hook to call.
+         */
+        static create(
+            app: Application,
+            html: JQuery,
+            selector: string,
+            menuItems: ContextMenuEntry[],
+            hookName?: string
+        ): ContextMenu | void;
 
         /** Attach a ContextMenu instance to an HTML selector */
         bind(): void;
@@ -61,10 +77,20 @@ declare global {
         render(target: JQuery): Promise<void>;
     }
 
-    interface ContextMenuItem {
+    interface ContextMenuEntry {
+        /** The context menu label. Can be localized. */
         name: string;
+        /** A string containing an HTML icon element for the menu item */
         icon: string;
-        condition?: (target: JQuery) => boolean;
+        /**
+         * The function to call when the menu item is clicked. Receives the HTML element
+         * of the entry that this context menu is for.
+         */
         callback: (target: JQuery) => void;
+        /**
+         * A function to call to determine if this item appears in the menu.
+         * Receives the HTML element of the entry that this context menu is for.
+         */
+        condition?: (target: JQuery) => boolean;
     }
 }

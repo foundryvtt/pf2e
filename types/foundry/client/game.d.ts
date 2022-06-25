@@ -115,21 +115,25 @@ declare global {
         };
 
         /* -------------------------------------------- */
-        /*  Entities                                    */
+        /*  World Collections                           */
         /* -------------------------------------------- */
 
-        users: Users<TUser>;
-        messages: Messages<TChatMessage>;
-        scenes: Scenes<TScene>;
         actors: TActors;
+        collections: Collection<
+            WorldCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>
+        >;
+
+        combats: CombatEncounters<TCombat>;
+        folders: Folders<TFolder>;
         items: Items<TItem>;
         journal: Journal;
         macros: Macros<TMacro>;
-        playlists: Playlists;
-        combats: CombatEncounters<TCombat>;
-        tables: RollTables;
-        folders: Folders<TFolder>;
+        messages: Messages<TChatMessage>;
         packs: Collection<CompendiumCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>>;
+        playlists: Playlists;
+        scenes: Scenes<TScene>;
+        tables: RollTables;
+        users: Users<TUser>;
 
         constructor(view: string, worldData: {}, sessionId: string, socket: io.Socket);
 
