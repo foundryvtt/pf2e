@@ -18,7 +18,7 @@ export async function registerModuleArt(): Promise<void> {
                 continue;
             }
 
-            const index = await pack.getIndex();
+            const index = pack.indexed ? pack.index : await pack.getIndex();
             for (const [actorId, paths] of Object.entries(art)) {
                 const record = index.get(actorId);
                 if (!record) continue;

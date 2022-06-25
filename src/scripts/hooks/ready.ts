@@ -67,7 +67,6 @@ export const Ready = {
 
             PlayerConfigPF2e.activateColorScheme();
 
-            registerModuleArt();
             activateSocketListener();
 
             // Extend drag data for things such as condition value
@@ -87,7 +86,9 @@ export const Ready = {
             });
 
             // Compile compendium search index
-            ui.compendium.onReady();
+            registerModuleArt().then(() => {
+                ui.compendium.onReady();
+            });
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);

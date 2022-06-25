@@ -17,7 +17,12 @@ declare global {
         /** A subsidiary collection which contains the more minimal index of the pack */
         index: CompendiumIndex;
 
+        /** A debounced function which will clear the contents of the Compendium pack if it is not accessed frequently. */
         protected _flush: () => unknown;
+
+        /** Has this Compendium pack been fully indexed? */
+        indexed: boolean;
+
         /**
          * The amount of time that Document instances within this CompendiumCollection are held in memory.
          * Accessing the contents of the Compendium pack extends the duration of this lifetime.
