@@ -800,6 +800,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 await this.actor.stowOrUnstow(item, container);
                 return [item];
             }
+
+            // This is a regular resort, but we can't rely on the default foundry resort implementation.
+            // The default implement only treats same type as siblings, and physical can have many sub-types.
+            if (target) {
+                const siblings = this.actor.items.filter((i) => i.isOfType("physical"));
+                await item.sortRelative({ target, siblings });
+                return [target];
+            }
         }
 
         return super._onSortItem(event, itemSource);
