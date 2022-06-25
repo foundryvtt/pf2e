@@ -3,6 +3,7 @@ import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { PhysicalItemPF2e } from "@item";
+import { tupleHasValue } from "@util";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -37,7 +38,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<string, { label: string; actions: any }> = {
+        const actions: Record<"action" | "reaction" | "free", { label: string; actions: ItemDataPF2e[] }> = {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
@@ -48,7 +49,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             const item = this.actor.items.get(itemData._id, { strict: true });
             if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
                 itemData.showEdit = sheetData.user.isGM || physicalData.data.identification.status === "identified";
-                itemData.img ||= CONST.DEFAULT_TOKEN;
                 itemData.isInvestable = false;
                 itemData.isIdentified = physicalData.data.identification.status === "identified";
                 itemData.assetValue = item.assetValue;
@@ -56,15 +56,18 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
             // Actions
             if (itemData.type === "action") {
-                const actionType = ["free", "reaction", "passive"].includes(itemData.data.actionType.value)
-                    ? itemData.data.actionType.value
-                    : "action";
+                const actionTypes = ["free", "reaction", "passive"] as const;
+                const fromItem: string = itemData.data.actionType.value;
+                const actionType = tupleHasValue(actionTypes, fromItem) ? fromItem : "action";
                 itemData.img = VehiclePF2e.getActionGraphics(
                     actionType,
                     parseInt((itemData.data.actions || {}).value, 10) || 1
                 ).imageUrl;
-                if (actionType === "passive") actions.free.actions.push(itemData);
-                else actions[actionType].actions.push(itemData);
+                if (actionType === "passive") {
+                    actions.free.actions.push(itemData);
+                } else {
+                    actions[actionType].actions.push(itemData);
+                }
             }
 
             for (const itemData of sheetData.items) {

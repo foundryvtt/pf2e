@@ -6,7 +6,7 @@ declare global {
      * Each primary Document type has an associated subclass of WorldCollection which contains them.
      * @param data An array of data objects from which to create Document instances
      */
-    abstract class WorldCollection<TDocument extends ClientDocument> extends DocumentCollection<TDocument> {
+    abstract class WorldCollection<TDocument extends WorldDocument> extends DocumentCollection<TDocument> {
         constructor(data?: TDocument["data"]["_source"][]);
 
         /** The source data is, itself, a mapping of IDs to data objects */
@@ -37,7 +37,7 @@ declare global {
         get directory(): SidebarDirectory<TDocument> | null;
 
         /** Return a reference to the singleton instance of this WorldCollection, or null if it has not yet been created. */
-        static get instance(): WorldCollection<ClientDocument>;
+        static get instance(): WorldCollection<WorldDocument>;
 
         /* -------------------------------------------- */
         /*  Collection Methods                          */
@@ -55,8 +55,8 @@ declare global {
          * @param [options]    Optional arguments passed to the Document.create method
          * @return The imported Document instance
          */
-        importFromCompendium<T extends CompendiumDocument & TDocument>(
-            pack: CompendiumCollection<T>,
+        importFromCompendium(
+            pack: CompendiumCollection,
             id: string,
             updateData?: DocumentUpdateData<TDocument>,
             options?: DocumentModificationContext<TDocument>
