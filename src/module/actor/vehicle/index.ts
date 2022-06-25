@@ -1,8 +1,5 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
-import { ItemPF2e } from "@item/base";
-import { ItemSourcePF2e } from "@item/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
@@ -88,26 +85,6 @@ export class VehiclePF2e extends ActorPF2e {
         return { fortitude };
     }
 
-    override async createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        for (const datum of data) {
-            if (!("type" in datum)) continue;
-            if (
-                !["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit", "action"].includes(
-                    datum.type ?? ""
-                )
-            ) {
-                ui.notifications.error(game.i18n.localize("PF2E.vehicle.ItemTypeError"));
-                return [];
-            }
-        }
-
-        return super.createEmbeddedDocuments(embeddedName, data, context);
-    }
-
     protected override async _preUpdate(
         changed: DeepPartial<VehicleSource>,
         options: DocumentModificationContext<this>,
@@ -139,20 +116,4 @@ export interface VehiclePF2e {
     get hitPoints(): HitPointsSummary;
 
     saves: { fortitude: Statistic };
-
-    createEmbeddedDocuments(
-        embeddedName: "ActiveEffect",
-        data: PreCreate<foundry.data.ActiveEffectSource>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[]>;
-    createEmbeddedDocuments(
-        embeddedName: "Item",
-        data: PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
-    createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
