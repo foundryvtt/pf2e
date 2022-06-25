@@ -68,7 +68,6 @@ export const Ready = {
             PlayerConfigPF2e.activateColorScheme();
 
             registerModuleArt();
-
             activateSocketListener();
 
             // Extend drag data for things such as condition value
@@ -86,6 +85,9 @@ export const Ready = {
                     .localize(CONFIG.Item.typeLabels[typeA] ?? "")
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
+
+            // Compile compendium search index
+            ui.compendium.onReady();
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
