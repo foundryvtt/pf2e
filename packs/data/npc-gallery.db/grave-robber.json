@@ -135,7 +135,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -268,7 +268,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -330,7 +330,7 @@
                 "quantity": 1,
                 "range": null,
                 "reload": {
-                    "value": ""
+                    "value": "-"
                 },
                 "rules": [],
                 "size": "med",
@@ -392,11 +392,11 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 1d6 electricity damage and 1 electricity splash damage. On a hit, the target becomes flat-footed until the start of your next turn.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 1d6 electricity damage and 1 electricity splash damage. On a hit, the target becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -416,7 +416,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -464,8 +464,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "Target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of my next turn.",
-                        "title": "ITEM.TypeEffect"
+                        "text": "PF2E.BombNotes.BottledLightning.Lesser.success"
                     }
                 ],
                 "size": "med",
@@ -533,11 +532,11 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The liquid reagents in this vial rapidly absorb heat when exposed to air. A frost vial deals the listed cold damage and cold splash damage. On a hit, the target takes a status penalty to its Speeds until the end of its next turn. Many types of frost vial also grant an item bonus to attack rolls.</p>\n<p>The bomb deals 1d6 cold damage and 1 cold splash damage, and the target takes a -5-foot penalty.</p>"
+                    "value": "<p>The liquid reagents in this vial rapidly absorb heat when exposed to air. A frost vial deals the listed cold damage and cold splash damage. On a hit, the target takes a status penalty to its Speeds until the end of its next turn. Many types of frost vial also grant an item bonus to attack rolls.</p>\n<p>The bomb deals 1d6 cold damage and 1 cold splash damage, and the target takes a -5-foot penalty.</p>\n<hr />\n<p>@Compendium[pf2e.equipment-effects.Effect: Frost Vial (Lesser)]{Effect: Frost Vial (Lesser)}</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -557,7 +556,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -605,8 +604,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "Target takes a -5-foot penalty to its Speeds.",
-                        "title": "ITEM.TypeEffect"
+                        "text": "PF2E.BombNotes.FrostVial.Lesser.success"
                     }
                 ],
                 "size": "med",
@@ -632,6 +630,7 @@
                         "bomb",
                         "cold",
                         "consumable",
+                        "infused",
                         "splash"
                     ]
                 },
@@ -678,7 +677,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -698,7 +697,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -771,6 +770,7 @@
                         "alchemical",
                         "bomb",
                         "consumable",
+                        "infused",
                         "sonic",
                         "splash"
                     ]
@@ -790,6 +790,147 @@
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/thunderstone.webp",
             "name": "Thunderstone (Lesser) (Infused)",
             "sort": 500000,
+            "type": "weapon"
+        },
+        {
+            "_id": "BVc7ObkPjpCGI4jQ",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "good",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<hr />\n<p>This vial contains water blessed by a good deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Holy water</em> deals 1d6 good damage and 1 good splash damage. It damages only fiends, undead, and creatures that have a weakness to good damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "Damages only fiends, undead, and creatures that have a weakness to good damage\n[[/r {1}[good]]]{1 good splash damage}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "size": "med",
+                "slug": "holy-water",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 1
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "divine",
+                        "good",
+                        "splash",
+                        "thrown"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.z9T4c1hXwOotsMCp"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/holy-water.webp",
+            "name": "Holy Water",
+            "sort": 600000,
             "type": "weapon"
         },
         {
@@ -894,7 +1035,7 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "Studded Leather Armor",
-            "sort": 600000,
+            "sort": 700000,
             "type": "armor"
         },
         {
@@ -943,7 +1084,7 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -963,7 +1104,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.webp",
             "name": "Alchemist's Tools",
-            "sort": 700000,
+            "sort": 800000,
             "type": "equipment"
         },
         {
@@ -1012,7 +1153,7 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -1032,157 +1173,8 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/formula-book.webp",
             "name": "Formula Book",
-            "sort": 800000,
-            "type": "equipment"
-        },
-        {
-            "_id": "dTeEx83wtXIJSP6V",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "charges": {
-                    "_deprecated": true,
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": "1d6"
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This vial contains water blessed by a good deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Holy water</em> deals 1d6 good damage and 1 good splash damage. It damages only fiends, undead, and creatures that have a weakness to good damage.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [
-                    {
-                        "category": "simple",
-                        "damage": {
-                            "base": {
-                                "damageType": "good",
-                                "dice": 1,
-                                "die": "d6"
-                            }
-                        },
-                        "key": "Strike",
-                        "label": "Holy Water",
-                        "range": 20,
-                        "traits": [
-                            "thrown-20",
-                            "good",
-                            "divine",
-                            "consumable",
-                            "splash"
-                        ]
-                    },
-                    {
-                        "key": "Note",
-                        "selector": "{item|_id}-damage",
-                        "text": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>\n<p>[[/r {1}[good]]]{1 good splash damage}<p/>"
-                    }
-                ],
-                "size": "med",
-                "slug": "holy-water",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "divine",
-                        "good",
-                        "splash"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.efFe4EK7ThUrH446"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/holy-water.webp",
-            "name": "Holy Water",
             "sort": 900000,
-            "type": "consumable"
+            "type": "equipment"
         },
         {
             "_id": "OcO2C4FT46HfzihZ",
@@ -1243,9 +1235,15 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1}[splash,electricity]]]{1 Electricity Splash damage}.</p>"
+                    "value": "<p>@Localize[PF2E.BombNotes.BottledLightning.Lesser.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.BottledLightning.Lesser.success"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1290,7 +1288,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.BombNotes.Thunderstone.Lesser.success]</p>"
                 },
                 "rules": [
                     {
@@ -1343,9 +1341,15 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1}[splash,cold]]]{1 Cold Splash damage}.</p>\n<p>On a successful strinke the target takes a -5 speed penalty.</p>"
+                    "value": "<p>@Localize[PF2E.BombNotes.FrostVial.Lesser.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.FrostVial.Lesser.success"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1369,6 +1373,56 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Frost Vial",
             "sort": 1300000,
+            "type": "melee"
+        },
+        {
+            "_id": "wOWNuciIMk1EpXis",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "4v2abqkijng28ypdebyx": {
+                        "damage": "1d6",
+                        "damageType": "good"
+                    }
+                },
+                "description": {
+                    "value": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>\n<p>[[/r {1}[good]]]{1 good splash damage}</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "Damages only fiends, undead, and creatures that have a weakness to good damage\n[[/r {1}[good]]]{1 good splash damage}",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Holy Water",
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -1408,7 +1462,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infused Items",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1436,7 +1490,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1464,7 +1518,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1492,7 +1546,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1520,7 +1574,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1548,7 +1602,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1576,7 +1630,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         }
     ],
