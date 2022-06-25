@@ -4,8 +4,8 @@ import { ABCSheetData, AncestrySheetData } from "../sheet/data-types";
 import { createSheetOptions } from "@module/sheet/helpers";
 
 export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
-    override async getData(): Promise<AncestrySheetData> {
-        const data: ABCSheetData<AncestryPF2e> = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {
+        const data: ABCSheetData<AncestryPF2e> = await super.getData(options);
         const itemData = data.item;
 
         return {
