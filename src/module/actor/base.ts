@@ -20,9 +20,10 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
+import { eventToRollParams } from "@scripts/sheet-util";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, isObject, objectHasKey } from "@util";
-import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
+import { VisionLevel, VisionLevels } from "./creature/data";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
@@ -81,7 +82,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get allowedItemTypes(): (ItemType | "physical")[] {
-        return [];
+        return ["condition", "effect"];
     }
 
     /** The compendium source ID of the actor **/
@@ -256,7 +257,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
-                            linkToActorSize: !["hazard", "loot"].includes(datum.type),
+                            linkToActorSize:
+                                datum.token?.flags?.pf2e?.linkToActorSize ?? !["hazard", "loot"].includes(datum.type),
                         },
                     },
                 },
@@ -488,23 +490,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /**
      * Roll a Save Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus.
-     * Will be removed once non-creature saves are implemented properly.
+     * @deprecated
      */
-    rollSave(event: JQuery.Event, saveName: SaveType) {
-        const save: SaveData = this.data.data.saves[saveName];
-        const parts = ["@mod", "@itemBonus"];
-        const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: save.value,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
+    rollSave(event: JQuery.TriggeredEvent, saveType: SaveType): void {
+        console.warn("ActorPF2e#rollSaves is deprecated: use actor.saves[saveType].check.roll()");
+        this.saves?.[saveType]?.check.roll(eventToRollParams(event));
     }
 
     /**
@@ -517,7 +507,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
         }
 
-        const attribute = this.data.data.attributes[attributeName];
+        const attribute = this.attributes[attributeName];
         if (!(isObject(attribute) && "value" in attribute)) return;
 
         const parts = ["@mod", "@itemBonus"];

@@ -52,6 +52,7 @@ declare global {
         modules: Map<
             string,
             {
+                id: string;
                 active: boolean;
                 data: {
                     compatibleCoreVersion: string | undefined;

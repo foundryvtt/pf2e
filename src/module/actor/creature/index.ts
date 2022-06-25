@@ -15,7 +15,7 @@ import { SKILL_DICTIONARY } from "@actor/values";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { isCycle } from "@item/container/helpers";
-import { ArmorSource, ItemType } from "@item/data";
+import { ArmorSource } from "@item/data";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -60,13 +60,6 @@ import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
-    /** Saving throw rolls for the creature, built during data prep */
-    override saves!: Record<SaveType, Statistic>;
-
-    override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "condition", "effect"];
-    }
-
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
         return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
@@ -735,9 +728,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
-        const selectors = ["speed", `${movementType}-speed`];
-        const domains = ["all", ...selectors];
-        const rollOptions = this.getRollOptions(domains);
+        const selectors = ["speed", "all-speeds", `${movementType}-speed`];
+        const rollOptions = this.getRollOptions(selectors);
         const modifiers = extractModifiers(this.synthetics.statisticsModifiers, selectors);
 
         if (movementType === "land") {
@@ -951,6 +943,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
 export interface CreaturePF2e {
     readonly data: CreatureData;
+
+    /** Saving throw rolls for the creature, built during data prep */
+    saves: Record<SaveType, Statistic>;
 
     get hitPoints(): HitPointsSummary;
 

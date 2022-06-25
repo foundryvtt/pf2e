@@ -4,9 +4,6 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
-import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
 import { extractModifiers, extractRollTwice } from "@module/rules/util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckPF2e, RollParameters } from "@system/rolls";
@@ -337,23 +334,6 @@ export class FamiliarPF2e extends CreaturePF2e {
         }
     }
 
-    override async createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        const createData = Array.isArray(data) ? data : [data];
-        for (const datum of data) {
-            if (!("type" in datum)) continue;
-            if (!["condition", "effect"].includes(datum.type ?? "")) {
-                ui.notifications.error(game.i18n.localize("PF2E.FamiliarItemTypeError"));
-                return [];
-            }
-        }
-
-        return super.createEmbeddedDocuments(embeddedName, createData, context);
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -367,20 +347,4 @@ export class FamiliarPF2e extends CreaturePF2e {
 
 export interface FamiliarPF2e {
     readonly data: FamiliarData;
-
-    createEmbeddedDocuments(
-        embeddedName: "ActiveEffect",
-        data: PreCreate<foundry.data.ActiveEffectSource>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[]>;
-    createEmbeddedDocuments(
-        embeddedName: "Item",
-        data: PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
-    createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | Partial<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }

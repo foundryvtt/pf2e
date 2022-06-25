@@ -110,8 +110,8 @@ class CharacterPF2e extends CreaturePF2e {
     deityBoonsCurses!: FeatData[];
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        const abcItems = ["ancestry", "heritage", "background", "class"] as const;
-        return [...super.allowedItemTypes, ...abcItems, "physical", "deity", "feat", "action", "lore"];
+        const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
+        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
     }
 
     get keyAbility(): AbilityString {
@@ -968,7 +968,7 @@ class CharacterPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            this.data.data.saves[saveType] = mergeObject(this.data.data.saves[saveType], stat.getCompatData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
