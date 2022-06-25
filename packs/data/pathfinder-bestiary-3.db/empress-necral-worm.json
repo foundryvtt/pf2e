@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 140,
                 "temp": 0,
                 "value": 140
@@ -61,7 +61,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "<p>These Darklands vermin produce corrosive, noxious slime and deliver agonizing bites, whether as a revolting, wriggling swarm of finger-length worms or a single massive, lurching beast. Among Darklands communities, most inhabitants regard bore worms much in the same way surface cultures speak of maggots or cockroaches-with general disdain and revulsion. Children consider catching a single bore worm and using it to torment others a rite of passage, albeit a dangerous one.</p>\n<hr />\n<p>When an area lacks sufficient food, the bore worms in a swarm become increasingly agitated and desperate. Eventually, at some chemical signal, the worms begin to cannibalize each other, devouring one other in a frenzy too gruesome to behold. A single worm emerges from this melee victorious; it rapidly grows larger and more voracious until it reaches an absolutely elephantine size.</p>\n<p>This empress bore worm lives only briefly, as it sets out in search of a new feeding ground and eats everything in its path in an attempt to sustain itself. However, the empress bore worm's ravenous metabolism demands more from its body than what it can physically sustain, as it exists only as a vessel for the next generation. Most live only a few days, or weeks at best, traveling and eating nonstop before dying-and in so doing, giving birth to new swarms of bore worms.</p>\n<hr />\n<p>An undead sorcerer in the ghoul-run Darklands city of Nemret Noktoria developed necral worms about 60 years ago by filling an empress bore worm's abandoned exoskeleton with a unique alchemical paste. These undead bore worms radiate the very energies of death, making them surprisingly sophisticated magical batteries. Less pleasant entities often use them as magical tools. Necral worms have the undead trait and negative healing. They substitute negative damage for acid damage in all of their attacks and abilities, and they gain a weakness to positive damage in place of their weakness to water.</p>",
+            "publicNotes": "<p>When an area lacks sufficient food, the bore worms in a swarm become increasingly agitated and desperate. Eventually, at some chemical signal, the worms begin to cannibalize each other, devouring one other in a frenzy too gruesome to behold. A single worm emerges from this melee victorious; it rapidly grows larger and more voracious until it reaches an absolutely elephantine size.</p>\n<p>This empress bore worm lives only briefly, as it sets out in search of a new feeding ground and eats everything in its path in an attempt to sustain itself. However, the empress bore worm's ravenous metabolism demands more from its body than what it can physically sustain, as it exists only as a vessel for the next generation. Most live only a few days, or weeks at best, traveling and eating nonstop before dying-and in so doing, giving birth to new swarms of bore worms.</p>\n<hr />\n<p>These Darklands vermin produce corrosive, noxious slime and deliver agonizing bites, whether as a revolting, wriggling swarm of finger-length worms or a single massive, lurching beast. Among Darklands communities, most inhabitants regard bore worms much in the same way surface cultures speak of maggots or cockroaches-with general disdain and revulsion. Children consider catching a single bore worm and using it to torment others a rite of passage, albeit a dangerous one.</p>\n<p>An undead sorcerer in the ghoul-run Darklands city of Nemret Noktoria developed necral worms about 60 years ago by filling an empress bore worm's abandoned exoskeleton with a unique alchemical paste. These undead bore worms radiate the very energies of death, making them surprisingly sophisticated magical batteries. Less pleasant entities often use them as magical tools.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -280,8 +280,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
-                    "value": "<p>When killed, an empress necral worm violently expels the young it carries. These young erupt as a @Compendium[pf2e.pathfinder-bestiary-3.Necral Worm Swarm]{Necral Worm Swarm} in the empress necral worm's space.</p>\n<p>In addition, every creature within 20 feet takes [[/r {5d10}[negative]]]{5d10 negative damage} (@Check[type:reflex|dc:25|basic:true] save) from the splatter of undead viscera.</p>"
+                    "value": "<p>When killed, an empress necral worm violently expels the young it carries. These young erupt as a @Compendium[pf2e.pathfinder-bestiary-3.Necral Worm Swarm]{Necral Worm Swarm} in the empress necral worm's space.</p>\n<p>In addition, every creature within @Template[type:emanation|distance:20]{20 feet} takes [[/r {5d10}[negative]]]{5d10 negative damage} (@Check[type:reflex|dc:25|basic:true] save) from the splatter of undead viscera.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -321,7 +322,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An empress bore worm can leave a tunnel behind itself when it burrows, and it usually does.</p>"
+                    "value": "<p>An empress necral worm can leave a tunnel behind itself when it burrows, and it usually does.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -361,7 +362,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The bite of an empress bore worm causes excruciating pain. The target must succeed at a @Check[type:fortitude|dc:25] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} from the pain (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p>The bite of an empress necral worm causes excruciating pain. The target must succeed at a @Check[type:fortitude|dc:25] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} from the pain (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -401,7 +402,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The empress bore worm Strides, leaving behind dribbles of negative energy in every square that it passes through.</p>\n<p>A creature that enters or begins its turn in such a square takes [[/r {3d6}[negative]]]{3d6 negative damage} (@Check[type:fortitude|dc:22|basic:true] save). The negative energy becomes inert after 1 minute.</p>"
+                    "value": "<p>The empress necral worm Strides, leaving behind dribbles of negative energy in every square that it passes through.</p>\n<p>A creature that enters or begins its turn in such a square takes [[/r {3d6}[negative]]]{3d6 negative damage} (@Check[type:fortitude|dc:22|basic:true] save). The negative energy becomes inert after 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
