@@ -439,6 +439,21 @@ class ItemPF2e extends Item<ActorPF2e> {
         context: DocumentModificationContext<InstanceType<T>> = {}
     ): Promise<InstanceType<T>[]> {
         if (context.parent) {
+            const validTypes = context.parent.allowedItemTypes;
+            if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
+
+            // Check if this item is valid for this actor
+            for (const datum of data) {
+                if (datum.type && !validTypes.includes(datum.type)) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.Item.CannotAddType", {
+                            type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                        })
+                    );
+                    return [];
+                }
+            }
+
             const kits = data.filter((d) => d.type === "kit");
             const nonKits = data.filter((d) => !kits.includes(d));
 

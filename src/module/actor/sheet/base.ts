@@ -6,7 +6,7 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins } from "@item/physical/data";
-import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values";
+import { DENOMINATIONS } from "@item/physical/values";
 import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
@@ -803,23 +803,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         return super._onSortItem(event, itemSource);
-    }
-
-    protected override async _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
-        const sources = Array.isArray(itemSource) ? itemSource : [itemSource];
-        const validTypes = this.object.allowedItemTypes;
-        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES);
-
-        const invalidSources = sources.filter((source) => !validTypes.some((type) => source.type === type));
-        for (const datum of invalidSources) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.Item.CannotAddType", {
-                    type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
-                })
-            );
-        }
-
-        return super._onDropItemCreate(sources.filter((source) => !invalidSources.includes(source)));
     }
 
     async onDropItem(data: DropCanvasItemDataPF2e) {
