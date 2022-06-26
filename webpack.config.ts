@@ -94,7 +94,6 @@ const config: Configuration = {
                         loader: "ts-loader",
                         options: {
                             configFile: path.resolve(__dirname, "tsconfig.json"),
-                            experimentalWatchApi: !isProductionBuild,
                             happyPackMode: true,
                             transpileOnly: true,
                             compilerOptions: {

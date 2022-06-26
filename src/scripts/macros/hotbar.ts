@@ -3,9 +3,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { EffectPF2e } from "@item/effect";
 import { MacroPF2e } from "@module/macro";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { SKILL_DICTIONARY } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/values";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { StatisticModifier } from "@actor/modifiers";
 import { LocalizePF2e } from "@system/localize";
 
 /**
@@ -70,8 +69,8 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
 
 export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
     const actor = game.actors.get(actorId);
-    if (actor && "actions" in actor.data.data) {
-        const action: StatisticModifier | undefined = actor.data.data.actions[actionIndex];
+    if (actor?.isOfType("character", "npc")) {
+        const action = actor.data.data.actions.at(actionIndex);
         if (action?.name === actionName) {
             if (action.type === "strike") {
                 const templateData = {

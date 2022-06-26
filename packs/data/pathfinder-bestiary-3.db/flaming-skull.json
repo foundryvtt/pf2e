@@ -27,7 +27,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "negative healing",
@@ -61,7 +61,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Beheaded are the reanimated heads of decapitation victims. These mindless undead fly through the air or roll around to attack their prey.</p>\n<hr />\n<p>More dangerous than simple severed heads, these skulls are wreathed in unearthly flames.</p>",
+            "publicNotes": "<p>More dangerous than simple severed heads, these skulls are wreathed in unearthly flames.</p>\n<hr />\n<p>Beheaded are the reanimated heads of decapitation victims. These mindless undead fly through the air or roll around to attack their prey.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -101,8 +101,6 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Positive",
                     "type": "positive",
                     "value": 3
                 }
@@ -226,7 +224,7 @@
             "type": "melee"
         },
         {
-            "_id": "bslb9CBokySt59Bf",
+            "_id": "CsRpTNQIfspNNH9f",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -271,7 +269,7 @@
             "type": "action"
         },
         {
-            "_id": "R0ZmUobcwtAYKWDA",
+            "_id": "sIWC4aZPyNtODaFY",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -336,7 +334,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When destroyed, a flaming skull explodes in a blast of fire and bone that deals [[/r {1d6}[piercing]]]{1d6 piercing damage} plus [[/r {1d6}[fire]]]{1d6 fire damage} to each adjacent creature (@Check[type:reflex|dc:18|basic:true] save).</p>"
+                    "value": "<p>When destroyed, a flaming skull explodes in a blast of fire and bone that deals [[/r {1d6}[piercing]+{1d6}[fire]]]{1d6 piercing damage plus 1d6 fire damage} to each adjacent creature (@Check[type:reflex|dc:18|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -376,12 +374,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A flaming skull is shrouded in hideous flames. It deals [[/r {1d6}[fire]]]{1d6 fire damage} to any unattended item it touches and on a forehead Strike. On a critical hit with a Strike, the target catches fire, taking [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p>A flaming skull is shrouded in hideous flames. It deals [[/r {1d6}[fire]]]{1d6 fire damage} to any unattended item it touches and on a forehead Strike. On a critical hit with a Strike, the target catches fire, taking @Localize[PF2E.PersistentDamage.Fire1d4.success].</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "attack",
+                        "text": "PF2E.PersistentDamage.Fire1d4.success",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -418,7 +427,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Maneuver in Flight",
+                        "label": "PF2E.SkillVariant.ManeuverInFlight",
                         "predicate": {
                             "all": [
                                 "action:maneuver-in-flight"

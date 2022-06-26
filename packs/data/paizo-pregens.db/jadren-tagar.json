@@ -2110,7 +2110,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3158,7 +3220,8 @@
                             ]
                         },
                         "selector": "will",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success at a Will save against a fear effect, you get a critical success instead.</p>"
+                        "text": "When you roll a success at a Will save against a fear effect, you get a critical success instead.",
+                        "title": "{item|name}"
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -3264,214 +3327,17 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "key": "CriticalSpecialization",
                         "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
+                            "all": [
+                                {
+                                    "gte": [
+                                        "weapon:proficiency:rank",
+                                        3
+                                    ]
+                                }
                             ]
-                        },
-                        "selector": "axe-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "bomb-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> Increase the radius of the bomb's splash damage (if any) to 10 feet.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "bow-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a DC 10 Athletics check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "brawling-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "club-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "dart-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes 1d6 persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "flail-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "hammer-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "knife-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes 1d6 persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "pick-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "polearm-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is moved 5 feet in a direction of your choice. This is forced movement.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "shield-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> You knock the target back from you 5 feet. This is forced movement.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "sling-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "spear-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "any": [
-                                "proficiency:master",
-                                "proficiency:legendary"
-                            ]
-                        },
-                        "selector": "sword-weapon-group-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
+                        }
                     }
                 ],
                 "slug": "fighter-weapon-mastery",

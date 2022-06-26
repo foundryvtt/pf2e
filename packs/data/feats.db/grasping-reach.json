@@ -25,10 +25,31 @@
         },
         "rules": [
             {
-                "domain": "strike-damage",
+                "domain": "all",
                 "key": "RollOption",
                 "option": "grasping-reach",
                 "toggleable": true
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:melee",
+                        "weapon:usage:hands:2"
+                    ],
+                    "not": [
+                        "weapon:damage:die:faces:4",
+                        "weapon:trait:reach"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "grasping-reach"
+                    ]
+                },
+                "property": "weapon-traits",
+                "value": "reach"
             },
             {
                 "key": "DamageDice",

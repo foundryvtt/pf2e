@@ -154,6 +154,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     protected getBaseData(options: Partial<DocumentSheetOptions> = {}): ItemSheetDataPF2e<TItem> {
         options.classes?.push(this.item.type);
+        options.editable = this.isEditable;
 
         const itemData = this.item.clone({}, { keepId: true }).data;
         const rules = itemData.toObject().data.rules;

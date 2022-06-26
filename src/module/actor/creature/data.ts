@@ -1,7 +1,5 @@
-import { SaveType } from "@actor/data";
 import {
     AbilityBasedStatistic,
-    AbilityString,
     ActorSystemData,
     ActorSystemSource,
     BaseActorAttributes,
@@ -14,10 +12,9 @@ import {
     Rollable,
     StrikeData,
 } from "@actor/data/base";
-import { SkillLongForm } from "@actor/data/types";
-import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
-import { ActorAlliance } from "@actor/types";
+import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
+import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { CreatureTraits } from "@item/ancestry/data";
 import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
@@ -101,13 +98,11 @@ interface SenseData {
 
 /** Data describing the value & modifier for a base ability score. */
 interface AbilityData {
-    /** The raw value of this ability score; computed from the mod for npcs automatically. */
+    /** The ability score: computed from the mod for npcs automatically. */
     value: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;
 }
-
-type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
 
 type Abilities = Record<AbilityString, AbilityData>;
 
@@ -159,6 +154,13 @@ interface CreatureAttributes extends BaseActorAttributes {
     senses: { value: string } | CreatureSensePF2e[];
 
     speed: CreatureSpeeds;
+
+    /** The current dying level (and maximum) for this creature. */
+    dying: ValueAndMax & { recoveryDC: number };
+    /** The current wounded level (and maximum) for this creature. */
+    wounded: ValueAndMax;
+    /** The current doomed level (and maximum) for this creature. */
+    doomed: ValueAndMax;
 }
 
 interface CreatureSpeeds extends StatisticModifier {

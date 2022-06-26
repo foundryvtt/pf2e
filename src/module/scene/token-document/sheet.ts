@@ -39,25 +39,25 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
         $linkToActorSize.on("change", (event) => {
             const $sizeInputs = $(event.currentTarget)
                 .closest("fieldset")
-                .find('input[type="number"], input[type="range"]');
+                .find("input[type=number], input[type=range]");
             const newSetting = $linkToActorSize.prop("checked");
             $sizeInputs.prop("disabled", newSetting);
-            if (game.settings.get("pf2e", "tokens.autoscale") && newSetting === true) {
+            if (this.token.autoscale && newSetting === true) {
                 if (this.actor instanceof VehiclePF2e) {
                     const { dimensions } = this.actor;
                     const width = Math.max(Math.round(dimensions.width / 5), 1);
                     const length = Math.max(Math.round(dimensions.length / 5), 1);
-                    $sizeInputs.filter('[name="width"]').val(width);
-                    $sizeInputs.filter('[name="height"]').val(length);
+                    $sizeInputs.filter("[name=width]").val(width);
+                    $sizeInputs.filter("[name=height]").val(length);
                 } else {
-                    $sizeInputs.filter('[name="width"], [name="height"]').val(this.dimensionsFromActorSize);
+                    $sizeInputs.filter("[name=width], [name=height]").val(this.dimensionsFromActorSize);
                 }
                 this.disableScale($html);
             } else {
                 const source = this.token.data._source;
-                $sizeInputs.filter('[name="width"]').val(source.width);
-                $sizeInputs.filter('[name="height"]').val(source.height);
-                $sizeInputs.filter('[name="scale"]').val(source.scale);
+                $sizeInputs.filter("[name=width]").val(source.width);
+                $sizeInputs.filter("[name=height]").val(source.height);
+                $sizeInputs.filter("[name=scale]").val(source.scale);
                 this.enableScale($html);
             }
         });

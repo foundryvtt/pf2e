@@ -1,8 +1,7 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
-import { CharacterSource, SaveType } from "@actor/data";
-import { AbilityString } from "@actor/data/base";
+import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAP } from "@actor/helpers";
 import {
@@ -14,6 +13,15 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
+import {
+    ABILITY_ABBREVIATIONS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_DICTIONARY_REVERSE,
+    SKILL_EXPANDED,
+} from "@actor/values";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -47,8 +55,6 @@ import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { DamageRollContext } from "@system/damage/damage";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckDC } from "@system/degree-of-success";
-import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
@@ -62,14 +68,6 @@ import {
     traitSlugToObject,
 } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
-import {
-    ABILITY_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_DICTIONARY,
-    SKILL_DICTIONARY_REVERSE,
-    SKILL_EXPANDED,
-} from "../data/values";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import {
     AuxiliaryAction,
@@ -112,8 +110,8 @@ class CharacterPF2e extends CreaturePF2e {
     deityBoonsCurses!: FeatData[];
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        const abcItems = ["ancestry", "heritage", "background", "class"] as const;
-        return [...super.allowedItemTypes, ...abcItems, "physical", "deity", "feat", "action", "lore"];
+        const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
+        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
     }
 
     get keyAbility(): AbilityString {
@@ -352,10 +350,6 @@ class CharacterPF2e extends CreaturePF2e {
         perception.ability = "wis";
         perception.rank ??= 0;
 
-        attributes.doomed = { value: 0, max: 3 };
-        attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
-        attributes.wounded = { value: 0, max: 3 };
-
         // Hit points
         const hitPoints = this.data.data.attributes.hp;
         hitPoints.recoveryMultiplier = 1;
@@ -440,6 +434,7 @@ class CharacterPF2e extends CreaturePF2e {
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
+        this.setAbilityModifiers();
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
     }
@@ -474,13 +469,6 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Get the itemTypes object only once for the entire run of the method
         const itemTypes = this.itemTypes;
-
-        // Set dying, doomed, and wounded statuses according to embedded conditions
-        for (const conditionName of ["dying", "doomed", "wounded"] as const) {
-            const condition = itemTypes.condition.find((condition) => condition.slug === conditionName);
-            const status = systemData.attributes[conditionName];
-            status.value = Math.min(condition?.value ?? 0, status.max);
-        }
 
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
@@ -866,8 +854,12 @@ class CharacterPF2e extends CreaturePF2e {
         // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics
         for (const ability of Object.values(this.data.data.abilities)) {
             ability.value = Math.clamped(ability.value, 8, 30);
+            // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
+            ability.base = ability.value;
         }
+    }
 
+    private setAbilityModifiers(): void {
         // Set modifiers
         for (const ability of Object.values(this.data.data.abilities)) {
             ability.mod = Math.floor((ability.value - 10) / 2);
@@ -981,7 +973,7 @@ class CharacterPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            this.data.data.saves[saveType] = mergeObject(this.data.data.saves[saveType], stat.getCompatData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
@@ -1970,8 +1962,8 @@ class CharacterPF2e extends CreaturePF2e {
                 const incrementOption =
                     typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
                 args.options ??= [];
-                const options = Array.from(
-                    new Set([args.options, context.options, action.options, baseOptions, incrementOption].flat())
+                const options = new Set(
+                    [args.options, context.options, action.options, baseOptions, incrementOption].flat().sort()
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
@@ -1981,13 +1973,30 @@ class CharacterPF2e extends CreaturePF2e {
                     statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
-                    options,
+                    Array.from(options),
                     this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
+
+                // Find a critical specialization note
+                const critSpecs = context.self.actor.synthetics.criticalSpecalizations;
+                if (outcome === "criticalSuccess" && !args.getFormula && critSpecs.standard.length > 0) {
+                    // If an alternate critical specialization effect is available, apply it only if there is also a
+                    // qualifying non-alternate
+                    const standard = critSpecs.standard
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .pop();
+                    const alternate = critSpecs.alternate
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .pop();
+                    const note = standard ? alternate ?? standard : null;
+
+                    if (note) damage.notes.push(note);
+                }
+
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
@@ -2128,45 +2137,6 @@ class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         await this.update({ [`data.martial.-=${key}`]: null });
-    }
-
-    /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
-        const dying = this.data.data.attributes.dying.value;
-        if (!dying) return null;
-
-        const translations = LocalizePF2e.translations.PF2E;
-        const { Recovery } = translations;
-
-        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-        const recoveryDC = this.data.data.attributes.dying.recoveryDC;
-
-        const dc: CheckDC = {
-            label: game.i18n.format(translations.Recovery.rollingDescription, {
-                dying,
-                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
-            }),
-            value: recoveryDC + dying,
-            visibility: "all",
-        };
-
-        const notes = [
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
-        ];
-
-        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
-        const token = this.getActiveTokens(false, true).shift();
-
-        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
-
-        // No automated update yet, not sure if Community wants that.
-        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */

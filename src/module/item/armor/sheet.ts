@@ -5,8 +5,8 @@ import { ArmorPF2e } from ".";
 import { createSheetTags } from "@module/sheet/helpers";
 
 export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
-    override async getData() {
-        const sheetData = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>) {
+        const sheetData = await super.getData(options);
 
         // Armor property runes
         const totalSlots = getPropertySlots(sheetData.item);

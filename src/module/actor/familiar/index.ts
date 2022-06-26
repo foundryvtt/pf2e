@@ -1,17 +1,14 @@
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { CreaturePF2e, CharacterPF2e } from "@actor";
-import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { CheckPF2e, RollParameters } from "@system/rolls";
-import { ItemSourcePF2e } from "@item/data";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ItemPF2e } from "@item";
-import { FamiliarData, FamiliarSystemData } from "./data";
+import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { CreatureSaves, LabeledSpeed } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { Statistic } from "@system/statistic";
-import { SaveType } from "@actor/data";
+import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { SaveType } from "@actor/types";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { extractModifiers, extractRollTwice } from "@module/rules/util";
 import { CheckRoll } from "@system/check/roll";
+import { CheckPF2e, RollParameters } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import { FamiliarData, FamiliarSystemData } from "./data";
 
 export class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
@@ -78,11 +75,6 @@ export class FamiliarPF2e extends CreaturePF2e {
             di: [],
             dr: [],
         });
-    }
-
-    /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
-    override applyActiveEffects(): void {
-        return;
     }
 
     override prepareDerivedData(): void {
@@ -342,23 +334,6 @@ export class FamiliarPF2e extends CreaturePF2e {
         }
     }
 
-    override async createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        const createData = Array.isArray(data) ? data : [data];
-        for (const datum of data) {
-            if (!("type" in datum)) continue;
-            if (!["condition", "effect"].includes(datum.type ?? "")) {
-                ui.notifications.error(game.i18n.localize("PF2E.FamiliarItemTypeError"));
-                return [];
-            }
-        }
-
-        return super.createEmbeddedDocuments(embeddedName, createData, context);
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -372,20 +347,4 @@ export class FamiliarPF2e extends CreaturePF2e {
 
 export interface FamiliarPF2e {
     readonly data: FamiliarData;
-
-    createEmbeddedDocuments(
-        embeddedName: "ActiveEffect",
-        data: PreCreate<foundry.data.ActiveEffectSource>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[]>;
-    createEmbeddedDocuments(
-        embeddedName: "Item",
-        data: PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
-    createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | Partial<ItemSourcePF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }

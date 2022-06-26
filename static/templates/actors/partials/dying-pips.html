@@ -1,0 +1,10 @@
+<span class="pips">
+    {{#if dying.maxed}}
+        {{#times data.attributes.dying.max}}<i class="fas fa-skull"></i>{{/times}}
+        {{#times data.attributes.doomed.value}}<i class="fas fa-skull"></i>{{/times}}
+    {{else}}
+        {{#times data.attributes.dying.value}}<i class="fas fa-times-circle"></i>{{/times}}
+        {{#times dying.remainingDying}}<i class="far fa-circle"></i>{{/times}}
+        {{#times data.attributes.doomed.value}}<i class="fas fa-skull"></i>{{/times}}
+    {{/if}}
+</span>

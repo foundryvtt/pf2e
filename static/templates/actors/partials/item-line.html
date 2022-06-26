@@ -40,7 +40,7 @@
             {{#if (and canBeEquipped isInvestable)}}
                 <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem"></i></a>
             {{/if}}
-            {{#if (eq @root.actor.type "character")}}
+            {{#if (or (eq @root.actor.type "character") (eq @root.actor.type "npc"))}}
                 {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=item}}
             {{/if}}
             {{#if item.isDamaged}}
@@ -56,7 +56,7 @@
             {{#if (and isSellable (ne @root.actor.type "loot"))}}
                 <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
             {{/if}}
-            {{#if editable}}
+            {{#if (or @root.user.isGM item.isIdentified)}}
                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
             {{/if}}
             {{#if (and @root.npcAttacksFromWeapons (eq item.type "weapon") (eq @root.actor.type "npc"))}}

@@ -9,7 +9,7 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
-import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import {
     getStrikingDice,
     RuneValuationData,
@@ -120,10 +120,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
             type: this.data.data.damage.damageType,
             dieFaces: Number(this.data.data.damage.die.replace(/^d/, "")),
         };
-        const actorSize = this.actor?.data.data.traits.size;
+        const { actor } = this;
+        const actorSize = actor?.data.data.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
-        const isDeityFavored =
-            !!this.actor?.isOfType("character") && tupleHasValue(this.actor.deity?.favoredWeapons ?? [], this.baseType);
+        const isDeityFavored = !!(
+            this.baseType &&
+            actor?.isOfType("character") &&
+            actor.deity?.favoredWeapons.includes(this.baseType)
+        );
 
         return [
             super.getRollOptions(prefix),

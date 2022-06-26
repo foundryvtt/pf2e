@@ -1,7 +1,7 @@
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import {
-    Abilities,
+    AbilityData,
     BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
@@ -16,10 +16,8 @@ import {
     SkillData,
 } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
-import { SaveType } from "@actor/data";
 import {
     AbilityBasedStatistic,
-    AbilityString,
     ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
@@ -27,6 +25,7 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/data";
 import { FeatData, ProficiencyRank } from "@item/data";
@@ -70,7 +69,7 @@ interface CharacterSkillData extends SkillData {
 /** The raw information contained within the actor data object for characters. */
 interface CharacterSystemData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: Abilities;
+    abilities: CharacterAbilities;
 
     /** Character build data, currently containing ability boosts and flaws */
     build: {
@@ -136,6 +135,13 @@ interface CharacterSystemData extends CreatureSystemData {
         entries: Record<string, Partial<CraftingEntryData>>;
     };
 }
+
+interface CharacterAbilityData extends AbilityData {
+    /** An ability score prior to modification by items */
+    base: number;
+}
+
+type CharacterAbilities = Record<AbilityString, CharacterAbilityData>;
 
 interface CharacterSaveData extends SaveData {
     ability: AbilityString;
@@ -355,13 +361,6 @@ interface CharacterAttributes extends CreatureAttributes {
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
     bonusEncumbranceBulk: number;
-
-    /** The current dying level (and maximum) for this character. */
-    dying: { value: number; max: number; recoveryDC: number };
-    /** The current wounded level (and maximum) for this character. */
-    wounded: { value: number; max: number };
-    /** The current doomed level (and maximum) for this character. */
-    doomed: { value: number; max: number };
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };

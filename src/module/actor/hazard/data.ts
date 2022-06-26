@@ -1,5 +1,4 @@
 import { SaveData } from "@actor/creature/data";
-import { SaveType } from "@actor/data";
 import {
     ActorSystemData,
     ActorSystemSource,
@@ -9,6 +8,7 @@ import {
     BaseHitPointsData,
     BaseTraitsData,
 } from "@actor/data/base";
+import { SaveType } from "@actor/types";
 import { ZeroToTwo } from "@module/data";
 import { HazardPF2e } from ".";
 

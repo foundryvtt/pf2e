@@ -1,9 +1,9 @@
-import { AbilityString } from "@actor/data/base";
+import { AbilityString } from "@actor/types";
+import { RollNotePF2e } from "@module/notes";
+import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "@system/damage";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { RollNotePF2e } from "../notes";
-import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "../system/damage";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -109,7 +109,12 @@ type DeferredValue<T> = (options?: DeferredValueParams) => T;
 class ModifierPF2e implements RawModifier {
     slug: string;
     label: string;
+
+    /** The value of the modifier */
     modifier: number;
+    /** The value before adjustments are applied */
+    #originalValue: number;
+
     type: ModifierType;
     ability: AbilityString | null;
     adjustments: ModifierAdjustment[];
@@ -157,7 +162,9 @@ class ModifierPF2e implements RawModifier {
 
         this.label = game.i18n.localize(params.label ?? params.name);
         this.slug = sluggify(params.slug ?? this.label);
-        this.modifier = typeof params.modifier === "function" ? 0 : params.modifier;
+
+        this.#originalValue = this.modifier = params.modifier;
+
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.adjustments = deepClone(params.adjustments ?? []);
@@ -177,8 +184,12 @@ class ModifierPF2e implements RawModifier {
 
     /** Return a copy of this ModifierPF2e instance */
     clone(options: { test?: string[] } = {}): ModifierPF2e {
-        const clone = new ModifierPF2e(this);
+        const clone =
+            this.modifier === this.#originalValue
+                ? new ModifierPF2e(this)
+                : new ModifierPF2e({ ...this, modifier: this.#originalValue });
         if (options.test) clone.test(options.test);
+
         return clone;
     }
 

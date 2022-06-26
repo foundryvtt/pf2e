@@ -2,7 +2,7 @@ import { RuleElementPF2e } from "./";
 import { ActorType } from "@actor/data";
 import { CreaturePF2e } from "@actor";
 import { tupleHasValue } from "@util";
-import { MOVEMENT_TYPES } from "@actor/data/values";
+import { MOVEMENT_TYPES } from "@actor/values";
 
 /**
  * @category RuleElement

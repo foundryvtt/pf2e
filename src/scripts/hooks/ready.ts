@@ -39,19 +39,23 @@ export const Ready = {
                 // Update the world system version
                 const previous = game.settings.get("pf2e", "worldSystemVersion");
                 const current = game.system.data.version;
-                if (!foundry.utils.isNewerVersion(current, previous)) return;
+                if (foundry.utils.isNewerVersion(current, previous)) {
+                    await game.settings.set("pf2e", "worldSystemVersion", current);
+                }
 
-                await game.settings.set("pf2e", "worldSystemVersion", current);
+                // These modules claim compatibility with all of V9 but are abandoned
+                const abandonedModules = new Set(["pf2e-lootgen", "pf2e-toolbox"]);
 
-                // Nag the GM for running sub-V9 modules
+                // Nag the GM for running unmaintained modules
                 const subV9Modules = Array.from(game.modules.values()).filter(
                     (m) =>
                         m.active &&
                         // Foundry does not enforce the presence of `ModuleData#compatibleCoreVersion`, but modules
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
-                        m.data.compatibleCoreVersion &&
-                        !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion, "0.8.9")
+                        (abandonedModules.has(m.id) ||
+                            (m.data.compatibleCoreVersion &&
+                                !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion, "0.8.9")))
                 );
 
                 for (const badModule of subV9Modules) {
@@ -62,8 +66,6 @@ export const Ready = {
             });
 
             PlayerConfigPF2e.activateColorScheme();
-
-            registerModuleArt();
 
             activateSocketListener();
 
@@ -81,6 +83,11 @@ export const Ready = {
                 return game.i18n
                     .localize(CONFIG.Item.typeLabels[typeA] ?? "")
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
+            });
+
+            // Compile compendium search index
+            registerModuleArt().then(() => {
+                ui.compendium.onReady();
             });
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter

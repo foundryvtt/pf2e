@@ -12,7 +12,7 @@ import { CoinsPF2e } from "@item/physical/helpers";
 
 export class LootPF2e extends ActorPF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "physical"];
+        return ["physical"];
     }
 
     get isLoot(): boolean {
@@ -139,6 +139,8 @@ export class LootPF2e extends ActorPF2e {
 
 export interface LootPF2e extends ActorPF2e {
     readonly data: LootData;
+
+    readonly saves?: never;
 
     get hitPoints(): null;
 }

@@ -1,44 +1,42 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { CharacterPF2e, CreaturePF2e, NPCPF2e, type ActorPF2e } from "@actor";
+import { RollFunction } from "@actor/data/base";
+import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
+import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { FolderPF2e } from "@module/folder";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { createSheetTags } from "@module/sheet/helpers";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
+import { LocalizePF2e } from "@system/localize";
 import {
     BasicConstructorOptions,
-    TagSelectorBasic,
     ResistanceSelector,
-    SenseSelector,
-    SpeedSelector,
-    WeaknessSelector,
-    TagSelectorType,
-    TAG_SELECTOR_TYPES,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
+    SenseSelector,
+    SpeedSelector,
+    TagSelectorBasic,
     TagSelectorOptions,
+    TagSelectorType,
+    TAG_SELECTOR_TYPES,
+    WeaknessSelector,
 } from "@system/tag-selector";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
-import { LocalizePF2e } from "@system/localize";
-import type { ActorPF2e } from "../base";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
+import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { SaveType } from "@actor/data";
-import { RollFunction } from "@actor/data/base";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { FolderPF2e } from "@module/folder";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
-import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CreaturePF2e } from "@actor/creature";
-import { createSheetTags } from "@module/sheet/helpers";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
-import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -234,13 +232,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {
             event.preventDefault();
-            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save") as SaveType;
-            const save = this.actor.saves?.[saveType];
-            if (save) {
-                save.check.roll(eventToRollParams(event));
-            } else {
-                this.actor.rollSave(event, saveType);
+            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save");
+            if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
             }
+
+            this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
         });
 
         $html.find(".roll-init").on("click", (event) => {
@@ -747,8 +744,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
                     if (sourceLocation === targetLocation && testSibling(item, target)) {
                         const siblings = entry.spells.filter((spell) => testSibling(item, spell));
-                        const sortBefore = item.data.sort >= target.data.sort;
-                        await item.sortRelative({ target, siblings, sortBefore });
+                        await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
                         const spell = await entry.addSpell(item, target.level);
@@ -775,8 +771,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
                 if (source && target && source.id !== target.id) {
                     const siblings = this.actor.spellcasting.contents;
-                    const sortBefore = source.data.sort >= target.data.sort;
-                    source.sortRelative({ target, siblings, sortBefore });
+                    source.sortRelative({ target, siblings });
                     return [target];
                 }
             }
@@ -803,26 +798,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 await this.actor.stowOrUnstow(item, container);
                 return [item];
             }
+
+            // This is a regular resort, but we can't rely on the default foundry resort implementation.
+            // The default implement only treats same type as siblings, and physical can have many sub-types.
+            if (target) {
+                const siblings = this.actor.items.filter((i) => i.isOfType("physical"));
+                await item.sortRelative({ target, siblings });
+                return [target];
+            }
         }
 
         return super._onSortItem(event, itemSource);
-    }
-
-    protected override async _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
-        const sources = Array.isArray(itemSource) ? itemSource : [itemSource];
-        const validTypes = this.object.allowedItemTypes;
-        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES);
-
-        const invalidSources = sources.filter((source) => !validTypes.some((type) => source.type === type));
-        for (const datum of invalidSources) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.Item.CannotAddType", {
-                    type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
-                })
-            );
-        }
-
-        return super._onDropItemCreate(sources.filter((source) => !invalidSources.includes(source)));
     }
 
     async onDropItem(data: DropCanvasItemDataPF2e) {

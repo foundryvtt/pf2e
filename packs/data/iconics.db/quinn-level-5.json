@@ -2065,7 +2065,69 @@
                     }
                 },
                 "quantity": 2,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3873,7 +3935,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.success]</p>"
+                        "text": "PF2E.BombNotes.AcidFlask.Moderate.success"
                     },
                     {
                         "key": "Note",
@@ -3881,7 +3943,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess]</p>"
+                        "text": "PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess"
                     }
                 ],
                 "size": "med",
@@ -4144,7 +4206,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.GhostCharge.Moderate.success]</p>"
+                        "text": "PF2E.BombNotes.GhostCharge.Moderate.success"
                     }
                 ],
                 "size": "med",

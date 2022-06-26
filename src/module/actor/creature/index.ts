@@ -1,5 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { CreatureData, SaveType } from "@actor/data";
+import { HitPointsSummary } from "@actor/base";
+import { CreatureData } from "@actor/data";
+import { StrikeData } from "@actor/data/base";
 import {
     CheckModifier,
     ensureProficiencyOption,
@@ -8,10 +10,30 @@ import {
     RawModifier,
     StatisticModifier,
 } from "@actor/modifiers";
-import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
-import { RuleElementSynthetics } from "@module/rules";
+import { SaveType } from "@actor/types";
+import { SKILL_DICTIONARY } from "@actor/values";
+import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ActionTrait } from "@item/action/data";
+import { isCycle } from "@item/container/helpers";
+import { ArmorSource } from "@item/data";
+import { EquippedData, ItemCarryType } from "@item/physical/data";
+import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
+import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
+import { CombatantPF2e } from "@module/encounter";
+import { RollNotePF2e } from "@module/notes";
+import { RuleElementSynthetics } from "@module/rules";
+import { extractModifiers, extractRollTwice } from "@module/rules/util";
+import { LightLevels } from "@module/scene/data";
+import { UserPF2e } from "@module/user";
+import { CheckRoll } from "@system/check/roll";
+import { DamageType } from "@system/damage";
+import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CheckPF2e, CheckRollContext } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -23,19 +45,7 @@ import {
     VisionLevel,
     VisionLevels,
 } from "./data";
-import { LightLevels } from "@module/scene/data";
-import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
-import { CombatantPF2e } from "@module/encounter";
-import { HitPointsSummary } from "@actor/base";
-import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
-import { extractModifiers, extractRollTwice } from "@module/rules/util";
-import { DamageType } from "@system/damage";
-import { StrikeData } from "@actor/data/base";
 import {
     Alignment,
     AlignmentTrait,
@@ -46,22 +56,10 @@ import {
     StrikeRollContext,
     StrikeRollContextParams,
 } from "./types";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isCycle } from "@item/container/helpers";
-import { isEquipped } from "@item/physical/usage";
-import { ArmorSource, ItemType } from "@item/data";
 import { SIZE_TO_REACH } from "./values";
-import { ActionTrait } from "@item/action/data";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
-    /** Saving throw rolls for the creature, built during data prep */
-    override saves!: Record<SaveType, Statistic>;
-
-    override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "condition", "effect"];
-    }
-
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
         return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
@@ -344,6 +342,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 enabled: true,
             },
         ];
+
+        attributes.doomed = { value: 0, max: 3 };
+        attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
+        attributes.wounded = { value: 0, max: 3 };
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -415,6 +417,20 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
+        }
+
+        // Handle caps derived from dying
+        attributes.wounded.max = Math.max(0, attributes.dying.max - 1);
+        attributes.doomed.max = attributes.dying.max;
+
+        // Set dying, doomed, and wounded statuses according to embedded conditions
+        for (const conditionName of ["doomed", "wounded", "dying"] as const) {
+            const condition = this.itemTypes.condition.find((condition) => condition.slug === conditionName);
+            const status = attributes[conditionName];
+            if (conditionName === "dying") {
+                status.max -= attributes.doomed.value;
+            }
+            status.value = Math.min(condition?.value ?? 0, status.max);
         }
     }
 
@@ -634,6 +650,59 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
+    /**
+     * Roll a Recovery Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     */
+    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
+        const { dying } = this.attributes;
+
+        if (!dying?.value) return null;
+
+        const translations = LocalizePF2e.translations.PF2E;
+        const { Recovery } = translations;
+
+        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+        const recoveryDC = dying.recoveryDC;
+
+        const dc: CheckDC = {
+            label: game.i18n.format(translations.Recovery.rollingDescription, {
+                dying: dying.value,
+                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
+            }),
+            value: recoveryDC + dying.value,
+            visibility: "all",
+        };
+
+        const notes = [
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.critSuccess),
+                outcome: ["criticalSuccess"],
+            }),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.success),
+                outcome: ["success"],
+            }),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.failure),
+                outcome: ["failure"],
+            }),
+            new RollNotePF2e({
+                selector: "all",
+                text: game.i18n.localize(Recovery.critFailure),
+                outcome: ["criticalFailure"],
+            }),
+        ];
+
+        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
+        const token = this.getActiveTokens(false, true).shift();
+
+        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
+    }
+
     /** Prepare derived creature senses from Rules Element synthetics */
     prepareSenses(data: SenseData[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
         const preparedSenses = data.map((datum) => new CreatureSensePF2e(datum));
@@ -659,9 +728,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
-        const selectors = ["speed", `${movementType}-speed`];
-        const domains = ["all", ...selectors];
-        const rollOptions = this.getRollOptions(domains);
+        const selectors = ["speed", "all-speeds", `${movementType}-speed`];
+        const rollOptions = this.getRollOptions(selectors);
         const modifiers = extractModifiers(this.synthetics.statisticsModifiers, selectors);
 
         if (movementType === "land") {
@@ -759,12 +827,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const selfToken =
             canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
-        const reach = !params.item.isOfType("spell")
-            ? this.getReach({ action: "attack", weapon: params.item })
-            : undefined;
+        const [reach, isMelee] = !params.item.isOfType("spell")
+            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
+            : [undefined, false];
 
         const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && selfToken?.isFlanking(targetToken, { reach })) {
+        if (targetToken && isMelee && selfToken?.isFlanking(targetToken, { reach })) {
             selfOptions.push("self:flanking");
         }
 
@@ -875,6 +943,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
 export interface CreaturePF2e {
     readonly data: CreatureData;
+
+    /** Saving throw rolls for the creature, built during data prep */
+    saves: Record<SaveType, Statistic>;
 
     get hitPoints(): HitPointsSummary;
 

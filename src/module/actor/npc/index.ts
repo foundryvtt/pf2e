@@ -1,15 +1,18 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
-import { SaveType } from "@actor/data";
-import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
+import { SIZE_TO_REACH } from "@actor/creature/values";
+import { RollFunction, TraitViewData } from "@actor/data/base";
+import { calculateMAP } from "@actor/helpers";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
 import { ItemType, MeleeData } from "@item/data";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
+import { CheckRoll } from "@system/check/roll";
 import { DamageType } from "@system/damage";
 import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
@@ -18,11 +21,8 @@ import { TextEditorPF2e } from "@system/text-editor";
 import { objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { VariantCloneParams } from "./types";
 import { StrikeAttackTraits } from "./strike-attack-traits";
-import { CheckRoll } from "@system/check/roll";
-import { calculateMAP } from "@actor/helpers";
+import { VariantCloneParams } from "./types";
 
 class NPCPF2e extends CreaturePF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
@@ -797,10 +797,10 @@ class NPCPF2e extends CreaturePF2e {
         const description = sourceItemData.data.description.value;
         if (description) {
             notes.push(
-                new RollNotePF2e(
-                    "all",
-                    `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`
-                )
+                new RollNotePF2e({
+                    selector: "all",
+                    text: `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`,
+                })
             );
         }
         const formatItemName = (item: ItemPF2e): string => {
@@ -821,7 +821,7 @@ class NPCPF2e extends CreaturePF2e {
             const item = this.items.find(
                 (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
             );
-            const note = new RollNotePF2e("all", "");
+            const note = new RollNotePF2e({ selector: "all", text: "" });
             if (item) {
                 // Get description from the actor item.
                 note.text = formatNoteText(formatItemName(item), item);

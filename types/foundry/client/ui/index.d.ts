@@ -1,16 +1,26 @@
-export {};
+import "./context";
+import "./dialog";
+import "./drag-drop";
+import "./filepicker";
+import "./notifications";
+import "./tabs";
 
 declare global {
-    const ui: {
-        actors: ActorDirectory;
-        chat: ChatLog;
+    interface FoundryUI<
+        TActor extends Actor,
+        TItem extends Item,
+        TChatLog extends ChatLog,
+        TCompendiumDirectory extends CompendiumDirectory
+    > {
+        actors: ActorDirectory<TActor>;
+        chat: TChatLog;
         combat: CombatTracker<Combat>;
-        compendium: CompendiumDirectory;
+        compendium: TCompendiumDirectory;
         controls: SceneControls;
-        items: ItemDirectory;
+        items: ItemDirectory<TItem>;
         notifications: Notifications;
         settings: Settings;
         tables: RollTableDirectory;
         windows: Record<number, Application>;
-    };
+    }
 }

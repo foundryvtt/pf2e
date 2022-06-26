@@ -10,11 +10,14 @@ import { CreaturePF2e } from ".";
 import { SheetOptions } from "@module/sheet/helpers";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
 import { TraitViewData } from "@actor/data/base";
+import { FlattenedCondition } from "@system/conditions";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
+
+type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
 interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
     actor: A;
@@ -71,6 +74,12 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
+    conditions: FlattenedCondition[];
+    dying: {
+        maxed: boolean;
+        remainingDying: number;
+        remainingWounded: number;
+    };
 }
 
 type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
@@ -84,6 +93,7 @@ export {
     CreatureSheetData,
     GetReachParameters,
     IsFlatFootedParams,
+    ModeOfBeing,
     SpellcastingSheetData,
     StrikeRollContext,
     StrikeRollContextParams,

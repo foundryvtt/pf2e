@@ -16,20 +16,13 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import {
-    AbilityString,
-    ActorFlagsPF2e,
-    ArmorClassData,
-    DexterityModifierCapData,
-    PerceptionData,
-    StrikeData,
-} from "@actor/data/base";
-import { MeleePF2e } from "@item";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import type { NPCPF2e } from ".";
-import { ValueAndMax } from "@module/data";
-import { SaveType } from "@actor/data";
+import { ActorFlagsPF2e, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
+import { MeleePF2e } from "@item";
+import { ValueAndMax } from "@module/data";
+import type { NPCPF2e } from ".";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;

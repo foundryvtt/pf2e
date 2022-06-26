@@ -1,5 +1,5 @@
-import { SkillLongForm } from "@actor/data/types";
-import { SKILL_LONG_FORMS } from "@actor/data/values";
+import { SkillLongForm } from "@actor/types";
+import { SKILL_LONG_FORMS } from "@actor/values";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data";

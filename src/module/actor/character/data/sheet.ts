@@ -11,14 +11,6 @@ import { CHARACTER_SHEET_TABS } from "./values";
 type CharacterSheetOptions = ActorSheetOptions;
 
 type CharacterSystemSheetData = CharacterSystemData & {
-    attributes: {
-        dying: {
-            icon: string;
-        };
-        wounded: {
-            icon: string;
-        };
-    };
     details: CharacterSystemData["details"] & {
         keyability: {
             value: keyof typeof CONFIG.PF2E.abilities;

@@ -42,6 +42,9 @@ declare global {
             version: string;
         };
 
+        /** The game World which is currently active */
+        world: object;
+
         /** Localization support */
         i18n: Localization;
 
@@ -52,6 +55,7 @@ declare global {
         modules: Map<
             string,
             {
+                id: string;
                 active: boolean;
                 data: {
                     compatibleCoreVersion: string | undefined;
@@ -114,21 +118,25 @@ declare global {
         };
 
         /* -------------------------------------------- */
-        /*  Entities                                    */
+        /*  World Collections                           */
         /* -------------------------------------------- */
 
-        users: Users<TUser>;
-        messages: Messages<TChatMessage>;
-        scenes: Scenes<TScene>;
         actors: TActors;
+        collections: Collection<
+            WorldCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>
+        >;
+
+        combats: CombatEncounters<TCombat>;
+        folders: Folders<TFolder>;
         items: Items<TItem>;
         journal: Journal;
         macros: Macros<TMacro>;
-        playlists: Playlists;
-        combats: CombatEncounters<TCombat>;
-        tables: RollTables;
-        folders: Folders<TFolder>;
+        messages: Messages<TChatMessage>;
         packs: Collection<CompendiumCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>>;
+        playlists: Playlists;
+        scenes: Scenes<TScene>;
+        tables: RollTables;
+        users: Users<TUser>;
 
         constructor(view: string, worldData: {}, sessionId: string, socket: io.Socket);
 
@@ -141,70 +149,46 @@ declare global {
          */
         static create(): Promise<Game>;
 
-        /**
-         * Request World data from server and return it
-         */
-        static getWorldData(socket: io.Socket): Promise<any>;
+        /** Request World data from server and return it */
+        static getWorldData(socket: io.Socket): Promise<object>;
 
-        /**
-         * Request setup data from server and return it
-         */
-        static getSetupData(socket: io.Socket): Promise<any>;
+        /** Request setup data from server and return it */
+        static getSetupData(socket: io.Socket): Promise<object>;
 
-        /**
-         * Initialize the Game for the current window location
-         */
+        /** Initialize the Game for the current window location */
         initialize(): Promise<void>;
 
-        /**
-         * Fully set up the game state, initializing Entities, UI applications, and the Canvas
-         */
+        /** Fully set up the game state, initializing Entities, UI applications, and the Canvas */
         setupGame(): Promise<void>;
 
-        /**
-         * Initialize game state data by creating Collections for all Entity types
-         */
+        /** Initialize game state data by creating Collections for all Entity types */
         initializeEntities(): void;
 
-        /**
-         * Initialization actions for compendium packs
-         */
+        /** Initialization actions for compendium packs */
         initializePacks(config: any): Promise<void>;
 
-        /**
-         * Initialize the WebRTC implementation
-         */
+        /** Initialize the WebRTC implementation */
         initializeRTC(): void;
 
-        /**
-         * Initialize core UI elements
-         */
+        /** Initialize core UI elements */
         initializeUI(): void;
 
-        /**
-         * Initialize the game Canvas
-         */
+        /** Initialize the game Canvas */
         initializeCanvas(): Promise<void>;
 
-        /**
-         * Initialize Keyboard and Mouse controls
-         */
+        /** Initialize Keyboard controls */
         initializeKeyboard(): void;
+
+        /** Initialize Mouse controls */
+        initializeMouse(): void;
 
         /**
          * Register core game settings
          */
         registerSettings(): void;
 
-        /**
-         * The currently connected User
-         */
+        /** The currently connected User */
         get user(): Active<TUser>;
-
-        /**
-         * Metadata regarding the current game World
-         */
-        get world(): any;
 
         /**
          * Metadata regarding the game System which powers this World

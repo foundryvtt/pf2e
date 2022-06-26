@@ -53,6 +53,10 @@ export interface BracketedValue<T extends object | number | string = object | nu
 type DeferredModifier = DeferredValue<ModifierPF2e | null>;
 
 interface RuleElementSynthetics {
+    criticalSpecalizations: {
+        standard: CritSpecSynthetic[];
+        alternate: CritSpecSynthetic[];
+    };
     damageDice: Record<string, DamageDicePF2e[]>;
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
@@ -72,6 +76,8 @@ interface RuleElementSynthetics {
         flush: () => void;
     };
 }
+
+type CritSpecSynthetic = (weapon: Embedded<WeaponPF2e>, options: Set<string>) => RollNotePF2e | null;
 
 interface RollSubstitution {
     slug: string;

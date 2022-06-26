@@ -337,7 +337,8 @@
                             ]
                         },
                         "selector": "saving-throw",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+                        "text": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead.",
+                        "title": "{item|name}"
                     },
                     {
                         "adjustment": {
@@ -2066,7 +2067,69 @@
                     }
                 },
                 "quantity": 3,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3606,310 +3669,6 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "axe-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionAxe]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "bow-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionBow]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
-                        "selector": "shortbow-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionBow]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "brawling-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionBrawling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "club-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionClub]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
-                        "selector": "sap-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionClub]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "dart-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionDart]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "flail-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionFlail]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "hammer-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionHammer]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "knife-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionKnife]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "pick-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionPick]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "polearm-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionPolearm]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "shield-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionShield]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "sling-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionSling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "spear-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionSpear]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile"
-                            ]
-                        },
-                        "selector": "sword-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionSword]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
-                        "selector": "rapier-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionSword]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
-                        "selector": "shortsword-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionSword]</p>"
-                    },
-                    {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "data.martial.simple.rank",
@@ -3946,35 +3705,34 @@
                         "value": 2
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "key": "CriticalSpecialization",
                         "predicate": {
                             "all": [
                                 "target:condition:flat-footed"
-                            ]
-                        },
-                        "selector": "unarmed-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionBrawling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
                             ],
                             "any": [
-                                "finesse",
-                                "agile"
+                                {
+                                    "and": [
+                                        {
+                                            "or": [
+                                                "weapon:trait:agile",
+                                                "weapon:trait:finesse"
+                                            ]
+                                        },
+                                        {
+                                            "or": [
+                                                "weapon:category:simple",
+                                                "weapon:category:unarmed"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "weapon:base:rapier",
+                                "weapon:base:sap",
+                                "weapon:base:shortbow",
+                                "weapon:base:shortsword"
                             ]
-                        },
-                        "selector": "firearm-weapon-group-damage",
-                        "text": "<p class=\"compact-text\">@Localize[PF2E.WeaponDescriptionFirearm]</p>"
+                        }
                     }
                 ],
                 "slug": "weapon-tricks",
@@ -4336,7 +4094,8 @@
                             ]
                         },
                         "selector": "perception",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> You don't treat a natural 1 as worse than usual on perception checks; you get a critical failure only if your result is 10 lower than the DC.</p>"
+                        "text": "You don't treat a natural 1 as worse than usual on perception checks; you get a critical failure only if your result is 10 lower than the DC.",
+                        "title": "{item|name}"
                     },
                     {
                         "key": "Note",
@@ -4346,7 +4105,8 @@
                             ]
                         },
                         "selector": "skill-check",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> You don't treat a natural 1 as worse than usual on skill checks; you get a critical failure only if your result is 10 lower than the DC.</p>"
+                        "text": "You don't treat a natural 1 as worse than usual on skill checks; you get a critical failure only if your result is 10 lower than the DC.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "ageless-patience",

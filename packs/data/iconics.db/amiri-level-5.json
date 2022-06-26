@@ -1677,7 +1677,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3570,246 +3632,6 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "axe-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionAxe]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "bomb-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBomb]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "bow-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBow]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "brawling-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBrawling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "club-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "dart-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionDart]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "flail-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFlail]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "hammer-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionHammer]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "knife-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionKnife]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "pick-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPick]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "polearm-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPolearm]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "shield-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionShield]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "sling-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "spear-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSpear]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
-                        "selector": "sword-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSword]</p>"
-                    },
-                    {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "data.martial.simple.rank",
@@ -3828,20 +3650,13 @@
                         "value": 2
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "key": "CriticalSpecialization",
                         "predicate": {
                             "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "ranged"
+                                "self:effect:rage",
+                                "weapon:melee"
                             ]
-                        },
-                        "selector": "firearm-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFirearm]</p>"
+                        }
                     }
                 ],
                 "slug": "brutality",

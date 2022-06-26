@@ -1,5 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
+import { DC_SLUGS, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import {
     CheckModifier,
     ensureProficiencyOption,
@@ -56,12 +56,12 @@ export class ActionMacroHelpers {
     ): RollNotePF2e {
         const visibility = game.settings.get("pf2e", "metagame.showResults");
         const translated = game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`);
-        return new RollNotePF2e(
+        return new RollNotePF2e({
             selector,
-            `<p class="compact-text">${translated}</p>`,
-            new PredicatePF2e({}),
-            visibility === "all" ? [outcome] : []
-        );
+            text: `<p class="compact-text">${translated}</p>`,
+            predicate: new PredicatePF2e({}),
+            outcome: visibility === "all" ? [outcome] : [],
+        });
     }
 
     static async simpleRollActionCheck(options: SimpleRollActionCheckOptions) {

@@ -83,7 +83,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         const slug = this.slug ?? sluggify(this.name);
         const traits = this.data.data.traits?.value.map((t) => `trait:${t}`) ?? [];
         const delimitedPrefix = prefix ? `${prefix}:` : "";
-        const options = [`${delimitedPrefix}${slug}`, ...traits.map((t) => `${delimitedPrefix}${t}`)];
+        const options = [
+            `${delimitedPrefix}id:${this.id}`,
+            `${delimitedPrefix}${slug}`,
+            ...traits.map((t) => `${delimitedPrefix}${t}`),
+        ];
         if ("level" in this.data.data) options.push(`${delimitedPrefix}level:${this.data.data.level.value}`);
         if (["item", ""].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
@@ -435,6 +439,21 @@ class ItemPF2e extends Item<ActorPF2e> {
         context: DocumentModificationContext<InstanceType<T>> = {}
     ): Promise<InstanceType<T>[]> {
         if (context.parent) {
+            const validTypes = context.parent.allowedItemTypes;
+            if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
+
+            // Check if this item is valid for this actor
+            for (const datum of data) {
+                if (datum.type && !validTypes.includes(datum.type)) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.Item.CannotAddType", {
+                            type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                        })
+                    );
+                    return [];
+                }
+            }
+
             const kits = data.filter((d) => d.type === "kit");
             const nonKits = data.filter((d) => !kits.includes(d));
 

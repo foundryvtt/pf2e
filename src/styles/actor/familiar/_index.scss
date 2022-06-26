@@ -41,13 +41,12 @@
                 border-radius: 0;
             }
 
-            .header-row {
+            .header-content {
                 display: flex;
                 flex-direction: column;
                 border-radius: 0;
                 flex-grow: 1;
                 margin-left: 10px;
-
 
                 .charname {
                     display: flex;
@@ -93,8 +92,16 @@
                         text-transform: uppercase;
                     }
                 }
+
+                .sub-header {
+                    display: flex;
+                    margin-bottom: 10px;
+                    .traits {
+                        flex: 1;
+                    }
+                }
+
                 .traits {
-                    flex: 0;
                     margin: 0.25em 0;
                     span {
                         color: white;
@@ -108,94 +115,86 @@
                     }
                 }
 
-                .details-section{
+                .details-section {
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
 
                     .hp-section {
-                        display: flex;
+                        display: grid;
                         flex-direction: column;
                         height: max-content;
                         width: 150px;
+                        grid-template-columns: min-content 1fr;
+                        font-size: var(--font-size-14);
 
-                        .hp-ac {
-                            flex-basis: 50%;
+                        div {
+                            white-space: nowrap;
+                        }
+
+                        .label {
                             display: flex;
                             flex-direction: row;
                             align-items: center;
-                            justify-content: space-between;
-                            font-size: var(--font-size-14);
-                            height: 17px;
+                            white-space: nowrap;
 
-                            .hpac-label {
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
+                            h4 {
+                                font-weight: bold;
+                                margin: 0 0.25em 0 0;
+                                padding-left: 6px;
+                            }
+                        }
 
-                                h4 {
-                                    font-weight: bold;
-                                    margin: 0 0.25em 0 0;
-                                    padding-left: 6px;
+                        .value {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            padding-left: 4px;
+
+                            input {
+                                width: 2em;
+                                text-align: right;
+                                padding-right: 3px;
+                                border: 1px solid transparent;
+                                background: none;
+                                height: auto;
+
+                                &:hover, &:focus {
+                                    border: 1px solid black;
+                                    box-shadow: 0 0 10px #00005a;
                                 }
                             }
 
-                            .hpac-value {
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-
-                                input.current-hp {
-                                    width: 2em;
-                                    text-align: right;
-                                    padding-right: 3px;
-                                    border: 1px solid transparent;
-                                    background: none;
-                                    height: auto;
-
-                                    &:hover, &:focus {
-                                        border: 1px solid black;
-                                        box-shadow: 0 0 10px #00005a;
-                                    }
-                                }
-
-                                .total-hp{
-                                    flex-grow: 1;
-                                }
+                            .total-hp {
+                                flex-grow: 1;
                             }
+                        }
 
-
-
-                            &.rollable {
-                                cursor: pointer;
-                                margin-bottom: 1px;
-
-                                &:hover {
-                                    margin-bottom: 0px;
-                                    border-bottom: 1px solid #323232;
-                                }
-
+                        .temp-hp {
+                            display: flex;
+                            margin-left: 8px;
+                            align-items: baseline;
+                            input {
+                                text-align: left;
                             }
                         }
                     }
 
-                    .master-section {
+                    .defenses-section {
                         display: flex;
                         flex-direction: column;
 
-                        .saves-list {
+                        .defenses-list {
                             display: flex;
                             flex-direction: row;
                             justify-content: space-between;
-                            padding-bottom: 1px;
+                            gap: 12px;
 
-                            .saves {
+                            .save-name, .ac {
                                 display: flex;
                                 flex-direction: column;
                                 align-items: center;
                                 column-gap: 0.5em;
-                                margin-bottom: 1px;
-                                cursor: pointer;
 
                                 .name {
                                     font-weight: bold;
@@ -204,14 +203,35 @@
 
                                 .value {
                                     font-style: normal;
+                                    i {
+                                        margin-right: 2px;
+                                    }
                                 }
                             }
 
-                            .saves:hover {
-                                margin-bottom: 0px;
-                                border-bottom: 1px solid #323232;
+                            .ac {
+                                border-right: 1px solid rgba(0, 0, 0, 0.15);
+                                padding-right: 12px;
                             }
                         }
+                    }
+                }
+
+                .dying-section {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: end;
+                    .name {
+                        font-weight: bold;
+                    }
+                    .dots {
+                        display: flex;
+                        gap: 4px;
+                        align-items: baseline;
+                    }
+                    .pips {
+                        display: flex;
+                        gap: 1px;
                     }
                 }
             }
@@ -467,11 +487,6 @@
         .main-section {
             display: flex;
             flex-direction: row;
-
-            .skill-sidebar {
-                // width: 150px;
-            }
-
             .main-container {
                 flex-grow: 2;
             }
@@ -481,6 +496,7 @@
             display: flex;
             flex-direction: column;
             width: 150px;
+            gap: 10px;
 
             .skills-list {
                 display: flex;
@@ -532,44 +548,6 @@
             }
         }
 
-        .effects-list {
-            display: flex;
-            flex: 1 0 auto;
-            flex-direction: row;
-            flex-wrap: wrap;
-            width: 100%;
-            padding: 0;
-
-            .separator {
-                flex: 0 0 1px;
-                height: 32px;
-                margin-right: 4px;
-                border-left: 2px solid #323232;
-            }
-
-            > .effect {
-                display: flex;
-                flex: 0 0 64;
-                height: 64px;
-                margin-right: 4px;
-                margin-bottom: 4px;
-                border-bottom: none !important;
-
-                .item-image {
-                    background-size: cover;
-                    border: 1px solid #323232;
-                    border-bottom: 1px solid #323232;
-                    border-radius: 3px;
-                    width: 64px;
-                }
-
-                .item-image:hover {
-                    border: 1px solid #f5efe0;
-                    border-radius: 3px;
-                }
-            }
-        }
-
         ul.familiar-abilities-list {
             list-style: none;
             margin: 0px;
@@ -594,72 +572,17 @@
             }
         }
 
-        .effects {
-            .list-row {
+        .effects-list {
+            @include p-reset;
+            @include effects-list;
+
+            .item {
+                @include p-reset;
                 margin: 0.25em 0;
-            }
-            .item-list {
-                list-style: none;
-                padding-left: 0;
-
-                .item-header {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    .item-name {
-                        display: flex;
-                        align-items: center;
-                        cursor: pointer;
-                        h4 {
-                            @include p-reset;
-                        }
-
-                        &:hover {
-                            h4 {
-                                color: var(--primary);
-                            }
-                        }
-                    }
-                    .item-controls {
-                        margin-left: none;
-                    }
-                }
-            }
-
-            .list-row.expandable .item-summary {
-                display: none;
-            }
-
-            .list-row.expanded .item-summary {
-                display: inline-block;
-            }
-
-            .item-image {
-                height: 32px;
-                width: 32px;
-                background-repeat: no-repeat;
-                background-size: 32px 32px;
-                margin-right: 0.5em;
-
-                i {
-                    display: none;
-                    font-size: 2em;
-                    color: var(--primary);
-                }
-                &:hover {
-                    background: none !important;
-                    i {
-                        display: block;
-                    }
-                }
             }
 
             .item-summary {
-                font-weight: normal;
                 font-size: var(--font-size-12);
-                width: auto;
             }
         }
     }

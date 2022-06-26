@@ -1,23 +1,23 @@
-import { CreatureSheetPF2e } from "../creature/sheet";
-import { DicePF2e } from "@scripts/dice";
-import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
-import { NPCSkillsEditor } from "@actor/npc/skills-editor";
-import { NPCPF2e } from "@actor/index";
-import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
-import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
-import { PhysicalItemPF2e } from "@item/physical";
-import { ConditionPF2e, SpellcastingEntryPF2e } from "@item";
-import { EffectData } from "@item/data";
-import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
-import { Size } from "@module/data";
-import { NPCSkillData } from "./data";
 import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "@actor/data/base";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData } from "./types";
+import { CreatureSheetPF2e } from "@actor/creature/sheet";
 import { CreatureSheetData } from "@actor/creature/types";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values";
+import { NPCPF2e } from "@actor/index";
+import { NPCSkillsEditor } from "@actor/npc/skills-editor";
+import { AbilityString } from "@actor/types";
+import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
+import { SpellcastingEntryPF2e } from "@item";
+import { EffectData } from "@item/data";
+import { PhysicalItemPF2e } from "@item/physical";
+import { Size } from "@module/data";
+import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
+import { DicePF2e } from "@scripts/dice";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
+import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
+import { NPCSkillData } from "./data";
+import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSheetItemData, NPCSystemSheetData } from "./types";
 
 export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     static override get defaultOptions() {
@@ -74,7 +74,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
-        sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
@@ -205,26 +204,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             event.preventDefault();
             const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
-        });
-
-        $html.find(".decrement").on("click", async (event) => {
-            const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor.decreaseCondition(effect);
-            }
-        });
-
-        $html.find(".increment").on("click", async (event) => {
-            const actor = this.actor;
-            const $target = $(event.currentTarget);
-            const parent = $target.parents(".item");
-            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor.increaseCondition(effect);
-            }
         });
 
         $html.find(".item-control.generate-attack").on("click", async (event) => {

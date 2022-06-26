@@ -1,6 +1,6 @@
-import { AbilityString } from "@actor/data";
-import { ZeroToFour } from "@module/data";
 import { ModifierPF2e, RawModifier } from "@actor/modifiers";
+import { AbilityString } from "@actor/types";
+import { ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
