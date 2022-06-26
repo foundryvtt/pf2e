@@ -14,7 +14,7 @@
         <!-- ancestry boosts -->
         <div class="row{{#if manual}} not-eligible{{/if}}">
             {{#if ancestry}}
-                <div class="row-heading" data-tooltip-content="#ancestry-tooltip">
+                <div class="row-heading" data-tooltip-content="#{{actor.id}}-ancestry-tooltip">
                     {{#unless (eq ancestryBoosts.remaining 0)}}<div class="remaining extra">{{ancestryBoosts.remaining}}</div>{{/unless}}
                     <img class="" src="{{ancestry.img}}" title="{{ancestry.name}}" width="32" height="32" loading="lazy"/>
                     <div class="label">
@@ -49,7 +49,7 @@
                 </div>
             {{/if}}
 
-            <div class="hover-content" id="ancestry-tooltip">
+            <div class="hover-content" id="{{actor.id}}-ancestry-tooltip">
                 <h2>{{localize "PF2E.Actor.Character.AbilityBuilder.Boosts"}}</h2>
                 <ul class="boost-details">
                     {{#each ancestryBoosts.labels as |boost|}}
@@ -68,7 +68,7 @@
         <!-- ancestry voluntary flaw -->
         <div class="row{{#if manual}} not-eligible{{/if}} voluntary-flaw-row">
             {{#if ancestry}}
-                <div class="row-heading" data-tooltip-content="#voluntary-flaw-tooltip">
+                <div class="row-heading" data-tooltip-content="#{{actor.id}}-voluntary-flaw-tooltip">
                     {{#unless (eq ancestryBoosts.voluntaryBoostsRemaining 0)}}<div class="remaining extra">{{ancestryBoosts.voluntaryBoostsRemaining}}</div>{{/unless}}
 
                     <input type="checkbox" id="{{actor.id}}-voluntary-flaw" name="toggle-voluntary-flaw" {{checked voluntaryFlaw}}>
@@ -100,13 +100,13 @@
                 {{/if}}
             {{/if}}
 
-            <div class="hover-content" id="voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.Description"}}</div>
+            <div class="hover-content" id="{{actor.id}}-voluntary-flaw-tooltip">{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.Description"}}</div>
         </div>
         <hr />
         <!-- background boosts -->
         <div class="row{{#if manual}} not-eligible{{/if}}">
             {{#if background}}
-                <div class="row-heading" data-tooltip-content="#background-tooltip">
+                <div class="row-heading" data-tooltip-content="#{{actor.id}}-background-tooltip">
                     {{#unless (eq backgroundBoosts.remaining 0)}}<div class="remaining extra">{{backgroundBoosts.remaining}}</div>{{/unless}}
                     <img class="" src="{{background.img}}" title="{{background.name}}" width="32" height="32" loading="lazy"/>
                     <div class="label">
@@ -135,7 +135,7 @@
                 <div class="full-row">{{localize "PF2E.Actor.Character.AbilityBuilder.BackgroundMissingHelp"}}</div>
             {{/if}}
 
-            <div class="hover-content" id="background-tooltip">
+            <div class="hover-content" id="{{actor.id}}-background-tooltip">
                 {{#if backgroundBoosts.tooltip}}
                     {{backgroundBoosts.tooltip}}
                 {{else}}
