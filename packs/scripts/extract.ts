@@ -49,6 +49,12 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
             yargs
                 .positional("packDb", {
                     describe: 'A compendium pack filename (*.db) or otherwise "all"',
+                    coerce: (arg: string) => {
+                        const packDb = arg.toLowerCase();
+                        return packDb === "all"
+                            ? packDb
+                            : packDb.replace(/[^a-z0-9]+$/, "").replace(/(?:\.db)?$/, ".db");
+                    },
                 })
                 .positional("foundryConfig", {
                     describe: "The path to your local Foundry server's config.json file",
@@ -767,12 +773,9 @@ async function extractPacks() {
 
     populateIdNameMap();
 
-    // Silly windows users
-    args.packDb = args.packDb.toLowerCase();
-
     const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])
-        .filter((filename) => filename !== ".gitkeep")
-        .map((filename) => path.resolve(packsPath, filename));
+        .filter((f) => f !== ".gitkeep")
+        .map((f) => path.resolve(packsPath, f));
 
     return (
         await Promise.all(
