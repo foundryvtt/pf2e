@@ -56,13 +56,13 @@ export class AbilityBuilderPopup extends Application {
             event.currentTarget.select();
         });
 
-        $html.find<HTMLInputElement>('input[name="data.build.manual"]').on("change", async (event) => {
+        $html.find<HTMLInputElement>("input[name=toggle-manual-mode]").on("change", async (event) => {
             if (event.originalEvent) {
                 await actor.toggleAbilityManagement();
             }
         });
 
-        $html.find<HTMLInputElement>('input[name="data.build.voluntaryFlaw"]').on("change", async (event) => {
+        $html.find<HTMLInputElement>("input[name=toggle-voluntary-flaw]").on("change", async (event) => {
             if (event.originalEvent) {
                 await actor.toggleVoluntaryFlaw();
             }

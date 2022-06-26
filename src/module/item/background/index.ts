@@ -1,7 +1,5 @@
-import { CharacterPF2e } from "@actor";
-import type { ItemPF2e, FeatPF2e } from "@item";
+import { ABCItemPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { OneToFour } from "@module/data";
-import { ABCItemPF2e } from "../abc";
 import { BackgroundData } from "./data";
 
 class BackgroundPF2e extends ABCItemPF2e {
@@ -24,7 +22,7 @@ class BackgroundPF2e extends ABCItemPF2e {
     }
 
     override prepareActorData(this: Embedded<BackgroundPF2e>): void {
-        if (!(this.actor instanceof CharacterPF2e)) {
+        if (!this.actor.isOfType("character")) {
             console.error("Only a character can have a background");
             return;
         }
