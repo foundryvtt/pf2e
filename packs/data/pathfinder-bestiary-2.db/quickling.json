@@ -93,7 +93,6 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
                     "value": "5"
                 }
@@ -1058,7 +1057,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "cant-catch-me",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "cant-catch-me"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
