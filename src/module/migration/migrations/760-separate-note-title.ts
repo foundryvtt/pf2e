@@ -31,16 +31,26 @@ export class Migration760SeparateNoteTitle extends MigrationBase {
             if (!note.text.startsWith("<p")) continue;
 
             const pElement = ((): HTMLElement | null => {
-                const text = note.text.endsWith("</p>") ? note.text : `${note.text}</p>`;
+                const text = note.text.includes("</p>") ? note.text : `${note.text}</p>`;
                 try {
                     const fragment = document.createElement("template");
                     fragment.innerHTML = text;
-                    const { content } = fragment;
-                    if (content.childNodes.length > 1 || !(content.firstChild instanceof HTMLElement)) {
+                    const children = Array.from(fragment.content.childNodes);
+
+                    if (children.length === 1 && children[0] instanceof HTMLElement) {
+                        return children[0];
+                    } else if (
+                        children.length === 2 &&
+                        children[0] instanceof HTMLParagraphElement &&
+                        children[1] instanceof Text
+                    ) {
+                        const [first, second] = children;
+                        first.append(second);
+                        return first;
+                    } else {
                         // Skip multiple HTML elements comprising a fragment
                         return null;
                     }
-                    return content.firstChild;
                 } catch {
                     // Likely malformed HTML
                     return null;
