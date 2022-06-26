@@ -4,8 +4,8 @@ import { ABCSheetPF2e } from "../abc/sheet";
 import { ClassSheetData } from "./types";
 
 export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
-    override async getData(): Promise<ClassSheetData> {
-        const data = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ClassSheetData> {
+        const data = await super.getData(options);
         const itemData = data.item;
 
         const items = Object.entries(data.data.items)
