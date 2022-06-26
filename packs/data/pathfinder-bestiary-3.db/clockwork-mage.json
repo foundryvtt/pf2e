@@ -27,7 +27,7 @@
                 "value": 27
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -56,7 +56,7 @@
                 "value": 9
             },
             "privateNotes": "",
-            "publicNotes": "<p>Intricate, complex machines, clockworks are built with care by highly skilled engineers. Though their creation involves some amount of magic, they're primarily mechanical, packed with precision-tuned gears and springs working in concert.</p>\n<p>The sturdy mainspring within a clockwork must be wound to provide the energy needed to power the device. Some larger clockworks contain a series of springs for different limbs that each need to be wound. A clockwork's crafter creates a unique metal key while building the clockwork; winding the clockwork usually involves inserting the key into the machine's back and turning clockwise. Larger clockworks require greater strength to turn the key, and typically have larger keys to allow for more torque-some even accommodating a team of winders rather than an individual. Programming a clockwork requires both the key and the knowledge to set the program correctly, information usually reserved for the clockwork's creator or owner.</p>\n<hr />\n<p>A clockwork mage is a lethal blend of magic and machinery. Each of these clockworks is imbued with an arcane stone at its core that powers spells through the wand embedded in its chest.</p>",
+            "publicNotes": "<p>A clockwork mage is a lethal blend of magic and machinery. Each of these clockworks is imbued with an arcane stone at its core that powers spells through the wand embedded in its chest.</p>\n<hr />\n<p>Intricate, complex machines, clockworks are built with care by highly skilled engineers. Though their creation involves some amount of magic, they're primarily mechanical, packed with precision-tuned gears and springs working in concert.</p>\n<p>The sturdy mainspring within a clockwork must be wound to provide the energy needed to power the device. Some larger clockworks contain a series of springs for different limbs that each need to be wound. A clockwork's crafter creates a unique metal key while building the clockwork; winding the clockwork usually involves inserting the key into the machine's back and turning clockwise. Larger clockworks require greater strength to turn the key, and typically have larger keys to allow for more torque-some even accommodating a team of winders rather than an individual. Programming a clockwork requires both the key and the knowledge to set the program correctly, information usually reserved for the clockwork's creator or owner.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -113,14 +113,10 @@
             ],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Electricity",
                     "type": "electricity",
                     "value": 10
                 },
                 {
-                    "exceptions": "",
-                    "label": "Orichalcum",
                     "type": "orichalcum",
                     "value": 10
                 }
@@ -150,7 +146,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RvoaUNePapIhOLON",
+            "_id": "60deOo2mPqEopbvy",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -164,14 +160,14 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -180,9 +176,9 @@
                         "value": 0
                     },
                     "slot1": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot10": {
                         "max": 0,
@@ -195,24 +191,24 @@
                         "value": 0
                     },
                     "slot2": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot3": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot4": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot5": {
-                        "max": 2,
+                        "max": 0,
                         "prepared": [],
-                        "value": 2
+                        "value": 0
                     },
                     "slot6": {
                         "max": 0,
@@ -241,7 +237,6 @@
                 },
                 "spelldc": {
                     "dc": 28,
-                    "item": 0,
                     "mod": 0,
                     "value": 20
                 },
@@ -255,19 +250,19 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "o1o129mPHI5y5oRY",
+            "_id": "Ua5kmJlSEj3IclfZ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "burst",
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "20-foot burst adjacent to a flat surface"
@@ -287,8 +282,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "3d6"
@@ -296,7 +293,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Oily black tentacles rise up and attempt to Grapple each creature in the area. Make spell attack rolls against the Fortitude DC of each creature. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal 1d6 bludgeoning damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
+                    "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal [[/r {1d6}[bludgeoning]]]{1d6 Bludgeoning Damage} to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -308,7 +305,8 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 5,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -338,10 +336,10 @@
                 },
                 "slug": "black-tentacles",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "attack"
                 },
                 "sustained": {
                     "value": false
@@ -375,7 +373,7 @@
             "type": "spell"
         },
         {
-            "_id": "YJlBoDcm98erod26",
+            "_id": "QHyHPKKMJCfui9s9",
             "data": {
                 "ability": {
                     "value": ""
@@ -430,7 +428,8 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 5,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -460,7 +459,7 @@
                 },
                 "slug": "cone-of-cold",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -499,14 +498,14 @@
             "type": "spell"
         },
         {
-            "_id": "zxLebLy8BQn6Dbn2",
+            "_id": "EuGhi0m19F59zBMa",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -527,7 +526,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 3.</p>"
+                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Blink]{Spell Effect: Blink}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 3.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -539,7 +538,8 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 4,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -569,7 +569,7 @@
                 },
                 "slug": "blink",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -608,7 +608,7 @@
             "type": "spell"
         },
         {
-            "_id": "nYloh6HGBMEkCMoe",
+            "_id": "U1ONGqgAWz4Xl437",
             "data": {
                 "ability": {
                     "value": ""
@@ -648,7 +648,8 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 4,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -678,7 +679,7 @@
                 },
                 "slug": "fly",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -716,7 +717,7 @@
             "type": "spell"
         },
         {
-            "_id": "8H3BSmgc7Aeg9g5a",
+            "_id": "NSLWBgXZ5o8kHDdc",
             "data": {
                 "ability": {
                     "value": ""
@@ -771,7 +772,8 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 4,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -801,7 +803,7 @@
                 },
                 "slug": "wall-of-fire",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -840,14 +842,14 @@
             "type": "spell"
         },
         {
-            "_id": "Zj2bzIf8a2SssRFe",
+            "_id": "5dxQHQ0JgatkJigC",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -876,11 +878,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "target": {
+                                "value": "6 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 3,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -910,7 +923,7 @@
                 },
                 "slug": "haste",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -948,114 +961,7 @@
             "type": "spell"
         },
         {
-            "_id": "fVzCL9Gc6BvVniaW",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "RvoaUNePapIhOLON"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "illusion"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "invisibility",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/invisibility.webp",
-            "name": "Invisibility",
-            "sort": 800000,
-            "type": "spell"
-        },
-        {
-            "_id": "jhkkeWBiegMwL69O",
+            "_id": "0UNJzdyNtHTElSbE",
             "data": {
                 "ability": {
                     "value": ""
@@ -1095,7 +1001,8 @@
                     "value": 3
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 3,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1125,7 +1032,7 @@
                 },
                 "slug": "stinking-cloud",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1160,11 +1067,11 @@
             },
             "img": "systems/pf2e/icons/spells/stinking-cloud.webp",
             "name": "Stinking Cloud",
-            "sort": 900000,
+            "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "fkXRzAuMCizMA0xf",
+            "_id": "pJ0iEv4fhhTKz5Ne",
             "data": {
                 "ability": {
                     "value": ""
@@ -1204,7 +1111,8 @@
                     "value": 2
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 2,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1234,7 +1142,7 @@
                 },
                 "slug": "glitterdust",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1267,11 +1175,119 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "v0h5Y9W8BuYS9hpm",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "60deOo2mPqEopbvy"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "illusion"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/invisibility.webp",
+            "name": "Invisibility",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "Aew61JxaXzsDaNXE",
+            "_id": "GHULypYpMtoWFcVu",
             "data": {
                 "ability": {
                     "value": ""
@@ -1311,7 +1327,8 @@
                     "value": 2
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 2,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1341,7 +1358,7 @@
                 },
                 "slug": "obscuring-mist",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1380,14 +1397,14 @@
             "type": "spell"
         },
         {
-            "_id": "q2XTdA9Q7w100Oqt",
+            "_id": "1F5owySLQrIEUXLH",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 10
+                    "value": "10"
                 },
                 "areasize": {
                     "value": "10-foot burst"
@@ -1416,11 +1433,26 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "20"
+                            },
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 2,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1450,7 +1482,7 @@
                 },
                 "slug": "web",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1487,7 +1519,7 @@
             "type": "spell"
         },
         {
-            "_id": "8RQ8N408YzOm2JHr",
+            "_id": "Ah5760WqxINvdFr1",
             "data": {
                 "ability": {
                     "value": ""
@@ -1543,7 +1575,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1573,7 +1605,7 @@
                 },
                 "slug": "daze",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1615,14 +1647,14 @@
             "type": "spell"
         },
         {
-            "_id": "MRD1YWoBwicqSIHl",
+            "_id": "bDru6MyBt4Hi5zss",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot emanation"
@@ -1655,7 +1687,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1685,7 +1717,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1728,7 +1760,7 @@
             "type": "spell"
         },
         {
-            "_id": "PnouAW4bG86bDM7K",
+            "_id": "Vktwib9Uxku7ISAm",
             "data": {
                 "ability": {
                     "value": ""
@@ -1768,7 +1800,8 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 1,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1798,7 +1831,7 @@
                 },
                 "slug": "feather-fall",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1835,7 +1868,7 @@
             "type": "spell"
         },
         {
-            "_id": "BA1u85KO2H12qGu3",
+            "_id": "Ch1JlSNb9963D0DY",
             "data": {
                 "ability": {
                     "value": ""
@@ -1875,7 +1908,8 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 1,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -1905,7 +1939,7 @@
                 },
                 "slug": "floating-disk",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1944,7 +1978,7 @@
             "type": "spell"
         },
         {
-            "_id": "r2eU3O5FpDGUg4nK",
+            "_id": "ZWZnOTE4EwUsWco0",
             "data": {
                 "ability": {
                     "value": ""
@@ -1984,7 +2018,8 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "heightenedLevel": 1,
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -2014,7 +2049,7 @@
                 },
                 "slug": "grease",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -2051,7 +2086,7 @@
             "type": "spell"
         },
         {
-            "_id": "6FMVz0F69zaUtKLz",
+            "_id": "DnZSRiv9ht0cevs4",
             "data": {
                 "ability": {
                     "value": ""
@@ -2107,7 +2142,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -2137,7 +2172,7 @@
                 },
                 "slug": "ray-of-frost",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -2179,7 +2214,7 @@
             "type": "spell"
         },
         {
-            "_id": "P0SL5altUad7SaLm",
+            "_id": "UV0DB0bycahZfXQM",
             "data": {
                 "ability": {
                     "value": ""
@@ -2219,7 +2254,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -2249,7 +2284,7 @@
                 },
                 "slug": "shield",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2290,14 +2325,14 @@
             "type": "spell"
         },
         {
-            "_id": "rqNGGPEYSZIukib8",
+            "_id": "IXLNWPjb6gv3LuOw",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -2330,7 +2365,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RvoaUNePapIhOLON"
+                    "value": "60deOo2mPqEopbvy"
                 },
                 "materials": {
                     "value": ""
@@ -2360,7 +2395,7 @@
                 },
                 "slug": "tanglefoot",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -2385,8 +2420,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "plant",
-                        "cantrip"
+                        "attack",
+                        "cantrip",
+                        "plant"
                     ]
                 }
             },
@@ -2401,17 +2437,45 @@
             "type": "spell"
         },
         {
-            "_id": "7TtvPrKwj58Lzp5d",
+            "_id": "LNRtNrzHIseTefIq",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": false
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "wand"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
                 "containerId": null,
                 "description": {
-                    "value": "<p>The <em>clockwork wand</em> is a @Compendium[pf2e.equipment-srd.Magic Wand (2nd-Level Spell)]{Magic Wand}<em> </em>containing the last 2nd-level innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate level.</p>"
+                    "value": "<p>The clockwork wand is a <em>@Compendium[pf2e.equipment-srd.Magic Wand (2nd-Level Spell)]{Magic Wand}</em> containing the last 2nd-level innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate level.</p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2423,7 +2487,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 5
                 },
                 "negateBulk": {
                     "value": "0"
@@ -2435,32 +2499,63 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "gp": 160
+                    }
                 },
                 "quantity": 1,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "magic-wand-2nd-level-spell",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": null,
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": "",
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "magical",
+                        "wand"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "uses": {
+                    "autoDestroy": false,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.vJZ49cgi8szuQXAD"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
             "name": "Clockwork Wand",
             "sort": 2100000,
-            "type": "equipment"
+            "type": "consumable"
         },
         {
             "_id": "Cv7lau7bBNhJQwti",
@@ -2564,12 +2659,32 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>24 hours, DC 26, standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again. Some clockworks' abilities require them to spend some of their remaining operational time. They can't spend more than they have and shut down immediately once they have 0 time remaining. If it's unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to Disable a Device to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
+                    "value": "<p>24 hours, @Check[type:thievery|traits:action:disable-device|dc:26], standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again. Some clockworks' abilities require them to spend some of their remaining operational time. They can't spend more than they have and shut down immediately once they have 0 time remaining. If it's unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to @Compendium[pf2e.actionspf2e.Disable Device]{Disable Device} to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "perception",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ClockworkWindUp",
+                        "option": "wind-up",
+                        "priority": 50,
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "wind-up"
+                            ]
+                        },
+                        "selector": "perception",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2604,7 +2719,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The clockwork mage uses a mechanical wand as a focus to channel magical energy. This wand is built into the clockwork mage's chest, with only the crystal at the end exposed. The mage can Interact to the remove the wand, or someone else can remove it with a @Check[type:thievery|dc:31|name:Remvoe Clockwork Wand|traits:action:disable-device] check to Disable a Device. The clockwork mage becomes unable to cast any spells except cantrips while the wand is removed.</p>\n<p>When removed, the <em>clockwork wand</em> is a @Compendium[pf2e.equipment-srd.Magic Wand (2nd-Level Spell)]{Magic Wand}<em> </em>containing the last 2nd-level innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate level.</p>"
+                    "value": "<p>The clockwork mage uses a mechanical wand as a focus to channel magical energy. This wand is built into the clockwork mage's chest, with only the crystal at the end exposed. The mage can Interact to the remove the wand, or someone else can remove it with a @Check[type:thievery|dc:31|traits:action:disable-device] check to @Compendium[pf2e.actionspf2e.Disable Device]{Disable a Device}. The clockwork mage becomes unable to cast any spells except cantrips while the wand is removed.</p>\n<p>When removed, the clockwork wand is a <em>@Compendium[pf2e.equipment-srd.Magic Wand (2nd-Level Spell)]{Magic Wand}</em> containing the last 2nd-level innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate level.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2644,7 +2759,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<hr />\n<p><strong>Effect</strong> The clockwork mage regains a spell it has already cast that day. It must spend 1 hour of its operational time, or 2 hours if the spell is 3rd level or higher.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes.</p>\n<hr />\n<p><strong>Effect</strong> The clockwork mage regains a spell it has already cast that day. It must spend 1 hour of its operational time, or 2 hours if the spell is 3rd level or higher.</p>"
                 },
                 "requirements": {
                     "value": ""
