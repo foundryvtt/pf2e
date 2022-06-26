@@ -187,6 +187,10 @@ export class AbilityBuilderPopup extends Application {
             const propertyPath = $input.attr("data-property") ?? "";
             await actor.update({ [propertyPath]: $input.val() });
         });
+
+        $html.find("button[data-action=close]").on("click", () => {
+            this.close();
+        });
     }
 
     override async getData(options: Partial<FormApplicationOptions> = {}): Promise<PopupData> {
