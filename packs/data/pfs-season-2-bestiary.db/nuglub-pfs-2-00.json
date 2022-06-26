@@ -1,5 +1,5 @@
 {
-    "_id": "bpwaqRoO1wYo15T5",
+    "_id": "q5ObT0toaicC2OyP",
     "data": {
         "abilities": {
             "cha": {
@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "<p>The \"towering\" hunchbacked nuglubs are among the largest gremlins, though they're not quite three feet tall. Nuglubs have three glowing blue eyes and black, oily hair on their head and back that covers them like a cloak. Nuglubs enjoy killing with a glee that other gremlins reserve for sabotage. Indeed, they spend long hours preparing ambushes for unwary travelers or plotting the murders of sleeping villagers. Though less technically inclined than their kin, nuglubs do enjoy building traps. They delight in stealthily constructing traps in places their victims consider familiar, such as front doors and the floors around beds. If someone else gets blamed for the mayhem the nuglub creates, all the better.</p>\n<p>In combat, nuglubs focus on targets wearing metal armor. Some attribute this to envy on the part of the nuglubs, who find it difficult to fit armor on their twisted bodies. Nuglubs are particularly talented at causing those nearby to stumble over them and fall prone. Once an enemy falls to the ground, all the nuglubs descend upon the target, biting and scratching until nothing remains.</p>\n<p>Nuglubs rarely gather in groups larger than half a dozen, as quarrels often lead to violence and cannibalism. A lone nuglub who bullies a group of smaller gremlins is more likely to get their way, and thus less likely to attack their allies.</p>",
             "source": {
-                "value": "Pathfinder Bestiary 2"
+                "value": "Pathfinder Society Scenario #2-00: The King in Thorns"
             }
         },
         "resources": {
@@ -98,7 +98,6 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
                     "value": "2"
                 }
@@ -850,7 +849,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A Medium creature within the nuglub's reach leaves a square during its move action</p>\n<hr />\n<p><strong>Effect</strong> The nuglub lashes out at the triggering creature's knees and tries to knock them @Compendium[pf2e.conditionitems.Prone]{Prone}. The nuglub makes an Acrobatics check against the creature's Reflex DC. On a success, the target falls and lands prone.</p>"
+                    "value": "<p><strong>Trigger</strong> A Medium creature within the nuglub's reach leaves a square during its move action</p>\n<hr />\n<p><strong>Effect</strong> The nuglub lashes out at the triggering creature's knees and tries to knock them @Compendium[pf2e.conditionitems.Prone]{Prone}. The nuglub makes an @Check[type:acrobatics] check against the creature's Reflex DC. On a success, the target falls and lands prone.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -892,7 +891,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A nuglub's Strikes deal an additional 1d6 precision damage to flat-footed targets, or 1d10 precision damage if the target is @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>A nuglub's Strikes deal an additional [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets, or [[/r {1d10}[precision]]{1d10 precision damage} if the target is @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -906,11 +905,6 @@
                         "predicate": {
                             "all": [
                                 "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
                             ],
                             "not": [
                                 "target:condition:prone"
@@ -926,11 +920,6 @@
                         "predicate": {
                             "all": [
                                 "target:condition:prone"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
                             ]
                         },
                         "selector": "strike-damage"
@@ -1053,7 +1042,7 @@
                         "label": "PF2E.SkillVariant.Traps",
                         "predicate": {
                             "all": [
-                                "traps"
+                                "action:craft:trap"
                             ]
                         },
                         "selector": "crafting",
@@ -1072,7 +1061,7 @@
                 "variants": {
                     "0": {
                         "label": "+7 traps",
-                        "options": "traps"
+                        "options": "action:craft:trap"
                     }
                 }
             },
@@ -1138,7 +1127,7 @@
             "type": "lore"
         }
     ],
-    "name": "Nuglub",
+    "name": "Nuglub (PFS 2-00)",
     "token": {
         "disposition": -1,
         "height": 1,
