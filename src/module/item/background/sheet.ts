@@ -4,8 +4,8 @@ import { BackgroundSheetData } from "../sheet/data-types";
 import { createSheetOptions } from "@module/sheet/helpers";
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
-    override async getData(): Promise<BackgroundSheetData> {
-        const data = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<BackgroundSheetData> {
+        const data = await super.getData(options);
         const itemData = data.item;
 
         return {

@@ -13,7 +13,7 @@ import { createSheetTags } from "@module/sheet/helpers";
 import { RANGED_WEAPON_GROUPS, WEAPON_RANGES } from "./values";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
-    override async getData() {
+    override async getData(options?: Partial<DocumentSheetOptions>) {
         interface PropertyRuneSheetSlot extends WeaponPropertyRuneSlot {
             name?: string;
             number?: OneToFour;
@@ -21,7 +21,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         }
         const sheetData: PhysicalItemSheetData<WeaponPF2e> & {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
-        } = await super.getData();
+        } = await super.getData(options);
 
         const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum

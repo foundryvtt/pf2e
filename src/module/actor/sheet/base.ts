@@ -744,8 +744,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
                     if (sourceLocation === targetLocation && testSibling(item, target)) {
                         const siblings = entry.spells.filter((spell) => testSibling(item, spell));
-                        const sortBefore = item.data.sort >= target.data.sort;
-                        await item.sortRelative({ target, siblings, sortBefore });
+                        await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
                         const spell = await entry.addSpell(item, target.level);
@@ -772,8 +771,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
                 if (source && target && source.id !== target.id) {
                     const siblings = this.actor.spellcasting.contents;
-                    const sortBefore = source.data.sort >= target.data.sort;
-                    source.sortRelative({ target, siblings, sortBefore });
+                    source.sortRelative({ target, siblings });
                     return [target];
                 }
             }
