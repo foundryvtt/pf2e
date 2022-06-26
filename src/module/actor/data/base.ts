@@ -278,6 +278,7 @@ interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
     flags: foundry.data.PrototypeTokenData["flags"] & {
         pf2e?: {
             linkToActorSize?: boolean;
+            autoscale?: boolean;
         };
     };
 }
@@ -286,6 +287,7 @@ interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
     flags: foundry.data.PrototypeTokenData["flags"] & {
         pf2e: {
             linkToActorSize: boolean;
+            autoscale: boolean;
         };
     };
 }

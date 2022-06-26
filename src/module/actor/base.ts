@@ -66,7 +66,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
                 if (art) {
                     data.img = art.actor;
-                    data.token = mergeObject(data.token ?? {}, { img: art.token });
+                    const tokenArt =
+                        typeof art.token === "string"
+                            ? { img: art.token }
+                            : { ...art.token, flags: { pf2e: { autoscale: false } } };
+                    data.token = mergeObject(data.token ?? {}, tokenArt);
                 }
             }
 
@@ -253,16 +257,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
+        // Set additional defaults, some according to actor type
         for (const datum of data) {
-            // Set wounds, advantage, and display name visibility
+            const { linkToActorSize } = datum.token?.flags?.pf2e ?? {};
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 token: {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
-                            linkToActorSize:
-                                datum.token?.flags?.pf2e?.linkToActorSize ?? !["hazard", "loot"].includes(datum.type),
+                            linkToActorSize: linkToActorSize ?? !["hazard", "loot"].includes(datum.type),
                         },
                     },
                 },
@@ -449,6 +453,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
             this.data.token.sightAngle = this.data.token._source.sightAngle = 360;
         }
+
         this.data.token.flags = mergeObject(
             { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
             this.data.token.flags
