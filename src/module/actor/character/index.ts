@@ -434,6 +434,7 @@ class CharacterPF2e extends CreaturePF2e {
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
+        this.setAbilityModifiers();
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
     }
@@ -856,7 +857,9 @@ class CharacterPF2e extends CreaturePF2e {
             // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
             ability.base = ability.value;
         }
+    }
 
+    private setAbilityModifiers(): void {
         // Set modifiers
         for (const ability of Object.values(this.data.data.abilities)) {
             ability.mod = Math.floor((ability.value - 10) / 2);
