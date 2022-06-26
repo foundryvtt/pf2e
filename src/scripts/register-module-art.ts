@@ -1,9 +1,10 @@
 import { isObject } from "@util";
+
 /**
  * Pull actor and token art from module.json files, which will replace default images on compendium actors and their
  * prototype tokens
  */
-export async function registerModuleArt(): Promise<void> {
+async function registerModuleArt(): Promise<void> {
     const activeModules = [...game.modules.entries()].filter(([_key, m]) => m.active);
     for (const [moduleKey, foundryModule] of activeModules) {
         const moduleArt = await getArtMap(foundryModule.data.flags?.[moduleKey]?.["pf2e-art"]);
@@ -30,7 +31,7 @@ export async function registerModuleArt(): Promise<void> {
     }
 }
 
-async function getArtMap(art: unknown): Promise<ModuleArtMap | null> {
+async function getArtMap(art: unknown): Promise<ModuleArtRecord | null> {
     if (!art) {
         return null;
     } else if (isModuleArt(art)) {
@@ -51,7 +52,7 @@ async function getArtMap(art: unknown): Promise<ModuleArtMap | null> {
     return null;
 }
 
-function isModuleArt(record: unknown): record is ModuleArtMap {
+function isModuleArt(record: unknown): record is ModuleArtRecord {
     return (
         isObject<Record<string, unknown>>(record) &&
         Object.values(record).every(
@@ -61,10 +62,21 @@ function isModuleArt(record: unknown): record is ModuleArtMap {
                     (art) =>
                         isObject<Record<string, unknown>>(art) &&
                         typeof art.actor === "string" &&
-                        typeof art.token === "string"
+                        (typeof art.token === "string" ||
+                            (isObject<{ img: string; scale: number }>(art.token) &&
+                                typeof art.token.img === "string" &&
+                                (art.token.scale === undefined || typeof art.token.scale === "number")))
                 )
         )
     );
 }
 
-type ModuleArtMap = Record<string, Record<string, { actor: ImagePath; token: ImagePath }>>;
+interface ModuleArt {
+    actor: ImagePath;
+    // Token art can either be an image path or an object containing the path and a custom scale
+    token: ImagePath | { img: ImagePath; scale?: number };
+}
+
+type ModuleArtRecord = Record<string, Record<string, ModuleArt>>;
+
+export { registerModuleArt, ModuleArt };

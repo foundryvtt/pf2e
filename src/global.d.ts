@@ -1,23 +1,5 @@
 import { ActorPF2e } from "@actor/base";
-import { ItemPF2e } from "@item/base";
-import { ActiveEffectPF2e } from "@module/active-effect";
-import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
-import { ChatMessagePF2e } from "@module/chat-message";
-import { MacroPF2e } from "@module/macro";
-import { RuleElementPF2e, RuleElements } from "@module/rules";
-import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
-import { StatusEffects } from "@scripts/actor/status-effects";
-import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
-import { DicePF2e } from "@scripts/dice";
-import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
-import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
-import { calculateXP } from "@scripts/macros/xp";
-import { EffectsPanel } from "@module/apps/effects-panel";
-import { EffectTracker } from "@system/effect-tracker";
-import { CheckPF2e } from "@system/rolls";
-import { WorldClock } from "@module/apps/world-clock";
-import { EncounterPF2e, CombatantPF2e } from "./module/encounter";
-import { ConditionManager } from "./module/system/conditions";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import {
     AbilityModifier,
     CheckModifier,
@@ -26,7 +8,22 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
-import { UserPF2e } from "@module/user";
+import { ItemPF2e } from "@item/base";
+import { CoinsPF2e } from "@item/physical/helpers";
+import { ActiveEffectPF2e } from "@module/active-effect";
+import { CompendiumBrowser } from "@module/apps/compendium-browser";
+import { EffectsPanel } from "@module/apps/effects-panel";
+import { LicenseViewer } from "@module/apps/license-viewer";
+import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
+import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { WorldClock } from "@module/apps/world-clock";
+import { CanvasPF2e } from "@module/canvas";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { ActorsPF2e } from "@module/collection/actors";
+import { FogExplorationPF2e } from "@module/fog-exploration";
+import { FolderPF2e } from "@module/folder";
+import { MacroPF2e } from "@module/macro";
+import { RuleElementPF2e, RuleElements } from "@module/rules";
 import {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
@@ -34,20 +31,24 @@ import {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@module/scene";
-import { CompendiumBrowser } from "@module/apps/compendium-browser";
-import { LicenseViewer } from "@module/apps/license-viewer";
+import { UserPF2e } from "@module/user";
+import { StatusEffects } from "@scripts/actor/status-effects";
+import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
+import { DicePF2e } from "@scripts/dice";
+import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
+import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
+import { calculateXP } from "@scripts/macros/xp";
+import { ModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
-import { FolderPF2e } from "@module/folder";
-import { CanvasPF2e } from "@module/canvas";
-import { FogExplorationPF2e } from "@module/fog-exploration";
+import { UserVisibility } from "@scripts/ui/user-visibility";
+import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
+import { CheckPF2e } from "@system/rolls";
+import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
-import { ActorsPF2e } from "@module/collection/actors";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { HotbarPF2e } from "@module/apps/ui/hotbar";
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { CoinsPF2e } from "@item/physical/helpers";
+import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
+import { ConditionManager } from "./module/system/conditions";
 
 declare global {
     interface Game {
@@ -65,7 +66,7 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
             };
             system: {
-                moduleArt: Map<ActorUUID, { actor: ImagePath; token: ImagePath }>;
+                moduleArt: Map<ActorUUID, ModuleArt>;
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
             };
