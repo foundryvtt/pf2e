@@ -704,7 +704,7 @@
             "type": "weapon"
         },
         {
-            "_id": "1XI9qRzQOUOpSmgg",
+            "_id": "Hc2v6MiajU4rABkT",
             "data": {
                 "activation": {
                     "condition": "",
@@ -722,17 +722,17 @@
                 "baseItem": null,
                 "charges": {
                     "_deprecated": true,
-                    "max": 1,
-                    "value": 1
+                    "max": 0,
+                    "value": 0
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "ammo"
                 },
                 "consume": {
                     "_deprecated": true,
                     "value": ""
                 },
-                "containerId": null,
+                "containerId": "HKqAzVBtd2gZsgNk",
                 "description": {
                     "value": ""
                 },
@@ -760,10 +760,10 @@
                     "value": "0"
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {}
@@ -784,7 +784,7 @@
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "target": {
                     "type": "",
                     "units": "",
@@ -809,10 +809,84 @@
                     "value": "-"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Pouch of Rocks",
+            "img": "systems/pf2e/icons/equipment/consumables/ammunition/stone-bullet.webp",
+            "name": "Rock",
             "sort": 600000,
             "type": "consumable"
+        },
+        {
+            "_id": "HKqAzVBtd2gZsgNk",
+            "data": {
+                "baseItem": null,
+                "bulkCapacity": {
+                    "value": "8"
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A sack can hold up to 8 Bulk worth of items. A sack containing 2 Bulk or less can be worn on the body, usually tucked into a belt. You can carry a sack with one hand, but must use two hands to transfer items in and out.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "sack",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": "sacks",
+                "stowing": false,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "worn"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.DujblC14ytJEZMaz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/sack.webp",
+            "name": "Pouch",
+            "sort": 700000,
+            "type": "backpack"
         },
         {
             "_id": "7cdnWouJZ6KDhfxj",
@@ -851,7 +925,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
-            "sort": 700000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -894,7 +968,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rock",
-            "sort": 800000,
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -936,7 +1010,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Club",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
@@ -981,7 +1055,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1026,7 +1100,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1082,7 +1156,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Magic",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1098,7 +1172,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>5 feet.</p>\n<p>The korred's long, animated hair reaches out and interferes with creatures in the area. The korred can select which targets are affected by their animated hair. An affected creature that ends its turn in the emanation must succeed at a @Check[type:reflex|dc:18] save or become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} as long as it remains in the aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The korred's long, animated hair reaches out and interferes with creatures in the area. The korred can select which targets are affected by their animated hair. An affected creature that ends its turn in the emanation must succeed at a @Check[type:reflex|dc:18] save or become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (@Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} on a critical failure) as long as it remains in the aura.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1126,7 +1200,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Animated Hair",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1142,7 +1216,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The korred causes a long, tangled length of their hair to detach from their body and snake out to coil around an adjacent creature. The creature must attempt a @Check[type:reflex|dc:21] save.</p>\n<p>The korred cannot use Hair Snare again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The hair wraps around the creature. The creature takes a -10-foot circumstance penalty to all of its Speeds until it Escapes (DC 21) or until the korred uses Hair Snare again (@Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} on a critical failure).</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes (DC 21) or the korred uses Hair Snare again.</p>"
+                    "value": "<p>The korred causes a long, tangled length of their hair to detach from their body and snake out to coil around an adjacent creature. The creature must attempt a @Check[type:reflex|dc:21] save.</p>\n<p>The korred cannot use Hair Snare again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The hair wraps around the creature. The creature takes a -10-foot circumstance penalty to all of its Speeds until it Escapes (DC 21) or until the korred uses Hair Snare again (at which point the previous snare drops to the ground, no longer animated).</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes (DC 21) or the korred uses Hair Snare again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1170,7 +1244,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hair Snare",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1217,7 +1291,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Otherworldly Laugh",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1262,7 +1336,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Stone Stride",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1307,7 +1381,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Rock",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1335,7 +1409,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1363,7 +1437,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1391,7 +1465,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1419,7 +1493,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1447,7 +1521,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         }
     ],
