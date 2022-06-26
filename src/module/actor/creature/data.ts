@@ -98,7 +98,7 @@ interface SenseData {
 
 /** Data describing the value & modifier for a base ability score. */
 interface AbilityData {
-    /** The raw value of this ability score; computed from the mod for npcs automatically. */
+    /** The ability score: computed from the mod for npcs automatically. */
     value: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;

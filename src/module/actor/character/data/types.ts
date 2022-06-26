@@ -1,7 +1,7 @@
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import {
-    Abilities,
+    AbilityData,
     BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
@@ -69,7 +69,7 @@ interface CharacterSkillData extends SkillData {
 /** The raw information contained within the actor data object for characters. */
 interface CharacterSystemData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: Abilities;
+    abilities: CharacterAbilities;
 
     /** Character build data, currently containing ability boosts and flaws */
     build: {
@@ -135,6 +135,13 @@ interface CharacterSystemData extends CreatureSystemData {
         entries: Record<string, Partial<CraftingEntryData>>;
     };
 }
+
+interface CharacterAbilityData extends AbilityData {
+    /** An ability score prior to modification by items */
+    base: number;
+}
+
+type CharacterAbilities = Record<AbilityString, CharacterAbilityData>;
 
 interface CharacterSaveData extends SaveData {
     ability: AbilityString;
