@@ -10,16 +10,6 @@
         <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
     </span>
 </div>
-<div class="pc pc_key-ability dropdown">
-    <label class="details-label" for="{{options.id}}-key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
-    <select id="{{options.id}}-key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.singleOption}}>
-        {{#select data.details.keyability.value}}
-            {{#each abilities as |label ability|}}
-                <option value="{{ability}}">{{localize label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
 
 <div class="break-column"></div>
 

@@ -24,19 +24,6 @@ export class AbilityBuilderPopup extends Application {
         return `ability-builder-${this.actor.id}`;
     }
 
-    private get boostFlawState(): BoostFlawState {
-        return {
-            lockedFlaw: false,
-            lockedBoost: false,
-            boosted: false,
-            available: false,
-            voluntaryFlaw: false,
-            canVoluntaryFlaw: false,
-            voluntaryBoost: false,
-            canVoluntaryBoost: false,
-        };
-    }
-
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const { actor } = this;
@@ -164,7 +151,11 @@ export class AbilityBuilderPopup extends Application {
 
         $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
-            await actor.class?.update({ [`data.keyAbility.selected`]: ability });
+            if (actor.data.data.build.abilities.manual) {
+                await actor.update({ [`data.details.keyability.value`]: ability });
+            } else {
+                await actor.class?.update({ [`data.keyAbility.selected`]: ability });
+            }
         });
 
         $html.find("button[data-action=level]").on("click", async (event) => {
@@ -219,6 +210,7 @@ export class AbilityBuilderPopup extends Application {
             background: actor.background,
             class: actor.class,
             abilityScores: actor.abilities,
+            manualKeyAbility: actor.keyAbility,
             keyOptions: build.keyOptions,
             levelBoosts,
             ancestryBoosts: this.calculateAncestryBoosts(),
@@ -234,7 +226,7 @@ export class AbilityBuilderPopup extends Application {
         const ancestryBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
             (accumulated, abbrev) => ({
                 ...accumulated,
-                [abbrev]: this.boostFlawState,
+                [abbrev]: defaultBoostFlawState(),
             }),
             {} as BoostFlawRow
         );
@@ -322,7 +314,7 @@ export class AbilityBuilderPopup extends Application {
         const backgroundBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
             (accumulated, abbrev) => ({
                 ...accumulated,
-                [abbrev]: this.boostFlawState,
+                [abbrev]: defaultBoostFlawState(),
             }),
             {} as BoostFlawRow
         );
@@ -399,6 +391,7 @@ export class AbilityBuilderPopup extends Application {
 interface PopupData {
     actor: CharacterPF2e;
     abilityScores: Abilities;
+    manualKeyAbility: AbilityString;
     abilities: Record<AbilityString, string>;
     ancestry: Embedded<AncestryPF2e> | null;
     background: Embedded<BackgroundPF2e> | null;
@@ -420,6 +413,19 @@ interface BoostFlawState {
     canVoluntaryFlaw: boolean;
     voluntaryBoost: boolean;
     canVoluntaryBoost: boolean;
+}
+
+function defaultBoostFlawState(): BoostFlawState {
+    return {
+        lockedFlaw: false,
+        lockedBoost: false,
+        boosted: false,
+        available: false,
+        voluntaryFlaw: false,
+        canVoluntaryFlaw: false,
+        voluntaryBoost: false,
+        canVoluntaryBoost: false,
+    };
 }
 
 type BoostFlawRow = Record<AbilityString, BoostFlawState>;
