@@ -24,19 +24,6 @@ export class AbilityBuilderPopup extends Application {
         return `ability-builder-${this.actor.id}`;
     }
 
-    private get boostFlawState(): BoostFlawState {
-        return {
-            lockedFlaw: false,
-            lockedBoost: false,
-            boosted: false,
-            available: false,
-            voluntaryFlaw: false,
-            canVoluntaryFlaw: false,
-            voluntaryBoost: false,
-            canVoluntaryBoost: false,
-        };
-    }
-
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const { actor } = this;
@@ -234,7 +221,7 @@ export class AbilityBuilderPopup extends Application {
         const ancestryBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
             (accumulated, abbrev) => ({
                 ...accumulated,
-                [abbrev]: this.boostFlawState,
+                [abbrev]: defaultBoostFlawState(),
             }),
             {} as BoostFlawRow
         );
@@ -322,7 +309,7 @@ export class AbilityBuilderPopup extends Application {
         const backgroundBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
             (accumulated, abbrev) => ({
                 ...accumulated,
-                [abbrev]: this.boostFlawState,
+                [abbrev]: defaultBoostFlawState(),
             }),
             {} as BoostFlawRow
         );
@@ -420,6 +407,19 @@ interface BoostFlawState {
     canVoluntaryFlaw: boolean;
     voluntaryBoost: boolean;
     canVoluntaryBoost: boolean;
+}
+
+function defaultBoostFlawState(): BoostFlawState {
+    return {
+        lockedFlaw: false,
+        lockedBoost: false,
+        boosted: false,
+        available: false,
+        voluntaryFlaw: false,
+        canVoluntaryFlaw: false,
+        voluntaryBoost: false,
+        canVoluntaryBoost: false,
+    };
 }
 
 type BoostFlawRow = Record<AbilityString, BoostFlawState>;
