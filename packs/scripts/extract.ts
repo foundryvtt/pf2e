@@ -777,9 +777,10 @@ async function extractPacks() {
     return (
         await Promise.all(
             foundryPacks.map(async (filePath) => {
-                const dbFilename = path.basename(filePath);
+                let dbFilename = path.basename(filePath);
 
                 if (!dbFilename.endsWith(".db")) {
+                    dbFilename = `${dbFilename}.db`;
                     throw PackError(`Pack file is not a DB file: "${dbFilename}"`);
                 }
                 if (!fs.existsSync(filePath)) {
