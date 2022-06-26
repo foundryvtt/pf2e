@@ -151,7 +151,11 @@ export class AbilityBuilderPopup extends Application {
 
         $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
-            await actor.class?.update({ [`data.keyAbility.selected`]: ability });
+            if (actor.data.data.build.abilities.manual) {
+                await actor.update({ [`data.details.keyability.value`]: ability });
+            } else {
+                await actor.class?.update({ [`data.keyAbility.selected`]: ability });
+            }
         });
 
         $html.find("button[data-action=level]").on("click", async (event) => {
@@ -206,6 +210,7 @@ export class AbilityBuilderPopup extends Application {
             background: actor.background,
             class: actor.class,
             abilityScores: actor.abilities,
+            manualKeyAbility: actor.keyAbility,
             keyOptions: build.keyOptions,
             levelBoosts,
             ancestryBoosts: this.calculateAncestryBoosts(),
@@ -386,6 +391,7 @@ export class AbilityBuilderPopup extends Application {
 interface PopupData {
     actor: CharacterPF2e;
     abilityScores: Abilities;
+    manualKeyAbility: AbilityString;
     abilities: Record<AbilityString, string>;
     ancestry: Embedded<AncestryPF2e> | null;
     background: Embedded<BackgroundPF2e> | null;

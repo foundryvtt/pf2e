@@ -230,7 +230,8 @@
                 <div class="row-column">
                     {{#if ../manual}}
                         <button type="button" data-action="class-key-ability" data-key="{{lookup ../abilities key}}" data-ability="{{key}}"
-                            class="boost{{#if (eq ../class.data.data.keyAbility.selected key)}} selected{{/if}}"
+                            class="boost{{#if (eq ../manualKeyAbility key)}} selected{{/if}}"
+                            tabindex="-1"
                         >
                             <i class="fas fa-key"></i>
                             {{localize "PF2E.Actor.Character.AbilityBuilder.KeyIcon"}}
