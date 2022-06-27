@@ -344,7 +344,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "raking-claws",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "raking-claws"
+                            ]
+                        },
+                        "selector": "claw-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d10.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "raking-claws"
+                            ]
+                        },
+                        "selector": "claw-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d10.criticalSuccess"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -368,7 +402,7 @@
             "type": "action"
         },
         {
-            "_id": "sAg8hYF3kFMZW1Xr",
+            "_id": "XpbkwstUH1qcjVQh",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -380,19 +414,20 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                    "value": "<section class=\"details\">\n<p><strong>Type</strong> Claw</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive @Compendium[pf2e.actionspf2e.Strike]{Strikes} of the listed type in the same round.</p>\n</section>\n<section class=\"content\">\n<p>A <em>Rend</em> entry lists a Strike the monster has. The monster automatically deals that Strike's damage again to the enemy.</p>\n</section>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "rend",
+                "slug": null,
                 "source": {
-                    "value": "Pathfinder Bestiary"
+                    "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
+                    "selected": {},
                     "value": []
                 },
                 "trigger": {
@@ -400,11 +435,6 @@
                 },
                 "weapon": {
                     "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
                 }
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
