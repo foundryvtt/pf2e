@@ -16,15 +16,22 @@ export class RollNotePF2e {
 
     constructor(params: RollNoteParams) {
         this.selector = params.selector;
-        this.text = this.#createText(params.title ?? null, params.text);
         this.predicate = new PredicatePF2e(params.predicate ?? {});
         this.outcome = [...(params.outcome ?? [])];
         this.visibility = params.visibility ?? null;
+        this.text = this.#createText(params.title ?? null, params.text);
     }
 
     #createText(title: string | null, text: string) {
         const paragraph = document.createElement("p");
         paragraph.className = "compact-text";
+        paragraph.innerHTML = game.i18n.localize(text);
+        // Remove wrapping elements, such as from item descriptions
+        const { firstChild } = paragraph;
+        if (paragraph.childNodes.length === 1 && firstChild instanceof HTMLElement) {
+            paragraph.innerHTML = firstChild.innerHTML;
+        }
+
         if (this.visibility) {
             paragraph.dataset.visibility = this.visibility;
         }
@@ -32,10 +39,8 @@ export class RollNotePF2e {
         if (title) {
             const strong = document.createElement("strong");
             strong.innerHTML = game.i18n.localize(title);
-            paragraph.append(strong);
+            paragraph.prepend(strong, " ");
         }
-        const textNode = document.createTextNode([" ", game.i18n.localize(text)].join(""));
-        paragraph.append(textNode);
 
         return paragraph.outerHTML;
     }

@@ -1,8 +1,9 @@
 {
-    "_id": "VAy6IZ0ck7ALVL4b",
+    "_id": "XSAmMuMgMvdjdpHc",
     "data": {
+        "badge": null,
         "description": {
-            "value": "<p>When the greatsword hits, the giant can Push the target back 10 feet, or 20 feet on a critical hit.</p>"
+            "value": "<p>The creature takes a -10-foot circumstance penalty to its Speeds.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,18 +12,18 @@
             "value": 1
         },
         "level": {
-            "value": 16
+            "value": 6
         },
         "rules": [
             {
-                "key": "Note",
-                "selector": "greatsword-attack",
-                "text": "{item|data.description.value}",
-                "title": "{item|name}"
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "circumstance",
+                "value": -10
             }
         ],
         "source": {
-            "value": "Pathfinder Bestiary"
+            "value": "Pathfinder Bestiary 3"
         },
         "start": {
             "initiative": null,
@@ -38,7 +39,7 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
-    "name": "Effect: Rune of Smiting (Greatsword)",
+    "img": "systems/pf2e/icons/spells/aqueous-orb.webp",
+    "name": "Effect: Slime Trap",
     "type": "effect"
 }
