@@ -27,7 +27,7 @@
                 "value": 25
             },
             "allSaves": {
-                "value": null
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
@@ -61,7 +61,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "<p>There are countless legions of lawful fiends in the nine layers of Hell, warring against the celestial planes and scouring the Material Plane for souls to corrupt.</p>\n<hr />\n<p>Fearsome giants of jagged iron, levalochs serve in the armies of Hell as potent warriors and tenacious hunters-creatures of absolute discipline endlessly obedient to diabolical tyrants.</p>",
+            "publicNotes": "<p>Fearsome giants of jagged iron, levalochs serve in the armies of Hell as potent warriors and tenacious hunters-creatures of absolute discipline endlessly obedient to diabolical tyrants.</p>\n<hr />\n<p>There are countless legions of lawful fiends in the nine layers of Hell, warring against the celestial planes and scouring the Material Plane for souls to corrupt.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -118,8 +118,6 @@
             ],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Good",
                     "type": "good",
                     "value": 5
                 }
@@ -152,7 +150,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "SZTsDqj0U8EKHdbX",
+            "_id": "mxEhdx8RettOPNCN",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -166,14 +164,14 @@
                     "value": "ritual"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -243,9 +241,8 @@
                 },
                 "spelldc": {
                     "dc": 22,
-                    "item": 0,
                     "mod": 0,
-                    "value": 12
+                    "value": 14
                 },
                 "tradition": {
                     "value": ""
@@ -262,7 +259,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "79nYuj24K9f1hL7n",
+            "_id": "3vf9rSuKaaM4whiV",
             "data": {
                 "ability": {
                     "value": ""
@@ -301,7 +298,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "SZTsDqj0U8EKHdbX"
+                    "value": "mxEhdx8RettOPNCN"
                 },
                 "materials": {
                     "value": ""
@@ -331,7 +328,7 @@
                 },
                 "slug": "infernal-pact",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "spellType": {
                     "value": "utility"
@@ -392,20 +389,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Merciless Thrust",
-                        "predicate": {
-                            "all": [
-                                "merciless-thrust"
-                            ]
-                        },
-                        "selector": "{Item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -612,66 +596,10 @@
             "type": "action"
         },
         {
-            "_id": "k7WrjUZ3f6y3uK20",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs Magic",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
             "_id": "cQMEu0nbq6cPn2sD",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -704,6 +632,67 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hellstrider",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "dW7bkWhXvNcwfUCh",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
             "sort": 900000,
             "type": "action"
         },
@@ -720,7 +709,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>All devils of equal or lower level adjacent to a levaloch gain a +1 circumstance bonus to their AC as the levaloch shields them from harm.</p>"
+                    "value": "<p>All devils of equal or lower level adjacent to a levaloch gain a +1 circumstance bonus to their AC as the levaloch shields them from harm.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Phalanx Fighter]{Effect: Phalanx Fighter}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -800,7 +789,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a levaloch hits a creature with their barbed net, the net wraps around the target, which becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot circumstance penalty to its Speeds.</p>\n<p>If the Strike was a critical success, the target is also immobilized. When a creature Escapes (DC 22), or if the Strike misses, the net crumbles into rust.</p>\n<p>Each time a creature attempts to Escape, it takes [[/r {1d6}[slashing]]]{1d6 slashing damage} from the net's barbs, regardless of whether the attempt succeeds.</p>"
+                    "value": "<p>When a levaloch hits a creature with their barbed net, the net wraps around the target, which becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot circumstance penalty to its Speeds. If the Strike was a critical success, the target is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}.</p>\n<p>When a creature @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 22), or if the Strike misses, the net crumbles into rust.</p>\n<p>Each time a creature attempts to Escape, it takes [[/r {1d6}[slashing]]]{1d6 slashing damage} from the net's barbs, regardless of whether the attempt succeeds.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Barbed Net]{Effect: Barbed Net}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -840,7 +829,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A levaloch reforges part of their barbed iron substance into a new <em>+1 striking trident</em> or barbed net. Their previous trident crumbles to rust.</p>\n<p>When the levaloch is destroyed, any tridents or barbed nets they created crumble to rust.</p>"
+                    "value": "<p>A levaloch reforges part of their barbed iron substance into a new <em>+1 @Compendium[pf2e.equipment-srd.Striking]{Striking} trident</em> or barbed net. Their previous trident crumbles to rust.</p>\n<p>When the levaloch is destroyed, any tridents or barbed nets they created crumble to rust.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -889,11 +878,21 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Target is clumsy, enfeebled, immobilized, or restrained",
-                        "option": "merciless-thrust",
-                        "toggleable": true
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "melee"
+                            ],
+                            "any": [
+                                "target:condition:clumsy",
+                                "target:condition:enfeebled",
+                                "target:condition:immobilized",
+                                "target:condition:restrained"
+                            ]
+                        },
+                        "selector": "trident-damage"
                     }
                 ],
                 "slug": null,
