@@ -3,7 +3,7 @@ import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviatio
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAP } from "@actor/helpers";
+import { calculateMAPs } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -49,7 +49,6 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
@@ -1691,28 +1690,7 @@ class CharacterPF2e extends CreaturePF2e {
         );
 
         // Multiple attack penalty
-        const multipleAttackPenalty = calculateMAP(weapon);
-        {
-            const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
-            for (const key of selectors) {
-                (synthetics.multipleAttackPenalties[key] ?? [])
-                    .filter((map) => PredicatePF2e.test(map.predicate, baseOptions))
-                    .forEach((map) => multipleAttackPenalties.push(map));
-            }
-
-            // find lowest multiple attack penalty
-            multipleAttackPenalties.push({
-                label: "PF2E.MultipleAttackPenalty",
-                penalty: multipleAttackPenalty.map2,
-            });
-            const { label, penalty } = multipleAttackPenalties.reduce(
-                (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
-                multipleAttackPenalties[0]
-            );
-            multipleAttackPenalty.label = label;
-            multipleAttackPenalty.map2 = penalty;
-            multipleAttackPenalty.map3 = penalty * 2;
-        }
+        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: baseOptions });
 
         const auxiliaryActions: AuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
@@ -1835,7 +1813,7 @@ class CharacterPF2e extends CreaturePF2e {
             { weapon: weapon.name }
         );
 
-        const mapZeroLabel = ((): string => {
+        const noMAPLabel = ((): string => {
             const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
             const value = action.totalModifier;
             const sign = value < 0 ? "" : "+";
@@ -1843,21 +1821,21 @@ class CharacterPF2e extends CreaturePF2e {
         })();
 
         const labels: [string, string, string] = [
-            mapZeroLabel,
+            noMAPLabel,
+            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map1 }),
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
-            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
         ];
         const checkModifiers = [
             (otherModifiers: ModifierPF2e[]) => new CheckModifier(checkName, action, otherModifiers),
             (otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, action, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
                 ]),
             (otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, action, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
         ];
 
