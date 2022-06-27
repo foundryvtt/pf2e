@@ -142,7 +142,9 @@
                     <h2>{{localize "PF2E.Actor.Character.AbilityBuilder.Boosts"}}</h2>
                     <ul class="boost-details">
                         {{#each backgroundBoosts.labels as |boost|}}
-                            <li><i class="fas fa-circle"></i>{{boost}}</li>
+                            {{#if boost}}
+                                <li><i class="fas fa-circle"></i>{{boost}}</li>
+                            {{/if}}
                         {{/each}}
                     </ul>
                 {{/if}}
