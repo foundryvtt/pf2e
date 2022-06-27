@@ -35,7 +35,7 @@ export const ChatCards = {
             if (item && !action?.startsWith("strike-")) {
                 const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
                 const strikes: StrikeData[] = actor.isOfType("character", "npc") ? actor.data.data.actions : [];
-                const strike = strikes.find((a) => a.item.id === item.id) ?? null;
+                const strike = strikes.find((a) => a.item.id === item.id && a.item.slug === item.slug) ?? null;
                 const rollOptions = actor.getRollOptions(["all", "attack-roll"]);
 
                 if (action === "weaponAttack") {
