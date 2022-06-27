@@ -3,7 +3,7 @@ import { WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { RollNotePF2e } from "@module/notes";
-import { MultipleAttackPenaltyPF2e } from "./multiple-attack-penalty";
+import { MAPSynthetic } from "./multiple-attack-penalty";
 import { StrikingPF2e } from "./striking";
 import { WeaponPotencyPF2e } from "./weapon-potency";
 import { StrikeAdjustment } from "./adjust-strike";
@@ -59,7 +59,7 @@ interface RuleElementSynthetics {
     };
     damageDice: Record<string, DamageDicePF2e[]>;
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
-    multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
+    multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
     rollTwice: Record<string, RollTwiceSynthetic[]>;

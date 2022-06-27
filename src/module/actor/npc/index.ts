@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { RollFunction, TraitViewData } from "@actor/data/base";
-import { calculateMAP } from "@actor/helpers";
+import { calculateMAPs } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -507,7 +507,8 @@ class NPCPF2e extends CreaturePF2e {
                     return { tag, label };
                 });
 
-                const statistic = new StatisticModifier(meleeData.name, modifiers, this.getRollOptions(domains));
+                const baseOptions = [...this.getRollOptions(domains), ...item.traits];
+                const statistic = new StatisticModifier(meleeData.name, modifiers, baseOptions);
 
                 const traitObjects = traits.map(
                     (t): TraitViewData => ({
@@ -567,7 +568,7 @@ class NPCPF2e extends CreaturePF2e {
                 };
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const maps = calculateMAP(item);
+                const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
                 const sign = action.totalModifier < 0 ? "" : "+";
                 const attackTrait = {
                     name: "attack",
@@ -577,8 +578,8 @@ class NPCPF2e extends CreaturePF2e {
 
                 action.variants = [
                     null,
-                    new ModifierPF2e("PF2E.MultipleAttackPenalty", maps.map2, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e("PF2E.MultipleAttackPenalty", maps.map3, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ].map((map) => {
                     const label = map
                         ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })

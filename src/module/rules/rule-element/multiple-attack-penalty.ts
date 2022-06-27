@@ -10,7 +10,7 @@ export class MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
         const label = this.resolveInjectedProperties(this.label);
         const value = Number(this.resolveValue(this.data.value)) || 0;
         if (selector && label && value) {
-            const map: MultipleAttackPenaltyPF2e = { label, penalty: value };
+            const map: MAPSynthetic = { label, penalty: value };
             if (this.data.predicate) map.predicate = this.data.predicate;
             const penalties = (this.actor.synthetics.multipleAttackPenalties[selector] ??= []);
             penalties.push(map);
@@ -22,7 +22,7 @@ export class MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface MultipleAttackPenaltyPF2e {
+export interface MAPSynthetic {
     label: string;
     penalty: number;
     predicate?: PredicatePF2e;
