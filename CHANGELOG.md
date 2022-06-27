@@ -1,5 +1,74 @@
 # Changelog
 
+## Version 3.12.0
+
+### New Features
+* (fryguy, Mats) Add functionality and interface for managing PCs' ability boosts
+* (stwlam) Add content searching to compendium search bar
+
+### Core System Improvements
+* (stwlam) Add a Critical Specialization rule element
+* (stwlam) Ramp up outdated module nagging to every load, include abandoned modules
+* (stwlam) Extend MAP rule element to spellcasting and NPCs
+* (Supe) Add temp hp and dying pips to familiar sheet
+* (Supe) Adjust dying max based on current doomed value
+* (Supe) Support increment/decrement/source for conditions in the familiar sheet
+* (Supe) Find best spell slot to consume when casting a spell without specifying a level (applicable to macros and modules)
+
+### Bugfixes
+* (stwlam) Fix issue causing damage application to fail to incorporate kh ("keep higher") roll modifier
+* (stwlam) Preserve pre-existing linkToActorSize token flags when copying actors
+* (stwlam) Fix styling of long transparent tags in chat messages
+* (stwlam) Remove ranged attacks benefiting from flat-footed due to flanking (from CRB 3rd printing errata)
+* (stwlam) Fix issue causing action macros to not incorporate conditionally-added weapon traits
+* (stwlam) Fix display of traits and IWR on vehicle sheet
+* (stwlam) Fix issue causing saves rolled from NPC spellcasts to not rerollable by players
+* (stwlam) Add manipulate trait when striking with alchemical bombs
+* (Supe) Prevent redundant prone and flat footed conditions from being created by going unconscious
+
+### Data Updates
+* (Abaddon) Add beheaded family abilities from Bestiary 3
+* (Abaddon) Add bone ship vehicle from Bestiary 3
+* (Abaddon) Review Bestiary 3 NPCs (lots)
+* (Avagdu) Add Improved and Greater Lastwall Soup Consumables and Effects
+* (Avagdu) Add Psychopomp Familiar Abilities
+* (Avagdu) Add Spell Effect for Circle of Protection
+* (Avagdu) Add familiar abilities for Divine Emissary feat
+* (Avagdu) Add rule elements for Grasping Reach and Mark for Death Action
+* (Avagdu) Fix typo in Scrying
+* (Avagdu) Update Holy and Unholy Water Items to be Weapons
+* (Avagdu) Update Token Light Effects on various Abomination Vaults NPCs
+* (Avagdu) Add Spear Launcher hazard to Fall of Plaguestone bestiary
+* (fryguy) Update Amnesiac and Discarded Duplicate to include a third free boost
+* (Manni) Changed non-visible special character \u0002 to minus
+* (NullWolf) Add Mwangi Expanse Deities to Domain Journals
+* (NullWolf) Automate Kobold Features
+* (NullWolf) Update Demon Form (Babau) and Elephant Form effects
+* (NullWolf) Update Skill Training Predicate for Medicine
+* (Putty) Add exploration effects for Scouting and Follow the Expert
+* (rectulo) Add missing sentence in Eldritch Archer dedication
+* (rectulo) Fix the prerequisite in Unlimited ghost flight
+* (Shandyan) Add rule elements to ifrit, kobold, kitsune, and leshy heritages & feats
+* (Shandyan) Replace crititical specialization note REs with new critical specialization REs
+* (Solklar) Fixed typo in the Ensnaring Wrappings feat
+* (SpartanCPA) Add a range to the Blood Hag's Firebolt Strike
+* (SpartanCPA) Add effects for Aquatic Combat
+* (SpartanCPA) Audit Grabble Forden (Agents of Edgewatch)
+* (SpartanCPA) Catch up Localize Persistent Bleed for new data
+* (SpartanCPA) Localize Persistent Damage in Acid Arrow
+* (SpartanCPA) Make "Mask of Terror" a Will Save spell
+* (SpartanCPA) Rebuild Iconics with the score builder
+* (SpartanCPA) Set a duration for Known Weaknesses
+* (SpartanCPA) Split text in NPC speed field to the detail field
+* (SpartanCPA) Update NPC bombs with old roll notes
+* (stwlam) Ensure presence of (everburning) torch REs in compendium contents
+* (stwlam) Refactor Triple Shot and Multishot Stance into modifier adjustments
+* (stwlam) Remove toggle from Panache class feature, add RE slugs where necessary
+* (Tikael) Tone down the Light spell effect
+* (TMunsie) Add levels to descriptions of barbarian instincts like champions
+* (TMunsie) Add/update NPCs and hazards from Bestiary 2, PFS 1-21, PFS 2-00, and PFS 2-12
+
+
 ## Version 3.11.3
 
 ### Bugfixes

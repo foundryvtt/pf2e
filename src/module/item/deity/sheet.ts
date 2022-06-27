@@ -1,13 +1,11 @@
 import { SkillAbbreviation } from "@actor/creature/data";
-import { ItemPF2e, SpellPF2e } from "@item";
+import { Alignment } from "@actor/creature/types";
+import { DeityPF2e, ItemPF2e, SpellPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetOptions, createSheetTags, SheetOptions } from "@module/sheet/helpers";
-import { ErrorPF2e } from "@util";
-import { DeityPF2e } from "./document";
-import Tagify from "@yaireo/tagify";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
+import { ErrorPF2e, tagify } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
-import { Alignment } from "@actor/creature/types";
 
 export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemSheetPF2e<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -35,7 +33,6 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             hasDetails: true,
             detailsTemplate: () => "systems/pf2e/templates/items/deity-details.html",
             alignments: CONFIG.PF2E.alignments,
-            followerAlignments: createSheetTags(CONFIG.PF2E.alignments, sheetData.data.alignment.follower),
             skills: CONFIG.PF2E.skills,
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
@@ -48,38 +45,16 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        // Create whitelist-enforced tagify selection inputs
-        interface SheetTagifyOptions {
-            whitelist: Record<string, string | { label: string }>;
-            maxTags: number;
-            dropdownSize: number;
-        }
+        // Create tagify selection inputs
+        const html = $html.get(0)!;
+        const getInput = (name: string): HTMLInputElement | null =>
+            html.querySelector<HTMLInputElement>(`input[name="${name}"]`);
 
-        const tagify = (inputName: string, { whitelist, maxTags, dropdownSize }: SheetTagifyOptions): void => {
-            const input = $html[0].querySelector<HTMLInputElement>(`input[name="${inputName}"]`);
-            if (!input) throw ErrorPF2e("Unexpected error looking up form element");
-            new Tagify(input, {
-                enforceWhitelist: true,
-                skipInvalid: true,
-                maxTags,
-                dropdown: {
-                    closeOnSelect: false,
-                    enabled: 0,
-                    maxItems: dropdownSize,
-                    searchKeys: ["id", "value"],
-                },
-                whitelist: Object.entries(whitelist).map(([key, locPath]) => ({
-                    id: key,
-                    value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
-                })),
-            });
-        };
-
-        tagify("data.ability", { whitelist: CONFIG.PF2E.abilities, maxTags: 2, dropdownSize: 6 });
-        tagify("data.alignment.follower", { whitelist: CONFIG.PF2E.alignments, maxTags: 9, dropdownSize: 9 });
-        tagify("data.weapons", { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2, dropdownSize: 10 });
-        tagify("data.domains.primary", { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4, dropdownSize: 16 });
-        tagify("data.domains.alternate", { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4, dropdownSize: 16 });
+        tagify(getInput("data.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
+        tagify(getInput("data.alignment.follower"), { whitelist: CONFIG.PF2E.alignments, maxTags: 9 });
+        tagify(getInput("data.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
+        tagify(getInput("data.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+        tagify(getInput("data.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
 
         const $clericSpells = $html.find(".cleric-spells");
         // View one of the spells
@@ -182,7 +157,6 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
 
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     alignments: Record<Alignment, string>;
-    followerAlignments: SheetOptions;
     skills: Record<SkillAbbreviation, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];

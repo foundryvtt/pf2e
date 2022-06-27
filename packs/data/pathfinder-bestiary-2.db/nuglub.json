@@ -98,7 +98,6 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
                     "value": "2"
                 }
@@ -850,7 +849,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A Medium creature within the nuglub's reach leaves a square during its move action</p>\n<hr />\n<p><strong>Effect</strong> The nuglub lashes out at the triggering creature's knees and tries to knock them @Compendium[pf2e.conditionitems.Prone]{Prone}. The nuglub makes an Acrobatics check against the creature's Reflex DC. On a success, the target falls and lands prone.</p>"
+                    "value": "<p><strong>Trigger</strong> A Medium creature within the nuglub's reach leaves a square during its move action</p>\n<hr />\n<p><strong>Effect</strong> The nuglub lashes out at the triggering creature's knees and tries to knock them @Compendium[pf2e.conditionitems.Prone]{Prone}. The nuglub makes an @Check[type:acrobatics] check against the creature's Reflex DC. On a success, the target falls and lands prone.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1053,7 +1052,7 @@
                         "label": "PF2E.SkillVariant.Traps",
                         "predicate": {
                             "all": [
-                                "traps"
+                                "action:craft:trap"
                             ]
                         },
                         "selector": "crafting",
@@ -1072,7 +1071,7 @@
                 "variants": {
                     "0": {
                         "label": "+7 traps",
-                        "options": "traps"
+                        "options": "action:craft:trap"
                     }
                 }
             },

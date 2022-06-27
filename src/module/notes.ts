@@ -51,6 +51,7 @@ export class RollNotePF2e {
             text: this.text,
             predicate: this.predicate,
             outcome: this.outcome,
+            visibility: this.visibility,
         });
     }
 }

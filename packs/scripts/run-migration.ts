@@ -32,6 +32,9 @@ import { Migration755GrantIdsToData } from "@module/migration/migrations/755-gra
 import { Migration757HillockHalfling } from "@module/migration/migrations/757-hillock-halfling";
 import { Migration759CritSpecRE } from "@module/migration/migrations/759-crit-spec-re";
 import { Migration760SeparateNoteTitle } from "@module/migration/migrations/760-separate-note-title";
+import { Migration761ShotRules } from "@module/migration/migrations/761-update-shot-rules";
+import { Migration762UpdateBackgroundItems } from "@module/migration/migrations/762-update-background-items";
+// ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
 globalThis.document = window.document;
@@ -65,6 +68,8 @@ const migrations: MigrationBase[] = [
     new Migration757HillockHalfling(),
     new Migration759CritSpecRE(),
     new Migration760SeparateNoteTitle(),
+    new Migration761ShotRules(),
+    new Migration762UpdateBackgroundItems(),
 ];
 
 global.deepClone = <T>(original: T): T => {
