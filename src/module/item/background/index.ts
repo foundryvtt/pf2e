@@ -1,7 +1,5 @@
-import { CharacterPF2e } from "@actor";
-import type { ItemPF2e, FeatPF2e } from "@item";
+import { ABCItemPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { OneToFour } from "@module/data";
-import { ABCItemPF2e } from "../abc";
 import { BackgroundData } from "./data";
 
 class BackgroundPF2e extends ABCItemPF2e {
@@ -24,12 +22,22 @@ class BackgroundPF2e extends ABCItemPF2e {
     }
 
     override prepareActorData(this: Embedded<BackgroundPF2e>): void {
-        if (!(this.actor instanceof CharacterPF2e)) {
+        if (!this.actor.isOfType("character")) {
             console.error("Only a character can have a background");
             return;
         }
 
         this.actor.background = this;
+        const { build } = this.actor.data.data;
+
+        // Add ability boosts
+        const boosts = Object.values(this.data.data.boosts);
+        for (const boost of boosts) {
+            if (boost.selected) {
+                build.abilities.boosts.background.push(boost.selected);
+            }
+        }
+
         const { trainedSkills } = this.data.data;
         if (trainedSkills.value.length === 1) {
             const key = trainedSkills.value[0];

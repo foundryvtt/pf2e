@@ -45,10 +45,13 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
         "systems/pf2e/templates/actors/partials/carry-type.html",
+        "systems/pf2e/templates/actors/partials/conditions.html",
+        "systems/pf2e/templates/actors/partials/dying-pips.html",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html",
+        "systems/pf2e/templates/actors/ability-builder.html",
 
         // SVG icons
         "systems/pf2e/templates/actors/character/icons/d20.html",
@@ -79,7 +82,6 @@ export function registerTemplates() {
         "systems/pf2e/templates/items/armor-details.html",
         "systems/pf2e/templates/items/armor-sidebar.html",
         "systems/pf2e/templates/items/background-details.html",
-        "systems/pf2e/templates/items/background-sidebar.html",
         "systems/pf2e/templates/items/backpack-details.html",
         "systems/pf2e/templates/items/backpack-sidebar.html",
         "systems/pf2e/templates/items/book-details.html",

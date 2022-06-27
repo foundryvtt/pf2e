@@ -1,22 +1,20 @@
-import { SaveType } from "@actor/data";
 import {
     AbilityBasedStatistic,
-    AbilityString,
     ActorSystemData,
     ActorSystemSource,
     BaseActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseTraitsData,
+    BaseTraitsSource,
     HitPointsData,
     InitiativeData,
     Rollable,
     StrikeData,
 } from "@actor/data/base";
-import { SkillLongForm } from "@actor/data/types";
-import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
-import { ActorAlliance } from "@actor/types";
+import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
+import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { CreatureTraits } from "@item/ancestry/data";
 import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
@@ -52,7 +50,7 @@ interface CreatureSystemSource extends ActorSystemSource {
     };
 
     /** Traits, languages, and other information. */
-    traits?: CreatureTraitsData;
+    traits?: CreatureTraitsSource;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers?: Record<string, RawModifier[]>;
@@ -100,13 +98,11 @@ interface SenseData {
 
 /** Data describing the value & modifier for a base ability score. */
 interface AbilityData {
-    /** The raw value of this ability score; computed from the mod for npcs automatically. */
+    /** The ability score: computed from the mod for npcs automatically. */
     value: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;
 }
-
-type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
 
 type Abilities = Record<AbilityString, AbilityData>;
 
@@ -115,17 +111,22 @@ type Language = keyof ConfigPF2e["PF2E"]["languages"];
 type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
 type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
+interface CreatureTraitsSource extends BaseTraitsSource {
+    traits: BaseTraitsData["traits"] & {
+        /** Actual Pathfinder traits */
+        traits: CreatureTraits;
+    };
+    /** Languages which this actor knows and can speak. */
+    languages: ValuesList<Language>;
+}
+
 interface CreatureTraitsData extends BaseTraitsData {
     traits: BaseTraitsData["traits"] & {
         /** Actual Pathfinder traits */
         traits: CreatureTraits;
     };
-    /** A list of special senses this character has. */
-    senses: CreatureSensePF2e[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
-    /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
-    attitude: { value: Attitude };
 }
 
 type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
@@ -150,7 +151,16 @@ interface CreatureAttributes extends BaseActorAttributes {
         manipulate: number;
     };
 
+    senses: { value: string } | CreatureSensePF2e[];
+
     speed: CreatureSpeeds;
+
+    /** The current dying level (and maximum) for this creature. */
+    dying: ValueAndMax & { recoveryDC: number };
+    /** The current wounded level (and maximum) for this creature. */
+    wounded: ValueAndMax;
+    /** The current doomed level (and maximum) for this creature. */
+    doomed: ValueAndMax;
 }
 
 interface CreatureSpeeds extends StatisticModifier {
@@ -244,6 +254,7 @@ export {
     CreatureSystemSource,
     CreatureTrait,
     CreatureTraitsData,
+    CreatureTraitsSource,
     CreatureType,
     HeldShieldData,
     InitiativeRollParams,

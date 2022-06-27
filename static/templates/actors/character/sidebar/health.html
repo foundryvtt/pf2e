@@ -31,11 +31,14 @@
         </a>
         <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
             <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
-            <span>{{{data.attributes.dying.icon}}}</span>
+            {{> systems/pf2e/templates/actors/partials/dying-pips.html}}
         </a>
         <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
             <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
-            <span>{{{data.attributes.wounded.icon}}}</span>
+            <span class="pips">
+                {{#times data.attributes.wounded.value}}<i class="fas fa-dot-circle"></i>{{/times}}
+                {{#times dying.remainingWounded}}<i class="far fa-circle"></i>{{/times}}
+            </span>
         </a>
         <a class="roll-icon rest" data-action="rest" title="{{localize "PF2E.Actor.Character.Rest.Label"}}">
             <i class="fas fa-bed"></i>

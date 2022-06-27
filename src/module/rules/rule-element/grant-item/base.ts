@@ -4,7 +4,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { isObject, sluggify, tupleHasValue } from "@util";
-import { REPreCreateParameters, REPreDeleteParameters, RuleElementPF2e, RuleElementSource } from "..";
+import { RuleElementPF2e, RuleElementSource } from "..";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
@@ -42,7 +42,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 : {};
     }
 
-    override async preCreate(args: Omit<REPreCreateParameters, "ruleSource">): Promise<void> {
+    override async preCreate(args: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">): Promise<void> {
         if (!this.test()) return;
 
         const { itemSource, pendingItems, context } = args;
@@ -160,7 +160,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
     }
 
-    override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
+    override async preDelete({ pendingItems }: RuleElementPF2e.PreDeleteParams): Promise<void> {
         const grants = this.item.data.flags.pf2e.itemGrants ?? [];
         const DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
 
@@ -214,7 +214,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     /** Run the preCreate callbacks of REs from the granted item */
     private async runGrantedItemPreCreates(
-        originalArgs: Omit<REPreCreateParameters, "ruleSource">,
+        originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
         grantedItem: Embedded<ItemPF2e>,
         context: DocumentModificationContext<ItemPF2e>
     ): Promise<void> {

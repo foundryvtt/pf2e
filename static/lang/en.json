@@ -51,7 +51,11 @@
         "UnknownCombatant": "Unknown Participant"
     },
     "COMPENDIUM": {
-        "Search": "Search Compendia"
+        "Filter": "Filter Compendiums",
+        "SearchContents": {
+            "Placeholder": "Search Contents",
+            "Hint": "Search compendium contents rather than filtering compendiums by name"
+        }
     },
     "CONTROLS": {
         "AdjustSceneDarkness": "Adjust Scene Darkness",
@@ -646,6 +650,29 @@
                 "TakesNoDamage": "{actor} takes no damage."
             },
             "Character": {
+                "AbilityBuilder": {
+                    "Title": "Assign your boosts",
+                    "Boost": "Boost",
+                    "Boosts": "Boosts",
+                    "Flaw": "Flaw",
+                    "Flaws": "Flaws",
+                    "KeyIcon": "Key",
+                    "VoluntaryFlaw": {
+                        "Title": "Voluntary Flaw",
+                        "Description": "Select two voluntary flaws to gain a free boost."
+                    },
+                    "BackgroundBoostDescription": "Two boosts: one must be {a} or {b}.",
+                    "AbilityScoreMethod": {
+                        "Title": "Ability Score Method",
+                        "Description": "Switching method resets your ability score distribution.",
+                        "UseCustomLabel": "Use Custom"
+                    },
+                    "AncestryMissingHelp": "Choose an ancestry to select boosts.",
+                    "BackgroundMissingHelp": "Choose a background to select boosts.",
+                    "ClassMissingHelp": "Choose a class to select boosts.",
+                    "NotSelected": "Not Selected",
+                    "Complete": "Complete"
+                },
                 "AncestryClass": "{ancestry} {class}",
                 "Rest": {
                     "Label": "Rest for the Night"
@@ -657,6 +684,7 @@
                     "Party": "Party",
                     "Neutral": "Neutral"
                 },
+                "CriticalSpecialization": "Critical Specialization",
                 "SpellPreparation": {
                     "Title": "{actor}: Spell Preparation",
                     "Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet.",
@@ -1275,6 +1303,7 @@
             "NoTokenInScene": "{actor} has no token in the scene.",
             "RevealName": "Reveal Name"
         },
+        "Edit": "Edit",
         "EditHazardLabel": "Edit Hazard?",
         "EditItemTitle": "Edit Item",
         "EditLabel": "Edit?",
@@ -1320,14 +1349,13 @@
             "NoUpdatePermission": "You lack permission to update this actor.",
             "NotEnoughAmmo": "You don't have enough ammo to make this strike.",
             "NotEnoughCoins": "Insufficient Coins",
-            "SubV9Module": "{module} does not support Foundry V9 and may introduce stability issues to your game.",
+            "SubV9Module": "{module} is unmaintained and may introduce stability issues to your game.",
             "WeaponQuantityZero": "You have no more of these weapons equipped.",
             "RuleElementSyntax": "Syntax error in rule element definition: {message}"
         },
         "Ethnicity": "Ethnicity",
         "ExpendSpellTitle": "Expend Spell",
         "Failure": "<strong>Failure</strong>",
-        "FamiliarItemTypeError": "Only conditions and effects are currently supported by familiars.",
         "FeatActionTypeLabel": "Action Type",
         "FeatActionsLabel": "Number of Actions",
         "FeatAncestryHeader": "Ancestry Feats",
@@ -1829,6 +1857,24 @@
             },
             "Plural": "Items",
             "Weapon": {
+                "CriticalSpecialization": {
+                    "axe": "Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
+                    "bomb": "Increase the radius of the bomb's splash damage (if any) to 10 feet.",
+                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
+                    "brawling": "The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.",
+                    "club": "You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.",
+                    "dart": "The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
+                    "firearm": "The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "flail": "The target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}.",
+                    "hammer": "The target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}.",
+                    "knife": "The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
+                    "pick": "The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die.",
+                    "polearm": "The target is moved 5 feet in a direction of your choice. This is forced movement.",
+                    "shield": "You knock the target back from you 5 feet. This is forced movement.",
+                    "sling": "The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "spear": "The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
+                    "sword": "The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
+                },
                 "FromMaterialAndRunes": "Precious materials and runes on this item have adjusted its {property} to {value}.",
                 "GeneratedName": {
                     "Hint": "This is the name of the base weapon. For most weapons, the base is used to generate a fuller name, taking into account the material composition and/or runes. Giving this weapon a custom name or marking it as \"specific\" will prevent the generated name from appearing.",
@@ -4240,22 +4286,6 @@
         "WeaponCustomDamageLabel": "Additional Custom Damage",
         "WeaponCustomDamageTitle": "This section adds any custom damage that is not covered by the Rune system. The Strike Effect and Critcal Effect attributes are not currently used in the system and are informational only.",
         "WeaponDamageLabel": "Base Damage",
-        "WeaponDescriptionAxe": "<strong>Critical Specialization Effect</strong> Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
-        "WeaponDescriptionBomb": "<strong>Critical Specialization Effect</strong> Increase the radius of the bomb's splash damage (if any) to 10 feet.",
-        "WeaponDescriptionBow": "<strong>Critical Specialization Effect</strong> If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
-        "WeaponDescriptionBrawling": "<strong>Critical Specialization Effect</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.",
-        "WeaponDescriptionClub": "<strong>Critical Specialization Effect</strong> You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.",
-        "WeaponDescriptionDart": "<strong>Critical Specialization Effect</strong> The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
-        "WeaponDescriptionFirearm": "<strong>Critical Specialization Effect</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.",
-        "WeaponDescriptionFlail": "<strong>Critical Specialization Effect</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
-        "WeaponDescriptionHammer": "<strong>Critical Specialization Effect</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
-        "WeaponDescriptionKnife": "<strong>Critical Specialization Effect</strong> The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
-        "WeaponDescriptionPick": "<strong>Critical Specialization Effect</strong> The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die.",
-        "WeaponDescriptionPolearm": "<strong>Critical Specialization Effect</strong> The target is moved 5 feet in a direction of your choice. This is forced movement.",
-        "WeaponDescriptionShield": "<strong>Critical Specialization Effect</strong> You knock the target back from you 5 feet. This is forced movement.",
-        "WeaponDescriptionSling": "<strong>Critical Specialization Effect</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.",
-        "WeaponDescriptionSpear": "<strong>Critical Specialization Effect</strong> The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.",
-        "WeaponDescriptionSword": "<strong>Critical Specialization Effect</strong> The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.",
         "WeaponGroups": "Weapon Groups",
         "WeaponGroupAxe": "Axe",
         "WeaponGroupBomb": "Bomb",
@@ -5041,7 +5071,6 @@
             "Stack": "Create new stack?"
         },
         "vehicle": {
-            "ItemTypeError": "Only inventory items and actions are currently supported by vehicles.",
             "VehicleString": "Vehicle",
             "NamePlaceholder": "Vehicle",
             "VehicleLevelLabel": "Vehicle",

@@ -1,26 +1,7 @@
 {
     "_id": "itzTz6Piij140q6O",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 12
-            },
-            "con": {
-                "value": 12
-            },
-            "dex": {
-                "value": 16
-            },
-            "int": {
-                "value": 18
-            },
-            "str": {
-                "value": 10
-            },
-            "wis": {
-                "value": 10
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,18 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "int",
+                        "dex",
+                        "con",
+                        "wis"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -156,11 +149,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -287,6 +280,7 @@
                         ]
                     },
                     "2": {
+                        "selected": "int",
                         "value": [
                             "str",
                             "dex",
@@ -332,7 +326,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "darkvision"
+                "vision": "darkvision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -1022,6 +1018,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "int",
                     "value": [
                         "int"
                     ]
@@ -1138,7 +1135,8 @@
                             ]
                         },
                         "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> You can deal splash damage to only your primary target instead of the usual splash area.</p>"
+                        "text": "You can deal splash damage to only your primary target instead of the usual splash area.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "bomber",
@@ -1284,12 +1282,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "int",
                         "value": [
                             "con",
                             "int"
                         ]
                     },
                     "1": {
+                        "selected": "dex",
                         "value": [
                             "cha",
                             "con",
@@ -2968,7 +2968,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -2988,7 +2988,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3016,16 +3016,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 2,
                 "range": 20,
@@ -3039,7 +3039,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                        "text": "PF2E.BombNotes.AcidFlask.Lesser.success"
                     },
                     {
                         "key": "Note",
@@ -3047,7 +3047,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*(1d6) #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                        "text": "PF2E.BombNotes.AcidFlask.Lesser.criticalSuccess"
                     }
                 ],
                 "size": "med",
@@ -3065,7 +3065,6 @@
                 "strikingRune": {
                     "value": ""
                 },
-                "temporary": true,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -3074,8 +3073,8 @@
                         "alchemical",
                         "bomb",
                         "consumable",
-                        "splash",
-                        "infused"
+                        "infused",
+                        "splash"
                     ]
                 },
                 "usage": {
@@ -3121,7 +3120,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3141,7 +3140,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3169,16 +3168,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 4,
                 "range": 20,
@@ -3192,7 +3191,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                        "text": "PF2E.BombNotes.AlchemistsFire.Lesser.success"
                     },
                     {
                         "key": "Note",
@@ -3200,7 +3199,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*1 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                        "text": "PF2E.BombNotes.AlchemistsFire.Lesser.criticalSuccess"
                     }
                 ],
                 "size": "med",
@@ -3218,7 +3217,6 @@
                 "strikingRune": {
                     "value": ""
                 },
-                "temporary": true,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -3227,8 +3225,7 @@
                         "bomb",
                         "consumable",
                         "fire",
-                        "splash",
-                        "infused"
+                        "splash"
                     ]
                 },
                 "usage": {

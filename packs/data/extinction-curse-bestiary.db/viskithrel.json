@@ -226,9 +226,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed2d10.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed2d10.criticalSuccess"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed2d10.success"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -461,7 +478,8 @@
                             ]
                         },
                         "selector": "saving-throw",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> A viskithrel's many-chambered snout allows it to partition and ignore scents. The creature can choose to critically succeed at any saving throw against an inhaled threat (such as inhaled poison) or olfactory effects, regardless of its roll.</p>"
+                        "text": "A viskithrel's many-chambered snout allows it to partition and ignore scents. The creature can choose to critically succeed at any saving throw against an inhaled threat (such as inhaled poison) or olfactory effects, regardless of its roll.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": null,

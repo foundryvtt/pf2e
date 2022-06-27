@@ -76,8 +76,8 @@ declare global {
         static on(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static on(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static on(...args: HookParamsRender<Dialog, "Dialog">): number;
-        static on(...args: HookParamsRender<ActorDirectory, "ActorDirectory">): number;
-        static on(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
+        static on(...args: HookParamsRender<ActorDirectory<Actor>, "ActorDirectory">): number;
+        static on(...args: HookParamsRender<ItemDirectory<Item>, "ItemDirectory">): number;
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
@@ -107,13 +107,13 @@ declare global {
         static once(...args: HookParamsPreCreateItem): number;
         static once(...args: HookParamsPreUpdateToken): number;
         static once(...args: HookParamsRenderChatMessage): number;
-        static once(...args: HookParamsRender<ActorDirectory, "ActorDirectory">): number;
+        static once(...args: HookParamsRender<ActorDirectory<Actor>, "ActorDirectory">): number;
         static once(...args: HookParamsRender<ChatLog, "ChatLog">): number;
         static once(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
         static once(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static once(...args: HookParamsRender<Dialog, "Dialog">): number;
-        static once(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
+        static once(...args: HookParamsRender<ItemDirectory<Item>, "ItemDirectory">): number;
         static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static once(...args: HookParamsRender<Settings, "Settings">): number;
         static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;

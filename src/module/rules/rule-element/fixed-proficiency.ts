@@ -1,12 +1,13 @@
-import { RuleElementPF2e, RuleElementSource } from "./";
 import { CharacterPF2e } from "@actor";
-import { AbilityString, ActorType } from "@actor/data";
-import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
+import { ActorType } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { setHasElement, sluggify } from "@util";
-import { RuleElementOptions } from "./base";
+import { AbilityString } from "@actor/types";
+import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
+import { setHasElement, sluggify } from "@util";
+import { RuleElementPF2e, RuleElementSource } from "./";
+import { RuleElementOptions } from "./base";
 
 /**
  * @category RuleElement

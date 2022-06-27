@@ -1,10 +1,18 @@
-/**
- * A directory list of Actor entities in the Sidebar
- * @see {@link Actor}
- */
-declare class ActorDirectory extends SidebarDirectory<Actor> {
-    static override documentName: "Actor";
+export {};
 
-    /** @todo Declare properties */
-    [key: string]: any;
+declare global {
+    /** The sidebar directory which organizes and displays world-level Actor documents. */
+    class ActorDirectory<TActor extends Actor> extends SidebarDirectory<TActor> {
+        constructor(options: SidebarDirectoryOptions);
+
+        static override documentName: "Actor";
+
+        protected override _canDragStart(selector: string): boolean;
+
+        protected override _onDragStart(event: ElementDragEvent): void;
+
+        protected override _canDragDrop(selector: string): boolean;
+
+        protected override _getEntryContextOptions(): EntryContextOption[];
+    }
 }

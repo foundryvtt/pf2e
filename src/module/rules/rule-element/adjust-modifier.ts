@@ -94,7 +94,10 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
                 return damageType;
             },
         };
-        if (this.relabel) adjustment.relabel = this.relabel;
+
+        if (this.relabel) {
+            adjustment.relabel = this.resolveInjectedProperties(this.relabel).replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        }
 
         for (const selector of this.selectors.map((s) => this.resolveInjectedProperties(s))) {
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);

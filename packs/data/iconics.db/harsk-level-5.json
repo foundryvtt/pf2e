@@ -1,26 +1,7 @@
 {
     "_id": "c75yxmpqKG5B4iOz",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 8
-            },
-            "con": {
-                "value": 16
-            },
-            "dex": {
-                "value": 18
-            },
-            "int": {
-                "value": 10
-            },
-            "str": {
-                "value": 18
-            },
-            "wis": {
-                "value": 16
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,24 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "wis",
+                        "con",
+                        "dex",
+                        "str"
+                    ],
+                    "5": [
+                        "wis",
+                        "con",
+                        "dex",
+                        "str"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -85,7 +84,7 @@
                 "value": ""
             },
             "keyability": {
-                "value": "str"
+                "value": "dex"
             },
             "level": {
                 "value": 5
@@ -105,11 +104,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -226,6 +225,7 @@
                         ]
                     },
                     "2": {
+                        "selected": "str",
                         "value": [
                             "str",
                             "dex",
@@ -279,7 +279,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "darkvision"
+                "vision": "darkvision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -551,7 +553,8 @@
                             ]
                         },
                         "selector": "saving-throw",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).</p>"
+                        "text": "Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).",
+                        "title": "{item|name}"
                     },
                     {
                         "key": "Resistance",
@@ -968,6 +971,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "dex",
                     "value": [
                         "dex",
                         "str"
@@ -1186,12 +1190,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "dex",
                         "value": [
                             "dex",
                             "wis"
                         ]
                     },
                     "1": {
+                        "selected": "str",
                         "value": [
                             "cha",
                             "con",
@@ -1279,7 +1285,8 @@
                             ]
                         },
                         "selector": "survival",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.</p>"
+                        "text": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "forager",
@@ -2017,7 +2024,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3225,257 +3294,6 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "axe-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionAxe]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "bomb-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBomb]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "bow-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBow]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        },
-                        "selector": "brawling-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBrawling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "club-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "dart-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionDart]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "flail-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFlail]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "hammer-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionHammer]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "knife-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionKnife]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "pick-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPick]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "polearm-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPolearm]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "shield-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionShield]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "sling-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSling]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "spear-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSpear]</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        "selector": "sword-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSword]</p>"
-                    },
-                    {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "data.martial.simple.rank",
@@ -3494,10 +3312,7 @@
                         "value": 2
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "key": "CriticalSpecialization",
                         "predicate": {
                             "all": [
                                 "hunted-prey"
@@ -3506,9 +3321,7 @@
                                 "weapon:category:simple",
                                 "weapon:category:martial"
                             ]
-                        },
-                        "selector": "firearm-weapon-group-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFirearm]</p>"
+                        }
                     }
                 ],
                 "slug": "ranger-weapon-expertise",

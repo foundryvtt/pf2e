@@ -1613,7 +1613,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -2525,7 +2587,8 @@
                             ]
                         },
                         "selector": "athletics",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you climb natural stone, you move at half your Speed on a success, and full speed on a critical success.</p>"
+                        "text": "When you climb natural stone, you move at half your Speed on a success, and full speed on a critical success.",
+                        "title": "{item|name}"
                     },
                     {
                         "key": "Note",
@@ -2535,7 +2598,8 @@
                             ]
                         },
                         "selector": "acrobatics",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success to Squeeze, you get a critical success instead.</p>"
+                        "text": "When you roll a success to Squeeze, you get a critical success instead.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "cavern-kobold",

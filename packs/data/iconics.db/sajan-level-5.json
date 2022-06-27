@@ -1,26 +1,7 @@
 {
     "_id": "zIawtsJlKpL28XGS",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 10
-            },
-            "con": {
-                "value": 14
-            },
-            "dex": {
-                "value": 19
-            },
-            "int": {
-                "value": 10
-            },
-            "str": {
-                "value": 16
-            },
-            "wis": {
-                "value": 16
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,24 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "dex",
+                        "str",
+                        "wis",
+                        "con"
+                    ],
+                    "5": [
+                        "str",
+                        "dex",
+                        "con",
+                        "wis"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -85,7 +84,7 @@
                 "value": ""
             },
             "keyability": {
-                "value": "str"
+                "value": "dex"
             },
             "level": {
                 "value": 5
@@ -218,6 +217,7 @@
                 },
                 "boosts": {
                     "0": {
+                        "selected": "dex",
                         "value": [
                             "cha",
                             "con",
@@ -231,6 +231,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "str",
                         "value": [
                             "str",
                             "dex",
@@ -273,7 +274,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "normal"
+                "vision": "normal",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -705,6 +708,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "dex",
                     "value": [
                         "dex",
                         "str"
@@ -776,12 +780,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "dex",
                         "value": [
                             "dex",
                             "str"
                         ]
                     },
                     "1": {
+                        "selected": "wis",
                         "value": [
                             "cha",
                             "con",
@@ -1617,7 +1623,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3134,7 +3202,8 @@
                             ]
                         },
                         "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.data.data.attributes.classDC.value)|traits:incapacitation] save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure).</p>"
+                        "text": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.data.data.attributes.classDC.value)|traits:incapacitation] save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure).",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "stunning-fist",
@@ -3680,7 +3749,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.BottledLightning.Moderate.success]</p>"
+                        "text": "PF2E.BombNotes.BottledLightning.Moderate.success"
                     }
                 ],
                 "size": "med",

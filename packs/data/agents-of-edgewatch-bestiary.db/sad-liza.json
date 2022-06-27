@@ -585,9 +585,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed2d10.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed2d10.criticalSuccess"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed2d10.success"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -710,7 +727,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever Twisted Jack deals slashing damage, the target takes an additional [[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
+                    "value": "<p>Whenever Sad Liza deals slashing damage, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed2d10.success].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -750,7 +767,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Twisted Jack makes three ranged dagger Strikes, each against a separate target; he ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes [[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                    "value": "<p>Sad Liza makes three ranged dagger Strikes, each against a separate target; she ignores the multiple attack penalty until after making all three Strikes. On a critical hit, the target takes @Localize[PF2E.PersistentDamage.Bleed2d10.success] and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -15,31 +15,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "battle-form",
-                        "death-effects",
-                        "disease"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "damageType": "evil",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "battle-form"
-                    ]
-                },
-                "selector": "strike-damage"
-            },
-            {
                 "hasHands": true,
                 "key": "BattleForm",
                 "overrides": {
@@ -130,6 +105,25 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "death-effects",
+                        "disease"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "damageType": "evil",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "source": {

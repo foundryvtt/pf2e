@@ -2,18 +2,14 @@ const USER_SETTINGS_KEYS = ["uiTheme", "showEffectPanel", "showRollDialogs", "da
 
 /** Player-specific settings, stored as flags on each world User */
 export class PlayerConfigPF2e extends FormApplication {
-    settings: UserSettingsPF2e;
-
-    constructor() {
-        super();
-        this.settings = game.user.settings;
-    }
+    settings: UserSettingsPF2e = game.user.settings;
 
     static readonly defaultSettings: UserSettingsPF2e = {
         uiTheme: "blue",
         showEffectPanel: true,
         showRollDialogs: true,
         darkvisionFilter: false,
+        searchPackContents: false,
     };
 
     static override get defaultOptions(): Required<FormApplicationOptions> {
@@ -67,7 +63,7 @@ export class PlayerConfigPF2e extends FormApplication {
             return currentSettings;
         }, this.settings);
 
-        await game.user.setFlag("pf2e", `settings`, settings);
+        await game.user.update({ "flags.pf2e.settings": settings });
         $("link#pf2e-color-scheme").attr({ href: `systems/pf2e/styles/user/color-scheme-${formData["uiTheme"]}.css` });
     }
 }
@@ -82,4 +78,5 @@ export interface UserSettingsPF2e {
     showEffectPanel: boolean;
     showRollDialogs: boolean;
     darkvisionFilter: boolean;
+    searchPackContents: boolean;
 }

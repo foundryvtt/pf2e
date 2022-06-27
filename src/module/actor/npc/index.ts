@@ -1,30 +1,34 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { Abilities, VisionLevel, VisionLevels } from "@actor/creature/data";
-import { SaveType } from "@actor/data";
-import { AbilityString, RollFunction, TraitViewData } from "@actor/data/base";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
-import { MeleeData } from "@item/data";
+import { Abilities } from "@actor/creature/data";
+import { SIZE_TO_REACH } from "@actor/creature/values";
+import { RollFunction, TraitViewData } from "@actor/data/base";
+import { calculateMAPs } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
+import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
+import { ItemType, MeleeData } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
+import { CheckRoll } from "@system/check/roll";
 import { DamageType } from "@system/damage";
 import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
-import { SIZE_TO_REACH } from "@actor/creature/values";
-import { VariantCloneParams } from "./types";
 import { StrikeAttackTraits } from "./strike-attack-traits";
-import { CheckRoll } from "@system/check/roll";
-import { calculateMAP } from "@actor/helpers";
+import { VariantCloneParams } from "./types";
 
 class NPCPF2e extends CreaturePF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
+    }
+
     /** This NPC's ability scores */
     get abilities(): Abilities {
         return deepClone(this.data.data.abilities);
@@ -42,11 +46,6 @@ class NPCPF2e extends CreaturePF2e {
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.traits.has("weak");
-    }
-
-    /** NPCs with sufficient permissions can always see (for now) */
-    override get visionLevel(): VisionLevel {
-        return VisionLevels.NORMAL;
     }
 
     /** Users with limited permission can loot a dead NPC */
@@ -308,7 +307,8 @@ class NPCPF2e extends CreaturePF2e {
 
         // default all skills to untrained
         data.skills = {};
-        for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
+        for (const skill of SKILL_LONG_FORMS) {
+            const { ability, shortform } = SKILL_EXPANDED[skill];
             const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
@@ -371,7 +371,9 @@ class NPCPF2e extends CreaturePF2e {
                 // override untrained skills if defined in the NPC data
                 const skill = sluggify(itemData.name); // normalize skill name to lower-case and dash-separated words
                 // assume lore, if skill cannot be looked up
-                const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: "int", shortform: skill };
+                const { ability, shortform } = objectHasKey(SKILL_EXPANDED, skill)
+                    ? SKILL_EXPANDED[skill]
+                    : { ability: "int" as const, shortform: skill };
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
@@ -399,7 +401,7 @@ class NPCPF2e extends CreaturePF2e {
                 stat.base = base;
                 stat.expanded = skill;
                 stat.label = itemData.name;
-                stat.lore = !SKILL_EXPANDED[skill];
+                stat.lore = !objectHasKey(SKILL_EXPANDED, skill);
                 stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
@@ -505,7 +507,8 @@ class NPCPF2e extends CreaturePF2e {
                     return { tag, label };
                 });
 
-                const statistic = new StatisticModifier(meleeData.name, modifiers, this.getRollOptions(domains));
+                const baseOptions = [...this.getRollOptions(domains), ...item.traits];
+                const statistic = new StatisticModifier(meleeData.name, modifiers, baseOptions);
 
                 const traitObjects = traits.map(
                     (t): TraitViewData => ({
@@ -565,7 +568,7 @@ class NPCPF2e extends CreaturePF2e {
                 };
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const maps = calculateMAP(item);
+                const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
                 const sign = action.totalModifier < 0 ? "" : "+";
                 const attackTrait = {
                     name: "attack",
@@ -575,8 +578,8 @@ class NPCPF2e extends CreaturePF2e {
 
                 action.variants = [
                     null,
-                    new ModifierPF2e("PF2E.MultipleAttackPenalty", maps.map2, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e("PF2E.MultipleAttackPenalty", maps.map3, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ].map((map) => {
                     const label = map
                         ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
@@ -795,10 +798,10 @@ class NPCPF2e extends CreaturePF2e {
         const description = sourceItemData.data.description.value;
         if (description) {
             notes.push(
-                new RollNotePF2e(
-                    "all",
-                    `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`
-                )
+                new RollNotePF2e({
+                    selector: "all",
+                    text: `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`,
+                })
             );
         }
         const formatItemName = (item: ItemPF2e): string => {
@@ -819,7 +822,7 @@ class NPCPF2e extends CreaturePF2e {
             const item = this.items.find(
                 (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
             );
-            const note = new RollNotePF2e("all", "");
+            const note = new RollNotePF2e({ selector: "all", text: "" });
             if (item) {
                 // Get description from the actor item.
                 note.text = formatNoteText(formatItemName(item), item);

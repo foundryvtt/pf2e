@@ -19,10 +19,40 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "scamper",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "scamper"
+                    ]
+                },
+                "selector": "speed",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "scamper"
+                    ]
+                },
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

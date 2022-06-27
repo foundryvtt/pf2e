@@ -19,7 +19,7 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -27,6 +27,24 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Intimidating Glare"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:impersonate",
+                        "tiefling-version-of-self"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "source": {

@@ -158,3 +158,7 @@ export { Migration755GrantIdsToData } from "./755-grant-ids-to-data";
 export { Migration756RMStoredResourceMaxes } from "./756-rm-stored-resource-maxes";
 export { Migration757HillockHalfling } from "./757-hillock-halfling";
 export { Migration758PrunePCAttributes } from "./758-prune-pc-attributes";
+export { Migration759CritSpecRE } from "./759-crit-spec-re";
+export { Migration760SeparateNoteTitle } from "./760-separate-note-title";
+export { Migration761ShotRules } from "./761-update-shot-rules";
+export { Migration762UpdateBackgroundItems } from "./762-update-background-items";

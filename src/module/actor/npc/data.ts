@@ -7,23 +7,24 @@ import {
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
+    CreatureSystemSource,
+    CreatureTraitsData,
+    CreatureTraitsSource,
     HeldShieldData,
+    LabeledSpeed,
     SaveData,
+    SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import {
-    AbilityString,
-    ActorFlagsPF2e,
-    ArmorClassData,
-    DexterityModifierCapData,
-    PerceptionData,
-    StrikeData,
-} from "@actor/data/base";
+import { ActorFlagsPF2e, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
+import { ActorSizePF2e } from "@actor/data/size";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
-import { StatisticModifier } from "@actor/modifiers";
+import { ValueAndMax } from "@module/data";
 import type { NPCPF2e } from ".";
 
-interface NPCSource extends BaseCreatureSource<"npc", NPCSystemData> {
+interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
 }
 
@@ -37,8 +38,62 @@ type NPCFlags = ActorFlagsPF2e & {
     pf2e: { lootable: boolean };
 };
 
+interface NPCSystemSource extends CreatureSystemSource {
+    /** The six primary ability scores. */
+    abilities: Abilities;
+
+    /** Any special attributes for this NPC, such as AC or health. */
+    attributes: NPCAttributesSource;
+
+    /** Details about this actor, such as alignment or ancestry. */
+    details: NPCDetails;
+
+    /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
+    saves: NPCSavesSource;
+
+    resources: {
+        focus?: ValueAndMax;
+    };
+
+    traits: NPCTraitsSource;
+}
+
+interface NPCAttributesSource {
+    ac: {
+        value: number;
+        details: string;
+    };
+    hp: {
+        value: number;
+        max: number;
+        temp: number;
+        details: string;
+    };
+    initiative: {
+        ability: SkillAbbreviation | "perception";
+    };
+    perception: {
+        value: number;
+    };
+    speed: {
+        value: string;
+        otherSpeeds: LabeledSpeed[];
+        details?: string;
+    };
+    allSaves: {
+        value: string;
+    };
+}
+
+type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
+
+interface NPCTraitsSource extends CreatureTraitsSource {
+    /** A description of special senses this NPC has */
+    senses: { value: string };
+}
+
 /** The raw information contained within the actor data object for NPCs. */
-interface NPCSystemData extends CreatureSystemData {
+interface NPCSystemData extends CreatureSystemData, NPCSystemSource {
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -60,6 +115,14 @@ interface NPCSystemData extends CreatureSystemData {
     resources: {
         focus?: { value: number; max: number };
     };
+
+    traits: NPCTraitsData;
+
+    customModifiers: Record<string, ModifierPF2e[]>;
+}
+
+interface NPCTraitsData extends CreatureTraitsData, NPCTraitsSource {
+    size: ActorSizePF2e;
 }
 
 type NPCDetails = CreatureDetails & {
@@ -100,6 +163,7 @@ interface NPCStrike extends StrikeData {
 /** AC data with an additional "base" value */
 interface NPCArmorClass extends StatisticModifier, ArmorClassData {
     base?: number;
+    details: string;
 }
 
 /** Save data with an additional "base" value */
@@ -155,6 +219,7 @@ interface NPCAttributes extends CreatureAttributes {
 export {
     NPCArmorClass,
     NPCAttributes,
+    NPCAttributesSource,
     NPCData,
     NPCHitPoints,
     NPCPerception,
@@ -163,4 +228,6 @@ export {
     NPCSource,
     NPCStrike,
     NPCSystemData,
+    NPCSystemSource,
+    NPCTraitsData,
 };

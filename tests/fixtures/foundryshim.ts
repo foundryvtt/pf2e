@@ -37,9 +37,9 @@ function setProperty(obj: Record<string, any>, key: string, value: any): boolean
  * @param token     Some passed token
  * @return The named type of the token
  */
-function getType(token: Token | null) {
+function getType(token: unknown): string {
     const tof = typeof token;
-    if (tof === "object") {
+    if (typeof token === "object") {
         if (token === null) return "null";
         const cn = token.constructor.name;
         if (["String", "Number", "Boolean", "Array", "Set"].includes(cn)) return cn;

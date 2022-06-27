@@ -1,26 +1,7 @@
 {
     "_id": "3HEoe8SqQ0mhL4pv",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 18
-            },
-            "con": {
-                "value": 16
-            },
-            "dex": {
-                "value": 12
-            },
-            "int": {
-                "value": 10
-            },
-            "str": {
-                "value": 18
-            },
-            "wis": {
-                "value": 12
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -44,6 +25,24 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "con",
+                        "cha"
+                    ],
+                    "5": [
+                        "str",
+                        "con",
+                        "wis",
+                        "cha"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -238,6 +237,7 @@
                 },
                 "boosts": {
                     "0": {
+                        "selected": "str",
                         "value": [
                             "cha",
                             "con",
@@ -251,6 +251,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "cha",
                         "value": [
                             "str",
                             "dex",
@@ -293,7 +294,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "normal"
+                "vision": "normal",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -310,12 +313,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "con",
                         "value": [
                             "con",
                             "dex"
                         ]
                     },
                     "1": {
+                        "selected": "cha",
                         "value": [
                             "cha",
                             "con",
@@ -1341,7 +1346,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3603,6 +3670,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "str",
                     "value": [
                         "dex",
                         "str"

@@ -25,222 +25,27 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "brawling-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBrawling]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
+                "key": "CriticalSpecialization",
                 "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
+                    "any": [
+                        "weapon:group:brawling",
+                        {
+                            "and": [
+                                "feat:monastic-weaponry",
+                                "weapon:trait:monk",
+                                {
+                                    "not": "weapon:category:unarmed"
+                                },
+                                {
+                                    "gte": [
+                                        "weapon:proficiency:rank",
+                                        1
+                                    ]
+                                }
+                            ]
+                        }
                     ]
-                },
-                "selector": "knife-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionKnife]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "axe-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionAxe]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "bomb-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBomb]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "bow-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionBow]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "club-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "dart-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionDart]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "flail-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFlail]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "hammer-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionHammer]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "pick-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPick]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "polearm-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionPolearm]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "shield-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionShield]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "sling-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSling]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "spear-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSpear]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "sword-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionSword]</p>"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "predicate": {
-                    "all": [
-                        "monk",
-                        "feat:monastic-weaponry"
-                    ]
-                },
-                "selector": "firearm-weapon-group-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionFirearm]</p>"
+                }
             }
         ],
         "source": {

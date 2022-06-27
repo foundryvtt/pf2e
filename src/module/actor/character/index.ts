@@ -1,10 +1,9 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
-import { CharacterSource, SaveType } from "@actor/data";
-import { AbilityString } from "@actor/data/base";
+import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAP } from "@actor/helpers";
+import { calculateMAPs } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -14,6 +13,15 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
+import {
+    ABILITY_ABBREVIATIONS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_DICTIONARY_REVERSE,
+    SKILL_EXPANDED,
+} from "@actor/values";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -29,7 +37,7 @@ import {
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
+import { FeatData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ItemGrantData } from "@item/data/base";
 import { ItemCarryType } from "@item/physical/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
@@ -41,14 +49,11 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { DamageRollContext } from "@system/damage/damage";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckDC } from "@system/degree-of-success";
-import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
@@ -62,14 +67,6 @@ import {
     traitSlugToObject,
 } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
-import {
-    ABILITY_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_DICTIONARY,
-    SKILL_DICTIONARY_REVERSE,
-    SKILL_EXPANDED,
-} from "../data/values";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import {
     AuxiliaryAction,
@@ -110,6 +107,11 @@ class CharacterPF2e extends CreaturePF2e {
     featGroups!: Record<string, FeatSlot | undefined>;
     pfsBoons!: FeatData[];
     deityBoonsCurses!: FeatData[];
+
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
+        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
+    }
 
     get keyAbility(): AbilityString {
         return this.data.data.details.keyability.value || "str";
@@ -275,7 +277,7 @@ class CharacterPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData: DeepPartial<CharacterSystemData> = this.data.data;
+        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.data.data;
 
         // Flags
         const { flags } = this.data;
@@ -292,6 +294,32 @@ class CharacterPF2e extends CreaturePF2e {
             ),
             flags.pf2e.sheetTabs ?? {}
         );
+
+        // Build selections: boosts and skill trainings
+        systemData.build = {
+            abilities: {
+                manual: Object.keys(systemData.abilities).length > 0,
+                keyOptions: [],
+                boosts: {
+                    ancestry: [],
+                    background: [],
+                    class: null,
+                    1: systemData.build?.abilities?.boosts?.[1] ?? [],
+                    5: systemData.build?.abilities?.boosts?.[5] ?? [],
+                    10: systemData.build?.abilities?.boosts?.[10] ?? [],
+                    15: systemData.build?.abilities?.boosts?.[15] ?? [],
+                    20: systemData.build?.abilities?.boosts?.[20] ?? [],
+                },
+                flaws: {
+                    ancestry: [],
+                },
+            },
+        };
+
+        // Base ability scores
+        for (const abbrev of ABILITY_ABBREVIATIONS) {
+            systemData.abilities[abbrev] = mergeObject({ value: 10 }, systemData.abilities[abbrev] ?? {});
+        }
 
         // Actor document and data properties from items
         const { details } = this.data.data;
@@ -320,10 +348,6 @@ class CharacterPF2e extends CreaturePF2e {
         const perception = (attributes.perception ??= { ability: "wis", rank: 0 });
         perception.ability = "wis";
         perception.rank ??= 0;
-
-        attributes.doomed = { value: 0, max: 3 };
-        attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
-        attributes.wounded = { value: 0, max: 3 };
 
         // Hit points
         const hitPoints = this.data.data.attributes.hp;
@@ -405,15 +429,22 @@ class CharacterPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
 
-    /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
+    /** After AE-likes have been applied, set numeric roll options */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        for (const ability of Object.values(this.data.data.abilities)) {
-            ability.mod = Math.floor((ability.value - 10) / 2);
-        }
+        this.setAbilityModifiers();
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
+    }
+
+    /**
+     * Immediately after boosts from this PC's ancestry, background, and class have been acquired, set ability scores
+     * according to them.
+     */
+    override prepareDataFromItems(): void {
+        super.prepareDataFromItems();
+        this.setAbilityScores();
     }
 
     override prepareDerivedData(): void {
@@ -437,13 +468,6 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Get the itemTypes object only once for the entire run of the method
         const itemTypes = this.itemTypes;
-
-        // Set dying, doomed, and wounded statuses according to embedded conditions
-        for (const conditionName of ["dying", "doomed", "wounded"] as const) {
-            const condition = itemTypes.condition.find((condition) => condition.slug === conditionName);
-            const status = systemData.attributes[conditionName];
-            status.value = Math.min(condition?.value ?? 0, status.max);
-        }
 
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
@@ -740,7 +764,7 @@ class CharacterPF2e extends CreaturePF2e {
             entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
-        // Expose best spellcasting dc to character attributes
+        // Expose best spellcasting DC to character attributes
         if (itemTypes.spellcastingEntry.length > 0) {
             const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
                 return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
@@ -790,6 +814,54 @@ class CharacterPF2e extends CreaturePF2e {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
+        }
+    }
+
+    private setAbilityScores(): void {
+        const { build, details } = this.data.data;
+
+        if (!build.abilities.manual) {
+            for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
+                // Skip applying boosts from levels higher than the character's
+                if (typeof section === "number" && this.level < section) {
+                    continue;
+                }
+
+                const boosts = build.abilities.boosts[section];
+                if (typeof boosts === "string") {
+                    // Class's key ability score
+                    const ability = this.data.data.abilities[boosts];
+                    ability.value += ability.value >= 18 ? 1 : 2;
+                } else if (Array.isArray(boosts)) {
+                    for (const abbrev of boosts) {
+                        const ability = this.data.data.abilities[abbrev];
+                        ability.value += ability.value >= 18 ? 1 : 2;
+                    }
+                }
+
+                // Optional and non-optional flaws only come from the ancestry section
+                const flaws = section === "ancestry" ? build.abilities.flaws[section] : [];
+                for (const abbrev of flaws) {
+                    const ability = this.data.data.abilities[abbrev];
+                    ability.value -= 2;
+                }
+            }
+
+            details.keyability.value = build.abilities.boosts.class ?? "str";
+        }
+
+        // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.value = Math.clamped(ability.value, 8, 30);
+            // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
+            ability.base = ability.value;
+        }
+    }
+
+    private setAbilityModifiers(): void {
+        // Set modifiers
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.mod = Math.floor((ability.value - 10) / 2);
         }
     }
 
@@ -900,7 +972,7 @@ class CharacterPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            this.data.data.saves[saveType] = mergeObject(this.data.data.saves[saveType], stat.getCompatData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
@@ -1618,28 +1690,7 @@ class CharacterPF2e extends CreaturePF2e {
         );
 
         // Multiple attack penalty
-        const multipleAttackPenalty = calculateMAP(weapon);
-        {
-            const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
-            for (const key of selectors) {
-                (synthetics.multipleAttackPenalties[key] ?? [])
-                    .filter((map) => PredicatePF2e.test(map.predicate, baseOptions))
-                    .forEach((map) => multipleAttackPenalties.push(map));
-            }
-
-            // find lowest multiple attack penalty
-            multipleAttackPenalties.push({
-                label: "PF2E.MultipleAttackPenalty",
-                penalty: multipleAttackPenalty.map2,
-            });
-            const { label, penalty } = multipleAttackPenalties.reduce(
-                (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
-                multipleAttackPenalties[0]
-            );
-            multipleAttackPenalty.label = label;
-            multipleAttackPenalty.map2 = penalty;
-            multipleAttackPenalty.map3 = penalty * 2;
-        }
+        const multipleAttackPenalty = calculateMAPs(weapon, { domains: selectors, options: baseOptions });
 
         const auxiliaryActions: AuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
@@ -1741,11 +1792,16 @@ class CharacterPF2e extends CreaturePF2e {
             action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
-        const strikeTraits: ActionTrait[] = ["attack" as const];
+        const actionTraits: ActionTrait[] = [
+            "attack" as const,
+            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
+            // the manipulate trait."
+            weapon.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
+        ].flat();
         for (const adjustment of this.synthetics.strikeAdjustments) {
-            adjustment.adjustTraits?.(weapon, strikeTraits);
+            adjustment.adjustTraits?.(weapon, actionTraits);
         }
-        action.traits = strikeTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+        action.traits = actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
@@ -1757,7 +1813,7 @@ class CharacterPF2e extends CreaturePF2e {
             { weapon: weapon.name }
         );
 
-        const mapZeroLabel = ((): string => {
+        const noMAPLabel = ((): string => {
             const strike = game.i18n.localize("PF2E.WeaponStrikeLabel");
             const value = action.totalModifier;
             const sign = value < 0 ? "" : "+";
@@ -1765,21 +1821,21 @@ class CharacterPF2e extends CreaturePF2e {
         })();
 
         const labels: [string, string, string] = [
-            mapZeroLabel,
+            noMAPLabel,
+            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map1 }),
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
-            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
         ];
         const checkModifiers = [
             (otherModifiers: ModifierPF2e[]) => new CheckModifier(checkName, action, otherModifiers),
             (otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, action, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
                 ]),
             (otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(checkName, action, [
                     ...otherModifiers,
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
         ];
 
@@ -1884,8 +1940,8 @@ class CharacterPF2e extends CreaturePF2e {
                 const incrementOption =
                     typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
                 args.options ??= [];
-                const options = Array.from(
-                    new Set([args.options, context.options, action.options, baseOptions, incrementOption].flat())
+                const options = new Set(
+                    [args.options, context.options, action.options, baseOptions, incrementOption].flat().sort()
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
@@ -1895,13 +1951,30 @@ class CharacterPF2e extends CreaturePF2e {
                     statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
-                    options,
+                    Array.from(options),
                     this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
+
+                // Find a critical specialization note
+                const critSpecs = context.self.actor.synthetics.criticalSpecalizations;
+                if (outcome === "criticalSuccess" && !args.getFormula && critSpecs.standard.length > 0) {
+                    // If an alternate critical specialization effect is available, apply it only if there is also a
+                    // qualifying non-alternate
+                    const standard = critSpecs.standard
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .pop();
+                    const alternate = critSpecs.alternate
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .pop();
+                    const note = standard ? alternate ?? standard : null;
+
+                    if (note) damage.notes.push(note);
+                }
+
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
@@ -2044,45 +2117,6 @@ class CharacterPF2e extends CreaturePF2e {
         await this.update({ [`data.martial.-=${key}`]: null });
     }
 
-    /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
-        const dying = this.data.data.attributes.dying.value;
-        if (!dying) return null;
-
-        const translations = LocalizePF2e.translations.PF2E;
-        const { Recovery } = translations;
-
-        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-        const recoveryDC = this.data.data.attributes.dying.recoveryDC;
-
-        const dc: CheckDC = {
-            label: game.i18n.format(translations.Recovery.rollingDescription, {
-                dying,
-                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
-            }),
-            value: recoveryDC + dying,
-            visibility: "all",
-        };
-
-        const notes = [
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
-        ];
-
-        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
-        const token = this.getActiveTokens(false, true).shift();
-
-        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
-
-        // No automated update yet, not sure if Community wants that.
-        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
-    }
-
     /** Remove any features linked to a to-be-deleted ABC item */
     override async deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
@@ -2166,6 +2200,49 @@ class CharacterPF2e extends CreaturePF2e {
         const preCreateDeletions = deletionTypes.flatMap((t): ItemPF2e[] => itemTypes[t]).map((i) => i.id);
         if (preCreateDeletions.length > 0) {
             await this.deleteEmbeddedDocuments("Item", preCreateDeletions, { render: false });
+        }
+    }
+
+    /** Toggle between boost-driven and manual management of ability scores */
+    async toggleAbilityManagement(): Promise<void> {
+        if (Object.keys(this.data._source.data.abilities).length === 0) {
+            // Add stored ability scores for manual management
+            const baseAbilities = Array.from(ABILITY_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, { value: 10 }>, abbrev) => ({
+                    ...accumulated,
+                    [abbrev]: { value: 10 as const },
+                }),
+                {}
+            );
+            await this.update({ "data.abilities": baseAbilities });
+        } else {
+            // Delete stored ability scores for boost-driven management
+            const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, null>, abbrev) => ({
+                    ...accumulated,
+                    [`-=${abbrev}`]: null,
+                }),
+                {}
+            );
+            await this.update({ "data.abilities": deletions });
+        }
+    }
+
+    /** Toggle between boost-driven and manual management of ability scores */
+    async toggleVoluntaryFlaw(): Promise<void> {
+        if (!this.ancestry) return;
+        if (Object.keys(this.ancestry?.data._source.data.voluntaryFlaws || []).length === 0) {
+            await this.ancestry.update({
+                "data.voluntaryBoosts.vb": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+                "data.voluntaryFlaws.vf1": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+                "data.voluntaryFlaws.vf2": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+            });
+        } else {
+            await this.ancestry.update({
+                "data.voluntaryBoosts.-=vb": null,
+                "data.voluntaryFlaws.-=vf1": null,
+                "data.voluntaryFlaws.-=vf2": null,
+            });
         }
     }
 }

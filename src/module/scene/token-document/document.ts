@@ -73,6 +73,11 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         return this.data.flags.pf2e.linkToActorSize;
     }
 
+    /** Is this token's scale locked at 1 or (for small creatures) 0.8? */
+    get autoscale(): boolean {
+        return this.data.flags.pf2e.autoscale;
+    }
+
     get playersCanSeeName(): boolean {
         const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
         const nameDisplayMode = this.data.displayName ?? 0;
@@ -94,8 +99,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         // Dimensions and scale
         const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
-        this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
-        this.data.flags.pf2e.linkToActorSize ??= linkDefault;
+        const linkToActorSize = this.data.flags.pf2e?.linkToActorSize ?? linkDefault;
+
+        const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
+        // Autoscaling is a secondary feature of linking to actor size
+        const autoscale = linkToActorSize ? this.data.flags.pf2e?.autoscale ?? autoscaleDefault : false;
+        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Vision
         if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
@@ -163,7 +172,10 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         } else {
             data.width = size;
             data.height = size;
-            data.scale = game.settings.get("pf2e", "tokens.autoscale") ? (actor.size === "sm" ? 0.8 : 1) : data.scale;
+
+            if (game.settings.get("pf2e", "tokens.autoscale") && data.flags.pf2e.autoscale !== false) {
+                data.scale = actor.size === "sm" ? 0.8 : 1;
+            }
         }
     }
 

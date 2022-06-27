@@ -38,6 +38,20 @@
                 "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialBows",
                 "sameAs": "unarmed",
                 "slug": "simple-martial-bows"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "weapon:group:bow",
+                        {
+                            "gte": [
+                                "weapon:proficiency:rank",
+                                2
+                            ]
+                        }
+                    ]
+                }
             }
         ],
         "source": {

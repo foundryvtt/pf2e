@@ -15,16 +15,6 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "predicate": {
-                    "all": [
-                        "battle-form"
-                    ]
-                },
-                "selector": "{item|_id}-damage",
-                "text": "<p class=\"compact-text\"><strong>Grab</strong> You can spend an action after a hit to Grab the target.</p>"
-            },
-            {
                 "key": "BattleForm",
                 "overrides": {
                     "senses": {
@@ -114,6 +104,12 @@
                     ],
                     "field": "item|data.level.value"
                 }
+            },
+            {
+                "key": "Note",
+                "selector": "{item|_id}-damage",
+                "text": "You can spend an action after a hit to Grab the target.",
+                "title": "Grab"
             }
         ],
         "source": {

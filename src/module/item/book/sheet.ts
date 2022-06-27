@@ -3,8 +3,8 @@ import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BookPF2e } from "./document";
 
 export class BookSheetPF2e extends PhysicalItemSheetPF2e<BookPF2e> {
-    override async getData(): Promise<PhysicalItemSheetData<BookPF2e>> {
-        const data = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<BookPF2e>> {
+        const data = await super.getData(options);
         return data;
     }
 

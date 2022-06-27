@@ -1,26 +1,7 @@
 {
     "_id": "yoAU5rWYH4KJGPr5",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 14
-            },
-            "con": {
-                "value": 10
-            },
-            "dex": {
-                "value": 12
-            },
-            "int": {
-                "value": 10
-            },
-            "str": {
-                "value": 14
-            },
-            "wis": {
-                "value": 18
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -45,6 +26,18 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "wis",
+                        "str",
+                        "dex",
+                        "cha"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -245,6 +238,7 @@
                 },
                 "boosts": {
                     "0": {
+                        "selected": "wis",
                         "value": [
                             "cha",
                             "con",
@@ -258,6 +252,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "str",
                         "value": [
                             "str",
                             "dex",
@@ -300,7 +295,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "normal"
+                "vision": "normal",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -317,12 +314,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "wis",
                         "value": [
                             "int",
                             "wis"
                         ]
                     },
                     "1": {
+                        "selected": "cha",
                         "value": [
                             "cha",
                             "con",
@@ -411,7 +410,8 @@
                             ]
                         },
                         "selector": "religion",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.</p>"
+                        "text": "When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.",
+                        "title": "{item|name}"
                     },
                     {
                         "key": "Note",
@@ -422,7 +422,8 @@
                             ]
                         },
                         "selector": "religion",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
+                        "text": "When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "student-of-the-canon",
@@ -914,7 +915,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -4195,6 +4258,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "wis",
                     "value": [
                         "wis"
                     ]

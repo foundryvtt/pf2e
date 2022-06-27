@@ -1,7 +1,7 @@
-import { AbilityString } from "@actor/data";
+import { AbilityString } from "@actor/types";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { FeatType } from "@item/feat/data";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item/index";
 import { LocalizePF2e } from "@system/localize";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ABCSheetData } from "../sheet/data-types";
@@ -17,15 +17,15 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         };
     }
 
-    override async getData(): Promise<ABCSheetData<TItem>> {
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ABCSheetData<TItem>> {
         const itemType = this.item.type;
 
-        const sheetData = this.getBaseData();
+        const sheetData = this.getBaseData(options);
         sheetData.data.items = this.item.toObject().data.items; // Exclude any added during data preparation
 
         return {
             ...sheetData,
-            hasSidebar: itemType !== "class",
+            hasSidebar: itemType === "ancestry",
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.html`,
             hasDetails: true,
             detailsTemplate: () => `systems/pf2e/templates/items/${itemType}-details.html`,

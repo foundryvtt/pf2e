@@ -1,5 +1,5 @@
-import { AbilityString } from "@actor/data";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { AbilityString } from "@actor/types";
+import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { SpellcastingEntryPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types";
 import { PreparationType } from "@item/spellcasting-entry/data";

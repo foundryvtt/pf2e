@@ -31,8 +31,6 @@ interface LootSystemData extends LootSystemSource, Omit<ActorSystemData, "attrib
     details: LootDetailsData;
 
     traits: BaseTraitsData;
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
 }
 
 interface LootAttributesSource {

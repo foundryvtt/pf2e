@@ -1,4 +1,4 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/data/values";
+import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
 import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
@@ -31,12 +31,12 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     protected validateData(): void {
-        if (Number.isNaN(this.priority)) {
-            return this.warn("priority");
-        }
-
         if (!AELikeRuleElement.CHANGE_MODES.includes(this.data.mode)) {
             return this.warn("mode");
+        }
+
+        if (Number.isNaN(this.priority)) {
+            return this.warn("priority");
         }
 
         const actor = this.item.actor;

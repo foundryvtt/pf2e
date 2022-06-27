@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../";
+import { RuleElementPF2e, RuleElementData, RuleElementOptions, RuleElementSource } from "../";
 import { BattleFormAC, BattleFormOverrides, BattleFormSource, BattleFormStrike } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
@@ -10,7 +10,7 @@ import { TempHPRuleElement } from "../temp-hp";
 import { CharacterPF2e } from "@actor";
 import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
-import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
@@ -116,6 +116,18 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         // Disable Automatic Bonus Progression
         this.actor.data.flags.pf2e.disableABP = true;
+    }
+
+    /** Pre-clear other rule elements on this item as being compatible with the battle form */
+    override async preCreate({ itemSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
+        const rules = (itemSource.data?.rules ?? []) as RuleElementSource[];
+        for (const rule of rules) {
+            if (["DamageDice", "FlatModifier", "Note"].includes(rule.key)) {
+                const predicate = (rule.predicate ??= {});
+                const predicateAll = (predicate.all ??= []);
+                predicateAll.push("battle-form");
+            }
+        }
     }
 
     /** Set temporary hit points */

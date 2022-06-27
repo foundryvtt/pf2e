@@ -1,5 +1,5 @@
 import { CreatureTrait, Language } from "@actor/creature/data";
-import { AbilityString } from "@actor/data/base";
+import { AbilityString } from "@actor/types";
 import { ABCSystemData } from "@item/abc/data";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { Size, ValuesList } from "@module/data";
@@ -19,8 +19,10 @@ interface AncestrySystemSource extends ABCSystemData {
         value: string[];
         custom: string;
     };
-    boosts: { [key: string]: { value: AbilityString[] } };
-    flaws: { [key: string]: { value: AbilityString[] } };
+    boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    flaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    voluntaryBoosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    voluntaryFlaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     hp: number;
     languages: ValuesList<Language>;
     speed: number;

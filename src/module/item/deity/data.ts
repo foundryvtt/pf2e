@@ -1,6 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { Alignment } from "@actor/creature/types";
-import { AbilityString } from "@actor/data";
+import { AbilityString } from "@actor/types";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
 import { BaseWeaponType } from "@item/weapon/types";
 import type { DeityPF2e } from "./document";

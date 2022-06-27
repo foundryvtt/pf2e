@@ -1,4 +1,6 @@
+import { ModeOfBeing } from "@actor/creature/types";
 import { ModifierAdjustment } from "@actor/modifiers";
+import { ActorDimensions, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
@@ -18,10 +20,12 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
+import { eventToRollParams } from "@scripts/sheet-util";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, isObject, objectHasKey } from "@util";
-import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
+import { ErrorPF2e, isObject, objectHasKey, tupleHasValue } from "@util";
+import type { CreaturePF2e } from "./creature";
+import { VisionLevel, VisionLevels } from "./creature/data";
+import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
 import { ActorInventory } from "./inventory";
@@ -29,7 +33,7 @@ import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { ActorDimensions } from "./types";
+import { CREATURE_ACTOR_TYPES } from "./values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -62,7 +66,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
                 if (art) {
                     data.img = art.actor;
-                    data.token = mergeObject(data.token ?? {}, { img: art.token });
+                    const tokenArt =
+                        typeof art.token === "string"
+                            ? { img: art.token }
+                            : { ...art.token, flags: { pf2e: { autoscale: false } } };
+                    data.token = mergeObject(data.token ?? {}, tokenArt);
                 }
             }
 
@@ -77,6 +85,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Cache the return data before passing it to the caller */
     override get itemTypes(): { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } {
         return (this._itemTypes ??= super.itemTypes);
+    }
+
+    get allowedItemTypes(): (ItemType | "physical")[] {
+        return ["condition", "effect"];
     }
 
     /** The compendium source ID of the actor **/
@@ -201,10 +213,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** A means of checking this actor's type without risk of circular import references */
+    isOfType(type: "creature"): this is CreaturePF2e;
     isOfType<T extends ActorType>(
         ...types: T[]
-    ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
-        return types.some((t) => this.data.type === t);
+    ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]>;
+    isOfType<T extends ActorType | "creature">(...types: T[]): boolean {
+        return types.some((t) => (t === "creature" ? tupleHasValue(CREATURE_ACTOR_TYPES, this.type) : this.type === t));
     }
 
     /** Whether this actor is an ally of the provided actor */
@@ -243,15 +257,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
+        // Set additional defaults, some according to actor type
         for (const datum of data) {
-            // Set wounds, advantage, and display name visibility
+            const { linkToActorSize } = datum.token?.flags?.pf2e ?? {};
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 token: {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
-                            linkToActorSize: !["hazard", "loot"].includes(datum.type),
+                            linkToActorSize: linkToActorSize ?? !["hazard", "loot"].includes(datum.type),
                         },
                     },
                 },
@@ -330,6 +345,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         this.synthetics = {
             damageDice: {},
+            criticalSpecalizations: { standard: [], alternate: [] },
             modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
@@ -366,13 +382,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         );
         this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
 
-        // Prepare data among owned items as well as actor-data preparation performed by items
+        this.prepareDataFromItems();
+    }
+
+    /** Prepare data among owned items as well as actor-data preparation performed by items */
+    protected prepareDataFromItems(): void {
         for (const item of this.items) {
             item.prepareSiblingData?.();
             item.prepareActorData?.();
         }
 
-        // Rule elements
         this.rules = this.prepareRuleElements();
     }
 
@@ -434,6 +453,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
             this.data.token.sightAngle = this.data.token._source.sightAngle = 360;
         }
+
         this.data.token.flags = mergeObject(
             { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
             this.data.token.flags
@@ -479,23 +499,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /**
      * Roll a Save Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus.
-     * Will be removed once non-creature saves are implemented properly.
+     * @deprecated
      */
-    rollSave(event: JQuery.Event, saveName: SaveType) {
-        const save: SaveData = this.data.data.saves[saveName];
-        const parts = ["@mod", "@itemBonus"];
-        const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: save.value,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
+    rollSave(event: JQuery.TriggeredEvent, saveType: SaveType): void {
+        console.warn("ActorPF2e#rollSaves is deprecated: use actor.saves[saveType].check.roll()");
+        this.saves?.[saveType]?.check.roll(eventToRollParams(event));
     }
 
     /**
@@ -508,7 +516,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
         }
 
-        const attribute = this.data.data.attributes[attributeName];
+        const attribute = this.attributes[attributeName];
         if (!(isObject(attribute) && "value" in attribute)) return;
 
         const parts = ["@mod", "@itemBonus"];

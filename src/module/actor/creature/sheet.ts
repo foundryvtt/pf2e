@@ -1,10 +1,10 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
+import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ConditionPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
@@ -22,6 +22,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
     override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
         const sheetData = await super.getData(options);
+        const { actor } = this;
 
         // Update save labels
         if (sheetData.data.saves) {
@@ -63,7 +64,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         return {
             ...sheetData,
-            languages: createSheetTags(CONFIG.PF2E.languages, this.actor.data.data.traits.languages),
+            languages: createSheetTags(CONFIG.PF2E.languages, actor.data.data.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
@@ -71,6 +72,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             rarity: CONFIG.PF2E.rarityTraits,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
+            conditions: game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition),
+            dying: {
+                maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
+                remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
+                remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
+            },
         };
     }
 
@@ -82,10 +89,11 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Preserve browser focus on unnamed input elements when updating */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         const focused = document.activeElement;
+        const contained = this.element.get(0)?.contains(focused);
 
         await super._render(force, options);
 
-        if (focused instanceof HTMLInputElement && focused.name) {
+        if (focused instanceof HTMLInputElement && focused.name && contained) {
             const selector = `input[data-property="${focused.name}"]:not([name])`;
             const sameInput = this.element.get(0)?.querySelector<HTMLInputElement>(selector);
             sameInput?.focus();
@@ -167,9 +175,34 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
         });
 
+        // Toggle Dying or Wounded
+        $html.find(".dots.dying, .dots.wounded").on("click contextmenu", (event) => {
+            type ConditionName = "dying" | "wounded";
+            const condition = Array.from(event.delegateTarget.classList).find((className): className is ConditionName =>
+                ["dying", "wounded"].includes(className)
+            );
+            if (condition) {
+                const currentMax = this.actor.data.data.attributes[condition]?.max;
+                if (event.type === "click" && currentMax) {
+                    this.actor.increaseCondition(condition, { max: currentMax });
+                } else if (event.type === "contextmenu") {
+                    this.actor.decreaseCondition(condition);
+                }
+            }
+        });
+
+        // Roll recovery flat check when Dying
+        $html
+            .find("[data-action=recovery-check]")
+            .tooltipster({ theme: "crb-hover" })
+            .filter(":not(.disabled)")
+            .on("click", (event) => {
+                this.actor.rollRecovery(event);
+            });
+
         // Roll skill checks
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
-            const skill = event.currentTarget.parentElement?.dataset.skill ?? "";
+            const skill = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
             const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
             const rollParams = eventToRollParams(event);
             this.actor.skills[key]?.check.roll(rollParams);
@@ -285,6 +318,26 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Spell Browser
         $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
+
+        // Decrease effect value
+        $html.find(".effects-list .decrement").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await this.actor.decreaseCondition(effect);
+            }
+        });
+
+        // Increase effect value
+        $html.find(".effects-list .increment").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await this.actor.increaseCondition(effect);
+            }
+        });
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {

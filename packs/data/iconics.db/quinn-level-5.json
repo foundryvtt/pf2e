@@ -1,26 +1,7 @@
 {
     "_id": "ezTV9Y2VozwOQphA",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 14
-            },
-            "con": {
-                "value": 12
-            },
-            "dex": {
-                "value": 14
-            },
-            "int": {
-                "value": 19
-            },
-            "str": {
-                "value": 14
-            },
-            "wis": {
-                "value": 12
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,24 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "int",
+                        "wis"
+                    ],
+                    "5": [
+                        "dex",
+                        "con",
+                        "int",
+                        "cha"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -105,11 +104,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -215,6 +214,7 @@
                 },
                 "boosts": {
                     "0": {
+                        "selected": "int",
                         "value": [
                             "cha",
                             "con",
@@ -228,6 +228,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "cha",
                         "value": [
                             "str",
                             "dex",
@@ -270,7 +271,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "normal"
+                "vision": "normal",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -858,6 +861,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "int",
                     "value": [
                         "int"
                     ]
@@ -1377,12 +1381,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "int",
                         "value": [
                             "cha",
                             "int"
                         ]
                     },
                     "1": {
+                        "selected": "str",
                         "value": [
                             "cha",
                             "con",
@@ -2059,7 +2065,69 @@
                     }
                 },
                 "quantity": 2,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -3867,7 +3935,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.success]</p>"
+                        "text": "PF2E.BombNotes.AcidFlask.Moderate.success"
                     },
                     {
                         "key": "Note",
@@ -3875,7 +3943,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess]</p>"
+                        "text": "PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess"
                     }
                 ],
                 "size": "med",
@@ -4138,7 +4206,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.GhostCharge.Moderate.success]</p>"
+                        "text": "PF2E.BombNotes.GhostCharge.Moderate.success"
                     }
                 ],
                 "size": "med",

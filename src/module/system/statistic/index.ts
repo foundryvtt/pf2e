@@ -1,3 +1,5 @@
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
+import { calculateMAPs } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -6,8 +8,15 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
+import { AbilityString } from "@actor/types";
+import { ItemPF2e } from "@item";
+import { ZeroToFour } from "@module/data";
+import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { CheckRoll } from "@system/check/roll";
+import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollContext, CheckType } from "@system/rolls";
-import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
+import { isObject } from "@util";
 import {
     BaseStatisticData,
     StatisticChatData,
@@ -16,15 +25,6 @@ import {
     StatisticDataWithCheck,
     StatisticDataWithDC,
 } from "./data";
-import { ItemPF2e } from "@item";
-import { CheckDC } from "@system/degree-of-success";
-import { isObject } from "@util";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckRoll } from "@system/check/roll";
-import { ZeroToFour } from "@module/data";
-import { AbilityString } from "@actor/data";
-import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
-import { calculateMAP } from "@actor/helpers";
 
 export * from "./data";
 
@@ -203,14 +203,16 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     /** Creates view data for sheets and chat messages */
     getChatData(options: RollOptionParameters = {}): StatisticChatData<T> {
         const { check, dc } = this.withRollOptions(options);
-        const mapData = options.item && check?.calculateMap({ item: options.item });
-        const map1 = mapData?.penalty ?? -5;
+        const { map1, map2 } = options.item
+            ? calculateMAPs(options.item, {
+                  domains: check?.domains ?? [],
+                  options: check?.createRollOptions(options) ?? [],
+              })
+            : { map1: -5, map2: -10 };
 
         return {
             name: this.slug,
-            check: check
-                ? { mod: check.mod, breakdown: check.breakdown, label: check.label, map1, map2: map1 * 2 }
-                : undefined,
+            check: check ? { mod: check.mod, breakdown: check.breakdown, label: check.label, map1, map2 } : undefined,
             dc: dc
                 ? {
                       value: dc.value,
@@ -273,21 +275,6 @@ class StatisticCheck {
         return this.parent.createRollOptions(this.domains, args);
     }
 
-    calculateMap(options: { item: ItemPF2e }) {
-        const baseMap = calculateMAP(options.item);
-        const penalties = [...(this.parent.data.check.penalties ?? [])];
-        penalties.push({
-            label: "PF2E.MultipleAttackPenalty",
-            penalty: baseMap.map2,
-        });
-        const { label, penalty } = penalties.reduce(
-            (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
-            penalties[0]
-        );
-
-        return { label, penalty };
-    }
-
     async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Allow use of events for modules and macros but don't allow it for internal system use
         const { secret, skipDialog } = (() => {
@@ -342,10 +329,10 @@ class StatisticCheck {
             if (!item) {
                 console.warn("Missing item argument while calculating MAP during check");
             } else {
-                const map = this.calculateMap({ item });
-                const mapValue = Math.min(3, args.attackNumber);
-                const penalty = (mapValue - 1) * map.penalty;
-                extraModifiers.push(new ModifierPF2e(map.label, penalty, "untyped"));
+                const maps = calculateMAPs(item, { domains, options });
+                const mapStage = (Math.clamped(args.attackNumber, 2, 3) - 1) as 1 | 2;
+                const penalty = maps[`map${mapStage}`];
+                extraModifiers.push(new ModifierPF2e(maps.label, penalty, "untyped"));
             }
         }
 

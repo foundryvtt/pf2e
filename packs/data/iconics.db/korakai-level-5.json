@@ -1,26 +1,7 @@
 {
     "_id": "zLOVCrRwZhL46vLI",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 19
-            },
-            "con": {
-                "value": 14
-            },
-            "dex": {
-                "value": 16
-            },
-            "int": {
-                "value": 10
-            },
-            "str": {
-                "value": 14
-            },
-            "wis": {
-                "value": 12
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,24 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "cha",
+                        "str",
+                        "dex",
+                        "wis"
+                    ],
+                    "5": [
+                        "cha",
+                        "str",
+                        "dex",
+                        "con"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -105,11 +104,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -227,6 +226,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "cha",
                         "value": [
                             "str",
                             "dex",
@@ -278,7 +278,9 @@
                         "tengu"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "lowLightVision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -903,6 +905,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "cha",
                     "value": [
                         "cha"
                     ]
@@ -1142,12 +1145,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "con",
                         "value": [
                             "con",
                             "int"
                         ]
                     },
                     "1": {
+                        "selected": "cha",
                         "value": [
                             "cha",
                             "con",
@@ -3273,7 +3278,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {
@@ -4610,7 +4677,8 @@
                             ]
                         },
                         "selector": "acrobatics",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success using the Balance action, you get a critical success instead.</p>"
+                        "text": "If you roll a success using the Balance action, you get a critical success instead.",
+                        "title": "{item|name}"
                     }
                 ],
                 "slug": "steady-balance",

@@ -138,11 +138,11 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes flat-footed until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -162,7 +162,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -210,13 +210,13 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> Target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of my next turn.</p>"
+                        "text": "PF2E.BombNotes.BottledLightning.Moderate.success"
                     }
                 ],
                 "size": "med",
                 "slug": "bottled-lightning-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -236,6 +236,7 @@
                         "bomb",
                         "consumable",
                         "electricity",
+                        "infused",
                         "splash"
                     ]
                 },
@@ -281,8 +282,8 @@
                     "value": "<p>This medium-length sword has a wide blade and long grip. Though it is typically used to hack through heavy foliage, the machete can also be used as a deadly weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -350,7 +351,7 @@
                 "size": "med",
                 "slug": "machete",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Lost Omens: Gods & Magic"
                 },
                 "specific": {
                     "value": false
@@ -407,6 +408,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -431,10 +433,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -461,7 +463,7 @@
                 "size": "med",
                 "slug": "studded-leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -502,7 +504,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "invested": false
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -531,13 +534,46 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            }
+                        ],
+                        "flag": "ringOfEnergyResistance",
+                        "key": "ChoiceSet",
+                        "prompt": "Choose an energy type"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.ringOfEnergyResistance}",
+                        "value": 5
+                    }
+                ],
                 "size": "med",
                 "slug": "ring-of-energy-resistance",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -633,7 +669,8 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-attack",
-                        "text": "<p class='compact-text'><strong>Splash Damage</strong> This strike does [[/r {5}[splash,electricity]]]{5 splash electricity damage}, [[/r {10}[splash,electricity]]]{10 splash electricity damage} on a critical hit.</p>"
+                        "text": "This strike does [[/r {5}[splash,electricity]]]{5 splash electricity damage}, [[/r {10}[splash,electricity]]]{10 splash electricity damage} on a critical hit.",
+                        "title": "Splash Damage"
                     }
                 ],
                 "slug": null,

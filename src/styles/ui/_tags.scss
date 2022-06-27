@@ -4,6 +4,7 @@
     gap: 2px;
     list-style-type: none;
     margin-bottom: 2px;
+    padding-left: 0;
 
     .tag, .tag option {
         @include micro;
@@ -101,7 +102,14 @@
 }
 
 li.chat-message .tags .tag {
-    height: 1rem;
+    height: unset;
+    line-height: 1.65em;
+    min-height: 1em;
+
+    &_transparent {
+        line-height: 1.25em;
+        padding: 0.1em 0.25em;
+    }
 }
 
 .damage-tag {

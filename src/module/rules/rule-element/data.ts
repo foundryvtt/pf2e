@@ -1,10 +1,9 @@
 import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
-import { ItemSourcePF2e } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
-import { MultipleAttackPenaltyPF2e } from "./multiple-attack-penalty";
+import { MAPSynthetic } from "./multiple-attack-penalty";
 import { StrikingPF2e } from "./striking";
 import { WeaponPotencyPF2e } from "./weapon-potency";
 import { StrikeAdjustment } from "./adjust-strike";
@@ -51,32 +50,16 @@ export interface BracketedValue<T extends object | number | string = object | nu
     brackets: Bracket<T>[];
 }
 
-export interface REPreCreateParameters<T extends RuleElementSource = RuleElementSource> {
-    /** The source partial of the rule element's parent item to be created */
-    itemSource: PreCreate<ItemSourcePF2e>;
-    /** The source of the rule in `itemSource`'s `data.rules` array */
-    ruleSource: T;
-    /** All items pending creation in a `ItemPF2e.createDocuments` call */
-    pendingItems: PreCreate<ItemSourcePF2e>[];
-    /** The context object from the `ItemPF2e.createDocuments` call */
-    context: DocumentModificationContext<ItemPF2e>;
-    /** Whether this preCreate run is from a pre-update reevaluation */
-    reevaluation?: boolean;
-}
-
-export interface REPreDeleteParameters {
-    /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
-    pendingItems: Embedded<ItemPF2e>[];
-    /** The context object from the `ItemPF2e.deleteDocuments` call */
-    context: DocumentModificationContext<ItemPF2e>;
-}
-
 type DeferredModifier = DeferredValue<ModifierPF2e | null>;
 
 interface RuleElementSynthetics {
+    criticalSpecalizations: {
+        standard: CritSpecSynthetic[];
+        alternate: CritSpecSynthetic[];
+    };
     damageDice: Record<string, DamageDicePF2e[]>;
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
-    multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
+    multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
     rollTwice: Record<string, RollTwiceSynthetic[]>;
@@ -93,6 +76,8 @@ interface RuleElementSynthetics {
         flush: () => void;
     };
 }
+
+type CritSpecSynthetic = (weapon: Embedded<WeaponPF2e>, options: Set<string>) => RollNotePF2e | null;
 
 interface RollSubstitution {
     slug: string;

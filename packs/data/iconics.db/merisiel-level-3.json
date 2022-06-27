@@ -1,26 +1,7 @@
 {
     "_id": "fA0g6IWg7CR1feg1",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 10
-            },
-            "con": {
-                "value": 12
-            },
-            "dex": {
-                "value": 18
-            },
-            "int": {
-                "value": 12
-            },
-            "str": {
-                "value": 14
-            },
-            "wis": {
-                "value": 12
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -43,6 +24,18 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
+            }
+        },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "con",
+                        "wis"
+                    ]
+                }
             }
         },
         "crafting": {
@@ -85,7 +78,7 @@
                 "value": ""
             },
             "keyability": {
-                "value": "str"
+                "value": "dex"
             },
             "level": {
                 "value": 3
@@ -105,11 +98,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -229,6 +222,7 @@
                         ]
                     },
                     "2": {
+                        "selected": "str",
                         "value": [
                             "str",
                             "dex",
@@ -274,7 +268,9 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "lowLightVision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -335,7 +331,8 @@
                             ]
                         },
                         "selector": "saving-throw",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+                        "text": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead.",
+                        "title": "{item|name}"
                     },
                     {
                         "adjustment": {
@@ -424,12 +421,14 @@
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "dex",
                         "value": [
                             "dex",
                             "int"
                         ]
                     },
                     "1": {
+                        "selected": "con",
                         "value": [
                             "cha",
                             "con",
@@ -967,6 +966,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "dex",
                     "value": [
                         "cha",
                         "dex",
@@ -2061,7 +2061,69 @@
                     }
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "improvised"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": {
+                            "all": [
+                                "lit-torch"
+                            ]
+                        },
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "torch",
                 "source": {

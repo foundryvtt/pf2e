@@ -2,11 +2,11 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { ConditionData, ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
-import { CONDITION_SLUGS } from "@actor/data/values";
+import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
+import { CONDITION_SLUGS } from "@actor/values";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
@@ -343,15 +343,18 @@ export class ConditionManager {
         if (exists) return null;
 
         source._id = randomID(16);
-        const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
+        const sources = [source, ...this.createAdditionallyAppliedConditions(source, actor)];
         await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
 
-    private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
+    private static createAdditionallyAppliedConditions(
+        baseCondition: ConditionSource,
+        actor: ActorPF2e
+    ): ConditionSource[] {
         const conditionsToCreate: ConditionSource[] = [];
 
-        baseCondition.data.alsoApplies.linked.forEach((linked) => {
+        for (const linked of baseCondition.data.alsoApplies.linked) {
             const conditionSource = this.getCondition(linked.condition).toObject();
             if (linked.value) {
                 conditionSource.data.value.value = linked.value;
@@ -364,11 +367,18 @@ export class ConditionManager {
             // Add linked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added linked condition
-            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
-        });
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource, actor));
+        }
 
-        baseCondition.data.alsoApplies.unlinked.forEach((unlinked) => {
+        for (const unlinked of baseCondition.data.alsoApplies.unlinked) {
             const conditionSource = this.getCondition(unlinked.condition).toObject();
+
+            // Unlinked conditions can be abandoned, so we need to prevent duplicates
+            const exists = actor.itemTypes.condition.some(
+                (existing) => existing.data.data.base === conditionSource.data.base
+            );
+            if (exists) continue;
+
             if (unlinked.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
                 conditionSource.data.value.value = unlinked.value;
@@ -379,8 +389,8 @@ export class ConditionManager {
             // Add unlinked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added condition
-            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
-        });
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource, actor));
+        }
 
         return conditionsToCreate;
     }
@@ -438,6 +448,12 @@ export class ConditionManager {
                 // Value is zero, remove the status.
                 await this.deleteConditions([itemId], actor);
             } else {
+                // Cap the value if its a capped condition
+                const cappedConditions = ["dying", "wounded", "doomed"] as const;
+                if (actor instanceof CreaturePF2e && tupleHasValue(cappedConditions, condition.slug)) {
+                    value = Math.min(value, actor.attributes[condition.slug].max);
+                }
+
                 // Apply new value.
                 await condition.update({ "data.value.value": value });
                 console.debug(`PF2e System | Setting condition '${condition.name}' to ${value}.`);

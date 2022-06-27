@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ConditionPF2e, FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
@@ -20,6 +20,7 @@ import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
+import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -100,13 +101,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
 
-        // Update dying icon and container width
-        sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
-
-        // Update wounded
-        sheetData.data.attributes.wounded.icon = this.getWoundedIcon(sheetData.data.attributes.wounded.value);
-        sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
-
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
             `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`
@@ -133,11 +127,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Is the character's key ability score overridden by an Active Effect?
         sheetData.data.details.keyability.singleOption = this.actor.class?.data.data.keyAbility.value.length === 1;
 
-        sheetData.data.effects = {};
-
-        sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
-            this.actor.itemTypes.condition
-        );
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
@@ -551,29 +540,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             minWidth: 120,
         });
 
-        // Toggle Dying, Wounded, or Doomed
-        $html
-            .find("aside > .sidebar > .hitpoints")
-            .find(".dots.dying, .dots.wounded")
-            .on("click contextmenu", (event) => {
-                type ConditionName = "dying" | "wounded";
-                const condition = Array.from(event.delegateTarget.classList).find(
-                    (className): className is ConditionName => ["dying", "wounded"].includes(className)
-                );
-                if (condition) {
-                    this.onClickDyingWounded(condition, event);
-                }
-            });
-
-        // Roll recovery flat check when Dying
-        $html
-            .find("a[data-action=recovery-check]")
-            .tooltipster({ theme: "crb-hover" })
-            .filter(":not(.disabled)")
-            .on("click", (event) => {
-                this.actor.rollRecovery(event);
-            });
-
         $html
             .find("a[data-action=rest]")
             .tooltipster({ theme: "crb-hover" })
@@ -583,34 +549,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
 
-        // Decrease effect value
-        $html.find(".tab.effects .effects-list .decrement").on("click", async (event) => {
-            const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor.decreaseCondition(effect);
-            }
-        });
-
-        // Increase effect value
-        $html.find(".tab.effects .effects-list .increment").on("click", async (event) => {
-            type ConditionName = "dying" | "wounded" | "doomed";
-            const actor = this.actor;
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                if (["dying", "wounded", "doomed"].includes(effect.slug)) {
-                    const condition = effect.slug as ConditionName;
-                    this.actor.increaseCondition(condition, {
-                        max: this.actor.data.data.attributes[condition].max,
-                    });
-                } else {
-                    await actor.increaseCondition(effect);
-                }
-            }
+        $html.find("button[data-action=edit-ability-scores]").on("click", async () => {
+            await new AbilityBuilderPopup(this.actor).render(true);
         });
 
         const $craftingTab = $html.find(".tab.crafting");
@@ -662,24 +602,23 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     return;
                 }
                 await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
-                craftItem(formula.item, itemQuantity, this.actor, true);
-                return;
+
+                return craftItem(formula.item, itemQuantity, this.actor, true);
             }
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
                 const itemId = itemUuid?.split(".").pop() ?? "";
-                if (isSpellConsumable(itemId)) {
-                    craftSpellConsumable(formula.item, itemQuantity, this.actor);
-                    return;
+                if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
+                    return craftSpellConsumable(formula.item, itemQuantity, this.actor);
                 }
-                craftItem(formula.item, itemQuantity, this.actor);
-                return;
+
+                return craftItem(formula.item, itemQuantity, this.actor);
             }
 
             const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visibility: "all",
-                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                adjustments: this.actor.data.data.skills.cra.adjustments,
                 scope: "check",
             };
 
@@ -943,15 +882,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    /** Handle cycling of dying, wounded, or doomed */
-    private onClickDyingWounded(condition: "dying" | "wounded", event: JQuery.TriggeredEvent) {
-        if (event.type === "click") {
-            this.actor.increaseCondition(condition, { max: this.actor.data.data.attributes[condition].max });
-        } else if (event.type === "contextmenu") {
-            this.actor.decreaseCondition(condition);
-        }
-    }
-
     private getNearestSlotId(event: ElementDragEvent): JQuery.PlainObject {
         const data = $(event.target).closest("[data-slot-id]").data();
         if (!data) {
@@ -1009,12 +939,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const craftingFormulas = await this.actor.getCraftingFormulas();
                 const formula = craftingFormulas.find((f) => f.uuid === dropData.pf2e.itemUuid);
 
-                if (formula) await craftingEntry.prepareFormula(formula);
-                return;
+                if (formula) return craftingEntry.prepareFormula(formula);
             }
+        } else {
+            return super._onDrop(event);
         }
-
-        return super._onDrop(event);
     }
 
     /**
@@ -1034,52 +963,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return super._onSortItem(event, itemData);
-    }
-
-    /** Get the font-awesome icon used to display a certain dying value */
-    private getDyingIcon(value: number): string {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const doomed = this.object.data.data.attributes.doomed.value || 0;
-        const circle = '<i class="far fa-circle"></i>';
-        const cross = '<i class="fas fa-times-circle"></i>';
-        const skull = '<i class="fas fa-skull"></i>';
-        const redOpen = "<span>";
-        const redClose = "</span>";
-        const icons: Record<number, string> = {};
-
-        for (let dyingLevel = 0; dyingLevel <= maxDying; dyingLevel++) {
-            icons[dyingLevel] = dyingLevel === maxDying ? redOpen : "";
-            for (let column = 1; column <= maxDying; column++) {
-                if (column >= maxDying - doomed || dyingLevel === maxDying) {
-                    icons[dyingLevel] += skull;
-                } else if (dyingLevel < column) {
-                    icons[dyingLevel] += circle;
-                } else {
-                    icons[dyingLevel] += cross;
-                }
-            }
-            icons[dyingLevel] += dyingLevel === maxDying ? redClose : "";
-        }
-
-        return icons[value];
-    }
-
-    /** Get the font-awesome icon used to display a certain wounded value */
-    private getWoundedIcon(value: number): string {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-dot-circle"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
-
-        for (let i = 0; i < maxDying; i++) {
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
-        }
-
-        return icons[value];
     }
 
     /** Get the font-awesome icon used to display hero points */

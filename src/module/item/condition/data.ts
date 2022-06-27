@@ -1,4 +1,4 @@
-import { CONDITION_SLUGS } from "@actor/data/values";
+import { CONDITION_SLUGS } from "@actor/values";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { ConditionPF2e } from ".";
 

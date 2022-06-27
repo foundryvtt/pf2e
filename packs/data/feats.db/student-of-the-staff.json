@@ -32,6 +32,18 @@
         },
         "rules": [
             {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "weapon:group:club"
+                    ]
+                }
+            },
+            {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
@@ -39,19 +51,7 @@
                         "self:effect:arcane-cascade"
                     ]
                 },
-                "critical": true,
-                "dieSize": "d6",
-                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
-                "diceNumber": 1,
                 "selector": "damage"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "staff-damage",
-                "text": "<p class='compact-text'>@Localize[PF2E.WeaponDescriptionClub]</p>"
             }
         ],
         "source": {

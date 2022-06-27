@@ -7,8 +7,8 @@ import { CoinsPF2e } from "@item/physical/helpers";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
-    override async getData(): Promise<PhysicalItemSheetData<TItem>> {
-        const sheetData: ItemSheetDataPF2e<TItem> = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
+        const sheetData: ItemSheetDataPF2e<TItem> = await super.getData(options);
 
         // Set the source item data for editing
         const identifiedData = this.item.getMystifiedData("identified", { source: true });

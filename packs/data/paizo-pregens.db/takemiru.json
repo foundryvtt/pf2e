@@ -1548,7 +1548,26 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 20,
+                            "color": "#9b7337",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "everburning-torch",
                 "source": {
@@ -2624,7 +2643,8 @@
                             ]
                         },
                         "selector": "Fortitude",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.</p>"
+                        "text": "If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.",
+                        "title": "{item|name}"
                     },
                     {
                         "key": "ActiveEffectLike",

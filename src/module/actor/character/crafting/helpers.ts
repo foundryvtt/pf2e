@@ -6,9 +6,10 @@ import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { CheckRoll } from "@system/check/roll";
+import { ChatMessagePF2e } from "@module/chat-message";
 
 interface Costs {
     reductionPerDay: CoinsPF2e;
@@ -71,8 +72,6 @@ function calculateCosts(
 
 function skillRankToProficiency(rank: ZeroToFour): TrainedProficiency | null {
     switch (rank) {
-        case 0:
-            return null;
         case 1:
             return "trained";
         case 2:
@@ -106,7 +105,7 @@ export async function craftItem(
         return;
     }
 
-    ChatMessage.create({
+    await ChatMessagePF2e.create({
         user: game.user.id,
         content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
             actorName: actor.name,
@@ -118,11 +117,11 @@ export async function craftItem(
 }
 
 export async function craftSpellConsumable(
-    item: PhysicalItemPF2e,
+    item: ConsumablePF2e,
     itemQuantity: number,
     actor: ActorPF2e
 ): Promise<void> {
-    const consumableType = (item as ConsumablePF2e).consumableType;
+    const consumableType = item.consumableType;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
     const spellLevel = consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2);
     const validSpells = actor.itemTypes.spell
@@ -134,6 +133,7 @@ export async function craftSpellConsumable(
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.html", {
         spells: validSpells,
     });
+
     new Dialog({
         title: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.Title"),
         content,
@@ -146,28 +146,28 @@ export async function craftSpellConsumable(
                 icon: '<i class="fa fa-hammer"></i>',
                 label: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
                 callback: async ($dialog) => {
-                    const spellId = String($dialog.find('select[name="spell"]').val());
+                    const spellId = String($dialog.find("select[name=spell]").val());
                     const spell = actor.items.get(spellId);
-                    if (!spell || !(spell instanceof SpellPF2e)) return;
+                    if (!spell?.isOfType("spell")) return;
                     const item = await createConsumableFromSpell(consumableType, spell, spellLevel);
-                    craftItem(new ConsumablePF2e(item), itemQuantity, actor);
+
+                    return craftItem(new ConsumablePF2e(item), itemQuantity, actor);
                 },
             },
         },
         default: "craft",
     }).render(true);
-    return;
 }
 
 export async function renderCraftingInline(
     item: PhysicalItemPF2e,
-    roll: Rolled<Roll<RollDataPF2e>>,
+    roll: Rolled<CheckRoll>,
     quantity: number,
     actor: ActorPF2e
 ): Promise<string | null> {
     if (!(actor instanceof CharacterPF2e)) return null;
 
-    const degreeOfSuccess = roll.data.degreeOfSuccess || 0;
+    const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);
     if (!costs) return null;
 

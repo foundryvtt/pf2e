@@ -3,7 +3,7 @@ import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
-import { SKILL_DICTIONARY } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/values";
 import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class TrickMagicItemPopup {

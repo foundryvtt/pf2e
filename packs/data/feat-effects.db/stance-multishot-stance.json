@@ -15,30 +15,30 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "Double Shot (Multishot Stance)",
+                "key": "AdjustModifier",
+                "mode": "add",
                 "predicate": {
                     "all": [
-                        "double-shot",
-                        "weapon:ranged",
-                        "weapon:reload:0"
+                        "double-shot"
                     ]
                 },
-                "selector": "attack",
-                "value": -1
+                "relabel": "{item|name}",
+                "selector": "ranged-attack-roll",
+                "slug": "double-shot",
+                "value": 1
             },
             {
-                "key": "FlatModifier",
-                "label": "Triple Shot (Multishot Stance)",
+                "key": "AdjustModifier",
+                "mode": "add",
                 "predicate": {
                     "all": [
-                        "triple-shot",
-                        "weapon:ranged",
-                        "weapon:reload:0"
+                        "triple-shot"
                     ]
                 },
-                "selector": "attack",
-                "value": -2
+                "relabel": "{item|name}",
+                "selector": "ranged-attack-roll",
+                "slug": "double-shot",
+                "value": 1
             }
         ],
         "source": {

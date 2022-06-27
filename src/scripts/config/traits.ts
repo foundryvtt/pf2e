@@ -86,10 +86,18 @@ const energyDamageTypes = {
     sonic: "PF2E.TraitSonic",
 };
 
+const magicTraditions: Record<MagicTradition, string> = {
+    arcane: "PF2E.TraitArcane",
+    divine: "PF2E.TraitDivine",
+    occult: "PF2E.TraitOccult",
+    primal: "PF2E.TraitPrimal",
+};
+
 const creatureTraits = {
     ...ancestryItemTraits,
     ...elementalTraits,
     ...energyDamageTypes,
+    ...magicTraditions,
     aberration: "PF2E.TraitAberration",
     aeon: "PF2E.TraitAeon",
     aesir: "PF2E.TraitAesir",
@@ -99,7 +107,6 @@ const creatureTraits = {
     animal: "PF2E.TraitAnimal",
     anugobu: "PF2E.TraitAnugobu",
     aquatic: "PF2E.TraitAquatic",
-    arcane: "PF2E.TraitArcane",
     archon: "PF2E.TraitArchon",
     astral: "PF2E.TraitAstral",
     asura: "PF2E.TraitAsura",
@@ -119,7 +126,6 @@ const creatureTraits = {
     devil: "PF2E.TraitDevil",
     dinosaur: "PF2E.TraitDinosaur",
     div: "PF2E.TraitDiv",
-    divine: "PF2E.TraitDivine",
     dragon: "PF2E.TraitDragon",
     dream: "PF2E.TraitDream",
     drow: "PF2E.TraitDrow",
@@ -324,13 +330,6 @@ const magicSchools: Record<MagicSchool, string> = {
     illusion: "PF2E.TraitIllusion",
     necromancy: "PF2E.TraitNecromancy",
     transmutation: "PF2E.TraitTransmutation",
-};
-
-const magicTraditions: Record<MagicTradition, string> = {
-    arcane: "PF2E.TraitArcane",
-    divine: "PF2E.TraitDivine",
-    occult: "PF2E.TraitOccult",
-    primal: "PF2E.TraitPrimal",
 };
 
 const spellTraits = {
@@ -639,7 +638,6 @@ const actionTraits = {
     ...featTraits,
     ...consumableTraits,
     ...spellTraits,
-    ...npcAttackTraits,
     circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
@@ -671,7 +669,11 @@ const hazardTraits = {
 };
 
 const vehicleTraits = {
+    ...magicSchools,
+    artifact: "PF2E.TraitArtifact",
+    clockwork: "PF2E.TraitClockwork",
     magical: "PF2E.TraitMagical",
+    teleportation: "PF2E.TraitTeleportation",
 };
 
 export {

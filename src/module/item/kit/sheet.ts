@@ -16,7 +16,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    override async getData(options: Partial<DocumentSheetOptions> = {}) {
+    override async getData(options?: Partial<DocumentSheetOptions>) {
         const sheetData = super.getBaseData(options);
         const traits = createSheetTags(CONFIG.PF2E.classTraits, sheetData.data.traits);
 

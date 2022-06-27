@@ -13,32 +13,38 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
-            const $target = $(event.currentTarget);
-            const $li = $target.closest("li");
-            await this.toggleItemSummary($li);
-
-            // For PC-sheet strikes
-            const $summary = $target.closest("li.expandable").find(".item-summary");
-            if ($summary.css("display") === "none") {
-                $summary.slideDown();
-            } else {
-                $summary.slideUp();
-            }
+            const $li = $(event.currentTarget).closest("li");
+            await this.toggleSummary($li);
         });
     }
 
     /**
      * Triggers toggling the visibility of an item summary element,
-     * delegating the populating of the item summary to renderItemSummary()
+     * delegating the populating of the item summary to renderItemSummary().
+     * Returns true if it the item is valid and it was toggled.
      */
-    async toggleItemSummary($li: JQuery, options: { instant?: boolean } = {}) {
+    async toggleSummary($li: JQuery, options: { instant?: boolean } = {}) {
+        const actor = this.sheet.actor;
+
         const itemId = $li.attr("data-item-id");
         const itemType = $li.attr("data-item-type");
-
         if (itemType === "spellSlot") return;
-
-        const actor = this.sheet.actor;
         const item = itemType === "formula" ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
+
+        // If there is no item id (such as PC strikes) or it is a condition, this is just a visibility toggle
+        // We need a better way to detect pre-rendered item-summaries
+        const isCondition = item instanceof ItemPF2e && item?.isOfType("condition");
+        if ((!itemId || isCondition) && $li.hasClass("expandable")) {
+            const $summary = $li.find(".item-summary");
+            if ($summary.css("display") === "none") {
+                $summary.slideDown();
+            } else {
+                $summary.slideUp();
+            }
+
+            return;
+        }
+
         if (!(item instanceof ItemPF2e)) return;
         if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
 
@@ -46,15 +52,21 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         if ($li.hasClass("expanded")) {
             const $summary = $li.children(".item-summary");
             if (options.instant) {
-                $summary.remove();
+                $summary.hide().empty();
             } else {
-                $summary.slideUp(200, () => $summary.remove());
+                $summary.slideUp(200, () => $summary.hide().empty());
             }
         } else {
-            const $summary = $('<div class="item-summary">');
+            const $summary = (() => {
+                const $existing = $li.find(".item-summary");
+                if ($existing.length) return $existing;
+
+                const $summary = $('<div class="item-summary">');
+                return $summary.insertAfter($li.children(".item-name, .item-controls, .action-header").last());
+            })();
+
             const chatData = item.getChatData({ secrets: actor.isOwner }, $li.data());
             this.renderItemSummary($summary, item, chatData);
-            $li.children(".item-name, .item-controls, .action-header").last().after($summary);
             if (options.instant) {
                 InlineRollLinks.listen($summary);
             } else {
@@ -154,11 +166,11 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         // Re-open hidden item summaries
         for (const itemId of openItemsIds) {
             const $item = result.find(`.item[data-item-id="${itemId}"]:not([data-item-summary-id])`);
-            this.toggleItemSummary($item, { instant: true });
+            this.toggleSummary($item, { instant: true });
         }
 
         for (const summaryId of openSummaryIds) {
-            this.toggleItemSummary(result.find(`.item[data-item-summary-id="${summaryId}"]`), { instant: true });
+            this.toggleSummary(result.find(`.item[data-item-summary-id="${summaryId}"]`), { instant: true });
         }
 
         // Reopen hidden actions

@@ -1,5 +1,5 @@
-import { SaveType } from "@actor/data";
-import { AbilityString } from "@actor/data/base";
+import { AbilityString, SaveType } from "@actor/types";
+import type { SpellPF2e } from "@item";
 import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
@@ -8,9 +8,8 @@ import {
     ItemSystemSource,
     ItemTraits,
 } from "@item/data/base";
+import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
 import { DamageType } from "@system/damage";
-import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
-import type { SpellPF2e } from "@item";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "../types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;

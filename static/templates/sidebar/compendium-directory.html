@@ -7,8 +7,10 @@
         </div>
         <div class="header-search flexrow">
             <i class="fas fa-search"></i>
-            <input type="text" name="search" value="" placeholder="{{localize 'COMPENDIUM.Search'}}" autocomplete="off"/>
-            <div class="blank"></div>
+            <input type="text" name="search" autocomplete="off" spellcheck="false" />
+            <button class="search-contents{{#if searchContents}} active{{/if}}" data-action="toggle-search-contents" title="{{localize "COMPENDIUM.SearchContents.Hint"}}">
+                <i class="fas fa-file"></i>
+            </button>
         </div>
     </header>
     <ol class="directory-list">

@@ -1,43 +1,31 @@
 {
-    "_id": "efFe4EK7ThUrH446",
+    "_id": "z9T4c1hXwOotsMCp",
     "data": {
-        "activation": {
-            "condition": "",
-            "cost": 0,
-            "type": ""
-        },
-        "autoDestroy": {
-            "_deprecated": true,
-            "value": true
-        },
-        "autoUse": {
-            "_deprecated": true,
-            "value": true
+        "MAP": {
+            "value": ""
         },
         "baseItem": null,
-        "charges": {
-            "_deprecated": true,
-            "max": 1,
-            "value": 1
+        "bonus": {
+            "value": 0
         },
-        "consumableType": {
-            "value": "other"
+        "bonusDamage": {
+            "value": 0
         },
-        "consume": {
-            "_deprecated": true,
-            "value": "1d6"
-        },
+        "category": "simple",
         "containerId": null,
-        "description": {
-            "value": "<p>This vial contains water blessed by a good deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Holy water</em> deals 1d6 good damage and 1 good splash damage. It damages only fiends, undead, and creatures that have a weakness to good damage.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>"
+        "damage": {
+            "damageType": "good",
+            "dice": 1,
+            "die": "d6",
+            "value": ""
         },
-        "duration": {
-            "units": "",
-            "value": null
+        "description": {
+            "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<hr />\n<p>This vial contains water blessed by a good deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet. Unlike an alchemical bomb, it doesn't add the manipulate trait to the attack made with it.</p>\n<p><em>Holy water</em> deals 1d6 good damage and 1 good splash damage. It damages only fiends, undead, and creatures that have a weakness to good damage.</p>"
         },
         "equippedBulk": {
             "value": ""
         },
+        "group": null,
         "hardness": 0,
         "hp": {
             "brokenThreshold": 0,
@@ -50,63 +38,72 @@
         "negateBulk": {
             "value": "0"
         },
+        "potencyRune": {
+            "value": 0
+        },
         "preciousMaterial": {
-            "value": ""
+            "value": null
         },
         "preciousMaterialGrade": {
-            "value": ""
+            "value": null
         },
         "price": {
             "value": {
                 "gp": 3
             }
         },
-        "quantity": 1,
-        "range": {
-            "long": null,
-            "units": "",
+        "property1": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "criticalConditionType": "",
+            "criticalConditionValue": null,
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "strikeConditionType": "",
+            "strikeConditionValue": null,
+            "value": ""
+        },
+        "propertyRune1": {
             "value": null
+        },
+        "propertyRune2": {
+            "value": null
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": 20,
+        "reload": {
+            "value": "-"
         },
         "rules": [
             {
-                "category": "simple",
-                "damage": {
-                    "base": {
-                        "damageType": "good",
-                        "dice": 1,
-                        "die": "d6"
-                    }
-                },
-                "key": "Strike",
-                "label": "Holy Water",
-                "range": 20,
-                "traits": [
-                    "thrown",
-                    "good",
-                    "divine",
-                    "consumable",
-                    "splash"
-                ]
-            },
-            {
                 "key": "Note",
                 "selector": "{item|_id}-damage",
-                "text": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>\n<p>[[/r {1}[good]]]{1 good splash damage}<p/>"
+                "text": "Damages only fiends, undead, and creatures that have a weakness to good damage\n[[/r {1}[good]]]{1 good splash damage}",
+                "title": "{item|name}"
             }
         ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
-        "spell": {
-            "data": null,
-            "heightenedLevel": null
+        "specific": {
+            "value": false
+        },
+        "splashDamage": {
+            "value": 1
         },
         "stackGroup": null,
-        "target": {
-            "type": "",
-            "units": "",
-            "value": null
+        "strikingRune": {
+            "value": ""
         },
         "traits": {
             "custom": "",
@@ -115,18 +112,12 @@
                 "consumable",
                 "divine",
                 "good",
-                "splash"
+                "splash",
+                "thrown"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
-        },
-        "uses": {
-            "autoDestroy": true,
-            "autoUse": true,
-            "max": 0,
-            "per": null,
-            "value": 0
         },
         "weight": {
             "value": "L"
@@ -134,5 +125,5 @@
     },
     "img": "systems/pf2e/icons/equipment/consumables/other-consumables/holy-water.webp",
     "name": "Holy Water",
-    "type": "consumable"
+    "type": "weapon"
 }

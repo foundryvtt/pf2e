@@ -1,7 +1,7 @@
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import {
-    Abilities,
+    AbilityData,
     BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
@@ -9,15 +9,15 @@ import {
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
+    CreatureTraitsData,
     HeldShieldData,
     SaveData,
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { SaveType } from "@actor/data";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 import {
     AbilityBasedStatistic,
-    AbilityString,
     ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
@@ -25,6 +25,7 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
+import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/data";
 import { FeatData, ProficiencyRank } from "@item/data";
@@ -68,7 +69,34 @@ interface CharacterSkillData extends SkillData {
 /** The raw information contained within the actor data object for characters. */
 interface CharacterSystemData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: Abilities;
+    abilities: CharacterAbilities;
+
+    /** Character build data, currently containing ability boosts and flaws */
+    build: {
+        abilities: {
+            /**
+               Whether this PC's ability scores are being manually entered rather than drawn from ancestry, background,
+               and class
+            */
+            manual: boolean;
+            /** Key ability score options drawn from class and class features */
+            keyOptions: AbilityString[];
+            boosts: {
+                ancestry: AbilityString[];
+                background: AbilityString[];
+                class: AbilityString | null;
+                1: AbilityString[];
+                5: AbilityString[];
+                10: AbilityString[];
+                15: AbilityString[];
+                20: AbilityString[];
+            };
+
+            flaws: {
+                ancestry: AbilityString[];
+            };
+        };
+    };
 
     /** The three save types. */
     saves: CharacterSaves;
@@ -91,6 +119,8 @@ interface CharacterSystemData extends CreatureSystemData {
     /** Player skills, used for various skill checks. */
     skills: Record<SkillAbbreviation, CharacterSkillData>;
 
+    traits: CharacterTraitsData;
+
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
 
@@ -105,6 +135,13 @@ interface CharacterSystemData extends CreatureSystemData {
         entries: Record<string, Partial<CraftingEntryData>>;
     };
 }
+
+interface CharacterAbilityData extends AbilityData {
+    /** An ability score prior to modification by items */
+    base: number;
+}
+
+type CharacterAbilities = Record<AbilityString, CharacterAbilityData>;
 
 interface CharacterSaveData extends SaveData {
     ability: AbilityString;
@@ -304,7 +341,7 @@ interface CharacterAttributes extends CreatureAttributes {
     classDC: ClassDCData;
     /** The best spell DC, used for certain saves related to feats */
     spellDC: { rank: number; value: number } | null;
-    /** the higher between highest spellcasting DC and (if present) class DC */
+    /** The higher between highest spellcasting DC and (if present) class DC */
     classOrSpellDC: { rank: number; value: number };
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
@@ -324,13 +361,6 @@ interface CharacterAttributes extends CreatureAttributes {
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
     bonusEncumbranceBulk: number;
-
-    /** The current dying level (and maximum) for this character. */
-    dying: { value: number; max: number; recoveryDC: number };
-    /** The current wounded level (and maximum) for this character. */
-    wounded: { value: number; max: number };
-    /** The current doomed level (and maximum) for this character. */
-    doomed: { value: number; max: number };
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };
@@ -369,6 +399,10 @@ interface CharacterAttributes extends CreatureAttributes {
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
     recoveryAddend: number;
+}
+
+interface CharacterTraitsData extends CreatureTraitsData {
+    senses: CreatureSensePF2e[];
 }
 
 interface GrantedFeat {
