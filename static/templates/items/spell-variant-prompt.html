@@ -1,0 +1,16 @@
+<div class="content">
+    <h3>{{localize prompt}}</h3>
+    <div class="choices">
+        {{#each choices as |choice|}}
+            <button type="button" value="{{choice.value}}"{{#if choice.img}} class="with-image"{{/if}}>
+                {{#if choice.img}}<img src="{{choice.img}}" />{{/if}}
+                <span>{{choice.label}}</span>
+            </button>
+        {{/each}}
+        {{#if allowNoSelection}}
+            <button type="button" data-action="close">
+                <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.Decline"}}</span>
+            </button>
+        {{/if}}
+    </div>
+</div>

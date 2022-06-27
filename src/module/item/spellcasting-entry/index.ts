@@ -126,9 +126,17 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
     /** Casts the given spell as if it was part of this spellcasting entry */
     async cast(
-        spell: SpellPF2e,
+        spell: Embedded<SpellPF2e>,
         options: { slot?: number; level?: number; consume?: boolean; message?: boolean } = {}
     ): Promise<void> {
+        if (spell.hasVariants) {
+            const variant = await spell.variantPrompt();
+            if (variant) {
+                spell = variant;
+            } else {
+                return;
+            }
+        }
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const level = options.level ?? spell.level;
@@ -144,6 +152,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
         if (this.isRitual) return true;
+
+        if (spell.isVariant) {
+            spell = spell.original!;
+        }
 
         if (this.isFocusPool) {
             const currentPoints = actor.data.data.resources.focus?.value ?? 0;
@@ -191,7 +203,6 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                 ui.notifications.warn(game.i18n.format("PF2E.SpellSlotExpendedError", { name: spell.name }));
                 return false;
             }
-
             await spell.update({ "data.location.uses.value": remainingUses - 1 });
             return true;
         }

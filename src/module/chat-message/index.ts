@@ -111,6 +111,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             item.trickMagicEntry = trick;
         }
 
+        const spellVariant = this.data.flags.pf2e.spellVariant;
+        if (spellVariant && item?.isOfType("spell")) {
+            return item.loadVariant({
+                overlayIds: spellVariant.overlayIds,
+            });
+        }
+
         return item;
     }
 

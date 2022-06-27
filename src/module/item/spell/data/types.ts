@@ -48,6 +48,19 @@ export interface SpellHeightenLayer {
     data: Partial<SpellSystemData>;
 }
 
+interface SpellOverlayOverride extends Partial<SpellSource> {
+    overlayType: "override";
+}
+
+/** Not implemented */
+interface SpellOverlayDamage {
+    overlayType: "damage";
+    choices: DamageType[];
+}
+
+type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
+type SpellOverlayType = SpellOverlay["overlayType"];
+
 interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     traits: SpellTraits;
     level: {
@@ -87,6 +100,7 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
         value: Record<string, SpellDamage>;
     };
     heightening?: SpellHeighteningFixed | SpellHeighteningInterval;
+    overlays?: Record<string, SpellOverlay>;
     save: {
         basic: string;
         value: SaveType | "";
@@ -122,4 +136,4 @@ interface SpellSystemData extends SpellSystemSource, ItemSystemData {
     traits: SpellTraits;
 }
 
-export { SpellData, SpellSource, SpellSystemData, SpellSystemSource };
+export { SpellData, SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayType };

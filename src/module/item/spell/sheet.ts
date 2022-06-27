@@ -2,7 +2,7 @@ import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e, SpellSheetData, SpellSheetOverlayData } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
-import { objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, tupleHasValue } from "@util";
 import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 import { OneToTen } from "@module/data";
 
@@ -25,7 +25,6 @@ const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
         const sheetData: ItemSheetDataPF2e<SpellPF2e> = await super.getData(options);
-
         const { isCantrip, isFocusSpell, isRitual } = this.item;
 
         // Create a level label to show in the summary.
@@ -37,12 +36,23 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 ? game.i18n.localize("PF2E.TraitCantrip")
                 : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
 
+        const variants = this.item.overlays.overrideVariants
+            .map((variant) => ({
+                name: variant.name,
+                id: variant.id,
+                sort: variant.data.sort,
+                actions: getActionGlyph(variant.data.data.time.value),
+            }))
+            .sort((variantA, variantB) => variantA.sort - variantB.sort);
+
         return {
             ...sheetData,
             itemType,
             isCantrip,
             isFocusSpell,
             isRitual,
+            variants,
+            isVariant: this.item.isVariant,
             spellCategories: CONFIG.PF2E.spellCategories,
             spellTypes: CONFIG.PF2E.spellTypes,
             magicSchools: CONFIG.PF2E.magicSchools,
@@ -59,6 +69,19 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenOverlays: this.prepareHeighteningLevels(),
             canHeighten: this.getAvailableHeightenLevels().length > 0,
         };
+    }
+
+    static override get defaultOptions(): DocumentSheetOptions {
+        return {
+            ...super.defaultOptions,
+            dragDrop: [{ dragSelector: '[data-can-drag="true"]', dropSelector: '[data-can-drop="true"]' }],
+        };
+    }
+
+    override get title(): string {
+        return this.item.isVariant
+            ? game.i18n.format("PF2E.Item.Spell.Variants.SheetTitle", { originalName: this.item.original!.name })
+            : super.title;
     }
 
     override activateListeners($html: JQuery): void {
@@ -196,6 +219,103 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 [`${overlay.collectionPath}.${newLevel}`]: existingData?.data ?? {},
             });
         });
+
+        $html.find("[data-action=variant-create]").on("click", () => {
+            this.item.overlays.create("override");
+        });
+
+        $html.find("[data-action=variant-edit]").on("click", (event) => {
+            const id = $(event.target).closest("[data-action=variant-edit]").attr("data-id");
+            if (id) {
+                this.item.loadVariant({ overlayIds: [id] })?.sheet.render(true);
+            }
+        });
+
+        $html.find("[data-action=variant-delete]").on("click", (event) => {
+            const id = $(event.target).closest("[data-action=variant-delete]").attr("data-id");
+            if (id) {
+                const variant = this.item.loadVariant({ overlayIds: [id] });
+                if (!variant) {
+                    throw ErrorPF2e(
+                        `Spell ${this.item.name} (${this.item.uuid}) does not have a variant with id: ${id}`
+                    );
+                }
+                new Dialog({
+                    title: game.i18n.localize("PF2E.Item.Spell.Variants.DeleteDialogTitle"),
+                    content: `<p>${game.i18n.format("PF2E.Item.Spell.Variants.DeleteDialogText", {
+                        variantName: variant.name,
+                    })}</p>`,
+                    buttons: {
+                        delete: {
+                            icon: '<i class="fas fa-trash"></i>',
+                            label: game.i18n.localize("PF2E.DeleteShortLabel"),
+                            callback: () => {
+                                this.item.overlays.deleteOverlay(id);
+                            },
+                        },
+                        cancel: {
+                            icon: '<i class="fas fa-times"></i>',
+                            label: game.i18n.localize("Cancel"),
+                        },
+                    },
+                    default: "cancel",
+                }).render(true);
+            }
+        });
+    }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Handle closing of override spell variant sheets
+        if (this.item.original && this.item.appliedOverlays!.has("override") && !this.rendered) {
+            await this.item.original.overlays.updateOverride(this.item as Embedded<SpellPF2e>, formData);
+            return;
+        }
+        super._updateObject(event, formData);
+    }
+
+    protected override _onDragStart(event: ElementDragEvent): void {
+        const id = $(event.target).closest("div.details-container-flex-row").attr("data-variant-id") ?? "";
+        event.dataTransfer.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
+    }
+
+    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+        event.preventDefault();
+        const transferString = event.dataTransfer.getData("text/plain");
+        if (!transferString) return;
+
+        const { action, data } = JSON.parse(transferString) as { action: string; data: { sourceId: string } };
+
+        switch (action) {
+            case "sort": {
+                // Sort spell variants
+                const sourceId = data.sourceId;
+                const targetId =
+                    $(event.target).closest("div.details-container-flex-row").attr("data-variant-id") ?? "";
+                if (sourceId && targetId && sourceId !== targetId) {
+                    const sourceVariant = this.item.loadVariant({ overlayIds: [sourceId] });
+                    const targetVariant = this.item.loadVariant({ overlayIds: [targetId] });
+                    if (sourceVariant && targetVariant) {
+                        // Workaround for SortingHelpers.performIntegerSort using object comparison to find the target
+                        const siblings = this.item.overlays.overrideVariants.filter(
+                            (variant) => variant.id !== sourceId && variant.id !== targetId
+                        );
+                        siblings.push(targetVariant);
+
+                        const sorting = SortingHelpers.performIntegerSort(sourceVariant, {
+                            target: targetVariant,
+                            siblings,
+                            sortKey: "sort",
+                            sortBefore: true,
+                        });
+                        for (const s of sorting) {
+                            await s.target.update({ sort: s.update.sort }, { render: false });
+                        }
+                        this.render(true);
+                    }
+                }
+                break;
+            }
+        }
     }
 
     private formatSpellComponents(data: SpellSystemData): string[] {

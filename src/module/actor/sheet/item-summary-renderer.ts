@@ -195,11 +195,17 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                 }
 
                 if (actor instanceof CharacterPF2e) {
-                    if (chatData.isAttack) {
+                    if (chatData.variants) {
+                        const label = game.i18n.localize("PF2E.Item.Spell.Variants.SelectVariantLabel");
                         buttons.append(
-                            `<span><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
-                                "PF2E.AttackLabel"
-                            )}</button></span>`
+                            `<span><button class="spell_attack" data-action="selectVariant">${label}</button></span>`
+                        );
+                        break;
+                    }
+                    if (chatData.isAttack) {
+                        const label = game.i18n.localize("PF2E.AttackLabel");
+                        buttons.append(
+                            `<span><button class="spell_attack" data-action="spellAttack">${label}</button></span>`
                         );
                     }
                     if (chatData.hasDamage) {
@@ -211,12 +217,12 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
 
                 break;
             case "consumable":
-                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
+                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified) {
+                    const label = game.i18n.localize("PF2E.ConsumableUseLabel");
                     buttons.append(
-                        `<span><button class="consume" data-action="consume">${game.i18n.localize(
-                            "PF2E.ConsumableUseLabel"
-                        )} ${item.name}</button></span>`
+                        `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
                     );
+                }
                 break;
             default:
         }
@@ -239,6 +245,9 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                     break;
                 case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();
+                    break;
+                case "selectVariant":
+                    spell?.variantPrompt().then((variant) => variant?.toMessage());
                     break;
             }
         });
