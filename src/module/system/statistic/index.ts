@@ -280,7 +280,7 @@ class StatisticCheck {
         const { secret, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
                 const event = args.event?.originalEvent ?? args.event;
-                if (event instanceof PointerEvent) {
+                if (event instanceof MouseEvent) {
                     return mergeObject({ secret: args.secret, skipDialog: args.skipDialog }, eventToRollParams(event));
                 }
             }
