@@ -4,7 +4,7 @@ interface ParamsFromEvent {
     skipDialog: boolean;
 }
 
-export function eventToRollParams(event: JQuery.TriggeredEvent | PointerEvent): ParamsFromEvent {
+export function eventToRollParams(event: JQuery.TriggeredEvent | MouseEvent): ParamsFromEvent {
     const skipDefault = !game.user.settings.showRollDialogs;
     const params: ParamsFromEvent = { skipDialog: event.shiftKey ? !skipDefault : skipDefault };
     if (event.ctrlKey || event.metaKey) params.secret = true;
