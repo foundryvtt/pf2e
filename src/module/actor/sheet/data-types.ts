@@ -28,13 +28,14 @@ interface SheetItemList {
     label: string;
     type: PhysicalItemType;
     items: InventoryItem[];
-    invested?: { value: number; max: number } | null;
-    overInvested?: boolean;
 }
 
 export interface SheetInventory {
     sections: Record<Exclude<PhysicalItemType, "book">, SheetItemList>;
     bulk: InventoryBulk;
+    showValueAlways: boolean;
+    showIndividualPricing: boolean;
+    invested?: { value: number; max: number } | null;
 }
 
 export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TActor> {

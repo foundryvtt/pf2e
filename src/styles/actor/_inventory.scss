@@ -4,10 +4,7 @@
         @include p-reset;
         list-style: none;
         display: flex;
-
-        &:last-child {
-            margin-bottom: 42px;
-        }
+        flex-direction: column;
     }
 
     .item-name {
@@ -45,7 +42,7 @@
         }
     }
 
-    .inventory-list, .item-list {
+    .inventory-list, .inventory-items {
         list-style-type: none;
         flex-direction: column;
         width: 100%;
@@ -57,13 +54,15 @@
             background-color: rgba($alt-color, 0.1);
         }
 
-        .list-row {
+        .item {
             display: flex;
             flex-wrap: wrap;
             font-size: var(--font-size-12);
             justify-content: flex-start;
             width: 100%;
+        }
 
+        .list-row {
             &:last-child {
                 .item-summary {
                     border-bottom: none;
@@ -81,7 +80,6 @@
     .item-controls,
     .item-sell-value {
         @include flex-center;
-        border-left: 1px solid var(--alt);
         flex: 0 0 64px;
     }
 
@@ -109,10 +107,167 @@
     }
 
     .item-controls {
-        flex: 0 0 70px;
+        flex: 0 0 90px;
         justify-content: flex-end;
         gap: 3px;
         padding-right: 4px;
+    }
+
+    .inventory-header {
+        font-family: var(--sans-serif);
+        font-size: var(--font-size-10);
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        text-rendering: optimizeLegibility;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        background-color: var(--alt);
+        padding: 4px 0;
+        color: white;
+
+        h3 {
+            font-size: var(--font-size-14);
+            text-transform: capitalize;
+            text-shadow: 0 0 2px rgba(black, 0.75);
+            margin: 2px;
+            margin-left: 4px;
+            cursor: default;
+            &:hover {
+                color: white;
+            }
+        }
+
+        .item-name {
+            padding-left: 4px;
+        }
+
+        .item-sell-value,
+        .item-quantity,
+        .item-weight {
+            @include flex-center;
+        }
+
+        .item-invested-total {
+            flex: none;
+            margin-right: 1em;
+        }
+
+        .overinvested {
+            color:orange;
+            text-shadow: 1px 1px 0px black;
+        }
+    }
+
+    .item {
+        width: 100%;
+        .item-quantity,
+        .item-weight,
+        .item-controls,
+        .item-sell-value {
+            border-left: 1px solid var(--alt);
+        }
+    }
+
+    .list-row {
+        width: 100%;
+        .item-controls {
+            color: var(--body);
+            .item-control {
+                &.item-toggle-invest, &.item-carry-type {
+                    &.active {
+                        color: var(--secondary);
+                    }
+                }
+
+                &.item-carry-type {
+                    color: rgba(black, 0.5);
+                    text-align: right;
+                }
+
+                &.item-toggle-invest {
+                    color: rgba(black, 0.5);
+                    font-size: var(--font-size-11);
+                }
+            }
+        }
+    }
+
+    .container-metadata {
+        .container-capacity {
+            @include micro;
+            position: relative;
+            background-color: rgba(black, 0.75);
+            box-shadow: inset 0 0 4px black;
+            color: white;
+            display: flex;
+            width: 100%;
+            .container-capacity-bar {
+                background-color: var(--secondary);
+                border-radius: 0 2px 2px 0;
+                box-shadow: inset 0 0 0 1px rgba(black, 0.5),
+                    inset 0 0 0 2px rgba(white, 0.1);
+                padding: 6px 0;
+            }
+            .container-capacity-label {
+                position: absolute;
+                height: 100%;
+                top: 0;
+                left: 0;
+                padding: 2px;
+            }
+            &.over-limit .container-capacity-bar {
+                background-color: var(--primary);
+            }
+        }
+
+        .container-held-items {
+            padding-left: 10px;
+
+            li:nth-of-type(even) {
+                background-color: rgba($alt-color, 0.1);
+            }
+
+            li:first-of-type .item::before {
+                height: 50%;
+                top: 0;
+            }
+
+            li:last-of-type .item::after {
+                border: none;
+            }
+
+            .item {
+                position: relative;
+
+                &::before,
+                &::after {
+                    position: absolute;
+                    border-left: 1px solid var(--alt);
+                    top: 0;
+                    height: 50%;
+                    left: -5px;
+                    width: 5px;
+                    content: '';
+                }
+
+                &::before {
+                    border-bottom: 1px solid var(--alt);
+                    top: 0;
+                }
+
+                &::after {
+                    top: 50%;
+                }
+
+                .item-summary {
+                    border-left: 1px solid var(--alt);
+                }
+            }
+        }
     }
 
     .item-summary {
@@ -164,145 +319,6 @@
                 &_attack3 {
                     border-radius: 0 0 2px 0;
                 }
-            }
-        }
-    }
-
-    .inventory-header {
-        font-family: var(--sans-serif);
-        font-size: var(--font-size-10);
-        line-height: 1;
-        text-transform: uppercase;
-        letter-spacing: .05em;
-        text-rendering: optimizeLegibility;
-
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 100%;
-        background-color: var(--alt);
-        padding: 4px 0;
-        color: white;
-
-        h3 {
-            font-size: var(--font-size-14);
-            text-transform: capitalize;
-            text-shadow: 0 0 2px rgba(black, 0.75);
-            margin: 2px;
-            margin-left: 4px;
-            cursor: default;
-            &:hover {
-                color: white;
-            }
-        }
-
-        .item-name {
-            padding-left: 4px;
-        }
-
-        .item-sell-value,
-        .item-quantity,
-        .item-weight {
-            @include flex-center;
-        }
-
-        .item-invested-total {
-            flex: none;
-            margin-right: 1em;
-        }
-    }
-
-    .list-row {
-        .item-controls {
-            color: var(--body);
-            .item-control {
-                &.item-toggle-invest, &.item-carry-type {
-                    &.active {
-                        color: var(--secondary);
-                    }
-                }
-
-                &.item-carry-type {
-                    color: rgba(black, 0.5);
-                    text-align: right;
-                }
-
-                &.item-toggle-invest {
-                    color: rgba(black, 0.5);
-                    font-size: var(--font-size-11);
-                }
-            }
-        }
-    }
-
-    .container-capacity {
-        @include micro;
-        position: relative;
-        background-color: rgba(black, 0.75);
-        box-shadow: inset 0 0 4px black;
-        color: white;
-        display: flex;
-        width: 100%;
-        .container-capacity-bar {
-            background-color: var(--secondary);
-            border-radius: 0 2px 2px 0;
-            box-shadow: inset 0 0 0 1px rgba(black, 0.5),
-                inset 0 0 0 2px rgba(white, 0.1);
-            padding: 6px 0;
-        }
-        .container-capacity-label {
-            position: absolute;
-            height: 100%;
-            top: 0;
-            left: 0;
-            padding: 2px;
-        }
-        &.over-limit .container-capacity-bar {
-            background-color: var(--primary);
-        }
-    }
-
-    .container-held-items {
-        margin-left: 10px;
-
-        li:nth-of-type(even) {
-            background-color: rgba($alt-color, 0.1);
-        }
-
-        li:first-of-type::before {
-            height: 50%;
-            top: 0;
-        }
-
-        li:last-of-type::after {
-            border: none;
-        }
-
-        .item {
-            position: relative;
-
-            &::before,
-            &::after {
-                position: absolute;
-                border-left: 1px solid var(--alt);
-                top: 0;
-                height: 50%;
-                left: -5px;
-                width: 5px;
-                content: '';
-            }
-
-            &::before {
-                border-bottom: 1px solid var(--alt);
-                top: 0;
-            }
-
-            &::after {
-                top: 50%;
-            }
-
-            .item-summary {
-                border-left: 1px solid var(--alt);
             }
         }
     }

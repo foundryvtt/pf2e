@@ -23,88 +23,84 @@
         }
     }
 
-    .body {
-        padding: 0px;
+    .inventory-list {
+        & > :first-child {
+            border-radius: 3px 3px 0px 0px;
+        }
 
-        ul.item-list {
-            & > :first-child {
-                border-radius: 3px 3px 0px 0px;
+        .inventory-header {
+            background-color: $secondary-accent;
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            color: white;
+            align-items: baseline;
+
+            h4 {
+                margin: 0px;
             }
 
-            .inventory-header {
-                background-color: $secondary-accent;
-                display: flex;
-                flex: 1;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                color: white;
-                align-items: baseline;
+            div {
+                border: none;
+            }
+        }
 
-                h4 {
-                    margin: 0px;
-                }
+        li.item {
+            border-left: 1px solid $primary-accent;
+            border-right: 1px solid $primary-accent;
+            border-bottom: 1px solid $primary-accent;
 
-                div {
-                    border: none;
+            &:not(:last-child) {
+                border-bottom: 1px solid $faded-color;
+            }
+
+            .item-image {
+                border: 2px solid $faded-color;
+                border-radius: 3px;
+                margin: 2px 4px 2px 6px;
+            }
+
+            &[data-item-rarity="common"] {
+                .item-name {
+                    h4 {
+                        border-color: $rarity-common;
+                        color: $rarity-common;
+                    }
                 }
             }
 
-            li.item {
-                border-left: 1px solid $primary-accent;
-                border-right: 1px solid $primary-accent;
-                border-bottom: 1px solid $primary-accent;
-
-                &:not(:last-child) {
-                    border-bottom: 1px solid $faded-color;
-                }
-
-                .item-image {
-                    border: 2px solid $faded-color;
-                    border-radius: 3px;
-                    margin: 2px 4px 2px 6px;
-                }
-
-                &[data-item-rarity="common"] {
-                    .item-name {
-                        h4 {
-                            border-color: $rarity-common;
-                            color: $rarity-common;
-                        }
+            &[data-item-rarity="uncommon"] {
+                .item-name {
+                    h4 {
+                        border-color: $rarity-uncommon;
+                        color: $rarity-uncommon;
                     }
                 }
+            }
 
-                &[data-item-rarity="uncommon"] {
-                    .item-name {
-                        h4 {
-                            border-color: $rarity-uncommon;
-                            color: $rarity-uncommon;
-                        }
+            &[data-item-rarity="rare"] {
+                .item-name {
+                    h4 {
+                        border-color: $rarity-rare;
+                        color: $rarity-rare;
                     }
                 }
+            }
 
-                &[data-item-rarity="rare"] {
-                    .item-name {
-                        h4 {
-                            border-color: $rarity-rare;
-                            color: $rarity-rare;
-                        }
+            &[data-item-rarity="unique"] {
+                .item-name {
+                    h4 {
+                        border-color: $rarity-unique;
+                        color: $rarity-unique;
                     }
                 }
+            }
 
-                &[data-item-rarity="unique"] {
-                    .item-name {
-                        h4 {
-                            border-color: $rarity-unique;
-                            color: $rarity-unique;
-                        }
-                    }
-                }
-
-                .controls .item-toggle-equip {
-                    color: rgba(black, 0.4);
-                    &.active {
-                        color: rgba(black, 0.75);
-                    }
+            .controls .item-toggle-equip {
+                color: rgba(black, 0.4);
+                &.active {
+                    color: rgba(black, 0.75);
                 }
             }
         }

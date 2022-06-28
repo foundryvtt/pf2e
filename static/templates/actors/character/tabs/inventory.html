@@ -1,32 +1,6 @@
 <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
     {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=@root.owner}}
-
-    <ol class="inventory-list directory-list inventory-pane">
-        {{#each inventory.sections as |section|}}
-            <div class="inventory-header">
-                <h3 class="item-name">{{section.label}}</h3>
-                {{#if (eq section.type "equipment")}}
-                    <span class="item-invested-total" {{#if section.overInvested}}style="color:orange; text-shadow: 1px 1px 0px black;"{{/if}}>{{localize "PF2E.InvestedLabel"}} ({{section.invested.value}}/{{section.invested.max}})</span>
-                {{/if}}
-                {{#if (eq section.type "treasure")}}
-                    <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
-                {{/if}}
-                <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
-                <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
-                {{#if @root.editable}}
-                    <div class="item-controls">
-                        <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fas fa-plus"></i></a>
-                        <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{section.type}}"><i class="fas fa-search"></i></a>
-                    </div>
-                {{/if}}
-            </div>
-            <ol class="item-list">
-                {{#each section.items}}
-                    {{> "systems/pf2e/templates/actors/partials/item-line.html" this=this editable=@root.editable owner=@root.owner user=@root.user}}
-                {{/each}}
-            </ol>
-        {{/each}}
-    </ol>
+    {{> "systems/pf2e/templates/actors/partials/inventory.html"}}
 
     {{#with inventory.bulk}}
         <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverMax}}over-limit{{/if}}">

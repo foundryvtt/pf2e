@@ -1215,15 +1215,6 @@
         text-align: center;
     }
 
-    .inventory-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow-y: auto;
-        margin-bottom: 2px;
-    }
-
     .spellcastingEntry-list {
         list-style: none;
         margin: 0;
@@ -1240,88 +1231,6 @@
         overflow-y: auto;
     }
 
-    .inventory-list .list-row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        flex-flow: wrap row;
-        justify-content: flex-start;
-        line-height: 1.8em;
-        padding: 0;
-        border-bottom: 1px solid var(--secondary-background);
-
-        > * {
-            flex: 1;
-            display: flex;
-        }
-
-        .item-name, .melee-name {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            cursor: pointer;
-            padding: 1px 0;
-            &:first-child {
-                padding-left: 4px;
-                &.long {
-                    min-width: 230px;
-                }
-            }
-            button {
-                cursor: pointer;
-            }
-        }
-
-        .item-name .item-image, .melee-name .item-image {
-            flex: 0 0 24px;
-            margin-right: 4px;
-            background-size: 24px;
-            background-repeat: no-repeat;
-        }
-
-        .item-name h4, .melee-name h4 {
-            flex: 2;
-            margin: 0;
-        }
-
-        .item-name {
-            .prepared {
-                color: #666;
-                margin-left: 3px;
-                font-size: var(--font-size-10);
-            }
-
-            .item-charges {
-                color: #666;
-                font-size: var(--font-size-12);
-                flex: 0;
-            }
-
-            &:hover .item-image {
-                background-image: url("../../../icons/svg/d20-grey.svg") !important;
-            }
-
-            .item-image:hover {
-                background-image: url("../../../icons/svg/d20-black.svg") !important;
-            }
-        }
-    }
-
-    .inventory-list .list-row {
-        .item-controls {
-            flex: 0 0 64px;
-            justify-content: flex-end;
-            border-left: 1px solid var(--secondary-background);
-            gap: 4px;
-
-            a {
-                font-size: var(--font-size-10);
-                color: #666;
-            }
-        }
-    }
-
     .list-row.action-header .item-controls a {
         display: block;
         float: left;
@@ -1331,64 +1240,11 @@
         color: #666;
     }
 
-    .inventory-list {
-        .list-row {
-            .item-summary {
-                flex: 0 0 100%;
-                flex-direction: column;
-                font-size: var(--font-size-12);
-                line-height: 16px;
-                padding: 0.25em 0.5em;
-                border-top: 1px solid var(--secondary-background);
-            }
-        }
-
-        .action-header h3 {
-            font-size: var(--font-size-24);
-            margin: 0;
-            padding: 2px 0;
-            text-align: center;
-        }
-    }
-
     .action-header .item-controls a {
         &.item-create, &.item-delete, &.feat-browse, &.action-browse {
             width: 100%;
             color: #fff;
             background: var(--primary-background);
-        }
-    }
-
-    .inventory-list .inventory-header {
-        font-weight: 700;
-        line-height: 20px;
-        background: var(--primary-background);
-
-        &.sub-category {
-            font-weight: 700;
-            line-height: 20px;
-            background: var(--secondary-background);
-        }
-
-        h3 {
-            font-size: 1em;
-            margin: 0;
-            padding-left: 5px;
-            font-weight: bold;
-        }
-
-        .item-controls a {
-            &.item-create {
-                color: white;
-            }
-
-            &.spell-create, &.spell-browse {
-                color: white;
-            }
-        }
-
-        > * {
-            color: white;
         }
     }
 

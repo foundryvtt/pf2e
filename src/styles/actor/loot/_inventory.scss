@@ -2,11 +2,6 @@
     height: 100%;
     margin-bottom: 2px;
 
-    .item-list {
-        margin: 0;
-        padding: 0;
-    }
-
     .item-name {
         h4 {
             flex: 2;
@@ -33,7 +28,7 @@
     }
 
     .item-controls {
-        flex: 0 0 70px; // remove when .inventory-list global styling is removed
+        flex: 0 0 70px;
         border-left: 1px solid var(--secondary-background);
     }
 
@@ -65,11 +60,13 @@
         }
     }
 
-    .list-row {
-        line-height: 1.8em;
+    li {
         padding: 0;
         border-bottom: 1px solid var(--secondary-background);
+    }
 
+    .item {
+        line-height: 1.8em;
         .item-controls a {
             font-size: var(--font-size-10);
             color: #666;
