@@ -19,11 +19,38 @@
         "level": {
             "value": 13
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "coldIron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSilver",
+                        "value": "silver"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Material"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:unarmed"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "{item|flags.pf2e.rulesSelections.metalVeinedStrikes}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
