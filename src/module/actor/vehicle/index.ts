@@ -1,5 +1,6 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
+import { ItemType } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
@@ -8,6 +9,10 @@ import { ActorPF2e, HitPointsSummary } from "../base";
 import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical"];
+    }
+
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
     override get dimensions(): ActorDimensions {
         return {
