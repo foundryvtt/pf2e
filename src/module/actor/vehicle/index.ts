@@ -29,7 +29,10 @@ export class VehiclePF2e extends ActorPF2e {
 
         // Vehicles never have negative healing
         const { attributes, details } = this.data.data;
+
         attributes.hp.negativeHealing = false;
+        attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
+
         details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
