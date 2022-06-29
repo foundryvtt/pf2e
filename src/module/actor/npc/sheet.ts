@@ -8,7 +8,6 @@ import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
 import { SpellcastingEntryPF2e } from "@item";
 import { EffectData } from "@item/data";
-import { PhysicalItemPF2e } from "@item/physical";
 import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
@@ -178,7 +177,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
         $html.find(rollables).on("click", (event) => this.onClickRollable(event));
-        $html.find("a.chat, .spell-icon.rollable").on("click", (event) => this.onClickToChat(event));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -495,15 +493,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         } else if (objectHasKey(this.actor.saves, save)) {
             await this.actor.saves[save].check.roll(rollParams);
         }
-    }
-
-    private async onClickToChat(event: JQuery.ClickEvent): Promise<void> {
-        event.preventDefault();
-
-        const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-        const item = this.actor.items.get(itemId, { strict: true });
-        if (item instanceof PhysicalItemPF2e && !item.isIdentified) return;
-        await item.toChat(event);
     }
 
     private onClickMakeWeak(): Promise<void> {
