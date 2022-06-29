@@ -1,5 +1,6 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
+import { ItemType } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
@@ -8,6 +9,10 @@ import { ActorPF2e, HitPointsSummary } from "../base";
 import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "physical"];
+    }
+
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
     override get dimensions(): ActorDimensions {
         return {
@@ -29,7 +34,10 @@ export class VehiclePF2e extends ActorPF2e {
 
         // Vehicles never have negative healing
         const { attributes, details } = this.data.data;
+
         attributes.hp.negativeHealing = false;
+        attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
+
         details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object

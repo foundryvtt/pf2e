@@ -646,9 +646,15 @@ class NPCPF2e extends CreaturePF2e {
                     async (args: RollParameters) => {
                         const context = this.getDamageRollContext({ item, viewOnly: false });
                         // always add all weapon traits as options
-                        const options = (args.options ?? [])
-                            .concat(context.options)
-                            .concat(meleeData.data.traits.value);
+                        const options = [
+                            args.options ?? [],
+                            context.options,
+                            meleeData.data.traits.value,
+                            context.self.item.getRollOptions("weapon"),
+                        ]
+                            .flat()
+                            .sort();
+
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
                             context.self.item.data,
                             context.self.actor,
