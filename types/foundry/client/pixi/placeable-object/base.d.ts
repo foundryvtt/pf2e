@@ -221,10 +221,13 @@ declare global {
         protected _createInteractionManager(): MouseInteractionManager;
 
         /** Actions that should be taken for this Placeable Object when a mouseover event occurs */
-        protected _onHoverIn(event: PIXI.InteractionEvent, { hoverOutOthers }?: { hoverOutOthers?: boolean }): boolean;
+        protected _onHoverIn(
+            event: PIXI.InteractionEvent,
+            { hoverOutOthers }?: { hoverOutOthers?: boolean }
+        ): boolean | void;
 
         /** Actions that should be taken for this Placeable Object when a mouseout event occurs */
-        protected _onHoverOut(event: PIXI.InteractionEvent): boolean;
+        protected _onHoverOut(event: PIXI.InteractionEvent): boolean | void;
 
         /** Callback actions which occur on a single left-click event to assume control of the object */
         protected _onClickLeft(event: PIXI.InteractionEvent): boolean | void;
