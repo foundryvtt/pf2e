@@ -33,7 +33,54 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Trinity geode bonus damage",
+                "option": "trinity-geode-damage",
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Trinity geode physical resistance",
+                "option": "trinity-geode-resistance",
+                "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "path": "systems/pf2e/icons/equipment/other/spellhearts/trinity-geode.webp",
+                "predicate": {
+                    "any": [
+                        "trinity-geode-damage",
+                        "trinity-geode-resistance"
+                    ]
+                }
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "trinity-geode-damage"
+                    ]
+                },
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": {
+                    "all": [
+                        "trinity-geode-resistance"
+                    ]
+                },
+                "type": "physical",
+                "value": 5
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Secrets of Magic"
