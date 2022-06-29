@@ -9,7 +9,7 @@ import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { CreatureSheetData } from "./types";
+import { CreatureSheetData, SpellcastingSheetData } from "./types";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { createSheetTags } from "@module/sheet/helpers";
 
@@ -79,6 +79,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
         };
+    }
+
+    protected prepareSpellcasting(): SpellcastingSheetData[] {
+        return this.actor.spellcasting.map((entry) => {
+            const data = entry.toObject(false);
+            const spellData = entry.getSpellData();
+            return mergeObject(data, spellData);
+        });
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
