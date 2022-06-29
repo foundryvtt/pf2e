@@ -13,6 +13,7 @@
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Variant.Stamina.Hint'}}</p>
   </div>
+
   <h2>{{localize 'PF2E.SETTINGS.Variant.AncestryParagon.Title'}}</h2>
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Variant.AncestryParagon.Name'}}</label>
@@ -21,6 +22,7 @@
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Variant.AncestryParagon.Hint'}}</p>
   </div>
+
   <h2>{{localize 'PF2E.SETTINGS.Variant.FreeArchetype.Title'}}</h2>
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Variant.FreeArchetype.Name'}}</label>
@@ -37,6 +39,7 @@
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Variant.DualClass.Hint'}}</p>
   </div>
+
   <h2>{{localize 'PF2E.SETTINGS.Variant.AutomaticBonus.Title'}}</h2>
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Variant.AutomaticBonus.Name'}}</label>
@@ -51,6 +54,7 @@
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Variant.AutomaticBonus.Hint'}}</p>
   </div>
+
   <h2>{{localize 'PF2E.SETTINGS.Variant.Proficiency.Title'}}</h2>
   <div class="form-group">
       <label>{{localize 'PF2E.SETTINGS.Variant.Proficiency.Name'}}</label>
@@ -100,6 +104,22 @@
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Variant.LegendaryModifier.Name'}}</p>
   </div>
+
+  <h2>{{localize 'PF2E.SETTINGS.Variant.CritRule.Title'}}</h2>
+  <div class="form-group">
+      <label>{{localize 'PF2E.SETTINGS.Variant.CritRule.Name'}}</label>
+      <div class="form-fields">
+            <select name="critRule">
+            {{#select critRule.value}}
+            {{#each critRule.setting.choices as |label value|}}
+            <option value="{{value}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+      </div>
+      <p class="notes">{{localize 'PF2E.SETTINGS.Variant.CritRule.Hint'}}</p>
+  </div>
+
   <footer class="sheet-footer flexrow">
     <button type="submit" name="submit">
         <i class="far fa-save"></i> {{localize "Save Changes"}}

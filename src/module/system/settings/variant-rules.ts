@@ -100,6 +100,18 @@ const SETTINGS: Record<string, SettingRegistration> = {
         default: 8,
         type: Number,
     },
+    critRule: {
+        name: "PF2E.SETTINGS.CritRule.Name",
+        hint: "PF2E.SETTINGS.CritRule.Hint",
+        scope: "world",
+        config: false,
+        default: "doubledamage",
+        type: String,
+        choices: {
+            doubledamage: "PF2E.SETTINGS.Variant.CritRule.Choices.Doubledamage",
+            doubledice: "PF2E.SETTINGS.Variant.CritRule.Choices.Doubledice",
+        },
+    },
 };
 
 export class VariantRulesSettings extends FormApplication {

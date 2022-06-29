@@ -36,19 +36,6 @@ export function registerSettings() {
         config: true,
     });
 
-    game.settings.register("pf2e", "critRule", {
-        name: "PF2E.SETTINGS.CritRule.Name",
-        hint: "PF2E.SETTINGS.CritRule.Hint",
-        scope: "world",
-        config: true,
-        default: "doubledamage",
-        type: String,
-        choices: {
-            doubledamage: "PF2E.SETTINGS.CritRule.Choices.Doubledamage",
-            doubledice: "PF2E.SETTINGS.CritRule.Choices.Doubledice",
-        },
-    });
-
     game.settings.register("pf2e", "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
