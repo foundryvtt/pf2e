@@ -188,14 +188,14 @@ export class AbilityBuilderPopup extends Application {
         const { actor } = this;
         const build = actor.data.data.build.abilities;
 
-        const levelBoosts = [1, 5, 10, 15, 20].reduce(
+        const levelBoosts = ([1, 5, 10, 15, 20] as const).reduce(
             (ret: Record<number, LevelBoostData>, level) => ({
                 ...ret,
                 [level]: {
-                    boosts: build.boosts[level as 1],
-                    full: build.boosts[level as 1].length >= 4,
+                    boosts: build.boosts[level],
+                    full: build.boosts[level].length >= 4,
                     eligible: actor.level >= level,
-                    remaining: 4 - build.boosts[level as 1].length,
+                    remaining: 4 - build.boosts[level].length,
                 },
             }),
             {}
@@ -287,10 +287,12 @@ export class AbilityBuilderPopup extends Application {
 
         // Do some house-keeping and make sure they can't do things multiple times
         for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
+            const hasFlaw = ancestryBoosts[ability].lockedFlaw || ancestryBoosts[ability].voluntaryFlaw;
+
             if (ancestryBoosts[ability].lockedFlaw) {
                 ancestryBoosts[ability].canVoluntaryFlaw = false;
             }
-            if (ancestryBoosts[ability].boosted && !ancestryBoosts[ability].lockedFlaw) {
+            if (ancestryBoosts[ability].boosted && !hasFlaw) {
                 ancestryBoosts[ability].canVoluntaryBoost = false;
             }
             if (ancestryBoosts[ability].voluntaryBoost && !ancestryBoosts[ability].lockedFlaw) {
