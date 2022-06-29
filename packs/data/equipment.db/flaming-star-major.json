@@ -33,7 +33,54 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Flaming star bonus damage",
+                "option": "flaming-star-damage",
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Flaming star fire resistance",
+                "option": "flaming-star-resistance",
+                "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "path": "systems/pf2e/icons/equipment/other/spellhearts/flaming-star.webp",
+                "predicate": {
+                    "any": [
+                        "flaming-star-damage",
+                        "flaming-star-resistance"
+                    ]
+                }
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "flaming-star-damage"
+                    ]
+                },
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": {
+                    "all": [
+                        "flaming-star-resistance"
+                    ]
+                },
+                "type": "fire",
+                "value": 10
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Secrets of Magic"
