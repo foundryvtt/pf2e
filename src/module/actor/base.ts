@@ -1,6 +1,6 @@
 import { ModeOfBeing } from "@actor/creature/types";
 import { ModifierAdjustment } from "@actor/modifiers";
-import { ActorDimensions, SaveType } from "@actor/types";
+import { ActorAlliance, ActorDimensions, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
@@ -182,6 +182,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Most actor types can host rule elements */
     get canHostRuleElements(): boolean {
         return true;
+    }
+
+    get alliance(): ActorAlliance {
+        return this.data.data.details.alliance;
     }
 
     /** @deprecated */

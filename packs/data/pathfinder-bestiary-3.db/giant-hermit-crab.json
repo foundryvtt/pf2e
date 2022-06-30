@@ -27,7 +27,7 @@
                 "value": 21
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -65,7 +65,7 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Hermit crabs have hard exoskeletons like other crabs, but with much weaker abdomens. They find and \"wear\" shells as homes and protection, getting around with their front legs and claws. Surprisingly fierce, hermit crabs fight for new shells as they grow bigger, using an assortment of hollow alternatives as substitutes when shells of the right size can't be found.</p>\n<hr />\n<p>Lucky hermit crabs with plentiful resources can live for decades and grow to tremendous sizes, often with magical help. Too large for most natural shells, giant hermit crabs use a variety of debris instead, including wagons, boats, treasure chests, and even abandoned pieces of giant armor.</p>",
+            "publicNotes": "<p>Lucky hermit crabs with plentiful resources can live for decades and grow to tremendous sizes, often with magical help. Too large for most natural shells, giant hermit crabs use a variety of debris instead, including wagons, boats, treasure chests, and even abandoned pieces of giant armor.</p>\n<hr />\n<p>Hermit crabs have hard exoskeletons like other crabs, but with much weaker abdomens. They find and \"wear\" shells as homes and protection, getting around with their front legs and claws. Surprisingly fierce, hermit crabs fight for new shells as they grow bigger, using an assortment of hollow alternatives as substitutes when shells of the right size can't be found.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -95,12 +95,7 @@
                 "value": []
             },
             "dr": [],
-            "dv": [
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                }
-            ],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -313,7 +308,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature adjacent to the hermit crab attempts to Strike the hermit crab while it is Retracted</p>\n<hr />\n<p><strong>Effect</strong> The hermit crab makes a big claw Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature adjacent to the hermit crab attempts to Strike the hermit crab while it is Retracted.</p>\n<hr />\n<p><strong>Effect</strong> The hermit crab makes a big claw Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -353,7 +348,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+6}[bludgeoning]]]{1d8+6 bludgeoning damage}, @Check[type:fortitude|dc:22|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d8+6}[bludgeoning]]]{1d8+6 bludgeoning}, @Check[type:fortitude|dc:22|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -403,7 +398,57 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "retract",
+                        "priority": 50,
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "retract"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": {
+                            "not": [
+                                "retract"
+                            ]
+                        },
+                        "type": "bludgeoning",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": {
+                            "all": [
+                                "retract"
+                            ]
+                        },
+                        "type": "piercing",
+                        "value": 5
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": {
+                            "all": [
+                                "retract"
+                            ]
+                        },
+                        "type": "slashing",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

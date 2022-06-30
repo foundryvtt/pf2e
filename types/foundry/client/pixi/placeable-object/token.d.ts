@@ -449,9 +449,9 @@ declare global {
         protected override _onHoverIn(
             event: PIXI.InteractionEvent,
             { hoverOutOthers }?: { hoverOutOthers?: boolean }
-        ): boolean;
+        ): boolean | void;
 
-        protected override _onHoverOut(event: PIXI.InteractionEvent): boolean;
+        protected override _onHoverOut(event: PIXI.InteractionEvent): boolean | void;
 
         protected override _onClickLeft(event: PIXI.InteractionEvent): void;
 

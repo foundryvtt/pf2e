@@ -427,7 +427,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Item Rolling
-        $html.find(".item[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
+        $html
+            .find(".item[data-item-id] .item-image, .item[data-item-id] .item-chat")
+            .on("click", (event) => this.onClickItemToChat(event));
 
         // Delete Formula
         $html.find(".formula-delete").on("click", (event) => {
@@ -1002,8 +1004,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /** Post the item's summary as a chat message */
     private async onClickItemToChat(event: JQuery.ClickEvent) {
         const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
-        const item = this.actor.items.get(itemId ?? "");
-        await item?.toChat(event);
+        const item = this.actor.items.get(itemId ?? "", { strict: true });
+        if (item instanceof PhysicalItemPF2e && !item.isIdentified) return;
+        await item.toChat(event);
     }
 
     /** Attempt to repair the item */

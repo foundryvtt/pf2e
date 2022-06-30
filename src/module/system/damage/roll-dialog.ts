@@ -40,11 +40,6 @@ export class DamageRollModifiersDialog extends Application {
         let flavor = `<strong>${damage.name}</strong> (${outcomeLabel})`;
 
         if (damage.traits) {
-            const strikeTraits: Record<string, string | undefined> = {
-                ...CONFIG.PF2E.npcAttackTraits,
-                attack: "PF2E.TraitAttack",
-            };
-
             interface ToTagsParams {
                 labels?: Record<string, string | undefined>;
                 descriptions?: Record<string, string | undefined>;
@@ -73,7 +68,7 @@ export class DamageRollModifiersDialog extends Application {
                     .join("");
 
             const traits = toTags(damage.traits, {
-                labels: strikeTraits,
+                labels: CONFIG.PF2E.actionTraits,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
                 cssClass: null,
                 dataAttr: "trait",
@@ -82,7 +77,7 @@ export class DamageRollModifiersDialog extends Application {
             const item = context.self?.item;
             const itemTraits = item?.isOfType("weapon", "melee")
                 ? toTags(Array.from(item.traits), {
-                      labels: strikeTraits,
+                      labels: CONFIG.PF2E.npcAttackTraits,
                       descriptions: CONFIG.PF2E.traitsDescriptions,
                       cssClass: "tag_alt",
                       dataAttr: "trait",
