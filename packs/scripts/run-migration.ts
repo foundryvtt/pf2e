@@ -7,18 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration730DeruneHandwraps } from "@module/migration/migrations/730-derune-handwraps";
-import { Migration731TogglePropertyToRollOption } from "@module/migration/migrations/731-toggle-property-to-roll-option";
-import { Migration732FixDedicationFeatTypes } from "@module/migration/migrations/732-fix-dedication-feat-types";
-import { Migration733ItemBonusFromEquipment } from "@module/migration/migrations/733-item-bonus-from-equipment";
-import { Migration734SpellLocationPropsAndSignature } from "@module/migration/migrations/734-spell-location-props-and-signature";
-import { Migration735FirearmAmmoAlchemical } from "@module/migration/migrations/735-firearm-ammo-alchemical";
-import { Migration736RemoveBrokenThreshold } from "@module/migration/migrations/736-remove-broken-threshold";
-import { Migration737NormalizeRuleElementKeys } from "@module/migration/migrations/737-normalize-re-keys";
-import { Migration739RecoveryCheckDC } from "@module/migration/migrations/739-recovery-check-dc";
-import { Migration740MaxTakable } from "@module/migration/migrations/740-fix-max-takable";
-import { Migration741RollOptionToggleToItem } from "@module/migration/migrations/741-roll-option-toggle-to-item";
-import { Migration742RMAbilityBoostLevels } from "@module/migration/migrations/742-rm-class-ability-boost-levels";
 import { Migration743FixWeaknessStructure } from "@module/migration/migrations/743-fix-weakness-structure";
 import { Migration744MigrateSpellHeighten } from "@module/migration/migrations/744-migrate-spell-heighten";
 import { Migration745EffectTargetToChoiceSet } from "@module/migration/migrations/745-effect-target-to-choice-set";
@@ -34,6 +22,7 @@ import { Migration759CritSpecRE } from "@module/migration/migrations/759-crit-sp
 import { Migration760SeparateNoteTitle } from "@module/migration/migrations/760-separate-note-title";
 import { Migration761ShotRules } from "@module/migration/migrations/761-update-shot-rules";
 import { Migration762UpdateBackgroundItems } from "@module/migration/migrations/762-update-background-items";
+import { Migration763RestoreAnimalStrikeOptions } from "@module/migration/migrations/763-restore-animal-strike-options";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -43,18 +32,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration730DeruneHandwraps(),
-    new Migration731TogglePropertyToRollOption(),
-    new Migration732FixDedicationFeatTypes(),
-    new Migration733ItemBonusFromEquipment(),
-    new Migration734SpellLocationPropsAndSignature(),
-    new Migration735FirearmAmmoAlchemical(),
-    new Migration736RemoveBrokenThreshold(),
-    new Migration737NormalizeRuleElementKeys(),
-    new Migration739RecoveryCheckDC(),
-    new Migration740MaxTakable(),
-    new Migration741RollOptionToggleToItem(),
-    new Migration742RMAbilityBoostLevels(),
     new Migration743FixWeaknessStructure(),
     new Migration744MigrateSpellHeighten(),
     new Migration745EffectTargetToChoiceSet(),
@@ -70,6 +47,7 @@ const migrations: MigrationBase[] = [
     new Migration760SeparateNoteTitle(),
     new Migration761ShotRules(),
     new Migration762UpdateBackgroundItems(),
+    new Migration763RestoreAnimalStrikeOptions(),
 ];
 
 global.deepClone = <T>(original: T): T => {
