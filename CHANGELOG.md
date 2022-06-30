@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 3.12.1
+
+### Bugfixes
+* (stwlam) Allow ancestry boost, voluntary flaw, and voluntary boost to be selected for same ability
+* (stwlam) Fix issue causing wrong unarmed attack's damage to be rolled from attack cards
+* (stwlam) Correctly set vehicles' broken thresholds according to max hit points
+* (Supe) Fix dragging physical items to vehicles
+* (Supe) Show send action to chat and edit/delete in view mode for beta hazard sheet
+
+### Data Updates
+* (Abaddon) Review Bestiary 3, continued
+* (Dana) Fix erroneous use of PointerEvent in place of MouseEvent
+* (MrVauxs) Update Adventurer's Pack with the correct amount of chalk
+* (NullWolf) Correct names of Quick Change and Quick Shape feats.
+* (rectulo) Fix format of nyogoth
+* (stwlam) Update Raise a Shield action descriptions on compendium PCs
+* (Tikael) Add backgrounds from Blood Lords Player's Guide
+* (Tikael) Fix rage damage of Animal Instinct barbarians
+
+
 ## Version 3.12.0
 
 ### New Features
