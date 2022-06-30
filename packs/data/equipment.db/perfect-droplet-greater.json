@@ -33,7 +33,34 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Perfect droplet water resistance",
+                "option": "perfect-droplet-resistance",
+                "toggleable": true
+            },
+            {
+                "key": "TokenEffectIcon",
+                "path": "systems/pf2e/icons/equipment/other/spellhearts/perfect-droplet.webp",
+                "predicate": {
+                    "any": [
+                        "perfect-droplet-resistance"
+                    ]
+                }
+            },
+            {
+                "key": "Resistance",
+                "predicate": {
+                    "all": [
+                        "perfect-droplet-resistance"
+                    ]
+                },
+                "type": "water",
+                "value": 5
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Secrets of Magic"
