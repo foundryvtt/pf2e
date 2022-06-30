@@ -74,11 +74,11 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
     /** Given this is a shield, is it raised? */
     get isRaised(): boolean {
-        if (!(this.isShield && (this.actor?.data.type === "character" || this.actor?.data.type === "npc"))) {
+        if (!(this.isShield && this.actor?.isOfType("character", "npc"))) {
             return false;
         }
 
-        return this.actor.heldShield === this && this.actor.data.data.attributes.shield.raised;
+        return this.actor.heldShield === this && this.actor.attributes.shield.raised;
     }
 
     /** Generate a list of strings for use in predication */
@@ -127,8 +127,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
 
-        const ownerIsPCOrNPC = actor.data.type === "character" || actor.data.type === "npc";
-        const shieldIsAssigned = ownerIsPCOrNPC && actor.data.data.attributes.shield.itemId !== null;
+        const ownerIsPCOrNPC = actor.isOfType("character", "npc");
+        const shieldIsAssigned = ownerIsPCOrNPC && actor.attributes.shield.itemId !== null;
 
         if (this.isArmor && this.isEquipped) {
             // Set roll options for certain armor traits
