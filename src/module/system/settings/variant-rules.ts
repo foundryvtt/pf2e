@@ -1,9 +1,13 @@
 const SETTINGS: Record<string, SettingRegistration> = {
+    gradualBoostsVariant: {
+        name: "PF2E.SETTINGS.Variant.AbilityScore.GradualBoosts.Name",
+        hint: "PF2E.SETTINGS.Variant.AbilityScore.GradualBoosts.Hint",
+        default: false,
+        type: Boolean,
+    },
     staminaVariant: {
         name: "PF2E.SETTINGS.Variant.Stamina.Name",
         hint: "PF2E.SETTINGS.Variant.Stamina.Hint",
-        scope: "world",
-        config: false,
         default: 0,
         type: Number,
         choices: {
@@ -14,32 +18,24 @@ const SETTINGS: Record<string, SettingRegistration> = {
     ancestryParagonVariant: {
         name: "PF2E.SETTINGS.Variant.AncestryParagon.Name",
         hint: "PF2E.SETTINGS.Variant.AncestryParagon.Hint",
-        scope: "world",
-        config: false,
         default: 0,
         type: Boolean,
     },
     freeArchetypeVariant: {
         name: "PF2E.SETTINGS.Variant.FreeArchetype.Name",
         hint: "PF2E.SETTINGS.Variant.FreeArchetype.Hint",
-        scope: "world",
-        config: false,
         default: 0,
         type: Boolean,
     },
     dualClassVariant: {
         name: "PF2E.SETTINGS.Variant.DualClass.Name",
         hint: "PF2E.SETTINGS.Variant.DualClass.Hint",
-        scope: "world",
-        config: false,
         default: 0,
         type: Boolean,
     },
     automaticBonusVariant: {
         name: "PF2E.SETTINGS.Variant.AutomaticBonus.Name",
         hint: "PF2E.SETTINGS.Variant.AutomaticBonus.Hint",
-        scope: "world",
-        config: false,
         default: "noABP",
         type: String,
         choices: {
@@ -51,8 +47,6 @@ const SETTINGS: Record<string, SettingRegistration> = {
     proficiencyVariant: {
         name: "PF2E.SETTINGS.Variant.Proficiency.Name",
         hint: "PF2E.SETTINGS.Variant.Proficiency.Hint",
-        scope: "world",
-        config: false,
         default: "ProficiencyWithLevel",
         type: String,
         choices: {
@@ -63,40 +57,30 @@ const SETTINGS: Record<string, SettingRegistration> = {
     proficiencyUntrainedModifier: {
         name: "PF2E.SETTINGS.Variant.UntrainedModifier.Name",
         hint: "PF2E.SETTINGS.Variant.UntrainedModifier.Hint",
-        scope: "world",
-        config: false,
         default: 0,
         type: Number,
     },
     proficiencyTrainedModifier: {
         name: "PF2E.SETTINGS.Variant.TrainedModifier.Name",
         hint: "PF2E.SETTINGS.Variant.TrainedModifier.Hint",
-        scope: "world",
-        config: false,
         default: 2,
         type: Number,
     },
     proficiencyExpertModifier: {
         name: "PF2E.SETTINGS.Variant.ExpertModifier.Name",
         hint: "PF2E.SETTINGS.Variant.ExpertModifier.Hint",
-        scope: "world",
-        config: false,
         default: 4,
         type: Number,
     },
     proficiencyMasterModifier: {
         name: "PF2E.SETTINGS.Variant.MasterModifier.Name",
         hint: "PF2E.SETTINGS.Variant.MasterModifier.Hint",
-        scope: "world",
-        config: false,
         default: 6,
         type: Number,
     },
     proficiencyLegendaryModifier: {
         name: "PF2E.SETTINGS.Variant.LegendaryModifier.Name",
         hint: "PF2E.SETTINGS.Variant.LegendaryModifier.Hint",
-        scope: "world",
-        config: false,
         default: 8,
         type: Number,
     },
@@ -127,6 +111,8 @@ export class VariantRulesSettings extends FormApplication {
 
     static registerSettings(): void {
         for (const [k, v] of Object.entries(SETTINGS)) {
+            v.config ??= false;
+            v.scope ??= "world";
             game.settings.register("pf2e", k, v);
         }
     }

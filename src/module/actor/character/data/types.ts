@@ -92,6 +92,14 @@ interface CharacterSystemData extends CreatureSystemData {
                 20: AbilityString[];
             };
 
+            allowedBoosts: {
+                1: number;
+                5: number;
+                10: number;
+                15: number;
+                20: number;
+            };
+
             flaws: {
                 ancestry: AbilityString[];
             };

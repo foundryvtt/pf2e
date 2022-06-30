@@ -197,17 +197,23 @@
             </div>
         </div>
 
-        {{#each levelBoosts as |boosts level|}}
+        {{#each levelBoosts as |boosts|}}
             <div class="row{{#if ../manual}} not-eligible{{/if}}{{#if (not boosts.eligible)}} not-eligible{{/if}}">
                 <div class="row-heading">
                     {{#unless (eq remaining 0)}}<div class="remaining extra">{{remaining}}</div>{{/unless}}
                     <div class="label">
-                        <div class="description">{{localize "PF2E.LevelN" level=level}}</div>
+                        <div class="description">
+                            {{#if (eq boosts.minLevel boosts.level)}}
+                                {{localize "PF2E.LevelN" level=boosts.level}}
+                            {{else}}
+                                {{localize "PF2E.LevelRange" minLevel=boosts.minLevel level=boosts.level}}
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
                 {{#each ../abilities as |key ability|}}
                     <div class="row-column">
-                        <button type="button" data-action="level" data-level="{{level}}" data-ability="{{ability}}"
+                        <button type="button" data-action="level" data-level="{{boosts.level}}" data-ability="{{ability}}"
                             class="boost {{#if (contains boosts.boosts ability)}} selected{{else}}{{#if boosts.full}} unavailable{{/if}}{{/if}}{{#if (not boosts.eligible)}} hidden{{/if}}"
                         >
                             {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}

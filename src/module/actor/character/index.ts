@@ -297,6 +297,19 @@ class CharacterPF2e extends CreaturePF2e {
         );
 
         // Build selections: boosts and skill trainings
+        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
+        const boostLevels = [1, 5, 10, 15, 20] as const;
+        const allowedBoosts = boostLevels.reduce((result, level) => {
+            const allowed = (() => {
+                if (this.level < 1) return 0;
+                if (isGradual) return 4 - Math.clamped(level - this.level, 0, 4);
+                return this.level >= level ? 4 : 0;
+            })();
+
+            result[level] = allowed;
+            return result;
+        }, {} as Record<typeof boostLevels[number], number>);
+        const existingBoosts = systemData.build?.abilities?.boosts;
         systemData.build = {
             abilities: {
                 manual: Object.keys(systemData.abilities).length > 0,
@@ -305,12 +318,13 @@ class CharacterPF2e extends CreaturePF2e {
                     ancestry: [],
                     background: [],
                     class: null,
-                    1: systemData.build?.abilities?.boosts?.[1] ?? [],
-                    5: systemData.build?.abilities?.boosts?.[5] ?? [],
-                    10: systemData.build?.abilities?.boosts?.[10] ?? [],
-                    15: systemData.build?.abilities?.boosts?.[15] ?? [],
-                    20: systemData.build?.abilities?.boosts?.[20] ?? [],
+                    1: existingBoosts?.[1]?.slice(0, allowedBoosts[1]) ?? [],
+                    5: existingBoosts?.[5]?.slice(0, allowedBoosts[5]) ?? [],
+                    10: existingBoosts?.[10]?.slice(0, allowedBoosts[10]) ?? [],
+                    15: existingBoosts?.[15]?.slice(0, allowedBoosts[15]) ?? [],
+                    20: existingBoosts?.[20]?.slice(0, allowedBoosts[20]) ?? [],
                 },
+                allowedBoosts,
                 flaws: {
                     ancestry: [],
                 },
@@ -827,11 +841,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         if (!build.abilities.manual) {
             for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
-                // Skip applying boosts from levels higher than the character's
-                if (typeof section === "number" && this.level < section) {
-                    continue;
-                }
-
+                // All higher levels are stripped out during data prep
                 const boosts = build.abilities.boosts[section];
                 if (typeof boosts === "string") {
                     // Class's key ability score

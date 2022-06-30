@@ -161,7 +161,7 @@ export class AbilityBuilderPopup extends Application {
         $html.find("button[data-action=level]").on("click", async (event) => {
             const ability: AbilityString = $(event.currentTarget).attr("data-ability") as AbilityString;
             const level = ($(event.currentTarget).attr("data-level") ?? "1") as "1" | "5" | "10" | "15" | "20";
-            let boosts = actor.data._source.data.build?.abilities?.boosts?.[level] ?? [];
+            let boosts = actor.data.data.build.abilities.boosts[level] ?? [];
             if (boosts.includes(ability)) {
                 boosts = boosts.filter((a) => a !== ability);
             } else {
@@ -188,14 +188,17 @@ export class AbilityBuilderPopup extends Application {
         const { actor } = this;
         const build = actor.data.data.build.abilities;
 
+        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
         const levelBoosts = ([1, 5, 10, 15, 20] as const).reduce(
             (ret: Record<number, LevelBoostData>, level) => ({
                 ...ret,
                 [level]: {
                     boosts: build.boosts[level],
-                    full: build.boosts[level].length >= 4,
-                    eligible: actor.level >= level,
-                    remaining: 4 - build.boosts[level].length,
+                    full: build.boosts[level].length >= build.allowedBoosts[level],
+                    eligible: build.allowedBoosts[level] > 0,
+                    remaining: build.allowedBoosts[level] - build.boosts[level].length,
+                    minLevel: isGradual ? Math.max(1, level - 3) : level,
+                    level,
                 },
             }),
             {}
