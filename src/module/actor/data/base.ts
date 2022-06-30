@@ -52,6 +52,10 @@ interface ActorSystemSource {
 }
 
 interface ActorSystemData extends ActorSystemSource {
+    details: {
+        level: { value: number };
+        alliance: ActorAlliance;
+    };
     attributes: BaseActorAttributes;
     traits: BaseTraitsData;
     /** Icons appearing in the Effects Tracker application */

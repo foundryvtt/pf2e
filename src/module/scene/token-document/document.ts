@@ -115,11 +115,21 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Nath mode
-        const defaultIcon = (this.actor.data.constructor as typeof foundry.data.ActorData).DEFAULT_ICON;
-        if (game.settings.get("pf2e", "nathMode") && this.data.img === defaultIcon) {
-            this.data.img = this.actor.hasPlayerOwner
-                ? "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp"
-                : "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+        const defaultIcons = [
+            foundry.data.ActorData.DEFAULT_ICON,
+            `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
+        ];
+        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.data.img)) {
+            this.data.img = ((): VideoPath => {
+                switch (this.actor.alliance) {
+                    case "party":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
+                    case "opposition":
+                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+                    default:
+                        return this.data.img;
+                }
+            })();
         }
 
         // Alliance coloration, appropriating core token dispositions
