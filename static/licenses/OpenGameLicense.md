@@ -157,6 +157,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #178: Punks in a Powderkeg © 2022, Paizo Inc.; Author: Vanessa Hoskins.
     *  Pathfinder Adventure Path #179: Cradle of Quartz © 2022, Paizo Inc.; Author: Scott D. Young.
     *  Pathfinder Adventure Path #180: The Smoking Gun © 2022, Paizo Inc.; Author: Cole Kronewitter.
+    *  Blood Lords Player's Guide © 2022, Paizo Inc.; Author: Ron Lundeen
     *  Pathfinder Adventure Path #181: Zombie Feast © 2022, Paizo Inc.; Author: Mike Kimmel.
     *  Pathfinder Adventure Path #181: Graveclaw © 2022, Paizo Inc.; Author: Jason Tondro.
     *  Pathfinder Adventure Path #182: Field of Maidens © 2022, Paizo Inc.; Author: Jenny Jarzabski.
