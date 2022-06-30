@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've devoted yourself to researching the secrets of the Inner Sphere. You gain the trained proficiency in your choice of Survival and either Arcana or Nature. If you would automatically become trained in Survival (from your background or class, for example), you instead become trained in a skill of your choice. You also become trained in the Lore associated with your Elemental Plane of origin (such as Plane of Fire Lore).</p>\n<hr />\n<p><strong>Note</strong> Manually choose Arcana or Nature for now.</p>"
+            "value": "<p>You've devoted yourself to researching the secrets of the Inner Sphere. You gain the trained proficiency in your choice of Survival and either Arcana or Nature. If you would automatically become trained in Survival (from your background or class, for example), you instead become trained in a skill of your choice. You also become trained in the Lore associated with your Elemental Plane of origin (such as Plane of Fire Lore).</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,7 +19,7 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -28,6 +28,26 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.skills.sur.rank",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "data.skills.arc.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "data.skills.nat.rank"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "{item|flags.pf2e.rulesSelections.elementalLore}",
                 "value": 1
             }
         ],
