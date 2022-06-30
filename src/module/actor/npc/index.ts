@@ -9,7 +9,7 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
 import { ItemType, MeleeData } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
+import { extractModifiers, extractNotes, extractRollTwice, extractRollSubstitutions } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
 import { CheckRoll } from "@system/check/roll";
@@ -280,6 +280,7 @@ class NPCPF2e extends CreaturePF2e {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 const rollOptions = args.options ?? [];
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
 
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, stat),
@@ -289,6 +290,7 @@ class NPCPF2e extends CreaturePF2e {
                         options: args.options,
                         dc: args.dc,
                         rollTwice,
+                        substitutions,
                         notes: stat.notes,
                     },
                     args.event,
@@ -333,10 +335,23 @@ class NPCPF2e extends CreaturePF2e {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         const rollOptions = args.options ?? [];
                         const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                        const substitutions = extractRollSubstitutions(
+                            this.synthetics.rollSubstitutions,
+                            domains,
+                            rollOptions
+                        );
 
                         const roll = await CheckPF2e.roll(
                             new CheckModifier(label, stat),
-                            { actor: this, type: "skill-check", options: args.options, dc: args.dc, rollTwice, notes },
+                            {
+                                actor: this,
+                                type: "skill-check",
+                                options: args.options,
+                                dc: args.dc,
+                                rollTwice,
+                                substitutions,
+                                notes,
+                            },
                             args.event,
                             args.callback
                         );
@@ -416,12 +431,19 @@ class NPCPF2e extends CreaturePF2e {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                    const substitutions = extractRollSubstitutions(
+                        this.synthetics.rollSubstitutions,
+                        domains,
+                        rollOptions
+                    );
+
                     const context: CheckRollContext = {
                         actor: this,
                         type: "skill-check",
                         options: rollOptions,
                         dc: args.dc,
                         rollTwice,
+                        substitutions,
                         notes: stat.notes,
                     };
 
@@ -627,6 +649,11 @@ class NPCPF2e extends CreaturePF2e {
                                     dc: args.dc ?? context.dc,
                                     rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, rollOptions),
                                     traits: [attackTrait],
+                                    substitutions: extractRollSubstitutions(
+                                        this.synthetics.rollSubstitutions,
+                                        domains,
+                                        rollOptions
+                                    ),
                                 },
                                 args.event
                             );
