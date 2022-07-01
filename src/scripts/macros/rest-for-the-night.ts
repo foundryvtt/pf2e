@@ -121,15 +121,15 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Updated actor with the sweet fruits of rest
         if (hasActorUpdates) {
-            await actor.update({ data: actorUpdates }, { render: !(hasItemUpdates || removeTempItems) });
+            await actor.update({ data: actorUpdates }, { render: false });
         }
 
         if (hasItemUpdates) {
-            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: !removeTempItems });
+            await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
         if (removeTempItems) {
-            await actor.deleteEmbeddedDocuments("Item", temporaryItems);
+            await actor.deleteEmbeddedDocuments("Item", temporaryItems, { render: false });
             statements.push(game.i18n.localize(translations.Message.TemporaryItems));
         }
 
@@ -137,7 +137,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
             statements.push(game.i18n.localize(translations.Message.FocusPoints));
         }
 
-        if (spellcastingRecharge.itemUpdates.length) {
+        if (spellcastingRecharge.itemUpdates.length > 0) {
             statements.push(game.i18n.localize(translations.Message.SpellSlots));
         }
 
@@ -173,6 +173,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const content = [actorAwakens, recoveryList.outerHTML].join("\n");
 
         messages.push({ user: game.user.id, content, speaker: { alias: actor.name } });
+
+        // Re-render the actor's sheet after all writes have completed
+        await actor.sheet.render();
     }
 
     return ChatMessagePF2e.createDocuments(messages);
