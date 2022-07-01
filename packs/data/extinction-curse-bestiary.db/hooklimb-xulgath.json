@@ -198,7 +198,7 @@
             "type": "melee"
         },
         {
-            "_id": "zzEcZu1lsPKAFeE9",
+            "_id": "0OIRUdkEUOJYVRrE",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -210,20 +210,19 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within the the Hooklimb Xulgath's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p>The Hooklimb Xulgath attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the Hooklimb Xulgath disrupts that action. This Strike doesn't count toward the Hooklimb Xulgath's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "selected": {},
                     "value": []
                 },
                 "trigger": {
@@ -231,6 +230,11 @@
                 },
                 "weapon": {
                     "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
@@ -251,7 +255,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Range</strong> 30 feet.</p>\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:28] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}, and on a critical failure, the creature is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for as long as it is @Compendium[pf2e.conditionitems.Sickened]{Sickened}. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the @Compendium[pf2e.conditionitems.Sickened]{Sickened} condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:28] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}, and on a critical failure, the creature is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for as long as it is sickened. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -340,7 +344,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "raking-claws",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "raking-claws"
+                            ]
+                        },
+                        "selector": "claw-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d10.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "raking-claws"
+                            ]
+                        },
+                        "selector": "claw-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d10.criticalSuccess"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

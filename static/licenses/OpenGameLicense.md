@@ -284,7 +284,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
 	* Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
 	* Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
-	  
+
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
@@ -319,6 +319,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
     *  Pathfinder Free RPG Day Adventure 2020: Little Trouble in Big Absalom © 2020, Paizo Inc.; Author: Eleanor Ferron
     *  Pathfinder Free RPG Day Adventure 2021: Threshold of Knowledge © 2021, Paizo Inc.; Author: Ron Lundeen, Jabari Weathers
+	*  Pathfinder Free RPG Day Adventure 2022: A Fistful of Flowers © 2022, Paizo Inc.; Author: Eleanor Ferron, Linda Zayas-Palmer
 
 *  One Shots
     *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
@@ -360,4 +361,5 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
 	*  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
 *   Other
-    *   Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente
+    * Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente
+    * Pathfinder Society Year 4 Rule Updates © 2022, Paizo Inc.; Authors: Mike Kimmel, Alex Speidel

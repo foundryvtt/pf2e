@@ -15,7 +15,7 @@ import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
-import { CheckPF2e, CheckRollContext, CheckType } from "@system/rolls";
+import { CheckPF2e, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
 import { isObject } from "@util";
 import {
     BaseStatisticData,
@@ -45,6 +45,8 @@ export interface StatisticRollParameters {
     secret?: boolean;
     /** Should the dialog be skipped */
     skipDialog?: boolean;
+    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
+    rollTwice?: RollTwiceOption;
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
 }
@@ -347,7 +349,7 @@ class StatisticCheck {
             type: data.check.type,
             secret,
             skipDialog,
-            rollTwice: extractRollTwice(actor.synthetics.rollTwice, domains, options),
+            rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
         };
 
