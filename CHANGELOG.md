@@ -1,5 +1,29 @@
 # Changelog
 
+## Version 3.12.2
+
+### Bugfixes
+* (Supe) Fix roll twice API option for character strikes, add for skills/saves
+
+### Data Updates
+* (Abaddon) Review Bestiary 3: Forest dragons, divs
+* (Avagdu Mortesin) Add Backgrounds from Pathfinder Society Year 4 Blog
+* (Avagdu) Update NPCs from Extinction  Book 3 Ch 3
+* (Friz) Added inline automation to inventor feats
+* (Friz) Added note to Recognize Ambush feat
+* (JDCalvert) Restrict Mauler Dedication critical specialisation to expert proficiency
+* (LebombJames) Added inlines to Dagger of Venom
+* (LebombJames) Clean up description of Curse of Lost Time
+* (LebombJames) Corrected Rhoka Sword damage die
+* (Shandyan) Add links to Goblin Song effects to Goblin War Chanter
+* (Shandyan) Add rule elements to Oread feats
+* (stwlam) Migrate Panache and Vicacious Speed to latest iterations (dropped Panache toggle in favor of effect)
+* (stwlam) Predicate Raise a Shield effect rule elements on actually wielding a shield
+* (TMunsie) Add NPCs from PFS 3-16 and PFS 3-17
+* (TMunsie) add Fistful of flowers items, PCs and NPCs
+* (xdy) Updated the Shadow Blast spell so it has area template buttons.
+
+
 ## Version 3.12.1
 
 ### Bugfixes
