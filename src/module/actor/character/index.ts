@@ -1895,7 +1895,8 @@ class CharacterPF2e extends CreaturePF2e {
                     }
 
                     const item = context.self.item;
-                    const rollTwice = extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
+                    const rollTwice =
+                        args.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
