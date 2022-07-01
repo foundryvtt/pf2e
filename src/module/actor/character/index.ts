@@ -1,6 +1,7 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
+import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAPs } from "@actor/helpers";
@@ -337,6 +338,13 @@ class CharacterPF2e extends CreaturePF2e {
             }
         }
 
+        // Alliance, deferring to manually set value and falling back to player ownership
+        details.alliance = ALLIANCES.has(details.alliance)
+            ? details.alliance
+            : this.hasPlayerOwner
+            ? "party"
+            : "opposition";
+
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
         attributes.ac = {};
@@ -399,9 +407,6 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Size
         this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
-
-        // Alliance
-        this.data.data.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<MartialProficiencies> = this.data.data.martial;
