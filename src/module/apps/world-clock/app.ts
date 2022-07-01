@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@system/localize";
 import { ordinal, tupleHasValue } from "@util";
-import { DateTime } from "luxon";
+import { DateTime, HourNumbers, MinuteNumbers, SecondNumbers } from "luxon";
 import { animateDarkness } from "./animate-darkness";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day";
 
@@ -10,6 +10,7 @@ interface WorldClockData {
     options?: {};
     user: User;
     sign: "+" | "-";
+    advanceTo: string;
 }
 
 export class WorldClock extends Application {
@@ -150,8 +151,8 @@ export class WorldClock extends Application {
                 ? this.worldTime.toFormat("HH:mm:ss")
                 : this.worldTime.toLocaleString(DateTime.TIME_WITH_SECONDS);
         const sign = this.ctrlKeyDown ? "-" : "+";
-
-        return { date, time, options, user: game.user, sign };
+        const advanceTo = localStorage.getItem("worldClock.advanceTo") ?? "00:00";
+        return { date, time, options, user: game.user, sign, advanceTo };
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
@@ -178,19 +179,23 @@ export class WorldClock extends Application {
 
     private static calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
         const mode = intervalMode === "+" ? TimeChangeMode.ADVANCE : TimeChangeMode.RETRACT;
-        switch (interval) {
-            case "dawn":
-                return TimeOfDay.DAWN.diffSeconds(wordTime, mode);
-            case "noon":
-                return TimeOfDay.NOON.diffSeconds(wordTime, mode);
-            case "dusk":
-                return TimeOfDay.DUSK.diffSeconds(wordTime, mode);
-            case "midnight":
-                return TimeOfDay.MIDNIGHT.diffSeconds(wordTime, mode);
-            default: {
-                const sign = mode === TimeChangeMode.ADVANCE ? 1 : -1;
-                return Number(interval) * sign;
-            }
+        const pointInTime = interval.match(/^(\d+):(\d+)(?::(\d+))?$/);
+        if (pointInTime) {
+            const hour = parseInt(pointInTime[1], 10) as HourNumbers;
+            const minute = parseInt(pointInTime[2], 10) as MinuteNumbers;
+            const second = parseInt(pointInTime[3] ?? "0", 10) as SecondNumbers;
+            return new TimeOfDay(hour, minute, second).diffSeconds(wordTime, mode);
+        } else if (interval === "dawn") {
+            return TimeOfDay.DAWN.diffSeconds(wordTime, mode);
+        } else if (interval === "noon") {
+            return TimeOfDay.NOON.diffSeconds(wordTime, mode);
+        } else if (interval === "dusk") {
+            return TimeOfDay.DUSK.diffSeconds(wordTime, mode);
+        } else if (interval === "midnight") {
+            return TimeOfDay.MIDNIGHT.diffSeconds(wordTime, mode);
+        } else {
+            const sign = mode === TimeChangeMode.ADVANCE ? 1 : -1;
+            return Number(interval) * sign;
         }
     }
 
@@ -212,6 +217,14 @@ export class WorldClock extends Application {
             const advanceOrRetract = $(event.currentTarget).attr("name") === "advance" ? 1 : -1;
             const increment = advanceOrRetract * Number(value) * Number(unit);
             game.time.advance(increment);
+        });
+
+        $html.find("button[name=advance-to]").on("click", (event) => {
+            const advanceTime = ($html.find('input[type=time][name="time-value"]').val() as string) ?? 0;
+            const advanceMode = $(event.currentTarget).data("mode") === "advance" ? "+" : "-";
+            const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
+            localStorage.setItem("worldClock.advanceTo", advanceTime);
+            if (increment !== 0) game.time.advance(increment);
         });
 
         for (const eventName of ["keydown.pf2e.world-clock", "keyup.pf2e.world-clock"]) {
@@ -247,6 +260,10 @@ export class WorldClock extends Application {
                 $html
                     .find("button[name=advance], button[name=retract]")
                     .attr("name", retractTime ? "retract" : "advance")
+                    .text(game.i18n.localize(retractTime ? Retract : Advance));
+                $html
+                    .find("button[name=advance-to]")
+                    .data("mode", retractTime ? "retract" : "advance")
                     .text(game.i18n.localize(retractTime ? Retract : Advance));
             });
         }

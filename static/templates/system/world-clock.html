@@ -36,5 +36,9 @@
             </select>
             <button type="button" name="advance">{{#if (eq sign "+")}}{{localize "PF2E.WorldClock.Button.Advance"}}{{else}}{{localize "PF2E.WorldClock.Button.Retract"}}{{/if}}</button>
         </div>
+        <div class="input-grid">
+            <input name="time-value" value="{{advanceTo}}" type="time" required="required" placeholder="{{localize "PF2E.WorldClock.Placeholder"}}">
+            <button type="button" name="advance-to" data-mode="advance">{{#if (eq sign "+")}}{{localize "PF2E.WorldClock.Button.Advance"}}{{else}}{{localize "PF2E.WorldClock.Button.Retract"}}{{/if}}</button>
+        </div>
     {{/if}}
 </section>
