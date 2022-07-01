@@ -48,6 +48,9 @@ class FeatPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        // Handle legacy data with empty-string locations
+        this.data.data.location ||= null;
+
         const traits = this.data.data.traits.value;
 
         // Add the General trait if of the general feat type
@@ -116,6 +119,19 @@ class FeatPF2e extends ItemPF2e {
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
+
+    protected override async _preCreate(
+        data: PreDocumentId<FeatSource>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        // In case this was copied from an actor, clear the location if there's no parent.
+        if (!this.parent) {
+            this.data._source.data.location = null;
+        }
+
+        return super._preCreate(data, options, user);
+    }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
