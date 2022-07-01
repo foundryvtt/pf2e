@@ -90,7 +90,7 @@
             ],
             "dv": [],
             "languages": {
-                "custom": "speak with plants (same type as leshy)",
+                "custom": "Speak with Plants (Minkaian Honeysuckle Only)",
                 "selected": [],
                 "value": [
                     "common",
@@ -435,7 +435,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>The honeysuckle leshy gains a +1 status bonus to Reflex and Fortitude saves and DCs against trip and forced movement.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -444,7 +444,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "action:trip"
                             ]
                         },
@@ -455,7 +455,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "action:trip"
                             ]
                         },
@@ -486,7 +486,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to Reflex and Fortitude Saves vs Trip and Forced Movement",
+            "name": "Agile Leshy",
             "sort": 500000,
             "type": "action"
         },
@@ -502,8 +502,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
-                    "value": "<p>When a leshy dies, a burst of primal energy explodes from its body, restoring [[/r 2d8 # hit points]]{2d8 Hit Points} to each plant creature within a @Template[type:emanation|distance:30]. This area is filled with plants of the same type as the leshy, becoming difficult terrain. If the terrain isn't a viable environment for these plants, they wither after 24 hours.</p>"
+                    "value": "<p>When a leshy dies, a burst of primal energy explodes from its body, restoring [[/r {2d8}[healing]]]{2d8 Hit Points} to each plant creature within a @Template[type:emanation|distance:30]. This area is filled with plants of the same type as the leshy, becoming difficult terrain. If the terrain isn't a viable environment for these plants, they wither after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -53,7 +53,7 @@
         },
         "details": {
             "alignment": {
-                "value": "LE"
+                "value": "NE"
             },
             "blurb": "Variant homunculus",
             "creatureType": "",
@@ -103,7 +103,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "can't speak any language; master link",
+                "custom": "Can't Speak Any Language; Master Link",
                 "selected": [],
                 "value": [
                     "common"
@@ -145,9 +145,28 @@
                     }
                 },
                 "description": {
-                    "value": "<p>plus [[/r {1d4}[persistent,fire]]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1d4.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1d4.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -185,7 +204,26 @@
                 "description": {
                     "value": "<p>[[/r {1d4}[persistent,fire]]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1d4.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1d4.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -315,7 +353,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 5 feet.</p>\n<p>The scented candle homunculus's fragrance of lavender is overwhelmingly intense. Any creature other than the homunculus's master who enters the aura must attempt a @Check[type:fortitude|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to the homunculus's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round and sickened 1.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The scented candle homunculus's fragrance of lavender is overwhelmingly intense. Any creature other than the homunculus's master who enters the aura must attempt a @Check[type:fortitude|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to the homunculus's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round and sickened 1.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -356,7 +394,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>A scented candle homunculus who is adjacent to the large wax cauldron can dunk itself in wax, [[/r {2d6} # hit points]]{healing 2d6 damage}.</p>"
+                    "value": "<p>A scented candle homunculus who is adjacent to the large wax cauldron can dunk itself in wax, [[/r {2d6}[healing]]]{healing 2d6 damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
