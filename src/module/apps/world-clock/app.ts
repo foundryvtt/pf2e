@@ -220,8 +220,8 @@ export class WorldClock extends Application {
         });
 
         $html.find("button[name=advance-to]").on("click", (event) => {
-            const advanceTime = ($html.find('input[type=time][name="time-value"]').val() as string) ?? 0;
-            const advanceMode = $(event.currentTarget).data("mode") === "advance" ? "+" : "-";
+            const advanceTime = ($html.find('input[type=time][name="time-value"]').val() as string) ?? "00:00";
+            const advanceMode = $(event.currentTarget).data("mode");
             const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
             localStorage.setItem("worldClock.advanceTo", advanceTime);
             if (increment !== 0) game.time.advance(increment);
@@ -256,14 +256,13 @@ export class WorldClock extends Application {
                         button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
                     }
                 }
-
                 $html
                     .find("button[name=advance], button[name=retract]")
                     .attr("name", retractTime ? "retract" : "advance")
                     .text(game.i18n.localize(retractTime ? Retract : Advance));
                 $html
                     .find("button[name=advance-to]")
-                    .data("mode", retractTime ? "retract" : "advance")
+                    .data("mode", retractTime ? "-" : "+")
                     .text(game.i18n.localize(retractTime ? Retract : Advance));
             });
         }
