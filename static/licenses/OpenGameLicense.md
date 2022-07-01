@@ -319,6 +319,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
     *  Pathfinder Free RPG Day Adventure 2020: Little Trouble in Big Absalom © 2020, Paizo Inc.; Author: Eleanor Ferron
     *  Pathfinder Free RPG Day Adventure 2021: Threshold of Knowledge © 2021, Paizo Inc.; Author: Ron Lundeen, Jabari Weathers
+	*  Pathfinder Free RPG Day Adventure 2022: A Fistful of Flowers © 2022, Paizo Inc.; Author: Eleanor Ferron, Linda Zayas-Palmer
 
 *  One Shots
     *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
