@@ -129,8 +129,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
-
-        this.prepareSpellcasting(sheetData);
+        sheetData.spellcastingEntries = this.prepareSpellcasting();
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.data.flags.pf2e;
@@ -301,20 +300,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-    }
-
-    private prepareSpellcasting(sheetData: CharacterSheetData): void {
-        sheetData.spellcastingEntries = [];
-        for (const itemData of sheetData.items) {
-            if (itemData.type === "spellcastingEntry") {
-                const entry = this.actor.spellcasting.get(itemData._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
-                sheetData.spellcastingEntries.push({
-                    ...itemData,
-                    ...entry.getSpellData(),
-                });
-            }
-        }
     }
 
     protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {

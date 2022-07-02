@@ -82,7 +82,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     };
 }
 
-type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
+type SpellcastingSheetData = RawObject<SpellcastingEntryData> & SpellcastingEntryListData;
 
 export {
     Alignment,

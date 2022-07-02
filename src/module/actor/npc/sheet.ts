@@ -6,7 +6,6 @@ import { NPCPF2e } from "@actor/index";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { SpellcastingEntryPF2e } from "@item";
 import { EffectData } from "@item/data";
 import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
@@ -76,7 +75,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
-        this.prepareSpellcasting(sheetData);
+        sheetData.spellcastingEntries = this.prepareSpellcasting();
     }
 
     private getIdentifyCreatureData(): IdentifyCreatureData {
@@ -412,22 +411,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
                 });
             return { attack, traits };
         });
-    }
-
-    /**
-     * Prepare spells and spell entries
-     * @param sheetData Data of the actor to show in the sheet.
-     */
-    private prepareSpellcasting(sheetData: NPCSheetData<TActor>): void {
-        sheetData.spellcastingEntries = [];
-
-        for (const item of sheetData.items) {
-            if (item.type === "spellcastingEntry") {
-                const entry = this.actor.spellcasting.get(item._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
-                sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
-            }
-        }
     }
 
     private get isWeak(): boolean {
