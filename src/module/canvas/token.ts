@@ -1,6 +1,7 @@
 import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene";
-import { MeasuredTemplatePF2e, TokenLayerPF2e } from ".";
+import { TokenLayerPF2e } from ".";
+import { measureDistanceRect } from "./helpers";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -37,6 +38,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
         return this.data.flags.pf2e.linkToActorSize;
+    }
+
+    /** The highlight layer for this token */
+    get highlightId(): string {
+        return `Token.${this.id}`;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -230,7 +236,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         const distance = {
-            horizontal: MeasuredTemplatePF2e.measureDistanceRect(this.bounds, target.bounds, { reach }),
+            horizontal: measureDistanceRect(this.bounds, target.bounds, { reach }),
             vertical: 0,
         };
 
@@ -258,7 +264,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             ),
         };
 
-        distance.vertical = MeasuredTemplatePF2e.measureDistanceRect(vertical.self, vertical.target, { reach });
+        distance.vertical = measureDistanceRect(vertical.self, vertical.target, { reach });
         const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
 
         return Math.floor(hypotenuse / gridDistance) * gridDistance;
