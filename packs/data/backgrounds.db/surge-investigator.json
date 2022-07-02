@@ -1,0 +1,75 @@
+{
+    "_id": "0otxwSLobUCf0l1I",
+    "data": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>From rivers that charm all who come near to forests that speak through dream messages, you have seen and studied many kinds of magical terrain. The world is so rich in magic that it can affect the land itself, and you have traveled extensively to learn the ways of identifying the oddities of magical terrain wherever it arises.</p>\n<p>Choose two ability boosts. One must be <strong>Constitution</strong> or <strong>Wisdom</strong> and one is a free ability boost.</p>\n<p>You're trained in your choice of Nature or Occultism and the Magical Terrain Lore skill. You gain the @Compendium[pf2e.feats-srd.Terrain Expertise]{Terrain Expertise} skill feat.</p>"
+        },
+        "items": {
+            "kmtpe": {
+                "id": "4tTkRyOQ0VuRBac3",
+                "img": "systems/pf2e/icons/features/feats/feats.webp",
+                "level": 1,
+                "name": "Terrain Expertise",
+                "pack": "pf2e.feats-srd"
+            }
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occultism"
+                    }
+                ],
+                "flag": "skillChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.{item|flags.pf2e.rulesSelections.skillChoice}.rank",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "trainedLore": "Magical Terrain Lore",
+        "trainedSkills": {
+            "custom": "",
+            "value": []
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Surge Investigator",
+    "type": "background"
+}
