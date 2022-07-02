@@ -136,6 +136,7 @@ declare global {
         get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
+        get(module: "pf2e", setting: "gradualBoostsVariant"): boolean;
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
