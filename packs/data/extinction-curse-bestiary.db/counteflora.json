@@ -148,7 +148,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -160,44 +162,49 @@
             "type": "melee"
         },
         {
-            "_id": "kZlXyCH63GFaXGVR",
+            "_id": "BfesIESGIRYqPbvi",
             "data": {
-                "attack": {
-                    "value": ""
+                "actionCategory": {
+                    "value": "interaction"
                 },
-                "attackEffects": {
-                    "value": []
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonus": {
-                    "value": 23
-                },
-                "damageRolls": {
-                    "j910j4zpniriumcx6ovz": {
-                        "damage": "3d10+9",
-                        "damageType": "bludgeoning"
-                    }
+                "actions": {
+                    "value": null
                 },
                 "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "tremorsense",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": []
                 },
-                "weaponType": {
-                    "value": "melee"
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Head",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
             "sort": 200000,
-            "type": "melee"
+            "type": "action"
         },
         {
             "_id": "gHi2vKCOAok2Xdj9",
@@ -217,7 +224,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "speed",
+                        "key": "RollOption",
+                        "option": "frost-susceptibility",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": {
+                            "all": [
+                                "frost-susceptibility"
+                            ]
+                        },
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -257,7 +281,69 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "tighten-bracts",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "tighten-bracts"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "label": "Head",
+                        "predicate": {
+                            "all": [
+                                "tighten-bracts"
+                            ]
+                        },
+                        "traits": [
+                            "reach-10",
+                            "sweep"
+                        ]
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "tighten-bracts"
+                            ]
+                        },
+                        "selector": "head-damage",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "tighten-bracts",
+                                "weapon:head"
+                            ]
+                        },
+                        "selector": "attack",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -292,7 +378,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The counteflora releases a cloud of black seedpods in a 15-foot-radius emanation. Non-counteflora creatures in the area must succeed at a Fortitude save or breathe in the toxic seeds.</p>"
+                    "value": "<p><strong>Requirements:</strong> the Counteflora's bracts are not tightened.</p>\n<hr />\n<p>The counteflora releases a cloud of black seedpods in a @Template[type:emanation|distance:15]{15-foot-radius emanation}. Non-counteflora creatures in the area must succeed at a Fortitude save or breathe in the toxic seeds. (Against plants and fungi, the seeds burrow into the creatures' flesh rather than infiltrate their lungs.)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -332,7 +418,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30|traits:inhaled,poison] (@Check[type:fortitude|dc:32|name:Counteflora Toxin (Plant of Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and enfeebled 1 (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage}, enfeebled 1, and fascinated (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30|traits:inhaled,poison] (@Check[type:fortitude|dc:32|name:Counteflora Toxin (Plant or Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -441,7 +527,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Jungle",
+                        "predicate": {
+                            "any": [
+                                "terrain:jungle"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.FlowerField",
+                        "predicate": {
+                            "any": [
+                                "terrain:flower-field"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -450,6 +559,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 in jungles and flower fields",
+                        "options": "terrain:jungle, terrain:flower-fields"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",

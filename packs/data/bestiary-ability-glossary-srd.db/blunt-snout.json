@@ -1,0 +1,62 @@
+{
+    "_id": "37aCxsYWM7Ek2Xas",
+    "data": {
+        "actionCategory": {
+            "value": "defensive"
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>Your small, blunt snout and labyrinthine sinus system make you resistant to phenomena that assail the nose. When you roll a saving throw against inhaled threats (such as inhaled poisons) and olfactory effects (such as xulgath stench), you get the outcome one degree of success better than the result of your roll.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "inhaled",
+                        "olfactory"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "olfactory",
+                        "inhaled"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Blunt Snout",
+    "type": "action"
+}
