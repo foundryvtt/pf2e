@@ -15,7 +15,7 @@ import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
-import { CheckPF2e, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
+import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
 import { isObject } from "@util";
 import {
     BaseStatisticData,
@@ -48,7 +48,7 @@ export interface StatisticRollParameters {
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
     /** Callback called when the roll occurs. */
-    callback?: (roll: Rolled<Roll>) => void;
+    callback?: CheckRollCallback;
 }
 
 interface RollOptionParameters {
