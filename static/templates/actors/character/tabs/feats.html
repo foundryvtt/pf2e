@@ -1,15 +1,13 @@
 <div class="tab feats feats-pane" data-group="primary" data-tab="feats">
     {{#each actor.featSlots as |section sid|}}
-        <ol class="feat-section actions-list directory-list item-list" {{#unless section.slotted}}data-slot-id="{{sid}}" data-feat-type="{{sid}}"{{/unless}}>
-            <li class="action-header stroke-header">
-                {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                <h3 class="feat-name">{{localize section.label}}</h3>
-                <div class="item-controls">
-                    {{#if @root.editable}}
-                        <a class="item-control feat-browse" title="{{localize "PF2E.OpenFeatBrowserTitle"}}" data-type="feat" data-filter="feattype-{{sid}},{{section.featFilter}}"><i class="fas fa-search"></i></a>
-                    {{/if}}
-                </div>
-            </li>
+        <div class="feat-section"  {{#unless section.slotted}}data-slot-id="{{sid}}" data-feat-type="{{sid}}"{{/unless}}>
+            <h3 class="header">
+                {{localize section.label}}
+                <button type="button" class="feat-browse" title="{{localize "PF2E.OpenFeatBrowserTitle"}}" data-type="feat" data-filter="feattype-{{sid}},{{section.featFilter}}">
+                    <i class="fas fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                </button>
+            </h3>
+            <ol class="actions-list directory-list item-list">
             {{#each section.feats as |featSlot fid|}}
                 {{#if featSlot.feat}}
                     <li class="item feat-item" data-item-id="{{featSlot.feat._id}}" data-slot-id="{{featSlot.id}}" data-feat-type="{{sid}}">
@@ -48,6 +46,7 @@
                     </li>
                 {{/if}}
             {{/each}}
-        </ol>
+            </ol>
+        </div>
     {{/each}}
 </div>
