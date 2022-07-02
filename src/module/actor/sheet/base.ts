@@ -49,7 +49,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
-            scrollY: [".sheet-sidebar", ".tab.active", "ol.inventory-list"],
+            scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
         });
     }
 
@@ -131,16 +131,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): void;
 
     protected prepareInventory(): SheetInventory {
-        const invested = this.actor.inventory.invested;
         const sections: SheetInventory["sections"] = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), type: "weapon", items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), type: "armor", items: [] },
-            equipment: {
-                label: game.i18n.localize("PF2E.InventoryEquipmentHeader"),
-                type: "equipment",
-                items: [],
-                invested,
-            },
+            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), type: "equipment", items: [] },
             consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), type: "consumable", items: [] },
             treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), type: "treasure", items: [] },
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), type: "backpack", items: [] },
@@ -173,8 +167,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             category.items.push(createInventoryItem(item));
         }
 
-        sections.equipment.overInvested = !!invested && invested.max < invested.value;
-        return { sections, bulk: this.actor.inventory.bulk };
+        const invested = this.actor.inventory.invested;
+        const showValueAlways = this.actor.isOfType("npc", "loot");
+        const showIndividualPricing = this.actor.isOfType("loot");
+        return { sections, bulk: this.actor.inventory.bulk, showValueAlways, showIndividualPricing, invested };
     }
 
     protected findActiveList() {

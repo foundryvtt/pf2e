@@ -13,7 +13,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
-            const $li = $(event.currentTarget).closest("li");
+            const $li = $(event.currentTarget).closest("[data-item-id], .expandable");
             await this.toggleSummary($li);
         });
     }
