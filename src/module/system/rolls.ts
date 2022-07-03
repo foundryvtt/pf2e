@@ -114,6 +114,8 @@ interface CheckRollContext extends BaseRollContext {
     title?: string;
     /** Optional DC data for the check */
     dc?: CheckDC | null;
+    /** The domains this roll had, for reporting purposes */
+    domains?: string[];
     /** Is the roll a reroll? */
     isReroll?: boolean;
     /** D20 results substituted for an actual roll */
@@ -312,6 +314,7 @@ class CheckPF2e {
             item: undefined,
             actor: context.actor?.id ?? null,
             token: context.token?.id ?? null,
+            domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: context.options ?? [],
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
