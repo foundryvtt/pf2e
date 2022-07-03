@@ -410,7 +410,7 @@ const traitsDescriptions = {
     elixir: "PF2E.TraitDescriptionElixir",
     emotion: "PF2E.TraitDescriptionEmotion",
     enchantment: "PF2E.TraitDescriptionEnchantment",
-    environement: "PF2E.TraitDescriptionEnvironement",
+    environment: "PF2E.TraitDescriptionEnvironment",
     evil: "PF2E.TraitDescriptionEvil",
     evocation: "PF2E.TraitDescriptionEvocation",
     exploration: "PF2E.TraitDescriptionExploration",
