@@ -504,7 +504,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
-        const $li = $(event.currentTarget).closest("li[data-item-id]");
+        const $li = $(event.currentTarget).closest("[data-item-id]");
         const itemId = $li.attr("data-item-id") ?? "";
         const item = this.actor.items.get(itemId);
 
