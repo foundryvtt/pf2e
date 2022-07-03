@@ -1,5 +1,10 @@
 <section class="summary">
-    <div>{{localize "PF2E.Roll.Type"}}: <input disabled value="{{context.type}}"></div>
+    <div class="type">{{localize "PF2E.Roll.Type"}}: <input disabled value="{{context.type}}"></div>
+    {{#if context.domains}}
+        <div class="tags domains">
+            {{#each context.domains}}<span class="tag tag_alt">{{this}}</span>{{/each}}
+        </div>
+    {{/if}}
 </section>
 <section class="roll-options">
     <h3>{{localize "PF2E.ChatRollDetails.RollOptions"}}</h3>

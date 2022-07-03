@@ -342,6 +342,7 @@ class StatisticCheck {
         const context: CheckRollContext = {
             actor,
             item,
+            domains,
             target: rollContext?.target ?? null,
             dc: args.dc ?? rollContext?.dc,
             notes: data.notes,
