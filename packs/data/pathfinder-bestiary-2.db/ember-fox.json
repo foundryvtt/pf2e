@@ -145,7 +145,26 @@
                 "description": {
                     "value": "<p>@Localize[PF2E.PersistentDamage.Fire1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1d4.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1d4.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
