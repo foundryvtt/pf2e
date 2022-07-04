@@ -26,11 +26,13 @@
             font-weight: 700;
             line-height: 1;
             width: calc(100% - 6px);
-            i {
-                position: relative;
-                right: -2px;
-                top: -2px;
-                float: right;
+
+            display: flex;
+            align-items: baseline;
+            gap: 1px;
+
+            a {
+                align-self: center;
             }
 
             span.value {
@@ -38,7 +40,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                width: 87%;
+                flex: 1;
             }
         }
     }
@@ -48,7 +50,7 @@
         grid:
             "img alignment deity" 46px
             "img details details" auto
-            / 120px 130px 1fr;
+            / 120px 144px 1fr;
         margin-top: 4px;
 
         .frame {
@@ -76,6 +78,7 @@
             justify-content: center;
             background: url("../assets/sheet/banner-bg.webp") repeat-x center;
             z-index: 1;
+            margin-right: 11px; // gap to fit in the :after element
 
             .bio-alignment {
                 position: absolute;
@@ -114,6 +117,7 @@
                 text-align: center;
                 max-width: 138px;
             }
+
             &::after {
                 position: absolute;
                 content: "";
@@ -135,9 +139,10 @@
 
             .input {
                 display: flex;
-                flex-basis: 55%;
                 flex-wrap: wrap;
                 justify-content: end;
+                flex: 0 1 auto;
+                overflow: hidden;
             }
 
             img.symbol {
