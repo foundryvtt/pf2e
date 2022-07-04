@@ -1,10 +1,27 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
+import {
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    ItemFlagsPF2e,
+    ItemSystemData,
+    ItemSystemSource,
+    ItemTraits,
+} from "@item/data/base";
 import type { MeleePF2e } from ".";
 
-export type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource>;
+export type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
+    flags: DeepPartial<MeleeFlags>;
+};
 
 type MeleeData = Omit<MeleeSource, "effects" | "flags"> &
-    BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource>;
+    BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource> & {
+        flags: MeleeFlags;
+    };
+
+type MeleeFlags = ItemFlagsPF2e & {
+    pf2e: {
+        linkedWeapon?: string;
+    };
+};
 
 export interface MeleeDamageRoll {
     damage: string;

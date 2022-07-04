@@ -531,6 +531,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         // Critical fusion trait on thrown attacks with melee usage of combination weapons
                         !(t === "critical-fusion" && this.isThrown)
                 );
+            if (this.isRanged && !this.isThrown) {
+                newTraits.push(`range-increment-${this.rangeIncrement!}`);
+            }
 
             const actorSize = new ActorSizePF2e({ value: actor.size });
             if (actorSize.isLargerThan("med") && !newTraits.some((t) => t.startsWith("reach"))) {
@@ -564,7 +567,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 traits: {
                     value: toAttackTraits(this.data.data.traits.value),
                 },
+                rules: deepClone(this.data._source.data.rules),
             },
+            flags: { pf2e: { linkedWeapon: this.id } },
         };
 
         return [
