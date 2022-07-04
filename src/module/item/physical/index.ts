@@ -409,7 +409,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.hp.max);
         }
 
-        if (!changed.data) return await super._preUpdate(changed, options, user);
+        if (!changed.data) return super._preUpdate(changed, options, user);
+
+        // Ensure an empty-string `stackGroup` property is null
+        if (typeof changed.data?.stackGroup === "string") {
+            changed.data.stackGroup ||= null;
+        }
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
         const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
