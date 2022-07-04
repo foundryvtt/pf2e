@@ -1,3 +1,5 @@
+/static/licenses/OpenGameLicense.md
+
 OPEN GAME LICENSE Version 1.0a
 The following text is the property of Wizards of the Coast, Inc. and is Copyright 2000 Wizards of the Coast, Inc ("Wizards"). All Rights Reserved.
 
@@ -30,7 +32,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 14. Reformation: If any provision of this License is held to be unenforceable, such provision shall be reformed only to the extent necessary to make it enforceable.
 
 15. COPYRIGHT NOTICE
-*  Open Game License v 1.0 Copyright 2000, Wizards of the Coast, Inc.
+* Open Game License v 1.0 Copyright 2000, Wizards of the Coast, Inc.
 
 * Core Books
     *  Pathfinder Core Rulebook (Second Edition) © 2019, Paizo Inc.; Designers: Logan Bonner, Jason Bulmahn, Stephen Radney-MacFarland, and Mark Seifter.
@@ -103,6 +105,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Demon Lord, Orcus from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene and Clark Peterson, based on material by Gary Gygax.
     * Pathfinder Book of the Dead © 2022, Paizo Inc.; Authors: Brian Bauman, Tineke Bolleman. Logan Bonner, Jason Bulmahn, Jessica Catalan, John Compton, Chris Eng, Logan Harper, Michelle Jones, Jason Keeley, Luis Loza, Ron Lundeen, Liane Merciel, Patchen Mortimer, Quinn Murphy, Jessica Redekop, Mikhail Rekun, Solomon St. John, Michael Sayre, Mark Seifter, Sen.H.H.S., Kendra Leigh Speedling, Jason Tondro, Andrew White.
 
+* Dark Archive
+    * Pathfinder Dark Archive © 2022, Paizo Inc.; Authors: James Case, Mikhail Rekun, Mark Seifter, Rigby Bendele, Logan Bonner, Dan Cascone, Jessica Catalan, Banana Chan, Kay Hashimoto, Sen H.H.S., Patrick Hurley, Joshua Kim, Avi Kool, Daniel Kwan, Kendra Leigh Speedling, Luis Loza, Ron Lundeen, Liane Merciel, Jacob W. Michaels, Andrew Mullen, Quinn Murphy, K. Tessa Newton, Patrick Renie, Solomon St. John, Michael Sayre, Shay Snow, Alex Speidel, Geoffrey Suthers, Ruvaid Virk, Jabari Weathers, and Isis Wozniakowska
+
 
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
@@ -124,17 +129,17 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #151: The Show Must Go On © 2020, Paizo Inc.; Authors: Jason Tondro, with Andrew Mullen, Patrick Renie, David N. Ross, and Michael Sayre.
     *  Pathfinder Adventure Path #152: Legacy of the Lost God © 2020, Paizo Inc.; Authors: Jenny Jarzabski, with Stephen Glicker, Luis Loza, Ron Lundeen, Andrew Mullen, and David N. Ross.
     *  Pathfinder Adventure Path #153: Life's Long Shadows © 2020, Paizo Inc.; Authors: Greg A. Vaughan, with Anthony Bono, Jacob W. Michaels, Andrew Mullen, Patrick Renie, Alex Riggs, Timothy Snow, and Amber Stewart.
-	*  Pathfinder Adventure Path #154: Siege of the Dinosaurs © 2020, Paizo Inc.; Authors: Kate Baker, with Luis Loza, Andrew Mullen, Jason Nelson, Jennifer Povey, David Schwartz, and Amber Stewart.
-	*  Pathfinder Adventure Path #155: Lord of the Black Sands © 2020, Paizo Inc.; Authors: Mikko Kallio, with Andrew Mullen, Nathan Reinecke, David Schwartz, and Scott Young.
-	*  Pathfinder Adventure Path #156: The Apocalypse Project © 2020, Paizo Inc.; Authors: Lyz Liddell, with Mikhail Rekun, Steven Hammond, Kevin Bruan, Andrew Mullen, Patrick Renie, and David N. Ross.
-	*  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
-	*  Pathfinder Adventure Path #157: Devil at the Dreaming Palace © 2020, Paizo Inc.; Authors: James L. Sutter, with Luis Loza, Andrew Mullen, Samantha Phelan, and Patrick Renie.
-	*  Pathfinder Adventure Path #158: Sixty Feet Under © 2020, Paizo Inc.; Authors: Michael Sayre, Saif Ansari, Leo Glass, Ron Lundeen, Jacob W. Michaels, Patrick Renie, and David N. Ross
-	*  Pathfinder Adventure Path #159: All or Nothing © 2020, Paizo Inc.; Authors: Jason Keeley
+    *  Pathfinder Adventure Path #154: Siege of the Dinosaurs © 2020, Paizo Inc.; Authors: Kate Baker, with Luis Loza, Andrew Mullen, Jason Nelson, Jennifer Povey, David Schwartz, and Amber Stewart.
+    *  Pathfinder Adventure Path #155: Lord of the Black Sands © 2020, Paizo Inc.; Authors: Mikko Kallio, with Andrew Mullen, Nathan Reinecke, David Schwartz, and Scott Young.
+    *  Pathfinder Adventure Path #156: The Apocalypse Project © 2020, Paizo Inc.; Authors: Lyz Liddell, with Mikhail Rekun, Steven Hammond, Kevin Bruan, Andrew Mullen, Patrick Renie, and David N. Ross.
+    *  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
+    *  Pathfinder Adventure Path #157: Devil at the Dreaming Palace © 2020, Paizo Inc.; Authors: James L. Sutter, with Luis Loza, Andrew Mullen, Samantha Phelan, and Patrick Renie.
+    *  Pathfinder Adventure Path #158: Sixty Feet Under © 2020, Paizo Inc.; Authors: Michael Sayre, Saif Ansari, Leo Glass, Ron Lundeen, Jacob W. Michaels, Patrick Renie, and David N. Ross
+    *  Pathfinder Adventure Path #159: All or Nothing © 2020, Paizo Inc.; Authors: Jason Keeley
     *  Pathfinder Adventure Path #160: Assault on Hunting Lodge Seven © 2020, Paizo Inc.; Authors: Ron Lundeen
     *  Pathfinder Adventure Path #161: Belly of the Black Whale © 2020, Paizo Inc.; Authors: Cole Kronewitter
     *  Pathfinder Adventure Path #162: Ruins of the Radiant Siege © 2020, Paizo Inc.; Authors: Amber Stewart
-	*  Abomination Vaults Player's Guide © 2021, Paizo Inc.; Author: Ron Lundeen.
+    *  Abomination Vaults Player's Guide © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure Path #163: Ruins of Gauntlight © 2021, Paizo Inc.; Authors: James Jacobs
     *  Pathfinder Adventure Path #164: Hands of the Devil © 2021, Paizo Inc.; Authors: Vanessa Hoskins
     *  Pathfinder Adventure Path #165: Eyes of Empty Death © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
@@ -177,13 +182,13 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Quest #8: Shadows of the Black Soverign © 2020, Paizo Inc.; Author: Alexandria Bustion.
     * Pathfinder Society Quest #9: Wayfinder Origins © 2020, Paizo Inc.; Author: Dustin Knight.
     * Pathfinder Society Quest #10: The Broken Scales © 2020, Paizo Inc.; Author: Amber Stewart
-	* Pathfinder Society Quest #11: A Parchment Tree © 2020, Paizo Inc.; Author: Carlos Cabrera.
-	* Pathfinder Society Quest #12: Putrid Seeds © 2020, Paizo Inc.; Author: Cass Reyfield and James Case.
-	* Pathfinder Society Quest #13: Falcons' Descent © 2020, Paizo Inc.; Author: Joshua Hennington.
+    * Pathfinder Society Quest #11: A Parchment Tree © 2020, Paizo Inc.; Author: Carlos Cabrera.
+    * Pathfinder Society Quest #12: Putrid Seeds © 2020, Paizo Inc.; Author: Cass Reyfield and James Case.
+    * Pathfinder Society Quest #13: Falcons' Descent © 2020, Paizo Inc.; Author: Joshua Hennington.
 
-	* Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
-	* Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
-	* Pathfinder Society Bounty #3: Shadow and Scarecrows © 2020, Paizo Inc.; Author: Jacob W. Michaels
+    * Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
+    * Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
+    * Pathfinder Society Bounty #3: Shadow and Scarecrows © 2020, Paizo Inc.; Author: Jacob W. Michaels
     * Pathfinder Society Bounty #4: Cat's Cradle © 2020, Paizo Inc.; Author: Hilary Moon Murphy
     * Pathfinder Society Bounty #5: Witch's Winter Holiday © 2020, Paizo Inc.; Author: Patrick Hurley
     * Pathfinder Society Bounty #6: The Road from Otari © 2021, Paizo Inc.; Author: Ron Lundeen
@@ -227,19 +232,19 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #1-19: Iolite Squad Alpha © 2020, Paizo Inc.; Author: Mike Kimmel.
     * Pathfinder Society Scenario #1-20: The Lost Legend © 2020, Paizo Inc.; Author: Chris Sims.
     * Pathfinder Society Scenario #1-21: Mistress of the Maze © 2020, Paizo Inc.; Author: Christen N. Sowards.
-	* Pathfinder Society Scenario #1-22: Doom of Cassomir © 2020, Paizo Inc.; Author: Calder CaDavid.
-	* Pathfinder Society Scenario #1-23: The Star-Crossed Court © 2020, Paizo Inc.; Author: Alex Riggs.
-	* Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall © 2020, Paizo Inc.; Author: Vanessa Hoskins.
-	* Pathfinder Society Scenario #1-25: Grim Symphony © 2020, Paizo Inc.; Author: Eleanor Ferron.
-	* Pathfinder Society Scenario #2-00: The King in Thorns (Levels 1-2) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
-	* Pathfinder Society Scenario #2-00: The King in Thorns (Levels 3-6) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
-	* Pathfinder Society Scenario #2-00: The King in Thorns (Levels 7-8) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
-	* Pathfinder Society Scenario #2-01: Citadel of Corruption © 2020, Paizo Inc.; Author: Scott D. Young
-	* Pathfinder Society Scenario #2-02: Mountain of Sea and Sky © 2020, Paizo Inc.; Authors: Adrian Ng
-	* Pathfinder Society Scenario #2-03: Catastrophe's Spark © 2020, Paizo Inc.; Authors: Tineke Bolleman
-	* Pathfinder Society Scenario #2-04: Path of Kings © 2020, Paizo Inc.; Authors: Luis Loza
-	* Pathfinder Society Scenario #2-05: Balancing the Scales © 2020, Paizo Inc.; Authors: Jessica Catalan
-	* Pathfinder Society Scenario #2-06: The Crashing Wave © 2020, Paizo Inc.; Authors: Dustin Knight
+    * Pathfinder Society Scenario #1-22: Doom of Cassomir © 2020, Paizo Inc.; Author: Calder CaDavid.
+    * Pathfinder Society Scenario #1-23: The Star-Crossed Court © 2020, Paizo Inc.; Author: Alex Riggs.
+    * Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall © 2020, Paizo Inc.; Author: Vanessa Hoskins.
+    * Pathfinder Society Scenario #1-25: Grim Symphony © 2020, Paizo Inc.; Author: Eleanor Ferron.
+    * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 1-2) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
+    * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 3-6) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
+    * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 7-8) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
+    * Pathfinder Society Scenario #2-01: Citadel of Corruption © 2020, Paizo Inc.; Author: Scott D. Young
+    * Pathfinder Society Scenario #2-02: Mountain of Sea and Sky © 2020, Paizo Inc.; Authors: Adrian Ng
+    * Pathfinder Society Scenario #2-03: Catastrophe's Spark © 2020, Paizo Inc.; Authors: Tineke Bolleman
+    * Pathfinder Society Scenario #2-04: Path of Kings © 2020, Paizo Inc.; Authors: Luis Loza
+    * Pathfinder Society Scenario #2-05: Balancing the Scales © 2020, Paizo Inc.; Authors: Jessica Catalan
+    * Pathfinder Society Scenario #2-06: The Crashing Wave © 2020, Paizo Inc.; Authors: Dustin Knight
     * Pathfinder Society Scenario #2-07: The Blakros Deception © 2020, Paizo Inc.; Authors: Charlie Brooks
     * Pathfinder Society Scenario #2-08: A Frosty Mug © 2020, Paizo Inc.; Authors: Mikhail Rekun
     * Pathfinder Society Scenario #2-09: The Seven Secrets of Dacilane Academy © 2020, Paizo Inc.; Authors: Rigby Bendele
@@ -256,18 +261,18 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #2-20: Breaking the Storm: Bastion in Embers © 2021, Paizo Inc.; Authors: Christopher Wasko
     * Pathfinder Society Scenario #2-21: In Pursuit of Water © 2021, Paizo Inc.; Authors: Matt Duval
     * Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination © 2021, Paizo Inc.; Authors: Nicholas Wasko
-	* Pathfinder Society Scenario #2-23: An Agent's Obligation © 2021, Paizo Inc.; Authors: Joshua Hennington
-	* Pathfinder Society Scenario #2-24: Breaking the Storm: Parting Clouds © 2021, Paizo Inc.; Authors: Tineke Bolleman
-	* Pathfinder Society Scenario #3-01: Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
-	* Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
-	* Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
+    * Pathfinder Society Scenario #2-23: An Agent's Obligation © 2021, Paizo Inc.; Authors: Joshua Hennington
+    * Pathfinder Society Scenario #2-24: Breaking the Storm: Parting Clouds © 2021, Paizo Inc.; Authors: Tineke Bolleman
+    * Pathfinder Society Scenario #3-01: Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
+    * Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
+    * Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
     * Pathfinder Society Scenario #3-04: The Devil-Wrought Disappearance © 2021, Paizo Inc.; Authors: Joseph Blomquist
     * Pathfinder Society Scenario #3-05: Inheritor's Rite © 2021, Paizo Inc.; Authors: Elizabeth V Nold
     * Pathfinder Society Scenario #3-06: Struck by Shadows © 2021, Paizo Inc.; Authors: Luis Loza
     * Pathfinder Society Scenario #3-07: The Locked Lodge © 2021, Paizo Inc.; Authors: Kalervo Oikarinen
     * Pathfinder Society Scenario #3-08: Foundation's Price © 2022, Paizo Inc.; Authors: Letterio Mammoliti
     * Pathfinder Society Scenario #3-09: The Secluded Siege © 2022, Paizo Inc.; Authors: Lysle Kapp
-	* Pathfinder Society Scenario #3-10: Delve the Pallid Depths © 2022, Paizo Inc.; Authors: Caryn DiMarco
+    * Pathfinder Society Scenario #3-10: Delve the Pallid Depths © 2022, Paizo Inc.; Authors: Caryn DiMarco
     * Pathfinder Society Scenario #3-11: No Time for Treason © 2022, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #3-12: Fury's Toll © 2022, Paizo Inc.; Authors: Solomon St. John
     * Pathfinder Society Scenario #3-13: Guardian's Covenant © 2022, Paizo Inc.; Authors: Christopher Wasko
@@ -280,10 +285,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 1-4) © 2022, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 3-6) © 2022, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
-	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
-	* Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
-	* Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
-	* Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
+    * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
+    * Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
+    * Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
+    * Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
@@ -305,9 +310,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Lost Omens Gods & Magic (Second Edition) © 2020, Paizo Inc.; Authors: Robert Adducci, Amirali Attar Olyaee, Calder CaDavid, James Case, Adam Daigle, Katina Davis, Leo Glass, Joshua Grinlinton, James Jacobs, Virginia Jordan, Jason Keeley, Jacky Leung, Lyz Liddell, Ron Lundeen, Stephanie Lundeen, Jacob W. Michaels, Matt Morris, Dave Nelson, Samantha Phelan, Jennifer Povey, Jessica Redekop, Nathan Reinecke, Patrick Renie, David N. Ross, Simone D. Sallé, Michael Sayre, David Schwartz, Shahreena Shahrani, Isabelle Thorne, Marc Thuot, Jason Tondro, and Diego Valdez.
     *  Pathfinder Lost Omens World Guide (Second Edition) © 2019, Paizo Inc.; Authors: Tanya DePass, James Jacobs, Lyz Liddell, Ron Lundeen, Liane Merciel, Erik Mona, Mark Seifter, James L. Sutter.
     *  Pathfinder Lost Omens Legends (Second Edition) © 2020, Paizo Inc.; Authors: Amirali Attar Olyaee, Alexander Augunas, Kate Baker, Jason Bulmahn, Alexandria Bustion, Carlos Cabrera, Calder CaDavid, Jessica Catalan, Natalie Collazo, Ryan Costello, Jr, Greg Diaz, Fabby Garza Marroquín, Jaym Gates, Alice Grizzle, Steven Hammond, Nicolas Hornyak, James Jacobs, Michelle Jones, Kristina Sisto Kindel, Aaron Lascano, Ron Lundeen, Stephanie Lundeen, Sydney Meeker, Liane Merciel, Matt Morris, Patchen Mortimer, Hilary Moon Murphy, Dennis Muldoon, Andrew Mullen, Mikhail Rekun, Michael Sayre, Mark Seifter, Ashton Sperry, Owen K.C. Stephens, and Isabelle Thorne.
-	*  Pathfinder Lost Omens Ancestry Guide (Second Edition) © 2021, Paizo Inc.; Authors: Calder CaDavid, James Case, Jessica Catalan, Eleanor Ferron, Lyz Liddell, Luis Loza, Ron Lundeen, Patchen Mortimer, Andrew Mullen, Samantha Phelan, Jessica Redekop, Mikhail Rekun, David N. Ross, Mark Seifter, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
+    *  Pathfinder Lost Omens Ancestry Guide (Second Edition) © 2021, Paizo Inc.; Authors: Calder CaDavid, James Case, Jessica Catalan, Eleanor Ferron, Lyz Liddell, Luis Loza, Ron Lundeen, Patchen Mortimer, Andrew Mullen, Samantha Phelan, Jessica Redekop, Mikhail Rekun, David N. Ross, Mark Seifter, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Azarketi Ancestry Web Supplement © 2021, Paizo Inc.; Author: Samantha Phelan.
-	*  Pathfinder Lost Omens The Mwangi Expanse © 2021, Paizo Inc.; Authors: Laura-Shay Adams, Mariam Ahmad, Jahmal Brown, Misha Bushyager, Alexandria Bustion, Duan Byrd, John Compton, Sarah Davis, Mara Lynn Butler, Kent Hamilton, Amanda Hamon, Sasha Laranoa Harving, Gabriel Hicks, TK Johnson, Michelle Jones, Jason Keeley, Joshua Kim, Travis Lionel, Ron Lundeen, Stephanie Lundeen, Hilary Moon Murphy, Lu Pellazar, Mikhail Rekun, Nate Wright, and Jabari Weathers
+    *  Pathfinder Lost Omens The Mwangi Expanse © 2021, Paizo Inc.; Authors: Laura-Shay Adams, Mariam Ahmad, Jahmal Brown, Misha Bushyager, Alexandria Bustion, Duan Byrd, John Compton, Sarah Davis, Mara Lynn Butler, Kent Hamilton, Amanda Hamon, Sasha Laranoa Harving, Gabriel Hicks, TK Johnson, Michelle Jones, Jason Keeley, Joshua Kim, Travis Lionel, Ron Lundeen, Stephanie Lundeen, Hilary Moon Murphy, Lu Pellazar, Mikhail Rekun, Nate Wright, and Jabari Weathers
     * Dragon, Faerie from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     * Pathfinder Lost Omens Grand Bazaar © 2021, Paizo Inc.; Authors: Tineke Bolleman, Logan Bonner, Jessica Catalan, Dominique Dickey, Dana Ebert, Steven Hammond, Sen H.H.S., Dustin Knight, Avi Kool, Aaron Lascano, Carlos Luna, Ron Lundeen, Sydney Meeker, Randal Meyer, Jacob Michaels, Matt Morris, Andrew Mullen, Ianara Natividad, Dave Nelson, Jessica Redekop, Nathan Reinecke, Erin Roberts, David N. Ross, Simone Sallé, Mark Seifter, Shay Snow, Ashton Sperry, Amber Stewart, Andrew Stoeckle, Isabelle Thorne, Jason Tondro, and Scott D. Young.
     * Pathfinder Lost Omens Absalom, City of Lost Omens © 2021, Paizo Inc.; Authors: Allie Bustion, John Compton, Jeremy Corff, Katina Davis, Vanessa Hoskins, James Jacobs, Virginia Jordan, Erik Mona, Matt Morris, Liane Merciel, Dave Nelson, Samantha Phelan, Jessica Redekop, Mikhail Rekun, Brian Richmond, David N. Ross, Simone D. Sallé, Shahreena Shahrani, Abigail Slater, Chris Spivey, Diego Valdez, and Skylar- James Wall.
@@ -319,12 +324,12 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
     *  Pathfinder Free RPG Day Adventure 2020: Little Trouble in Big Absalom © 2020, Paizo Inc.; Author: Eleanor Ferron
     *  Pathfinder Free RPG Day Adventure 2021: Threshold of Knowledge © 2021, Paizo Inc.; Author: Ron Lundeen, Jabari Weathers
-	*  Pathfinder Free RPG Day Adventure 2022: A Fistful of Flowers © 2022, Paizo Inc.; Author: Eleanor Ferron, Linda Zayas-Palmer
+    *  Pathfinder Free RPG Day Adventure 2022: A Fistful of Flowers © 2022, Paizo Inc.; Author: Eleanor Ferron, Linda Zayas-Palmer
 
 *  One Shots
     *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
     *  Pathfinder One-Shot #1: Sundered Waves Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn
-	*  Pathfinder One-Shot #2: Dinner at Lionlodge © 2021, Paizo Inc.; Author: James Jacobs
+    *  Pathfinder One-Shot #2: Dinner at Lionlodge © 2021, Paizo Inc.; Author: James Jacobs
     *  Pathfinder One-Shot #2: Dinner at Lionlodge Pregenerated Characters © 2021, Paizo Inc.; Author: James Jacobs
     *  Pathfinder One-Shot #3: Head Shot the Rot © 2021, Paizo Inc.; Author: Michael Sayre
     *  Pathfinder One-Shot #3: Head Shot the Rot Pregenerated Characters © 2021, Paizo Inc.; Author: Michael Sayre
@@ -339,27 +344,27 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 
 *  Paizo Blog
     *  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
-	*  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
-	*  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
-	*  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.
-	*  Pathfinder Bestiary 3 Bonus Monster © 2021, Paizo Inc.; Chris Sims; Illustrator: Leonardo Borazio.
-	*  Pathfinder Encounter: Phinelli's Miracle Elixir © 2021, Paizo Inc.; Author Unknown; Illustrator: Alberto Dal Lago.
-	*  No-Prep Character: Lisavet © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
-	*  No-Prep Character: Urok © 2021, Paizo Inc.; Author: Luis Loza; Illustrator: Gin Skalauskas.
-	*  No-Prep Character: Chea © 2021, Paizo Inc.; Authors: Eleanor Ferron, Luis Loza; Illustrator: Rashad Pozdnyakov.
-	*  No-Prep Character: Eleukas © 2021, Paizo Inc.; Author: Ron Lundeen.
-	*  GM's Toolkit: Secret Keeper's Mask © 2021, Paizo Inc.; Author: Ron Lundeen.
-	*  Pathfinder Encounter: Heaving Kobolds © 2021, Paizo Inc.; Author: Ron Lundeen.
-	*  A Caroling Horse (Of Course. Of Course.) © 2021, Paizo Inc.; Author: Eleanor Ferron.
-	*  GM's Toolbox: Gravehall © 2020, Paizo Inc.; Author: Ron Lundeen.
-	*  The Waters of Stone Ring Pond © 2020, Paizo Inc.; Author: Ron Lundeen.
-	*  Redpitch Alchemy © 2020, Paizo Inc.; Author: Ron Lundeen.
-	*  Pathfinder Encounter: We Be Zombies! © 2020, Paizo Inc.; Author: Ron Lundeen.
-	*  No-Prep Character: Morlibint © 2020, Paizo Inc.; Author Unknown.
-	*  No-Prep Character: Pr'rall © 2020, Paizo Inc.; Author: Mark Moreland, Illustrator: Marius Bota.
-	*  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
-	*  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
-	*  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
+    *  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
+    *  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+    *  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.
+    *  Pathfinder Bestiary 3 Bonus Monster © 2021, Paizo Inc.; Chris Sims; Illustrator: Leonardo Borazio.
+    *  Pathfinder Encounter: Phinelli's Miracle Elixir © 2021, Paizo Inc.; Author Unknown; Illustrator: Alberto Dal Lago.
+    *  No-Prep Character: Lisavet © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+    *  No-Prep Character: Urok © 2021, Paizo Inc.; Author: Luis Loza; Illustrator: Gin Skalauskas.
+    *  No-Prep Character: Chea © 2021, Paizo Inc.; Authors: Eleanor Ferron, Luis Loza; Illustrator: Rashad Pozdnyakov.
+    *  No-Prep Character: Eleukas © 2021, Paizo Inc.; Author: Ron Lundeen.
+    *  GM's Toolkit: Secret Keeper's Mask © 2021, Paizo Inc.; Author: Ron Lundeen.
+    *  Pathfinder Encounter: Heaving Kobolds © 2021, Paizo Inc.; Author: Ron Lundeen.
+    *  A Caroling Horse (Of Course. Of Course.) © 2021, Paizo Inc.; Author: Eleanor Ferron.
+    *  GM's Toolbox: Gravehall © 2020, Paizo Inc.; Author: Ron Lundeen.
+    *  The Waters of Stone Ring Pond © 2020, Paizo Inc.; Author: Ron Lundeen.
+    *  Redpitch Alchemy © 2020, Paizo Inc.; Author: Ron Lundeen.
+    *  Pathfinder Encounter: We Be Zombies! © 2020, Paizo Inc.; Author: Ron Lundeen.
+    *  No-Prep Character: Morlibint © 2020, Paizo Inc.; Author Unknown.
+    *  No-Prep Character: Pr'rall © 2020, Paizo Inc.; Author: Mark Moreland, Illustrator: Marius Bota.
+    *  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
+    *  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
+    *  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
 *   Other
     * Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente
     * Pathfinder Society Year 4 Rule Updates © 2022, Paizo Inc.; Authors: Mike Kimmel, Alex Speidel
