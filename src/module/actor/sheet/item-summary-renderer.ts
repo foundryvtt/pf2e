@@ -13,8 +13,8 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
-            const $li = $(event.currentTarget).closest("[data-item-id], .expandable");
-            await this.toggleSummary($li);
+            const $element = $(event.currentTarget).closest("[data-item-id], .expandable");
+            await this.toggleSummary($element);
         });
     }
 
@@ -23,19 +23,19 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
      * delegating the populating of the item summary to renderItemSummary().
      * Returns true if it the item is valid and it was toggled.
      */
-    async toggleSummary($li: JQuery, options: { instant?: boolean } = {}) {
+    async toggleSummary($element: JQuery, options: { instant?: boolean } = {}) {
         const actor = this.sheet.actor;
 
-        const itemId = $li.attr("data-item-id");
-        const itemType = $li.attr("data-item-type");
+        const itemId = $element.attr("data-item-id");
+        const itemType = $element.attr("data-item-type");
         if (itemType === "spellSlot") return;
         const item = itemType === "formula" ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
 
         // If there is no item id (such as PC strikes) or it is a condition, this is just a visibility toggle
         // We need a better way to detect pre-rendered item-summaries
         const isCondition = item instanceof ItemPF2e && item?.isOfType("condition");
-        if ((!itemId || isCondition) && $li.hasClass("expandable")) {
-            const $summary = $li.find(".item-summary");
+        if ((!itemId || isCondition) && $element.hasClass("expandable")) {
+            const $summary = $element.find(".item-summary");
             if ($summary.css("display") === "none") {
                 $summary.slideDown();
             } else {
@@ -49,8 +49,8 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
 
         // Toggle summary
-        if ($li.hasClass("expanded")) {
-            const $summary = $li.children(".item-summary");
+        if ($element.hasClass("expanded")) {
+            const $summary = $element.children(".item-summary");
             if (options.instant) {
                 $summary.hide().empty();
             } else {
@@ -58,14 +58,14 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             }
         } else {
             const $summary = (() => {
-                const $existing = $li.find(".item-summary");
+                const $existing = $element.children(".item-summary");
                 if ($existing.length) return $existing;
 
                 const $summary = $('<div class="item-summary">');
-                return $summary.insertAfter($li.children(".item-name, .item-controls, .action-header").last());
+                return $summary.insertAfter($element.children(".item-name, .item-controls, .action-header").last());
             })();
 
-            const chatData = item.getChatData({ secrets: actor.isOwner }, $li.data());
+            const chatData = item.getChatData({ secrets: actor.isOwner }, $element.data());
             this.renderItemSummary($summary, item, chatData);
             if (options.instant) {
                 InlineRollLinks.listen($summary);
@@ -76,7 +76,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             }
         }
 
-        $li.toggleClass("expanded");
+        $element.toggleClass("expanded");
     }
 
     /**
