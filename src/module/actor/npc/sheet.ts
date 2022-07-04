@@ -205,7 +205,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         $html.find(".item-control.generate-attack").on("click", async (event) => {
             const { actor } = this;
-            const itemId = event.currentTarget.closest("li")?.dataset.itemId ?? "";
+            const itemId = event.currentTarget.closest<HTMLElement>(".item")?.dataset.itemId ?? "";
             const item = actor.items.get(itemId, { strict: true });
             if (item.isOfType("weapon")) {
                 const attacks = item.toNPCAttacks().map((a) => a.toObject());
