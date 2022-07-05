@@ -35,7 +35,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get size(): Size {
-        this.folder;
         return this.data.data.size;
     }
 
