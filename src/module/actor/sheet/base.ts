@@ -1025,7 +1025,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
-    private onClickCreateItem(event: JQuery.ClickEvent) {
+    private onClickCreateItem(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>) {
         event.preventDefault();
         const header = event.currentTarget;
         const data: any = duplicate(header.dataset);
@@ -1049,6 +1049,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 "data.level.value": data.level,
                 "data.location.value": data.location,
             });
+        } else if (data.type === "feat") {
+            const featType = header.dataset.featType || "";
+            if (featType && !objectHasKey(CONFIG.PF2E.featTypes, featType)) return;
+            data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
+            mergeObject(data, { "data.featType.value": featType });
         } else if (data.type === "lore") {
             data.name =
                 this.actor.type === "npc"
