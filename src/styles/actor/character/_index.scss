@@ -22,6 +22,85 @@ nav.sheet-navigation {
 }
 
 .sheet-body .sheet-content {
+    & > .tab.active {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    & > .tab:not(.inventory, .actions),
+    .tab-content {
+        @include scrollbar;
+        flex-grow: 1;
+        min-height: 0;
+        overflow: hidden scroll;
+        padding-top: 6px;
+        padding-right: 20px;
+        margin-left: 8px;
+    }
+
+    nav {
+        @include p-reset;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+
+        background-color: var(--bg);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+        width: 100%;
+        flex: 0 0 44px;
+        padding-right: 20px;
+
+        &::before, &::after {
+            content: "";
+            width: 37px;
+            height: 16px;
+            background: url("../assets/sheet/sub-nav-decoration.png");
+            margin: 0 16px;
+        }
+
+        &::after {
+            transform: scaleX(-100%);
+        }
+
+        .tab {
+            display: block;
+            color: var(--alt);
+            cursor: pointer;
+            flex: 1;
+            font-family: var(--sans-serif);
+            font-size: var(--font-size-16);
+            font-weight: 400;
+            text-decoration: none;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+
+            &.active {
+                color: var(--primary);
+                font-weight: 700;
+            }
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-right: none;
+            }
+
+            &:hover {
+                text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+            }
+        }
+    }
+
+    nav + .tab-content {
+        padding-top: 12px;
+    }
+
     h3.header {
         position: relative;
         margin-top: 0.75em;
