@@ -39,6 +39,17 @@ header.char-header {
 }
 
 .sheet-content {
+    padding-top: 6px;
+    padding-left: 8px;
+    & > .tab:not(.inventory),
+    .inventory .inventory-list {
+        @include scrollbar;
+        flex-grow: 1;
+        min-height: 0;
+        overflow: hidden scroll;
+        padding-right: 20px;
+    }
+
     .details {
         .vehicle-details {
             display: grid;
