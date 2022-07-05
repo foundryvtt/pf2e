@@ -19,10 +19,67 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.Axe",
+                        "value": "axe"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.Shield",
+                        "value": "shield"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.Torch",
+                        "value": "torch"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Orc.HoldMark.Prompt",
+                "rollOption": "hold-mark"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "hold-mark:axe"
+                    ],
+                    "any": [
+                        "weapon:group:axe",
+                        "weapon:group:pick"
+                    ]
+                }
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "hold-mark:shield"
+                    ],
+                    "any": [
+                        "weapon:group:shield",
+                        "weapon:group:hammer"
+                    ]
+                }
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "hold-mark:torch"
+                    ],
+                    "any": [
+                        "weapon:group:bomb",
+                        "weapon:group:knife"
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

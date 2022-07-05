@@ -19,23 +19,17 @@
         "level": {
             "value": 9
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Is taking Persistent Damage or is Wounded",
-                "option": "deaths-drums",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": {
                     "any": [
-                        "deaths-drums"
+                        "self:condition:persistent-damage",
+                        "self:condition:wounded"
                     ]
                 },
                 "selector": "fortitude",
