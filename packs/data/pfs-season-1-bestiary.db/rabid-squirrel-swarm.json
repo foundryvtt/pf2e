@@ -130,6 +130,51 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "4oy8W3WbRqXYpKsF",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
             "_id": "wakLLGLUq65OLNcq",
             "data": {
                 "actionCategory": {
@@ -156,7 +201,9 @@
                     "custom": "",
                     "rarity": "common",
                     "selected": {},
-                    "value": []
+                    "value": [
+                        "disease"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -167,7 +214,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rabies",
-            "sort": 100000,
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -183,7 +230,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} and must attempt a @Check[type:reflex|dc:17|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage</p>\n<p><strong>Failure</strong> The creature takes full damage, is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and is exposed to rabies.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is clumsy 2, falls prone, and is exposed to rabies.</p>\n<p>A creature affected by this attack can spend 2 actions on its turn to attempt another @Check[type:reflex|dc:17|traits:damaging-effect] save to remove the clumsy condition.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} and must attempt a @Check[type:reflex|dc:17|traits:damaging-effect] save.</p>\n<p>A creature affected by this attack can spend 2 actions on its turn to attempt another DC 17 Reflex save to remove the clumsy condition.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage</p>\n<p><strong>Failure</strong> The creature takes full damage, is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and is exposed to rabies.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is clumsy 2, falls @Compendium[pf2e.conditionitems.Prone]{Prone}, and is exposed to rabies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -208,7 +255,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Swarming Claws and Teeth",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -236,7 +283,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -251,7 +298,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Climb",
+                        "predicate": {
+                            "all": [
+                                "action:climb"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -260,11 +319,17 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+6 to Climb",
+                        "options": "action:climb"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         }
     ],

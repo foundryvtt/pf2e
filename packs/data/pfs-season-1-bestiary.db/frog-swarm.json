@@ -131,6 +131,51 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "EI76Khq47G0yceM1",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
             "_id": "e6gQA5jXDMbCKyDj",
             "data": {
                 "actionCategory": {
@@ -143,7 +188,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Any living creature within the area of a frog swarm must attempt a @Check[type:will|dc:12] save. Humanoids that fail this save are stunned 1 (stunned 2 on a critical failure). Animals are frightened 1 on a successful save, frightened 2 and fleeing on a failure, and frightened 3 and fleeing on a critical failure.</p>"
+                    "value": "<p>Any living creature within the area of a frog swarm must attempt a @Check[type:will|dc:12] save. Humanoids that fail this save are @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 2} on a critical failure). Animals are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} on a successful save, @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} on a failure, and @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and fleeing on a critical failure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -168,7 +213,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Distraction",
-            "sort": 100000,
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -183,7 +228,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Jump",
+                        "predicate": {
+                            "all": [
+                                "action:jump"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "type": "untyped",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -192,11 +250,17 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 to jump",
+                        "options": "action:jump"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 200000,
+            "sort": 300000,
             "type": "lore"
         }
     ],
