@@ -57,6 +57,11 @@ class EffectPF2e extends ItemPF2e {
         }
     }
 
+    /** Does this effect originate from an aura? */
+    get fromAura(): boolean {
+        return !!this.data.flags.pf2e.aura;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         const { duration } = this.data.data;
@@ -65,11 +70,6 @@ class EffectPF2e extends ItemPF2e {
         } else {
             duration.expiry ||= "turn-start";
         }
-    }
-
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
-        if (this.actor) game.pf2e.effectTracker.register(this as Embedded<this>);
     }
 
     /** Set a self roll option for this effect */

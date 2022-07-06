@@ -1,9 +1,12 @@
 import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene";
-import { TokenLayerPF2e } from ".";
-import { measureDistanceRect } from "./helpers";
+import { measureDistanceRect, TokenLayerPF2e } from "..";
+import { TokenAuras } from "./auras";
 
-export class TokenPF2e extends Token<TokenDocumentPF2e> {
+class TokenPF2e extends Token<TokenDocumentPF2e> {
+    /** Visual representation and proximity-detection facilities for auras */
+    auras = new TokenAuras(this);
+
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
@@ -13,6 +16,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Is the user currently controlling this token? */
     get isControlled(): boolean {
         return this._controlled;
+    }
+
+    /** Is the user currently mouse-hovering this token? */
+    get isHovered(): boolean {
+        return this._hover;
     }
 
     /** Is this token currently moving? */
@@ -40,7 +48,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this.data.flags.pf2e.linkToActorSize;
     }
 
-    /** The highlight layer for this token */
+    /** The ID of the highlight layer for this token */
     get highlightId(): string {
         return `Token.${this.id}`;
     }
@@ -138,9 +146,17 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Make the drawing promise accessible to `#redraw` */
     override async draw(): Promise<this> {
+        this.auras.clear();
         this.drawLock = super.draw();
         await this.drawLock;
+
         return this;
+    }
+
+    /** Draw auras along with effect icons */
+    override drawEffects(): Promise<void> {
+        this.auras.draw();
+        return super.drawEffects();
     }
 
     emitHoverIn() {
@@ -270,6 +286,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return Math.floor(hypotenuse / gridDistance) * gridDistance;
     }
 
+    /** Add a callback for when a movement animation finishes */
+    override async animateMovement(ray: Ray): Promise<void> {
+        await super.animateMovement(ray);
+        this.onFinishMoveAnimation();
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -278,6 +300,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
+        this.auras.refresh();
         canvas.lighting.setPerceivedLightLevel(this);
     }
 
@@ -288,6 +311,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const hasLowLightVision = canvas.sight.sources.some((s) => s.object !== this && s.object.hasLowLightVision);
         canvas.lighting.setPerceivedLightLevel({ hasLowLightVision });
         super._onRelease(options);
+        this.auras.refresh();
     }
 
     /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
@@ -308,6 +332,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         super._onUpdate(changed, options, userId);
     }
 
+    protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
+        super._onDragLeftStart(event);
+        this.auras.clearHighlights();
+    }
+
     /** If a single token (this one) was dropped, re-establish the hover status */
     protected override async _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]> {
         const clones = event.data.clones ?? [];
@@ -318,18 +347,73 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             this.emitHoverIn();
         }
 
+        this.auras.refresh();
+
         return dropped;
     }
+
+    protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
+        const refreshed = super._onHoverIn(event, options);
+        if (refreshed === false) return false;
+        this.auras.refresh();
+
+        return true;
+    }
+
+    protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
+        const refreshed = super._onHoverOut(event);
+        if (refreshed === false) return false;
+        this.auras.refresh();
+
+        return true;
+    }
+
+    override _onCreate(
+        data: foundry.data.TokenSource,
+        options: DocumentModificationContext<TokenDocumentPF2e>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+
+        window.setTimeout(() => this.auras.notifyActors(), 0);
+    }
+
+    /** Destroy auras before removing this token from the canvas */
+    override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
+        super._onDelete(options, userId);
+        this.auras.clear();
+        this.actor?.checkAreaEffects();
+    }
+
+    /** A callback for when a movement animation for this token finishes */
+    private async onFinishMoveAnimation(): Promise<void> {
+        if (this._movement) return;
+
+        this.auras.refresh();
+
+        // Notify actors inside this token's auras
+        await this.auras.notifyActors();
+        for (const effect of game.pf2e.effectTracker.auraEffects) {
+            if (effect.actor.isOwner) {
+                await effect.actor.checkAreaEffects();
+            }
+        }
+
+        // Have other tokens with auras notify this actor
+        for (const token of canvas.tokens.placeables) {
+            await token.auras.notifyActors(this);
+        }
+    }
+}
+
+interface TokenPF2e extends Token<TokenDocumentPF2e> {
+    get layer(): TokenLayerPF2e<this>;
+
+    icon?: TokenImage;
 }
 
 interface TokenImage extends PIXI.Sprite {
     src?: VideoPath;
-}
-
-export interface TokenPF2e extends Token<TokenDocumentPF2e> {
-    get layer(): TokenLayerPF2e<this>;
-
-    icon?: TokenImage;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };
@@ -338,3 +422,5 @@ type ShowFloatyEffectParams =
     | { create: NumericFloatyEffect }
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
+
+export { TokenPF2e };

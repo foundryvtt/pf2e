@@ -18,14 +18,21 @@ export const CanvasReady = {
                 game.pf2e.effectPanel.render(true);
             }
 
-            // Redraw tokens
-            (async () => {
+            Promise.resolve().then(async () => {
+                // Redraw tokens
                 for (const token of canvas.tokens.placeables) {
                     const { visible } = token;
                     await token.draw();
                     token.visible = visible;
                 }
-            })();
+
+                // Recheck auras and aura effects when an active scene is (re)drawn
+                if (canvas.scene?.active) {
+                    for (const effect of game.pf2e.effectTracker.auraEffects) {
+                        await effect.actor.checkAreaEffects();
+                    }
+                }
+            });
         });
     },
 };
