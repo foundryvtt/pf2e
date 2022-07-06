@@ -1,3 +1,25 @@
+{{#if (not isVariant)}}
+<div class="form-list" data-can-drop="true">
+    <h3>
+        {{localize "PF2E.Item.Spell.Variants.LabelPlural"}}
+        <div class="item-controls">
+            <i class="fas fa-plus" data-action="variant-create"></i>
+        </div>
+    </h3>
+
+    {{#each variants as |variant|}}
+    <div class="details-container-flex-row" data-can-drag="true" data-variant-id="{{variant.id}}" draggable="true">
+        <label>{{variant.name}}</label>
+        <span class="activity-icon">{{variant.actions}}</span>
+        <div class="item-controls">
+            <a data-action="variant-edit" data-id="{{variant.id}}"><i class="fas fa-edit"></i></a>
+            <a data-action="variant-delete" data-id="{{variant.id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+
 <ol class="form-list">
     <div class="form-group">
         <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
