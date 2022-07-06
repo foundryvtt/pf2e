@@ -25,7 +25,7 @@ declare global {
         cursors: PIXI.Container;
 
         /** Ruler tools, one per connected user */
-        rulers: PIXI.Container;
+        rulers: RulerContainer;
 
         /** A graphics instance used for drawing debugging visualization */
         debug: PIXI.Container;
@@ -100,4 +100,8 @@ declare global {
 
 interface DoorContainer extends PIXI.Container {
     children: DoorControl[];
+}
+
+interface RulerContainer extends PIXI.Container {
+    children: Ruler[];
 }
