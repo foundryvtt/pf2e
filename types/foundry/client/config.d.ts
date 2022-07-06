@@ -1,5 +1,4 @@
 import type * as TinyMCE from "tinymce";
-import * as PIXI from "pixi.js";
 
 declare global {
     interface Config<
@@ -400,6 +399,12 @@ declare global {
             };
         };
 
+        /** Configure the default Token text style so that it may be reused and overridden by modules */
+        canvasTextStyle: PIXI.TextStyle;
+
+        /** Available Weather Effects implemntations */
+        weatherEffects: Record<string, SpecialEffect>;
+
         /** Configuration for dice rolling behaviors in the Foundry VTT client */
         Dice: {
             types: Array<typeof Die | typeof DiceTerm>;
@@ -414,9 +419,7 @@ declare global {
             randomUniform: Function;
         };
 
-        /**
-         * The control icons used for rendering common HUD operations
-         */
+        /** The control icons used for rendering common HUD operations */
         controlIcons: {
             combat: string;
             visibility: string;
@@ -433,9 +436,6 @@ declare global {
 
         /** The default font family used for text labels on the PIXI Canvas */
         defaultFontFamily: string;
-
-        /** Available Weather Effects implemntations */
-        weatherEffects: Record<string, SpecialEffect>;
 
         /** An array of status effect icons which can be applied to Tokens */
         statusEffects: string[];
