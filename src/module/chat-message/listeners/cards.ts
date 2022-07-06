@@ -70,7 +70,34 @@ export const ChatCards = {
                 else if (action === "spellDamage") spell?.rollDamage(event);
                 else if (action === "spellCounteract") spell?.rollCounteract(event);
                 else if (action === "spellTemplate") spell?.placeTemplate();
-                else if (action === "selectVariant") (await spell?.variantPrompt())?.toMessage();
+                else if (action === "selectVariant") {
+                    const spellLvl = Number($html.find<HTMLDivElement>("div.chat-card").attr("data-spell-lvl")) || 1;
+                    const overlayIdString = $button.attr("data-overlay-ids");
+                    const originalId = $button.attr("data-original-id") ?? "";
+                    if (overlayIdString) {
+                        const overlayIds = overlayIdString.split(",").map((id) => id.trim());
+                        const variantSpell = spell?.loadVariant({ overlayIds, castLevel: spellLvl });
+                        if (variantSpell) {
+                            const variantMessage = await variantSpell.toMessage(undefined, {
+                                create: false,
+                                data: { spellLvl },
+                            });
+                            if (variantMessage) {
+                                const messageSource = variantMessage.toObject();
+                                await message.update(messageSource);
+                            }
+                        }
+                    } else if (originalId) {
+                        const originalSpell = actor.items.get(originalId, { strict: true });
+                        const originalMessage = await originalSpell.toMessage(undefined, {
+                            create: false,
+                            data: { spellLvl },
+                        });
+                        if (originalMessage) {
+                            await message.update(originalMessage.toObject());
+                        }
+                    }
+                }
                 // Consumable usage
                 else if (action === "consume") {
                     if (item instanceof ConsumablePF2e) {

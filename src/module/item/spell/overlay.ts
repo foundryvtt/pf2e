@@ -1,4 +1,3 @@
-import { PickAThingPrompt, PickAThingConstructorArgs, PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { SpellOverlay, SpellOverlayType, SpellSource } from "./data";
 import { ErrorPF2e } from "@util";
 import { SpellPF2e } from ".";
@@ -102,27 +101,4 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     }
 }
 
-class SpellVariantPrompt extends PickAThingPrompt<Embedded<SpellPF2e>> {
-    constructor(data: PickAThingConstructorArgs<Embedded<SpellPF2e>>) {
-        super(data);
-        this.choices = data.choices ?? [];
-    }
-
-    static override get defaultOptions(): ApplicationOptions {
-        return {
-            ...super.defaultOptions,
-            width: "auto",
-            classes: ["choice-set-prompt"],
-        };
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/items/spell-variant-prompt.html";
-    }
-
-    protected override getChoices(): PickableThing<Embedded<SpellPF2e>>[] {
-        return this.choices;
-    }
-}
-
-export { SpellOverlayCollection, SpellVariantPrompt };
+export { SpellOverlayCollection };

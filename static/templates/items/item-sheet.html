@@ -52,7 +52,11 @@
 
             <!-- Item Description -->
             <div class="tab item-description" data-tab="description">
-                {{editor content=(enrichHTML data.description.value item=document) target="data.description.value" button=true owner=owner editable=editable}}
+                {{#if (not isVariant)}}
+                    {{editor content=(enrichHTML data.description.value item=document) target="data.description.value" button=true owner=owner editable=editable}}
+                {{else}}
+                    {{{enrichHTML data.description.value}}}
+                {{/if}}
             </div>
 
             <!-- Item Details -->

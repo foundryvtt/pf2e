@@ -308,7 +308,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                             sortBefore: true,
                         });
                         for (const s of sorting) {
-                            await s.target.update({ sort: s.update.sort }, { render: false });
+                            await this.item.overlays.updateOverride(s.target, s.update, { render: false });
                         }
                         this.render(true);
                     }
