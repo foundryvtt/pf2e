@@ -70,7 +70,19 @@ export const ChatCards = {
                 else if (action === "spellDamage") spell?.rollDamage(event);
                 else if (action === "spellCounteract") spell?.rollCounteract(event);
                 else if (action === "spellTemplate") spell?.placeTemplate();
-                else if (action === "selectVariant") (await spell?.variantPrompt())?.toMessage();
+                else if (action === "selectVariant") {
+                    const variantSpell = await spell?.variantPrompt();
+                    if (variantSpell) {
+                        const spellLvl = $html.find<HTMLDivElement>("div.chat-card").attr("data-spell-lvl");
+                        const variantMessage = await variantSpell.toMessage(undefined, {
+                            create: false,
+                            data: { spellLvl },
+                        });
+                        if (variantMessage) {
+                            await message.update(variantMessage.toObject());
+                        }
+                    }
+                }
                 // Consumable usage
                 else if (action === "consume") {
                     if (item instanceof ConsumablePF2e) {
