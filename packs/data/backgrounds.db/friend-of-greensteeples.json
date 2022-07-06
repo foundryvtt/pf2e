@@ -1,5 +1,5 @@
 {
-    "_id": "2VCxGbiKaFrchD3p",
+    "_id": "FlXu29r5C4CborZv",
     "data": {
         "boosts": {
             "0": {
@@ -37,22 +37,29 @@
                 "choices": [
                     {
                         "label": "PF2E.SkillDec",
-                        "value": "dec"
+                        "value": "deception"
                     },
                     {
                         "label": "PF2E.SkillSoc",
-                        "value": "soc"
+                        "value": "society"
                     }
                 ],
-                "flag": "skillChoice",
+                "flag": "skill",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.{item|flags.pf2e.rulesSelections.skillChoice}.rank",
+                "path": "data.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
                 "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "{item|flags.pf2e.rulesSelections.skill}"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Assurance"
             }
         ],
         "source": {
