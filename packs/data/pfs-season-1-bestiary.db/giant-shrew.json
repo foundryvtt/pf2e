@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -3
             },
             "con": {
                 "mod": 2
@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-05: Trailblazers' Bounty"
             }
         },
         "resources": {},
@@ -157,6 +157,96 @@
             "type": "melee"
         },
         {
+            "_id": "H4YWbkDPNdKimkIC",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "M0ZyNcoS8HIWPzhs",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "jpbiZA3DX4Hmsczw",
             "data": {
                 "actionCategory": {
@@ -169,7 +259,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:14]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> 1d4 poison (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:14]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -195,7 +285,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shrew Venom",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -223,11 +313,11 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 500000,
             "type": "lore"
         },
         {
-            "_id": "FsZrG4r1PHIYuKCG",
+            "_id": "Z9Xa2DxwUYLeQidf",
             "data": {
                 "description": {
                     "value": ""
@@ -238,7 +328,21 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Climb or Swim",
+                        "predicate": {
+                            "any": [
+                                "action:climb",
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -247,11 +351,17 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+4 to Climb or Swim",
+                        "options": "action:climb;action:swim"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+4 to Climb or Swim)",
-            "sort": 400000,
+            "name": "Athletics",
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -279,7 +389,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
