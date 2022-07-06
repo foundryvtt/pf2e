@@ -1,12 +1,12 @@
 {
-    "_id": "xIWdGhSA6Z7CQKBY",
+    "_id": "ut2cLLH0tvJV2ewg",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 3
             },
             "con": {
-                "mod": 1
+                "mod": 2
             },
             "dex": {
                 "mod": 4
@@ -15,7 +15,7 @@
                 "mod": 1
             },
             "str": {
-                "mod": 1
+                "mod": 3
             },
             "wis": {
                 "mod": 2
@@ -24,22 +24,22 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 19
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "negative healing",
-                "max": 20,
+                "max": 30,
                 "temp": 0,
-                "value": 20
+                "value": 30
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 7
+                "value": 10
             },
             "speed": {
                 "otherSpeeds": [
@@ -56,12 +56,12 @@
                 "value": "CE"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Undead",
             "level": {
-                "value": 1
+                "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Ghasts-feral, foul-smelling, and constantly hungry-are the more powerful kin of ghouls. They are relentless in the pursuit of their prey.</p>\n<hr />\n<p>Few creatures are more ubiquitous to sinister locations such as lonely graveyards and ruined crypts than the flesh-eating undead known as ghouls.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario #1-07: Flooded King's Court"
             }
@@ -70,15 +70,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 4
+                "value": 8
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 12
             },
             "will": {
                 "saveDetail": "",
-                "value": 5
+                "value": 10
             }
         },
         "traits": {
@@ -98,7 +98,10 @@
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "common",
+                    "necril"
+                ]
             },
             "rarity": "common",
             "senses": {
@@ -119,7 +122,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qWMXmmvbFDuewDiL",
+            "_id": "phoQ0yOkbf9saI2l",
             "data": {
                 "attack": {
                     "value": ""
@@ -127,16 +130,16 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "ghoul-ghoul-fever",
-                        "ghoul-paralysis"
+                        "ghast-ghast-fever",
+                        "ghast-paralysis"
                     ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 13
                 },
                 "damageRolls": {
-                    "d422qz24cc9t9az35hla": {
-                        "damage": "1d6+1",
+                    "oah2drarovo3s87t3akp": {
+                        "damage": "1d6+7",
                         "damageType": "piercing"
                     }
                 },
@@ -165,7 +168,7 @@
             "type": "melee"
         },
         {
-            "_id": "7F5kyDQnb0y7hQ8R",
+            "_id": "OcYo8NrM7fSjcymh",
             "data": {
                 "attack": {
                     "value": ""
@@ -173,15 +176,15 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "ghoul-paralysis"
+                        "ghast-paralysis"
                     ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 13
                 },
                 "damageRolls": {
-                    "dw3x7ldshujmtmuf3p78": {
-                        "damage": "1d4+1",
+                    "35tvlmnbp3gxuakha4e4": {
+                        "damage": "1d4+7",
                         "damageType": "slashing"
                     }
                 },
@@ -211,7 +214,7 @@
             "type": "melee"
         },
         {
-            "_id": "ak4WbuKBRCKSuNPU",
+            "_id": "phmie8CQGIpk0d0n",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -256,7 +259,7 @@
             "type": "action"
         },
         {
-            "_id": "BfaiCSlygp6uaMg8",
+            "_id": "Qb7bNn98jqqwe6S8",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -308,7 +311,55 @@
             "type": "action"
         },
         {
-            "_id": "8mx81oDzILiF7y1b",
+            "_id": "dALR9L0wlW2puqiD",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:18] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Stench]{Effect: Stench}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghast-stench",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.SEzkqVJxr2eJDsuJ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Stench",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "mkwN7Fgq3DRnThOV",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -320,13 +371,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r {1d6}[healing]]]{1d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghast is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghast devours a chunk of the corpse and regains [[/r {3d6}[healing]]]{3d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "ghoul-consume-flesh",
+                "slug": "ghast-consume-flesh",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -346,16 +397,16 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.m6teF5ADh7vuM8Zr"
                 }
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "guq0UPN12B2EafM4",
+            "_id": "IdfK6A7UpGkscuOG",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -367,13 +418,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "ghoul-ghoul-fever",
+                "slug": "ghast-ghast-fever",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -393,16 +444,16 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.N7UV5CZXtcoxDxCF"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.hA6HsM4i4yPfEsDH"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ghoul Fever",
-            "sort": 600000,
+            "name": "Ghast Fever",
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "69r59N0XP1Azzagw",
+            "_id": "GBiarRqqq8qwyZtJ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -414,13 +465,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:15] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p>Any living creature hit by a ghast's attack must succeed at a @Check[type:fortitude|dc:18] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "ghoul-paralysis",
+                "slug": "ghast-paralysis",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -442,16 +493,16 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.bVZ6KizWVTLJUBXi"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "IsVn2lDS2alHU8Lr",
+            "_id": "e7CxhtU5yoASkey8",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -463,7 +514,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ghoul jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
+                    "value": "<p>The ghast jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -494,17 +545,17 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "R29kubL7RNeYdBov",
+            "_id": "WZOZOittOrHs2O5S",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -522,17 +573,17 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
-            "_id": "txjDyAUtReu7fCSe",
+            "_id": "KXACVl5byzP0flk1",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 4
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -550,17 +601,17 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
-            "_id": "MvhVqoETTciXSjU1",
+            "_id": "btGDpqDD5oCWtyxM",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -578,17 +629,17 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
-            "_id": "3WW1qbOFln2zp6i4",
+            "_id": "miBeut5UCoiwN3p0",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 5
+                    "value": 10
                 },
                 "proficient": {
                     "value": 0
@@ -606,16 +657,16 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],
-    "name": "Marcon Tinol (1-2)",
+    "name": "Elite Ghast (PFS 1-07)",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Marcon Tinol",
+        "name": "Elite Ghast",
         "width": 1
     },
     "type": "npc"
