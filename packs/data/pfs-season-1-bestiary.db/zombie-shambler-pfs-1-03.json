@@ -1,21 +1,21 @@
 {
-    "_id": "9dnyyDG4MCkL3zkn",
+    "_id": "pG7P9AxqzcsCjikh",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
-                "mod": 3
+                "mod": 2
             },
             "dex": {
                 "mod": -2
             },
             "int": {
-                "mod": 0
+                "mod": -5
             },
             "str": {
-                "mod": 4
+                "mod": 3
             },
             "wis": {
                 "mod": 0
@@ -24,26 +24,26 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 13
+                "value": 12
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "negative healing",
-                "max": 50,
+                "max": 20,
                 "temp": 0,
-                "value": 50
+                "value": 20
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 3
+                "value": 0
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40"
+                "value": "25"
             }
         },
         "details": {
@@ -51,12 +51,12 @@
                 "value": "NE"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Undead",
             "level": {
-                "value": 1
+                "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>A zombie shambler is a slow-moving horror dangerous in larger groups.</p>\n<hr />\n<p>A zombie's only desire is to consume the living. Unthinking and ever-shambling harbingers of death, zombies stop only when they're destroyed.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario #1-03: Escaping the Grave"
             }
@@ -69,14 +69,17 @@
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 3
+                "value": 0
             },
             "will": {
                 "saveDetail": "",
-                "value": 4
+                "value": 2
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -93,11 +96,11 @@
             "dv": [
                 {
                     "type": "positive",
-                    "value": 10
+                    "value": 5
                 },
                 {
                     "type": "slashing",
-                    "value": 10
+                    "value": 5
                 }
             ],
             "languages": {
@@ -124,25 +127,138 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ESIoxNzHvcGpbNF5",
+            "_id": "qiyu0aoav4y0v7tf",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Slowed",
+                "description": {
+                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "slowed"
+                },
+                "modifiers": [],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "slowed",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 1
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/slowed.webp",
+            "name": "Slowed",
+            "sort": 100000,
+            "type": "condition"
+        },
+        {
+            "_id": "wOkHQN8ELSDh7T1f",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "ccvi95u44l425e2osjay": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "v90WRjELLiKF57vr",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
                     "value": 7
                 },
                 "damageRolls": {
-                    "hxu5ye04yctunti37mtg": {
-                        "damage": "1d8+4",
-                        "damageType": "slashing"
+                    "t969yxbnjd9b5uj29zj8": {
+                        "damage": "1d8+3",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Requirement</strong> The zombie has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained}.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -160,53 +276,11 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 300000,
             "type": "melee"
         },
         {
-            "_id": "RGtRfHhRRbeLDmsK",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "2hxpeio0rjvlzha73sjb": {
-                        "damage": "1d4+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "asIh4WehWyv4cgmy",
+            "_id": "SyWmilYaLnrtDFVe",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -247,11 +321,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "0E6KRaOyvHrJMtCd",
+            "_id": "eulyI60JHNUYs39w",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -280,15 +354,18 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "a19K03arNnU8Vcqf",
+            "_id": "q1OobVjFqRsc58KI",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -336,40 +413,36 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "a023UTfZPmcF73m8",
+            "_id": "Qknp3UNQSMjNTUmL",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The zombie riding horse emits an aura of rot and disease that causes wounds to fester and turn sour.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and is not at full Hit Points takes [[/r {1d6}]]{1d6 damage}(@Check[type:fortitude|dc:14|basic:true] save) as its wounds fester.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "zombie-rotting-aura",
+                "slug": "grab",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "aura",
-                        "disease",
-                        "necromancy"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -380,102 +453,22 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.CxiEpXt7Gw3tSIOh"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rotting Aura",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "DS8ZcmI4VLY7ffSY",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The zombie riding horse Strikes with its jaws against an adjacent living creature or a creature that has died in the past hour. On a success, the zombie riding horse can feast upon the creature's flesh to heal itself. This restores [[/r {1d6} #Hit Points]]{1d6 Hit Points}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Feast",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "MNtGpIixuqCIh39i",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The zombie riding horse Strides twice. It has a +10-foot circumstance bonus to its Speed during these Strides</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Gallop",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "RYNt5fhznaVKn8Mu",
+            "_id": "3WEDMCeiWeexqO8U",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -493,17 +486,17 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
-    "name": "Zombie Riding Horse",
+    "name": "Zombie Shambler (PFS 1-03)",
     "token": {
         "disposition": -1,
-        "height": 2,
+        "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Zombie Riding Horse",
-        "width": 2
+        "name": "Zombie Shambler",
+        "width": 1
     },
     "type": "npc"
 }
