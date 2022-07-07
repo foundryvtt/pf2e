@@ -68,7 +68,7 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         let bonus = 0;
 
         if (actorData.type === "hazard") {
-            bonus = actorData.data.attributes.stealth.value;
+            bonus = actorData.data.attributes.stealth.value ?? 0;
         } else if (
             "initiative" in actorData.data.attributes &&
             "totalModifier" in actorData.data.attributes.initiative

@@ -50,7 +50,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         const hasWeaknesses = systemData.traits.dv.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
         const stealthMod = actor.data.data.attributes.stealth.value;
-        const stealthDC = stealthMod ? stealthMod + 10 : null;
+        const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
         const hasStealthDescription = !!systemData.attributes.stealth?.details;
 
         return {
