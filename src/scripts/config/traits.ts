@@ -555,7 +555,6 @@ const featTraits = {
     fortune: "PF2E.TraitFortune",
     general: "PF2E.TraitGeneral",
     injury: "PF2E.TraitInjury",
-    instinct: "PF2E.TraitInstinct",
     lineage: "PF2E.TraitLineage",
     manipulate: "PF2E.TraitManipulate",
     metamagic: "PF2E.TraitMetamagic",
