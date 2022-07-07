@@ -69,13 +69,13 @@ export function registerSheets() {
     Actors.registerSheet("pf2e", HazardSheetPF2e, {
         types: ["hazard"],
         label: game.i18n.format(sheetLabel, { type: localizeType("hazard") }),
-        makeDefault: true,
     });
 
     // Register Beta Hazard Sheet
     Actors.registerSheet("pf2e", HazardSheetGreenPF2e, {
         types: ["hazard"],
         label: "Hazard Sheet (Beta)",
+        makeDefault: true,
     });
 
     // Register Loot Sheet
