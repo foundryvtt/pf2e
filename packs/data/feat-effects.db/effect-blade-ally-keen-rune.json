@@ -1,6 +1,7 @@
 {
     "_id": "Gf7h44DcTB43464h",
     "data": {
+        "badge": null,
         "description": {
             "value": "<p>The edges of a keen weapon are preternaturally sharp. Attacks with this weapon are a critical hit on a 19 on the die as long as that result is a success. This property has no effect on a 19 if the result would be a failure.</p>"
         },
@@ -22,13 +23,22 @@
                         "weapon"
                     ]
                 },
+                "flag": "weaponSelect",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "Note",
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyKeenRune}-attack",
-                "text": "<strong>Keen</strong> Attacks with this weapon are a critical hit on a 19 on the die as long as that result is a success. This property has no effect on a 19 if the result would be a failure."
+                "selector": "{item|flags.pf2e.rulesSelections.weaponSelect}-attack",
+                "text": "PF2E.WeaponPropertyRune.keen.Note"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "weapon:id:{item|flags.pf2e.rulesSelections.weaponSelect}"
+                    ]
+                }
             }
         ],
         "source": {

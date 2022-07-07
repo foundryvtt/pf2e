@@ -20,7 +20,7 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyFearsomeRune}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.weaponSelect}-damage",
                 "text": "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess"
             },
             {
@@ -31,8 +31,17 @@
                         "weapon"
                     ]
                 },
+                "flag": "weaponSelect",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "weapon:id:{item|flags.pf2e.rulesSelections.weaponSelect}"
+                    ]
+                }
             }
         ],
         "source": {
