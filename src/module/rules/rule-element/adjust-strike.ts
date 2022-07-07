@@ -56,7 +56,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                 case "materials":
                     return {
                         adjustDamageRoll: (
-                            weapon: Embedded<WeaponPF2e>,
+                            weapon: WeaponPF2e | MeleePF2e,
                             { materials }: { materials?: Set<WeaponMaterialEffect> }
                         ): void => {
                             if (this.mode !== "add") {
@@ -193,7 +193,10 @@ interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
 }
 
 interface StrikeAdjustment {
-    adjustDamageRoll?: (weapon: Embedded<WeaponPF2e>, { materials }: { materials?: Set<WeaponMaterialEffect> }) => void;
+    adjustDamageRoll?: (
+        weapon: WeaponPF2e | MeleePF2e,
+        { materials }: { materials?: Set<WeaponMaterialEffect> }
+    ) => void;
     adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
 }

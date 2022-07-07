@@ -90,7 +90,8 @@ export class WeaponDamagePF2e {
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
         options: string[] = [],
-        rollNotes: Record<string, RollNotePF2e[]>
+        rollNotes: Record<string, RollNotePF2e[]>,
+        strikeAdjustments: StrikeAdjustment[]
     ): DamageTemplate {
         // ensure the base damage object exists
         weapon.data.damage ??= {};
@@ -186,7 +187,7 @@ export class WeaponDamagePF2e {
             rollNotes,
             null,
             {},
-            []
+            strikeAdjustments
         );
     }
 
@@ -474,12 +475,12 @@ export class WeaponDamagePF2e {
             : null;
         const materials: Set<WeaponMaterialEffect> = new Set();
         if (material) materials.add(material);
-
-        if (weapon.document instanceof WeaponPF2e) {
+        if (weapon.document) {
             for (const adjustment of strikeAdjustments) {
-                adjustment.adjustDamageRoll?.(weapon.document as Embedded<WeaponPF2e>, { materials });
+                adjustment.adjustDamageRoll?.(weapon.document, { materials });
             }
         }
+
         for (const option of Array.from(materials).map((m) => `weapon:material:${m}`)) {
             options.push(option);
         }

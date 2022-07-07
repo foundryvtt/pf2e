@@ -663,7 +663,8 @@ class NPCPF2e extends CreaturePF2e {
                             this.cloneSyntheticsRecord(damageDice),
                             1,
                             options,
-                            rollNotes
+                            rollNotes,
+                            this.synthetics.strikeAdjustments
                         );
                         const { self, target } = context;
 

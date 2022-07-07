@@ -18,26 +18,32 @@
             {
                 "choices": [
                     {
-                        "label": "PF2E.AdamantineStrikes",
+                        "label": "PF2E.PreciousMaterialAdamantine",
                         "value": "adamantine"
                     },
                     {
-                        "label": "PF2E.ColdIronStrikes",
+                        "label": "PF2E.PreciousMaterialColdIron",
                         "value": "coldIron"
                     },
                     {
-                        "label": "PF2E.SilverStrikes",
+                        "label": "PF2E.PreciousMaterialSilver",
                         "value": "silver"
                     }
                 ],
-                "flag": "strike",
+                "flag": "material",
                 "key": "ChoiceSet"
             },
             {
-                "key": "Note",
-                "selector": "attack",
-                "text": "{item|name}",
-                "visibility": "gm"
+                "definition": {
+                    "all": [
+                        "weapon:melee"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "{item|flags.pf2e.rulesSelections.material}"
             }
         ],
         "source": {
