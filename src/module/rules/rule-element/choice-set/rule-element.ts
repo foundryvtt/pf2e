@@ -82,7 +82,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         if (selection) {
             // Record the slug instead of the UUID
-            ruleSource.selection = await (async () => {
+            ruleSource.selection = await (async (): Promise<string | number | object | null> => {
                 if (isItemUUID(selection.value) && this.data.recordSlug) {
                     const item = await fromUuid(selection.value);
                     return item instanceof ItemPF2e ? item.slug ?? sluggify(item.name) : null;

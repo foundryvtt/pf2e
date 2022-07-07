@@ -838,6 +838,10 @@ export class WeaponDamagePF2e {
         if (weapon.data.group) {
             selectors.push(`${weapon.data.group}-weapon-group-damage`);
         }
+        if (weapon.data.category === "unarmed") {
+            selectors.push("unarmed-damage");
+        }
+
         if (ability) {
             selectors.push(`${ability}-damage`);
         }
