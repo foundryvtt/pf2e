@@ -474,7 +474,6 @@ const traitsDescriptions = {
     inhaled: "PF2E.TraitDescriptionInhaled",
     injection: "PF2E.TraitDescriptionInjection",
     injury: "PF2E.TraitDescriptionInjury",
-    instinct: "PF2E.TraitDescriptionInstinct",
     intelligent: "PF2E.TraitDescriptionIntelligent",
     inventor: "PF2E.TraitDescriptionInventor",
     invested: "PF2E.TraitDescriptionInvested",

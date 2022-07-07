@@ -142,6 +142,7 @@ const creatureTraits = {
     ghoran: "PF2E.TraitGhoran",
     ghost: "PF2E.TraitGhost",
     ghoul: "PF2E.TraitGhoul",
+    ghul: "PF2E.TraitGhul",
     giant: "PF2E.TraitGiant",
     golem: "PF2E.TraitGolem",
     gremlin: "PF2E.TraitGremlin",
