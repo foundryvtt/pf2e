@@ -12,15 +12,10 @@ import {
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
 import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue } from "@util";
-import { ItemSheetDataPF2e } from "./data-types";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
-
-import { EditorState, EditorView, basicSetup } from "@codemirror/basic-setup";
-import { keymap } from "@codemirror/view";
-import { indentWithTab } from "@codemirror/commands";
-import { linter } from "@codemirror/lint";
-import { json, jsonParseLinter } from "@codemirror/lang-json";
+import { CodeMirror } from "./codemirror";
+import { ItemSheetDataPF2e } from "./data-types";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -360,10 +355,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const editingRuleElement = this.editingRuleElement;
         if (editingRuleElement) {
             const ruleText = JSON.stringify(editingRuleElement, null, 2);
-            const view = new EditorView({
-                state: EditorState.create({
+            const view = new CodeMirror.EditorView({
+                state: CodeMirror.EditorState.create({
                     doc: ruleText,
-                    extensions: [basicSetup, keymap.of([indentWithTab]), json(), linter(jsonParseLinter())],
+                    extensions: [
+                        CodeMirror.basicSetup,
+                        CodeMirror.keybindings,
+                        CodeMirror.json(),
+                        CodeMirror.jsonLinter(),
+                    ],
                 }),
             });
 
