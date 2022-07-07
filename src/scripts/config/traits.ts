@@ -536,7 +536,7 @@ const featTraits = {
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
-    afterMath: "TraitAftermath",
+    aftermath: "PF2E.TraitAftermath",
     alchemical: "PF2E.TraitAlchemical",
     archetype: "PF2E.TraitArchetype",
     auditory: "PF2E.TraitAuditory",
