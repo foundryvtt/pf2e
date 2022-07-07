@@ -804,7 +804,7 @@ async function extractPacks() {
 extractPacks()
     .then((grandTotal) => {
         fs.rmSync(tempDataPath, { recursive: true, force: true });
-        console.log(`Extraction complete (${grandTotal} total entities).`);
+        console.log(`Extraction complete (${grandTotal} total documents).`);
     })
     .catch((error) => {
         console.error(error);
