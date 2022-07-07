@@ -1,6 +1,7 @@
 {
     "_id": "eippbzuocVM6ftcj",
     "data": {
+        "badge": null,
         "description": {
             "value": "<p>A disrupting weapon pulses with positive energy, dealing an extra [[/r {1d6}[positive]]]{1d6 positive damage} to undead. On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn.</p>"
         },
@@ -22,6 +23,7 @@
                         "weapon"
                     ]
                 },
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
@@ -35,8 +37,8 @@
                         "target:trait:undead"
                     ]
                 },
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyDisruptingRune}-damage",
-                "text": "<strong>Disrupting</strong> On a critical hit, the undead is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "text": "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess"
             },
             {
                 "damageType": "positive",
@@ -48,7 +50,15 @@
                         "target:trait:undead"
                     ]
                 },
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyDisruptingRune}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    ]
+                }
             }
         ],
         "source": {

@@ -20,7 +20,7 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyFlamingRune}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
             {
                 "choices": {
@@ -30,6 +30,7 @@
                         "weapon"
                     ]
                 },
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
@@ -38,8 +39,16 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyFlamingRune}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    ]
+                }
             }
         ],
         "source": {
