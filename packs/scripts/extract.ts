@@ -118,13 +118,13 @@ const linkPatterns = {
 type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
 type PackEntry = CompendiumDocumentPF2e["data"]["_source"];
 
-function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
+function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {
     if (fs.existsSync(jsonPath)) {
-        const oldEntity = JSON.parse(fs.readFileSync(jsonPath, { encoding: "utf-8" })) as PackEntry;
-        if (oldEntity._id !== newEntity._id) {
+        const oldSource = JSON.parse(fs.readFileSync(jsonPath, { encoding: "utf-8" })) as PackEntry;
+        if (oldSource._id !== newSource._id) {
             throw PackError(
-                `The ID of entity "${newEntity.name}" (${newEntity._id}) does not match the current ID ` +
-                    `(${oldEntity._id}). Entities that are already in the system must keep their current ID.`
+                `The ID of doc "${newSource.name}" (${newSource._id}) does not match the current ID ` +
+                    `(${oldSource._id}). Entities that are already in the system must keep their current ID.`
             );
         }
     }
@@ -290,14 +290,14 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             });
         }
 
-        // Sometimes Foundry's conversion of entity links to anchor tags makes it into an export: convert them back
+        // Sometimes Foundry's conversion of document links to anchor tags makes it into an export: convert them back
         const $anchors = $description.find("a.entity-link");
         $anchors.each((_i, anchor) => {
             const $anchor = $(anchor);
             const label = $anchor.text().trim();
             const packName = $anchor.attr("data-pack");
-            const entityId = $anchor.attr("data-id");
-            $anchor.text(`@Compendium[${packName}.${entityId}]{${label}}`);
+            const docId = $anchor.attr("data-id");
+            $anchor.text(`@Compendium[${packName}.${docId}]{${label}}`);
             $anchor.contents().unwrap();
         });
 
@@ -410,7 +410,6 @@ function sortDataItems(docSource: PackEntry): ItemSourcePF2e[] {
         "melee",
         "action",
         "lore",
-        "formula",
     ];
     if (!("items" in docSource)) {
         return [];
@@ -432,9 +431,9 @@ function sortDataItems(docSource: PackEntry): ItemSourcePF2e[] {
     }
 
     // Create new array of items.
-    const sortedItems: ItemSourcePF2e[] = new Array(ownedItems.length);
+    const sortedItems: ItemSourcePF2e[] = Array(ownedItems.length);
     let itemIndex = 0;
-    itemTypeList.forEach((itemType) => {
+    for (const itemType of itemTypeList) {
         if (groupedItems.has(itemType) && groupedItems.size > 0) {
             const itemGroup = groupedItems.get(itemType);
             if (itemGroup) {
@@ -466,7 +465,7 @@ function sortDataItems(docSource: PackEntry): ItemSourcePF2e[] {
                 }
             }
         }
-    });
+    }
 
     // Make sure to add any items that are of a type not defined in the list.
     for (const [key, itemSet] of groupedItems) {
@@ -487,13 +486,14 @@ function sortDataItems(docSource: PackEntry): ItemSourcePF2e[] {
     return sortedItems;
 }
 
-function sortAttacks(entityName: string, attacks: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
-    attacks.forEach((attack) => {
+function sortAttacks(docName: string, attacks: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
+    for (const attack of attacks) {
         const attackData = attack as MeleeSource;
         if (!attackData.data.weaponType?.value && args.logWarnings) {
-            console.log(`Warning in ${entityName}: Melee item '${attackData.name}' has no weaponType defined!`);
+            console.log(`Warning in ${docName}: Melee item '${attackData.name}' has no weaponType defined!`);
         }
-    });
+    }
+
     return Array.from(attacks).sort((a, b) => {
         const attackA = a as MeleeSource;
         const attackB = b as MeleeSource;
@@ -511,56 +511,54 @@ function sortAttacks(entityName: string, attacks: Set<ItemSourcePF2e>): ItemSour
     });
 }
 
-function sortActionsWithOverrides(
-    entityName: string,
-    actions: Array<ActionSource>,
-    overrides: Map<RegExp, string>
-): Array<ItemSourcePF2e> {
-    const topActions = new Array<ItemSourcePF2e>();
-    const middleActions = new Array<ItemSourcePF2e>();
-    const bottomActions = new Array<ItemSourcePF2e>();
+function sortItemsWithOverrides(
+    docName: string,
+    actions: ItemSourcePF2e[],
+    overrides: Map<RegExp, "top" | "bottom">
+): ItemSourcePF2e[] {
+    const topActions: ItemSourcePF2e[] = [];
+    const middleActions: ItemSourcePF2e[] = [];
+    const bottomActions: ItemSourcePF2e[] = [];
 
-    overrides.forEach((overrideArray, overrideRegex) => {
-        const interaction = actions.find((action) => overrideRegex.exec(action.name));
+    for (const [regexp, position] of overrides.entries()) {
+        const interaction = actions.find((action) => regexp.exec(action.name));
         if (interaction) {
-            if (overrideArray === "top") {
+            if (position === "top") {
                 topActions.push(interaction);
-            } else if (overrideArray === "bottom") {
+            } else if (position === "bottom") {
                 bottomActions.push(interaction);
             } else {
                 if (args.logWarnings) {
                     console.log(
-                        `Warning in ${entityName}: Override item '${overrideRegex}' has undefined override section '${overrideArray}', should be top or bottom!`
+                        `Warning in ${docName}: Override item '${regexp}' has undefined override section '${position}', should be top or bottom!`
                     );
                 }
             }
         }
-    });
+    }
 
-    actions.forEach((interaction) => {
+    for (const interaction of actions) {
         if (!topActions.includes(interaction) && !bottomActions.includes(interaction)) {
             middleActions.push(interaction);
         }
-    });
+    }
 
     return topActions.concat(middleActions, bottomActions);
 }
 
-function sortSpellcastingEntries(entityName: string, actions: Set<ItemSourcePF2e>): Array<ItemSourcePF2e> {
-    const overrides = new Map<RegExp, string>([
+function sortSpellcastingEntries(docName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
+    const overrides: Map<RegExp, "top" | "bottom"> = new Map([
         [new RegExp("Prepared Spells"), "top"],
         [new RegExp("Spontaneous Spells"), "top"],
         [new RegExp("Innate Spells"), "top"],
         [new RegExp("Ritual Spells"), "top"],
     ]);
 
-    const castActions = new Array<ActionSource>();
-    actions.forEach((x) => castActions.push(x as ActionSource));
-    return sortActionsWithOverrides(entityName, castActions, overrides);
+    return sortItemsWithOverrides(docName, Array.from(actions), overrides);
 }
 
-function sortInteractions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
-    const overrides = new Map<RegExp, string>([
+function sortInteractions(docName: string, actions: ItemSourcePF2e[]): ItemSourcePF2e[] {
+    const overrides = new Map<RegExp, "top" | "bottom">([
         [new RegExp("Low-Light Vision"), "top"],
         [new RegExp("^Darkvision"), "top"],
         [new RegExp("Greater Darkvision"), "top"],
@@ -571,11 +569,11 @@ function sortInteractions(entityName: string, actions: Array<ActionSource>): Arr
         [new RegExp("Constant Spells"), "bottom"],
     ]);
 
-    return sortActionsWithOverrides(entityName, actions, overrides);
+    return sortItemsWithOverrides(docName, actions, overrides);
 }
 
-function sortDefensiveActions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
-    const overrides = new Map<RegExp, string>([
+function sortDefensiveActions(docName: string, actions: ItemSourcePF2e[]): ItemSourcePF2e[] {
+    const overrides: Map<RegExp, "top" | "bottom"> = new Map([
         [new RegExp("All-Around Vision"), "top"],
         [
             new RegExp(
@@ -590,11 +588,11 @@ function sortDefensiveActions(entityName: string, actions: Array<ActionSource>):
         [new RegExp("Swarm Mind"), "top"],
     ]);
 
-    return sortActionsWithOverrides(entityName, actions, overrides);
+    return sortItemsWithOverrides(docName, actions, overrides);
 }
 
-function sortOffensiveActions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
-    const overrides = new Map<RegExp, string>([
+function sortOffensiveActions(docName: string, actions: ItemSourcePF2e[]): ItemSourcePF2e[] {
+    const overrides: Map<RegExp, "top" | "bottom"> = new Map([
         [new RegExp("^Grab"), "bottom"],
         [new RegExp("Improved Grab"), "bottom"],
         [new RegExp("^Knockdown"), "bottom"],
@@ -603,52 +601,48 @@ function sortOffensiveActions(entityName: string, actions: Array<ActionSource>):
         [new RegExp("Improved Push"), "bottom"],
     ]);
 
-    return sortActionsWithOverrides(entityName, actions, overrides);
+    return sortItemsWithOverrides(docName, actions, overrides);
 }
 
-function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
-    const notActions = new Array<[string, string]>(
+function sortActions(docName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
+    const notActions: [string, string][] = [
         ["Innate Spells", "spellcastingEntry"],
         ["Prepared Spells", "spellcastingEntry"],
         ["Ritual Spells", "spellcastingEntry"],
-        ["Spontaneous Spells", "spellcastingEntry"]
-    );
-    const actionsMap = new Map<string, Array<ActionSource>>([
-        ["interaction", new Array<ActionSource>()],
-        ["defensive", new Array<ActionSource>()],
-        ["offensive", new Array<ActionSource>()],
-        ["other", new Array<ActionSource>()],
+        ["Spontaneous Spells", "spellcastingEntry"],
+    ];
+    const actionsMap: Map<string, ItemSourcePF2e[]> = new Map([
+        ["interaction", []],
+        ["defensive", []],
+        ["offensive", []],
+        ["other", []],
     ]);
 
-    Array.from(actions)
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .forEach((action) => {
-            const actionData = action as ActionSource;
-            const notActionMatch = notActions.find((naName) => actionData.name.match(naName[0]));
-            if (notActionMatch) {
-                console.log(
-                    `Error in ${entityName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`
-                );
+    for (const action of Array.from(actions).sort((a, b) => a.name.localeCompare(b.name))) {
+        const actionData = action as ActionSource;
+        const notActionMatch = notActions.find((naName) => actionData.name.match(naName[0]));
+        if (notActionMatch) {
+            console.log(
+                `Error in ${docName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`
+            );
+        }
+        if (!actionData.data.actionCategory?.value) {
+            if (args.logWarnings) {
+                console.log(`Warning in ${docName}: Action item '${actionData.name}' has no actionCategory defined!`);
             }
-            if (!actionData.data.actionCategory?.value) {
-                if (args.logWarnings) {
-                    console.log(
-                        `Warning in ${entityName}: Action item '${actionData.name}' has no actionCategory defined!`
-                    );
-                }
-                actionsMap.get("other")!.push(actionData);
-            } else {
-                let actionCategory = actionData.data.actionCategory.value;
-                if (!actionsMap.has(actionCategory)) {
-                    actionCategory = "other";
-                }
-                actionsMap.get(actionCategory)!.push(actionData);
+            actionsMap.get("other")!.push(actionData);
+        } else {
+            let actionCategory = actionData.data.actionCategory.value;
+            if (!actionsMap.has(actionCategory)) {
+                actionCategory = "other";
             }
-        });
+            actionsMap.get(actionCategory)!.push(actionData);
+        }
+    }
 
-    const sortedInteractions = sortInteractions(entityName, actionsMap.get("interaction")!);
-    const sortedDefensive = sortDefensiveActions(entityName, actionsMap.get("defensive")!);
-    const sortedOffensive = sortOffensiveActions(entityName, actionsMap.get("offensive")!);
+    const sortedInteractions = sortInteractions(docName, actionsMap.get("interaction")!);
+    const sortedDefensive = sortDefensiveActions(docName, actionsMap.get("defensive")!);
+    const sortedOffensive = sortOffensiveActions(docName, actionsMap.get("offensive")!);
 
     return sortedInteractions.concat(sortedDefensive, sortedOffensive, actionsMap.get("other")!);
 }
@@ -678,14 +672,14 @@ async function extractPack(filePath: string, packFilename: string) {
     console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? "Disabled" : "Enabled"})`);
     const outPath = path.resolve(tempDataPath, packFilename);
 
-    const packEntities = await getAllData(filePath);
+    const packSources = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
 
-    for await (const entityData of packEntities) {
-        // Remove or replace unwanted values from the entity
-        const preparedEntity = convertLinks(entityData, packFilename);
-        if ("items" in preparedEntity && preparedEntity.type === "npc" && !args.disablePresort) {
-            preparedEntity.items = sortDataItems(preparedEntity);
+    for (const source of packSources) {
+        // Remove or replace unwanted values from the document source
+        const preparedSource = convertLinks(source, packFilename);
+        if ("items" in preparedSource && preparedSource.type === "npc" && !args.disablePresort) {
+            preparedSource.items = sortDataItems(preparedSource);
         }
 
         // Pretty print JSON data
@@ -693,7 +687,7 @@ async function extractPack(filePath: string, packFilename: string) {
             const allKeys: Set<string> = new Set();
             const idKeys: string[] = [];
 
-            JSON.stringify(preparedEntity, (key, value) => {
+            JSON.stringify(preparedSource, (key, value) => {
                 if (idPattern.test(key)) {
                     idKeys.push(key);
                 } else {
@@ -705,26 +699,26 @@ async function extractPack(filePath: string, packFilename: string) {
 
             const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
 
-            const newJson = JSON.stringify(preparedEntity, sortedKeys, 4);
+            const newJson = JSON.stringify(preparedSource, sortedKeys, 4);
             return `${newJson}\n`;
         })();
 
         // Remove all non-alphanumeric characters from the name
-        const slug = sluggify(entityData.name);
+        const slug = sluggify(source.name);
         const outFileName = `${slug}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
 
         if (fs.existsSync(outFilePath)) {
-            throw PackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
+            throw PackError(`Error: Duplicate name "${source.name}" in pack: ${packFilename}`);
         }
 
-        assertEntityIdSame(preparedEntity, outFilePath);
+        assertDocIdSame(preparedSource, outFilePath);
 
         // Write the JSON file
         await fs.promises.writeFile(outFilePath, outData, "utf-8");
     }
 
-    return packEntities.length;
+    return packSources.length;
 }
 
 function populateIdNameMap() {
@@ -744,7 +738,7 @@ function populateIdNameMap() {
 
         for (const filePath of filePaths) {
             const jsonString = fs.readFileSync(filePath, "utf-8");
-            const entityData = (() => {
+            const source = (() => {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
@@ -753,7 +747,7 @@ function populateIdNameMap() {
                     }
                 }
             })();
-            packMap.set(entityData._id, entityData.name);
+            packMap.set(source._id, source.name);
         }
     }
 }
@@ -794,17 +788,17 @@ async function extractPacks() {
 
                 await fs.promises.mkdir(tempOutDirPath);
 
-                const entityCount = await extractPack(filePath, dbFilename);
+                const sourceCount = await extractPack(filePath, dbFilename);
 
                 // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
                 fs.rmSync(outDirPath, { recursive: true, force: true });
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
-                console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
-                return entityCount;
+                console.log(`Finished extracting ${sourceCount} entities from pack ${dbFilename}`);
+                return sourceCount;
             })
         )
-    ).reduce((runningTotal, entityCount) => runningTotal + entityCount, 0);
+    ).reduce((runningTotal, count) => runningTotal + count, 0);
 }
 
 extractPacks()
