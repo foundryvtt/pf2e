@@ -52,9 +52,18 @@ interface CharacterData
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
+        /** If applicable, the character's proficiency rank in their deity's favored weapon */
+        favoredWeaponRank: number;
+        /** Whether items are crafted without consuming resources */
         freeCrafting: boolean;
+        /** Whether the alchemist's (and related dedications) Quick Alchemy ability is enabled */
+        quickAlchemy: boolean;
+        /** Whether ABP should be disabled despite it being on for the world */
         disableABP?: boolean;
+        /** Which sheet tabs are displayed */
         sheetTabs: CharacterSheetTabVisibility;
+        /** Whether the basic unarmed attack is shown on the Actions tab */
+        showBasicUnarmed: boolean;
     };
 };
 

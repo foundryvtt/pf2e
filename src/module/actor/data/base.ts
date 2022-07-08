@@ -72,9 +72,6 @@ interface RollOptionFlags {
 
 interface ActorFlagsPF2e extends foundry.data.ActorFlags {
     pf2e: {
-        favoredWeaponRank: number;
-        freeCrafting: boolean;
-        quickAlchemy: boolean;
         rollOptions: RollOptionFlags;
         [key: string]: unknown;
     };
