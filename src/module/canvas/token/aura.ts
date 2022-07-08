@@ -4,6 +4,7 @@ import { TokenPF2e } from ".";
 import { EffectAreaSquare } from "../effect-area-square";
 import { ItemTrait } from "@item/data/base";
 
+/** Visual and statial facilities for auras emanated by a token's actor */
 class TokenAura extends PIXI.Graphics {
     /** The token associated with this aura */
     token: TokenPF2e;
@@ -62,8 +63,7 @@ class TokenAura extends PIXI.Graphics {
             radiusPixels * 2
         );
         const rowCount = Math.ceil(bounds.width / squareWidth);
-        const emptyVector = Array<null>(rowCount).fill(null);
-        const topLeftSquare = new EffectAreaSquare(bounds.x, bounds.y, squareWidth, squareWidth);
+        const emptyVector = Array<null>(rowCount - 1).fill(null);
 
         const genColumn = (square: EffectAreaSquare): EffectAreaSquare[] => {
             return emptyVector.reduce(
@@ -82,6 +82,7 @@ class TokenAura extends PIXI.Graphics {
             );
         };
 
+        const topLeftSquare = new EffectAreaSquare(bounds.x, bounds.y, squareWidth, squareWidth);
         const collisionType =
             this.traits.has("visual") && !this.traits.has("auditory")
                 ? "sight"
@@ -90,16 +91,17 @@ class TokenAura extends PIXI.Graphics {
                 : "movement";
 
         return emptyVector
-            .reduce((squares: EffectAreaSquare[][]) => {
-                if (squares.length === 0) return [genColumn(topLeftSquare)];
-
-                const lastSquare = squares.at(-1)!.at(-1)!;
-                const column = genColumn(
-                    new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth)
-                );
-                squares.push(column);
-                return squares;
-            }, [])
+            .reduce(
+                (squares: EffectAreaSquare[][]) => {
+                    const lastSquare = squares.at(-1)!.at(-1)!;
+                    const column = genColumn(
+                        new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth)
+                    );
+                    squares.push(column);
+                    return squares;
+                },
+                [genColumn(topLeftSquare)]
+            )
             .flat()
             .filter((s) => measureDistanceRect(this.token.bounds, s) <= this.radius)
             .map((square) => {
@@ -157,13 +159,13 @@ class TokenAura extends PIXI.Graphics {
             // Left!
             [{ x: token.x, y: token.y + token.h }, token],
         ];
-        const containedSides = sides.filter(
-            (s) => foundry.utils.lineCircleIntersection(...s, this.center, this.radiusPixels).contained
+        const intersectors = sides.filter(
+            (s) => !foundry.utils.lineCircleIntersection(...s, this.center, this.radiusPixels, 0).outside
         );
-        if (containedSides.length === 0) return false;
+        if (intersectors.length === 0) return false;
 
         // 3. Check whether any aura square intersects the token's space
-        return this.squares.some((s) => s.active && s.intersects(token.bounds));
+        return this.squares.some((s) => s.active && measureDistanceRect(s, token.bounds) === 0);
     }
 
     /**
