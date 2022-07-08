@@ -82,6 +82,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
     }
 
+    /** Shimmed ahead of moving to Actor instance level in V10 */
+    get flags(): this["data"]["flags"] {
+        return this.data.flags;
+    }
+
     /** Cache the return data before passing it to the caller */
     override get itemTypes(): { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } {
         return (this._itemTypes ??= super.itemTypes);
@@ -93,7 +98,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** The compendium source ID of the actor **/
     get sourceId(): ActorUUID | null {
-        return this.data.flags.core?.sourceId ?? null;
+        return this.flags.core?.sourceId ?? null;
     }
 
     /** The recorded schema version of this actor, updated after each data migration */
@@ -171,7 +176,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get rollOptions(): RollOptionFlags {
-        return this.data.flags.pf2e.rollOptions;
+        return this.flags.pf2e.rollOptions;
     }
 
     /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */

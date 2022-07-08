@@ -13,7 +13,6 @@ import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
-import { NPCConfig } from "./config";
 import { NPCSkillData } from "./data";
 import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSheetItemData, NPCSystemSheetData } from "./types";
 
@@ -213,35 +212,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
                 ui.notifications.info(`Generated NPC attack: ${attacks.at(0)?.name}`);
             }
         });
-    }
-
-    /** Replace sheet config with a special NPC config form application */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-
-        if (this.isEditable) {
-            const index = buttons.findIndex((b) => b.class === "close");
-            buttons.splice(index, 0, {
-                label: "Configure", // Top-level foundry localization key
-                class: "configure-npc",
-                icon: "fas fa-cog",
-                onclick: (event) => this._onConfigureSheet(event),
-            });
-        }
-
-        return buttons;
-    }
-
-    /**
-     * Shim for {@link DocumentSheet#_onConfigureSheet} that will be replaced in v10 when this class subclasses it.
-     */
-    protected override _onConfigureSheet(event: Event): void {
-        event.preventDefault();
-        const [top, left, width] = [this.position.top ?? 0, this.position.left ?? 0, this.position.width ?? 0];
-        new NPCConfig(this.actor, {
-            top: top + 40,
-            left: (left + (width - Number(TokenConfig.defaultOptions.width ?? 0))) / 2,
-        }).render(true);
     }
 
     private prepareAbilities(abilities: Abilities): void {

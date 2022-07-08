@@ -12,6 +12,8 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { CreatureSheetData, SpellcastingSheetData } from "./types";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { createSheetTags } from "@module/sheet/helpers";
+import { NPCConfig } from "@actor/npc/config";
+import { CharacterConfig } from "@actor/character/config";
 
 /**
  * Base class for NPC and character sheets
@@ -346,6 +348,44 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 await this.actor.increaseCondition(effect);
             }
         });
+    }
+
+    /** Replace sheet config with a special PC config form application */
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (!this.actor.isOfType("character", "npc")) return buttons;
+
+        if (this.isEditable) {
+            const index = buttons.findIndex((b) => b.class === "close");
+            buttons.splice(index, 0, {
+                label: "Configure", // Top-level foundry localization key
+                class: "configure-creature",
+                icon: "fas fa-cog",
+                onclick: (event) => this._onConfigureSheet(event),
+            });
+        }
+
+        return buttons;
+    }
+
+    /**
+     * Shim for {@link DocumentSheet#_onConfigureSheet} that will be replaced in v10 when this class subclasses it.
+     */
+    protected override _onConfigureSheet(event: Event): void {
+        event.preventDefault();
+
+        const [top, left, width] = [this.position.top ?? 0, this.position.left ?? 0, this.position.width ?? 0];
+        const displayOptions = {
+            top: top + 40,
+            left: (left + (width - Number(TokenConfig.defaultOptions.width ?? 0))) / 2,
+        };
+        const config = this.actor.isOfType("character")
+            ? new CharacterConfig(this.actor, displayOptions)
+            : this.actor.isOfType("npc")
+            ? new NPCConfig(this.actor, displayOptions)
+            : null;
+
+        config?.render(true);
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {

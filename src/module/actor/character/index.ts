@@ -281,7 +281,7 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.data.data;
 
         // Flags
-        const { flags } = this.data;
+        const { flags } = this;
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
@@ -295,6 +295,7 @@ class CharacterPF2e extends CreaturePF2e {
             ),
             flags.pf2e.sheetTabs ?? {}
         );
+        flags.pf2e.showBasicUnarmed ??= true;
 
         // Build selections: boosts and skill trainings
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
@@ -472,7 +473,7 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData = this.data.data;
         const { synthetics } = this;
 
-        if (!this.data.flags.pf2e.disableABP) {
+        if (!this.flags.pf2e.disableABP) {
             game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
 
