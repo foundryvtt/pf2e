@@ -24,8 +24,7 @@ import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, objectHasKey, ordinal } from "@util";
 import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource } from "./data";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
-import { SpellOverlayCollection, SpellVariantPrompt } from "./overlay";
-import { LocalizePF2e } from "@system/localize";
+import { SpellOverlayCollection } from "./overlay";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -304,28 +303,6 @@ class SpellPF2e extends ItemPF2e {
             .sort((first, second) => first.level - second.level);
     }
 
-    /** Shows a prompt to select one variant of this spell. */
-    async variantPrompt(this: Embedded<SpellPF2e>): Promise<Embedded<SpellPF2e> | null> {
-        const castLabel = LocalizePF2e.translations.PF2E.CastLabel;
-        // TODO: Add logic to decide which variants should be shown. Only override variants for now.
-        const choices = this.overlays.overrideVariants.map((variant) => ({
-            value: variant,
-            label: castLabel,
-            sort: variant.data.sort,
-            img: getActionIcon(variant.data.data.time.value),
-        }));
-        if (choices.length === 0) return null;
-
-        const result = await new SpellVariantPrompt({
-            title: this.name,
-            item: this,
-            allowNoSelection: true,
-            choices,
-        }).resolveSelection();
-
-        return result?.value ?? null;
-    }
-
     createTemplate(): GhostTemplate {
         const templateConversion = {
             burst: "circle",
@@ -436,7 +413,11 @@ class SpellPF2e extends ItemPF2e {
             };
         }
 
-        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : message;
+        if (!create) {
+            message.data.update(chatData);
+            return message;
+        }
+        return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
     override getChatData(
@@ -450,6 +431,24 @@ class SpellPF2e extends ItemPF2e {
         if (!this.isVariant) {
             const variant = this.loadVariant({ castLevel: level });
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
+        }
+
+        const variants = [];
+        if (this.hasVariants) {
+            for (const variant of this.overlays.overrideVariants) {
+                const overlayIds = [...variant.appliedOverlays!.values()];
+                const actions =
+                    variant.data.data.time.value !== this.data.data.time.value
+                        ? getActionIcon(variant.data.data.time.value)
+                        : undefined;
+                variants.push({
+                    actions,
+                    name: variant.name,
+                    overlayIds,
+                    sort: variant.data.sort,
+                });
+            }
+            variants.sort((variantA, variantB) => variantA.sort - variantB.sort);
         }
 
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
@@ -560,6 +559,7 @@ class SpellPF2e extends ItemPF2e {
             areaType,
             areaUnit,
             item,
+            variants,
         };
     }
 

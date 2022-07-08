@@ -170,6 +170,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         // Show/Hide GM only sections, DCs, and other such elements
         UserVisibilityPF2e.process($html, { message: this });
 
+        // Remove spell card owner buttons if the user is not the owner of the spell
+        if (this.item?.isOfType("spell") && !this.item.isOwner) {
+            $html.find("section.owner-buttons").remove();
+        }
+
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
         const targetDC = $html[0].querySelector(".target-dc");
         if (targetDC?.innerHTML.trim() === "") targetDC.remove();

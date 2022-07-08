@@ -247,7 +247,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                     if (item instanceof ConsumablePF2e) item.consume();
                     break;
                 case "selectVariant":
-                    spell?.variantPrompt().then((variant) => variant?.toMessage());
+                    spell?.toMessage();
                     break;
             }
         });

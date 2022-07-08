@@ -129,14 +129,6 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         spell: Embedded<SpellPF2e>,
         options: { slot?: number; level?: number; consume?: boolean; message?: boolean } = {}
     ): Promise<void> {
-        if (spell.hasVariants) {
-            const variant = await spell.variantPrompt();
-            if (variant) {
-                spell = variant;
-            } else {
-                return;
-            }
-        }
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const level = options.level ?? spell.level;
