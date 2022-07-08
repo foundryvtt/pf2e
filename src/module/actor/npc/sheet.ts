@@ -13,10 +13,13 @@ import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
+import { NPCConfig } from "./config";
 import { NPCSkillData } from "./data";
 import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSheetItemData, NPCSystemSheetData } from "./types";
 
 export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
+    protected readonly actorConfigClass = NPCConfig;
+
     static override get defaultOptions() {
         const options = super.defaultOptions;
 

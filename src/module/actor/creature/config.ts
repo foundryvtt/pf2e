@@ -4,7 +4,8 @@ import { ErrorPF2e, setHasElement } from "@util";
 import { CreaturePF2e } from ".";
 import { BaseCreatureSource } from "./data";
 
-abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheetConfig<TActor> {
+/** A DocumentSheet presenting additional, per-actor settings */
+abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet<TActor> {
     override get title(): string {
         const namespace = this.actor.isOfType("character") ? "Character" : "NPC";
         return game.i18n.localize(`PF2E.Actor.${namespace}.Configure.Title`);
@@ -18,7 +19,13 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
         return this.object;
     }
 
-    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<CreatureConfigData<TActor>> {
+    static override get defaultOptions(): DocumentSheetOptions {
+        const options = super.defaultOptions;
+        options.width = 450;
+        return options;
+    }
+
+    override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<CreatureConfigData<TActor>> {
         const source: BaseCreatureSource = this.actor.data._source;
         const alliance = source.data.details?.alliance ?? "default";
         const defaultValue = game.i18n.localize(
@@ -39,9 +46,9 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
     }
 
     /** Remove stored property if it's set to default; otherwise, update */
-    override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+    override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const key = "data.details.alliance";
-        const alliance = formData[key] || null;
+        const alliance = formData[key];
 
         if (alliance === "default") {
             delete formData[key];
@@ -52,11 +59,11 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
             throw ErrorPF2e("Unrecognized alliance");
         }
 
-        await this.actor.update(formData);
+        return super._updateObject(event, formData);
     }
 }
 
-interface CreatureConfigData<TActor extends CreaturePF2e> extends DocumentSheetConfigData<TActor> {
+interface CreatureConfigData<TActor extends CreaturePF2e> extends DocumentSheetData<TActor> {
     alliances: SheetOptions;
 }
 

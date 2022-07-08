@@ -1,19 +1,18 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ConditionPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import { goesToEleven, ZeroToFour } from "@module/data";
-import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CreatureSheetData, SpellcastingSheetData } from "./types";
+import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
+import { ConditionPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
+import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
-import { NPCConfig } from "@actor/npc/config";
-import { CharacterConfig } from "@actor/character/config";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ActorSheetPF2e } from "../sheet/base";
+import { CreatureConfig } from "./config";
+import { SkillData } from "./data";
+import { CreatureSheetData, SpellcastingSheetData } from "./types";
 
 /**
  * Base class for NPC and character sheets
@@ -21,6 +20,9 @@ import { CharacterConfig } from "@actor/character/config";
  */
 export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
     override itemRenderer = new CreatureSheetItemRenderer(this);
+
+    /** A DocumentSheet class presenting additional, per-actor settings */
+    protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
     override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
         const sheetData = await super.getData(options);
@@ -361,31 +363,17 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 label: "Configure", // Top-level foundry localization key
                 class: "configure-creature",
                 icon: "fas fa-cog",
-                onclick: (event) => this._onConfigureSheet(event),
+                onclick: () => this.onConfigureActor(),
             });
         }
 
         return buttons;
     }
 
-    /**
-     * Shim for {@link DocumentSheet#_onConfigureSheet} that will be replaced in v10 when this class subclasses it.
-     */
-    protected override _onConfigureSheet(event: Event): void {
-        event.preventDefault();
-
-        const [top, left, width] = [this.position.top ?? 0, this.position.left ?? 0, this.position.width ?? 0];
-        const displayOptions = {
-            top: top + 40,
-            left: (left + (width - Number(TokenConfig.defaultOptions.width ?? 0))) / 2,
-        };
-        const config = this.actor.isOfType("character")
-            ? new CharacterConfig(this.actor, displayOptions)
-            : this.actor.isOfType("npc")
-            ? new NPCConfig(this.actor, displayOptions)
-            : null;
-
-        config?.render(true);
+    /** Open actor configuration for this sheet's creature */
+    private onConfigureActor(): void {
+        if (!this.actorConfigClass) return;
+        new this.actorConfigClass(this.actor).render(true);
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
