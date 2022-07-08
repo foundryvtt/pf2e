@@ -8,6 +8,9 @@ import { FamiliarSheetData } from "./types";
  * @category Actor
  */
 export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
+    /** There is currently no actor config for familiars */
+    protected readonly actorConfigClass = null;
+
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

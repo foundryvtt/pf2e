@@ -21,12 +21,15 @@ import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProfi
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
+import { CharacterConfig } from "./config";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
-    // A cache of this PC's known formulas, for use by sheet callbacks
+    protected readonly actorConfigClass = CharacterConfig;
+
+    /** A cache of this PC's known formulas, for use by sheet callbacks */
     private knownFormulas: Record<string, CraftingFormula> = {};
 
-    // Non-persisted tweaks to formula data
+    /** Non-persisted tweaks to formula data */
     private formulaQuantities: Record<string, number> = {};
 
     static override get defaultOptions(): ActorSheetOptions {

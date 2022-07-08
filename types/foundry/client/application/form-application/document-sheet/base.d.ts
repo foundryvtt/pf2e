@@ -27,7 +27,7 @@ declare global {
     > extends FormApplication<TDocument, TOptions> {
         constructor(object: TDocument, options: Partial<TOptions>);
 
-        static override get defaultOptions(): Required<DocumentSheetOptions>;
+        static override get defaultOptions(): DocumentSheetOptions;
 
         /**
          * A convenience accessor for the object property of the inherited FormApplication instance

@@ -3,7 +3,7 @@ import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { NPCPF2e } from ".";
 
 export class NPCConfig extends CreatureConfig<NPCPF2e> {
-    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<NPCConfigData> {
+    override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<NPCConfigData> {
         const lootableDefault = game.settings.get("pf2e", "automation.lootableNPCs");
         const lootableOptions = {
             default: `PF2E.Actor.NPC.Configure.Lootable.${lootableDefault ? "DefaultLootable" : "DefaultNotLootable"}`,
@@ -23,11 +23,14 @@ export class NPCConfig extends CreatureConfig<NPCPF2e> {
 
     /** Remove stored properties if they're consistent with defaults; otherwise, store changes */
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const lootable = formData["flags.pf2e.lootable"];
+        const key = "flags.pf2e.lootable";
+        const lootable = formData[key];
 
         if (lootable === "default") {
-            delete formData["flags.pf2e.lootable"];
+            delete formData[key];
             formData["flags.pf2e.-=lootable"] = null;
+        } else {
+            formData[key] = lootable === "lootable";
         }
 
         return super._updateObject(event, formData);

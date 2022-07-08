@@ -2,7 +2,7 @@ import { CreatureConfig, CreatureConfigData } from "@actor/creature/config";
 import { CharacterPF2e } from ".";
 
 export class CharacterConfig extends CreatureConfig<CharacterPF2e> {
-    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<PCConfigData> {
+    override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<PCConfigData> {
         const { showBasicUnarmed } = this.actor.flags.pf2e;
         return {
             ...(await super.getData(options)),
