@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
                 "mod": 4
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-14: Lions of Katapesh"
             }
         },
         "resources": {},
@@ -113,8 +113,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "knockdown-or-grab"
+                        "grab",
+                        "knockdown"
                     ]
                 },
                 "bonus": {
@@ -131,7 +133,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(reach 10 feet)</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown} or @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -155,27 +157,27 @@
             "type": "melee"
         },
         {
-            "_id": "pimlFobXZGfZQrFF",
+            "_id": "Y25fw7LAg8CYEgHQ",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>DC 20</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -189,9 +191,104 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "qCkHUnvkGyY46EOJ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "i3TMLrl8f2i7ecbK",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Check[type:reflex|dc:20]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "buck",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.nZMQh4AaBr291TUf"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Buck",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -207,12 +304,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The dire cinder wolf's Strikes deal [[/r {1d4}[precision]]]{1d4 extra precision damage} to creatures within reach of at least two of the wolf's allies.</p>"
+                    "value": "<p>The dire cinder wolf's Strikes deal 1d4 extra precision damage to creatures within reach of at least two of the wolf's allies.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -231,7 +346,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -247,7 +362,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The dire cinder wolf has a creature grabbed with its jaws</p>\n<hr />\n<p><strong>Effect</strong> The dire wolf fiercely shakes the grabbed creature with its teeth, dealing [[/r {1d10+2}[piercing]]]{1d10+2 piercing damage} plus [[/r {1}[fire]]]{1 fire damage} (@Check[type:fortitude|dc:20|basic:true] save).</p>"
+                    "value": "<p><strong>Requirements</strong> The dire cinder wolf has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} with its jaws</p>\n<hr />\n<p><strong>Effect</strong> The dire wolf fiercely shakes the grabbed creature with its teeth, dealing [[/r {1d10+2}[piercing] + {1}[fire]]]{1d10+2 piercing damage plus 1 fire damage} (@Check[type:fortitude|dc:20|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -273,7 +388,97 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Worry",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "NkE5uIwoakQE25oc",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "FsgsIrbcom4E1tsr",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -301,7 +506,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -329,7 +534,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -357,7 +562,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -385,7 +590,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 800000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
