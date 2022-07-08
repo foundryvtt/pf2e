@@ -1,0 +1,129 @@
+{
+    "_id": "YDJnC3Bdc2GI6hX5",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>The creature gains a status bonus to attack rolls, AC, or all of the following: Perception, Will saves, and Charisma-based skill checks. The value of the bonus depends on the specific creature granting this effect.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyDragonAdult",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyDragonAncient",
+                        "value": "2"
+                    }
+                ],
+                "flag": "dragon-choice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyDragonChoice"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyEffectAttack",
+                        "value": "atk"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyEffectAC",
+                        "value": "ac"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyEffectPercWillCha",
+                        "value": "perc-will-cha"
+                    }
+                ],
+                "flag": "effect-choice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.SovereignDragon.InspireEnvoyEffectChoice",
+                "rollOption": "inspire-envoy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "inspire-envoy:atk"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "inspire-envoy:ac"
+                    ]
+                },
+                "selector": "ac",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "inspire-envoy:perc-will-cha"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "inspire-envoy:perc-will-cha"
+                    ]
+                },
+                "selector": "perception",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "inspire-envoy:perc-will-cha"
+                    ]
+                },
+                "selector": "cha-based",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.dragon-choice}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
+    "name": "Effect: Inspire Envoy",
+    "type": "effect"
+}
