@@ -11,6 +11,7 @@ import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-o
 import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
 import { AdjustStrikeRuleElement } from "./rule-element/adjust-strike";
 import { AELikeRuleElement } from "./rule-element/ae-like";
+import { AuraRuleElement } from "./rule-element/aura";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
@@ -54,6 +55,7 @@ class RuleElements {
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
         AdjustModifier: AdjustModifierRuleElement,
         AdjustStrike: AdjustStrikeRuleElement,
+        Aura: AuraRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,

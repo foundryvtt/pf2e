@@ -1,11 +1,21 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData } from "@item/data/base";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemFlagsPF2e, ItemLevelData, ItemSystemData } from "@item/data/base";
 import { OneToFour } from "@module/data";
 import { EffectPF2e } from ".";
 
-type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource>;
+type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
+    flags: DeepPartial<EffectFlags>;
+};
 
 type EffectData = Omit<EffectSource, "effects" | "flags"> &
-    BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource>;
+    BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
+        flags: EffectFlags;
+    };
+
+type EffectFlags = ItemFlagsPF2e & {
+    pf2e: {
+        aura?: EffectAuraData;
+    };
+};
 
 interface EffectSystemSource extends ItemSystemData, ItemLevelData {
     start: {
@@ -43,4 +53,19 @@ type EffectTickType = "turn-start";
 type DieFaceCount = 4 | 6 | 8 | 10 | 12 | 20;
 type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
 
-export { EffectBadge, EffectData, EffectExpiryType, EffectSource, EffectSystemData, EffectTickType, DiceExpression };
+interface EffectAuraData {
+    slug: string;
+    origin: ActorUUID | TokenDocumentUUID;
+    removeOnExit: boolean;
+}
+
+export {
+    DiceExpression,
+    EffectBadge,
+    EffectData,
+    EffectExpiryType,
+    EffectFlags,
+    EffectSource,
+    EffectSystemData,
+    EffectTickType,
+};

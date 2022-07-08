@@ -232,22 +232,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
-    /** Whether this actor is an ally of the provided actor */
-    override isAllyOf(actor: ActorPF2e): boolean {
-        const thisAlliance = this.data.data.details.alliance;
-
-        if (thisAlliance === null) return false;
-
-        const otherAlliance =
-            actor instanceof CreaturePF2e
-                ? actor.data.data.details.alliance
-                : actor.hasPlayerOwner
-                ? "party"
-                : "opposition";
-
-        return thisAlliance === otherAlliance;
-    }
-
     /** Whether the actor is flat-footed in the current scene context: currently only handles flanking */
     isFlatFooted({ dueTo }: IsFlatFootedParams): boolean {
         // The first data preparation round will occur before the game is ready

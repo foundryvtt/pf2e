@@ -97,7 +97,7 @@ function measureDistanceOnGrid(
 }
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
-function highlightGrid({ type, object, colors, data }: HighlightGridParams): void {
+function highlightGrid({ type, object, colors, data, collisionType = "movement" }: HighlightGridParams): void {
     // Only highlight for objects that are non-previews (have IDs)
     if (!object.id) return;
 
@@ -105,17 +105,17 @@ function highlightGrid({ type, object, colors, data }: HighlightGridParams): voi
     if (!(grid && dimensions)) return;
 
     // Set data defaults
-    data.angle ??= 0;
-    data.direction ??= 45;
+    const angle = data.angle ?? 0;
+    const direction = data.direction ?? 45;
 
     // Clear existing highlight
     const highlightLayer = grid.getHighlightLayer(object.highlightId)?.clear();
-    const { x, y } = data;
+    if (!highlightLayer) return;
 
-    const [cx, cy] = grid.getCenter(x, y);
+    const [cx, cy] = grid.getCenter(data.x, data.y);
     const [col0, row0] = grid.grid.getGridPositionFromPixels(cx, cy);
-    const minAngle = (360 + ((data.direction - data.angle * 0.5) % 360)) % 360;
-    const maxAngle = (360 + ((data.direction + data.angle * 0.5) % 360)) % 360;
+    const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
+    const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
 
     const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
@@ -126,64 +126,101 @@ function highlightGrid({ type, object, colors, data }: HighlightGridParams): voi
         return value >= min || value <= max;
     };
 
-    const originOffset = { x: 0, y: 0 };
-    // Offset measurement for cones
-    // Offset is to ensure that cones only start measuring from cell borders, as in https://www.d20pfsrd.com/magic/#Aiming_a_Spell
-    if (type === "cone") {
+    // Offset measurement for cones to ensure that cones only start measuring from cell borders
+    const coneOriginOffset = ((): Point => {
+        if (type !== "cone") return { x: 0, y: 0 };
+
         // Degrees anticlockwise from pointing right. In 45-degree increments from 0 to 360
-        const dir = (data.direction >= 0 ? 360 - data.direction : -data.direction) % 360;
+        const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
         // If we're not on a border for X, offset by 0.5 or -0.5 to the border of the cell in the direction we're looking on X axis
         const xOffset =
-            x % dimensions.size !== 0 ? Math.sign((1 * Math.round(Math.cos(Math.toRadians(dir)) * 100)) / 100) / 2 : 0;
+            data.x % dimensions.size !== 0
+                ? Math.sign((1 * Math.round(Math.cos(Math.toRadians(dir)) * 100)) / 100) / 2
+                : 0;
         // Same for Y, but cos Y goes down on screens, we invert
         const yOffset =
             data.y % dimensions.size !== 0
                 ? -Math.sign((1 * Math.round(Math.sin(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
-        originOffset.x = xOffset;
-        originOffset.y = yOffset;
-    }
+        return { x: xOffset * dimensions.size, y: yOffset * dimensions.size };
+    })();
 
     // Point we are measuring distances from
-    let origin = {
-        x: x + originOffset.x * dimensions.size,
-        y: y + originOffset.y * dimensions.size,
-    };
+    const padding = Math.clamped(object.data.width, 1.5, 2);
+    const padded = (data.distance * padding) / dimensions.distance;
+    const rowCount = Math.ceil(padded / (dimensions.size / grid.h));
+    const columnCount = Math.ceil(padded / (dimensions.size / grid.w));
 
-    // Get number of rows and columns
-    const rowCount = Math.ceil((data.distance * 1.5) / dimensions.distance / (dimensions.size / grid.h));
-    const columnCount = Math.ceil((data.distance * 1.5) / dimensions.distance / (dimensions.size / grid.w));
+    // If this is an emanation, measure from the outer squares of the token's space
+    const offsetEmanationOrigin = (destination: Point): Point => {
+        if (!(type === "emanation" && object instanceof TokenPF2e)) {
+            return { x: 0, y: 0 };
+        }
+
+        // No offset is needed for medium and smaller creatures
+        if (object.w <= dimensions.size) return { x: 0, y: 0 };
+
+        const offset = (object.w - dimensions.size) / 2;
+        const getCoordinate = (centerCoord: number, destCoord: number): number =>
+            destCoord === centerCoord ? 0 : destCoord > centerCoord ? offset : -offset;
+
+        return {
+            x: getCoordinate(object.center.x, destination.x),
+            y: getCoordinate(object.center.y, destination.y),
+        };
+    };
 
     for (let a = -columnCount; a < columnCount; a++) {
         for (let b = -rowCount; b < rowCount; b++) {
             // Position of cell's top-left corner, in pixels
             const [gx, gy] = canvas.grid.grid.getPixelsFromGridPosition(col0 + a, row0 + b);
-            // Position of cell's center, in pixels
-            const [cellCenterX, cellCenterY] = [gx + dimensions.size * 0.5, gy + dimensions.size * 0.5];
+            // Position of cell's center in pixels
+            const destination = {
+                x: gx + dimensions.size * 0.5,
+                y: gy + dimensions.size * 0.5,
+            };
+            if (destination.x < 0 || destination.y < 0) continue;
 
             // Determine point of origin
-            origin = { x, y };
-            origin.x += originOffset.x * dimensions.size;
-            origin.y += originOffset.y * dimensions.size;
+            const emanationOriginOffset = offsetEmanationOrigin(destination);
+            const origin = {
+                x: data.x + coneOriginOffset.x + emanationOriginOffset.x,
+                y: data.y + coneOriginOffset.y + emanationOriginOffset.y,
+            };
+            const ray = new Ray(origin, destination);
 
-            const ray = new Ray(origin, { x: cellCenterX, y: cellCenterY });
-
-            const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
-            if (type === "cone" && ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
-                continue;
+            if (type === "cone") {
+                const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
+                if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
+                    continue;
+                }
             }
 
-            // Determine point we're measuring the distance to - always in the center of a grid square
-            const destination = { x: cellCenterX, y: cellCenterY };
-
+            // Determine grid-square point to which we're measuring the distance
             const distance = measureDistance(destination, origin);
-            if (highlightLayer && distance <= data.distance) {
+            if (distance > data.distance) continue;
+
+            const hasCollision = canvas.ready && canvas.walls.checkCollision(ray, { type: collisionType });
+
+            if (!hasCollision) {
                 grid.grid.highlightGridPosition(highlightLayer, {
                     x: gx,
                     y: gy,
                     border: colors.border,
                     color: colors.fill,
                 });
+            } else {
+                grid.grid.highlightGridPosition(highlightLayer, {
+                    x: gx,
+                    y: gy,
+                    border: 0x000001,
+                    color: 0x000000,
+                });
+                highlightLayer
+                    .beginFill(0x000000, 0.5)
+                    .moveTo(gx, gy)
+                    .lineTo(gx + dimensions.size, gy + dimensions.size)
+                    .endFill();
             }
         }
     }
@@ -195,13 +232,14 @@ interface HighlightGridParams {
     /** Border and fill colors in hexadecimal */
     colors: { border: number; fill: number };
     /** Shape data for the effect area: satisfied by MeasuredTemplateData */
-    data: {
+    data: Readonly<{
         x: number;
         y: number;
         distance: number;
         angle?: number;
         direction?: number;
-    };
+    }>;
+    collisionType?: "movement" | "sight" | "sound";
 }
 
 export { highlightGrid, measureDistanceRect };
