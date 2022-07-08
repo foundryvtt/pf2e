@@ -173,10 +173,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return { sections, bulk: this.actor.inventory.bulk, showValueAlways, showIndividualPricing, invested };
     }
 
-    protected findActiveList() {
-        return (this.element as JQuery).find(".tab.active .directory-list");
-    }
-
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
         return DENOMINATIONS.reduce(
             (accumulated, denomination) => ({
@@ -188,15 +184,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }),
             {} as CoinageSummary
         );
-    }
-
-    /** Save any open tinyMCE editor before closing */
-    override async close(options: { force?: boolean } = {}): Promise<void> {
-        const editors = Object.values(this.editors).filter((editor) => editor.active);
-        for (const editor of editors) {
-            editor.options.save_onsavecallback();
-        }
-        await super.close(options);
     }
 
     /* -------------------------------------------- */
