@@ -480,16 +480,25 @@
                     "0": {
                         "damage": "2d8+8",
                         "damageType": "piercing"
-                    },
-                    "veu5smz7dvnpd177nxyc": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Deals 1d6 fire damage if not Countered by Water.</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "not": [
+                                "countered-by-water"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -692,10 +701,10 @@
             "type": "action"
         },
         {
-            "_id": "nCkzzJiycKKevhSG",
+            "_id": "3VhaqjXhDYgbAlz2",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -704,7 +713,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the underworld dragon takes damage from a spell with the cold or water trait, the elemental magic of fire within them is momentarily dampened. Until the end of their next turn, they take a -1 circumstance penalty to attack rolls, and their jaws Strikes don't deal fire damage. This limitation ends if the dragon uses Breath Weapon.</p>"
+                    "value": "<p>Smoke doesn't impair an underworld dragon's vision; they ignore the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -727,8 +736,67 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Countered by Water",
+            "name": "Smoke Vision",
             "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "nCkzzJiycKKevhSG",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>If the underworld dragon takes damage from a spell with the cold or water trait, the elemental magic of fire within them is momentarily dampened.</p>\n<p>Until the end of their next turn, they take a -1 circumstance penalty to attack rolls, and their jaws Strikes don't deal fire damage.</p>\n<p>This limitation ends if the dragon uses Breath Weapon.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "countered-by-water",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "countered-by-water"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": -1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Countered by Water",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -749,7 +817,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "fed-by-wood",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "fed-by-wood"
+                            ]
+                        },
+                        "selector": "jaws-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -768,7 +856,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fed by Wood",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -784,7 +872,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:0]{0 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:23]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -818,46 +906,6 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 1100000,
-            "type": "action"
-        },
-        {
-            "_id": "3VhaqjXhDYgbAlz2",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Smoke doesn't impair an underworld dragon's vision; they ignore the concealed condition from smoke.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
             "sort": 1200000,
             "type": "action"
         },
@@ -914,7 +962,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a blast of fire that explodes in a @Template[type:burst|distance:20] within 40 feet, dealing [[/r {7d6}[fire]]]{7d6 fire damage} (@Check[type:reflex|dc:25|basic:true] save). Creatures that fail the save also take [[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a blast of fire that explodes in a @Template[type:burst|distance:20] within 40 feet, dealing [[/r {7d6}[fire]]]{7d6 fire damage} (@Check[type:reflex|dc:25|basic:true] save). Creatures that fail the save also take @Localize[PF2E.PersistentDamage.Fire1d6.success].</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -958,7 +1006,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon makes one claw Strike and one tail Strike in either order, each against the same target. If either Strike hits, the dragon automatically Grabs thetarget.</p>"
+                    "value": "<p>The dragon makes one claw Strike and one tail Strike in either order, each against the same target. If either Strike hits, the dragon automatically @Compendium[pf2e.conditionitems.Grabbed]{Grabs} thetarget.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -998,7 +1046,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {0}[bludgeoning]]]{0 bludgeoning}, @Check[type:fortitude|dc:|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {2d8+4}[bludgeoning]]]{2d8+4 bludgeoning}, @Check[type:fortitude|dc:25|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
