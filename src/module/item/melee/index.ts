@@ -23,9 +23,22 @@ export class MeleePF2e extends ItemPF2e {
     get rangeIncrement(): WeaponRangeIncrement | null {
         if (this.isMelee) return null;
 
-        const incrementTrait = this.data.data.traits.value.find((t) => /^(?:range-increment|thrown)-\d+$/.test(t));
+        const incrementTrait = this.data.data.traits.value.find((t) => /^(?:range(?:-increment)?|thrown)-\d+$/.test(t));
         const increment = Number(incrementTrait?.replace(/\D/g, "")) || 10;
         return Number.isInteger(increment) ? (increment as WeaponRangeIncrement) : null;
+    }
+
+    /** Get the maximum range of the attack */
+    get maxRange(): number | null {
+        if (this.isMelee) return null;
+
+        const rangeTrait = this.data.data.traits.value.find((t) => /^range-\d+$/.test(t));
+        const range = Number(rangeTrait?.replace(/\D/g, "")) || 10;
+        if (Number.isInteger(range)) return range;
+
+        // No explicit maximum range: multiply range increment by six or return null
+        const rangeIncrement = this.rangeIncrement;
+        return typeof rangeIncrement === "number" ? rangeIncrement * 6 : null;
     }
 
     /** Generate a list of strings for use in predication */

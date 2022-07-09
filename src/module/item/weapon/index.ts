@@ -79,6 +79,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.range;
     }
 
+    /** The maximum range of this weapon: `null` if melee, and usually 6 * range increment if ranged */
+    get maxRange(): number | null {
+        return this.data.data.maxRange ?? (this.rangeIncrement ? this.rangeIncrement * 6 : null);
+    }
+
     get reload(): WeaponReloadTime | null {
         return this.data.data.reload.value || null;
     }

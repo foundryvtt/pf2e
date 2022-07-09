@@ -1881,6 +1881,15 @@ class CharacterPF2e extends CreaturePF2e {
                         viewOnly: args.getFormula ?? false,
                     });
 
+                    // Check whether target is out of maximum range; abort early if so
+                    if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                        const maxRange = context.self.item.maxRange ?? 10;
+                        if (context.target.distance > maxRange) {
+                            ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
+                            return null;
+                        }
+                    }
+
                     // Set range-increment roll option and penalty
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
@@ -1890,9 +1899,8 @@ class CharacterPF2e extends CreaturePF2e {
                     ].flat();
 
                     // Collect roll options from all sources
-                    args.options ??= [];
                     const options = [
-                        args.options,
+                        args.options ?? [],
                         context.options,
                         action.options,
                         baseOptions,
