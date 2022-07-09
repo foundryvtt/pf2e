@@ -1,26 +1,7 @@
 {
     "_id": "pdZNO5gqhB4hN61A",
     "data": {
-        "abilities": {
-            "cha": {
-                "value": 14
-            },
-            "con": {
-                "value": 14
-            },
-            "dex": {
-                "value": 12
-            },
-            "int": {
-                "value": 10
-            },
-            "str": {
-                "value": 18
-            },
-            "wis": {
-                "value": 10
-            }
-        },
+        "abilities": {},
         "attributes": {
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -45,10 +26,23 @@
                 "value": "25"
             }
         },
+        "build": {
+            "abilities": {
+                "boosts": {
+                    "1": [
+                        "str",
+                        "dex",
+                        "con",
+                        "cha"
+                    ]
+                }
+            }
+        },
         "crafting": {
             "entries": {},
             "formulas": []
         },
+        "customModifiers": {},
         "details": {
             "age": {
                 "value": ""
@@ -104,11 +98,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -214,7 +208,7 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/character.svg",
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/kitsune.svg",
     "items": [
         {
             "_id": "BCicuNndPDZJw2Mj",
@@ -241,6 +235,7 @@
                         "value": []
                     },
                     "2": {
+                        "selected": "str",
                         "value": [
                             "str",
                             "dex",
@@ -291,7 +286,9 @@
                         "kitsune"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "lowLightVision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "flags": {
                 "core": {
@@ -322,13 +319,18 @@
                     "value": "ancestryfeature"
                 },
                 "level": {
-                    "value": 1
+                    "value": 0
                 },
                 "location": "BCicuNndPDZJw2Mj",
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.wwvPiG2kET2rkSAG"
+                    }
+                ],
                 "slug": "change-shape",
                 "source": {
                     "value": ""
@@ -346,7 +348,7 @@
                     "sourceId": "Compendium.pf2e.ancestryfeatures.Ymg6WqeJqOyLJLEr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/feat.svg",
+            "img": "systems/pf2e/icons/spells/fey-disapperance.webp",
             "name": "Change Shape",
             "sort": 0,
             "type": "feat"
@@ -551,6 +553,7 @@
                     }
                 },
                 "keyAbility": {
+                    "selected": "str",
                     "value": [
                         "dex",
                         "str"
@@ -634,156 +637,18 @@
             "type": "class"
         },
         {
-            "_id": "hibntLCYVvDkpHfJ",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You have trained for countless hours to become a skilled hunter and tracker, gaining an additional benefit when you Hunt Prey depending on the focus of your training. Choose one of the following hunter's edges:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Flurry]{Flurry}</li>\n<li>@Compendium[pf2e.classfeatures.Outwit]{Outwit}</li>\n<li>@Compendium[pf2e.classfeatures.Precision]{Precision}</li>\n</ul>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "dAIaq2jvJEgIC9vg",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "hunters-edge",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.mzkkj9LEWjJPBhaq"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/feat.svg",
-            "name": "Hunter's Edge",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
-            "_id": "2KOXWjDoUqoAySls",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the Hunt Prey action.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "dAIaq2jvJEgIC9vg",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Target is your Hunted Prey",
-                        "option": "hunted-prey",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Seek hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Track hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "ranged-attack-roll",
-                        "key": "RollOption",
-                        "option": "ignore-range-penalty:2",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        }
-                    }
-                ],
-                "slug": "hunt-prey",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.0nIOGpHQNHsKSFKT"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
-            "name": "Hunt Prey",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
             "_id": "SkuiZnViFBhkeVoK",
             "data": {
                 "boosts": {
                     "0": {
+                        "selected": "str",
                         "value": [
                             "con",
                             "str"
                         ]
                     },
                     "1": {
+                        "selected": "con",
                         "value": [
                             "cha",
                             "con",
@@ -887,59 +752,6 @@
             "type": "feat"
         },
         {
-            "_id": "Vk7sumg2EN91XlFY",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Your training has hardened your resolve. Your proficiency rank for Will saves increases to expert.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "dAIaq2jvJEgIC9vg",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "data.saves.will.rank",
-                        "value": 2
-                    }
-                ],
-                "slug": "iron-will",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.wMyDcVNmA7xGK83S"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/iron-will.webp",
-            "name": "Iron Will",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
             "_id": "tE9jrjPpJKtHaksH",
             "data": {
                 "description": {
@@ -994,146 +806,6 @@
             "name": "Warfare Lore",
             "sort": 0,
             "type": "lore"
-        },
-        {
-            "_id": "PH0dUkNsGblnEYxq",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You have trained to unleash a devastating flurry of attacks upon your prey.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "hunted-prey"
-                            ]
-                        },
-                        "selector": "attack",
-                        "value": -2
-                    },
-                    {
-                        "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
-                        "selector": "attack",
-                        "value": -3
-                    }
-                ],
-                "slug": "flurry",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/flurry.webp",
-            "name": "Hunter's Edge: Flurry",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
-            "_id": "I174kaqCAkWLwayQ",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A crack of your tail sparks wisps of blue energy. Choose either electricity or fire when you gain this feat. You gain a foxfire ranged unarmed attack with a maximum range of 20 feet. The attack deals [[/r {1d4}[damage]]]{1d4 damage of the chosen type} (no ability modifier is added to the damage roll). Your foxfire attack is in the sling weapon group. Like other unarmed attacks, you can improve this attack with @Compendium[pf2e.equipment-srd.Handwraps of Mighty Blows]{Handwraps of Mighty Blows}.</p>\n<hr />\n<p><strong>Special</strong> If you are a frozen wind kitsune, your foxfire deals cold damage instead of electricity or fire.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "fire",
-                                "dice": 1,
-                                "die": "d4"
-                            }
-                        },
-                        "group": "sling",
-                        "key": "Strike",
-                        "label": "Foxfire",
-                        "range": 20,
-                        "traits": [
-                            "maximum range 20",
-                            "ranged"
-                        ]
-                    }
-                ],
-                "slug": "foxfire",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "kitsune"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.SVSB4UlpR1FV8EIk"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Foxfire (Fire)",
-            "sort": 0,
-            "type": "feat"
         },
         {
             "_id": "Yd89b3LCldVFqoit",
@@ -2224,10 +1896,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2252,13 +1924,13 @@
                     "value": "returning"
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -2301,7 +1973,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/trident.webp",
-            "name": "+1 Returning Trident",
+            "name": "Trident",
             "sort": 0,
             "type": "weapon"
         },
@@ -2354,10 +2026,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2379,16 +2051,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -2435,7 +2107,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/sai.webp",
-            "name": "+1 Sai",
+            "name": "Sai",
             "sort": 0,
             "type": "weapon"
         },
@@ -2844,6 +2516,492 @@
             "name": "Earthly Wilds Kitsune",
             "sort": 0,
             "type": "heritage"
+        },
+        {
+            "_id": "xayTtHmakqHrgejY",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A crack of your tail sparks wisps of blue energy. Choose either electricity or fire when you gain this feat. You gain a foxfire ranged unarmed attack with a maximum range of 20 feet. The attack deals [[/r 1d4]] damage of the chosen type (no ability modifier is added to the damage roll). Your foxfire attack is in the sling weapon group and has the magical trait. Like other unarmed attacks, you can improve this attack with @Compendium[pf2e.equipment-srd.Handwraps of Mighty Blows]{Handwraps of Mighty Blows}.</p>\n<hr />\n<p><strong>Special</strong> If you are a frozen wind kitsune, your foxfire deals cold damage instead of electricity or fire.</p>"
+                },
+                "featType": {
+                    "value": "ancestry"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "predicate": {
+                                    "not": [
+                                        "self:heritage:frozen-wind-kitsune"
+                                    ]
+                                },
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "predicate": {
+                                    "not": [
+                                        "self:heritage:frozen-wind-kitsune"
+                                    ]
+                                },
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "predicate": {
+                                    "all": [
+                                        "self:heritage:frozen-wind-kitsune"
+                                    ]
+                                },
+                                "value": "cold"
+                            }
+                        ],
+                        "flag": "damage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                        "selection": "fire"
+                    },
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "group": "sling",
+                        "img": "systems/pf2e/icons/spells/diamond-dust.webp",
+                        "key": "Strike",
+                        "maxRange": 20,
+                        "range": 20,
+                        "traits": [
+                            "unarmed",
+                            "magical"
+                        ]
+                    }
+                ],
+                "slug": "foxfire",
+                "source": {
+                    "value": "Pathfinder Lost Omens: Ancestry Guide"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "kitsune"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.qCV04rZMty2TJBrX"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Foxfire",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "jztg4vk2asi0809a",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You have trained for countless hours to become a skilled hunter and tracker, gaining an additional benefit when you Hunt Prey depending on the focus of your training. Choose one of the following hunter's edges:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Flurry]{Flurry}</li>\n<li>@Compendium[pf2e.classfeatures.Outwit]{Outwit}</li>\n<li>@Compendium[pf2e.classfeatures.Precision]{Precision}</li>\n</ul>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "dAIaq2jvJEgIC9vg",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "all": [
+                                "item:level:1",
+                                "item:trait:ranger",
+                                "item:type:feature"
+                            ],
+                            "label": "1st-level Ranger class feature"
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.NBHyoTrI8q62uDsU"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.u6cBjqz2fiRBadBt"
+                            }
+                        ],
+                        "flag": "huntersEdge",
+                        "key": "ChoiceSet",
+                        "prompt": "Select a Hunter's Edge.",
+                        "selection": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.huntersEdge}"
+                    }
+                ],
+                "slug": "hunters-edge",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.mzkkj9LEWjJPBhaq"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        {
+                            "id": "hzwigiukh07okcc5"
+                        }
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "name": "Hunter's Edge",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "3xmpmovblpx4rd3o",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the @Compendium[pf2e.actionspf2e.Hunt Prey]{Hunt Prey} action.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "dAIaq2jvJEgIC9vg",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "allowDuplicate": false,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.JYi4MnsdFu618hPm"
+                    },
+                    {
+                        "count": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "grants-hunt-prey",
+                        "priority": 99
+                    }
+                ],
+                "slug": "hunt-prey",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.0nIOGpHQNHsKSFKT"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        {
+                            "id": "mxmb4ctwh3m7583u"
+                        }
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
+            "name": "Hunt Prey",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "5mfcmgkg3jd83qr2",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Alchemist</strong> Your mental defenses are an iron fortress. Your proficiency rank for Will saves increases to expert.</p>\n<p><strong>Ranger</strong> Your training has hardened your resolve. Your proficiency rank for Will saves increases to expert.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "dAIaq2jvJEgIC9vg",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.saves.will.rank",
+                        "value": 2
+                    }
+                ],
+                "slug": "iron-will",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.wMyDcVNmA7xGK83S"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/iron-will.webp",
+            "name": "Iron Will",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "hzwigiukh07okcc5",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You have trained to unleash a devastating flurry of attacks upon your prey.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "MultipleAttackPenalty",
+                        "predicate": {
+                            "all": [
+                                "agile",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "MultipleAttackPenalty",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey"
+                            ],
+                            "not": [
+                                "agile"
+                            ]
+                        },
+                        "selector": "attack",
+                        "value": -3
+                    }
+                ],
+                "slug": "flurry",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "jztg4vk2asi0809a"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/flurry.webp",
+            "name": "Flurry",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "mxmb4ctwh3m7583u",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration.</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you Seek your prey and a +2 circumstance bonus to Survival checks when you @Compendium[pf2e.actionspf2e.Track]{Track} your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting.</p>\n<p>You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                        "predicate": {
+                            "all": [
+                                "action:seek",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                        "predicate": {
+                            "all": [
+                                "action:track",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey"
+                            ]
+                        }
+                    }
+                ],
+                "slug": "hunt-prey",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "ranger"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.JYi4MnsdFu618hPm"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "3xmpmovblpx4rd3o"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hunt Prey",
+            "sort": 0,
+            "type": "action"
         }
     ],
     "name": "Takemiru",

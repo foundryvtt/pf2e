@@ -607,6 +607,15 @@ class NPCPF2e extends CreaturePF2e {
                                 rollOptions.push("melee");
                             }
 
+                            // Check whether target is out of maximum range; abort early if so
+                            if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                                const maxRange = item.maxRange ?? 10;
+                                if (context.target.distance > maxRange) {
+                                    ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
+                                    return null;
+                                }
+                            }
+
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                             const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
