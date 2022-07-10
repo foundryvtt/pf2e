@@ -51,6 +51,7 @@ import {
     AlignmentTrait,
     AttackItem,
     AttackRollContext,
+    CreatureUpdateContext,
     GetReachParameters,
     IsFlatFootedParams,
     StrikeRollContext,
@@ -900,13 +901,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentUpdateContext<this>,
+        options: CreatureUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points
         const hitPoints = changed.data?.attributes?.hp;
         if (typeof hitPoints?.value === "number") {
-            hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
+            hitPoints.value = options.allowHPOverage
+                ? Math.max(0, hitPoints.value)
+                : Math.clamped(hitPoints.value, 0, this.hitPoints.max);
         }
 
         // Clamp focus points
@@ -932,6 +935,9 @@ export interface CreaturePF2e {
     saves: Record<SaveType, Statistic>;
 
     get hitPoints(): HitPointsSummary;
+
+    /** Expand DocumentModificationContext for creatures */
+    update(data: DocumentUpdateData<this>, options?: CreatureUpdateContext<this>): Promise<this>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
