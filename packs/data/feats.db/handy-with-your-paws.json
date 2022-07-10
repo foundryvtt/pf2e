@@ -19,10 +19,26 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:repair"
+                    ],
+                    "not": [
+                        "target:trait:magical"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder #153: Life's Long Shadow"
         },

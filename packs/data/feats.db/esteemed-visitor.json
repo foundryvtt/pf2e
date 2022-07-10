@@ -19,10 +19,41 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "terrain:settlement"
+                    ],
+                    "any": [
+                        "action:gather-information",
+                        "action:make-an-impression"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "skill"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "action:gather-information",
+                        "action:make-an-impression"
+                    ]
+                },
+                "selector": "diplomacy",
+                "text": "@Localize[PF2E.SpecificRule.Shoony.EsteemedVisitor.Note]",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder #153: Life's Long Shadow"
         },
