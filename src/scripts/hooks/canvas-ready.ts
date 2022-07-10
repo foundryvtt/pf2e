@@ -10,20 +10,6 @@ export const CanvasReady = {
             for (const li of $("#chat-log").children("li")) {
                 SetAsInitiative.listen($(li));
             }
-
-            // Check area effects after the first canvas-ready call
-            Hooks.on("canvasReady", async () => {
-                const withAuraEffects = game.pf2e.effectTracker.auraEffects
-                    .filter(
-                        (e) =>
-                            e.actor.isOwner &&
-                            e.actor.getActiveTokens(false, true).some((t) => t.scene === canvas.scene)
-                    )
-                    .map((e) => e.actor);
-                for (const actor of new Set(withAuraEffects)) {
-                    actor.checkAreaEffects();
-                }
-            });
         });
 
         Hooks.on("canvasReady", () => {
