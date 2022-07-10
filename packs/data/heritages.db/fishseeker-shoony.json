@@ -8,7 +8,45 @@
         "description": {
             "value": "<p>You come from a long line of fisherfolk and have inherited the quick reflexes necessary to nab and reel in big game. If you roll a success on an attempt to @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge}, you get a critical success instead; if you roll a critical failure, you get a failure instead. A creature that rolls a failure on a check to @Compendium[pf2e.actionspf2e.Disarm]{Disarm} you gets a critical failure instead.</p>"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:grab-an-edge"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:grab-an-edge"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "action:grab-an-edge"
+                    ]
+                },
+                "selector": "reflex",
+                "text": "@Localize[PF2E.SpecificRule.Shoony.FishseekerShoony.Note]",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder #153: Life's Long Shadows"
         },
