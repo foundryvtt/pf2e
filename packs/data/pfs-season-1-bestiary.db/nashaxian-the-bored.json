@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "LE"
             },
-            "blurb": "",
+            "blurb": "Variant barbazu",
             "creatureType": "",
             "level": {
                 "value": 3
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-11: Flames of Rebellion"
             }
         },
         "resources": {
@@ -144,7 +144,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -218,7 +218,7 @@
                 "spelldc": {
                     "dc": 17,
                     "mod": 0,
-                    "value": 7
+                    "value": 9
                 },
                 "tradition": {
                     "value": "divine"
@@ -327,7 +327,7 @@
                 "spelldc": {
                     "dc": 17,
                     "mod": 0,
-                    "value": 7
+                    "value": 9
                 },
                 "tradition": {
                     "value": ""
@@ -344,14 +344,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "ZMXBDMpBrPuoTU6P",
+            "_id": "vzQp77CcTBWDgbSU",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -380,10 +380,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "Vg5vGmFotbgVYEmi"
                 },
                 "materials": {
@@ -412,9 +423,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -442,13 +453,18 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door (at will)",
+            "name": "Dimension Door (At Will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "BqIcCtGKmEYqDpCr",
+            "_id": "iwKOPlyYDIIeFRGk",
             "data": {
                 "ability": {
                     "value": ""
@@ -456,8 +472,11 @@
                 "area": {
                     "value": ""
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "category": {
-                    "value": "spell"
+                    "value": "ritual"
                 },
                 "components": {
                     "focus": false,
@@ -472,7 +491,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -492,6 +511,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": "Religion (expert; you must be a devil)"
+                },
                 "range": {
                     "value": ""
                 },
@@ -501,14 +523,20 @@
                     "value": ""
                 },
                 "school": {
-                    "value": "evocation"
+                    "value": "conjuration"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "infernal-pact",
+                "source": {
+                    "value": "Pathfinder Bestiary"
                 },
                 "spellType": {
-                    "value": ""
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -517,29 +545,50 @@
                     "value": ""
                 },
                 "time": {
-                    "value": ""
+                    "value": "1 day"
                 },
                 "traditions": {
                     "value": []
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
+                    "rarity": "uncommon",
                     "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/spell.svg",
-            "name": "infernal pact Avernal Fever",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.30BBep9U4BDV0EgQ"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/infernal-pact.webp",
+            "name": "Infernal Pact",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "T0ryaPtIo5MlBLyg",
+            "_id": "bMcoZBMYf1UyPlBx",
             "data": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
+                "MAP": {
                     "value": ""
+                },
+                "baseItem": "glaive",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This polearm consists of a long, single‑edged blade on the end of a 7‑foot pole. It is extremely effective at delivering lethal cuts at a distance.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -549,6 +598,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": "polearm",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -561,6 +611,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -568,40 +621,91 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "gp": 1
+                    }
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "glaive",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": null,
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "deadly-d8",
+                        "forceful",
+                        "reach"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "glaive",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.vlnzTSsRmWeSkt9O"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
+            "name": "Glaive",
             "sort": 500000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "HbTMdBB07Kc501sx",
+            "_id": "7pxrh4uxtlJ4QDnv",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "infernal-wound"
                     ]
@@ -610,17 +714,17 @@
                     "value": 11
                 },
                 "damageRolls": {
-                    "0qlhnjo3428rk2501iyo": {
+                    "21wcxa25samjknoz4t0j": {
                         "damage": "1d8+5",
                         "damageType": "slashing"
                     },
-                    "3r9n3hdc0r4tfbhn5zem": {
+                    "fmuc3tt84ghiy5gzxfag": {
                         "damage": "1d6",
                         "damageType": "evil"
                     }
                 },
                 "description": {
-                    "value": "<p>(deadly 1d8, evil, forceful, magical, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -642,29 +746,35 @@
                     "value": "melee"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.nx4xRGaxTKYUoDc3"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Glaive",
             "sort": 600000,
             "type": "melee"
         },
         {
-            "_id": "xoWvIB701I3SHpSI",
+            "_id": "cDL4QG2fYIrdfosO",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
                     "value": 11
                 },
                 "damageRolls": {
-                    "rbq6y7hz4i5jrmg2d9qf": {
+                    "ekd4zn6q64nd9im5e8tz": {
                         "damage": "1d6+5",
                         "damageType": "slashing"
                     },
-                    "98ve3i1p5p4m4oox24gm": {
+                    "d88d04bcjo8in3h2kok7": {
                         "damage": "1d4",
                         "damageType": "evil"
                     }
@@ -690,18 +800,24 @@
                     "value": "melee"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.2nDGxWHCWCee1iSx"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 700000,
             "type": "melee"
         },
         {
-            "_id": "EA8RLIqejwTBjzvf",
+            "_id": "h5k3uAC4TqaKkLDA",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "avernal-fever"
                     ]
@@ -710,7 +826,7 @@
                     "value": 12
                 },
                 "damageRolls": {
-                    "fi29jqkbeyhmzt4tfv1s": {
+                    "xigo14gfsr9rb4xoxoxa": {
                         "damage": "1d4+5",
                         "damageType": "piercing"
                     }
@@ -734,10 +850,215 @@
                     "value": "melee"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.oy8YoTRiICsEHp2h"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beard",
             "sort": 800000,
             "type": "melee"
+        },
+        {
+            "_id": "exE7e9wpYPNhSBG3",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "2NziEC3Np3RlOiAt",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "DlGJPLgc5fjVFivu",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "rEKdAdNENT3SDfy2",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1200000,
+            "type": "action"
         },
         {
             "_id": "rPoBtnrj6lEKeg1k",
@@ -776,11 +1097,11 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Infernal Detonations",
-            "sort": 900000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "Ie3SMs5qcgPc2AvW",
+            "_id": "fZf5xHZsnU6ipHuI",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -792,7 +1113,54 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Nashaxian's glaive Strike also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] that resists attempts to heal it. The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery.</p>\n<p>The DC to @Compendium[pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound is increased by 3. A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.WAWuVix20DvclnjT"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Avernal Fever",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "OAhLWgPPRoWhp4OS",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Nashaxian's glaive Strike also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @Compendium[pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -817,13 +1185,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.1rKWA9WasE5Qvztu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infernal Wound",
-            "sort": 1000000,
+            "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "6D4wnhikJTjZvOcE",
+            "_id": "utjX4MdvBWi1fMme",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -835,7 +1208,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> Nashaxian makes a beard Strike. This Strike ignores his multiple attack penalty and doesn't count toward that penalty.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round.</p>\n<hr />\n<p><strong>Effect</strong> Nashaxian makes a beard Strike. This Strike ignores their multiple attack penalty and doesn't count toward that penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -857,9 +1230,14 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.H1fBTvbd4soO3MpN"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wriggling Beard",
-            "sort": 1100000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -887,7 +1265,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -915,7 +1293,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -943,7 +1321,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1400000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -971,7 +1349,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1500000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -999,7 +1377,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 2100000,
             "type": "lore"
         }
     ],
