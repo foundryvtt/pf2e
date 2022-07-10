@@ -44,7 +44,7 @@ import {
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { FeatData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ItemGrantData } from "@item/data/base";
 import { ItemCarryType } from "@item/physical/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
@@ -112,8 +112,8 @@ class CharacterPF2e extends CreaturePF2e {
     familiar: FamiliarPF2e | null = null;
 
     featGroups!: Record<string, FeatSlot | undefined>;
-    pfsBoons!: FeatData[];
-    deityBoonsCurses!: FeatData[];
+    pfsBoons!: FeatPF2e[];
+    deityBoonsCurses!: FeatPF2e[];
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
@@ -1376,17 +1376,17 @@ class CharacterPF2e extends CreaturePF2e {
             // If we know the slot, place directly into the slot
             if (slotIndex !== -1) {
                 const slot = allFeatSlots[slotIndex];
-                slot.feat = featData;
+                slot.feat = feat;
                 slot.grants = getGrantedItems(featData.flags.pf2e.itemGrants);
                 continue;
             }
 
             // Handle PFS and Deity boons and curses
             if (featType === "pfsboon") {
-                this.pfsBoons.push(featData);
+                this.pfsBoons.push(feat);
                 continue;
             } else if (["deityboon", "curse"].includes(featType)) {
-                this.deityBoonsCurses.push(featData);
+                this.deityBoonsCurses.push(feat);
                 continue;
             }
 
@@ -1397,13 +1397,11 @@ class CharacterPF2e extends CreaturePF2e {
             const group = lookedUpGroup && !lookedUpGroup.slotted ? lookedUpGroup : this.featGroups.bonus;
             if (group && !group.slotted) {
                 const grants = getGrantedItems(featData.flags.pf2e.itemGrants);
-                group.feats.push({ feat: featData, grants });
+                group.feats.push({ feat, grants });
             }
         }
 
-        this.featGroups.classfeature?.feats.sort(
-            (a, b) => (a.feat?.data.level.value || 0) - (b.feat?.data.level.value || 0)
-        );
+        this.featGroups.classfeature?.feats.sort((a, b) => (a.feat?.level || 0) - (b.feat?.level || 0));
     }
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */
