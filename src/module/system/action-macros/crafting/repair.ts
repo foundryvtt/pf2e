@@ -37,6 +37,8 @@ async function repair(options: RepairActionOptions) {
             return;
         })();
 
+    const targetItemOptions = Array.from(item?.traits ?? []).map((trait) => `target:trait:${trait}`);
+
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
@@ -54,7 +56,7 @@ async function repair(options: RepairActionOptions) {
         },
         modifiers: options.modifiers,
         rollOptions: ["all", checkType, stat, "action:repair"],
-        extraOptions: ["action:repair"],
+        extraOptions: ["action:repair", ...targetItemOptions],
         traits: ["exploration", "manipulate"],
         checkType,
         event: options.event,
