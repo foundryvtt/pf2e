@@ -19,6 +19,7 @@
         "level": {
             "value": 12
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,48 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "primal"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    }
+                ],
+                "flag": "featSpellmastersResilience",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellmastersResilience.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.featSpellmastersResilience}",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Spellmaster's Resilience",
+                "predicate": {
+                    "all": [
+                        "{item|flags.pf2e.rulesSelections.featSpellmastersResilience}"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
