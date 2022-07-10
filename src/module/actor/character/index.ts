@@ -1,6 +1,12 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
+import {
+    AttackItem,
+    AttackRollContext,
+    CreatureUpdateContext,
+    StrikeRollContext,
+    StrikeRollContextParams,
+} from "@actor/creature/types";
 import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
@@ -2166,15 +2172,28 @@ class CharacterPF2e extends CreaturePF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<CharacterSource>,
-        options: DocumentModificationContext<this>,
+        options: CreatureUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         const systemData = this.data.data;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
         const level = changed.data?.details?.level;
-        if (level?.value !== undefined) {
+        if (typeof level?.value === "number") {
             level.value = Math.clamped(Number(level.value) || 0, 0, 30);
+
+            // Adjust hit points if level is changing
+            const clone = this.clone(changed);
+            const hpMaxDifference = clone.hitPoints.max - this.hitPoints.max;
+            if (hpMaxDifference !== 0) {
+                options.allowHPOverage = true;
+                const currentHP = this.hitPoints.value;
+                const newHP = Math.max(
+                    currentHP + hpMaxDifference,
+                    currentHP === 0 ? 0 : 1 // Refrain from killing the character merely by lowering level
+                );
+                changed.data = mergeObject(changed.data ?? {}, { attributes: { hp: { value: newHP } } });
+            }
         }
 
         // Clamp Stamina and Resolve
