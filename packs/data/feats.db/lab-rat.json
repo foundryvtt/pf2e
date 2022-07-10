@@ -19,10 +19,50 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "poison",
+                        "elixir"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "poison",
+                        "elixir"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "poison",
+                        "elixir"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "@Localize[PF2E.SpecificRule.Ratfolk.LabRat.Note]",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
