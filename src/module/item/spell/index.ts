@@ -225,10 +225,9 @@ class SpellPF2e extends ItemPF2e {
         // Until damage is refactored, we can't get anything fancier than this
         const { actor } = this;
         if (actor && Object.keys(this.data.data.damage.value).length) {
-            const statisticsModifiers = actor.synthetics.statisticsModifiers;
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
-            const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
+            const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);

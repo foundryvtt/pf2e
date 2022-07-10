@@ -76,7 +76,7 @@ export class VehiclePF2e extends ActorPF2e {
                 type: "untyped",
                 modifier: this.data.data.saves.fortitude.value,
             }),
-            ...extractModifiers(synthetics.statisticsModifiers, domains),
+            ...extractModifiers(synthetics, domains),
         ];
         const fortitude = new Statistic(this, {
             slug: "fortitude",

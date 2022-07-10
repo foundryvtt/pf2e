@@ -10,7 +10,7 @@ import {
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
-import { extractRollSubstitutions } from "@module/rules/util";
+import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/util";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckType } from "@system/rolls";
@@ -127,7 +127,11 @@ export class ActionMacroHelpers {
                     check.push(
                         new ModifierPF2e({
                             slug,
-                            adjustments: selfActor.getModifierAdjustments([stat.name], slug),
+                            adjustments: extractModifierAdjustments(
+                                selfActor.synthetics.modifierAdjustments,
+                                ["all", stat.name],
+                                slug
+                            ),
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
                             label: CONFIG.PF2E.weaponTraits["ranged-trip"],
                             modifier: -2,
@@ -229,7 +233,7 @@ export class ActionMacroHelpers {
                 type: MODIFIER_TYPE.POTENCY,
                 label: item.name,
                 modifier: item.actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
-                adjustments: item.actor.getModifierAdjustments([selector], slug),
+                adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
         } else if (itemBonus > 0) {
             return new ModifierPF2e({
@@ -237,7 +241,7 @@ export class ActionMacroHelpers {
                 type: MODIFIER_TYPE.ITEM,
                 label: item.name,
                 modifier: itemBonus,
-                adjustments: item.actor.getModifierAdjustments([selector], slug),
+                adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
         } else {
             return null;
