@@ -18,7 +18,7 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
+import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
@@ -134,6 +134,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
         sheetData.spellcastingEntries = this.prepareSpellcasting();
+        sheetData.feats = this.prepareFeats();
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.data.flags.pf2e;
@@ -303,7 +304,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         // Assign and return
-        actorData.featSlots = this.actor.featGroups;
         actorData.pfsBoons = this.actor.pfsBoons;
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
         actorData.actions = actions;
@@ -340,6 +340,15 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return craftingEntries;
+    }
+
+    private prepareFeats(): FeatCategorySheetData[] {
+        const unorganized: FeatCategorySheetData = {
+            id: "",
+            label: "PF2E.FeatBonusHeader",
+            feats: this.actor.feats.unorganized,
+        };
+        return [...this.actor.feats.contents, unorganized];
     }
 
     /** Disable the initiative button located on the sidebar */
@@ -876,12 +885,10 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private getNearestSlotId(event: ElementDragEvent): JQuery.PlainObject {
-        const data = $(event.target).closest("[data-slot-id]").data();
-        if (!data) {
-            return { slotId: undefined, featType: undefined };
-        }
-        return data;
+    private getNearestFeatSlotId(event: ElementDragEvent) {
+        const categoryId = event.target.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
+        const slotId = event.target.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+        return { slotId, categoryId: categoryId ?? "" };
     }
 
     protected override async _onDropItem(
@@ -896,8 +903,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
         if (item instanceof FeatPF2e) {
-            const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
-            const results = await this.actor.insertFeat(item, featType ?? "", slotId ?? "");
+            const featSlot = this.getNearestFeatSlotId(event);
+            const results = await this.actor.feats.insertFeat(item, featSlot);
             if (results.length > 0) {
                 return results;
             } else {
@@ -948,11 +955,13 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const item = this.actor.items.get(itemData._id);
         if (item instanceof FeatPF2e) {
-            const { slotId, featType } = this.getNearestSlotId(event);
-            const group = this.actor.featGroups[featType];
-            const resorting = group && !group.slotted && item.data.data.location === featType;
-            if (slotId && featType && !resorting) {
-                return this.actor.insertFeat(item, featType, slotId);
+            const { slotId, categoryId } = this.getNearestFeatSlotId(event);
+            const group = this.actor.feats.get(categoryId) ?? null;
+            const resorting = item.category === group && !group?.slotted;
+            if (group?.slotted && !slotId) {
+                return [];
+            } else if (!resorting) {
+                return this.actor.feats.insertFeat(item, { categoryId, slotId });
             }
         }
 
