@@ -20,8 +20,12 @@ $light-text: #f5efe0;
     align-items: baseline;
     padding: 0px;
     margin: 0px;
-    padding-bottom: 6px;
     width: 100%;
+
+    border-bottom: 1px solid var(--alt);
+    &:last-child {
+        border-bottom: none;
+    }
 
     .item-controls {
         font-size: 0.8rem;
@@ -43,9 +47,9 @@ $light-text: #f5efe0;
     flex: 1 0 46%;
     margin-left: 6px;
     margin-right: 6px;
+    padding: 4px 0;
     flex-direction: column;
     justify-content: flex-start;
-    margin-top: 6px;
 
     &:not(:last-child) {
         border-bottom: 1px solid $faded-color;
