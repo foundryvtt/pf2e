@@ -23,7 +23,7 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { extractModifiers, extractRollTwice } from "@module/rules/util";
+import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
@@ -270,7 +270,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             type: MODIFIER_TYPE.UNTYPED,
             modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
             predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
-            adjustments: this.getModifierAdjustments(selectors, slug),
+            adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
         });
         modifier.test(rollOptions);
         return modifier;
@@ -435,9 +435,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
                       CONFIG.PF2E.skills[checkType],
                   ] as const);
 
-        const { statisticsModifiers, rollNotes } = this.synthetics;
+        const { rollNotes } = this.synthetics;
         const domains = ["all", "initiative", `${ability}-based`, proficiency];
-        const modifiers = extractModifiers(statisticsModifiers, domains, {
+        const modifiers = extractModifiers(this.synthetics, domains, {
             test: [proficiency, ...this.getRollOptions(domains)],
         });
         const notes = rollNotes.initiative?.map((n) => n.clone()) ?? [];
@@ -520,18 +520,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const { statisticsModifiers } = this.synthetics;
         for (const [selector, modifiers] of Object.entries(customModifiers)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(
-                ...modifiers.map((modifier) => () => {
-                    modifier.adjustments = this.getModifierAdjustments([selector], modifier.slug);
-                    return modifier;
-                })
-            );
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */
     protected getShieldBonus(): ModifierPF2e | null {
-        if (!(this.data.type === "character" || this.data.type === "npc")) return null;
+        if (!this.isOfType("character", "npc")) return null;
         const shieldData = this.data.data.attributes.shield;
         if (shieldData.raised && !shieldData.broken) {
             const slug = "raised-shield";
@@ -539,7 +534,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             return new ModifierPF2e({
                 label: shieldData.name,
                 slug,
-                adjustments: this.getModifierAdjustments(["ac"], slug),
+                adjustments: extractModifierAdjustments(
+                    this.synthetics.modifierAdjustments,
+                    ["all", "dex-based", "ac"],
+                    slug
+                ),
                 type: MODIFIER_TYPE.CIRCUMSTANCE,
                 modifier: shieldData.ac,
             });
@@ -715,7 +714,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const systemData = this.data.data;
         const selectors = ["speed", "all-speeds", `${movementType}-speed`];
         const rollOptions = this.getRollOptions(selectors);
-        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, selectors);
+        const modifiers = extractModifiers(this.synthetics, selectors);
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");

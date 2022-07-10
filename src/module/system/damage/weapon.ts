@@ -4,6 +4,7 @@ import {
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
+    ModifierAdjustment,
     ModifierPF2e,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
@@ -87,6 +88,7 @@ export class WeaponDamagePF2e {
         actor: NPCPF2e,
         traits: TraitViewData[] = [],
         statisticsModifiers: Record<string, DeferredModifier[]>,
+        modifierAdjustments: Record<string, ModifierAdjustment[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
         options: string[] = [],
@@ -181,6 +183,7 @@ export class WeaponDamagePF2e {
             actor,
             traits,
             statisticsModifiers,
+            modifierAdjustments,
             damageDice,
             proficiencyRank,
             options,
@@ -196,6 +199,7 @@ export class WeaponDamagePF2e {
         actor: CharacterPF2e | NPCPF2e,
         traits: TraitViewData[] = [],
         statisticsModifiers: Record<string, DeferredModifier[]>,
+        modifierAdjustments: Record<string, ModifierAdjustment[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
         options: string[] = [],
@@ -247,7 +251,8 @@ export class WeaponDamagePF2e {
         // Find the best active ability modifier in order to get the correct synthetics selectors
         const resolvables = { weapon: weapon.document };
         const injectables = resolvables;
-        const fromDamageSelector = extractModifiers(statisticsModifiers, ["damage"], { resolvables, injectables });
+        const synthetics = { modifierAdjustments, statisticsModifiers };
+        const fromDamageSelector = extractModifiers(synthetics, ["damage"], { resolvables, injectables });
         const modifiersAndSelectors = numericModifiers
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
@@ -459,8 +464,8 @@ export class WeaponDamagePF2e {
         }
 
         // Synthetic modifiers
-        const synthetics = extractModifiers(statisticsModifiers, selectors, { resolvables, injectables });
-        numericModifiers.push(...new StatisticModifier("", synthetics, options).modifiers);
+        const syntheticModifiers = extractModifiers(synthetics, selectors, { resolvables, injectables });
+        numericModifiers.push(...new StatisticModifier("", syntheticModifiers, options).modifiers);
 
         const notes = selectors.flatMap(
             (s) =>

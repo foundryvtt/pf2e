@@ -1,5 +1,4 @@
 import { ModeOfBeing } from "@actor/creature/types";
-import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
@@ -590,19 +589,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const thisCombatant = participants.find((c): c is Embedded<CombatantPF2e<this>> => c.actor === this)!;
         const rank = participants.indexOf(thisCombatant) + 1;
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
-    }
-
-    getModifierAdjustments(selectors: string[], slug: string): ModifierAdjustment[] {
-        const adjustmentsRecord = this.synthetics.modifierAdjustments;
-        const selectorMatches = Array.from(
-            new Set(
-                selectors.includes("all")
-                    ? Object.values(adjustmentsRecord).flat()
-                    : selectors.flatMap((s) => adjustmentsRecord[s] ?? [])
-            )
-        );
-
-        return selectorMatches.filter((a) => [slug, null].includes(a.slug));
     }
 
     /* -------------------------------------------- */

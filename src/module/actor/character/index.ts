@@ -56,7 +56,13 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import {
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollSubstitutions,
+    extractRollTwice,
+} from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { DamageRollContext } from "@system/damage/damage";
@@ -525,22 +531,24 @@ class CharacterPF2e extends CreaturePF2e {
                         ability: "con",
                         type: MODIFIER_TYPE.ABILITY,
                         modifier: conLevelBonus,
-                        adjustments: this.getModifierAdjustments(["con-based"], "hp-con"),
+                        adjustments: extractModifierAdjustments(
+                            synthetics.modifierAdjustments,
+                            ["con-based"],
+                            "hp-con"
+                        ),
                     })
                 );
             }
 
             const hpRollOptions = this.getRollOptions(["hp"]);
-            modifiers.push(...extractModifiers(statisticsModifiers, ["hp"], { test: hpRollOptions }));
+            modifiers.push(...extractModifiers(synthetics, ["hp"], { test: hpRollOptions }));
 
             const perLevelRollOptions = this.getRollOptions(["hp-per-level"]);
             modifiers.push(
-                ...extractModifiers(statisticsModifiers, ["hp-per-level"], { test: perLevelRollOptions }).map(
-                    (clone) => {
-                        clone.modifier *= this.level;
-                        return clone;
-                    }
-                )
+                ...extractModifiers(synthetics, ["hp-per-level"], { test: perLevelRollOptions }).map((clone) => {
+                    clone.modifier *= this.level;
+                    return clone;
+                })
             );
 
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hitPoints, { overwrite: false });
@@ -574,7 +582,7 @@ class CharacterPF2e extends CreaturePF2e {
             ];
 
             const domains = ["perception", "wis-based", "all"];
-            modifiers.push(...extractModifiers(statisticsModifiers, domains));
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const stat = mergeObject(
                 new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
@@ -634,7 +642,7 @@ class CharacterPF2e extends CreaturePF2e {
                     systemData.abilities[systemData.details.keyability.value].value
                 ),
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
-                ...extractModifiers(statisticsModifiers, domains),
+                ...extractModifiers(synthetics, domains),
             ];
 
             const stat = mergeObject(
@@ -680,7 +688,7 @@ class CharacterPF2e extends CreaturePF2e {
                         type: MODIFIER_TYPE.ITEM,
                         slug,
                         modifier: wornArmor.acBonus,
-                        adjustments: this.getModifierAdjustments(["all", "ac"], slug),
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
                     })
                 );
             }
@@ -704,8 +712,8 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            const domains = ["ac", `${acAbility}-based`];
-            modifiers.push(...extractModifiers(statisticsModifiers, ["all", ...domains]));
+            const domains = ["all", "ac", `${acAbility}-based`];
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const rollOptions = this.getRollOptions(domains);
             const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
@@ -772,17 +780,17 @@ class CharacterPF2e extends CreaturePF2e {
                 label: CONFIG.PF2E.magicTraditions[tradition],
                 ability: entry.ability,
                 rank,
-                modifiers: extractModifiers(statisticsModifiers, baseSelectors),
+                modifiers: extractModifiers(synthetics, baseSelectors),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
-                    modifiers: extractModifiers(statisticsModifiers, attackSelectors),
+                    modifiers: extractModifiers(synthetics, attackSelectors),
                     domains: attackSelectors,
                 },
                 dc: {
-                    modifiers: extractModifiers(statisticsModifiers, saveSelectors),
+                    modifiers: extractModifiers(synthetics, saveSelectors),
                     domains: saveSelectors,
                 },
             });
@@ -938,7 +946,7 @@ class CharacterPF2e extends CreaturePF2e {
     private prepareSaves(): void {
         const systemData = this.data.data;
         const { wornArmor } = this;
-        const { rollNotes, statisticsModifiers } = this.synthetics;
+        const { rollNotes } = this.synthetics;
 
         // Saves
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -977,7 +985,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             // Add custom modifiers and roll notes relevant to this save.
             const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
-            modifiers.push(...extractModifiers(statisticsModifiers, selectors));
+            modifiers.push(...extractModifiers(this.synthetics, selectors));
 
             const stat = new Statistic(this, {
                 slug: saveType,
@@ -1016,7 +1024,11 @@ class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             for (const modifier of modifiers) {
-                modifier.adjustments = this.getModifierAdjustments(domains, modifier.slug);
+                modifier.adjustments = extractModifierAdjustments(
+                    synthetics.modifierAdjustments,
+                    domains,
+                    modifier.slug
+                );
             }
 
             // Indicate that the strength requirement of this actor's armor is met
@@ -1035,7 +1047,7 @@ class CharacterPF2e extends CreaturePF2e {
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
                     type: MODIFIER_TYPE.UNTYPED,
-                    adjustments: this.getModifierAdjustments(domains, slug),
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, slug),
                 });
 
                 // Set requirements for ignoring the check penalty according to skill
@@ -1056,7 +1068,7 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            modifiers.push(...extractModifiers(synthetics.statisticsModifiers, domains));
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
                 overwrite: false,
@@ -1125,8 +1137,15 @@ class CharacterPF2e extends CreaturePF2e {
             const modifiers = [
                 AbilityModifier.fromScore("int", systemData.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                ...extractModifiers(synthetics.statisticsModifiers, domains),
             ];
+            for (const modifier of modifiers) {
+                modifier.adjustments = extractModifierAdjustments(
+                    synthetics.modifierAdjustments,
+                    domains,
+                    modifier.slug
+                );
+            }
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const loreSkill = systemData.skills[shortForm];
             const stat = mergeObject(
@@ -1205,7 +1224,11 @@ class CharacterPF2e extends CreaturePF2e {
                   label: modifierName,
                   modifier: value,
                   type: MODIFIER_TYPE.UNTYPED,
-                  adjustments: this.getModifierAdjustments(["speed", `${movementType}-speed`], slug),
+                  adjustments: extractModifierAdjustments(
+                      this.synthetics.modifierAdjustments,
+                      ["speed", `${movementType}-speed`],
+                      slug
+                  ),
               })
             : null;
         if (armorPenalty) {
@@ -1646,7 +1669,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
             const options = { resolvables: { weapon } };
-            const abilityModifier = [...modifiers, ...extractModifiers(statisticsModifiers, baseSelectors, options)]
+            const abilityModifier = [...modifiers, ...extractModifiers(synthetics, baseSelectors, options)]
                 .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
                 .flatMap((modifier) => (modifier.predicate.test(baseOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
@@ -1706,7 +1729,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Everything from relevant synthetics
         modifiers.push(
-            ...extractModifiers(statisticsModifiers, selectors, { injectables: { weapon }, resolvables: { weapon } })
+            ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
         // Multiple attack penalty
@@ -1978,6 +2001,7 @@ class CharacterPF2e extends CreaturePF2e {
                     context.self.actor,
                     context.traits,
                     statisticsModifiers,
+                    synthetics.modifierAdjustments,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
                     Array.from(options),
