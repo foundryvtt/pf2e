@@ -221,13 +221,13 @@ class SpellPF2e extends ItemPF2e {
             formulas.push(formula);
         }
 
-        // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this
+        // Add flat damage increases if this spell can deal damage.
+        // Until damage is refactored, we can't get anything fancier than this
         const { actor } = this;
-        if (actor) {
-            const statisticsModifiers = actor.synthetics.statisticsModifiers;
+        if (actor && Object.keys(this.data.data.damage.value).length) {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
-            const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
+            const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
@@ -433,23 +433,26 @@ class SpellPF2e extends ItemPF2e {
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
 
-        const variants = [];
-        if (this.hasVariants) {
-            for (const variant of this.overlays.overrideVariants) {
-                const overlayIds = [...variant.appliedOverlays!.values()];
-                const actions =
-                    variant.data.data.time.value !== this.data.data.time.value
-                        ? getActionIcon(variant.data.data.time.value)
-                        : undefined;
-                variants.push({
-                    actions,
-                    name: variant.name,
-                    overlayIds,
-                    sort: variant.data.sort,
-                });
+        const variants = (() => {
+            const variantData = [];
+            if (this.hasVariants) {
+                for (const variant of this.overlays.overrideVariants) {
+                    const overlayIds = [...variant.appliedOverlays!.values()];
+                    const actions =
+                        variant.data.data.time.value !== this.data.data.time.value
+                            ? getActionIcon(variant.data.data.time.value)
+                            : undefined;
+                    variantData.push({
+                        actions,
+                        name: variant.name,
+                        overlayIds,
+                        sort: variant.data.sort,
+                    });
+                }
+                variantData.sort((variantA, variantB) => variantA.sort - variantB.sort);
             }
-            variants.sort((variantA, variantB) => variantA.sort - variantB.sort);
-        }
+            return variantData.length > 0 ? variantData : undefined;
+        })();
 
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         rollData.item ??= this;

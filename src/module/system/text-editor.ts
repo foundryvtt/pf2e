@@ -289,14 +289,14 @@ function getCheckDC(
         const getStatisticValue = (selectors: string[]): string => {
             if (item?.isOwned && params.immutable !== "true") {
                 const actor = item.actor!;
-                const { statisticsModifiers, rollNotes } = actor.synthetics;
+                const { rollNotes } = actor.synthetics;
 
                 const stat = new Statistic(actor, {
                     slug: type,
                     label: name,
                     notes: extractNotes(rollNotes, selectors),
                     domains: selectors,
-                    modifiers: [...extractModifiers(statisticsModifiers, selectors)],
+                    modifiers: [...extractModifiers(actor.synthetics, selectors)],
                     dc: {
                         base,
                     },

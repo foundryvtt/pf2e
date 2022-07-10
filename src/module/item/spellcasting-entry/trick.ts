@@ -64,15 +64,15 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
             label: CONFIG.PF2E.magicTraditions[tradition],
             ability,
             rank: actor.data.data.skills[skill].rank,
-            modifiers: extractModifiers(actor.synthetics.statisticsModifiers, selectors),
+            modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
             check: {
                 type: "spell-attack-roll",
-                modifiers: extractModifiers(actor.synthetics.statisticsModifiers, attackSelectors),
+                modifiers: extractModifiers(actor.synthetics, attackSelectors),
                 domains: attackSelectors,
             },
             dc: {
-                modifiers: extractModifiers(actor.synthetics.statisticsModifiers, saveSelectors),
+                modifiers: extractModifiers(actor.synthetics, saveSelectors),
                 domains: saveSelectors,
             },
         });

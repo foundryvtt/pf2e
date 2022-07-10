@@ -54,14 +54,13 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         (abandonedModules.has(m.id) ||
-                            (m.data.compatibleCoreVersion &&
-                                !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion, "0.8.9")))
+                            !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion ?? 9, "0.8.9"))
                 );
 
                 for (const badModule of subV9Modules) {
-                    ui.notifications.warn(
-                        game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.data.title })
-                    );
+                    const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.data.title });
+                    ui.notifications.warn(message);
+                    console.warn(message);
                 }
             });
 

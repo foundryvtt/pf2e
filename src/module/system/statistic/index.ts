@@ -11,7 +11,7 @@ import {
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
-import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { extractModifierAdjustments, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
@@ -102,7 +102,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         if (actor instanceof CharacterPF2e && this.ability) {
             this.abilityModifier = AbilityModifier.fromScore(this.ability, actor.abilities[this.ability].value);
-            this.abilityModifier.adjustments = actor.getModifierAdjustments(data.domains ?? [], this.ability);
+            this.abilityModifier.adjustments = extractModifierAdjustments(
+                actor.synthetics.modifierAdjustments,
+                data.domains ?? [],
+                this.ability
+            );
             this.modifiers.unshift(this.abilityModifier);
         }
 

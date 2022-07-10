@@ -106,7 +106,6 @@ export class FamiliarPF2e extends CreaturePF2e {
         const spellcastingAbilityModifier = master.data.data.abilities[systemData.master.ability].mod;
 
         const { synthetics } = this;
-        const { statisticsModifiers } = synthetics;
         const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
         const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
@@ -118,7 +117,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         // Hit Points
         {
-            const perLevelModifiers = extractModifiers(statisticsModifiers, ["hp-per-level"])
+            const perLevelModifiers = extractModifiers(synthetics, ["hp-per-level"])
                 .filter(filterModifier)
                 .map((modifier) => {
                     const clone = modifier.clone();
@@ -128,7 +127,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
             const modifiers = [
                 new ModifierPF2e("PF2E.MasterLevelHP", level * 5, MODIFIER_TYPE.UNTYPED),
-                extractModifiers(statisticsModifiers, ["hp"]).filter(filterModifier),
+                extractModifiers(synthetics, ["hp"]).filter(filterModifier),
                 perLevelModifiers,
             ].flat();
 
@@ -150,7 +149,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 (modifier) => !["status", "circumstance"].includes(modifier.type)
             );
             const base = 10 + new StatisticModifier("base", source).totalModifier;
-            const modifiers = extractModifiers(statisticsModifiers, ["ac", "dex-based", "all"]).filter(filterModifier);
+            const modifiers = extractModifiers(synthetics, ["ac", "dex-based", "all"]).filter(filterModifier);
             const stat = mergeObject(new StatisticModifier("ac", modifiers), systemData.attributes.ac, {
                 overwrite: false,
             });
@@ -178,7 +177,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED),
-                    ...extractModifiers(statisticsModifiers, selectors).filter(filterModifier),
+                    ...extractModifiers(synthetics, selectors).filter(filterModifier),
                 ],
                 check: {
                     type: "saving-throw",
@@ -202,7 +201,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             const selectors = ["attack", "attack-roll", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED),
-                ...extractModifiers(statisticsModifiers, selectors),
+                ...extractModifiers(synthetics, selectors),
             ];
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
                 roll: async ({ event, options = [], callback }: RollParameters): Promise<Rolled<CheckRoll> | null> => {
@@ -240,7 +239,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     spellcastingAbilityModifier,
                     MODIFIER_TYPE.UNTYPED
                 ),
-                ...extractModifiers(statisticsModifiers, selectors).filter(filterModifier),
+                ...extractModifiers(synthetics, selectors).filter(filterModifier),
             ];
             const stat = mergeObject(new StatisticModifier("perception", modifiers), systemData.attributes.perception, {
                 overwrite: false,
@@ -287,7 +286,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             }
             const ability = SKILL_EXPANDED[longForm].ability;
             const selectors = [longForm, `${ability}-based`, "skill-check", "all"];
-            modifiers.push(...extractModifiers(statisticsModifiers, selectors).filter(filterModifier));
+            modifiers.push(...extractModifiers(synthetics, selectors).filter(filterModifier));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
             const stat = mergeObject(new StatisticModifier(longForm, modifiers), {

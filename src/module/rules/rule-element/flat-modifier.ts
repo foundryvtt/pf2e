@@ -89,7 +89,6 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     slug,
                     label,
                     modifier: finalValue,
-                    adjustments: this.actor.getModifierAdjustments([selector], slug),
                     type: this.type,
                     ability: this.type === "ability" ? this.ability : null,
                     predicate: this.data.predicate,

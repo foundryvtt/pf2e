@@ -24,18 +24,32 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     baseType: BaseWeaponType | null;
 
+    range: {
+        increment: number;
+        max: number | null;
+    } | null;
+
     constructor(data: StrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.range = Number(data.range) || null;
         super(data, item, options);
 
         this.category = setHasElement(WEAPON_CATEGORIES, data.category) ? data.category : "unarmed";
         this.group = setHasElement(WEAPON_GROUPS, data.group) ? data.group : "brawling";
         this.baseType = objectHasKey(CONFIG.PF2E.baseWeaponTypes, data.baseType) ? data.baseType : null;
-        this.data.range ??= null;
         this.data.traits ??= [];
+        this.range = this.#isValidRange(data.range)
+            ? {
+                  increment: data.range,
+                  max: this.#isValidRange(data.maxRange) ? data.maxRange : null,
+              }
+            : null;
+
         this.data.replaceAll = !!(this.data.replaceAll ?? false);
         this.data.replaceBasicUnarmed = !!(this.data.replaceBasicUnarmed ?? false);
         this.slug ??= sluggify(this.label);
+    }
+
+    #isValidRange(range: unknown): range is number {
+        return typeof range === "number" && Number.isInteger(range) && range > 0;
     }
 
     override beforePrepareData(): void {
@@ -88,7 +102,8 @@ class StrikeRuleElement extends RuleElementPF2e {
                 group: this.group,
                 baseItem: this.baseType,
                 damage,
-                range: this.data.range,
+                range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
+                maxRange: this.range?.max ?? null,
                 traits: { value: this.data.traits, rarity: "common", custom: "" },
                 options: { value: this.data.options ?? [] },
                 usage: { value: "held-in-one-hand" },
@@ -116,6 +131,7 @@ interface StrikeSource extends RuleElementSource {
     baseType?: unknown;
     damage?: unknown;
     range?: unknown;
+    maxRange?: unknown;
     traits?: unknown;
     replaceAll?: unknown;
     replaceBasicUnarmed?: unknown;
@@ -126,7 +142,6 @@ interface StrikeData extends RuleElementData {
     slug?: string;
     img?: ImagePath;
     damage?: { base?: WeaponDamage };
-    range: WeaponRangeIncrement | null;
     traits: WeaponTrait[];
     replaceAll: boolean;
     replaceBasicUnarmed: boolean;

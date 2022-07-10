@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-11: Flames of Rebellion"
             }
         },
         "resources": {
@@ -157,9 +157,9 @@
                         "value": 5
                     },
                     "slot1": {
-                        "max": 0,
+                        "max": 4,
                         "prepared": [],
-                        "value": 0
+                        "value": 4
                     },
                     "slot10": {
                         "max": 0,
@@ -236,14 +236,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "ZLDNdCJDhRlyGid3",
+            "_id": "4phbdBIsSGvJkO01",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -263,8 +263,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "acid"
                             },
                             "value": "3d8"
@@ -272,7 +274,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Localize[PF2E.PersistentDamage.Acid1d6.success]. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -291,6 +293,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "idrxPD2oG0Af2yHS"
                 },
                 "materials": {
@@ -319,9 +322,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "acid-arrow",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=2"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -330,7 +333,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -350,23 +353,28 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "z2XtfPZtNWMNFCnC",
+            "_id": "j4xoJwsa5JIs0VGc",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
-                    "value": "1 5-foot square"
+                    "value": "5-foot square"
                 },
                 "category": {
                     "value": "spell"
@@ -392,7 +400,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, you can Sustain this Spell, leaving the sphere in its square or rolling it to another square within range and dealing 3d6 fire damage; each creature in its square must attempt a basic Reflex save.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, the first time you Sustain this Spell, you can leave the sphere in its square or roll it to another square within range. It deals 3d6 fire damage (basic Reflex save) to each creature in that square.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -411,6 +419,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "idrxPD2oG0Af2yHS"
                 },
                 "materials": {
@@ -427,7 +436,7 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "basic",
+                    "basic": "",
                     "value": "reflex"
                 },
                 "school": {
@@ -439,9 +448,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "flaming-sphere",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=121"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -469,117 +478,18 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.2ZdHjnpEQJuqOYSG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/flaming-sphere.webp",
             "name": "Flaming Sphere",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "gTgUBXksznudQTc0",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "idrxPD2oG0Af2yHS"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "illusion"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=160"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "visual"
-                    ]
-                }
-            },
-            "img": "systems/pf2e/icons/spells/illusory-object.webp",
-            "name": "Illusory Object",
-            "sort": 400000,
-            "type": "spell"
-        },
-        {
-            "_id": "8wPO2kkOOzcgUgOp",
+            "_id": "7e2z08BtCrHvcNrz",
             "data": {
                 "ability": {
                     "value": ""
@@ -604,18 +514,10 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "force"
-                            },
-                            "value": "1d4+1"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
-                    "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
+                    "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -627,6 +529,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "idrxPD2oG0Af2yHS"
                 },
                 "materials": {
@@ -639,7 +542,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "120 feet"
+                    "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
@@ -655,12 +558,12 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "telekinetic-maneuver",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=180"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "attack"
                 },
                 "sustained": {
                     "value": false
@@ -669,7 +572,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "1 to 3"
+                    "value": "2"
                 },
                 "traditions": {
                     "value": [
@@ -681,110 +584,30 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "attack",
                         "force"
                     ]
                 }
             },
-            "img": "systems/pf2e/icons/spells/magic-missile.webp",
-            "name": "Magic Missile",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "hdD1pc4aJ23q6qek",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": ""
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "idrxPD2oG0Af2yHS"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": ""
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": ""
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/spell.svg",
-            "name": "telekinetic maneuver1st  fear",
-            "sort": 600000,
+            "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
+            "name": "Telekinetic Maneuver",
+            "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "lamwzS12lvFo5Cu9",
+            "_id": "iX4CrCK5sXDUtkJo",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot emanation"
@@ -845,9 +668,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "detect-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -879,13 +702,18 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 700000,
+            "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "UmV2fHhEXARqTchT",
+            "_id": "NIJmiD94wz8VoYeq",
             "data": {
                 "ability": {
                     "value": ""
@@ -969,9 +797,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "electric-arc",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1001,13 +829,132 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kBhaPuzLUSwS6vVf"
+                }
+            },
             "img": "systems/pf2e/icons/spells/electric-arc.webp",
             "name": "Electric Arc",
-            "sort": 800000,
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "Ld7E5G3RHq47NRPz",
+            "_id": "wVK0J5nHqnbEiMCy",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "value": "varies"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "idrxPD2oG0Af2yHS"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear",
+            "sort": 700000,
+            "type": "spell"
+        },
+        {
+            "_id": "rnGDDnaoQ56OePqu",
             "data": {
                 "ability": {
                     "value": ""
@@ -1075,9 +1022,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "ghost-sound",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=132"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1106,13 +1053,128 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.atlgGNI1E1Ox3O3a"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "xmt6aozPB5y6OrEb",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "burst",
+                    "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "idrxPD2oG0Af2yHS"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "500 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "illusion"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "illusory-object",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "visual"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.2oH5IufzdESuYxat"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/illusory-object.webp",
+            "name": "Illusory Object",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "muEjpQrKoPDsmJkx",
+            "_id": "bmHglS3yCL7cE0qt",
             "data": {
                 "ability": {
                     "value": ""
@@ -1120,6 +1182,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1157,6 +1222,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1168,9 +1236,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1198,13 +1272,18 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pwzdSlJgYqN7bs2w"
+                }
+            },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "CFVvTaGtKjVpcmTB",
+            "_id": "K7OrvpCf2Ify7Bkh",
             "data": {
                 "ability": {
                     "value": ""
@@ -1212,6 +1291,127 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "1d4+1"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "idrxPD2oG0Af2yHS"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "magic-missile",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "force"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gKKqvLohtrSJj3BM"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/magic-missile.webp",
+            "name": "Magic Missile",
+            "sort": 1100000,
+            "type": "spell"
+        },
+        {
+            "_id": "SCGlulHm7yDQjvFL",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1229,7 +1429,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Tanglefoot]{Spell Effect: Tanglefoot}</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1249,6 +1449,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1260,9 +1463,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tanglefoot",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1287,23 +1496,45 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "plant",
-                        "cantrip"
+                        "attack",
+                        "cantrip",
+                        "plant"
                     ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uZK2BYzPnxUBnDjr"
                 }
             },
             "img": "systems/pf2e/icons/spells/tanglefoot.webp",
             "name": "Tanglefoot",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "dBoFB0DHPsjNkIeL",
+            "_id": "zuBuN8P7asAkffRx",
             "data": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
+                "MAP": {
                     "value": ""
+                },
+                "baseItem": "staff",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1313,6 +1544,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": "club",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -1325,6 +1557,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1334,30 +1569,76 @@
                 "price": {
                     "value": {}
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "staff",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": null,
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "two-hand-d8"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "staff",
-            "sort": 1200000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.FVjTuBCIefAgloUU"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/staff.webp",
+            "name": "Staff",
+            "sort": 1300000,
+            "type": "weapon"
         },
         {
             "_id": "oIuyQYtSdN860807",
@@ -1373,8 +1654,8 @@
                 },
                 "damageRolls": {
                     "iqu5lrarr1aga84xdrd7": {
-                        "damage": "",
-                        "damageType": "1d6-1slashing"
+                        "damage": "1d6-1",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -1399,11 +1680,11 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
-            "_id": "XAp00NjBTjLVE3cg",
+            "_id": "eCsWtcHZ3YEv9CWR",
             "data": {
                 "attack": {
                     "value": ""
@@ -1415,15 +1696,36 @@
                     "value": 5
                 },
                 "damageRolls": {
-                    "wmznsusefzrq57sq8nby": {
-                        "damage": "",
-                        "damageType": "1d4-1bludgeoning"
+                    "25mqf6eu03kqdjrw": {
+                        "damage": "1d4-1",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>(two-hand d8)</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "twoHanded",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1432,20 +1734,70 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "two-hand d8"
+                        "two-hand-d8"
                     ]
                 },
                 "weaponType": {
                     "value": "melee"
                 }
             },
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "zuBuN8P7asAkffRx"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "melee"
         },
         {
-            "_id": "tFKcOjRD1wHl7Um0",
+            "_id": "0tOWbNhWW5qgaXka",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "kBRpg0IxVDPQTeRW",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1457,7 +1809,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The dragon spellweaver is adjacent to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The dragon spellweaver creates an illusion of itself in its square and then becomes invisible (with the effects of a 2nd-level invisibility spell) for 1d4+2 rounds. The dragon spellweaver can move up to half its Speed, but it must end its movement in a space that's not adjacent to any enemies.</p>\n<p>This is a 2nd-level spell that requires a somatic component.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The kobold dragon spellweaver is adjacent to at least one enemy.</p>\n<hr />\n<p><strong>Effect</strong> The dragon spellweaver creates an illusion of itself in its square and then becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible} (with the effects of a 2nd-level <em>@Compendium[pf2e.spells-srd.Invisibility]{Invisibility}</em> spell) for [[/br 1d4+2 #Duration Illusory Retreat]]{1d4+2 rounds}. The dragon mage can move up to half its Speed, but it must end its movement in a space that's not adjacent to any enemies.</p>\n<p>This is a 2nd-level spell that requires a somatic component.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1484,13 +1836,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.H1nKhvlc715Cwy25"
+                }
+            },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Illusory Retreat",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "action"
         },
         {
-            "_id": "rRdoPX0uH5jBOKmY",
+            "_id": "5xJ16r5aoLZNAJRO",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1502,7 +1859,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The dragon spellweaver deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>The dragon spellweaver deals an extra 1d6 precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1515,29 +1872,15 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -1551,9 +1894,14 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1581,7 +1929,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1609,7 +1957,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1800000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1637,7 +1985,35 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1900000,
+            "sort": 2100000,
+            "type": "lore"
+        },
+        {
+            "_id": "Z0PwpFXIKDbO6Bvo",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Dragon Lore",
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1665,35 +2041,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
-            "type": "lore"
-        },
-        {
-            "_id": "Z0PwpFXIKDbO6Bvo",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1721,7 +2069,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2200000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],

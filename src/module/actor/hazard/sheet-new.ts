@@ -3,7 +3,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
@@ -78,22 +78,12 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
-    private prepareActions() {
-        const actions: HazardActionSheetData = {
-            action: { label: "Actions", actions: [] },
-            reaction: { label: "Reactions", actions: [] },
-            free: { label: "Free Actions", actions: [] },
-            passive: { label: "Passive Actions", actions: [] },
+    private prepareActions(): HazardActionSheetData {
+        const actions = this.actor.itemTypes.action.sort((a, b) => a.data.sort - b.data.sort);
+        return {
+            reaction: actions.filter((a) => a.actionCost?.type === "reaction"),
+            action: actions.filter((a) => a.actionCost?.type !== "reaction"),
         };
-
-        for (const item of this.actor.itemTypes.action) {
-            const actionType = item.actionCost?.type || "passive";
-            if (objectHasKey(actions, actionType)) {
-                actions[actionType].actions.push(item);
-            }
-        }
-
-        return actions;
     }
 
     private prepareSaves(): HazardSaveSheetData[] {

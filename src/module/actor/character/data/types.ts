@@ -28,7 +28,7 @@ import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/data";
-import { FeatData, ProficiencyRank } from "@item/data";
+import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
 import { DeityDomain } from "@item/deity/types";
 import { FeatType } from "@item/feat/data";
@@ -430,12 +430,12 @@ interface GrantedFeat {
 interface SlottedFeat {
     id: string;
     level: number | string;
-    feat?: FeatData;
+    feat?: FeatPF2e;
     grants: GrantedFeat[];
 }
 
 interface BonusFeat {
-    feat: FeatData;
+    feat: FeatPF2e;
     grants: GrantedFeat[];
 }
 
