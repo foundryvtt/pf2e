@@ -221,9 +221,10 @@ class SpellPF2e extends ItemPF2e {
             formulas.push(formula);
         }
 
-        // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this
+        // Add flat damage increases if this spell can deal damage.
+        // Until damage is refactored, we can't get anything fancier than this
         const { actor } = this;
-        if (actor) {
+        if (actor && Object.keys(this.data.data.damage.value).length) {
             const statisticsModifiers = actor.synthetics.statisticsModifiers;
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
