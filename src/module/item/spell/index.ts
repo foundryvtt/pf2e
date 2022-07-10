@@ -434,23 +434,26 @@ class SpellPF2e extends ItemPF2e {
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
 
-        const variants = [];
-        if (this.hasVariants) {
-            for (const variant of this.overlays.overrideVariants) {
-                const overlayIds = [...variant.appliedOverlays!.values()];
-                const actions =
-                    variant.data.data.time.value !== this.data.data.time.value
-                        ? getActionIcon(variant.data.data.time.value)
-                        : undefined;
-                variants.push({
-                    actions,
-                    name: variant.name,
-                    overlayIds,
-                    sort: variant.data.sort,
-                });
+        const variants = (() => {
+            const variantData = [];
+            if (this.hasVariants) {
+                for (const variant of this.overlays.overrideVariants) {
+                    const overlayIds = [...variant.appliedOverlays!.values()];
+                    const actions =
+                        variant.data.data.time.value !== this.data.data.time.value
+                            ? getActionIcon(variant.data.data.time.value)
+                            : undefined;
+                    variantData.push({
+                        actions,
+                        name: variant.name,
+                        overlayIds,
+                        sort: variant.data.sort,
+                    });
+                }
+                variantData.sort((variantA, variantB) => variantA.sort - variantB.sort);
             }
-            variants.sort((variantA, variantB) => variantA.sort - variantB.sort);
-        }
+            return variantData.length > 0 ? variantData : undefined;
+        })();
 
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         rollData.item ??= this;
