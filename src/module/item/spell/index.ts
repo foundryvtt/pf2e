@@ -438,10 +438,13 @@ class SpellPF2e extends ItemPF2e {
             if (this.hasVariants) {
                 for (const variant of this.overlays.overrideVariants) {
                     const overlayIds = [...variant.appliedOverlays!.values()];
-                    const actions =
-                        variant.data.data.time.value !== this.data.data.time.value
-                            ? getActionIcon(variant.data.data.time.value)
-                            : undefined;
+                    const actions = (() => {
+                        const actionIcon = getActionIcon(variant.data.data.time.value, null);
+                        if (variant.data.data.time.value !== this.data.data.time.value && actionIcon) {
+                            return actionIcon;
+                        }
+                        return;
+                    })();
                     variantData.push({
                         actions,
                         name: variant.name,
