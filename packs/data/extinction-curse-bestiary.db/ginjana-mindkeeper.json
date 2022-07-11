@@ -51,7 +51,7 @@
             "alignment": {
                 "value": "CE"
             },
-            "blurb": "",
+            "blurb": "Female dero anatomist",
             "creatureType": "",
             "level": {
                 "value": 11
@@ -91,8 +91,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Vulnerable To Sunlight",
-                    "type": "vulnerable to sunlight"
+                    "type": "vulnerable-to-sunlight",
+                    "value": 20
                 }
             ],
             "languages": {
@@ -141,7 +141,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -233,14 +233,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "wsfi4eG3ftwAUYfq",
+            "_id": "GFlKHApcSVw0zuNm",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -260,22 +260,24 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
-                            "value": "11d6"
+                            "value": "5d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, searing light attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
+                    "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra [[/r {5d6}[good]]]{5d6 good damage}.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, searing light attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "heightening": {
                     "damage": {
@@ -285,9 +287,10 @@
                     "type": "interval"
                 },
                 "level": {
-                    "value": 6
+                    "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "k1bxsxdo1I2iTOLW"
                 },
                 "materials": {
@@ -316,9 +319,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "searing-light",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=269"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -349,18 +352,23 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.DyiD239dNS7RIxZE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/searing-light.webp",
             "name": "Searing Light",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "lMOCcwG2KjSxt7FO",
+            "_id": "93bSw4MpdVLrxLmv",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "shortsword",
                 "bonus": {
                     "value": 0
                 },
@@ -403,10 +411,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -428,16 +436,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -446,9 +454,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -476,18 +484,23 @@
                     "value": "L"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.7tKkkF8eZ4iCLJtp"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
-            "name": "Shortsword (+1 Striking)",
+            "name": "Shortsword",
             "sort": 300000,
             "type": "weapon"
         },
         {
-            "_id": "ao7WPzfKTWcaVMlo",
+            "_id": "1gIFywChJww56luk",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "heavy-crossbow",
                 "bonus": {
                     "value": 0
                 },
@@ -530,10 +543,10 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -555,16 +568,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 120,
@@ -573,9 +586,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "heavy-crossbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -590,35 +603,39 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "selected": {},
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.giO4LwIKGzJZoaxa"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/heavy-crossbow.webp",
-            "name": "Heavy Crossbow (+2 Striking)",
+            "name": "Heavy Crossbow",
             "sort": 400000,
             "type": "weapon"
         },
         {
-            "_id": "FfnQ5hQdgO1m3zA1",
+            "_id": "gm69aRtpMkzbLhb4",
             "data": {
                 "armor": {
                     "value": 1
                 },
-                "baseItem": null,
+                "baseItem": "leather-armor",
                 "category": "light",
                 "check": {
-                    "value": 0
+                    "value": -1
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>The thick second skin of the armor disperses blunt force to reduce bludgeoning damage. You gain resistance to bludgeoning damage equal to 1 + the value of the armor's potency rune for medium armor, or 2 + the value of the armor's potency rune for heavy armor.</p>"
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
                 "dex": {
                     "value": 4
@@ -626,7 +643,8 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "invested": false
+                    "inSlot": false,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -649,45 +667,15 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -707,16 +695,16 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
                 },
                 "stackGroup": null,
                 "strength": {
-                    "value": 0
+                    "value": 10
                 },
                 "traits": {
                     "custom": "",
@@ -730,13 +718,18 @@
                     "value": "2"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
-            "name": "Leather Armor (+2 Resilient)",
+            "name": "+2 Resilient Leather Armor",
             "sort": 500000,
             "type": "armor"
         },
         {
-            "_id": "ISHVDjlg4mJMo0Vi",
+            "_id": "iZy9XoSmWEmZ0O8R",
             "data": {
                 "baseItem": null,
                 "containerId": null,
@@ -745,7 +738,6 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -775,11 +767,27 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Expanded Healer's Tools (1st aid, treat disease, poison or wounds",
+                        "predicate": {
+                            "any": [
+                                "action:administer-first-aid",
+                                "action:treat-disease",
+                                "action:treat-poison",
+                                "action:treat-wounds"
+                            ]
+                        },
+                        "selector": "medicine",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "size": "med",
-                "slug": null,
+                "slug": "healers-tools-expanded",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -788,19 +796,24 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "1"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.SGkOHFyBbzWdBk8D"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/healers-kit.webp",
-            "name": "Expanded Healer's Tools",
+            "name": "Healer's Tools (Expanded)",
             "sort": 600000,
             "type": "equipment"
         },
         {
-            "_id": "0pGzUNmUwNeNqZNU",
+            "_id": "yZG48EhJnJPCraiC",
             "data": {
                 "activation": {
                     "condition": "",
@@ -875,9 +888,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "bolts",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -908,13 +921,18 @@
                     "value": "L"
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.AITVZmakiu3RgfKo"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
             "sort": 700000,
             "type": "consumable"
         },
         {
-            "_id": "1qj3H4hS5nTq97cx",
+            "_id": "c6xzEDGirZWVuuLb",
             "data": {
                 "activation": {
                     "condition": "",
@@ -976,6 +994,7 @@
                     "value": ""
                 },
                 "price": {
+                    "per": 10,
                     "value": {
                         "sp": 1
                     }
@@ -988,9 +1007,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "bolts",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -1019,6 +1038,11 @@
                 },
                 "weight": {
                     "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.AITVZmakiu3RgfKo"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
@@ -1079,7 +1103,9 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "shadow-essence"
+                    ]
                 },
                 "bonus": {
                     "value": 25
@@ -1115,6 +1141,51 @@
             "name": "Heavy Crossbow",
             "sort": 1000000,
             "type": "melee"
+        },
+        {
+            "_id": "dqGUqLBeNAFwaNch",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1100000,
+            "type": "action"
         },
         {
             "_id": "5JNkXeCqgTEkUhoN",
@@ -1161,7 +1232,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deny Advantage",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1182,7 +1253,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex",
+                        "type": "save"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1201,7 +1281,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Evasion",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1242,7 +1322,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Sidestep",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1283,7 +1363,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vulnerable to Sunlight",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1324,7 +1404,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hampering Blow",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1365,7 +1445,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Step",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1406,7 +1486,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mobility",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1448,7 +1528,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shadow Essence",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1490,7 +1570,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1531,7 +1611,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attack",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1559,7 +1639,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1587,7 +1667,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Anatomy Lore",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1615,7 +1695,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1643,7 +1723,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2400000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -1671,7 +1751,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 2500000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -1699,7 +1779,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2600000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -1727,7 +1807,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2700000,
+            "sort": 2800000,
             "type": "lore"
         }
     ],
