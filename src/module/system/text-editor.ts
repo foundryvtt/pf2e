@@ -325,14 +325,6 @@ function getCheckDC(
             default: {
                 // Skill or Lore
                 const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
-                if (objectHasKey(SKILL_EXPANDED, type)) {
-                    // Long form
-                    selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);
-                } else if (objectHasKey(SKILL_DICTIONARY, type)) {
-                    // Short form
-                    const longForm = SKILL_DICTIONARY[type];
-                    selectors.push(...[longForm, `${SKILL_EXPANDED[longForm].ability}-based`]);
-                }
                 return getStatisticValue(selectors);
             }
         }
