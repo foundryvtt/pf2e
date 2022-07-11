@@ -282,7 +282,7 @@ class SpellPF2e extends ItemPF2e {
             for (const overlay of heightenEntries) {
                 mergeObject(source.data, overlay.data);
             }
-            source.data = mergeObject(source.data, { heightenedLevel: { value: castLevel } });
+
             return source;
         })();
         if (!override) return null;
