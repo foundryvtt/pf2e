@@ -625,7 +625,28 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "twoHanded",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -800,46 +821,6 @@
             "type": "action"
         },
         {
-            "_id": "UE6Gaj3IfXSpVJue",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The shoony hierarch sparks and launches an alchemically treated arrow that creates a bright light high in the sky. A signal arrow cannot be used to deal damage. Hierarchs carry a number of different arrows that signal different things; a red signal arrow might mean retreat, whereas a green arrow might be a call to gather in the village commons.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Signal Arrow",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
             "_id": "WC2Jedgc1MI3i61x",
             "data": {
                 "actionCategory": {
@@ -898,6 +879,46 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paddler Shoony",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "UE6Gaj3IfXSpVJue",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The shoony hierarch sparks and launches an alchemically treated arrow that creates a bright light high in the sky. A signal arrow cannot be used to deal damage. Hierarchs carry a number of different arrows that signal different things; a red signal arrow might mean retreat, whereas a green arrow might be a call to gather in the village commons.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Signal Arrow",
             "sort": 1000000,
             "type": "action"
         },
