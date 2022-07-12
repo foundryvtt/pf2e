@@ -427,7 +427,19 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
-        return flattenObject(data); // return the flattened submission data
+        const flattenedData = flattenObject(data);
+
+        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
+        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
+        for (const inputEl of Array.from(tagifyInputElements)) {
+            const path = inputEl.name;
+            const selections = flattenedData[path];
+            if (Array.isArray(selections)) {
+                flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
+            }
+        }
+
+        return flattenedData;
     }
 
     /** Hide the sheet-config button unless there is more than one sheet option. */

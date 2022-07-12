@@ -136,21 +136,6 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             if (typeof formData[property] === "string") formData[property] ||= null;
         }
 
-        // Process Tagify outputs
-        const inputNames = [
-            "data.ability",
-            "data.alignment.follower",
-            "data.weapons",
-            "data.domains.primary",
-            "data.domains.alternate",
-        ] as const;
-        for (const path of inputNames) {
-            const selections = formData[path];
-            if (Array.isArray(selections)) {
-                formData[path] = selections.map((w: { id: string }) => w.id);
-            }
-        }
-
         return super._updateObject(event, formData);
     }
 }
