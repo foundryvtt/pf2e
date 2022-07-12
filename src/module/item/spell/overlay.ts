@@ -58,9 +58,12 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         // Diff data and only save the difference
         const variantSource = variantSpell.toObject();
         const originSource = this.spell.toObject();
-        const difference = diffObject(originSource, variantSource);
+        const difference = diffObject<DeepPartial<SpellSource> & { overlayType: string }>(originSource, variantSource);
 
         if (Object.keys(difference).length === 0) return variantSpell;
+
+        // Always remove the spell description if it makes it this far
+        delete difference.data?.description;
         // Restore overlayType
         difference.overlayType = "override";
 
