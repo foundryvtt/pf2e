@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -1
             },
             "con": {
                 "mod": 3
@@ -12,7 +12,7 @@
                 "mod": -2
             },
             "int": {
-                "mod": 0
+                "mod": -2
             },
             "str": {
                 "mod": 5
@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "fast healing 4 (while within Paravaax's aura)",
                 "max": 65,
                 "temp": 0,
                 "value": 65
@@ -67,7 +67,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-09: Star-Crossed Voyages"
             }
         },
         "resources": {
@@ -147,7 +147,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -221,7 +221,7 @@
                 "spelldc": {
                     "dc": 20,
                     "mod": 0,
-                    "value": 10
+                    "value": 12
                 },
                 "tradition": {
                     "value": "arcane"
@@ -238,7 +238,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "yetzNjFvBkiCus26",
+            "_id": "7NAque330Fh0x4Pn",
             "data": {
                 "ability": {
                     "value": ""
@@ -278,6 +278,7 @@
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "0ODRWW0GDLgdkkZj"
                 },
                 "materials": {
@@ -306,9 +307,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "meld-into-stone",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=188"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -336,20 +337,25 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vh1RpbWfqdNC4L3P"
+                }
+            },
             "img": "systems/pf2e/icons/spells/meld-into-stone.webp",
             "name": "Meld into Stone",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "fHfonnvHTlWrKgfQ",
+            "_id": "erG7XU2NzE7u6vON",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -370,7 +376,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature.</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
+                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Enlarge]{Spell Effect: Enlarge}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @Compendium[pf2e.spell-effects.Spell Effect: Enlarge (Heightened 4th)]{Spell Effect: Enlarge (Heightened 4th)}</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
                 },
                 "duration": {
                     "value": "5 minutes"
@@ -378,10 +384,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "10 willing creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "0ODRWW0GDLgdkkZj"
                 },
                 "materials": {
@@ -410,9 +427,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "enlarge",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=102"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -440,8 +457,13 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wzctak6BxOW8xvFV"
+                }
+            },
             "img": "systems/pf2e/icons/spells/enlarge.webp",
-            "name": "Enlarge (self only)",
+            "name": "Enlarge (Self Only)",
             "sort": 300000,
             "type": "spell"
         },
@@ -486,6 +508,141 @@
             "type": "melee"
         },
         {
+            "_id": "J3GMWGnrmHVlPsZq",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "h6tW1KvbvsPdTqzM",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "MROwaSOQlmhYxz74",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "fast-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 4 (while within Paravaax's aura)",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "xrfvDMXoDbXuMuon",
             "data": {
                 "actionCategory": {
@@ -525,7 +682,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 500000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -553,7 +710,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
