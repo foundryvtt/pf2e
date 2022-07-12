@@ -6,7 +6,7 @@
         },
         "area": {
             "areaType": "",
-            "value": null
+            "value": ""
         },
         "areasize": {
             "value": ""
@@ -15,6 +15,7 @@
             "value": "focus"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": false
@@ -25,8 +26,10 @@
         "damage": {
             "value": {
                 "0": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
+                        "subtype": "",
                         "value": "healing"
                     },
                     "value": "1d8"
@@ -34,7 +37,7 @@
             }
         },
         "description": {
-            "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<ul>\n<li><span class=\"pf2-icon\">1</span> <strong>somatic</strong> The spell has a range of touch.</li>\n<li><span class=\"pf2-icon\">2</span> <strong>somatic, verbal</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
+            "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(somatic, verbal)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
         },
         "duration": {
             "value": ""
@@ -57,6 +60,69 @@
         },
         "materials": {
             "value": ""
+        },
+        "overlays": {
+            "b1ms5uwp9vwblhkq": {
+                "_id": "b1ms5uwp9vwblhkq",
+                "data": {
+                    "area": {
+                        "value": ""
+                    },
+                    "components": {
+                        "verbal": true
+                    },
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "subtype": ""
+                                },
+                                "value": "1d8+8"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "0": "1d8+8"
+                        }
+                    },
+                    "range": {
+                        "value": "30 feet"
+                    },
+                    "time": {
+                        "value": "2"
+                    }
+                },
+                "overlayType": "override",
+                "sort": 2
+            },
+            "md8ss7iwxhth4y5f": {
+                "_id": "md8ss7iwxhth4y5f",
+                "data": {
+                    "area": {
+                        "value": ""
+                    },
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "subtype": ""
+                                }
+                            }
+                        }
+                    },
+                    "range": {
+                        "value": "touch"
+                    },
+                    "time": {
+                        "value": "1"
+                    }
+                },
+                "overlayType": "override",
+                "sort": 1
+            }
         },
         "prepared": {
             "value": ""

@@ -214,7 +214,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 (a): a is CharacterStrike =>
                     a.item.isOfType("weapon") &&
                     a.item.category === "unarmed" &&
-                    a.item.slug !== "basic-unarmed" &&
                     predicate.test(a.item.getRollOptions("item"))
             )
             .map((a) => ({

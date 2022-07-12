@@ -368,21 +368,27 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return true;
     }
 
-    override _onCreate(
-        data: foundry.data.TokenSource,
-        options: DocumentModificationContext<TokenDocumentPF2e>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        window.setTimeout(() => this.auras.notifyActors(), 0);
-    }
-
     /** Destroy auras before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
         super._onDelete(options, userId);
+
+        if (this.auras.size === 0) return;
+
+        // Alert tokens in proximity that aura is no longer present
+        const auradTokens = new Set([
+            this,
+            ...Array.from(this.auras.values())
+                .map((a) => canvas.tokens.placeables.filter((t) => a.containsToken(t)))
+                .flat(),
+        ]);
+        const auradActors = new Set(Array.from(auradTokens).flatMap((t) => t.actor ?? []));
+        Promise.resolve().then(async () => {
+            for (const actor of auradActors) {
+                await actor.checkAreaEffects();
+            }
+        });
+
         this.auras.clear();
-        this.actor?.checkAreaEffects();
     }
 
     /** A callback for when a movement animation for this token finishes */
