@@ -34,7 +34,7 @@
             }
         },
         "description": {
-            "value": "<p>You unleash your ki as a powerful storm of force and lightning, dealing [[/r {2d6}[force]]]{2d6 force damage} and [[/r {2d12}[electricity]]]{2d12 electricity damage} to creatures in the area. If you use 2 actions to cast the spell, increase the size of the emanation to 10 feet and the damage to [[/r {3d6}[force]]]{3d6 force damage} and [[/r {3d12}[electricity]]]{3d12 electricity damage}. If you use 3 actions to cast the spell, increase the size of the emanation to 20 feet and the damage to [[/r {4d6}[force]]]{4d6 force damage} and [[/r {4d12}[electricity]]]{4d12 electricity damage}. Each creature attempts one basic Reflex save that applies to both types of damage On a failed save, the creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round; on a critical failure, the creature also takes [[/r {2d12}[persistent,electricity]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} and is deafened for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The force damage increases by [[/r 1d6]] and the electricity damage by [[/r 1d12]], or [[/r 2d6]] and [[/r 2d12]] if you use 2 or 3 actions</p>"
+            "value": "<p>You unleash your ki as a powerful storm of force and lightning, dealing 2d6 force damage and 2d12 electricity damage to creatures in the area.</p>\n<p>If you use 2 actions to cast the spell, increase the size of the emanation to 10 feet and the damage to 3d6 force damage and 3d12 electricity damage.</p>\n<p>If you use 3 actions to cast the spell, increase the size of the emanation to 20 feet and the damage to 4d6 force damage and 4d12 electricity damage.</p>\n<p>Each creature attempts one basic Reflex save that applies to both types of damage On a failed save, the creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round; on a critical failure, the creature also takes [[/r {2d12}[persistent,electricity]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} and is deafened for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The force damage increases by 1d6 and the electricity damage by 1d12, or 2d6 and 2d12 if you use 2 or 3 actions</p>"
         },
         "duration": {
             "value": ""
@@ -57,6 +57,89 @@
         },
         "materials": {
             "value": ""
+        },
+        "overlays": {
+            "btb0quascsjm63hj": {
+                "_id": "btb0quascsjm63hj",
+                "data": {
+                    "area": {
+                        "value": "10"
+                    },
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "type": {
+                                    "value": "force"
+                                },
+                                "value": "3d6"
+                            },
+                            "egy1iz6xjlu1tr32": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "electricity"
+                                },
+                                "value": "3d12"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "0": "2d6",
+                            "egy1iz6xjlu1tr32": "2d12"
+                        }
+                    },
+                    "time": {
+                        "value": "2"
+                    }
+                },
+                "overlayType": "override",
+                "sort": 2
+            },
+            "gtx60gzq3jg5sczk": {
+                "_id": "gtx60gzq3jg5sczk",
+                "overlayType": "override",
+                "sort": 1
+            },
+            "w892lw421gljtapf": {
+                "_id": "w892lw421gljtapf",
+                "data": {
+                    "area": {
+                        "value": "20"
+                    },
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "type": {
+                                    "value": "force"
+                                },
+                                "value": "4d6"
+                            },
+                            "c4txkqlk90qt1myy": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "electricity"
+                                },
+                                "value": "4d12"
+                            }
+                        }
+                    },
+                    "heightening": {
+                        "damage": {
+                            "0": "2d6",
+                            "c4txkqlk90qt1myy": "2d12"
+                        }
+                    },
+                    "time": {
+                        "value": "3"
+                    }
+                },
+                "overlayType": "override",
+                "sort": 3
+            }
         },
         "prepared": {
             "value": ""
