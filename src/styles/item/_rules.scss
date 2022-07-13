@@ -14,8 +14,8 @@
     }
 
     .rules {
-        padding: 7px;
-
+        padding-top: 7px;
+        padding-right: 7px;
         .rule-element-header {
             display: flex;
             justify-content: space-between;
@@ -27,6 +27,11 @@
 
         .add-rule-element {
             text-align: right;
+        }
+
+        textarea {
+            padding: 4px;
+            min-height: 60px;
         }
     }
 
@@ -62,6 +67,31 @@
 
         .item-controls {
             margin: 0;
+        }
+    }
+
+    .rule-form {
+        label, .labelled-element {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            input, tags {
+                flex: 1;
+            }
+        }
+
+        .tagify > span {
+            min-width: 40px;
+        }
+
+        .tagify--hasMaxTags > span {
+            display: none;
+        }
+
+        &[data-key="Note"] {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
     }
 }
