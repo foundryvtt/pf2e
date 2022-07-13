@@ -939,31 +939,33 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
+                        "domain": "attack-roll",
                         "key": "RollOption",
-                        "label": "Telekinetic Storm (Multiple Targets)",
-                        "option": "telekineticStormGroup",
-                        "toggleable": true
+                        "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.MultiAttackLabel",
+                        "option": "telekineticStormMulti",
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Telekinetic Storm (Single Target)",
+                        "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackLabel",
                         "option": "telekineticStormSingle",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "telekineticStormGroup"
+                                "telekineticStormMulti"
                             ]
                         },
                         "selector": "attack",
                         "value": -2
                     },
                     {
-                        "diceNumber": 2,
+                        "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "predicate": {
@@ -971,7 +973,7 @@
                                 "telekineticStormSingle"
                             ]
                         },
-                        "selector": "strike-damage"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,

@@ -922,14 +922,16 @@
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.MultiAttackLabel",
                         "option": "telekineticStormMulti",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackLabel",
                         "option": "telekineticStormSingle",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "key": "FlatModifier",
@@ -938,7 +940,7 @@
                                 "telekineticStormMulti"
                             ]
                         },
-                        "selector": "telekinetic-object-attack",
+                        "selector": "attack",
                         "value": -2
                     },
                     {
@@ -950,22 +952,7 @@
                                 "telekineticStormSingle"
                             ]
                         },
-                        "selector": "telekinetic-object-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "failure"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "telekineticStormSingle"
-                            ]
-                        },
-                        "selector": "telekinetic-object-attack",
-                        "text": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackEffect",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,

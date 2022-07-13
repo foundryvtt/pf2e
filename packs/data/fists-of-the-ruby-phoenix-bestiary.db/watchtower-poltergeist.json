@@ -844,7 +844,45 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.MultiAttackLabel",
+                        "option": "telekineticStormMulti",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackLabel",
+                        "option": "telekineticStormSingle",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "telekineticStormMulti"
+                            ]
+                        },
+                        "selector": "attack",
+                        "value": -2
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "telekineticStormSingle"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
