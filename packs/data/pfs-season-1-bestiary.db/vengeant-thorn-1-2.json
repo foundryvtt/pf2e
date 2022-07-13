@@ -58,13 +58,13 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-04: Bandits of Immenwood"
             }
         },
         "resources": {
             "focus": {
-                "max": 1,
-                "value": 1
+                "max": 2,
+                "value": 2
             }
         },
         "saves": {
@@ -134,7 +134,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -144,17 +144,20 @@
                         "max": 4,
                         "prepared": {
                             "0": {
-                                "id": "SlthFiRz1qxpKf2c"
+                                "expended": false,
+                                "id": "5WvfWVJiUmaI6JDN"
                             },
                             "1": {
-                                "id": "y1brbka5Ele3IsQw"
+                                "expended": false,
+                                "id": "g7lDgJySBVPuXRVL"
                             },
                             "2": {
-                                "id": "1qGjyH2asb5OMcRt"
+                                "expended": false,
+                                "id": "JHTeZ0YCR27OiN2k"
                             },
                             "3": {
-                                "expended": true,
-                                "id": "9B52dySeTswiHYTT"
+                                "expended": false,
+                                "id": "TYEhkI6SxmJ97AsE"
                             }
                         },
                         "value": 0
@@ -163,13 +166,16 @@
                         "max": 3,
                         "prepared": {
                             "0": {
-                                "id": "d7odypBQlPbTwqsg"
+                                "expended": false,
+                                "id": "2u16Wxty1pNHvwLK"
                             },
                             "1": {
-                                "id": "C2jVXVWP4K8Zh044"
+                                "expended": false,
+                                "id": "aK1WKmlsUZKo9yUq"
                             },
                             "2": {
-                                "id": "UvXcX500waTduMNF"
+                                "expended": true,
+                                "id": "xgFlPi76nAG3IOGC"
                             }
                         },
                         "value": 0
@@ -232,7 +238,7 @@
                 "spelldc": {
                     "dc": 16,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": "primal"
@@ -341,7 +347,7 @@
                 "spelldc": {
                     "dc": 16,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": "primal"
@@ -358,7 +364,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "SlthFiRz1qxpKf2c",
+            "_id": "5WvfWVJiUmaI6JDN",
             "data": {
                 "ability": {
                     "value": ""
@@ -442,9 +448,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "electric-arc",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -474,20 +480,25 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kBhaPuzLUSwS6vVf"
+                }
+            },
             "img": "systems/pf2e/icons/spells/electric-arc.webp",
             "name": "Electric Arc",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "d7odypBQlPbTwqsg",
+            "_id": "2u16Wxty1pNHvwLK",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -508,13 +519,23 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened (3rd)</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -548,9 +569,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -582,20 +603,25 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "C2jVXVWP4K8Zh044",
+            "_id": "aK1WKmlsUZKo9yUq",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -624,7 +650,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 2d6."
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -671,9 +697,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "hydraulic-push",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=154"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -682,7 +708,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature or unattended object"
                 },
                 "time": {
                     "value": "2"
@@ -702,13 +728,18 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jfVCuOpzC6mUrf6f"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
             "name": "Hydraulic Push",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "y1brbka5Ele3IsQw",
+            "_id": "g7lDgJySBVPuXRVL",
             "data": {
                 "ability": {
                     "value": ""
@@ -776,9 +807,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "know-direction",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -809,20 +840,25 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tXa5vOu5giBNCjdR"
+                }
+            },
             "img": "systems/pf2e/icons/spells/know-direction.webp",
             "name": "Know Direction",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "UvXcX500waTduMNF",
+            "_id": "xgFlPi76nAG3IOGC",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -850,6 +886,20 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "emanation",
+                                "value": "20"
+                            },
+                            "range": {
+                                "value": "20 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -883,9 +933,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "pass-without-trace",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=215"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -910,13 +960,18 @@
                     "value": []
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zlnXpME1T2uvn8Lr"
+                }
+            },
             "img": "systems/pf2e/icons/spells/pass-without-trace.webp",
             "name": "Pass Without Trace",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "1qGjyH2asb5OMcRt",
+            "_id": "JHTeZ0YCR27OiN2k",
             "data": {
                 "ability": {
                     "value": ""
@@ -934,8 +989,8 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": false,
-                    "verbal": false
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -984,9 +1039,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "sigil",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1017,20 +1072,25 @@
                     ]
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.AUctDF2fqPZN2w4W"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "9B52dySeTswiHYTT",
+            "_id": "TYEhkI6SxmJ97AsE",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1051,7 +1111,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Tanglefoot]{Spell Effect: Tanglefoot}</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1091,9 +1151,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "tanglefoot",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1118,9 +1178,15 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "plant",
-                        "cantrip"
+                        "attack",
+                        "cantrip",
+                        "plant"
                     ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uZK2BYzPnxUBnDjr"
                 }
             },
             "img": "systems/pf2e/icons/spells/tanglefoot.webp",
@@ -1129,7 +1195,7 @@
             "type": "spell"
         },
         {
-            "_id": "3f6fLAZ6q5rccMcv",
+            "_id": "nKNQd9T92uZTt5pT",
             "data": {
                 "ability": {
                     "value": ""
@@ -1212,9 +1278,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "tempest-surge",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=479"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1239,6 +1305,11 @@
                         "druid",
                         "electricity"
                     ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ho1jSoYKrHUNnM90"
                 }
             },
             "img": "systems/pf2e/icons/spells/tempest-surge.webp",
@@ -1488,6 +1559,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1631,7 +1704,7 @@
             "type": "equipment"
         },
         {
-            "_id": "1cfL3gMnDkBF82zZ",
+            "_id": "SflYlBvdk3oHOdvW",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1902,7 +1975,7 @@
             "type": "melee"
         },
         {
-            "_id": "IH7TP0fiGPrxnsZ5",
+            "_id": "TKwDBjNaQTpqtzAl",
             "data": {
                 "attack": {
                     "value": ""
@@ -1914,15 +1987,36 @@
                     "value": 9
                 },
                 "damageRolls": {
-                    "ncyjeuosaqjs355zn0my": {
+                    "n8vq2ulobthd0lkj": {
                         "damage": "1d6+2",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>(two-hand d8)</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "twoHanded",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1931,17 +2025,67 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "two-hand d8"
+                        "two-hand-d8"
                     ]
                 },
                 "weaponType": {
                     "value": "melee"
                 }
             },
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lVzsruIZLD0wG83E"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
             "sort": 1700000,
             "type": "melee"
+        },
+        {
+            "_id": "5Aqcuawk1Qo2eZhg",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1800000,
+            "type": "action"
         },
         {
             "_id": "Ufgd9Y89ScN3I9Do",
@@ -1980,7 +2124,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Storm Born",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2008,7 +2152,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2036,7 +2180,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2064,7 +2208,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2092,7 +2236,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2120,7 +2264,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2148,7 +2292,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2400000,
+            "sort": 2500000,
             "type": "lore"
         }
     ],
