@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-07: Flooded King's Court"
             }
         },
         "resources": {},
@@ -125,9 +125,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "ghoul-fever",
-                        "paralysis"
+                        "ghoul-ghoul-fever",
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -170,8 +171,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "paralysis"
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -209,7 +211,104 @@
             "type": "melee"
         },
         {
-            "_id": "2cCwFDPJvS60jMDj",
+            "_id": "ak4WbuKBRCKSuNPU",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "BfaiCSlygp6uaMg8",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "8mx81oDzILiF7y1b",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -221,15 +320,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains 1d6 Hit Points. It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r {1d6}[healing]]]{1d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-consume-flesh",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -245,13 +344,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume flesh",
-            "sort": 300000,
+            "name": "Consume Flesh",
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "IsO7hZpfqCKn2cL2",
+            "_id": "guq0UPN12B2EafM4",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -263,15 +367,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An infected creature can't heal damage it takes from zombie rot until it has been cured of the disease.</p>\n<p>Saving throw @Check[type:fortitude|dc:15]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as</p>\n<p><strong>Stage 2</strong> (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as</p>\n<p><strong>Stage 4</strong> (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-ghoul-fever",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -287,13 +391,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.N7UV5CZXtcoxDxCF"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghoul Fever",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "vTZBmce4xXAuhhaT",
+            "_id": "69r59N0XP1Azzagw",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -305,23 +414,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any living nonelf creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:15] save or become paralyzed. It can attempt a new save at the start of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:15] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-paralysis",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
-                        "occult",
-                        "necromancy"
+                        "necromancy",
+                        "occult"
                     ]
                 },
                 "trigger": {
@@ -331,13 +440,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "ES5aGQUEd4QiiOJz",
+            "_id": "IsVn2lDS2alHU8Lr",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -355,9 +469,9 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -373,9 +487,14 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -403,7 +522,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -431,7 +550,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -459,7 +578,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -487,7 +606,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

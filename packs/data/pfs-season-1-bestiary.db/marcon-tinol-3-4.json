@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-07: Flooded King's Court"
             }
         },
         "resources": {},
@@ -128,9 +128,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "ghast-fever",
-                        "paralysis"
+                        "ghast-ghast-fever",
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -173,8 +174,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "paralysis"
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -212,7 +214,52 @@
             "type": "melee"
         },
         {
-            "_id": "PUDDaQE3ABauhBjt",
+            "_id": "NGH7j427QnFoZk7x",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "vRXrXJb6QNpKuTZu",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -224,15 +271,67 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:18] save or become sickened 1 (plus slowed 1 as long as it's sickened on a critical failure). While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "rx882mNLVHE8Barx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:18] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Stench]{Effect: Stench}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-stench",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -249,13 +348,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.SEzkqVJxr2eJDsuJ"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "BVgInHeIdibWCYxa",
+            "_id": "sRQxlciuBmbK3PiH",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -267,15 +371,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains 3d6 Hit Points. It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r {3d6}[healing]]]{3d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-consume-flesh",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -291,13 +395,18 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume flesh",
-            "sort": 400000,
+            "name": "Consume Flesh",
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "Tiut6y8Xns7WbJ6x",
+            "_id": "7YszLjl6PF1zsfgO",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -309,15 +418,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>; An infected creature can't heal damage it takes from zombie rot until it has been cured of the disease. Saving throw @Check[type:fortitude|dc:18]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as</p>\n<p><strong>Stage 2</strong> (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as</p>\n<p><strong>Stage 4</strong> (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight Paralysis (incapacitation, occult, necromancy) Any living creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:18] save or become paralyzed. It can attempt a new save at the start of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-ghast-fever",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -333,13 +442,67 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.hA6HsM4i4yPfEsDH"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghast Fever",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "GWwKQg1KplhtBMpk",
+            "_id": "QI6n6Fz9snAcIgw9",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:18] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghoul-paralysis",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralysis",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "i6eC5s4d2lMzxAld",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -351,15 +514,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ghast jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
+                    "value": "<p>The ghoul jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -375,9 +538,14 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 600000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -405,7 +573,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -433,7 +601,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -461,7 +629,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -489,7 +657,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

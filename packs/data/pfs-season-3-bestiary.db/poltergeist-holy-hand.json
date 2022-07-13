@@ -938,24 +938,26 @@
                         "domain": "attack-roll",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.MultiAttackLabel",
-                        "option": "telekineticStormMulti",
-                        "toggleable": true
+                        "option": "telekinetic-storm-multi",
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackLabel",
-                        "option": "telekineticStormSingle",
-                        "toggleable": true
+                        "option": "telekinetic-storm-single",
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "telekineticStormMulti"
+                                "telekinetic-storm-multi"
                             ]
                         },
-                        "selector": "telekinetic-object-attack",
+                        "selector": "attack",
                         "value": -2
                     },
                     {
@@ -964,25 +966,10 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "telekineticStormSingle"
+                                "telekinetic-storm-single"
                             ]
                         },
-                        "selector": "telekinetic-object-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "failure"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "telekineticStormSingle"
-                            ]
-                        },
-                        "selector": "telekinetic-object-attack",
-                        "text": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackEffect",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "selector": "damage"
                     }
                 ],
                 "slug": null,

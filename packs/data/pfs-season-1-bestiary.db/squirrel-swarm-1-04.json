@@ -60,7 +60,7 @@
             "level": {
                 "value": 1
             },
-            "privateNotes": "",
+            "privateNotes": "<p>Squirrel Swarm size is incorrect in the PDF and was corrected to be large.</p>\n<p>https://paizo.com/threads/rzs42s73?PFS-104-Bandits-of-Immenwood#10</p>",
             "publicNotes": "<p>Swarms of centipedes are dangerous indeed, ravenous carpets of skittering hunger capable of devouring a traveler whole in a matter of minutes. Some alchemists submerge whole centipedes taken from swarms in their elixirs and some mutagens, claiming such infusions increase potency, though other say this is nothing more than quackish claptrap. Kobolds and mitflits are both known to incorporate swarms of centipedes into cunning traps, from simple pits filled with vermin or more complex affairs involving chutes that dump the vermin onto the heads of unwary intruders.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario #1-04: Bandits of Immenwood"
@@ -130,6 +130,51 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "ObjQTk4N0WQGQZZt",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
             "_id": "e6gQA5jXDMbCKyDj",
             "data": {
                 "actionCategory": {
@@ -142,7 +187,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} and must attempt a @Check[type:reflex|dc:17|traits:damaging-effect] save.</p>\n<p>A creature affected by this attack can spend 2 actions on it's turn to attempt another @Check[type:reflex|dc:17|traits:damaging-effect] save to remove the clumsy condition.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage</p>\n<p><strong>Failure</strong> The creature takes full damage and is clumsy 2.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is clumsy 2, and falls prone.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} and must attempt a @Check[type:reflex|dc:17|traits:damaging-effect] save.</p>\n<p>A creature affected by this attack can spend 2 actions on it's turn to attempt another DC 17 Reflex save to remove the clumsy condition.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is clumsy 2, and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -167,7 +212,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Swarming Claws and Teeth",
-            "sort": 100000,
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -195,7 +240,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 200000,
+            "sort": 300000,
             "type": "lore"
         },
         {
@@ -210,7 +255,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Climb",
+                        "predicate": {
+                            "all": [
+                                "action:climb"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -219,11 +276,17 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+6 to Climb",
+                        "options": "action:climb"
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         }
     ],
