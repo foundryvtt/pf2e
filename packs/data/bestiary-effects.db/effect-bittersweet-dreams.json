@@ -1,0 +1,71 @@
+{
+    "_id": "4FginnDcOt4wfedf",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>The creature takes a status penalty to attack rolls, saving throws, and skill checks according to its save result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.Dramofir.BittersweetDreamsSuccessFailure",
+                        "value": "-1"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility..Dramofir.BittersweetDreamsCriticalFailure",
+                        "value": "-2"
+                    }
+                ],
+                "flag": "bittersweet-dreams-choice",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "attack",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.bittersweet-dreams-choice}"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.bittersweet-dreams-choice}"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "skill-check",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.bittersweet-dreams-choice}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary 3"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/spells/waking-nightmare.webp",
+    "name": "Effect: Bittersweet Dreams",
+    "type": "effect"
+}
