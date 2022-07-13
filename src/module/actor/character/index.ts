@@ -428,6 +428,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         resources.focus = mergeObject({ value: 0, max: 0 }, resources.focus ?? {});
         resources.focus.max = 0;
+        resources.focus.cap = 3;
 
         resources.crafting = mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
         resources.crafting.infusedReagents.max = 0;
@@ -828,7 +829,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Resources
         const { focus, crafting } = this.data.data.resources;
-        focus.max = Math.clamped(focus.max, 0, 3);
+        focus.max = Math.clamped(focus.max, 0, focus.cap);
         crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
         if (focus.max === 0 && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
