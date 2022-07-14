@@ -164,3 +164,4 @@ export { Migration761ShotRules } from "./761-update-shot-rules";
 export { Migration762UpdateBackgroundItems } from "./762-update-background-items";
 export { Migration763RestoreAnimalStrikeOptions } from "./763-restore-animal-strike-options";
 export { Migration764PanacheVivaciousREs } from "./764-panache-vivacious-res";
+export { Migration765ChoiceOwnedItemTypes } from "./765-choice-owned-item-types";

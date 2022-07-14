@@ -65,6 +65,9 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
     isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
+    isOfType<T extends "physical" | ItemType>(
+        ...types: T[]
+    ): this is PhysicalItemPF2e | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][Exclude<T, "physical">]>;
     isOfType(...types: (ItemType | "physical")[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }

@@ -49,16 +49,14 @@ interface ChoiceSetSource extends RuleElementSource {
 }
 
 interface ChoiceSetOwnedItems {
-    /**
-     * The item type(s) and/or unarmed attacks forming the basis of the choices: currently only weapons and unarmed
-     * attacks are supported.
-     */
+    /** Whether the choices should pull from items on the actor. */
     ownedItems: boolean;
     /** Whether the choices should include handwraps of mighty blows in addition to weapons */
     includeHandwraps?: boolean;
     /** The filter to apply the actor's own weapons/unarmed attacks */
     predicate?: PredicatePF2e;
     unarmedAttacks?: never;
+    types: (ItemType | "physical")[];
 }
 
 interface ChoiceSetUnarmedAttacks {

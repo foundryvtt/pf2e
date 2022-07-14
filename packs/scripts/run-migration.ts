@@ -24,6 +24,7 @@ import { Migration761ShotRules } from "@module/migration/migrations/761-update-s
 import { Migration762UpdateBackgroundItems } from "@module/migration/migrations/762-update-background-items";
 import { Migration763RestoreAnimalStrikeOptions } from "@module/migration/migrations/763-restore-animal-strike-options";
 import { Migration764PanacheVivaciousREs } from "@module/migration/migrations/764-panache-vivacious-res";
+import { Migration765ChoiceOwnedItemTypes } from "@module/migration/migrations/765-choice-owned-item-types";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -50,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration762UpdateBackgroundItems(),
     new Migration763RestoreAnimalStrikeOptions(),
     new Migration764PanacheVivaciousREs(),
+    new Migration765ChoiceOwnedItemTypes(),
 ];
 
 global.deepClone = <T>(original: T): T => {

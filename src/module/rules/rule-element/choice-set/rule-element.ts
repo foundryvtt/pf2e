@@ -4,7 +4,7 @@ import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
-import { ChoiceSetData, ChoiceSetPackQuery, ChoiceSetSource } from "./data";
+import { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
 import { ItemType } from "@item/data";
 import { CharacterStrike } from "@actor/character/data";
@@ -64,6 +64,17 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         const predicate = this.resolveInjectedProperties(this.data.predicate ?? new PredicatePF2e({}));
         if (!predicate.test(rollOptions)) return;
+
+        if (isObject(this.data.choices)) {
+            const choices = this.data.choices;
+            if ("ownedItems" in choices && choices.ownedItems && !choices.types?.length) {
+                console.warn(
+                    "PF2E System | Failure during ChoiceSet preCreate, types is required if ownedItems is set"
+                );
+                ruleSource.ignored = true;
+                return;
+            }
+        }
 
         this.setDefaultFlag(ruleSource);
 
@@ -127,7 +138,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             ? this.data.choices // Static choices from RE constructor data
             : isObject(this.data.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
             ? this.data.choices.ownedItems
-                ? this.choicesFromOwnedItems(this.data.choices.predicate, this.data.choices.includeHandwraps)
+                ? this.choicesFromOwnedItems(this.data.choices)
                 : this.data.choices.unarmedAttacks
                 ? this.choicesFromUnarmedAttacks(this.data.choices.predicate)
                 : "query" in this.data.choices && typeof this.data.choices.query === "string"
@@ -183,10 +194,13 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         return [];
     }
 
-    private choicesFromOwnedItems(predicate = new PredicatePF2e(), includeHandwraps = false): PickableThing<string>[] {
-        const weapons = this.actor.itemTypes.weapon;
-        const choices = weapons
-            .filter((i) => i.category !== "unarmed" && predicate.test(i.getRollOptions("item")))
+    private choicesFromOwnedItems(options: ChoiceSetOwnedItems): PickableThing<string>[] {
+        const predicate = options.predicate ?? new PredicatePF2e();
+        const { includeHandwraps, types } = options;
+
+        const choices = this.actor.items
+            .filter((i) => i.isOfType(...types) && predicate.test(i.getRollOptions("item")))
+            .filter((i) => !i.isOfType("weapon") || i.category !== "unarmed")
             .map(
                 (i): PickableThing<string> => ({
                     img: i.img,
@@ -197,7 +211,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         if (includeHandwraps) {
             choices.push(
-                ...weapons
+                ...this.actor.itemTypes.weapon
                     .filter((i) => i.slug === "handwraps-of-mighty-blows")
                     .map((h) => ({ img: h.img, label: h.name, value: "unarmed" }))
             );
