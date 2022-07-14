@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor/base";
+import { ActorSizePF2e } from "@actor/data/size";
 import { InventoryBulk } from "@actor/inventory";
 import { LootPF2e } from "@actor/loot";
 import { PhysicalItemPF2e } from "@item";
@@ -8,6 +9,10 @@ import { SheetOptions } from "@module/sheet/helpers";
 
 export interface InventoryItem<D extends PhysicalItemPF2e = PhysicalItemPF2e> {
     item: D;
+    /** The item's weight relative to the actor's weight */
+    weightRelation: "lighter" | "heavier" | null;
+    itemSize: ActorSizePF2e;
+    actorSize: ActorSizePF2e;
     editable: boolean;
     isContainer: boolean;
     canBeEquipped: boolean;

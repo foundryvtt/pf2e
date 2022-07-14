@@ -29,7 +29,9 @@
         </span>
 
         {{#if (ne @root.actor.type "npc")}}
-            <span class="item-weight">{{item.bulk}}</span>
+            <span class="item-weight {{weightRelation}}" {{#if weightRelation}}title="{{localize "PF2E.Inventory.BulkAdjusted" itemSize=itemSize actorSize=actorSize}}"{{/if}}>
+                {{item.bulk}}{{#if weightRelation}}*{{/if}}
+            </span>
         {{/if}}
 
         {{#if editable}}
