@@ -33,7 +33,7 @@ export class MeleePF2e extends ItemPF2e {
         if (this.isMelee) return null;
 
         const rangeTrait = this.data.data.traits.value.find((t) => /^range-\d+$/.test(t));
-        const range = Number(rangeTrait?.replace(/\D/g, "")) || 10;
+        const range = Number(rangeTrait?.replace(/\D/g, ""));
         if (Number.isInteger(range)) return range;
 
         // No explicit maximum range: multiply range increment by six or return null
