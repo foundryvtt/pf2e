@@ -73,9 +73,7 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];
     };
     traditions: ValuesList<MagicTradition>;
-    school: {
-        value: MagicSchool;
-    };
+    school: ValuesList<MagicSchool>;
     components: Record<SpellComponent, boolean>;
     materials: {
         value: string;

@@ -1,8 +1,8 @@
 import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { MagicTradition } from "@item/spell/types";
-import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { MagicTradition, MagicSchool } from "@item/spell/types";
+import { MAGIC_TRADITIONS, MAGIC_SCHOOLS } from "@item/spell/values";
 import { goesToEleven, OneToFour, OneToTen, ZeroToTen } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
@@ -46,6 +46,12 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     get tradition(): MagicTradition {
         const tradition = this.data.data.tradition.value || "arcane";
         return MAGIC_TRADITIONS.has(tradition) ? tradition : "arcane";
+    }
+
+    /** This entry's magic school, defaulting to enchantment if unset or invalid*/
+    get school(): MagicSchool {
+        const school = this.data.data.school.value || "enchantment";
+        return MAGIC_SCHOOLS.has(school) ? school : "enchantment";
     }
 
     /**
