@@ -75,13 +75,17 @@ export class TokenAuras extends Map<string, TokenAura> {
                 (t) => (aura.includesSelf || t !== aura.token) && aura.containsToken(t)
             );
 
-            for (const token of containedTokens) {
-                await token.actor.applyAreaEffects(auraData, { origin: auraActor });
+            // Get unique actors and notify
+            const affectedActors = new Set(containedTokens.map((t) => t.actor));
+            for (const actor of affectedActors) {
+                await actor.applyAreaEffects(auraData, { origin: auraActor });
             }
         }
 
-        for (const token of tokensToCheck) {
-            await token.actor.checkAreaEffects();
+        // Get unique actors and check
+        const actorsToCheck = new Set(tokensToCheck.map((t) => t.actor));
+        for (const actor of actorsToCheck) {
+            await actor.checkAreaEffects();
         }
     }
 

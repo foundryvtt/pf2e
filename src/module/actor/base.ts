@@ -325,6 +325,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (!canvas.ready || game.user !== this.primaryUpdater) return;
 
         const toDelete: string[] = [];
+        const toKeep: string[] = [];
         for (const effect of this.itemTypes.effect) {
             const auraData = effect.data.flags.pf2e.aura;
             if (!auraData?.removeOnExit) continue;
@@ -339,15 +340,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 return null;
             })();
 
-            const thisToken = this.getActiveTokens().shift() ?? null;
             const aura = auraToken?.auras.get(auraData.slug);
-            if (!(thisToken && aura?.containsToken(thisToken))) {
-                toDelete.push(effect.id);
+            for (const thisToken of this.getActiveTokens()) {
+                if (aura?.containsToken(thisToken)) {
+                    toKeep.push(effect.id);
+                } else {
+                    toDelete.push(effect.id);
+                }
             }
         }
 
-        if (toDelete.length > 0) {
-            await this.deleteEmbeddedDocuments("Item", toDelete);
+        // In case there are multiple tokens for this actor, avoid deleting aura effects if at least one token is
+        // exposed to the aura
+        const finalToDelete = toDelete.filter((id) => !toKeep.includes(id));
+        if (finalToDelete.length > 0) {
+            await this.deleteEmbeddedDocuments("Item", finalToDelete);
         }
     }
 
