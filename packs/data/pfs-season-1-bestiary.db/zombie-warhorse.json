@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
                 "mod": 4
@@ -12,7 +12,7 @@
                 "mod": -3
             },
             "int": {
-                "mod": 0
+                "mod": -5
             },
             "str": {
                 "mod": 5
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-03: Escaping the Grave"
             }
         },
         "resources": {},
@@ -90,7 +90,16 @@
                 ]
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "type": "positive",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -162,7 +171,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "improved-push"
+                    ]
                 },
                 "bonus": {
                     "value": 12
@@ -171,10 +183,6 @@
                     "wjg6sw0n6mr9q4iy77hs": {
                         "damage": "1d8+7",
                         "damageType": "bludgeoning"
-                    },
-                    "n8k2841cpff2pdzvaq5i": {
-                        "damage": "",
-                        "damageType": "ImprovedPush5feet"
                     }
                 },
                 "description": {
@@ -202,6 +210,194 @@
             "type": "melee"
         },
         {
+            "_id": "ywgAKEFhNWweuFxa",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "mqB9pue1K8Hsda84",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.mfp8QwQFonJLewRP"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slow",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "pFv7XugUp5q1dSpz",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "huzm1fO5UflfgPJJ",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The zombie riding horse emits an aura of rot and disease that causes wounds to fester and turn sour.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and is not at full Hit Points takes [[/r {1d6}]]{1d6 damage}(@Check[type:fortitude|dc:17|basic:true] save) as its wounds fester.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "zombie-rotting-aura",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "disease",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.CxiEpXt7Gw3tSIOh"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rotting Aura",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
             "_id": "Cc4ymamS7jlEqUhJ",
             "data": {
                 "actionCategory": {
@@ -214,7 +410,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The zombie warhorse Strikes with its jaws against an adjacent living creature or a creature that has died in the past hour. On a success, the zombie warhorse can feast upon the creature's flesh to heal itself. This restores 2d6 Hit Points.</p>"
+                    "value": "<p>The zombie warhorse Strikes with its jaws against an adjacent living creature or a creature that has died in the past hour. On a success, the zombie warhorse can feast upon the creature's flesh to heal itself. This restores [[/r {2d6}#Hit Points]]{2d6 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -238,7 +434,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Feast",
-            "sort": 300000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -254,7 +450,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The zombie warhorse Strides twice. It has a +10- foot circumstance bonus to its Speed during these Strides.</p>"
+                    "value": "<p>The zombie warhorse Strides twice. It has a +10-foot circumstance bonus to its Speed during these Strides.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -278,7 +474,52 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Gallop",
-            "sort": 400000,
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "cjoAN7YbVY1Srxir",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-push",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.6l7e7CHQLESlI57U"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Push 5 feet",
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -306,7 +547,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

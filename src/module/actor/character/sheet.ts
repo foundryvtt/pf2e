@@ -33,15 +33,16 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     private formulaQuantities: Record<string, number> = {};
 
     static override get defaultOptions(): ActorSheetOptions {
-        return mergeObject(super.defaultOptions, {
-            classes: ["default", "sheet", "actor", "character"],
-            width: 750,
-            height: 800,
-            tabs: [
-                { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
-                { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
-            ],
-        });
+        const options = super.defaultOptions;
+        options.classes = ["default", "sheet", "actor", "character"];
+        options.width = 750;
+        options.height = 800;
+        options.scrollY.push(".tab.active .tab-content");
+        options.tabs = [
+            { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
+            { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+        ];
+        return options;
     }
 
     override get template(): string {

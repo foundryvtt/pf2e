@@ -264,7 +264,7 @@ type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
 interface CharacterResources {
     /** The current number of focus points and pool size */
-    focus: { value: number; max: number };
+    focus: { value: number; max: number; cap: number };
     /** The current and maximum number of hero points */
     heroPoints: { value: number; max: number };
     /** The current and maximum number of invested items */
