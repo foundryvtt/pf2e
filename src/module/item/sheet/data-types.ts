@@ -101,7 +101,7 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
         sort: number;
         actions: string;
     }[];
-    magicSchools: SheetOptions;
+    magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];

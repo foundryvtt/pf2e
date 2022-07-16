@@ -57,10 +57,9 @@ class SpellPF2e extends ItemPF2e {
         return new Set(this.data.data.traits.value);
     }
 
-    get school(): Set<MagicSchool> {
-        return this.spellcasting?.school
-            ? new Set([this.spellcasting.school])
-            : new Set(this.data.data.school.value);    }
+    get school(): MagicSchool {
+        return this.data.data.school.value;
+    }
 
     get traditions(): Set<MagicTradition> {
         return this.spellcasting?.tradition
@@ -358,7 +357,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
-        this.data.data.traits.value.push(...this.school, ...this.traditions);
+        this.data.data.traits.value.push(this.school, ...this.traditions);
         if (this.spellcasting?.isInnate) {
             mergeObject(this.data.data.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
