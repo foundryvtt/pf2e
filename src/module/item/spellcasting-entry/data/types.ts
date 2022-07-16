@@ -14,6 +14,7 @@ interface BaseSpellcastingEntry {
     actor: ActorPF2e | null;
     ability: AbilityString;
     tradition: MagicTradition;
+    school: MagicSchool;
     statistic: Statistic;
     cast(spell: SpellPF2e, options: {}): Promise<void>;
 }
@@ -23,7 +24,6 @@ interface SpellcastingEntry extends BaseSpellcastingEntry {
     isSpontaneous: boolean;
     isInnate: boolean;
     isFocusPool: boolean;
-    school: MagicSchool;
 }
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
