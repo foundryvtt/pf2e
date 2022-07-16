@@ -678,6 +678,7 @@ const hazardTraits = {
     teleportation: "PF2E.TraitTeleportation",
     trap: "PF2E.TraitTrap",
     virulent: "PF2E.TraitVirulent",
+    visual: "PF2E.TraitVisual",
 };
 
 const vehicleTraits = {
