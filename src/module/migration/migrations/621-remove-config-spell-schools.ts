@@ -1,4 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
+import { SpellSystemData } from "@item/spell/data";
+import { MagicSchool } from "@item/spell/types";
 import { MAGIC_SCHOOLS } from "@item/spell/values";
 import { objectHasKey, setHasElement } from "@util";
 import { MigrationBase } from "../base";
@@ -30,12 +32,19 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type === "spell") {
-            const school: { value: string } = itemData.data.school ?? { value: "evocation" };
+            const spellSystem: SpellSystemOld = itemData.data;
+            const school: { value: string } = spellSystem.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
         } else if (itemData.type === "consumable" && itemData.data.spell?.data) {
-            const spell = itemData.data.spell.data;
-            const school: { value: string } = spell.data.school ?? { value: "evocation" };
+            const spell: SpellSystemOld = itemData.data.spell.data.data;
+            const school: { value: string } = spell.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
         }
     }
+}
+
+interface SpellSystemOld extends SpellSystemData {
+    school?: {
+        value: MagicSchool;
+    };
 }

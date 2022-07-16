@@ -92,13 +92,6 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewRecord, deletions: str
                     }
                     break;
                 }
-                case "magicSchools": {
-                    if (itemData.type === "spell") {
-                        const school = itemData.data.school;
-                        school.value = deletions.includes(school.value ?? "") ? "evocation" : school.value;
-                    }
-                    break;
-                }
                 case "spellTraits": {
                     if (itemData.type === "spell") {
                         const traits = itemData.data.traits;

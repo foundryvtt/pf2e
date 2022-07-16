@@ -95,13 +95,13 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     isFocusSpell: boolean;
     isRitual: boolean;
     isVariant: boolean;
+    schools: string;
     variants: {
         name: string;
         id: string;
         sort: number;
         actions: string;
     }[];
-    magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];

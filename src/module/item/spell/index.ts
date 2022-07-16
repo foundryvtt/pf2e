@@ -25,6 +25,7 @@ import { ErrorPF2e, getActionIcon, objectHasKey, ordinal } from "@util";
 import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource } from "./data";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 import { SpellOverlayCollection } from "./overlay";
+import { MAGIC_SCHOOLS } from "./values";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -57,8 +58,9 @@ class SpellPF2e extends ItemPF2e {
         return new Set(this.data.data.traits.value);
     }
 
-    get school(): MagicSchool {
-        return this.data.data.school.value;
+    get schools(): MagicSchool[] {
+        const traits = this.traits;
+        return Array.from(MAGIC_SCHOOLS).filter((school) => traits.has(school));
     }
 
     get traditions(): Set<MagicTradition> {
@@ -357,7 +359,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
-        this.data.data.traits.value.push(this.school, ...this.traditions);
+        this.data.data.traits.value.push(...this.traditions);
         if (this.spellcasting?.isInnate) {
             mergeObject(this.data.data.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }

@@ -10,7 +10,7 @@ import {
 } from "@item/data/base";
 import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
 import { DamageType } from "@system/damage";
-import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "../types";
+import { MagicTradition, SpellComponent, SpellTrait } from "../types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
@@ -73,9 +73,6 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];
     };
     traditions: ValuesList<MagicTradition>;
-    school: {
-        value: MagicSchool;
-    };
     components: Record<SpellComponent, boolean>;
     materials: {
         value: string;

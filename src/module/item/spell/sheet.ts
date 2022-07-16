@@ -45,17 +45,21 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }))
             .sort((variantA, variantB) => variantA.sort - variantB.sort);
 
+        const schoolsLocalized = this.item.schools.map((school) =>
+            game.i18n.localize(CONFIG.PF2E.magicSchools[school])
+        );
+
         return {
             ...sheetData,
             itemType,
             isCantrip,
             isFocusSpell,
             isRitual,
+            schools: schoolsLocalized.join(" / "),
             variants,
             isVariant: this.item.isVariant,
             spellCategories: CONFIG.PF2E.spellCategories,
             spellTypes: CONFIG.PF2E.spellTypes,
-            magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
             magicTraditions: createSheetTags(CONFIG.PF2E.magicTraditions, sheetData.data.traditions),
             damageSubtypes: CONFIG.PF2E.damageSubtypes,

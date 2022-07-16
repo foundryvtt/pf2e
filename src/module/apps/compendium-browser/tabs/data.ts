@@ -91,10 +91,7 @@ interface HazardFilters extends BaseFilterData {
 }
 
 interface SpellFilters extends BaseFilterData {
-    checkboxes: Record<
-        "category" | "classes" | "level" | "rarity" | "school" | "source" | "traditions" | "traits",
-        CheckboxData
-    >;
+    checkboxes: Record<"category" | "classes" | "level" | "rarity" | "source" | "traditions" | "traits", CheckboxData>;
     selects: Record<"timefilter", SelectData>;
 }
 

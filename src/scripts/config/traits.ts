@@ -337,6 +337,7 @@ const spellTraits = {
     ...alignmentTraits,
     ...classTraits,
     ...damageTraits,
+    ...magicSchools,
     ...elementalTraits,
     ...spellOtherTraits,
 };
