@@ -76,6 +76,13 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         spellData.data.source.value = sluggify(source);
                     }
 
+                    // Backwards compatibility, schools used to not be in traits
+                    const traits = spellData.data.traits.value;
+                    const schoolOld = spellData.data.school?.value;
+                    if (typeof schoolOld === "string" && Array.isArray(traits)) {
+                        traits.push(schoolOld);
+                    }
+
                     spells.push({
                         _id: spellData._id,
                         type: spellData.type,
@@ -85,9 +92,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         level: spellData.data.level.value,
                         time: spellData.data.time,
                         category: spellData.data.category.value,
-                        school: spellData.data.school.value,
                         traditions: spellData.data.traditions.value,
-                        traits: spellData.data.traits.value,
+                        traits,
                         rarity: spellData.data.traits.rarity,
                         source: spellData.data.source.value,
                     });
@@ -112,7 +118,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             };
         }
         this.filterData.checkboxes.classes.options = this.generateCheckboxOptions(CONFIG.PF2E.classTraits);
-        this.filterData.checkboxes.school.options = this.generateCheckboxOptions(CONFIG.PF2E.magicSchools);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
@@ -158,10 +163,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             const combined = [...checkboxes.classes.selected, ...checkboxes.traits.selected];
             if (!this.arrayIncludes(combined, entry.traits)) return false;
         }
-        // School
-        if (checkboxes.school.selected.length) {
-            if (!checkboxes.school.selected.includes(entry.school)) return false;
-        }
         // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
@@ -197,12 +198,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 classes: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterClass",
-                    options: {},
-                    selected: [],
-                },
-                school: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSchools",
                     options: {},
                     selected: [],
                 },
