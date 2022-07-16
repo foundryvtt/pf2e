@@ -11,7 +11,7 @@ declare global {
         preview: PIXI.Container;
 
         /** Keep track of history so that CTRL+Z can undo changes */
-        history: unknown[];
+        history: CanvasHistory<TObject>[];
 
         /** Track the PlaceableObject on this layer which is currently being hovered upon */
         protected _hover: TObject | null;
@@ -327,6 +327,13 @@ declare global {
 
     interface PlaceablesLayerEvent<TObject extends PlaceableObject> extends PIXI.InteractionEvent {
         data: PlaceableInteractionData<TObject>;
+    }
+
+    interface CanvasHistory<TObject extends PlaceableObject> {
+        /** The type of operation stored as history */
+        type: "create" | "update" | "delete";
+        /** The data corresponding to the action which may later be un-done */
+        data: TObject["document"]["data"]["_source"][];
     }
 }
 
