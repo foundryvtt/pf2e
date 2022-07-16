@@ -310,6 +310,8 @@ class SpellPF2e extends ItemPF2e {
             line: "ray",
             cone: "cone",
             rect: "rect",
+            square: "rect",
+            cube: "rect",
         } as const;
 
         const { area } = this.data.data;
