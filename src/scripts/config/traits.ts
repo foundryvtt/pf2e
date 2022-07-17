@@ -606,6 +606,7 @@ const consumableTraits = {
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
     contact: "PF2E.TraitContact",
+    cursed: "PF2E.TraitCursed",
     drug: "PF2E.TraitDrug",
     elixir: "PF2E.TraitElixir",
     emotion: "PF2E.TraitEmotion",
