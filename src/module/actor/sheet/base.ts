@@ -606,7 +606,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const targetElement = $target.get(0);
         const previewElement = $itemRef.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
-            event.dataTransfer.setDragImage(previewElement, 0, 0);
+            const { x, y } = previewElement.getBoundingClientRect();
+            event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
             mergeObject(targetElement.dataset, previewElement.dataset);
         }
 
