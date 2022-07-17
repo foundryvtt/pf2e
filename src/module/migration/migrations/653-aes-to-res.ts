@@ -43,7 +43,7 @@ export class Migration653AEstoREs extends MigrationBase {
         // Remove transferred ActiveEffects, some of which will be converted to RuleElements
         actorSource.effects = actorSource.effects.filter((effect) => {
             const origin = effect.origin ?? "";
-            const itemId = /(?<=Item\.)[a-z0-9]{16}$/i.exec(origin)?.[0];
+            const itemId = /\bItem\.([A-Za-z0-9]{16})$/.exec(origin)?.[1];
             const itemSource = actorSource.items.find((maybeSource) => maybeSource._id === itemId);
             return itemSource && !(["class", "effect", "feat"].includes(itemSource.type) && this.isRemovableAE(effect));
         });

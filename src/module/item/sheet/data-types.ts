@@ -7,6 +7,7 @@ import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
 import { SpellPF2e } from "@item/spell";
 import { SpellSystemData } from "@item/spell/data";
+import { RuleElementSource } from "@module/rules";
 import { SheetOptions } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
@@ -25,6 +26,11 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
         selected: string | null;
         types: Record<string, string>;
     };
+    ruleElements: {
+        template: string;
+        index: number;
+        rule: RuleElementSource;
+    }[];
 }
 
 export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {

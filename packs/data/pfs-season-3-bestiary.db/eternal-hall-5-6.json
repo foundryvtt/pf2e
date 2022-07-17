@@ -1,42 +1,41 @@
 {
-    "_id": "S6xhwxwQDP3tEXiS",
+    "_id": "PXXLxoPdGwtiVvtS",
     "data": {
         "attributes": {
             "ac": {
-                "value": 25
+                "value": 0
             },
-            "hardness": 16,
+            "hardness": 0,
             "hp": {
                 "details": "",
-                "max": 58,
+                "max": 0,
                 "temp": 0,
-                "value": 58
+                "value": 0
             },
             "stealth": {
                 "details": "<p>(expert)</p>",
-                "value": 17
+                "value": 16
             }
         },
         "creatureType": "",
-        "customModifiers": {},
         "details": {
-            "description": "<p>Rotating blades extend from the walls, floors, and ceiling of the surrounding halls when weight is removed from the trapped floor tile.</p>",
-            "disable": "<p>@Check[type:thievery|dc:27] (expert) to disable the pressure plate</p>",
+            "description": "<p>Time distorts along this hallway, making the air feel like sludge.</p>",
+            "disable": "<p>@Check[type:thievery|dc:23] (trained) to disrupt the temporal distortions, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (3rd level; counteract DC 21) to disperse the temporal energy</p>",
             "isComplex": false,
             "level": {
-                "value": 7
+                "value": 5
             },
-            "reset": "<p>The trap resets after 15 minutes.</p>",
+            "reset": "",
             "routine": ""
         },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 18
+                "value": 0
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 12
+                "value": 0
             },
             "will": {
                 "saveDetail": "",
@@ -52,11 +51,7 @@
             "di": {
                 "custom": "",
                 "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
+                "value": []
             },
             "dr": [],
             "dv": [],
@@ -67,7 +62,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical",
+                    "magical",
+                    "transmutation",
                     "trap"
                 ]
             }
@@ -76,7 +72,7 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "KduoPkGoisHAEJIt",
+            "_id": "qTWYyVPCLE2lFSeB",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -88,7 +84,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Weight is removed from the trapped floor tile</p>\n<hr />\n<p><strong>Effect</strong> Blades extend from the floor, ceiling, and walls of the surrounding hallways to eviscerate all creatures in the area, dealing [[/r {4d8+10}[slashing]]]{4d8+10 slashing damage} (@Check[type:reflex|dc:29|basic:true] save). Creatures that critically fail also take [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the hall</p>\n<hr />\n<p><strong>Effect</strong> Time weighs upon the creature, dealing [[/r {4d8+14}[bludgeoning]]]{4d8+14 bludgeoning damage} (@Check[type:fortitude|dc:22|basic:true] save). On a critical failure, the creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 3 rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -102,7 +98,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "attack"
+                        "occult",
+                        "transmutation"
                     ]
                 },
                 "trigger": {
@@ -110,17 +107,17 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Eviscerate",
+            "name": "Time Press",
             "sort": 0,
             "type": "action"
         }
     ],
-    "name": "Flensing Trap",
+    "name": "Eternal Hall (5-6)",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Bloodletting Scythe Blade",
+        "name": "Eternal Hall",
         "width": 1
     },
     "type": "hazard"

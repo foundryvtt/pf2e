@@ -25,4 +25,13 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             hasLineageTrait,
         };
     }
+
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // This will be here until we migrate feat prerequisites to be a list of strings
+        if (Array.isArray(formData["data.prerequisites.value"])) {
+            formData["data.prerequisites.value"] = formData["data.prerequisites.value"].map((value) => ({ value }));
+        }
+
+        return super._updateObject(event, formData);
+    }
 }

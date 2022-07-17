@@ -16,11 +16,13 @@ export const CLASS_TRAITS = new Set([
     "magus",
     "monk",
     "oracle",
+    "psychic",
     "ranger",
     "rogue",
     "sorcerer",
     "summoner",
     "swashbuckler",
+    "thaumaturge",
     "witch",
     "wizard",
 ] as const);
