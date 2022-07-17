@@ -343,8 +343,8 @@ const spellTraits = {
     ...classTraits,
     ...damageTraits,
     ...elementalTraits,
-    ...spellOtherTraits,
     ...magicSchools,
+    ...spellOtherTraits,
 };
 
 const weaponTraits = {
