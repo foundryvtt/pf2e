@@ -17,7 +17,8 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
     get charges() {
         return {
-            current: this.data.data.charges.value,
+            value: this.data.data.charges.value,
+            current: this.data.data.charges.value, // will be removed in v10
             max: this.data.data.charges.max,
         };
     }
@@ -63,7 +64,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                     ? [`${data.charges.value}/${data.charges.max} ${translations.ConsumableChargesLabel}`]
                     : [],
             usesCharges: this.charges.max > 0,
-            hasCharges: this.charges.max > 0 && this.charges.current > 0,
+            hasCharges: this.charges.max > 0 && this.charges.value > 0,
             consumableType,
             isUsable,
         });
@@ -99,7 +100,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
     /** Use a consumable item, sending the result to chat */
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
-        const { current, max } = this.charges;
+        const { value, max } = this.charges;
 
         if (["scroll", "wand"].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
             if (this.actor.spellcasting.canCastConsumable(this)) {
@@ -116,11 +117,11 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                 });
             }
         } else {
-            const exhausted = max > 1 && current === 1;
+            const exhausted = max > 1 && value === 1;
             const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
-                current: current - 1,
+                current: value - 1,
             });
 
             // If using this consumable creates a roll, we need to show it
@@ -142,7 +143,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         const quantity = this.quantity;
 
         // Optionally destroy the item
-        if (this.autoDestroy && current <= 1) {
+        if (this.autoDestroy && value <= 1) {
             if (quantity <= 1) {
                 await this.delete();
             } else {
@@ -155,7 +156,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         } else {
             // Deduct one charge
             await this.update({
-                "data.charges.value": Math.max(current - 1, 0),
+                "data.charges.value": Math.max(value - 1, 0),
             });
         }
     }
