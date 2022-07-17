@@ -1,4 +1,5 @@
 import { CharacterPF2e } from "@actor";
+import { FeatSlotLevel } from "@actor/character/feats";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
@@ -31,6 +32,28 @@ class ClassPF2e extends ABCItemPF2e {
 
     get savingThrows(): Record<SaveType, ZeroToFour> {
         return this.data.data.savingThrows;
+    }
+
+    get grantedFeatSlots() {
+        const actorLevel = this.actor?.level ?? 0;
+        const filterLevels = (levels: number[]) => levels.filter((level) => actorLevel >= level) ?? [];
+        const system = this.data.data;
+
+        const ancestryLevels: FeatSlotLevel[] = filterLevels(system.ancestryFeatLevels.value);
+        if (game.settings.get("pf2e", "ancestryParagonVariant")) {
+            ancestryLevels.unshift({ id: "ancestry-bonus", label: "1" });
+            for (let level = 3; level <= actorLevel; level += 4) {
+                const index = (level + 1) / 2;
+                ancestryLevels.splice(index, 0, level);
+            }
+        }
+
+        return {
+            ancestry: ancestryLevels,
+            class: filterLevels(system.classFeatLevels.value),
+            skill: filterLevels(system.skillFeatLevels.value),
+            general: filterLevels(system.generalFeatLevels.value),
+        };
     }
 
     /** Include all class features in addition to any with the expected location ID */

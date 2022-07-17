@@ -4,7 +4,7 @@ import { MagicTradition } from "@item/spell/types";
 import { CraftingEntry } from "@actor/character/crafting/entry";
 import { CraftingFormula } from "@actor/character/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
-import { CharacterSystemData } from ".";
+import { BonusFeat, CharacterSystemData, SlottedFeat } from ".";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { CHARACTER_SHEET_TABS } from "./values";
 
@@ -70,6 +70,15 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     showPFSTab: boolean;
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
+    feats: FeatCategorySheetData[];
 }
 
-export { CharacterSheetData, CharacterSheetTabVisibility };
+interface FeatCategorySheetData {
+    id: string;
+    label: string;
+    feats: (SlottedFeat | BonusFeat)[];
+    /** Will move to sheet data later */
+    featFilter?: string;
+}
+
+export { CharacterSheetData, CharacterSheetTabVisibility, FeatCategorySheetData };
