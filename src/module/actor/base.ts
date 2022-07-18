@@ -330,18 +330,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             const auraData = effect.data.flags.pf2e.aura;
             if (!auraData?.removeOnExit) continue;
 
-            const auraToken = await (async (): Promise<TokenPF2e | null> => {
+            const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
                 const document = await fromUuid(auraData.origin);
                 if (document instanceof TokenDocumentPF2e) {
-                    return document.object ?? null;
+                    return document;
                 } else if (document instanceof ActorPF2e) {
-                    return document.getActiveTokens(true, false).shift() ?? null;
+                    return document.getActiveTokens(false, true).shift() ?? null;
                 }
                 return null;
             })();
 
             const aura = auraToken?.auras.get(auraData.slug);
-            for (const thisToken of this.getActiveTokens()) {
+            for (const thisToken of this.getActiveTokens(false, true)) {
                 if (aura?.containsToken(thisToken)) {
                     toKeep.push(effect.id);
                 } else {
@@ -425,7 +425,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         this.preparePrototypeToken();
         if (this.initialized && canvas.ready) {
-            const thisTokenIsControlled = this.getActiveTokens(false).some((t) => !!t.isControlled);
+            const thisTokenIsControlled = this.getActiveTokens().some((t) => !!t.isControlled);
             if (game.user.character === this || thisTokenIsControlled) {
                 game.pf2e.effectPanel.refresh();
             }

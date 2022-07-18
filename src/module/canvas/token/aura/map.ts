@@ -1,8 +1,7 @@
-import { ActorPF2e } from "@actor";
-import { TokenAura } from "./aura";
-import { TokenPF2e } from "./object";
+import { AuraRenderer } from "./renderer";
+import { TokenPF2e } from "../object";
 
-export class TokenAuras extends Map<string, TokenAura> {
+export class AuraRenderers extends Map<string, AuraRenderer> {
     constructor(private readonly token: TokenPF2e) {
         super();
     }
@@ -26,12 +25,9 @@ export class TokenAuras extends Map<string, TokenAura> {
         }
 
         for (const [slug, data] of this.token.actor.auras.entries() ?? []) {
-            const aura = this.get(slug) ?? new TokenAura({ token: this.token, ...data });
+            const aura = this.get(slug) ?? new AuraRenderer({ token: this.token, ...data });
             if (!this.token.children.includes(aura)) {
                 this.set(slug, this.token.addChild(aura));
-
-                // Skip notification on initial game load
-                if (game.ready) this.notifyActors();
             }
         }
 
@@ -55,46 +51,10 @@ export class TokenAuras extends Map<string, TokenAura> {
         }
     }
 
-    /**
-     * Notify tokens' actors if they are inside an aura in this collection
-     * @param [specific] Only notify a single specific actor
-     */
-    async notifyActors(specific?: TokenPF2e): Promise<void> {
-        const auraActor = this.token.actor;
-        if (!auraActor || this.size === 0) return;
-
-        const tokensToCheck = (specific ? [specific] : canvas.tokens.placeables).filter(
-            (t): t is TokenPF2e & { actor: ActorPF2e } => !!t.actor?.canUserModify(game.user, "update")
-        );
-
-        for (const [key, aura] of this.entries()) {
-            const auraData = auraActor.auras.get(key);
-            if (!auraData) continue;
-
-            const containedTokens = tokensToCheck.filter(
-                (t) => (aura.includesSelf || t !== aura.token) && aura.containsToken(t)
-            );
-
-            // Get unique actors and notify
-            const affectedActors = new Set(containedTokens.map((t) => t.actor));
-            for (const actor of affectedActors) {
-                await actor.applyAreaEffects(auraData, { origin: auraActor });
-            }
-        }
-
-        // Get unique actors and check
-        const actorsToCheck = new Set(tokensToCheck.map((t) => t.actor));
-        for (const actor of actorsToCheck) {
-            await actor.checkAreaEffects();
-        }
-    }
-
     /** Deallocate the aura's GPU memory before removing from map */
     override delete(key: string): boolean {
         const aura = this.get(key);
         if (!aura?.destroyed) aura?.destroy();
-        this.notifyActors();
-
         return super.delete(key);
     }
 
@@ -102,7 +62,7 @@ export class TokenAuras extends Map<string, TokenAura> {
     override clear(): void {
         this.clearHighlights();
         for (const child of this.token.children) {
-            if (child instanceof TokenAura) {
+            if (child instanceof AuraRenderer) {
                 this.token.removeChild(child);
                 if (!child.destroyed) child.destroy();
             }
