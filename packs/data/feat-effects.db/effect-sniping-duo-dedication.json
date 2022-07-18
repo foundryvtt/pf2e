@@ -1,0 +1,56 @@
+{
+    "_id": "zQHF2kkhZRAcrQvR",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Sniping Duo Dedication]{Sniping Duo Dedication}.</p>\n<p>Whenever you or your spotter successfully Strikes a target, the other member of your duo gains a +1 circumstance bonus per weapon damage die on the damage roll of their next Strike made against that target before the end of their next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "1 + @weapon.data.data.runes.striking",
+                "predicate": {
+                    "all": [
+                        "sniping-duo"
+                    ]
+                }
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "sniping-duo",
+                "toggleable": true,
+                "label": "PF2E.SpecificRule.SnipingDuoDedication.Label"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/equipment/other/attached-items/scope.webp",
+    "name": "Effect: Sniping Duo Dedication",
+    "type": "effect"
+}
