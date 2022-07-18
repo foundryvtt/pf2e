@@ -8,6 +8,9 @@ class ScenePF2e extends Scene<
     TileDocumentPF2e,
     TokenDocumentPF2e
 > {
+    /** A promise to prevent concurrent executions of #checkAuras() */
+    auraCheckLock?: Promise<void>;
+
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
@@ -32,7 +35,14 @@ class ScenePF2e extends Scene<
 
     /** Check for auras containing newly-placed or moved tokens */
     async checkAuras(): Promise<void> {
-        if (!this.active) return;
+        if (!this.active || this.data.gridType !== CONST.GRID_TYPES.SQUARE) return;
+
+        // Prevent concurrent executions of this method
+        await this.auraCheckLock;
+        const lock: { release: () => void } = { release: () => {} };
+        this.auraCheckLock = new Promise((resolve) => {
+            lock.release = resolve;
+        });
 
         const tokens = this.tokens.contents;
         const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
@@ -52,6 +62,8 @@ class ScenePF2e extends Scene<
                 await actor.checkAreaEffects();
             }
         }
+
+        lock.release();
     }
 
     override prepareData(): void {
