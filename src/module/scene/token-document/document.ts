@@ -104,9 +104,10 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /** The pixel-coordinate definition of this token's space */
     get bounds(): NormalizedRectangle {
         const gridSize = this.scene?.data.grid ?? 100;
+        // Use source values since coordinates are changed in real time over the course of movement animation
         return new NormalizedRectangle(
-            this.data.x,
-            this.data.y,
+            this.data._source.x,
+            this.data._source.y,
             this.data.width * gridSize,
             this.data.height * gridSize
         );

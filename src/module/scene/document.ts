@@ -74,30 +74,6 @@ class ScenePF2e extends Scene<
         this.data.flags.pf2e ??= { syncDarkness: "default" };
         this.data.flags.pf2e.syncDarkness ??= "default";
     }
-
-    /** Alert tokens in proximity that aura is no longer present */
-    protected override _onDeleteEmbeddedDocuments(
-        embeddedName: string,
-        documents: ClientDocument[],
-        result: object[],
-        options: SceneEmbeddedModificationContext,
-        userId: string
-    ): void {
-        super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        if (embeddedName !== "Token") return;
-        const auradTokens = new Set(
-            (documents as TokenDocumentPF2e[])
-                .flatMap((d) => Array.from(d.auras.values()))
-                .map((a) => this.tokens.filter((t) => a.containsToken(t)))
-                .flat()
-        );
-        const auradActors = new Set(Array.from(auradTokens).flatMap((t) => t.actor ?? []));
-        Promise.resolve().then(async () => {
-            for (const actor of auradActors) {
-                await actor.checkAreaEffects();
-            }
-        });
-    }
 }
 
 interface ScenePF2e {
