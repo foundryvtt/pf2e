@@ -31,7 +31,7 @@ class ScenePF2e extends Scene<
     }
 
     /** Check for auras containing newly-placed or moved tokens */
-    private async checkAuras(): Promise<void> {
+    async checkAuras(): Promise<void> {
         if (!this.active) return;
 
         const tokens = this.tokens.contents;
@@ -40,8 +40,15 @@ class ScenePF2e extends Scene<
             const auradTokens = tokens.filter((t) => aura.containsToken(t));
             await aura.notifyActors(auradTokens);
             const nonAuradTokens = tokens.filter((t) => !auradTokens.includes(t));
-            const nonAuradActors = nonAuradTokens.flatMap((t) => t.actor ?? []);
+            const nonAuradActors = new Set(nonAuradTokens.flatMap((t) => t.actor ?? []));
             for (const actor of nonAuradActors) {
+                await actor.checkAreaEffects();
+            }
+        }
+
+        if (auras.length === 0) {
+            const sceneActors = new Set(tokens.flatMap((t) => t.actor ?? []));
+            for (const actor of sceneActors) {
                 await actor.checkAreaEffects();
             }
         }

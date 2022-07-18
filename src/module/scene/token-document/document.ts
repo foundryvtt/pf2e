@@ -298,6 +298,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (Object.keys(changed).length > 0) {
             // TokenDocument#_onUpdate doesn't actually do anything with the user ID
             this._onUpdate(changed, {}, game.user.id);
+        } else if (canvas.ready && this.scene?.active) {
+            this.object.auras.refresh();
+            this.scene.checkAuras();
         }
     }
 
