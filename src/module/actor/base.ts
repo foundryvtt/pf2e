@@ -324,8 +324,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async checkAreaEffects(): Promise<void> {
         if (!canvas.ready || game.user !== this.primaryUpdater) return;
 
+        const thisTokens = this.getActiveTokens(false, true);
         const toDelete: string[] = [];
         const toKeep: string[] = [];
+
         for (const effect of this.itemTypes.effect) {
             const auraData = effect.data.flags.pf2e.aura;
             if (!auraData?.removeOnExit) continue;
@@ -341,12 +343,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             })();
 
             const aura = auraToken?.auras.get(auraData.slug);
-            for (const thisToken of this.getActiveTokens(false, true)) {
-                if (aura?.containsToken(thisToken)) {
+            for (const token of thisTokens) {
+                if (aura?.containsToken(token)) {
                     toKeep.push(effect.id);
                 } else {
                     toDelete.push(effect.id);
                 }
+            }
+
+            // If no tokens for this actor remain in the scene, always remove the effect
+            if (thisTokens.length === 0) {
+                toDelete.push(effect.id);
             }
         }
 

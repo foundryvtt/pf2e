@@ -341,6 +341,15 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             ui.combat.render();
         }
     }
+
+    /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+        super._onDelete(options, userId);
+
+        if (this.isLinked && !this.scene?.tokens.some((t) => t.actor === this.actor)) {
+            this.actor?.checkAreaEffects();
+        }
+    }
 }
 
 interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
