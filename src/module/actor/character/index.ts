@@ -1717,13 +1717,15 @@ class CharacterPF2e extends CreaturePF2e {
                     ].flat();
 
                     // Collect roll options from all sources
-                    const options = [
-                        args.options ?? [],
-                        context.options,
-                        action.options,
-                        baseOptions,
-                        incrementOption,
-                    ].flat();
+                    const options = Array.from(
+                        new Set([
+                            ...(args.options ?? []),
+                            ...context.options,
+                            ...action.options,
+                            ...baseOptions,
+                            ...incrementOption,
+                        ])
+                    ).sort();
 
                     // Get just-in-time roll options from rule elements
                     for (const rule of this.rules.filter((r) => !r.ignored)) {

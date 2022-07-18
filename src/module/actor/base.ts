@@ -1022,7 +1022,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
         }
 
-        return Array.from(toReturn);
+        return Array.from(toReturn).sort();
     }
 
     /* -------------------------------------------- */
