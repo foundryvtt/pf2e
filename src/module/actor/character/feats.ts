@@ -15,6 +15,7 @@ interface FeatCategoryOptions {
 }
 
 class CharacterFeats extends Collection<FeatCategory> {
+    /** Feats with no actual category (referred to by paizo as bonus feats)  */
     unorganized = new Array<BonusFeat>();
 
     constructor(private actor: CharacterPF2e) {
@@ -117,6 +118,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         return { feat, grants: getGrantedItems(feat.data.flags.pf2e.itemGrants) };
     }
 
+    /** Inserts a feat into the character. If category is empty string, its a bonus feat */
     async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e[]> {
         const { categoryId, slotId } = options;
         const group = this.get(categoryId);
@@ -124,6 +126,18 @@ class CharacterFeats extends Collection<FeatCategory> {
         const isFeatValidInSlot = group?.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
         const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === location);
+
+        // If the feat is invalid, warn and exit out
+        if (group && !group.isFeatValid(feat)) {
+            const category = game.i18n.format(group.label);
+            ui.notifications.warn(
+                game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
+                    item: feat.name,
+                    category,
+                })
+            );
+            return [];
+        }
 
         // Handle case where its actually dragging away from a location
         if (alreadyHasFeat && feat.data.data.location && !isFeatValidInSlot) {
@@ -133,7 +147,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         const changed: ItemPF2e[] = [];
 
         // If this is a new feat, create a new feat item on the actor first
-        if (!alreadyHasFeat && isFeatValidInSlot) {
+        if (!alreadyHasFeat && (isFeatValidInSlot || location === "")) {
             const source = feat.toObject();
             source.data.location = location;
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
