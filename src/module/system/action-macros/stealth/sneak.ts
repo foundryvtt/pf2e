@@ -18,6 +18,7 @@ export function sneak(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "criticalFailure"),

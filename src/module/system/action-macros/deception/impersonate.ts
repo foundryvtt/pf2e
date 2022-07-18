@@ -18,6 +18,7 @@ export function impersonate(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "criticalFailure"),

@@ -18,6 +18,7 @@ export function commandAnAnimal(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.CommandAnAnimal", "criticalFailure"),

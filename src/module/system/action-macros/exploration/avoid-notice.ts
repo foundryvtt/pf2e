@@ -16,6 +16,9 @@ export function avoidNotice(options: SkillActionOptions) {
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass,
-        extraNotes: (selector: string) => [ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "success")],
+        extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.AvoidNotice", "success"),
+        ],
     });
 }

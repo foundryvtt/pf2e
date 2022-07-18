@@ -17,6 +17,7 @@ export function gatherInformation(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalFailure"),
         ],

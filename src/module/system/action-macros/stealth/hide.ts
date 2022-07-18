@@ -17,6 +17,9 @@ export function hide(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
-        extraNotes: (selector: string) => [ActionMacroHelpers.note(selector, "PF2E.Actions.Hide", "success")],
+        extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Hide", "criticalSuccess"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Hide", "success"),
+        ],
     });
 }
