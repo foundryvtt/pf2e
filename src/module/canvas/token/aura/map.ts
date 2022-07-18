@@ -11,7 +11,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         return this.token.highlightId;
     }
 
-    /** Add and remove auras as needed, notify tokens of new auras */
+    /** Draw this token's auras on the canvas */
     draw(): void {
         if (!(canvas.ready && this.token.actor)) {
             this.clear();

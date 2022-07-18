@@ -34,7 +34,7 @@ class TokenAura implements TokenAuraData {
     get bounds(): NormalizedRectangle {
         const { token, radiusPixels } = this;
         const tokenWidth = token.data.width * this.scene.data.grid;
-        const tokenBounds = new NormalizedRectangle(token.data.x, token.data.y, tokenWidth, tokenWidth);
+        const tokenBounds = token.bounds;
 
         return new NormalizedRectangle(
             tokenBounds.x - (radiusPixels - tokenWidth / 2),
@@ -79,7 +79,7 @@ class TokenAura implements TokenAuraData {
      */
     async notifyActors(specific?: TokenDocumentPF2e[]): Promise<void> {
         const auraActor = this.token.actor;
-        if (!auraActor) return;
+        if (!(auraActor && this.scene.active)) return;
 
         const tokensToCheck = (specific ? specific : this.token.scene?.tokens.contents ?? []).filter(
             (t): t is Embedded<TokenDocumentPF2e> & { actor: ActorPF2e } =>
