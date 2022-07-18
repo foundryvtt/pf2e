@@ -30,6 +30,31 @@ class ScenePF2e extends Scene<
         return this.lightLevel <= LightLevels.DARKNESS;
     }
 
+    /** Check for auras containing newly-placed or moved tokens */
+    private async checkAuras(): Promise<void> {
+        if (!this.active) return;
+
+        const tokens = this.tokens.contents;
+        const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
+        for (const aura of auras) {
+            const auradTokens = tokens.filter((t) => aura.containsToken(t));
+            await aura.notifyActors(auradTokens);
+            const nonAuradTokens = tokens.filter((t) => !auradTokens.includes(t));
+            const nonAuradActors = nonAuradTokens.flatMap((t) => t.actor ?? []);
+            for (const actor of nonAuradActors) {
+                await actor.checkAreaEffects();
+            }
+        }
+    }
+
+    override prepareData(): void {
+        super.prepareData();
+
+        Promise.resolve().then(() => {
+            this.checkAuras();
+        });
+    }
+
     /** Toggle Unrestricted Global Vision according to scene darkness level */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -41,6 +66,30 @@ class ScenePF2e extends Scene<
 
         this.data.flags.pf2e ??= { syncDarkness: "default" };
         this.data.flags.pf2e.syncDarkness ??= "default";
+    }
+
+    /** Alert tokens in proximity that aura is no longer present */
+    protected override _onDeleteEmbeddedDocuments(
+        embeddedName: string,
+        documents: ClientDocument[],
+        result: object[],
+        options: SceneEmbeddedModificationContext,
+        userId: string
+    ): void {
+        super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        if (embeddedName !== "Token") return;
+        const auradTokens = new Set(
+            (documents as TokenDocumentPF2e[])
+                .flatMap((d) => Array.from(d.auras.values()))
+                .map((a) => this.tokens.filter((t) => a.containsToken(t)))
+                .flat()
+        );
+        const auradActors = new Set(Array.from(auradTokens).flatMap((t) => t.actor ?? []));
+        Promise.resolve().then(async () => {
+            for (const actor of auradActors) {
+                await actor.checkAreaEffects();
+            }
+        });
     }
 }
 
