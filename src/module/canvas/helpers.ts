@@ -97,7 +97,7 @@ function measureDistanceOnGrid(
 }
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
-function highlightGrid({ type, object, colors, data, collisionType = "movement" }: HighlightGridParams): void {
+function highlightGrid({ type, object, colors, data, collisionType = "move" }: HighlightGridParams): void {
     // Only highlight for objects that are non-previews (have IDs)
     if (!object.id) return;
 
@@ -239,7 +239,7 @@ interface HighlightGridParams {
         angle?: number;
         direction?: number;
     }>;
-    collisionType?: "movement" | "sight" | "sound";
+    collisionType?: WallRestrictionType;
 }
 
 export { highlightGrid, measureDistanceRect };
