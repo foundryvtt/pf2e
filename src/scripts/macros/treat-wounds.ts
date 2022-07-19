@@ -26,22 +26,16 @@ export async function treatWounds(options: ActionDefaultOptions) {
         content: `
 <div>Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.</div>
 <hr/>
-${
-    chirurgeon || naturalMedicine
-        ? `
 <form>
 <div class="form-group">
 <label>Treat Wounds Skill:</label>
-<select id="skill" name="skill">
+<select id="skill" name="skill"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
 <option value="medicine">Medicine</option>
 ${chirurgeon ? `<option value="crafting">Crafting</option>` : ``}
 ${naturalMedicine ? `<option value="nature">Nature</option>` : ``}
 </select>
 </div>
 </form>
-`
-        : ``
-}
 <form>
 <div class="form-group">
 <label>Medicine DC:</label>
@@ -110,8 +104,8 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
     const rank = skill.rank ?? 1;
     const usedProf = requestedProf <= rank ? requestedProf : rank;
     const medicBonus = CheckFeat(actor, "medic-dedication") ? (usedProf - 1) * 5 : 0;
-    const dcValue = [15, 20, 30, 40][rank - 1] + mod;
-    const bonus = [0, 10, 30, 50][rank - 1] + medicBonus;
+    const dcValue = [15, 20, 30, 40][usedProf - 1] + mod;
+    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus;
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
     rollOptions.push("treat wounds");
