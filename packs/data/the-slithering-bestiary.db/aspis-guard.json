@@ -1102,7 +1102,7 @@
             "type": "action"
         },
         {
-            "_id": "eyIsTZFeRLHCjdCl",
+            "_id": "om0maJls85Aotoxe",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1114,22 +1114,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the guard rolls a success on a Will save against a fear effect, they get a critical success instead.</p>\n<p>In addition, anytime they gain the frightened condition, reduce its value by 1.</p>"
+                    "value": "<p>When this creature rolls a success on a Will save against a fear effect, they get a critical success instead. In addition, any time they gain the frightened condition, reduce its value by 1.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
                         "predicate": {
                             "all": [
                                 "fear"
                             ]
                         },
                         "selector": "will",
-                        "text": "When you roll a success at a Will save against a fear effect, you get a critical success instead.",
-                        "title": "{item|name}"
+                        "type": "save"
                     }
                 ],
                 "slug": null,
@@ -1143,9 +1145,11 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.BzbJTCk5YxpJLBRh"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
