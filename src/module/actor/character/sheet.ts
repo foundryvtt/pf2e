@@ -886,8 +886,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     private getNearestFeatSlotId(event: ElementDragEvent) {
-        const categoryId = event.target.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
-        const slotId = event.target.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+        const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
+        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
         return typeof categoryId === "string" ? { slotId, categoryId: categoryId } : null;
     }
 
