@@ -347,7 +347,7 @@ interface CharacterDeities {
 }
 
 type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
-    weapons: { option: string; label: string }[];
+    weapons: BaseWeaponType[];
 };
 
 interface CharacterAttributes extends CreatureAttributes {
