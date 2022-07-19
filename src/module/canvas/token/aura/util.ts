@@ -31,7 +31,7 @@ export function getAreaSquares(aura: TokenAuraData) {
             ? "sight"
             : aura.traits.has("auditory") && !aura.traits.has("visual")
             ? "sound"
-            : "movement";
+            : "move";
 
     return emptyVector
         .reduce(
