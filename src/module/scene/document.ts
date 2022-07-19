@@ -44,7 +44,15 @@ class ScenePF2e extends Scene<
             lock.release = resolve;
         });
 
-        const tokens = this.tokens.contents;
+        // Get all tokens in the scene, excluding additional tokens linked to a common actor
+        const tokens = this.tokens.contents.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
+            if (token.data.actorLink && list.some((t) => t.actor === token.actor)) {
+                return list;
+            }
+            list.push(token);
+            return list;
+        }, []);
+
         const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
         for (const aura of auras) {
             const auradTokens = tokens.filter((t) => aura.containsToken(t));
