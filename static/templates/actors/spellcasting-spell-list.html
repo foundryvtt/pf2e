@@ -58,9 +58,9 @@
                         {{#if @root.options.editable}}
                             <div class="item-controls">
                                 <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
-                                    data-level="{{section.level}}" data-location="{{entry._id}}"><i class="fas fa-plus"></i></a>
+                                    data-level="{{section.level}}" data-location="{{entry._id}}"><i class="fas fa-fw fa-plus"></i></a>
                                 <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell"
-                                    data-level="{{section.level}}" data-location="{{entry._id}}"><i class="fas fa-search"></i></a>
+                                    data-level="{{section.level}}" data-location="{{entry._id}}"><i class="fas fa-fw fa-search"></i></a>
                             </div>
                         {{/if}}
                     {{/unless}}
@@ -127,18 +127,18 @@
                                     <div class="item-controls">
                                         {{#if entry.isPrepared}}
                                             {{#unless section.isCantrip}}
-                                                <a class="item-control item-toggle-prepare" title="{{#if expended}}{{localize 'PF2E.RestoreSpellTitle'}}{{else}}{{localize 'PF2E.ExpendSpellTitle'}}{{/if}}"><i class="fas {{#if expended}}fa-plus-square{{else}}fa-minus-square{{/if}}"></i></a>
+                                                <a class="item-control item-toggle-prepare" title="{{#if expended}}{{localize "PF2E.RestoreSpellTitle"}}{{else}}{{localize "PF2E.ExpendSpellTitle"}}{{/if}}"><i class="fas fa-fw {{#if expended}}fa-plus-square{{else}}fa-minus-square{{/if}}"></i></a>
                                             {{/unless}}
-                                            <a class="item-control item-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                            <a class="item-control item-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                         {{else}}
                                             {{#if (and (eq entry.data.prepared.value "spontaneous") (not section.isCantrip))}}
-                                                <a class="item-control toggle-signature-spell" title="{{localize 'PF2E.ToggleSignatureSpellTitle'}}">
-                                                    {{#if signature}}<i class="fas fa-star"></i>{{else}}<i class="far fa-star"></i>{{/if}}
+                                                <a class="item-control toggle-signature-spell" title="{{localize "PF2E.ToggleSignatureSpellTitle"}}">
+                                                    {{#if signature}}<i class="fas fa-fw fa-star"></i>{{else}}<i class="far fa-fw fa-star"></i>{{/if}}
                                                 </a>
                                             {{/if}}
                                             {{#unless virtual}}
-                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                             {{/unless}}
                                         {{/if}}
                                     </div>
@@ -158,10 +158,10 @@
                 <li class="spellbook-header spellbook-empty">
                     <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
                     <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry._id}}">
-                        <i class="fas fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
+                        <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
                     </a>
                     <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell" data-location="{{entry._id}}">
-                        <i class="fas fa-search"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
+                        <i class="fas fa-fw fa-search"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
                     </a>
                 </li>
             {{/if}}
