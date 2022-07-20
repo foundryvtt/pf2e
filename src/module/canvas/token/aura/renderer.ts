@@ -68,10 +68,23 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return getAreaSquares(this);
     }
 
+    /** Whether this aura should be rendered to the user */
+    get shouldRender(): boolean {
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE || !canvas.scene?.active) return false;
+
+        return (
+            this.token.actor?.alliance === "party" ||
+            !this.token.scene?.data.tokenVision ||
+            this.traits.has("visual") ||
+            this.traits.has("auditory") ||
+            game.user.isGM
+        );
+    }
+
     /** Draw the aura's circular emanation */
     draw(): void {
         this.visible = false;
-        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) return;
+        if (!this.shouldRender) return;
 
         this.beginFill(this.colors.fill, 0)
             .lineStyle(AuraRenderer.LINE_THICKNESS, this.colors.border, 0.75)
@@ -84,9 +97,9 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Highlight the affected grid squares of this aura and indicate the radius */
     highlight(): void {
         const { dimensions, grid } = canvas;
-        if (!(dimensions && grid.type === CONST.GRID_TYPES.SQUARE)) return;
+        if (!dimensions) return;
         const highlightLayer = grid.getHighlightLayer(this.highlightId)?.clear();
-        if (!highlightLayer) return;
+        if (!(highlightLayer && this.shouldRender)) return;
 
         for (const square of this.squares) {
             square.highlight(highlightLayer, this.colors);
