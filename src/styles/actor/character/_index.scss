@@ -24,7 +24,6 @@ nav.sheet-navigation {
 .sheet-body .sheet-content {
     & > .tab.active {
         display: flex;
-        flex-direction: column;
         height: 100%;
     }
 
@@ -34,8 +33,6 @@ nav.sheet-navigation {
         flex-grow: 1;
         min-height: 0;
         overflow: hidden scroll;
-        padding-top: 6px;
-        padding-right: 20px;
         margin-left: 8px;
     }
 
@@ -135,6 +132,8 @@ nav.sheet-navigation {
     }
 
     .tab {
+        flex-direction: column;
+
         @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "bio", "inventory", "pfs", "crafting";
     }
 

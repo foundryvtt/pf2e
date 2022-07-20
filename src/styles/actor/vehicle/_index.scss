@@ -1,5 +1,3 @@
-@import "inventory";
-
 .sheet-navigation {
     min-width: 375px;
 }
@@ -38,19 +36,14 @@ header.char-header {
     }
 }
 
-.sheet-content {
-    padding-top: 6px;
-    padding-left: 8px;
-    & > .tab:not(.inventory),
-    .inventory .inventory-list {
+.sheet-content > .tab {
+    &:not(.inventory), .inventory .inventory-list {
         @include scrollbar;
         flex-grow: 1;
-        min-height: 0;
         overflow: hidden scroll;
-        padding-right: 20px;
     }
 
-    .details {
+    &.details {
         .vehicle-details {
             display: grid;
             grid: "img details" 150px/120px 1fr;
@@ -87,6 +80,7 @@ header.char-header {
             flex-wrap: wrap;
             padding-top: 8px;
         }
+
         .vehicle-properties > div {
             display: flex;
             flex-direction: column;
@@ -94,6 +88,7 @@ header.char-header {
             align-items: flex-start;
             margin-bottom: 8px;
         }
+
         .vehicle-properties > div > span {
             width: 100%;
         }
