@@ -10,8 +10,15 @@
             {{/select}}
             </select>
         </div>
+        {{#if object.isPrepared}}
+            <div class="form-group">
+                <label>{{localize "PF2E.SpellFlexibleLabel"}}</label>
+                <input name="data.prepared.flexible" type="checkbox" {{checked data.prepared.flexible}}/>
+            </div>
+        {{/if}}
+        <hr/>
         {{#unless object.isRitual}}
-            <div class="form-group tradition-group">
+            <div class="form-group">
                 <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
                 <select name="data.tradition.value">
                 {{#select data.tradition.value}}
@@ -21,7 +28,7 @@
                 {{/select}}
                 </select>
             </div>
-            <div class="form-group spell-ability">
+            <div class="form-group">
                 <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
                 <select name="data.ability.value">
                     {{#select data.ability.value}}
@@ -31,11 +38,18 @@
                     {{/select}}
                 </select>
             </div>
-            {{#if object.isPrepared}}
-                <div class="form-group">
-                    <label>{{localize "PF2E.SpellFlexibleLabel"}}</label>
-                    <input name="data.prepared.flexible" type="checkbox" {{checked data.prepared.flexible}}/>
-                </div>
+            {{#if (eq actor.type "npc")}}
+            <div class="form-group">
+                <label>{{localize "PF2E.SpellcastingSettings.AutoHeightenLabel"}}</label>
+                <select name="data.autoHeightenLevel.value" data-dtype="Number">
+                    {{#select data.autoHeightenLevel.value}}
+                        <option>{{localize "PF2E.SpellcastingSettings.AutoHeightenDefault"}}</option>
+                        {{#times 10}}
+                            <option value="{{add this 1}}">{{localize "PF2E.SpellLevel" level=(ordinal (add this 1))}}</option>
+                        {{/times}}
+                    {{/select}}
+                </select>
+            </div>
             {{/if}}
         {{/unless}}
     </div>
