@@ -105,7 +105,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         this.set(options.id, new FeatCategory(options));
     }
 
-    private combineGrants(feat: FeatPF2e) {
+    private combineGrants(feat: FeatPF2e): { feat: FeatPF2e; grants: GrantedFeat[] } {
         const getGrantedItems = (grants: ItemGrantData[]): GrantedFeat[] => {
             return grants.flatMap((grant) => {
                 const item = this.actor.items.get(grant.id);
@@ -120,20 +120,24 @@ class CharacterFeats extends Collection<FeatCategory> {
 
     /** Inserts a feat into the character. If category is empty string, its a bonus feat */
     async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e[]> {
-        const { categoryId, slotId } = options;
-        const group = this.get(categoryId);
-        const location = group?.slotted ? slotId ?? "" : categoryId;
-        const isFeatValidInSlot = group?.isFeatValid(feat);
+        const { category, slotId } = this.get(options.categoryId)?.isFeatValid(feat)
+            ? {
+                  category: this.get(options.categoryId)!,
+                  slotId: options.slotId ?? null,
+              }
+            : this.findBestLocation(feat);
+        const location = (category?.slotted ? slotId : category?.id) || null;
+        const isFeatValidInSlot = !!category?.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
         const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === location);
 
-        // If the feat is invalid, warn and exit out
-        if (group && !group.isFeatValid(feat)) {
-            const category = game.i18n.format(group.label);
+        // If the feat is invalid in the targeted category and no alternative was found, warn and exit out
+        if (category && !category.isFeatValid(feat)) {
+            const label = game.i18n.format(category.label);
             ui.notifications.warn(
                 game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
                     item: feat.name,
-                    category,
+                    category: label,
                 })
             );
             return [];
@@ -141,22 +145,24 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         // Handle case where its actually dragging away from a location
         if (alreadyHasFeat && feat.data.data.location && !isFeatValidInSlot) {
-            return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "data.location": "" }]);
+            return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "data.location": null }]);
         }
 
         const changed: ItemPF2e[] = [];
 
         // If this is a new feat, create a new feat item on the actor first
-        if (!alreadyHasFeat && (isFeatValidInSlot || location === "")) {
+        if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
             const source = feat.toObject();
             source.data.location = location;
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
-            const category = game.i18n.localize(group?.label ?? "PF2E.FeatBonusHeader");
-            ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category }));
+            const label = game.i18n.localize(category?.label ?? "PF2E.FeatBonusHeader");
+            ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
         }
 
         // Determine what feats we have to move around
-        const locationUpdates = group?.slotted ? existing.map((x) => ({ _id: x.id, "data.location": "" })) : [];
+        const locationUpdates: { _id: string; "data.location": string | null }[] = category?.slotted
+            ? existing.map((x) => ({ _id: x.id, "data.location": null }))
+            : [];
         if (alreadyHasFeat && isFeatValidInSlot) {
             locationUpdates.push({ _id: feat.id, "data.location": location });
         }
@@ -168,7 +174,23 @@ class CharacterFeats extends Collection<FeatCategory> {
         return changed;
     }
 
-    assignFeats() {
+    /** If a drop target is omitted or turns out to be invalid, make a limited attempt to find an eligible slot */
+    private findBestLocation(feat: FeatPF2e): { category: FeatCategory | null; slotId: string | null } {
+        if (feat.isFeature) return { category: this.get(feat.featType) ?? null, slotId: null };
+
+        const validCategories = this.filter((g) => g.isFeatValid(feat));
+        const category = validCategories.at(0);
+        if (validCategories.length === 1 && category && category.id !== "bonus") {
+            const slotId = category.slotted
+                ? Object.keys(category.slots).find((s) => !category.slots[s].feat) ?? null
+                : null;
+            return { category, slotId };
+        }
+
+        return { category: null, slotId: null };
+    }
+
+    assignFeats(): void {
         const slotted = this.contents.filter((category) => category.slotted);
         const categoryBySlot = slotted.reduce((previous: Partial<Record<string, FeatCategory>>, current) => {
             for (const slot of Object.keys(current.slots)) {
@@ -196,7 +218,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             const categoryForSlot = categoryBySlot[location ?? ""];
             const slot = categoryForSlot?.slots[location ?? ""];
             if (slot && slot.feat) {
-                console.debug(`Foundry VTT | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
+                console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
                 this.unorganized.push(base);
             } else if (slot) {
                 slot.feat = feat;
