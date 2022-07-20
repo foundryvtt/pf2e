@@ -2,7 +2,7 @@ import { ItemPF2e } from "@item/base";
 import { ActionData } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
-import { ActionCost } from "@item/data/base";
+import { ActionCost, Frequency } from "@item/data/base";
 
 export class ActionItemPF2e extends ItemPF2e {
     get actionCost(): ActionCost | null {
@@ -13,6 +13,10 @@ export class ActionItemPF2e extends ItemPF2e {
             type: actionType,
             value: this.data.data.actions.value,
         };
+    }
+
+    get frequency(): Frequency | null {
+        return this.data.data.frequency ?? null;
     }
 
     override prepareData() {

@@ -74,6 +74,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             actorSizes: CONFIG.PF2E.actorSizes,
             alignments: deepClone(CONFIG.PF2E.alignments),
             rarity: CONFIG.PF2E.rarityTraits,
+            frequencies: CONFIG.PF2E.frequencies,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
             conditions: game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition),

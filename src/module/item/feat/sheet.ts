@@ -15,6 +15,7 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             featTypes: CONFIG.PF2E.featTypes,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
+            frequencies: CONFIG.PF2E.frequencies,
             categories: CONFIG.PF2E.actionCategories,
             damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },
             prerequisites: JSON.stringify(this.item.data.data.prerequisites?.value ?? []),
@@ -24,6 +25,19 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             mandatoryTakeOnce: hasLineageTrait || data.data.onlyLevel1,
             hasLineageTrait,
         };
+    }
+
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        super.activateListeners($html);
+
+        $html.find("[data-action=frequency-add]").on("click", () => {
+            const per = CONFIG.PF2E.frequencies.day;
+            this.item.update({ data: { frequency: { value: 1, max: 1, per } } });
+        });
+
+        $html.find("[data-action=frequency-delete]").on("click", () => {
+            this.item.update({ "data.-=frequency": null });
+        });
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

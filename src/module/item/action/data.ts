@@ -1,4 +1,11 @@
-import { ActionType, BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource, ItemTraits } from "@item/data/base";
+import {
+    ActionType,
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    Frequency,
+    ItemSystemSource,
+    ItemTraits,
+} from "@item/data/base";
 import { ActionItemPF2e } from ".";
 import { OneToThree } from "@module/data";
 
@@ -28,6 +35,7 @@ interface ActionSystemSource extends ItemSystemSource {
         value: string;
     };
     deathNote: boolean;
+    frequency?: Frequency;
 }
 
 type ActionSystemData = ActionSystemSource;

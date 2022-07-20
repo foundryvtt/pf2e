@@ -5,6 +5,7 @@ import { ActionDefaultOptions } from "@system/action-macros";
 import { LocalizePF2e } from "@system/localize";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { CharacterAttributes, CharacterResources } from "@actor/character/data";
+import { Duration } from "luxon";
 
 /** A macro for the Rest for the Night quasi-action */
 export async function restForTheNight(options: ActionDefaultOptions): Promise<ChatMessagePF2e[]> {
@@ -94,6 +95,19 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         itemUpdates.push(...spellcastingRecharge.itemUpdates);
         if (spellcastingRecharge.actorUpdates?.["data.resources.focus.value"]) {
             actorUpdates.resources.focus = { value: spellcastingRecharge.actorUpdates?.["data.resources.focus.value"] };
+        }
+
+        // Action Frequencies
+        const actionsAndFeats = [...actor.itemTypes.action, ...actor.itemTypes.feat];
+        const withFrequency = actionsAndFeats.filter(
+            (a) =>
+                a.frequency &&
+                (a.frequency.per === "day" || Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
+                a.frequency.value < a.frequency.max
+        );
+        if (withFrequency.length) {
+            statements.push(game.i18n.localize(translations.Message.Frequencies));
+            itemUpdates.push(...withFrequency.map((a) => ({ _id: a.id, "data.frequency.value": a.frequency!.max })));
         }
 
         // Stamina points

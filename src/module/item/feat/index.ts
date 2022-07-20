@@ -4,6 +4,7 @@ import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { FeatCategory } from "@actor/character/feats";
+import { Frequency } from "@item/data/base";
 
 class FeatPF2e extends ItemPF2e {
     category!: FeatCategory | null;
@@ -28,6 +29,10 @@ class FeatPF2e extends ItemPF2e {
             type: actionType,
             value: this.data.data.actions.value,
         };
+    }
+
+    get frequency(): Frequency | null {
+        return this.data.data.frequency ?? null;
     }
 
     get isFeature(): boolean {
