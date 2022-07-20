@@ -16,7 +16,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
-import { isObject, objectHasKey } from "@util";
+import { isObject, traitSlugToObject } from "@util";
 import {
     BaseStatisticData,
     StatisticChatData,
@@ -350,18 +350,9 @@ class StatisticCheck {
         }
 
         // Add additional traits
-        const traitObjects = (() => {
-            if (args.traits) {
-                const actionTraits = CONFIG.PF2E.actionTraits;
-                const traitsDescriptions = CONFIG.PF2E.traitsDescriptions;
-                return args.traits.map((trait) => ({
-                    description: objectHasKey(traitsDescriptions, trait) ? traitsDescriptions[trait] : undefined,
-                    name: trait,
-                    label: objectHasKey(actionTraits, trait) ? actionTraits[trait] : trait,
-                }));
-            }
-            return;
-        })();
+        const traitObjects = args.traits
+            ? args.traits.map((trait) => traitSlugToObject(trait, CONFIG.PF2E.actionTraits))
+            : [];
 
         // Create parameters for the check roll function
         const context: CheckRollContext = {

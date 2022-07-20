@@ -92,12 +92,8 @@ export const InlineRollLinks = {
                                 ? { label: pf2Label, value: Number(pf2Dc) }
                                 : undefined;
                             const options = actor.getRollOptions(["all", "perception"]);
-                            if (pf2Traits) {
-                                const traits = pf2Traits
-                                    .split(",")
-                                    .map((trait) => trait.trim())
-                                    .filter((trait) => !!trait);
-                                options.push(...traits);
+                            if (parsedTraits) {
+                                options.push(...parsedTraits);
                             }
                             perceptionCheck.roll({ event, options, dc });
                         } else {
