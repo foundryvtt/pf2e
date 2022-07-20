@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item";
 import { RuleElementSource } from ".";
+import { RollTwiceSynthetic } from "../synthetics";
 import { RuleElementOptions, RuleElementPF2e } from "./base";
-import { RollTwiceSynthetic } from "./data";
 
 /** Roll Twice and keep either the higher or lower result */
 export class RollTwiceRuleElement extends RuleElementPF2e {

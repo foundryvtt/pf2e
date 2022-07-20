@@ -2,11 +2,8 @@ import { RuleElementPF2e } from "./";
 import { getStrikingDice } from "@item/runes";
 import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
-import { PredicatePF2e } from "@system/predication";
+import { StrikingSynthetic } from "../synthetics";
 
-/**
- * @category RuleElement
- */
 export class StrikingRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
@@ -23,7 +20,7 @@ export class StrikingRuleElement extends RuleElementPF2e {
             const label = this.data.label.includes(":")
                 ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
                 : this.data.label;
-            const striking: StrikingPF2e = { label, bonus: value };
+            const striking: StrikingSynthetic = { label, bonus: value };
             if (this.data.predicate) {
                 striking.predicate = this.data.predicate;
             }
@@ -33,10 +30,4 @@ export class StrikingRuleElement extends RuleElementPF2e {
             console.warn("PF2E | Striking requires at least a selector field and a non-empty value field");
         }
     }
-}
-
-export interface StrikingPF2e {
-    label: string;
-    bonus: number;
-    predicate?: PredicatePF2e;
 }
