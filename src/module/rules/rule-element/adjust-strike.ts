@@ -5,6 +5,7 @@ import { WeaponMaterialEffect, WeaponRangeIncrement } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
+import { StrikeAdjustment } from "../synthetics";
 import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
 
@@ -192,13 +193,4 @@ interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
     definition?: unknown;
 }
 
-interface StrikeAdjustment {
-    adjustDamageRoll?: (
-        weapon: WeaponPF2e | MeleePF2e,
-        { materials }: { materials?: Set<WeaponMaterialEffect> }
-    ) => void;
-    adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
-    adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
-}
-
-export { AdjustStrikeRuleElement, StrikeAdjustment };
+export { AdjustStrikeRuleElement };

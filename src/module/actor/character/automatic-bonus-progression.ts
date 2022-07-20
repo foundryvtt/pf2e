@@ -1,7 +1,7 @@
+import { DamageDicePF2e, ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { WeaponPF2e } from "@item";
-import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@actor/modifiers";
-import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
+import { PotencySynthetic, RuleElementSynthetics, StrikingSynthetic } from "@module/rules/synthetics";
 
 export class AutomaticBonusProgression {
     static get isEnabled(): boolean {
@@ -95,14 +95,14 @@ export class AutomaticBonusProgression {
             const damage = values.damage;
 
             if (damage > 0) {
-                const s: StrikingPF2e = {
+                const s: StrikingSynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                     bonus: damage,
                 };
                 (synthetics.striking["strike-damage"] ??= []).push(s);
             }
             if (attack > 0) {
-                const potency: WeaponPotencyPF2e = {
+                const potency: PotencySynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
                     type: MODIFIER_TYPE.POTENCY,
                     bonus: attack,
@@ -139,7 +139,7 @@ export class AutomaticBonusProgression {
         }
     }
 
-    static applyPropertyRunes(potency: WeaponPotencyPF2e[], weapon: Embedded<WeaponPF2e>): void {
+    static applyPropertyRunes(potency: PotencySynthetic[], weapon: Embedded<WeaponPF2e>): void {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
         const potencyBonuses = potency.filter((p) => p.type === "potency");
         for (const bonus of potencyBonuses) {

@@ -1,11 +1,5 @@
 import type { ItemPF2e } from "@item";
-import {
-    RuleElementData,
-    RuleElementOptions,
-    RuleElementPF2e,
-    RuleElementSource,
-    RuleElementSynthetics,
-} from "./rule-element";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./rule-element";
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
 import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
@@ -44,6 +38,7 @@ import { TokenImageRuleElement } from "./rule-element/token-image";
 import { TokenLightRuleElement } from "./rule-element/token-light";
 import { TokenNameRuleElement } from "./rule-element/token-name";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
+export { RuleElementSynthetics } from "./synthetics";
 
 /**
  * @category RuleElement
@@ -132,4 +127,4 @@ type RuleElementConstructor = new (
     options?: RuleElementOptions
 ) => RuleElementPF2e;
 
-export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleElementSynthetics };
+export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions };

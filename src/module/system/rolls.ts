@@ -6,7 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { RollSubstitution } from "@module/rules/rule-element/data";
+import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { UserVisibility } from "@scripts/ui/user-visibility";
