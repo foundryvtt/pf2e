@@ -16,7 +16,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
-import { isObject } from "@util";
+import { isObject, objectHasKey } from "@util";
 import {
     BaseStatisticData,
     StatisticChatData,
@@ -37,6 +37,8 @@ export interface StatisticRollParameters {
     dc?: CheckDC | null;
     /** Any additional options which should be used in the roll. */
     extraRollOptions?: string[];
+    /** Additional traits for the roll */
+    traits?: string[];
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
@@ -53,6 +55,7 @@ export interface StatisticRollParameters {
 
 interface RollOptionParameters {
     extraRollOptions?: string[];
+    traits?: string[];
     item?: ItemPF2e | null;
     target?: ActorPF2e | null;
 }
@@ -143,7 +146,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     createRollOptions(domains: string[], args: RollOptionParameters = {}): string[] {
-        const { item, extraRollOptions, target } = args;
+        const { item, extraRollOptions, traits, target } = args;
 
         const rollOptions: string[] = [];
         if (domains && domains.length) {
@@ -178,6 +181,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         if (extraRollOptions) {
             rollOptions.push(...extraRollOptions);
+        }
+
+        if (traits) {
+            rollOptions.push(...traits);
         }
 
         return [...new Set(rollOptions)];
@@ -342,6 +349,20 @@ class StatisticCheck {
             }
         }
 
+        // Add additional traits
+        const traitObjects = (() => {
+            if (args.traits) {
+                const actionTraits = CONFIG.PF2E.actionTraits;
+                const traitsDescriptions = CONFIG.PF2E.traitsDescriptions;
+                return args.traits.map((trait) => ({
+                    description: objectHasKey(traitsDescriptions, trait) ? traitsDescriptions[trait] : undefined,
+                    name: trait,
+                    label: objectHasKey(actionTraits, trait) ? actionTraits[trait] : trait,
+                }));
+            }
+            return;
+        })();
+
         // Create parameters for the check roll function
         const context: CheckRollContext = {
             actor,
@@ -351,6 +372,7 @@ class StatisticCheck {
             dc: args.dc ?? rollContext?.dc,
             notes: data.notes,
             options,
+            traits: traitObjects,
             type: data.check.type,
             secret,
             skipDialog,
