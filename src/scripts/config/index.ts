@@ -54,6 +54,8 @@ import {
     magicSchools,
     magicTraditions,
     npcAttackTraits,
+    otherArmorTags,
+    otherEquipmentTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,
@@ -1119,6 +1121,7 @@ export const PF2ECONFIG = {
         noisy: "PF2E.TraitNoisy",
         water: "PF2E.TraitWater",
     },
+    otherArmorTags,
 
     equipmentTraits: {
         ...alignmentTraits,
@@ -1176,6 +1179,7 @@ export const PF2ECONFIG = {
         visual: "PF2E.TraitVisual",
         wand: "PF2E.TraitWand",
     },
+    otherEquipmentTags,
 
     actionTraits,
     consumableTraits,

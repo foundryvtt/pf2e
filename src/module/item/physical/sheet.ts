@@ -79,6 +79,13 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 this.item.update({ [`data.activations.-=${id}`]: null });
             }
         });
+
+        const $otherTagsHint = $html.find("i.other-tags-hint");
+        $otherTagsHint.tooltipster({
+            maxWidth: 350,
+            theme: "crb-hover",
+            content: game.i18n.localize($otherTagsHint.attr("title") ?? ""),
+        });
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
