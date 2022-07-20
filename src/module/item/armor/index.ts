@@ -106,7 +106,10 @@ class ArmorPF2e extends PhysicalItemPF2e {
             this.data.data.potencyRune.value || this.data.data.resiliencyRune.value ? ["invested", "abjuration"] : [];
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
-        this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+
+        const { traits } = this.data.data;
+        traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+        traits.otherTags ??= [];
     }
 
     override prepareDerivedData(): void {
