@@ -49,8 +49,8 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         const evenLevels = new Array(actor.level)
             .fill(0)
-            .map((_, idx) => idx)
-            .filter((idx) => idx && idx % 2 === 0);
+            .map((_, idx) => idx + 1)
+            .filter((idx) => idx % 2 === 0);
 
         // Add dual class if active
         if (game.settings.get("pf2e", "dualClassVariant")) {
