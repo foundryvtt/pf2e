@@ -118,6 +118,16 @@ function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is
     return set.has(value);
 }
 
+/** Returns a subset of an object with explicitly defined keys */
+function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+    return keys.reduce((result, key) => {
+        if (key in obj) {
+            result[key] = obj[key];
+        }
+        return result;
+    }, {} as Pick<T, K>);
+}
+
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
@@ -327,6 +337,7 @@ export {
     ordinal,
     padArray,
     parseHTML,
+    pick,
     setHasElement,
     sluggify,
     sortLabeledRecord,

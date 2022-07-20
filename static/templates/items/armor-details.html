@@ -163,33 +163,47 @@
 </div>
 
 <div class="form-group">
-  <label>{{localize "PF2E.MaxHitPointsHeader"}}</label>
-  <input type="number" name="data.hp.max" value="{{data.hp.max}}" />
+    <label>{{localize "PF2E.MaxHitPointsHeader"}}</label>
+    <input type="number" name="data.hp.max" value="{{data.hp.max}}" />
 </div>
 
 <div class="form-group">
-  <label>{{localize "PF2E.HitPointsHeader"}}</label>
-  <input type="number" name="data.hp.value" value="{{data.hp.value}}" />
+    <label>{{localize "PF2E.HitPointsHeader"}}</label>
+    <input type="number" name="data.hp.value" value="{{data.hp.value}}" />
 </div>
 
 <div class="form-group">
-  <label>{{localize "PF2E.ShieldBrokenThresholdLabel"}}</label>
-  <input type="number" name="data.hp.brokenThreshold" value="{{data.hp.brokenThreshold}}" />
+    <label>{{localize "PF2E.ShieldBrokenThresholdLabel"}}</label>
+    <input type="number" name="data.hp.brokenThreshold" value="{{data.hp.brokenThreshold}}" />
 </div>
-
 <div class="form-group">
-  <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
-  <input type="number" name="data.hardness" value="{{data.hardness}}" />
+    <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
+    <input type="number" name="data.hardness" value="{{data.hardness}}" />
 </div>
-
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        {{#if editable}}
+            <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        {{/if}}
     </label>
     <ul class="traits-list tags">
         {{#each traits as |trait|}}
             <li class="tag" data-trait="{{trait.value}}">{{trait.label}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div class="form-group-stacked">
+    <label>
+        {{localize "PF2E.Item.Physical.OtherTags.Label"}}
+        <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Physical.OtherTags.Hint"></i>
+        {{#if editable}}
+            <a class="trait-selector" data-trait-selector="basic" data-config-types="otherArmorTags" data-title="PF2E.Item.Physical.OtherTags.Label" data-property="data.traits.otherTags"><i class="fas fa-edit"></i></a>
+        {{/if}}
+    </label>
+    <ul class="traits-list tags">
+        {{#each otherTags as |tag|}}
+            <li class="tag tag_alt">{{tag.label}}</li>
         {{/each}}
     </ul>
 </div>

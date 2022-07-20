@@ -30,9 +30,10 @@
             <li class="item action-header stroke-header">
                 {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
                 <h3 class="item-name">{{localize "PF2E.LoreSkillsHeader"}}</h3>
-                {{#if owner}}
+                <!-- editable: {{editable}} -->
+                {{#if editable}}
                     <div class="item-controls">
-                        <a class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+                        <a class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore"><i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
                     </div>
                 {{/if}}
             </li>
@@ -50,9 +51,9 @@
                             <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="data.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">
                                 {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank}}
                             </select>
-                            {{#if ../owner}}
+                            {{#if ../editable}}
                                 <div class="item-controls">
-                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                 </div>
                             {{/if}}
                         </div>
@@ -65,9 +66,9 @@
             <li class="action-header stroke-header">
                 {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
                 <h3 class="item-name">{{localize "PF2E.MartialSkillsHeader"}}</h3>
-                {{#if owner}}
+                {{#if editable}}
                     <div class="item-controls">
-                        <a class="item-control add" title="{{localize "PF2E.AddCombatProficiency.Title"}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+                        <a class="item-control add" title="{{localize "PF2E.AddCombatProficiency.Title"}}"><i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
                     </div>
                 {{/if}}
             </li>
@@ -76,8 +77,8 @@
             <!-- Combat Proficiencies -->
             {{#each data.martial as |proficiency key|}}
                 <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-skill="{{key}}">
-                    {{#if proficiency.custom}}
-                        <a class="delete"><i class="fa fa-trash"></i></a>
+                    {{#if (and proficiency.custom @root.editable)}}
+                        <a class="delete"><i class="fa fa-fw fa-trash"></i></a>
                     {{/if}}
                     <h1 class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
                     <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>

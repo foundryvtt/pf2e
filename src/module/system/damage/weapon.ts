@@ -17,8 +17,7 @@ import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
-import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DeferredModifier, StrikeAdjustment } from "@module/rules/rule-element/data";
+import { DeferredModifier, PotencySynthetic, StrikeAdjustment, StrikingSynthetic } from "@module/rules/synthetics";
 import { extractModifiers } from "@module/rules/util";
 import { PredicatePF2e } from "@system/predication";
 import { setHasElement, sluggify } from "@util";
@@ -204,8 +203,8 @@ export class WeaponDamagePF2e {
         proficiencyRank = -1,
         options: string[] = [],
         rollNotes: Record<string, RollNotePF2e[]>,
-        weaponPotency: WeaponPotencyPF2e | null,
-        striking: Record<string, StrikingPF2e[]>,
+        weaponPotency: PotencySynthetic | null,
+        striking: Record<string, StrikingSynthetic[]>,
         strikeAdjustments: StrikeAdjustment[]
     ): DamageTemplate {
         let effectDice = weapon.data.damage.dice ?? 1;
@@ -321,7 +320,7 @@ export class WeaponDamagePF2e {
         // striking rune
         let strikingDice = 0;
         {
-            const strikingList: StrikingPF2e[] = [];
+            const strikingList: StrikingSynthetic[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
                     .filter((wp) => PredicatePF2e.test(wp.predicate, options))

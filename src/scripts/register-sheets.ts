@@ -25,6 +25,7 @@ import { JournalSheetPF2e, JournalSheetStyledPF2e } from "@module/journal-entry/
 import { SceneConfigPF2e } from "@scene/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { HazardSheetGreenPF2e } from "@actor/hazard/sheet-new";
+import { EquipmentSheetPF2e } from "@item/equipment/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -120,6 +121,7 @@ export function registerSheets() {
         ["class", ClassSheetPF2e],
         ["deity", DeitySheetPF2e],
         ["effect", EffectSheetPF2e],
+        ["equipment", EquipmentSheetPF2e],
         ["feat", FeatSheetPF2e],
         ["heritage", HeritageSheetPF2e],
         ["kit", KitSheetPF2e],

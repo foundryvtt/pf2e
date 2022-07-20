@@ -363,3 +363,5 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 *   Other
     * Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente
     * Pathfinder Society Year 4 Rule Updates © 2022, Paizo Inc.; Authors: Mike Kimmel, Alex Speidel
+	* There is No Certainty, Only Adventure! © 2015, Paizo Inc.; Author: Chris Lambertz; Illustrator: Dion Harris.
+	* Pathfinder Society (second edition) Faction Showcase © 2020, Paizo Inc.; Author: Tonya Woldridge

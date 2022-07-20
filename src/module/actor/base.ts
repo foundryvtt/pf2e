@@ -1206,6 +1206,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 token.showFloatyText(options.damageTaken);
             }
         }
+
+        // If alliance has changed, reprepare token data to update the color of bounding boxes
+        if (canvas.ready && changed.data?.details && "alliance" in changed.data.details) {
+            for (const token of this.getActiveTokens(true, true)) {
+                token.prepareData();
+            }
+        }
     }
 
     /** Unregister all effects possessed by this actor */

@@ -36,11 +36,9 @@ $header-height: 89px;   /* Adjust height of the header */
 
         @import "sidebar", "header";
 
-        $window-p-right: 20px;
-
         .char-header {
             grid-area: header;
-            margin-right: $window-p-right;
+            padding-right: 1rem;
         }
 
         .sheet-navigation {
@@ -58,12 +56,12 @@ $header-height: 89px;   /* Adjust height of the header */
 
             .sheet-content,
             .sheet-content .inventory {
-                position: absolute;
-                top: 0;
-                left: 0;
                 bottom: 0;
                 display: flex;
                 flex-direction: column;
+                left: 0;
+                position: absolute;
+                top: 0;
                 width: 100%;
 
                 &.tab[data-tab] {
@@ -76,6 +74,11 @@ $header-height: 89px;   /* Adjust height of the header */
 
             .sheet-content {
                 color: var(--body);
+
+                > .tab {
+                    padding: 0.6rem 0.6rem 0;
+                }
+
                 @import "spell-list";
 
                 ol.directory-list {

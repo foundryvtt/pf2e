@@ -1,9 +1,30 @@
 import { LocalizePF2e } from "@module/system/localize";
-import { objectHasKey } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { PhysicalItemPF2e } from "../physical";
 import { EquipmentData, EquipmentTrait } from "./data";
+import { OtherEquipmentTag } from "./types";
 
 class EquipmentPF2e extends PhysicalItemPF2e {
+    get otherTags(): Set<OtherEquipmentTag> {
+        return new Set(this.data.data.traits.otherTags);
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        this.data.data.traits.otherTags ??= [];
+    }
+
+    override prepareActorData(): void {
+        if (!this.actor?.isOfType("character")) return;
+
+        // Add a roll option if carrying a thaumaturge's implement
+        if (this.isEquipped && this.isHeld && this.otherTags.has("implement")) {
+            const slug = this.slug ?? sluggify(this.name);
+            this.actor.rollOptions.all[`implement:${slug}`] = true;
+        }
+    }
+
     override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);

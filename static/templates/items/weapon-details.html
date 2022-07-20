@@ -364,7 +364,9 @@
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        {{#if editable}}
+            <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        {{/if}}
     </label>
     <ul class="traits-list tags">
         {{#each traits as |trait|}}
@@ -375,9 +377,11 @@
 
 <div class="form-group-stacked">
     <label>
-        {{localize "PF2E.Item.Weapon.OtherTags.Label"}}
-        <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Weapon.OtherTags.Hint"></i>
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="otherWeaponTags" data-title="PF2E.Item.Weapon.OtherTags.Label" data-property="data.traits.otherTags"><i class="fas fa-edit"></i></a>
+        {{localize "PF2E.Item.Physical.OtherTags.Label"}}
+        <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Physical.OtherTags.Hint"></i>
+        {{#if editable}}
+            <a class="trait-selector" data-trait-selector="basic" data-config-types="otherWeaponTags" data-title="PF2E.Item.Physical.OtherTags.Label" data-property="data.traits.otherTags"><i class="fas fa-edit"></i></a>
+        {{/if}}
     </label>
     <ul class="traits-list tags">
         {{#each otherTags as |tag|}}

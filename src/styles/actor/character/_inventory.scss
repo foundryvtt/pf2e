@@ -1,29 +1,17 @@
 &.inventory {
     height: calc(100% - 40px);
-    padding-top: 6px;
-    padding-left: 6px;
 
     .inventory-list {
-        @include scrollbar;
-        overflow: hidden scroll;
-        padding-right: 20px;
+        padding-right: 0.1rem;
     }
 
     .item-controls {
         flex: 0 0 100px;
     }
 
-    .inventory-list {
-        height: calc(100% - 60px);
-    }
-
     .inventory-items {
         border: 1px solid var(--alt);
         border-top: none;
-    }
-
-    .currency, .wealth {
-        margin-right: 26px; // the scrollbar is 6px, this is kinda hardcoded, but its close
     }
 
     .wealth {
@@ -41,8 +29,8 @@
     .item-summary {
         display: grid;
         grid:
-            'content btn' min-content
-            'tags btn' min-content
+            "content btn" min-content
+            "tags btn" min-content
             / 1fr min-content;
         column-gap: 8px;
         align-items: center;
@@ -63,7 +51,7 @@
         align-items: center;
         display: grid;
         grid:
-            'img bar overflow' min-content
+            "img bar overflow" min-content
             / 24px 1fr;
         margin: auto;
 

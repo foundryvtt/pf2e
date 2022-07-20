@@ -549,10 +549,25 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
+        // If this item is of a certain type and is being added to a PC, increase HP by amount increased by new ABC item
+        if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
+            const clone = this.actor.clone({
+                items: [...this.actor.toObject().items, data],
+            });
+            const hpMaxDifference = clone.hitPoints.max - this.actor.hitPoints.max;
+            if (hpMaxDifference !== 0) {
+                const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
+                await this.actor.update(
+                    { "data.attributes.hp.value": newHitPoints },
+                    { render: false, allowHPOverage: true }
+                );
+            }
+        }
+
         await super._preCreate(data, options, user);
 
+        // Ensure imported items are current on their schema version
         if (!options.parent) {
-            // Ensure imported items are current on their schema version
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }
 
