@@ -78,11 +78,9 @@ export const InlineRollLinks = {
             }
             const creatureActors = actors.filter((actor): actor is CreaturePF2e => actor.isOfType("creature"));
             const parsedTraits = pf2Traits
-                ? pf2Traits
-                      .split(",")
-                      .map((trait) => trait.trim())
-                      .filter((trait) => !!trait)
-                : undefined;
+                ?.split(",")
+                .map((trait) => trait.trim())
+                .filter((trait) => !!trait);
             const eventRollParams = eventToRollParams(event);
 
             switch (pf2Check) {
