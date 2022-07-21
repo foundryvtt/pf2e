@@ -98,7 +98,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     get playersCanSeeName(): boolean {
         const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
         const nameDisplayMode = this.data.displayName ?? 0;
-        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.hasPlayerOwner;
+        return anyoneCanSee.includes(nameDisplayMode) || this.actor?.alliance === "party";
     }
 
     /** The pixel-coordinate definition of this token's space */
