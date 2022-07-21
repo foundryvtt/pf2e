@@ -274,7 +274,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     protected override _onDragStart(event: ElementDragEvent): void {
-        const id = $(event.target).closest("div.details-container-flex-row").attr("data-variant-id") ?? "";
+        const id = $(event.target).closest("div.spell-variant-details").attr("data-variant-id") ?? "";
         event.dataTransfer.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
     }
 
@@ -289,8 +289,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             case "sort": {
                 // Sort spell variants
                 const sourceId = data.sourceId;
-                const targetId =
-                    $(event.target).closest("div.details-container-flex-row").attr("data-variant-id") ?? "";
+                const targetId = $(event.target).closest("div.spell-variant-details").attr("data-variant-id") ?? "";
                 if (sourceId && targetId && sourceId !== targetId) {
                     const sourceVariant = this.item.loadVariant({ overlayIds: [sourceId] });
                     const targetVariant = this.item.loadVariant({ overlayIds: [targetId] });
