@@ -1,5 +1,6 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ActorPF2e } from "../module/actor/base";
+import { ErrorPF2e } from "@util";
 
 /**
  * @category Other
@@ -7,7 +8,7 @@ import { ActorPF2e } from "../module/actor/base";
 export class DicePF2e {
     _rolled?: boolean;
     terms?: string[];
-    _formula: any;
+
     /**
      * A standardized helper function for managing core PF2e "d20 rolls"
      *
@@ -39,27 +40,26 @@ export class DicePF2e {
         flavor,
         onClose,
         dialogOptions,
-        rollMode,
+        rollMode = game.settings.get("core", "rollMode"),
         rollType = "",
     }: {
         event: JQuery.Event;
         item?: Embedded<ItemPF2e> | null;
-        parts: any[];
+        parts: (string | number)[];
         actor?: ActorPF2e;
-        data: any;
+        data: Record<string, unknown>;
         template?: string;
         title: string;
         speaker: foundry.data.ChatSpeakerSource;
-        flavor?: any;
-        onClose?: any;
+        flavor?: Function;
+        onClose?: Function;
         dialogOptions?: Partial<ApplicationOptions>;
         rollMode?: RollMode;
         rollType?: string;
     }) {
         // Inner roll function
-        rollMode = rollMode || game.settings.get("core", "rollMode");
         const userSettingQuickD20Roll = !game.user.settings.showRollDialogs;
-        const _roll = (rollParts: any, adv: number, form?: any) => {
+        const _roll = (rollParts: (string | string[] | number)[], adv: number, $form?: JQuery) => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ["2d20kh"];
@@ -70,13 +70,13 @@ export class DicePF2e {
             }
 
             // Don't include situational bonuses unless they are defined
-            if (form) data.itemBonus = form.find('[name="itemBonus"]').val();
+            if ($form) data.itemBonus = $form.find("[name=itemBonus]").val();
             if ((!data.itemBonus || data.itemBonus === 0) && rollParts.indexOf("@itemBonus") !== -1)
                 rollParts.splice(rollParts.indexOf("@itemBonus"), 1);
-            if (form) data.statusBonus = form.find('[name="statusBonus"]').val();
+            if ($form) data.statusBonus = $form.find("[name=statusBonus]").val();
             if ((!data.statusBonus || data.statusBonus === 0) && rollParts.indexOf("@statusBonus") !== -1)
                 rollParts.splice(rollParts.indexOf("@statusBonus"), 1);
-            if (form) data.circumstanceBonus = form.find('[name="circumstanceBonus"]').val();
+            if ($form) data.circumstanceBonus = $form.find("[name=circumstanceBonus]").val();
             if (
                 (!data.circumstanceBonus || data.circumstanceBonus === 0) &&
                 rollParts.indexOf("@circumstanceBonus") !== -1
@@ -99,14 +99,14 @@ export class DicePF2e {
                     },
                 },
                 {
-                    rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
+                    rollMode: $form ? ($form.find("[name=rollMode]").val() as RollMode) : rollMode,
                 }
             );
             return roll;
         };
 
         // Modify the roll and handle fast-forwarding
-        parts = ["1d20"].concat(parts);
+        parts.unshift("1d20");
         if (
             (userSettingQuickD20Roll && !event.altKey && !(event.ctrlKey || event.metaKey) && !event.shiftKey) ||
             (!userSettingQuickD20Roll && event.shiftKey)
@@ -190,7 +190,7 @@ export class DicePF2e {
      * @param onClose       Callback for actions to take when the dialog form is closed
      * @param dialogOptions Modal dialog options
      */
-    static damageRoll({
+    static async damageRoll({
         event,
         item = null,
         partsCritOnly = [],
@@ -207,29 +207,33 @@ export class DicePF2e {
     }: {
         event: JQuery.Event;
         item?: Embedded<ItemPF2e> | null;
-        partsCritOnly?: any[];
+        partsCritOnly?: (string | number)[];
         parts: (string | number)[];
         actor?: ActorPF2e;
-        data: Record<string, any>;
+        data: Record<string, unknown>;
         template?: string;
         title: string;
         speaker: foundry.data.ChatSpeakerSource;
-        flavor?: any;
+        flavor?: Function;
         critical?: boolean;
-        onClose?: any;
-        dialogOptions?: object;
+        onClose?: Function;
+        dialogOptions?: Partial<ApplicationOptions>;
         combineTerms?: boolean;
-    }) {
+    }): Promise<Rolled<Roll> | null> {
         // Inner roll function
-        const rollMode = game.settings.get("core", "rollMode");
+        const defaultRollMode = game.settings.get("core", "rollMode");
         const userSettingQuickD20Roll = !game.user.settings.showRollDialogs;
-        let rolled = false;
-        const _roll = (rollParts: any, crit: boolean, form?: JQuery) => {
+
+        const _roll = async (
+            rollParts: (string | number)[],
+            crit: boolean,
+            $form?: JQuery
+        ): Promise<Rolled<Roll> | null> => {
             // Don't include situational bonuses unless they are defined
-            if (form) {
-                data.itemBonus = form.find('[name="itemBonus"]').val();
-                data.statusBonus = form.find('[name="statusBonus"]').val();
-                data.circumstanceBonus = form.find('[name="circumstanceBonus"]').val();
+            if ($form) {
+                data.itemBonus = $form.find("[name=itemBonus]").val();
+                data.statusBonus = $form.find("[name=statusBonus]").val();
+                data.circumstanceBonus = $form.find("[name=circumstanceBonus]").val();
             }
             for (const key of ["itemBonus", "statusBonus", "circumstanceBonus"]) {
                 if (!data[key] || data[key] === 0) {
@@ -261,22 +265,23 @@ export class DicePF2e {
 
             const roll = new Roll(rollParts.join("+"), data);
             const flav = flavor instanceof Function ? flavor(rollParts, data) : title;
-            const traits = item instanceof SpellPF2e ? this.getTraitMarkup(item) : "";
+            const traits = item?.isOfType("spell") ? this.getTraitMarkup(item) : "";
             const origin = item ? { uuid: item.uuid, type: item.type } : null;
-            roll.toMessage(
+            const rollMode = $form
+                ? ($form.find<HTMLInputElement>("[name=rollMode]").val() as RollMode)
+                : defaultRollMode;
+
+            const message = await roll.toMessage(
                 {
                     speaker,
                     flavor: `${flav}\n${traits}`,
                     flags: { pf2e: { origin } },
                 },
-                {
-                    rollMode: form ? (form.find<HTMLInputElement>('[name="rollMode"]').val() as RollMode) : rollMode,
-                }
+                { rollMode }
             );
-            rolled = true;
 
             // Return the Roll object
-            return roll;
+            return message.roll;
         };
 
         // Modify the roll and handle fast-forwarding
@@ -293,15 +298,15 @@ export class DicePF2e {
         template = template || "systems/pf2e/templates/chat/roll-dialog.html";
         const dialogData = {
             data,
-            rollMode,
+            rollMode: defaultRollMode,
             formula: parts.join(" + "),
             rollModes: CONFIG.Dice.rollModes,
         };
 
         // Render modal dialog
-        let roll: Roll;
+        let roll: Rolled<Roll> | null;
         return new Promise((resolve) => {
-            renderTemplate(template, dialogData).then((content) => {
+            renderTemplate(template, dialogData).then(async (content) => {
                 new Dialog(
                     {
                         title,
@@ -310,23 +315,23 @@ export class DicePF2e {
                             critical: {
                                 condition: critical,
                                 label: game.i18n.localize("PF2E.Roll.CriticalHit"),
-                                callback: (html) => {
-                                    roll = _roll(parts, true, html);
+                                callback: async (html) => {
+                                    roll = await _roll(parts, true, html);
                                 },
                             },
                             normal: {
                                 label: critical
                                     ? game.i18n.localize("PF2E.Roll.Normal")
                                     : game.i18n.localize("PF2E.Roll.Roll"),
-                                callback: (html) => {
-                                    roll = _roll(parts, false, html);
+                                callback: async (html) => {
+                                    roll = await _roll(parts, false, html);
                                 },
                             },
                         },
                         default: game.i18n.localize("PF2E.Roll.Normal"),
                         close: (html) => {
                             if (onClose) onClose(html, parts, data);
-                            resolve(rolled ? roll : false);
+                            resolve(roll);
                         },
                     },
                     dialogOptions
@@ -358,9 +363,9 @@ export class DicePF2e {
         return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+"));
     }
 
-    alter(add: number, multiply: number) {
+    alter(add: number, multiply: number): this {
         const rgx = new RegExp(DiceTerm.REGEXP, "g");
-        if (this._rolled) throw new Error("You may not alter a Roll which has already been rolled");
+        if (this._rolled) throw ErrorPF2e("You may not alter a Roll which has already been rolled");
 
         // Update dice roll terms
         this.terms = this.terms?.map((t) =>
@@ -371,8 +376,6 @@ export class DicePF2e {
             })
         );
 
-        // Update the formula
-        this._formula = this.terms?.join(" ");
         return this;
     }
 

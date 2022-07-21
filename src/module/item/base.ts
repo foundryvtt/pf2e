@@ -343,7 +343,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             event,
             parts,
             actor: this.actor,
-            data: rollData,
+            data: rollData as unknown as Record<string, unknown>,
             rollType: "attack-roll",
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -368,7 +368,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Get item and actor data and format it for the damage roll
         const item = this.data;
         const itemData = item.data;
-        const rollData: HazardSystemData & { item?: MeleeSystemData } = deepClone(this.actor.data.data);
+        const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).data;
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 
@@ -403,7 +403,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             parts,
             critical,
             actor: this.actor,
-            data: rollData,
+            data: rollData as unknown as Record<string, unknown>,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
