@@ -125,7 +125,7 @@ export const InlineRollLinks = {
                                 traits: parsedTraits,
                             });
                         } else {
-                            console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
+                            console.warn(`PF2e System | Skip rolling flat check for "${actor}"`);
                         }
                     }
                     break;
