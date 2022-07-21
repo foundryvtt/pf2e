@@ -495,10 +495,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     ): Promise<Record<string, unknown>> {
         const $form = $<HTMLFormElement>(this.form);
         $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
-            if (input.value === "") {
-                input.value = "[]";
-            }
+            if (input.value === "") input.value = "[]";
         });
+
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
