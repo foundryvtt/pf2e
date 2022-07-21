@@ -48,8 +48,12 @@ export interface SpellHeightenLayer {
     data: Partial<SpellSystemData>;
 }
 
-interface SpellOverlayOverride extends Partial<SpellSource> {
+interface SpellOverlayOverride {
+    _id: string;
+    data: Partial<SpellSystemSource>;
+    name?: string;
     overlayType: "override";
+    sort: number;
 }
 
 /** Not implemented */
