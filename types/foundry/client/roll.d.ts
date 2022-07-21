@@ -360,7 +360,7 @@ declare global {
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
             { rollMode, create }?: { rollMode?: RollMode; create?: true }
-        ): Promise<foundry.data.ChatMessageData>;
+        ): Promise<ChatMessage>;
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
             { rollMode, create }?: { rollMode?: RollMode; create?: boolean }
