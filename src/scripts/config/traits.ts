@@ -282,6 +282,7 @@ const spellOtherTraits = {
     hex: "PF2E.TraitHex",
     incapacitation: "PF2E.TraitIncapacitation",
     incarnate: "PF2E.TraitIncarnate",
+    incorporeal: "PF2E.TraitIncorporeal",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
     linguistic: "PF2E.TraitLinguistic",
@@ -346,6 +347,7 @@ const spellTraits = {
     ...damageTraits,
     ...elementalTraits,
     ...magicSchools,
+    ...magicTraditions,
     ...spellOtherTraits,
 };
 
