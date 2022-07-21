@@ -19,6 +19,7 @@
         "level": {
             "value": 12
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "value": "min(2,max(@actor.data.data.martial.light.rank,@actor.data.data.martial.unarmored.rank))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.heavy.rank",
+                "value": "min(2,max(@actor.data.data.martial.light.rank,@actor.data.data.martial.unarmored.rank))"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
