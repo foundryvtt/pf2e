@@ -22,6 +22,13 @@ class CharacterFeats extends Collection<FeatCategory> {
         super();
 
         const classFeatSlots = actor.class?.grantedFeatSlots;
+        const skillPrepend = (() => {
+            if (actor.background && Object.keys(actor.background.data.data.items).length) {
+                return [{ id: actor.background?.id, label: game.i18n.localize("PF2E.FeatBackgroundShort") }];
+            }
+            return [];
+        })();
+
         this.createCategory({
             id: "ancestryfeature",
             label: "PF2E.FeaturesAncestryHeader",
@@ -76,7 +83,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             id: "skill",
             label: "PF2E.FeatSkillHeader",
             supported: ["skill"],
-            levels: classFeatSlots?.skill ?? [],
+            levels: [...skillPrepend, ...(classFeatSlots?.skill ?? [])],
         });
         this.createCategory({
             id: "general",
@@ -88,16 +95,6 @@ class CharacterFeats extends Collection<FeatCategory> {
         // Add campaign feats if enabled
         if (game.settings.get("pf2e", "campaignFeats")) {
             this.createCategory({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
-        }
-
-        // Add background skill feat slot
-        const background = actor.background;
-        if (background && Object.keys(background.data.data.items).length > 0) {
-            this.get("skill").feats.unshift({
-                id: background.id,
-                level: game.i18n.localize("PF2E.FeatBackgroundShort"),
-                grants: [],
-            });
         }
     }
 
