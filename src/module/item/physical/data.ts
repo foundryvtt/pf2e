@@ -9,6 +9,7 @@ import {
     ActionCost,
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
+    Frequency,
     ItemLevelData,
     ItemSystemData,
     ItemSystemSource,
@@ -167,12 +168,7 @@ interface ItemActivation {
         interact: boolean;
         cast: boolean;
     };
-    frequency: {
-        value: number;
-        max: number;
-        /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
-        duration: null | keyof ConfigPF2e["PF2E"]["frequencies"];
-    };
+    frequency?: Frequency;
     traits: ValuesList<ActionTrait>;
 }
 
