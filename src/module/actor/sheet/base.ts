@@ -271,10 +271,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
-            const entry = this.actor.spellcasting.get(entryId);
-            if (entry) {
-                entry.unprepareSpell(spellLvl, slotId);
-            }
+            const collection = this.actor.spellcasting.collections.get(entryId);
+            collection?.unprepareSpell(spellLvl, slotId);
         });
 
         // Set Expended Status of Spell Slot
@@ -286,10 +284,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const expendedString = $(event.currentTarget).parents(".item").attr("data-expended-state") ?? "";
                 return expendedString !== "true";
             })();
-            const entry = this.actor.spellcasting.get(entryId);
-            if (entry) {
-                entry.setSlotExpendedState(spellLvl, slotId, expendedState);
-            }
+            const collection = this.actor.spellcasting.collections.get(entryId);
+            collection?.setSlotExpendedState(spellLvl, slotId, expendedState);
         });
 
         $html.find(".carry-type-hover").tooltipster({
@@ -694,23 +690,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // or moving it from one spellcastingEntry to another
         if (item.isOfType("spell")) {
             const targetLocation = $dropContainerEl.attr("data-container-id") ?? "";
-            const entry = this.actor.spellcasting.get(targetLocation);
-            if (!entry) {
-                console.warn("PF2E System | Failed to load spellcasting entry");
-                return [];
-            }
+            const collection = this.actor.spellcasting.collections.get(targetLocation, { strict: true });
 
             if (dropSlotType === "spellLevel") {
                 const { level } = $dropItemEl.data();
-                const spell = await entry.addSpell(item, level);
-                this.openSpellPreparationSheet(entry.id);
+                const spell = await collection.addSpell(item, level);
+                this.openSpellPreparationSheet(collection.id);
                 return [spell ?? []].flat();
             } else if ($dropItemEl.attr("data-slot-id")) {
                 const dropId = Number($dropItemEl.attr("data-slot-id"));
                 const spellLvl = Number($dropItemEl.attr("data-spell-lvl"));
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl)) {
-                    const allocated = await entry.prepareSpell(item, spellLvl, dropId);
+                    const allocated = await collection.prepareSpell(item, spellLvl, dropId);
                     if (allocated) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
@@ -729,12 +721,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     };
 
                     if (sourceLocation === targetLocation && testSibling(item, target)) {
-                        const siblings = entry.spells.filter((spell) => testSibling(item, spell));
+                        const siblings = collection.filter((spell) => testSibling(item, spell));
                         await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
-                        const spell = await entry.addSpell(item, target.level);
-                        this.openSpellPreparationSheet(entry.id);
+                        const spell = await collection.addSpell(item, target.level);
+                        this.openSpellPreparationSheet(collection.id);
                         return [spell ?? []].flat();
                     }
                 }
@@ -845,15 +837,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "spellcastingEntry") {
                 const entryId = $containerEl.attr("data-container-id") ?? "";
-                const entry = this.actor.spellcasting.get(entryId);
-                if (!entry) {
-                    console.warn("PF2E System | Failed to load spellcasting entry");
-                    return [];
-                }
-
+                const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
                 const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
-                this.openSpellPreparationSheet(entry.id);
-                return [(await entry.addSpell(item, level)) ?? []].flat();
+                this.openSpellPreparationSheet(collection.id);
+                return [(await collection.addSpell(item, level)) ?? []].flat();
             } else if (dropContainerType === "actorInventory" && itemSource.data.level.value > 0) {
                 const popup = new ScrollWandPopup(
                     this.actor,
@@ -1057,12 +1044,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     private editSpellcastingEntry(event: JQuery.ClickEvent): void {
         const { containerId } = $(event.target).closest("[data-container-id]").data();
-        const entry = this.actor.spellcasting.get(containerId);
-        if (!entry) {
-            console.warn("PF2E System | Failed to load spellcasting entry");
-            return;
-        }
-
+        const entry = this.actor.spellcasting.get(containerId, { strict: true });
         createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
     }
 
