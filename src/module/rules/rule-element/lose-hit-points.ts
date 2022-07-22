@@ -1,15 +1,20 @@
 import { CreaturePF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e, RuleElementSource } from "./";
 import { RuleElementOptions } from "./base";
 
 /** Reduce current hit points without applying damage */
 export class LoseHitPointsRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    /** Lost hitpoints should reevaluate on item update, with the parent actor losing the difference in HP between the new and old values */
+    protected reevaluateOnUpdate: boolean;
+
+    constructor(data: LoseHitPointsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
         const actorIsCreature = this.actor instanceof CreaturePF2e;
         const valueIsValid = typeof data.value === "number" || typeof data.value === "string";
         if (!(actorIsCreature && valueIsValid)) this.ignored = true;
+        this.reevaluateOnUpdate = Boolean(data.reevaluateOnUpdate ?? false);
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
@@ -20,6 +25,27 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
             actorUpdates["data.attributes.hp.value"] = Math.max(currentHP - value, 0);
         }
     }
+
+    override async preUpdate(changed: DeepPartial<ItemSourcePF2e>): Promise<void> {
+        if (!this.reevaluateOnUpdate || this.ignored) return;
+        const previousValue = Math.abs(Number(this.resolveValue()) || 0);
+        mergeObject(this.item.data, changed);
+        const newValue = Math.abs(Number(this.resolveValue()) || 0);
+        if (typeof previousValue === "number" && typeof newValue === "number") {
+            const valueChange = newValue - previousValue;
+            if (valueChange > 0) {
+                const currentHP = this.actor.data._source.data.attributes.hp.value;
+                await this.actor.update(
+                    { "data.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
+                    { render: false }
+                );
+            }
+        }
+    }
+}
+
+interface LoseHitPointsSource extends RuleElementSource {
+    reevaluateOnUpdate?: unknown;
 }
 
 export interface LoseHitPointsRuleElement extends RuleElementPF2e {
