@@ -12,6 +12,7 @@ type DeityData = Omit<DeitySource, "effects" | "flags"> &
     BaseItemDataPF2e<DeityPF2e, "deity", DeitySystemData, DeitySource>;
 
 interface DeitySystemSource extends ItemSystemSource {
+    category: "deity" | "pantheon" | "philosophy";
     alignment: {
         own: Alignment | null;
         follower: Alignment[];
@@ -28,7 +29,7 @@ interface DeitySystemSource extends ItemSystemSource {
     traits?: never;
 }
 
-type DivineFonts = ["harm"] | ["heal"] | ["harm", "heal"];
+type DivineFonts = ["harm"] | ["heal"] | ["harm", "heal"] | never[];
 
 type DeitySystemData = DeitySystemSource;
 
