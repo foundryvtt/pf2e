@@ -6,8 +6,14 @@
     </header>
 
     <section class="item-properties tags">
-        {{#each data.traits}}
-            <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
+        {{~#if data.actionTraits}}
+            {{#each data.actionTraits}}
+                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
+            {{/each}}
+            <hr class="vr" />
+        {{~/if}}
+        {{#each data.spellTraits}}
+            <span class="tag tag_alt" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
         {{/each}}
     </section>
 

@@ -14,7 +14,7 @@ import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "../type
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
-type SpellData = Omit<SpellSource, "effects" | "flags"> &
+type SpellData = Omit<SpellSource, "data" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
 export type SpellTraits = ItemTraits<SpellTrait>;
@@ -40,7 +40,7 @@ export interface SpellHeighteningInterval {
 
 export interface SpellHeighteningFixed {
     type: "fixed";
-    levels: Record<OneToTen, Partial<SpellSystemData>>;
+    levels: Record<OneToTen, Partial<SpellSystemSource>>;
 }
 
 export interface SpellHeightenLayer {
