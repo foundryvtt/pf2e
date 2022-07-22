@@ -43,23 +43,28 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
+    /** Shimmed ahead of moving to Item-instance level in V10 */
+    get flags(): this["data"]["flags"] {
+        return this.data.flags;
+    }
+
     /** The sluggified name of the item **/
     get slug(): string | null {
-        return this.data.data.slug;
+        return this.system.slug;
     }
 
     /** The compendium source ID of the item **/
     get sourceId(): ItemUUID | null {
-        return this.data.flags.core?.sourceId ?? null;
+        return this.flags.core?.sourceId ?? null;
     }
 
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
-        return Number(this.data.data.schema?.version) || null;
+        return Number(this.system.schema?.version) || null;
     }
 
     get description(): string {
-        return this.data.data.description.value;
+        return this.system.description.value;
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
@@ -84,14 +89,15 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
-        const traits = this.data.data.traits?.value.map((t) => `trait:${t}`) ?? [];
+        const traits = this.system.traits?.value.map((t) => `trait:${t}`) ?? [];
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
             `${delimitedPrefix}id:${this.id}`,
             `${delimitedPrefix}${slug}`,
             ...traits.map((t) => `${delimitedPrefix}${t}`),
         ];
-        if ("level" in this.data.data) options.push(`${delimitedPrefix}level:${this.data.data.level.value}`);
+
+        if ("level" in this.system) options.push(`${delimitedPrefix}level:${this.system.level.value}`);
         if (["item", ""].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${delimitedPrefix}type:${itemType}`);
@@ -282,9 +288,9 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
-        const traits: string[] = [...(this.data.data.traits?.value ?? [])].sort();
+        const traits: string[] = [...(this.system.traits?.value ?? [])].sort();
         const customTraits =
-            this.data.data.traits?.custom
+            this.system.traits?.custom
                 .trim()
                 .split(/\s*[,;|]\s*/)
                 .filter((trait) => trait) ?? [];

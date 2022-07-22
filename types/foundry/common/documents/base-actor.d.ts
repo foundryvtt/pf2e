@@ -53,6 +53,9 @@ declare module foundry {
         interface BaseActor {
             readonly data: data.ActorData<BaseActor, BaseActiveEffect, BaseItem>;
 
+            /** Shim for V10 preparation */
+            readonly system: this["data"]["data"];
+
             readonly parent: BaseToken | null;
 
             get documentName(): typeof BaseActor["metadata"]["name"];
