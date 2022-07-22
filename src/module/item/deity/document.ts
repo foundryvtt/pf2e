@@ -6,8 +6,24 @@ import { DeityData } from "./data";
 import { DeitySheetPF2e } from "./sheet";
 
 class DeityPF2e extends ItemPF2e {
+    get category(): "deity" | "pantheon" | "philosophy" {
+        return this.data.data.category;
+    }
+
     get favoredWeapons(): BaseWeaponType[] {
         return [...this.data.data.weapons];
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        if (this.category === "philosophy") {
+            const systemData = this.data.data;
+            systemData.domains = { primary: [], alternate: [] };
+            systemData.font = [];
+            systemData.spells = {};
+            systemData.weapons = [];
+        }
     }
 
     override prepareActorData(this: Embedded<DeityPF2e>): void {
