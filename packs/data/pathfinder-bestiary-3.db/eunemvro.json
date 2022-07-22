@@ -27,7 +27,7 @@
                 "value": 22
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -95,7 +95,6 @@
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Negative",
                     "type": "negative",
                     "value": 5
                 }
@@ -127,7 +126,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aBWvQMLpHsZiALBy",
+            "_id": "iIIyNY3zJBmroqzM",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -141,82 +140,74 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
                 },
                 "slots": {
                     "slot0": {
-                        "max": 2,
-                        "prepared": {
-                            "1": {
-                                "id": "ZR3mQxiZuetjw317"
-                            }
-                        },
-                        "value": 2
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
                     },
                     "slot1": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot10": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot11": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot2": {
-                        "max": 1,
-                        "prepared": {
-                            "0": {
-                                "id": "pLcZ49QZIfXfcnso"
-                            }
-                        },
-                        "value": 1
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
                     },
                     "slot3": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot4": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot5": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot6": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot7": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot8": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot9": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     }
                 },
@@ -226,12 +217,11 @@
                 },
                 "spelldc": {
                     "dc": 20,
-                    "item": 0,
                     "mod": 0,
-                    "value": 10
+                    "value": 12
                 },
                 "tradition": {
-                    "value": "divine"
+                    "value": "occult"
                 },
                 "traits": {
                     "custom": "",
@@ -245,14 +235,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "pLcZ49QZIfXfcnso",
+            "_id": "iNiacQKtinEi2Osy",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -281,11 +271,28 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "components": {
+                                "focus": false,
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "aBWvQMLpHsZiALBy"
+                    "heightenedLevel": 2,
+                    "value": "iIIyNY3zJBmroqzM"
                 },
                 "materials": {
                     "value": ""
@@ -315,7 +322,7 @@
                 },
                 "slug": "gentle-repose",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -354,14 +361,14 @@
             "type": "spell"
         },
         {
-            "_id": "CT5x1hrHfT8cgdjL",
+            "_id": "nrXR81qrvYlS1etB",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -379,10 +386,20 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -390,11 +407,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "aBWvQMLpHsZiALBy"
+                    "value": "iIIyNY3zJBmroqzM"
                 },
                 "materials": {
                     "value": ""
@@ -424,7 +448,7 @@
                 },
                 "slug": "chill-touch",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -433,7 +457,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 undead creature"
+                    "value": "1 living or undead creature"
                 },
                 "time": {
                     "value": "2"
@@ -465,14 +489,14 @@
             "type": "spell"
         },
         {
-            "_id": "ZR3mQxiZuetjw317",
+            "_id": "TBMUVpsLoVV30E2b",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -483,8 +507,8 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": false,
-                    "verbal": false
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -495,6 +519,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d6"
@@ -521,7 +546,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "aBWvQMLpHsZiALBy"
+                    "value": "iIIyNY3zJBmroqzM"
                 },
                 "materials": {
                     "value": ""
@@ -537,7 +562,7 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "fortitude"
                 },
                 "school": {
@@ -551,7 +576,7 @@
                 },
                 "slug": "disrupt-undead",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -611,7 +636,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Damage can be bludgeoning or positive.</p>"
+                    "value": "<p>The Strikes deals damage that's either [[/r {2d6+6}[bludgeoning]]]{bludgeoning} or [[/r {2d6+6}[positive]]]{positive} - whichever deals more damage to the target creature.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -657,7 +682,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Damage can be bludgeoning or positive.</p>"
+                    "value": "<p>The Strikes deals damage that's either [[/r {2d8+6}[bludgeoning]]]{bludgeoning} or [[/r {2d8+6}[positive]]]{positive} - whichever deals more damage to the target creature.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -823,7 +848,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The eunemvro's Strikes deal damage that's either bludgeoning or positive—whichever deals more damage to the target creature.</p>"
+                    "value": "<p>The eunemvro's Strikes deal damage that's either bludgeoning or positive - whichever deals more damage to the target creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -863,7 +888,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The eunemvro isn't @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}</p>\n<hr />\n<p><strong>Effect</strong> The eunemvro channels from their soul a blast of searing positive energy, bathing their enemies in a wave of blinding light and cosmic power.</p>\n<p>The eunemvro creates either a @Template[type:cone|distance:10] or a @Template[type:line|distance:30], dealing [[/r {6d8}[positive]]]{6d8 positive damage} (@Check[type:fortitude|dc:22|basic:true] save). A creature that critically fails its save is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>After using this ability, the eunemvro becomes fatigued.</p>"
+                    "value": "<p><strong>Requirements</strong> The eunemvro isn't @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}</p>\n<hr />\n<p><strong>Effect</strong> The eunemvro channels from their soul a blast of searing positive energy, bathing their enemies in a wave of blinding light and cosmic power.</p>\n<p>The eunemvro creates either a @Template[type:cone|distance:10] or a @Template[type:line|distance:30], dealing [[/r {6d8}[positive]]]{6d8 positive damage} (@Check[type:fortitude|dc:22|basic:true] save). A creature that critically fails its save is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d4 #Duration Blinded]]{1d4 rounds}.</p>\n<p>After using this ability, the eunemvro becomes fatigued.</p>"
                 },
                 "requirements": {
                     "value": ""
