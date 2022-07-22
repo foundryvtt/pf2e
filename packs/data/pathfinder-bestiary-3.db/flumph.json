@@ -27,7 +27,7 @@
                 "value": 17
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -135,9 +135,30 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d4}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Acid1d4.success",
+                        "title": "",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Acid1d4.criticalSuccess",
+                        "title": "",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -257,7 +278,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The flumph sprays a @Template[type:line|distance:20] of foul-smelling liquid. Each creature caught in the spray must succeed at a @Check[type:fortitude|dc:16] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>The odor from the spray lingers for [[/r 1d4 #hours]]{1d4 hours} on all creatures that failed their saves. The sprayed creatures can be detected by smell at a range of 100 feet, and any creatures adjacent to them take a -2 circumstance penalty to saves against Spray Perfume or to recover from the sickened condition.</p>\n<p>The flumph can't use Spray Perfume again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The flumph sprays a @Template[type:line|distance:20] of foul-smelling liquid. Each creature caught in the spray must succeed at a @Check[type:fortitude|dc:16] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>The odor from the spray lingers for [[/br 1d4 #Duration Spray Perfume]]{1d4 hours} on all creatures that failed their saves. The sprayed creatures can be detected by smell at a range of 100 feet, and any creatures adjacent to them take a -2 circumstance penalty to saves against Spray Perfume or to recover from the sickened condition.</p>\n<p>The flumph can't use Spray Perfume again for [[/br 1d4 #Recharge Spray Perfume]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
