@@ -20,6 +20,7 @@ import {
 import { WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
+    OtherWeaponTag,
     WeaponCategory,
     WeaponGroup,
     WeaponPropertyRuneType,
@@ -116,6 +117,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
     get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
+    }
+
+    get otherTags(): Set<OtherWeaponTag> {
+        return new Set(this.data.data.traits.otherTags);
     }
 
     /** Generate a list of strings for use in predication */
@@ -238,6 +243,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
             ),
             effects: [],
         };
+    }
+
+    override prepareActorData(): void {
+        if (!this.actor?.isOfType("character")) return;
+
+        // Add a roll option if carrying a weapon that is a thaumaturge's implement
+        if (this.isEquipped && this.otherTags.has("implement")) {
+            this.actor.rollOptions.all["implement:weapon"] = true;
+        }
     }
 
     processMaterialAndRunes(): void {
@@ -471,7 +485,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         const baseDamage = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
-            const ability = this.rangeIncrement ? "dex" : "str";
+            const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
                 Math.abs(dice - Math.round(actorLevel / 4)) < Math.abs(closest - Math.round(actorLevel / 4))
@@ -484,7 +498,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 const fromAbility = actor.abilities[ability].mod;
                 const totalModifier = fromAbility + (actor.level > 1 ? dice : 0);
                 const sign = totalModifier < 0 ? " - " : " + ";
-                return totalModifier === 0 ? "" : [sign, totalModifier].join("");
+                return totalModifier === 0 ? "" : [sign, Math.abs(totalModifier)].join("");
             })();
 
             return {

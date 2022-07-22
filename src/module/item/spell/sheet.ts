@@ -1,9 +1,9 @@
 import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
-import { ItemSheetDataPF2e, SpellSheetData, SpellSheetOverlayData } from "../sheet/data-types";
+import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
-import { ErrorPF2e, getActionGlyph, objectHasKey, tupleHasValue } from "@util";
-import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
+import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, tagify, tupleHasValue } from "@util";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { OneToTen } from "@module/data";
 
 /** Set of properties that are legal for the purposes of spell overrides */
@@ -57,10 +57,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellTypes: CONFIG.PF2E.spellTypes,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
-            magicTraditions: createSheetTags(CONFIG.PF2E.magicTraditions, sheetData.data.traditions),
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
-            traits: createSheetTags(CONFIG.PF2E.spellTraits, sheetData.data.traits),
             rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
             spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
@@ -74,7 +72,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
-            dragDrop: [{ dragSelector: '[data-can-drag="true"]', dropSelector: '[data-can-drop="true"]' }],
+            dragDrop: [{ dragSelector: "[data-variant-id]", dropSelector: "[data-can-drop=true]" }],
         };
     }
 
@@ -84,25 +82,18 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             : super.title;
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
 
-        $html.find(".toggle-trait").on("change", (evt) => {
-            const target = evt.target as HTMLInputElement;
-            const trait = target.dataset.trait ?? "";
-            if (!objectHasKey(CONFIG.PF2E.spellTraits, trait)) {
-                console.warn("Toggled trait is invalid");
-                return;
-            }
-
-            if (target.checked && !this.item.traits.has(trait)) {
-                const newTraits = this.item.data.data.traits.value.concat([trait]);
-                this.item.update({ "data.traits.value": newTraits });
-            } else if (!target.checked && this.item.traits.has(trait)) {
-                const newTraits = this.item.data.data.traits.value.filter((t) => t !== trait);
-                this.item.update({ "data.traits.value": newTraits });
-            }
-        });
+        const traits = deepClone(CONFIG.PF2E.spellTraits);
+        delete traits[this.item.school];
+        tagify(html.querySelector('input[name="data.traits.value"]'), { whitelist: traits });
+        tagify(html.querySelector('input[name="data.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
@@ -247,14 +238,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                     })}</p>`,
                     buttons: {
                         delete: {
-                            icon: '<i class="fas fa-trash"></i>',
+                            icon: fontAwesomeIcon("fa-trash").outerHTML,
                             label: game.i18n.localize("PF2E.DeleteShortLabel"),
                             callback: () => {
                                 this.item.overlays.deleteOverlay(id);
                             },
                         },
                         cancel: {
-                            icon: '<i class="fas fa-times"></i>',
+                            icon: fontAwesomeIcon("fa-times").outerHTML,
                             label: game.i18n.localize("Cancel"),
                         },
                     },
@@ -274,7 +265,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     protected override _onDragStart(event: ElementDragEvent): void {
-        const id = $(event.target).closest("div.details-container-flex-row").attr("data-variant-id") ?? "";
+        const id = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
         event.dataTransfer.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
     }
 
@@ -283,14 +274,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const transferString = event.dataTransfer.getData("text/plain");
         if (!transferString) return;
 
-        const { action, data } = JSON.parse(transferString) as { action: string; data: { sourceId: string } };
+        const { action, data } = (JSON.parse(transferString) ?? {}) as { action?: string; data?: { sourceId: string } };
 
         switch (action) {
             case "sort": {
                 // Sort spell variants
-                const sourceId = data.sourceId;
-                const targetId =
-                    $(event.target).closest("div.details-container-flex-row").attr("data-variant-id") ?? "";
+                const sourceId = data?.sourceId ?? "";
+                const targetId = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
                 if (sourceId && targetId && sourceId !== targetId) {
                     const sourceVariant = this.item.loadVariant({ overlayIds: [sourceId] });
                     const targetVariant = this.item.loadVariant({ overlayIds: [targetId] });
@@ -385,4 +375,43 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             return { id: null, level, base, dataPath: base, type: "heighten", data, missing, heightenLevels };
         });
     }
+}
+
+interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
+    isCantrip: boolean;
+    isFocusSpell: boolean;
+    isRitual: boolean;
+    isVariant: boolean;
+    variants: {
+        name: string;
+        id: string;
+        sort: number;
+        actions: string;
+    }[];
+    magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
+    spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
+    spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
+    spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
+    damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
+    damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
+    spellComponents: string[];
+    rarities: SheetOptions;
+    areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
+    areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
+    heightenIntervals: number[];
+    heightenOverlays: SpellSheetOverlayData[];
+    canHeighten: boolean;
+}
+
+interface SpellSheetOverlayData {
+    id: string | null;
+    /** Base path to the property, dot delimited */
+    base: string;
+    /** Base path to the spell override data, dot delimited. Currently this is the same as base */
+    dataPath: string;
+    level: number;
+    data: Partial<SpellSystemData>;
+    type: "heighten";
+    heightenLevels: number[];
+    missing: { key: keyof SpellSystemData; label: string }[];
 }

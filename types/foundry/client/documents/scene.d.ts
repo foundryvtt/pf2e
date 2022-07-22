@@ -117,6 +117,13 @@ declare global {
             options: SceneEmbeddedModificationContext,
             userId: string
         ): void;
+        protected override _onCreateEmbeddedDocuments(
+            embeddedName: string,
+            documents: ClientDocument[],
+            result: object[],
+            options: SceneEmbeddedModificationContext,
+            userId: string
+        ): void;
 
         protected override _preUpdateEmbeddedDocuments(
             embeddedName: "Token",
@@ -144,6 +151,13 @@ declare global {
             embeddedName: "Token",
             documents: TokenDocument[],
             result: foundry.data.TokenSource[],
+            options: SceneEmbeddedModificationContext,
+            userId: string
+        ): void;
+        protected override _onDeleteEmbeddedDocuments(
+            embeddedName: string,
+            documents: ClientDocument[],
+            result: object[],
             options: SceneEmbeddedModificationContext,
             userId: string
         ): void;

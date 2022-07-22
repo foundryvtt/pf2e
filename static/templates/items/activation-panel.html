@@ -2,7 +2,7 @@
 
 <section>
     {{#each activations}}
-        <div class="activation form-list">
+        <div class="activation form-list" data-activation-id="{{id}}">
             <header>
                 <strong>{{localize "PF2E.Item.Activation.Label"}}</strong>
                 {{#unless action.components.cast}}
@@ -10,7 +10,7 @@
                 {{/unless}}
                 {{action.componentsLabel}}
                 <div class="item-controls">
-                    <a data-action="activation-delete" data-action-id="{{id}}"><i class="fas fa-trash"></i></a>
+                    <a data-action="activation-delete"><i class="fas fa-trash"></i></a>
                 </div>
             </header>
 
@@ -52,20 +52,26 @@
                         </select>
                     {{/if}}
                 </div>
-                <div class="details-container-flex-row frequency">
-                    {{#if action.frequency.duration}}
+
+                {{#if action.frequency}}
+                    <div class="details-container-flex-row frequency">
                         <input type="number" name="{{base}}.frequency.max" value="{{action.frequency.max}}" data-dtype="Number"/>
                         <span>{{localize "PF2E.Frequency.per"}}</span>
-                    {{/if}}
-                    <select name="{{base}}.frequency.duration" data-dtype="String">
-                        {{#select action.frequency.duration}}
-                            <option value="">{{localize "PF2E.Time.Unit.Unlimited"}}</option>
-                            {{#each @root.frequencies as |name type|}}
-                                <option value="{{type}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
-                </div>
+                        <select name="{{base}}.frequency.per" data-dtype="String">
+                            {{#select action.frequency.per}}
+                                {{#each @root.frequencies as |name type|}}
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                        <a data-action="activation-frequency-delete"><i class="fas fa-times"></i></a>
+                    </div>
+                {{else}}
+                    <span class="frequency empty">
+                        {{localize "PF2E.Frequency.AtWill"}}
+                        <a data-action="activation-frequency-add">({{localize "PF2E.AddShortLabel"}})</a>
+                    </span>
+                {{/if}}
             </div>
 
             <div class="tags">

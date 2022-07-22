@@ -7,7 +7,7 @@
                 <span>{{value.value}}</span>
             </li>
         {{/each}}
-        {{#if @root.owner}}
+        {{#if editable}}
             <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
                 <button type="button"><i class="fas fa-plus"></i></button>
             </li>
@@ -29,4 +29,3 @@
         <h3 class="item-name">{{localize "PF2E.TotalWealth"}} <span>{{totalWealthGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span></h3>
     </div>
 </div>
-

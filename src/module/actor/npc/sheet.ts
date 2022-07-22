@@ -205,7 +205,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
 
-        $html.find(".item-control.generate-attack").on("click", async (event) => {
+        $html.find(".item-control[data-action=generate-attack]").on("click", async (event) => {
             const { actor } = this;
             const itemId = event.currentTarget.closest<HTMLElement>(".item")?.dataset.itemId ?? "";
             const item = actor.items.get(itemId, { strict: true });

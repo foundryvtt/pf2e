@@ -1,0 +1,62 @@
+{
+    "_id": "zBbmuudbWY8FaOwZ",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>The creature gains a +2 item bonus to Athletics checks, damage rolls, and saving throws against fear.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throws",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #181: Zombie Feast"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "img": "systems/pf2e/icons/equipment/held-items/bottomless-stein.webp",
+    "name": "Effect: Chug",
+    "type": "effect"
+}

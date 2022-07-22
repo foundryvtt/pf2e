@@ -27,7 +27,7 @@
                 "value": 16
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -61,7 +61,7 @@
                 "value": 0
             },
             "privateNotes": "",
-            "publicNotes": "<p>Wisps are tiny elemental beings that emerged during the creation of the Elemental Planes. The first wisps roamed the Inner Sphere in shifting symphonies that traded members with their every meeting. These symphonies of free wisps created music out of their combined resonances, but when the evil Elemental Lords realized the value of the wisps' resonance, they captured whole symphonies for use as servants.</p>\n<p>Wisps attune to each other and to those they surround themselves with. This attunement makes them naturally supportive allies. Free wisps still roam the Inner Sphere and the Material Plane, but they're usually shy and hide themselves from strangers. However, they happily offer their service to those who show them kindness. They especially find themselves drawn to spellcasters who practice elemental magic; these wisps usually watch from afar but sometimes approach those who seem safe to become familiars or comrades.</p>\n<p>Free wisps who find one another become close almost immediately. They get especially excited when they find wisps of elements other than their own, showing none of the animosity some elementals exhibit toward other types. Instead, they join in an excited dance, emitting resonances that faintly echo the symphonies of ancient days.</p>\n<hr />\n<p>Fire wisps are sizzling spheres of flame and ash, perpetually crackling and shimmering with heat. They're carefree, boisterous, and quick to action-sometimes recklessly so.</p>",
+            "publicNotes": "<p>Fire wisps are sizzling spheres of flame and ash, perpetually crackling and shimmering with heat. They're carefree, boisterous, and quick to action-sometimes recklessly so.</p>\n<hr />\n<p>Wisps are tiny elemental beings that emerged during the creation of the Elemental Planes. The first wisps roamed the Inner Sphere in shifting symphonies that traded members with their every meeting. These symphonies of free wisps created music out of their combined resonances, but when the evil Elemental Lords realized the value of the wisps' resonance, they captured whole symphonies for use as servants.</p>\n<p>Wisps attune to each other and to those they surround themselves with. This attunement makes them naturally supportive allies. Free wisps still roam the Inner Sphere and the Material Plane, but they're usually shy and hide themselves from strangers. However, they happily offer their service to those who show them kindness. They especially find themselves drawn to spellcasters who practice elemental magic; these wisps usually watch from afar but sometimes approach those who seem safe to become familiars or comrades.</p>\n<p>Free wisps who find one another become close almost immediately. They get especially excited when they find wisps of elements other than their own, showing none of the animosity some elementals exhibit toward other types. Instead, they join in an excited dance, emitting resonances that faintly echo the symphonies of ancient days.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -99,14 +99,10 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Cold",
                     "type": "cold",
                     "value": 2
                 },
                 {
-                    "exceptions": "",
-                    "label": "Water",
                     "type": "water",
                     "value": 2
                 }
@@ -156,9 +152,30 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1.success",
+                        "title": "",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1.criticalSuccess",
+                        "title": "",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -225,95 +242,10 @@
             "type": "action"
         },
         {
-            "_id": "ptpsl6OafcvwkgOx",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The wisp detonates itself in a small elemental explosion that gives temporary Hit Points equal to half the wisp's current Hit Points to allies within 30 feet that have benefited from the wisp's resonance in the last hour. These temporary Hit Points last 1 hour.</p>\n<p>A wisp that uses this reaction is permanently destroyed, and it can be restored only by a <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> spell or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Accord Essence",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "vpPweRPkFLYzku6Q",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait.</p>\n<p>A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the fire trait; a creature with the elemental and fire traits gains this bonus to all attack and damage rolls.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resonance",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "HTapFz8e3dL6LNJc",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -346,6 +278,91 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Smoke Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "ptpsl6OafcvwkgOx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The wisp detonates itself in a small elemental explosion that gives temporary Hit Points equal to half the wisp's current Hit Points to allies within @Template[type:emanation|distance:30]{30 feet} that have benefited from the wisp's resonance in the last hour. These temporary Hit Points last 1 hour.</p>\n<p>A wisp that uses this reaction is permanently destroyed, and it can be restored only by a <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> spell or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Accord Essence",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "vpPweRPkFLYzku6Q",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait.</p>\n<p>A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the fire trait; a creature with the elemental and fire traits gains this bonus to all attack and damage rolls.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Resonance]{Effect: Resonance}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resonance",
             "sort": 500000,
             "type": "action"
         },

@@ -41,8 +41,10 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.CreateADiversion", "criticalFailure"),
         ],
     });
 }

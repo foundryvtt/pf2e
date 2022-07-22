@@ -1,11 +1,11 @@
 import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene";
 import { measureDistanceRect, TokenLayerPF2e } from "..";
-import { TokenAuras } from "./auras";
+import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Visual representation and proximity-detection facilities for auras */
-    auras = new TokenAuras(this);
+    auras = new AuraRenderers(this);
 
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
@@ -371,44 +371,13 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Destroy auras before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
         super._onDelete(options, userId);
-
-        if (this.auras.size === 0) return;
-
-        // Alert tokens in proximity that aura is no longer present
-        const auradTokens = new Set([
-            this,
-            ...Array.from(this.auras.values())
-                .map((a) => canvas.tokens.placeables.filter((t) => a.containsToken(t)))
-                .flat(),
-        ]);
-        const auradActors = new Set(Array.from(auradTokens).flatMap((t) => t.actor ?? []));
-        Promise.resolve().then(async () => {
-            for (const actor of auradActors) {
-                await actor.checkAreaEffects();
-            }
-        });
-
         this.auras.clear();
     }
 
     /** A callback for when a movement animation for this token finishes */
     private async onFinishMoveAnimation(): Promise<void> {
         if (this._movement) return;
-
         this.auras.refresh();
-
-        // Notify actors inside this token's auras
-        await this.auras.notifyActors();
-        for (const effect of game.pf2e.effectTracker.auraEffects) {
-            if (effect.actor.isOwner) {
-                await effect.actor.checkAreaEffects();
-            }
-        }
-
-        // Have other tokens with auras notify this actor
-        for (const token of canvas.tokens.placeables) {
-            await token.auras.notifyActors(this);
-        }
     }
 }
 

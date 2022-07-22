@@ -1,4 +1,4 @@
-import { PredicatePF2e } from "@system/predication";
+import { MAPSynthetic } from "../synthetics";
 import { RuleElementPF2e } from "./";
 
 /**
@@ -20,10 +20,4 @@ export class MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
             );
         }
     }
-}
-
-export interface MAPSynthetic {
-    label: string;
-    penalty: number;
-    predicate?: PredicatePF2e;
 }

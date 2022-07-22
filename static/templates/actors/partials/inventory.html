@@ -3,7 +3,7 @@
         <div class="inventory-header">
             <h3 class="item-name">{{section.label}}</h3>
             {{#if (and (eq section.type "equipment") @root.inventory.invested)}}
-                <span class="item-invested-total {{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}}overinvested{{/if}}">
+                <span class="item-invested-total{{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}} overinvested{{/if}}">
                     {{localize "PF2E.InvestedLabel"}} ({{@root.inventory.invested.value}}/{{@root.inventory.invested.max}})
                 </span>
             {{/if}}
@@ -16,8 +16,8 @@
             {{/if}}
             {{#if @root.editable}}
                 <div class="item-controls">
-                    <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fas fa-plus"></i></a>
-                    <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{section.type}}"><i class="fas fa-search"></i></a>
+                    <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fas fa-fw fa-plus"></i></a>
+                    <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{section.type}}"><i class="fas fa-fw fa-search"></i></a>
                 </div>
             {{/if}}
         </div>

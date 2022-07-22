@@ -75,6 +75,12 @@
         }
     }
 
+    .inventory-list {
+        @include scrollbar;
+        height: calc(100% - 60px);
+        padding-right: 0.15rem;
+    }
+
     .item-quantity,
     .item-weight,
     .item-controls,
@@ -114,20 +120,19 @@
     }
 
     .inventory-header {
+        align-items: center;
+        background-color: var(--alt);
+        color: white;
+        display: flex;
         font-family: var(--sans-serif);
         font-size: var(--font-size-10);
-        line-height: 1;
-        text-transform: uppercase;
-        letter-spacing: .05em;
-        text-rendering: optimizeLegibility;
-
-        display: flex;
         justify-content: flex-end;
-        align-items: center;
-        width: 100%;
-        background-color: var(--alt);
+        letter-spacing: .05em;
+        line-height: 1;
         padding: 4px 0;
-        color: white;
+        text-rendering: optimizeLegibility;
+        text-transform: uppercase;
+        width: 100%;
 
         h3 {
             font-size: var(--font-size-14);

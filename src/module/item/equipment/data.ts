@@ -7,19 +7,26 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data";
 import type { EquipmentPF2e } from ".";
+import { EquipmentTrait, OtherEquipmentTag } from "./types";
 
 type EquipmentSource = BasePhysicalItemSource<"equipment", EquipmentSystemSource>;
 
 type EquipmentData = Omit<EquipmentSource, "data" | "effects" | "flags"> &
     BasePhysicalItemData<EquipmentPF2e, "equipment", EquipmentSystemData, EquipmentSource>;
 
-type EquipmentTrait = keyof ConfigPF2e["PF2E"]["equipmentTraits"];
-type EquipmentTraits = PhysicalItemTraits<EquipmentTrait>;
-
 interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
-    traits: EquipmentTraits;
+    traits: EquipmentTraitsSource;
 }
 
-type EquipmentSystemData = Omit<EquipmentSystemSource, "price"> & PhysicalSystemData;
+interface EquipmentSystemData
+    extends Omit<EquipmentSystemSource, "price" | "temporary" | "usage">,
+        Investable<PhysicalSystemData> {
+    traits: EquipmentTraits;
+}
+interface EquipmentTraitsSource extends PhysicalItemTraits<EquipmentTrait> {
+    otherTags?: OtherEquipmentTag[];
+}
 
-export { EquipmentData, EquipmentSource, EquipmentTrait, EquipmentTraits, EquipmentSystemData, EquipmentSystemSource };
+type EquipmentTraits = Required<EquipmentTraitsSource>;
+
+export { EquipmentData, EquipmentSource, EquipmentSystemData, EquipmentSystemSource, EquipmentTrait };

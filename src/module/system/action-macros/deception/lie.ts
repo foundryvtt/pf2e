@@ -18,8 +18,10 @@ export function lie(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Lie", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Lie", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Lie", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Lie", "criticalFailure"),
         ],
     });
 }

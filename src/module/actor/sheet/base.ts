@@ -1,9 +1,9 @@
-import { CharacterPF2e, CreaturePF2e, NPCPF2e, type ActorPF2e } from "@actor";
+import { CharacterPF2e, CreaturePF2e, type ActorPF2e } from "@actor";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
+import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
@@ -606,7 +606,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const targetElement = $target.get(0);
         const previewElement = $itemRef.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
-            event.dataTransfer.setDragImage(previewElement, 0, 0);
+            const { x, y } = previewElement.getBoundingClientRect();
+            event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
             mergeObject(targetElement.dataset, previewElement.dataset);
         }
 
@@ -1051,38 +1052,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /** Handle creating a new spellcasting entry for the actor */
     private createSpellcastingEntry(event: JQuery.ClickEvent) {
         event.preventDefault();
-        createSpellcastingDialog(event, {
-            callback: (result) => {
-                const { spellcastingType, tradition, ability, flexible } = result;
-
-                const name =
-                    spellcastingType === "ritual"
-                        ? game.i18n.localize(CONFIG.PF2E.preparationType["ritual"])
-                        : game.i18n.format("PF2E.SpellCastingFormat", {
-                              preparationType: game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType] ?? ""),
-                              traditionSpells: game.i18n.format(`PF2E.TraditionSpells.${tradition.titleCase()}`, {
-                                  tradition: game.i18n.localize(CONFIG.PF2E.magicTraditions[tradition || "arcane"]),
-                              }),
-                          });
-
-                // Define new spellcasting entry
-                const actor = this.actor;
-                if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
-
-                const data: PreCreate<SpellcastingEntrySource> = {
-                    name,
-                    type: "spellcastingEntry",
-                    data: {
-                        ability: { value: ability },
-                        spelldc: { value: 0, dc: 0, mod: 0 },
-                        tradition: { value: tradition },
-                        prepared: { value: spellcastingType, flexible: flexible ?? undefined },
-                    },
-                };
-
-                this.actor.createEmbeddedDocuments("Item", [data]);
-            },
-        });
+        createSpellcastingDialog(event, this.actor);
     }
 
     private editSpellcastingEntry(event: JQuery.ClickEvent): void {
@@ -1093,16 +1063,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return;
         }
 
-        createSpellcastingDialog(event, {
-            entry,
-            callback: (result) => {
-                entry.update({
-                    "data.tradition.value": result.tradition,
-                    "data.ability.value": result.ability,
-                    "data.prepared.flexible": result.flexible,
-                });
-            },
-        });
+        createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
     }
 
     /**

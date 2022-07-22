@@ -1,6 +1,8 @@
 import { AlignmentTrait } from "@actor/creature/types";
+import { OtherArmorTag } from "@item/armor/types";
 import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
+import { OtherEquipmentTag } from "@item/equipment/types";
 import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool, MagicTradition } from "@item/spell/types";
 import { OtherWeaponTag } from "@item/weapon/types";
@@ -343,6 +345,7 @@ const spellTraits = {
     ...classTraits,
     ...damageTraits,
     ...elementalTraits,
+    ...magicSchools,
     ...spellOtherTraits,
 };
 
@@ -498,9 +501,19 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
+const otherArmorTags: Record<OtherArmorTag, string> = {
+    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
+};
+
+const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
+    implement: "PF2E.Item.Physical.OtherTag.Implement",
+};
+
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    improvised: "PF2E.Item.Weapon.Improvised",
+    implement: "PF2E.Item.Physical.OtherTag.Implement",
+    improvised: "PF2E.Item.Weapon.OtherTag.Improvised",
+    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -605,6 +618,7 @@ const consumableTraits = {
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
     contact: "PF2E.TraitContact",
+    cursed: "PF2E.TraitCursed",
     drug: "PF2E.TraitDrug",
     elixir: "PF2E.TraitElixir",
     emotion: "PF2E.TraitEmotion",
@@ -678,6 +692,7 @@ const hazardTraits = {
     teleportation: "PF2E.TraitTeleportation",
     trap: "PF2E.TraitTrap",
     virulent: "PF2E.TraitVirulent",
+    visual: "PF2E.TraitVisual",
 };
 
 const vehicleTraits = {
@@ -704,6 +719,8 @@ export {
     magicSchools,
     magicTraditions,
     npcAttackTraits,
+    otherArmorTags,
+    otherEquipmentTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,

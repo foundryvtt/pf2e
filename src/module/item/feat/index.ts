@@ -3,8 +3,12 @@ import { FeatData, FeatSource, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
+import { FeatCategory } from "@actor/character/feats";
+import { Frequency } from "@item/data/base";
 
 class FeatPF2e extends ItemPF2e {
+    category!: FeatCategory | null;
+
     get featType(): FeatType {
         return this.data.data.featType.value;
     }
@@ -27,6 +31,10 @@ class FeatPF2e extends ItemPF2e {
         };
     }
 
+    get frequency(): Frequency | null {
+        return this.data.data.frequency ?? null;
+    }
+
     get isFeature(): boolean {
         return ["classfeature", "ancestryfeature"].includes(this.featType);
     }
@@ -47,6 +55,8 @@ class FeatPF2e extends ItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.category = null;
 
         // Handle legacy data with empty-string locations
         this.data.data.location ||= null;

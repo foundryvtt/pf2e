@@ -31,7 +31,6 @@ import { ArmorCategory } from "@item/armor/data";
 import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
 import { DeityDomain } from "@item/deity/types";
-import { FeatType } from "@item/feat/data";
 import { MagicTradition } from "@item/spell/types";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types";
 import { ZeroToFour } from "@module/data";
@@ -439,15 +438,6 @@ interface BonusFeat {
     grants: GrantedFeat[];
 }
 
-interface FeatSlot {
-    label: string;
-    feats: (SlottedFeat | BonusFeat)[];
-    /** Whether the feats are slotted by level or free-form */
-    slotted?: boolean;
-    featFilter?: string;
-    supported: FeatType[] | "all";
-}
-
 export {
     AuxiliaryAction,
     BaseWeaponProficiencyKey,
@@ -465,7 +455,6 @@ export {
     CharacterStrike,
     CharacterSystemData,
     ClassDCData,
-    FeatSlot,
     GrantedFeat,
     LinkedProficiency,
     MagicTraditionProficiencies,
