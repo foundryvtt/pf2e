@@ -350,9 +350,7 @@ class StatisticCheck {
         }
 
         // Add additional traits
-        const traitObjects = args.traits
-            ? args.traits.map((trait) => traitSlugToObject(trait, CONFIG.PF2E.actionTraits))
-            : [];
+        const traitObjects = args.traits?.map((trait) => traitSlugToObject(trait, CONFIG.PF2E.actionTraits)) ?? [];
 
         // Create parameters for the check roll function
         const context: CheckRollContext = {
