@@ -5,8 +5,6 @@ import { BackgroundPF2e } from "@item/background";
 import { FeatPF2e } from "@item/feat";
 import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
-import { SpellPF2e } from "@item/spell";
-import { SpellSystemData } from "@item/spell/data";
 import { RuleElementSource } from "@module/rules";
 import { SheetOptions } from "@module/sheet/helpers";
 
@@ -76,47 +74,6 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
-}
-
-export interface SpellSheetOverlayData {
-    id: string | null;
-    /** Base path to the property, dot delimited */
-    base: string;
-    /** Base path to the spell override data, dot delimited. Currently this is the same as base */
-    dataPath: string;
-    level: number;
-    data: Partial<SpellSystemData>;
-    type: "heighten";
-    heightenLevels: number[];
-    missing: { key: keyof SpellSystemData; label: string }[];
-}
-
-export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    isCantrip: boolean;
-    isFocusSpell: boolean;
-    isRitual: boolean;
-    isVariant: boolean;
-    variants: {
-        name: string;
-        id: string;
-        sort: number;
-        actions: string;
-    }[];
-    magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
-    spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
-    spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
-    spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
-    magicTraditions: SheetOptions;
-    damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
-    damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
-    spellComponents: string[];
-    traits: SheetOptions;
-    rarities: SheetOptions;
-    areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
-    areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
-    heightenIntervals: number[];
-    heightenOverlays: SpellSheetOverlayData[];
-    canHeighten: boolean;
 }
 
 export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
