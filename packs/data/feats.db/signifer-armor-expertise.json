@@ -32,13 +32,47 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.martial.medium.rank",
-                "value": "min(2,max(@actor.data.data.martial.light.rank,@actor.data.data.martial.unarmored.rank))"
+                "phase": "beforeDerived",
+                "predicate": {
+                    "any": [
+                        {
+                            "gte": [
+                                "defense:light:rank",
+                                2
+                            ]
+                        },
+                        {
+                            "gte": [
+                                "defense:unarmored:rank",
+                                2
+                            ]
+                        }
+                    ]
+                },
+                "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.martial.heavy.rank",
-                "value": "min(2,max(@actor.data.data.martial.light.rank,@actor.data.data.martial.unarmored.rank))"
+                "phase": "beforeDerived",
+                "predicate": {
+                    "any": [
+                        {
+                            "gte": [
+                                "defense:light:rank",
+                                2
+                            ]
+                        },
+                        {
+                            "gte": [
+                                "defense:unarmored:rank",
+                                2
+                            ]
+                        }
+                    ]
+                },
+                "value": 2
             }
         ],
         "source": {
