@@ -21,10 +21,11 @@ import { DamageCategorization, DamageType } from "@system/damage";
 import { CheckPF2e } from "@system/rolls";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { ErrorPF2e, getActionIcon, objectHasKey, ordinal } from "@util";
+import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
 import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource } from "./data";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 import { SpellOverlayCollection } from "./overlay";
+import { ActionTrait } from "@item/action/data";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -55,6 +56,18 @@ class SpellPF2e extends ItemPF2e {
 
     get traits(): Set<SpellTrait> {
         return new Set(this.data.data.traits.value);
+    }
+
+    /** Action traits added when Casting this Spell */
+    get castingTraits(): ActionTrait[] {
+        const { components } = this;
+        return (
+            [
+                getActionIcon(this.data.data.time.value, null) === null ? "exploration" : [],
+                components.verbal ? "concentrate" : [],
+                (["focus", "material", "somatic"] as const).some((c) => components[c]) ? "manipulate" : [],
+            ] as const
+        ).flat();
     }
 
     get school(): MagicSchool {
@@ -97,7 +110,7 @@ class SpellPF2e extends ItemPF2e {
         };
     }
 
-    /** Returns true if this spell has unlimited uses, false otherwise. */
+    /** Whether this spell has unlimited uses */
     get unlimited(): boolean {
         // In the future handle at will and constant
         return this.isCantrip;
@@ -419,6 +432,7 @@ class SpellPF2e extends ItemPF2e {
             message.data.update(chatData);
             return message;
         }
+
         return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
@@ -435,29 +449,22 @@ class SpellPF2e extends ItemPF2e {
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
 
-        const variants = (() => {
-            const variantData = [];
-            if (this.hasVariants) {
-                for (const variant of this.overlays.overrideVariants) {
-                    const overlayIds = [...variant.appliedOverlays!.values()];
-                    const actions = (() => {
-                        const actionIcon = getActionIcon(variant.data.data.time.value, null);
-                        if (variant.data.data.time.value !== this.data.data.time.value && actionIcon) {
-                            return actionIcon;
-                        }
-                        return;
-                    })();
-                    variantData.push({
-                        actions,
-                        name: variant.name,
-                        overlayIds,
-                        sort: variant.data.sort,
-                    });
-                }
-                variantData.sort((variantA, variantB) => variantA.sort - variantB.sort);
-            }
-            return variantData.length > 0 ? variantData : undefined;
-        })();
+        const variants = this.overlays.overrideVariants
+            .flatMap((variant): SpellVariantChatData => {
+                const overlayIds = [...variant.appliedOverlays!.values()];
+                const actions = (() => {
+                    const actionIcon = getActionIcon(variant.data.data.time.value, null);
+                    return variant.data.data.time.value !== this.data.data.time.value && actionIcon ? actionIcon : null;
+                })();
+
+                return {
+                    actions,
+                    name: variant.name,
+                    overlayIds,
+                    sort: variant.data.sort,
+                };
+            })
+            .sort((a, b) => a.sort - b.sort);
 
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         rollData.item ??= this;
@@ -535,9 +542,8 @@ class SpellPF2e extends ItemPF2e {
             systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
 
-        const traits = this.traitChatData({
+        const spellTraits = this.traitChatData({
             ...CONFIG.PF2E.spellTraits,
-            ...CONFIG.PF2E.magicSchools,
             ...CONFIG.PF2E.magicTraditions,
         });
 
@@ -562,7 +568,8 @@ class SpellPF2e extends ItemPF2e {
             damageLabel,
             formula,
             properties,
-            traits,
+            spellTraits,
+            actionTraits: this.castingTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             areaSize,
             areaType,
             areaUnit,
@@ -746,6 +753,13 @@ interface SpellPF2e {
     readonly data: SpellData;
 
     overlays: SpellOverlayCollection;
+}
+
+interface SpellVariantChatData {
+    actions: ImagePath | null;
+    name: string;
+    overlayIds: string[];
+    sort: number;
 }
 
 export { SpellPF2e };
