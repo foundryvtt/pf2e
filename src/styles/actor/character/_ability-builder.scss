@@ -157,7 +157,7 @@
                     cursor: default;
                 }
 
-                &.unavailable {
+                &:disabled {
                     background: rgba(0, 0, 0, 0.04);
                     box-shadow: none;
                     color: rgba($boost-color, 0.4);
@@ -183,15 +183,15 @@
                 visibility: hidden;
             }
 
-            &.unavailable {
+            &:disabled {
                 display: block;
                 background: rgba(0, 0, 0, 0.04);
                 color: rgba($boost-color, 0.4);
                 outline-color: rgba($boost-color, 0.4);
-            }
 
-            &.unavailable:active {
-                pointer-events: none;
+                &:active {
+                    pointer-events: none;
+                }
             }
 
             &.selected {
@@ -217,14 +217,14 @@
 
                 &:hover {
                     box-shadow: 0 0 5px $flaw-color;
-                    &.unavailable {
+                    &:disabled {
                         box-shadow: none;
                         color: rgba($flaw-color, 0.4);
                         outline-color: rgba($flaw-color, 0.4);
                     }
                 }
 
-                &.unavailable {
+                &:disabled {
                     color: rgba($flaw-color, 0.4);
                     outline-color: rgba($flaw-color, 0.4);
                 }

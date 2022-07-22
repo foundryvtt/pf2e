@@ -28,10 +28,10 @@
                             {{#if boost.lockedFlaw}}<i class="fas fa-lock"></i>{{/if}}
                             {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
                         </button>
-                        <button type="button" data-action="ancestry-boost" data-ability="{{ability}}" class="boost
-                            {{~#unless boost.available}} unavailable{{/unless}}
-                            {{~#if boost.boosted}} selected{{/if}}
-                            {{~#if boost.lockedBoost}} locked{{/if}}">
+                        <button type="button" data-action="ancestry-boost" data-ability="{{ability}}"
+                            class="boost {{#if boost.boosted}} selected{{/if}}{{#if boost.lockedBoost}} locked{{/if}}"
+                            {{disabled (not boost.available)}}
+                        >
                             {{#if boost.lockedBoost}}<i class="fas fa-lock"></i>{{/if}}
                             {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
                         </button>
@@ -80,18 +80,16 @@
                     {{#each ancestryBoosts.boosts as |boost ability|}}
                         <div class="row-column">
                             <button type="button" data-action="voluntary-flaw" data-ability="{{ability}}"
-                                class="flaw
-                                {{~#unless boost.canVoluntaryFlaw}} unavailable{{/unless}}
-                                {{~#if boost.voluntaryFlaw}} selected{{/if}}"
+                                class="flaw {{~#if boost.voluntaryFlaws}} selected{{/if}}"
+                                {{disabled (not boost.canVoluntaryFlaw)}}
                             >
                                 {{#if boost.lockedFlaw}}<i class="fas fa-lock"></i>{{/if}}
                                 {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
                             </button>
                             <button type="button" data-action="voluntary-boost" data-ability="{{ability}}"
                                 {{#unless boost.canVoluntaryBoost}}title="{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.Description"}}"{{/unless}}
-                                class="tooltip boost
-                                {{~#unless boost.canVoluntaryBoost}} unavailable{{/unless}}
-                                {{~#if boost.voluntaryBoost}} selected{{/if}}"
+                                class="tooltip boost {{~#if boost.voluntaryBoost}} selected{{/if}}"
+                                {{disabled (not boost.canVoluntaryBoost)}}
                             >
                                 {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
                             </button>
@@ -117,9 +115,8 @@
                 {{#each backgroundBoosts.boosts as |boost ability|}}
                     <div class="row-column">
                         <button type="button" data-action="background-boost" data-ability="{{ability}}"
-                            class="boost
-                            {{~#if (not boost.available)}} unavailable{{/if}}
-                            {{~#if boost.boosted}} boost selected{{/if}}"
+                            class="boost {{#if boost.boosted}} boost selected{{/if}}"
+                            {{disabled (not boost.available)}}
                         >
                             {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
                         </button>
@@ -211,10 +208,11 @@
                         </div>
                     </div>
                 </div>
-                {{#each ../abilities as |key ability|}}
+                {{#each boosts.boosts as |boost|}}
                     <div class="row-column">
                         <button type="button" data-action="level" data-level="{{boosts.level}}" data-ability="{{ability}}"
-                            class="boost {{#if (contains boosts.boosts ability)}} selected{{else}}{{#if boosts.full}} unavailable{{/if}}{{/if}}{{#if (not boosts.eligible)}} hidden{{/if}}"
+                            class="boost {{#if boost.taken}} selected{{/if}}{{#if (not boosts.eligible)}} hidden{{/if}}"
+                            {{disabled (and boosts.full (not boost.taken))}}
                         >
                             {{localize "PF2E.Actor.Character.AbilityBuilder.Boost"}}
                         </button>
