@@ -71,16 +71,17 @@ export const ChatCards = {
                 else if (action === "spellCounteract") spell?.rollCounteract(event);
                 else if (action === "spellTemplate") spell?.placeTemplate();
                 else if (action === "selectVariant") {
-                    const spellLvl = Number($html.find<HTMLDivElement>("div.chat-card").attr("data-spell-lvl")) || 1;
+                    const castLevel =
+                        Number($html[0].querySelector<HTMLElement>("div.chat-card")?.dataset.castLevel) || 1;
                     const overlayIdString = $button.attr("data-overlay-ids");
                     const originalId = $button.attr("data-original-id") ?? "";
                     if (overlayIdString) {
                         const overlayIds = overlayIdString.split(",").map((id) => id.trim());
-                        const variantSpell = spell?.loadVariant({ overlayIds, castLevel: spellLvl });
+                        const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
                         if (variantSpell) {
                             const variantMessage = await variantSpell.toMessage(undefined, {
                                 create: false,
-                                data: { spellLvl },
+                                data: { spellLvl: castLevel },
                             });
                             if (variantMessage) {
                                 const messageSource = variantMessage.toObject();
@@ -91,7 +92,7 @@ export const ChatCards = {
                         const originalSpell = actor.items.get(originalId, { strict: true });
                         const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
-                            data: { spellLvl },
+                            data: { spellLvl: castLevel },
                         });
                         if (originalMessage) {
                             await message.update(originalMessage.toObject());

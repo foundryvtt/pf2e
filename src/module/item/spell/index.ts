@@ -51,7 +51,16 @@ class SpellPF2e extends ItemPF2e {
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
     get level(): number {
-        return this.data.data.location.heightenedLevel ?? this.baseLevel;
+        if (!this.actor) return this.baseLevel;
+
+        const isAutoHeightened = this.isCantrip || this.isFocusSpell;
+        const fixedHeightenedLevel =
+            this.system.location.autoHeightenLevel || this.spellcasting?.system.autoHeightenLevel.value || null;
+        const heightenedLevel = isAutoHeightened
+            ? fixedHeightenedLevel || Math.ceil(this.actor.level / 2) || null
+            : this.system.location.heightenedLevel || null;
+
+        return heightenedLevel || this.baseLevel;
     }
 
     get traits(): Set<SpellTrait> {
@@ -135,13 +144,7 @@ class SpellPF2e extends ItemPF2e {
 
     private computeCastLevel(castLevel?: number): number {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
-        if (isAutoScaling && this.actor) {
-            return (
-                this.data.data.location.autoHeightenLevel ||
-                this.spellcasting?.data.data.autoHeightenLevel.value ||
-                Math.ceil(this.actor.level / 2)
-            );
-        }
+        if (isAutoScaling && this.actor) return this.level;
 
         // Spells cannot go lower than base level
         return Math.max(this.baseLevel, castLevel ?? this.level);
@@ -175,9 +178,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     /** Calculates the full damage formula for a specific spell level */
-    getDamageFormula(castLevel?: number, rollData: object = {}): string {
-        castLevel = this.computeCastLevel(castLevel);
-
+    private getDamageFormula(castLevel = this.level, rollData: object = {}): string {
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
             const variant = this.loadVariant({ castLevel });
@@ -366,7 +367,7 @@ class SpellPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         // In case bad level data somehow made it in
-        this.data.data.level.value = Math.clamped(this.data.data.level.value, 1, 10) as OneToTen;
+        this.data.data.level.value = (Math.clamped(this.data.data.level.value, 1, 10) || 1) as OneToTen;
 
         this.overlays = new SpellOverlayCollection(this, this.data.data.overlays);
     }
@@ -409,15 +410,19 @@ class SpellPF2e extends ItemPF2e {
 
     override async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} } = {}
+        { create = true, data = {} }: ToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
-        const message = await super.toMessage(event, { data, create: false });
+        const message = await super.toMessage(event, { create: false, data });
         if (!message) return undefined;
 
         const chatData = message.toObject(false);
         const entry = this.trickMagicEntry ?? this.spellcasting;
         if (entry) {
-            chatData.flags.pf2e.casting = { id: entry.id, tradition: entry.tradition };
+            chatData.flags.pf2e.casting = {
+                id: entry.id,
+                level: data.castLevel ?? this.level,
+                tradition: entry.tradition,
+            };
         }
 
         chatData.flags.pf2e.isFromConsumable = this.isFromConsumable;
@@ -441,11 +446,12 @@ class SpellPF2e extends ItemPF2e {
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
-        const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
+        const slotLevel = Number(rollOptions?.spellLvl) || this.level;
+        const castLevel = this.computeCastLevel(slotLevel);
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {
-            const variant = this.loadVariant({ castLevel: level });
+            const variant = this.loadVariant({ castLevel });
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
 
@@ -466,14 +472,14 @@ class SpellPF2e extends ItemPF2e {
             })
             .sort((a, b) => a.sort - b.sort);
 
-        const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
+        const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: castLevel });
         rollData.item ??= this;
 
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
 
         const options = { ...htmlOptions, rollData };
-        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, options);
+        const description = game.pf2e.TextEditor.enrichHTML(this.description, options);
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
@@ -496,7 +502,7 @@ class SpellPF2e extends ItemPF2e {
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-        const formula = this.getDamageFormula(level, rollData);
+        const formula = this.getDamageFormula(castLevel, rollData);
         const hasDamage = formula && formula !== "0";
 
         // Spell save label
@@ -522,12 +528,12 @@ class SpellPF2e extends ItemPF2e {
         })();
 
         const baseLevel = this.baseLevel;
-        const heightened = level - baseLevel;
+        const heightened = castLevel - baseLevel;
         const levelLabel = (() => {
             const type = this.isCantrip
                 ? localize("PF2E.TraitCantrip")
                 : localize(CONFIG.PF2E.spellCategories[this.data.data.category.value]);
-            return game.i18n.format("PF2E.ItemLevel", { type, level });
+            return game.i18n.format("PF2E.ItemLevel", { type, level: castLevel });
         })();
 
         // Combine properties
@@ -563,7 +569,8 @@ class SpellPF2e extends ItemPF2e {
                 label: saveLabel,
             },
             hasDamage,
-            spellLvl: level,
+            castLevel,
+            slotLevel,
             levelLabel,
             damageLabel,
             formula,
@@ -596,14 +603,13 @@ class SpellPF2e extends ItemPF2e {
         }
     }
 
-    async rollDamage(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent): Promise<void> {
-        const castLevel = (() => {
-            const button = event.currentTarget;
-            const card = button.closest("*[data-spell-lvl]");
-            const cardData = card ? card.dataset : {};
-            return Number(cardData.spellLvl) || 1;
-        })();
-
+    async rollDamage(
+        this: Embedded<SpellPF2e>,
+        event: JQuery.ClickEvent<unknown, unknown, HTMLElement>
+    ): Promise<void> {
+        const slotLevel =
+            Number(event.currentTarget.closest<HTMLElement>("*[data-slot-level]")?.dataset.slotLevel) || 0;
+        const castLevel = this.computeCastLevel(slotLevel);
         const rollData = this.getRollData({ spellLvl: castLevel });
         const formula = this.getDamageFormula(castLevel, rollData);
 
@@ -676,10 +682,8 @@ class SpellPF2e extends ItemPF2e {
 
         const addFlavor = (success: string, level: number) => {
             const title = game.i18n.localize(`PF2E.${success}`);
-            const desc = game.i18n.format(`PF2E.CounteractDescription.${success}`, {
-                level: level,
-            });
-            flavor += `<b>${title}</b> ${desc}<br>`;
+            const description = game.i18n.format(`PF2E.CounteractDescription.${success}`, { level });
+            flavor += `<strong>${title}</strong> ${description}<br />`;
         };
         flavor += `<p>${game.i18n.localize("PF2E.CounteractDescription.Hint")}</p>`;
         flavor += "<p>";
@@ -760,6 +764,11 @@ interface SpellVariantChatData {
     name: string;
     overlayIds: string[];
     sort: number;
+}
+
+interface ToMessageOptions {
+    create?: boolean;
+    data?: Record<string, unknown> & { slotLevel?: number; castLevel?: number };
 }
 
 export { SpellPF2e };
