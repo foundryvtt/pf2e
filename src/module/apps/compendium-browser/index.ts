@@ -76,6 +76,7 @@ export class CompendiumBrowser extends Application {
     /** An initial filter to be applied upon loading a tab */
     private initialFilter: string[] = [];
     private initialMaxLevel = 0;
+    private initialMinLevel = 0;
 
     constructor(options = {}) {
         super(options);
@@ -127,6 +128,7 @@ export class CompendiumBrowser extends Application {
     override async close(options?: { force?: boolean }): Promise<void> {
         this.initialFilter = [];
         this.initialMaxLevel = 0;
+        this.initialMinLevel = 0;
         await super.close(options);
     }
 
@@ -224,12 +226,14 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string[] = [], maxLevel = 0): Promise<void> {
+    async openTab(tab: TabName, filter: string[] = [], maxLevel = 0, minLevel = 0): Promise<void> {
         this.initialFilter = filter;
         this.initialMaxLevel = maxLevel;
+        this.initialMinLevel = minLevel;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
         this.initialMaxLevel = maxLevel;
+        this.initialMinLevel = minLevel;
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
@@ -282,7 +286,7 @@ export class CompendiumBrowser extends Application {
         }
 
         // Set filterData for this tab if intitial values were given
-        if (this.initialFilter.length || this.initialMaxLevel) {
+        if (this.initialFilter.length || this.initialMaxLevel || this.initialMinLevel) {
             const currentTab = this.tabs[tab];
             currentTab.resetFilters();
             for (const filter of this.initialFilter) {
@@ -301,16 +305,22 @@ export class CompendiumBrowser extends Application {
                     console.warn(`Tab '${tab}' has no filter '${filterType}'`);
                 }
             }
-            if (this.initialMaxLevel) {
+            if (this.initialMaxLevel || this.initialMinLevel) {
                 if (currentTab.filterData.sliders) {
                     const level = currentTab.filterData.sliders.level;
                     if (level) {
-                        level.values.max = this.initialMaxLevel;
+                        if (this.initialMaxLevel) {
+                            level.values.max = this.initialMaxLevel;
+                        }
+                        if (this.initialMinLevel) {
+                            level.values.min = this.initialMinLevel;
+                        }
                     }
                 }
             }
             this.initialFilter = [];
             this.initialMaxLevel = 0;
+            this.initialMinLevel = 0;
         }
 
         this.render(true);
