@@ -111,7 +111,11 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     async toMessage(
         event?: JQuery.TriggeredEvent,
-        { rollMode = undefined, create = true, data = {} }: { rollMode?: RollMode; create?: boolean; data?: {} } = {}
+        {
+            rollMode = undefined,
+            create = true,
+            data = {},
+        }: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {}
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 

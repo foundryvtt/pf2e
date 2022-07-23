@@ -121,10 +121,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     ): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
-        const level = options.level ?? spell.level;
-        const valid = !consume || spell.isCantrip || (await this.consume(spell, level, options.slot));
+        const slotLevel = options.level ?? spell.level;
+        const valid = !consume || spell.isCantrip || (await this.consume(spell, slotLevel, options.slot));
         if (message && valid) {
-            await spell.toMessage(undefined, { data: { spellLvl: level } });
+            await spell.toMessage(undefined, { data: { slotLevel } });
         }
     }
 
@@ -210,18 +210,18 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
-        return this.spells.prepareSpell(spell, spellLevel, spellSlot);
+    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+        return this.spells.prepareSpell(spell, slotLevel, spellSlot);
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(spellLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
-        return this.spells.unprepareSpell(spellLevel, spellSlot);
+    unprepareSpell(spellLevel: number, slotLevel: number): Promise<SpellcastingEntryPF2e> {
+        return this.spells.unprepareSpell(spellLevel, slotLevel);
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(spellLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
-        return this.spells.setSlotExpendedState(spellLevel, spellSlot, isExpended);
+    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
+        return this.spells.setSlotExpendedState(slotLevel, spellSlot, isExpended);
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
