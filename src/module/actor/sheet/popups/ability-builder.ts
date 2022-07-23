@@ -188,22 +188,6 @@ export class AbilityBuilderPopup extends Application {
         const { actor } = this;
         const build = actor.data.data.build.abilities;
 
-        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
-        const levelBoosts = ([1, 5, 10, 15, 20] as const).reduce(
-            (ret: Record<number, LevelBoostData>, level) => ({
-                ...ret,
-                [level]: {
-                    boosts: build.boosts[level],
-                    full: build.boosts[level].length >= build.allowedBoosts[level],
-                    eligible: build.allowedBoosts[level] > 0,
-                    remaining: build.allowedBoosts[level] - build.boosts[level].length,
-                    minLevel: isGradual ? Math.max(1, level - 3) : level,
-                    level,
-                },
-            }),
-            {}
-        );
-
         return {
             ...(await super.getData(options)),
             actor,
@@ -215,10 +199,10 @@ export class AbilityBuilderPopup extends Application {
             abilityScores: actor.abilities,
             manualKeyAbility: actor.keyAbility,
             keyOptions: build.keyOptions,
-            levelBoosts,
             ancestryBoosts: this.calculateAncestryBoosts(),
             backgroundBoosts: this.calculateBackgroundBoosts(),
             voluntaryFlaw: Object.keys(actor.ancestry?.data.data.voluntaryBoosts ?? {}).length > 0,
+            levelBoosts: this.calculatedLeveledBoosts(),
         };
     }
 
@@ -374,6 +358,28 @@ export class AbilityBuilderPopup extends Application {
         };
     }
 
+    private calculatedLeveledBoosts() {
+        const build = this.actor.data.data.build.abilities;
+        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
+        return ([1, 5, 10, 15, 20] as const).reduce(
+            (ret: Record<number, LevelBoostData>, level) => ({
+                ...ret,
+                [level]: {
+                    boosts: [...ABILITY_ABBREVIATIONS].map((ability) => ({
+                        ability,
+                        taken: build.boosts[level].includes(ability),
+                    })),
+                    full: build.boosts[level].length >= build.allowedBoosts[level],
+                    eligible: build.allowedBoosts[level] > 0,
+                    remaining: build.allowedBoosts[level] - build.boosts[level].length,
+                    minLevel: isGradual ? Math.max(1, level - 3) : level,
+                    level,
+                },
+            }),
+            {}
+        );
+    }
+
     private calculateBoostLabels(
         boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>
     ): string[] {
@@ -451,7 +457,7 @@ interface BackgroundBoosts {
 }
 
 interface LevelBoostData {
-    boosts: AbilityString[];
+    boosts: { ability: string; taken: boolean }[];
     full: boolean;
     eligible: boolean;
     remaining: number;
