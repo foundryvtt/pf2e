@@ -37,6 +37,8 @@ declare module foundry {
             readonly data: data.ChatMessageData<BaseChatMessage>;
 
             readonly parent: null;
+
+            get documentName(): "ChatMessage";
         }
 
         interface ChatMessageModificationContext extends DocumentModificationContext<ChatMessage> {

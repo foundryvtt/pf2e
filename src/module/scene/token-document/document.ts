@@ -87,12 +87,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
-        return this.data.flags.pf2e.linkToActorSize;
+        return this.flags.pf2e.linkToActorSize;
     }
 
     /** Is this token's scale locked at 1 or (for small creatures) 0.8? */
     get autoscale(): boolean {
-        return this.data.flags.pf2e.autoscale;
+        return this.flags.pf2e.autoscale;
     }
 
     get playersCanSeeName(): boolean {
@@ -153,12 +153,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         // Dimensions and scale
         const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
-        const linkToActorSize = this.data.flags.pf2e?.linkToActorSize ?? linkDefault;
+        const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
         // Autoscaling is a secondary feature of linking to actor size
-        const autoscale = linkToActorSize ? this.data.flags.pf2e?.autoscale ?? autoscaleDefault : false;
-        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { linkToActorSize, autoscale });
+        const autoscale = linkToActorSize ? this.flags.pf2e?.autoscale ?? autoscaleDefault : false;
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Vision
         if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
@@ -187,7 +187,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Alliance coloration, appropriating core token dispositions
-        const { alliance } = this.actor.data.data.details;
+        const { alliance } = this.actor.system.details;
         this.data.disposition = alliance
             ? {
                   party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,

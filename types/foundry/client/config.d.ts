@@ -60,9 +60,15 @@ declare global {
             typeLabels: Record<string, string | undefined>;
         };
 
-        /**
-         * Configuration for the FogExploration document
-         */
+        /** Configuration for the Cards primary Document type */
+        Cards: {
+            collection: WorldCollection<Cards>;
+            documentClass: ConstructorOf<Cards>;
+            sidebarIcon: string;
+            presets: Record<string, { type: string; label: string; source: string }>;
+        };
+
+        /** Configuration for the FogExploration document */
         FogExploration: {
             documentClass: {
                 new (

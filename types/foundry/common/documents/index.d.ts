@@ -2,6 +2,7 @@ import "./base-active-effect";
 import "./base-actor";
 import "./base-ambient-light";
 import "./base-ambient-sound";
+import "./base-cards";
 import "./base-chat-message";
 import "./base-combat";
 import "./base-combatant";

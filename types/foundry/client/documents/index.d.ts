@@ -2,6 +2,7 @@ import "./active-effect";
 import "./actor";
 import "./ambient-light-document";
 import "./ambient-sound-document";
+import "./cards";
 import "./chat-message";
 import "./combat";
 import "./combatant";
@@ -29,6 +30,7 @@ import "./wall-document";
 declare global {
     type WorldDocument =
         | Actor
+        | Cards
         | ChatMessage
         | Combat
         | Folder

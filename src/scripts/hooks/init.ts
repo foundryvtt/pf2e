@@ -17,25 +17,15 @@ import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
-import { PF2ECONFIG } from "../config";
+import { PF2ECONFIG } from "@scripts/config";
+import { createV10Shims } from "@scripts/create-v10-shims";
 
 export const Init = {
     listen: (): void => {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
 
-            // Support v10 `system` property in v9
-            if (game.release.generation === 9) {
-                for (const Document of [Actor, Item]) {
-                    Object.defineProperty(Document.prototype, "system", {
-                        get() {
-                            return this.data.data;
-                        },
-                        configurable: true,
-                        enumerable: true,
-                    });
-                }
-            }
+            createV10Shims();
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;

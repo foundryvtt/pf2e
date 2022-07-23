@@ -176,6 +176,9 @@ declare global {
 
         readonly parent: TParent | null;
 
+        // V10 shim
+        readonly flags: this["data"]["flags"];
+
         get collection(): Actors<this>;
 
         _sheet: ActorSheet<this, Item> | null;

@@ -196,6 +196,9 @@ declare global {
     interface Combat<TCombatant extends Combatant = Combatant> {
         readonly data: foundry.data.CombatData<this, TCombatant>;
 
+        // V10 shim
+        readonly flags: this["data"]["flags"];
+
         createEmbeddedDocuments(
             embeddedName: "Combatant",
             data: PreCreate<TCombatant["data"]["_source"]>[],

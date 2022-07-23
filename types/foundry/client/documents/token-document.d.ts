@@ -168,6 +168,9 @@ declare global {
 
         readonly parent: Scene | null;
 
+        // V10 shim
+        readonly flags: this["data"]["flags"];
+
         get uuid(): TokenDocumentUUID;
 
         _sheet: TokenConfig<TokenDocument> | null;

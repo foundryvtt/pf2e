@@ -24,7 +24,7 @@ export class UserPF2e extends User<ActorPF2e> {
     }
 
     get settings(): Readonly<UserSettingsPF2e> {
-        return this.data.flags.pf2e.settings;
+        return this.flags.pf2e.settings;
     }
 
     /** Alternative to calling `#updateTokenTargets()` with no argument or an empty array */

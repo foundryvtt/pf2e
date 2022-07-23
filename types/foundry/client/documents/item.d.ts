@@ -50,6 +50,9 @@ declare global {
 
         readonly parent: TParent | null;
 
+        // V10 shim
+        readonly flags: this["data"]["flags"];
+
         get collection(): Items<this>;
 
         get uuid(): ItemUUID;
