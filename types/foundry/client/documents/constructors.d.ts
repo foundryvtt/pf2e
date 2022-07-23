@@ -12,6 +12,8 @@ export const ActiveEffectConstructor: ClientDocumentMixin<typeof foundry.documen
 
 export const ActorConstructor: ClientDocumentMixin<typeof foundry.documents.BaseActor>;
 
+export const CardsConstructor: ClientDocumentMixin<typeof foundry.documents.BaseCards>;
+
 export const CombatantConstructor: ClientDocumentMixin<typeof foundry.documents.BaseCombatant>;
 
 export const CombatConstructor: ClientDocumentMixin<typeof foundry.documents.BaseCombat>;

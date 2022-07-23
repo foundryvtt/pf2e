@@ -56,6 +56,8 @@ declare module foundry {
             readonly data: data.UserData<this>;
 
             readonly parent: null;
+
+            get documentName(): "User";
         }
 
         interface UserMetadata extends abstract.DocumentMetadata {

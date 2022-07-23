@@ -101,6 +101,11 @@ declare global {
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 
+    interface User {
+        // V10 shim
+        readonly flags: this["data"]["flags"];
+    }
+
     interface UserActivity {
         cursor?: object;
         focus?: boolean;

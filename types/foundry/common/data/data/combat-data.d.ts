@@ -19,7 +19,7 @@ declare module foundry {
             round: number;
             turn: number;
             sort: number;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class CombatData<

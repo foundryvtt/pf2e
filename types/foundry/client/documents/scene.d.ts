@@ -205,6 +205,9 @@ declare global {
 
         get sheet(): SceneConfig<this>;
 
+        // V10 shim
+        readonly flags: this["data"]["flags"];
+
         getEmbeddedCollection(embeddedName: "Token"): this["data"]["tokens"];
 
         update(data: DocumentUpdateData<this>, options?: SceneUpdateContext): Promise<this>;

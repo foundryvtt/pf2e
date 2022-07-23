@@ -85,11 +85,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
     }
 
-    /** Shimmed ahead of moving to Actor-instance level in V10 */
-    get flags(): this["data"]["flags"] {
-        return this.data.flags;
-    }
-
     /** Cache the return data before passing it to the caller */
     override get itemTypes(): { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } {
         return (this._itemTypes ??= super.itemTypes);
