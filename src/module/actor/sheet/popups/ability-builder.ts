@@ -248,7 +248,7 @@ export class AbilityBuilderPopup extends Application {
         let voluntaryFlawsRemaining = false;
         for (const flaw of Object.values(actor.ancestry.data.data.voluntaryFlaws)) {
             if (flaw.selected) {
-                ancestryBoosts[flaw.selected].voluntaryFlaw = true;
+                ancestryBoosts[flaw.selected].voluntaryFlaws = true;
                 ancestryBoosts[flaw.selected].canVoluntaryFlaw = true;
             } else {
                 voluntaryFlawsRemaining = true;
@@ -274,7 +274,7 @@ export class AbilityBuilderPopup extends Application {
 
         // Do some house-keeping and make sure they can't do things multiple times
         for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
-            const hasFlaw = ancestryBoosts[ability].lockedFlaw || ancestryBoosts[ability].voluntaryFlaw;
+            const hasFlaw = ancestryBoosts[ability].lockedFlaw || ancestryBoosts[ability].voluntaryFlaws;
 
             if (ancestryBoosts[ability].lockedFlaw) {
                 ancestryBoosts[ability].canVoluntaryFlaw = false;
@@ -420,7 +420,7 @@ interface BoostFlawState {
     lockedBoost: boolean;
     boosted: boolean;
     available: boolean;
-    voluntaryFlaw: boolean;
+    voluntaryFlaws: boolean;
     canVoluntaryFlaw: boolean;
     voluntaryBoost: boolean;
     canVoluntaryBoost: boolean;
@@ -432,7 +432,7 @@ function defaultBoostFlawState(): BoostFlawState {
         lockedBoost: false,
         boosted: false,
         available: false,
-        voluntaryFlaw: false,
+        voluntaryFlaws: false,
         canVoluntaryFlaw: false,
         voluntaryBoost: false,
         canVoluntaryBoost: false,
