@@ -18,7 +18,7 @@
 
 <ol class="form-list">
     <li class="form-group">
-        <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellCategoryLabel"}}</label>
         <select name="data.category.value">
             {{#select data.category.value}}
                 {{#each spellCategories as |label key|}}
@@ -37,7 +37,7 @@
 
 <ol class="form-list">
     <li class="form-group">
-        <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellSchoolLabel"}}</label>
         <select name="data.school.value">
             {{#select data.school.value}}
                 {{#each magicSchools as |name school|}}
@@ -47,7 +47,7 @@
         </select>
     </li>
     <li class="form-group">
-        <label>{{localize "PF2E.SpellTraditionsLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellTraditionsLabel"}}</label>
         <input class="paizo-style" name="data.traditions.value" value="{{json data.traditions.value}}" data-dtype="JSON" />
     </li>
 </ol>
@@ -56,12 +56,12 @@
     <h3>{{localize "PF2E.CastLabel"}}</h3>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellTimeLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellTimeLabel"}}</label>
         <input type="text" name="data.time.value" value="{{data.time.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellComponentsLabel"}}</label>
         <div class="details-container-flex-row spell-components">
             <label>
                 <input type="checkbox" name="data.components.focus" {{checked data.components.focus}} />
@@ -83,12 +83,12 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellRequirementsLabel"}}</label>
         <input type="text" name="data.materials.value" value="{{data.materials.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellCostLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellCostLabel"}}</label>
         <input type="text" name="data.cost.value" value="{{data.cost.value}}" />
     </div>
 </ol>
@@ -98,17 +98,17 @@
         <h3>{{localize "PF2E.SpellRitualLabel"}}</h3>
 
         <div class="form-group">
-            <label>{{localize "PF2E.SpellPrimaryCheckLabel"}}</label>
+            <label class="short">{{localize "PF2E.SpellPrimaryCheckLabel"}}</label>
             <input type="text" name="data.primarycheck.value" value="{{data.primarycheck.value}}" />
         </div>
 
         <div class="form-group">
-            <label>{{localize "PF2E.SpellSecondaryChecksLabel"}}</label>
+            <label class="short">{{localize "PF2E.SpellSecondaryChecksLabel"}}</label>
             <input type="text" name="data.secondarycheck.value" value="{{data.secondarycheck.value}}" />
         </div>
 
         <div class="form-group">
-            <label>{{localize "PF2E.SpellSecondaryCasters"}}</label>
+            <label class="short">{{localize "PF2E.SpellSecondaryCasters"}}</label>
             <input type="text" name="data.secondarycasters.value" value="{{data.secondarycasters.value}}" />
         </div>
     </ol>
@@ -118,17 +118,17 @@
     <h3>{{localize "PF2E.Usage"}}</h3>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellRangeLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellRangeLabel"}}</label>
         <input type="text" name="data.range.value" value="{{data.range.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellTargetLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellTargetLabel"}}</label>
         <input type="text" name="data.target.value" value="{{data.target.value}}" />
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.AreaLabel"}}</label>
+        <label class="short">{{localize "PF2E.AreaLabel"}}</label>
         <div class="details-container-two-columns">
             <select name="data.area.value">
                 <option value=""></option>
@@ -150,7 +150,7 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellDurationLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellDurationLabel"}}</label>
         <input type="text" name="data.duration.value" value="{{data.duration.value}}" />
     </div>
 </ol>
@@ -159,7 +159,7 @@
     <h3>{{localize "PF2E.DamageLabel"}}</h3>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellTypeLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellTypeLabel"}}</label>
         <select name="data.spellType.value">
             {{#select data.spellType.value}}
                 {{#each spellTypes as |name type|}}
@@ -170,7 +170,7 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellSaveLabel"}}</label>
+        <label class="short">{{localize "PF2E.SpellSaveLabel"}}</label>
         <div class="details-container-two-columns">
             <select name="data.save.basic">
                 {{#select data.save.basic}}
@@ -254,7 +254,7 @@
         </h3>
 
         <div class="form-group">
-            <label>{{localize "PF2E.SpellScalingInterval.Label"}}</label>
+            <label class="short">{{localize "PF2E.SpellScalingInterval.Label"}}</label>
             <select name="data.heightening.interval" data-dtype="Number">
                 {{#select data.heightening.interval}}
                     {{#each @root.heightenIntervals as |key|}}
@@ -266,7 +266,7 @@
 
         {{#each data.damage.value as |damage idx|}}
             <div class="form-group">
-                <label>{{localize (lookup @root.damageTypes damage.type.value)}}</label>
+                <label class="short">{{localize (lookup @root.damageTypes damage.type.value)}}</label>
                 <input type="text" name="data.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}"/>
             </div>
         {{/each}}
