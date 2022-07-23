@@ -581,6 +581,9 @@ interface DamageDiceOverride {
 
     /** Override the damage type */
     damageType?: DamageType;
+
+    /** Override the number of damage dice */
+    diceNumber?: number;
 }
 
 /**

@@ -576,12 +576,10 @@ export class WeaponDamagePF2e {
             (dm): dm is DiceModifierPF2e & { override: DamageDiceOverride } => !!(dm.enabled && dm.override)
         );
         for (const dm of enabledDiceModifiers) {
-            if (critical && dm.critical) {
+            if ((critical && dm.critical) || !dm.critical) {
                 base.dieSize = dm.override.dieSize ?? base.dieSize;
                 base.damageType = dm.override.damageType ?? base.damageType;
-            } else if (!dm.critical) {
-                base.dieSize = dm.override.dieSize ?? base.dieSize;
-                base.damageType = dm.override.damageType ?? base.damageType;
+                base.diceNumber = dm.override.diceNumber ?? base.diceNumber;
             }
         }
 

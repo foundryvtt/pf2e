@@ -1,5 +1,5 @@
-import { RuleElementPF2e, RuleElementData, RuleElementOptions, RuleElementSource } from "../";
-import { BattleFormAC, BattleFormOverrides, BattleFormSource, BattleFormStrike } from "./types";
+import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../";
+import { BattleFormAC, BattleFormOverrides, BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
 import { ResistanceRuleElement } from "../iwr/resistance";
@@ -15,7 +15,9 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
-import { sluggify, tupleHasValue } from "@util";
+import { isObject, sluggify, tupleHasValue } from "@util";
+import { RuleElementSource } from "../data";
+import { CharacterStrike } from "@actor/character/data";
 
 export class BattleFormRuleElement extends RuleElementPF2e {
     overrides: this["data"]["overrides"];
@@ -23,13 +25,19 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** The label given to modifiers of AC, skills, and strikes */
     modifierLabel: string;
 
+    /** Whether the actor uses its own unarmed attacks while in battle form */
+    ownUnarmed: boolean;
+
     protected static override validActorTypes: ActorType[] = ["character"];
 
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        data.value ??= {};
+        data.overrides ??= {};
         super(data, item, options);
         this.initialize(this.data);
-        this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides) as this["data"]["overrides"];
+        this.overrides = this.resolveValue(this.data.value, this.data.overrides) as this["data"]["overrides"];
         this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        this.ownUnarmed = this.data.ownUnarmed;
     }
 
     static defaultIcons: Record<string, ImagePath | undefined> = [
@@ -118,8 +126,13 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.actor.data.flags.pf2e.disableABP = true;
     }
 
-    /** Pre-clear other rule elements on this item as being compatible with the battle form */
-    override async preCreate({ itemSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
+    override async preCreate({ itemSource, ruleSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
+        if (!this.test()) {
+            ruleSource.ignored = true;
+            return;
+        }
+
+        // Pre-clear other rule elements on this item as being compatible with the battle form
         const rules = (itemSource.data?.rules ?? []) as RuleElementSource[];
         for (const rule of rules) {
             if (["DamageDice", "FlatModifier", "Note"].includes(rule.key)) {
@@ -128,6 +141,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 predicateAll.push("battle-form");
             }
         }
+
+        // Look for strikes that are compendium weapon queries and construct using retrieved weapon
+        await this.resolveStrikeQueries(ruleSource);
     }
 
     /** Set temporary hit points */
@@ -159,7 +175,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
-            const currentTraits = actor.data.data.traits.traits;
+            const currentTraits = actor.system.traits.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
@@ -230,7 +246,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Override the character's AC and ignore speed penalties if necessary */
     private prepareAC(): void {
         const overrides = this.overrides;
-        const armorClass = this.actor.data.data.attributes.ac;
+        const armorClass = this.actor.system.attributes.ac;
         const acOverride = Number(this.resolveValue(overrides.armorClass.modifier, armorClass.totalModifier)) || 0;
         if (!acOverride) return;
 
@@ -321,7 +337,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             const newSkill = this.overrides.skills[key];
             if (!newSkill) continue;
 
-            const currentSkill = this.actor.data.data.skills[key];
+            const currentSkill = this.actor.system.skills[key];
             if (currentSkill.totalModifier > newSkill.modifier && newSkill.ownIfHigher) {
                 continue;
             }
@@ -352,7 +368,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
-        if (this.data.ownUnarmed) {
+        if (this.ownUnarmed) {
             for (const [slug, weapon] of synthetics.strikes.entries()) {
                 if (weapon.category !== "unarmed") synthetics.strikes.delete(slug);
             }
@@ -363,27 +379,27 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 const predicate = (striking.predicate ??= new PredicatePF2e());
                 predicate.not.push("battle-form");
             }
+
+            for (const datum of ruleData) {
+                if (!datum.traits.includes("magical")) datum.traits.push("magical");
+                new StrikeRuleElement(datum, this.item).beforePrepareData();
+            }
         }
 
-        for (const datum of ruleData) {
-            if (!datum.traits.includes("magical")) datum.traits.push("magical");
-            new StrikeRuleElement(datum, this.item).beforePrepareData();
-        }
-
-        const strikeActions = (this.actor.data.data.actions = this.actor
+        this.actor.system.actions = this.actor
             .prepareStrikes({
-                includeBasicUnarmed: this.data.ownUnarmed,
+                includeBasicUnarmed: this.ownUnarmed,
             })
             .filter(
                 (a) =>
-                    (a.slug && a.slug in this.overrides.strikes) ||
-                    (this.data.ownUnarmed && a.item.category === "unarmed")
-            ));
+                    (a.slug && a.slug in this.overrides.strikes) || (this.ownUnarmed && a.item.category === "unarmed")
+            );
+        const strikeActions = this.actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {
             const strike = (this.overrides.strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
 
-            if (!this.data.ownUnarmed && strike && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
+            if (!this.ownUnarmed && strike && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);
@@ -422,12 +438,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Disable ineligible check modifiers */
     private suppressModifiers(statistic: StatisticModifier): void {
         for (const modifier of statistic.modifiers) {
-            if (modifier.ignored) continue;
             if (
                 (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) ||
                 modifier.type === "ability"
             ) {
-                modifier.predicate.not.push("battle-form");
+                modifier.adjustments.push({ slug: null, predicate: new PredicatePF2e(), suppress: true });
                 modifier.ignored = true;
             }
         }
@@ -445,7 +460,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void {
-        if (this.data.ownUnarmed) return;
+        if (this.ownUnarmed) return;
+
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
 
@@ -470,6 +486,68 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }
         }
     }
+
+    /** Process compendium query and construct full strike object using retrieved weapon */
+    private async resolveStrikeQueries(ruleSource: RuleElementSource & { overrides?: unknown }): Promise<void> {
+        const value = ruleSource.overrides ? ruleSource.overrides : (ruleSource.value ??= {});
+        const hasStrikes = (v: unknown): v is ValueWithStrikes =>
+            isObject<{ strikes: unknown }>(v) && isObject<Record<string, unknown>>(v.strikes);
+
+        if (!hasStrikes(value)) return;
+
+        const isStrikeQuery = (maybeQuery: unknown): maybeQuery is BattleFormStrikeQuery => {
+            if (!isObject<BattleFormStrikeQuery>(maybeQuery)) return false;
+            return typeof maybeQuery.query === "string" && typeof maybeQuery.modifier === "number";
+        };
+
+        for (const [slug, strike] of Object.entries(value.strikes)) {
+            if (!isStrikeQuery(strike)) continue;
+
+            strike.pack = String(strike.pack ?? "pf2e.equipment-srd");
+            strike.ownIfHigher = !!(strike.ownIfHigher ?? true);
+
+            const queryObject = ((): Record<string, unknown> | null => {
+                try {
+                    const parsed = JSON.parse(String(this.resolveInjectedProperties(strike.query)));
+                    if (!isObject<Record<string, unknown>>(parsed) || Array.isArray(parsed)) {
+                        throw Error("A strike query must be an NeDB query object");
+                    }
+                    return parsed;
+                } catch (error) {
+                    if (error instanceof Error) {
+                        this.failValidation(error.message);
+                    }
+                    ruleSource.ignored = true;
+                    return null;
+                }
+            })();
+            if (!queryObject) {
+                this.failValidation("Malformed query object");
+                break;
+            }
+
+            const weapon = (await game.packs.get(strike.pack)?.getDocuments(queryObject))?.[0];
+            if (!(weapon instanceof WeaponPF2e)) {
+                this.failValidation("Failed to retrieve queried weapon");
+                break;
+            }
+
+            const resolved: BattleFormStrike = {
+                label: weapon.name,
+                img: weapon.img,
+                ability: weapon.isRanged || weapon.traits.has("finesse") ? "dex" : "str",
+                category: weapon.category,
+                group: weapon.group,
+                baseType: weapon.baseType,
+                traits: deepClone(weapon.system.traits.value),
+                modifier: strike.modifier,
+                damage: deepClone(weapon.system.damage),
+                ownIfHigher: strike.ownIfHigher,
+            };
+
+            value.strikes[slug] = resolved;
+        }
+    }
 }
 
 export interface BattleFormRuleElement extends RuleElementPF2e {
@@ -484,4 +562,8 @@ interface BattleFormData extends RuleElementData, RequiredBattleFormSource {
     overrides: Required<BattleFormOverrides> & {
         armorClass: Required<BattleFormAC>;
     };
+}
+
+interface ValueWithStrikes {
+    strikes: Record<string, unknown>;
 }
