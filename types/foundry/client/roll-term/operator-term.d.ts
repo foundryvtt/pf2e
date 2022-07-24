@@ -10,20 +10,15 @@ declare global {
         /** An array of operators which represent arithmetic operations */
         static OPERATORS: ["+", "-", "*", "/"];
 
-        /** @override */
-        static REGEXP: RegExp;
+        static override REGEXP: RegExp;
 
-        /** @override */
         static SERIALIZE_ATTRIBUTES: ["operator"];
 
-        /** @override */
-        get flavor(): ""; // Operator terms cannot have flavor text
+        override get flavor(): ""; // Operator terms cannot have flavor text
 
-        /** @override */
-        get expression(): ` ${ArithmeticOperator} `;
+        override get expression(): ` ${ArithmeticOperator} `;
 
-        /** @override */
-        get total(): ` ${ArithmeticOperator} `;
+        override get total(): ` ${ArithmeticOperator} `;
     }
 
     type ArithmeticOperator = typeof OperatorTerm["OPERATORS"][number];
