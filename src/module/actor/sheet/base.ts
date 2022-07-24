@@ -37,6 +37,7 @@ import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
+import { ActorSizePF2e } from "../data/size";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -140,13 +141,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), type: "backpack", items: [] },
         };
 
+        const actorSize = new ActorSizePF2e({ value: this.actor.size });
         const createInventoryItem = (item: PhysicalItemPF2e): InventoryItem => {
             const editable = game.user.isGM || item.isIdentified;
             const heldItems = item.isOfType("backpack") ? item.contents.map((i) => createInventoryItem(i)) : undefined;
             heldItems?.sort((a, b) => (a.item.data.sort || 0) - (b.item.data.sort || 0));
 
+            const itemSize = new ActorSizePF2e({ value: item.size });
+            const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
+            const weightRelation = sizeDifference > 0 ? "heavier" : sizeDifference < 0 ? "lighter" : null;
+
             return {
                 item: item,
+                weightRelation,
+                actorSize,
+                itemSize,
                 editable,
                 isContainer: item.isOfType("backpack"),
                 canBeEquipped: !item.isInContainer,
