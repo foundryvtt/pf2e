@@ -1,4 +1,7 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { extractModifierAdjustments } from "@module/rules/util";
+import { ModifierPF2e, MODIFIER_TYPE } from "./modifiers";
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
 function calculateMAPs(item: ItemPF2e, { domains, options }: { domains: string[]; options: string[] }): MAPData {
@@ -39,10 +42,31 @@ function calculateBaseMAP(item: ItemPF2e): MAPData {
     return { label: "PF2E.MultipleAttackPenalty", map1: -5, map2: -10 };
 }
 
+/** Determine range penalty for a ranged attack roll */
+function calculateRangePenalty(
+    actor: ActorPF2e,
+    increment: number | null,
+    selectors: string[],
+    rollOptions: string[]
+): ModifierPF2e | null {
+    if (!increment || increment === 1) return null;
+    const slug = "range-penalty";
+    const modifier = new ModifierPF2e({
+        label: "PF2E.RangePenalty",
+        slug,
+        type: MODIFIER_TYPE.UNTYPED,
+        modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
+        predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, slug),
+    });
+    modifier.test(rollOptions);
+    return modifier;
+}
+
 interface MAPData {
     label: string;
     map1: number;
     map2: number;
 }
 
-export { calculateMAPs };
+export { calculateMAPs, calculateRangePenalty };

@@ -10,7 +10,7 @@ import {
 import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAPs } from "@actor/helpers";
+import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -1712,19 +1712,15 @@ class CharacterPF2e extends CreaturePF2e {
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [
-                        this.getRangePenalty(rangeIncrement, selectors, baseOptions) ?? [],
+                        calculateRangePenalty(this, rangeIncrement, selectors, baseOptions) ?? [],
                         context.self.modifiers,
                     ].flat();
 
                     // Collect roll options from all sources
                     const options = Array.from(
-                        new Set([
-                            ...(args.options ?? []),
-                            ...context.options,
-                            ...action.options,
-                            ...baseOptions,
-                            ...incrementOption,
-                        ])
+                        new Set(
+                            [args.options ?? [], context.options, action.options, baseOptions, incrementOption].flat()
+                        )
                     ).sort();
 
                     // Get just-in-time roll options from rule elements
