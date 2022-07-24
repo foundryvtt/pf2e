@@ -54,6 +54,209 @@
                 "path": "data.proficiencies.aliases.sorcerer",
                 "priority": 39,
                 "value": "divine"
+            },
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "Black Dragon",
+                        "value": "feature:bloodline:draconic:black"
+                    },
+                    {
+                        "label": "Brine Dragon",
+                        "value": "feature:bloodline:draconic:brine"
+                    },
+                    {
+                        "label": "Copper Dragon",
+                        "value": "feature:bloodline:draconic:copper"
+                    },
+                    {
+                        "label": "Blue Dragon",
+                        "value": "feature:bloodline:draconic:blue"
+                    },
+                    {
+                        "label": "Bronze Dragon",
+                        "value": "feature:bloodline:draconic:bronze"
+                    },
+                    {
+                        "label": "Cloud Dragon",
+                        "value": "feature:bloodline:draconic:cloud"
+                    },
+                    {
+                        "label": "Sky Dragon",
+                        "value": "feature:bloodline:draconic:sky"
+                    },
+                    {
+                        "label": "Brass Dragon",
+                        "value": "feature:bloodline:draconic:brass"
+                    },
+                    {
+                        "label": "Underworld Dragon",
+                        "value": "feature:bloodline:draconic:underworld"
+                    },
+                    {
+                        "label": "Crystal Dragon",
+                        "value": "feature:bloodline:draconic:crystal"
+                    },
+                    {
+                        "label": "Forest Dragon",
+                        "value": "feature:bloodline:draconic:forest"
+                    },
+                    {
+                        "label": "Green Dragon",
+                        "value": "feature:bloodline:draconic:green"
+                    },
+                    {
+                        "label": "Sea Dragon",
+                        "value": "feature:bloodline:draconic:sea"
+                    },
+                    {
+                        "label": "Silver Dragon",
+                        "value": "feature:bloodline:draconic:silver"
+                    },
+                    {
+                        "label": "White Dragon",
+                        "value": "feature:bloodline:draconic:white"
+                    },
+                    {
+                        "label": "Sovereign Dragon",
+                        "value": "feature:bloodline:draconic:sovereign"
+                    },
+                    {
+                        "label": "Umbral Dragon",
+                        "value": "feature:bloodline:draconic:umbral"
+                    },
+                    {
+                        "label": "Red Dragon",
+                        "value": "feature:bloodline:draconic:red"
+                    },
+                    {
+                        "label": "Gold Dragon",
+                        "value": "feature:bloodline:draconic:gold"
+                    },
+                    {
+                        "label": "Magma Dragon",
+                        "value": "feature:bloodline:draconic:magma"
+                    }
+                ],
+                "flag": "dragon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "{item|flags.pf2e.rulesSelections.dragon}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:black",
+                        "feature:bloodline:draconic:brine",
+                        "feature:bloodline:draconic:copper"
+                    ]
+                },
+                "value": "acid"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:blue",
+                        "feature:bloodline:draconic:bronze",
+                        "feature:bloodline:draconic:cloud",
+                        "feature:bloodline:draconic:sky"
+                    ]
+                },
+                "value": "electricity"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:brass",
+                        "feature:bloodline:draconic:gold",
+                        "feature:bloodline:draconic:magma",
+                        "feature:bloodline:draconic:red",
+                        "feature:bloodline:draconic:underworld"
+                    ]
+                },
+                "value": "fire"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:crystal",
+                        "feature:bloodline:draconic:forest"
+                    ]
+                },
+                "value": "piercing"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:green"
+                    ]
+                },
+                "value": "poison"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:sea"
+                    ]
+                },
+                "value": "bludgeoning"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:silver",
+                        "feature:bloodline:draconic:white"
+                    ]
+                },
+                "value": "cold"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:sovereign"
+                    ]
+                },
+                "value": "mental"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonBloodline.damageType",
+                "predicate": {
+                    "any": [
+                        "feature:bloodline:draconic:umbral"
+                    ]
+                },
+                "value": "negative"
             }
         ],
         "source": {
