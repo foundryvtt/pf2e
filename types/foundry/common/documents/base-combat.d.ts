@@ -16,6 +16,8 @@ declare module foundry {
         interface BaseCombat {
             readonly data: data.CombatData<this, BaseCombatant>;
             readonly parent: null;
+
+            get documentName(): "Combat";
         }
 
         interface CombatMetadata extends abstract.DocumentMetadata {

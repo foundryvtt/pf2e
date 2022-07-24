@@ -131,7 +131,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 
         const spell = this.actor.items.get(itemData._id);
         if (itemData.data.location.value !== this.item.id && spell instanceof SpellPF2e) {
-            const addedSpell = await this.item.addSpell(spell);
+            const addedSpell = await this.item.spells.addSpell(spell);
             return [addedSpell ?? []].flat();
         }
 

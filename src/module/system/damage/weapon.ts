@@ -23,61 +23,6 @@ import { PredicatePF2e } from "@system/predication";
 import { setHasElement, sluggify } from "@util";
 import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
 
-export interface DamagePartials {
-    [damageType: string]: {
-        [damageCategory: string]: string;
-    };
-}
-
-export interface DamageFormula {
-    data: {
-        baseDamageType: DamageType;
-        effectiveDamageDice: number;
-    };
-    formula: string;
-    partials: DamagePartials;
-}
-
-export interface DamageTemplate {
-    base: {
-        damageType: DamageType;
-        diceNumber: number;
-        dieSize: DamageDieSize;
-        category: string;
-        modifier: number;
-    };
-    diceModifiers: DiceModifierPF2e[];
-    effectDice: number;
-    formula: {
-        criticalFailure?: DamageFormula;
-        failure?: DamageFormula;
-        success: DamageFormula;
-        criticalSuccess: DamageFormula;
-    };
-    name: string;
-    notes: RollNotePF2e[];
-    numericModifiers: ModifierPF2e[];
-    traits: string[];
-    materials: WeaponMaterialEffect[];
-}
-
-/** A pool of damage dice & modifiers, grouped by damage type. */
-export type DamagePool = Record<
-    string,
-    {
-        /** If true, this is the 'base' damage of the weapon or attack; some abilities scale off of base damage dice. */
-        base?: boolean;
-        categories: {
-            [category: string]: {
-                /** The static amount of damage of the current damage type and category. */
-                modifier?: number;
-                /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
-                dice?: Record<string, number>;
-            };
-        };
-    }
->;
-
 /**
  * @category PF2
  */
@@ -576,12 +521,10 @@ export class WeaponDamagePF2e {
             (dm): dm is DiceModifierPF2e & { override: DamageDiceOverride } => !!(dm.enabled && dm.override)
         );
         for (const dm of enabledDiceModifiers) {
-            if (critical && dm.critical) {
+            if ((critical && dm.critical) || !dm.critical) {
                 base.dieSize = dm.override.dieSize ?? base.dieSize;
                 base.damageType = dm.override.damageType ?? base.damageType;
-            } else if (!dm.critical) {
-                base.dieSize = dm.override.dieSize ?? base.dieSize;
-                base.damageType = dm.override.damageType ?? base.damageType;
+                base.diceNumber = dm.override.diceNumber ?? base.diceNumber;
             }
         }
 
@@ -872,6 +815,61 @@ export class WeaponDamagePF2e {
         return isMelee || (!traits.includes("splash") && traits.some((t) => /^thrown(?:-\d{1,2})?/.test(t)));
     }
 }
+
+export interface DamagePartials {
+    [damageType: string]: {
+        [damageCategory: string]: string;
+    };
+}
+
+export interface DamageFormula {
+    data: {
+        baseDamageType: DamageType;
+        effectiveDamageDice: number;
+    };
+    formula: string;
+    partials: DamagePartials;
+}
+
+export interface DamageTemplate {
+    base: {
+        damageType: DamageType;
+        diceNumber: number;
+        dieSize: DamageDieSize;
+        category: string;
+        modifier: number;
+    };
+    diceModifiers: DiceModifierPF2e[];
+    effectDice: number;
+    formula: {
+        criticalFailure?: DamageFormula;
+        failure?: DamageFormula;
+        success: DamageFormula;
+        criticalSuccess: DamageFormula;
+    };
+    name: string;
+    notes: RollNotePF2e[];
+    numericModifiers: ModifierPF2e[];
+    traits: string[];
+    materials: WeaponMaterialEffect[];
+}
+
+/** A pool of damage dice & modifiers, grouped by damage type. */
+export type DamagePool = Record<
+    string,
+    {
+        /** If true, this is the 'base' damage of the weapon or attack; some abilities scale off of base damage dice. */
+        base?: boolean;
+        categories: {
+            [category: string]: {
+                /** The static amount of damage of the current damage type and category. */
+                modifier?: number;
+                /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
+                dice?: Record<string, number>;
+            };
+        };
+    }
+>;
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;

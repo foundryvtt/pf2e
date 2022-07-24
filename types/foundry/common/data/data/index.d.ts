@@ -3,6 +3,7 @@ import "./actor-data";
 import "./ambient-light-data";
 import "./ambient-sound-data";
 import "./animation-data";
+import "./cards-data";
 import "./chat-message-data";
 import "./chat-speaker-data";
 import "./combat-data";

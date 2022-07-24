@@ -123,23 +123,6 @@ declare global {
         };
 
         /**
-         * Define the allowed Entity class types
-         */
-        ENTITY_TYPES: [
-            "Actor",
-            "ChatMessage",
-            "Combat",
-            "Item",
-            "Folder",
-            "JournalEntry",
-            "Macro",
-            "Playlist",
-            "RollTable",
-            "Scene",
-            "User"
-        ];
-
-        /**
          * EULA version number
          */
         EULA_VERSION: string;
@@ -163,10 +146,10 @@ declare global {
         /**
          * Define the allowed Entity types which Folders may contain
          */
-        FOLDER_DOCUMENT_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "RollTable"];
+        FOLDER_DOCUMENT_TYPES: ["Actor", "Cards", "Item", "Scene", "JournalEntry", "RollTable"];
 
         /** Define the allowed Entity types which may be dynamically linked in chat */
-        ENTITY_LINK_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "Macro", "RollTable"];
+        ENTITY_LINK_TYPES: ["Actor", "Cards", "Item", "Scene", "JournalEntry", "Macro", "RollTable"];
 
         /** The allowed Grid types which are supported by the software */
         GRID_TYPES: {

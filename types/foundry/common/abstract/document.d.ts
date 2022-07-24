@@ -34,7 +34,7 @@ declare global {
                  * Every document must define an object which represents its data schema.
                  * This must be a subclass of the DocumentData interface.
                  */
-                static get schema(): new (...args: any[]) => DocumentData;
+                static get schema(): ConstructorOf<DocumentData>;
 
                 /** Default metadata which applies to each instance of this Document type. */
                 static get metadata(): DocumentMetadata;
@@ -545,7 +545,7 @@ declare global {
 
             interface DocumentMetadata {
                 collection: string;
-                embedded: Record<string, new (...args: any[]) => foundry.abstract.Document>;
+                embedded: Record<string, ConstructorOf<Document>>;
                 hasSystemData: boolean;
                 isEmbedded?: boolean;
                 isPrimary?: boolean;

@@ -43,11 +43,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
-    /** Shimmed ahead of moving to Item-instance level in V10 */
-    get flags(): this["data"]["flags"] {
-        return this.data.flags;
-    }
-
     /** The sluggified name of the item **/
     get slug(): string | null {
         return this.system.slug;
