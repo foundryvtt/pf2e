@@ -32,7 +32,7 @@ import { CROSSBOW_WEAPONS, RANGED_WEAPON_GROUPS, THROWN_RANGES } from "./values"
 
 class WeaponPF2e extends PhysicalItemPF2e {
     override get isEquipped(): boolean {
-        const { category, slug, traits } = this.data.data;
+        const { category, slug, traits } = this.system;
         // Make unarmed "weapons" always equipped with the exception of handwraps
         if (category === "unarmed" && slug !== "handwraps-of-mighty-blows") {
             return true;
@@ -53,15 +53,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get baseType(): BaseWeaponType | null {
-        return this.data.data.baseItem;
+        return this.system.baseItem;
     }
 
     get group(): WeaponGroup | null {
-        return this.data.data.group;
+        return this.system.group;
     }
 
     get category(): WeaponCategory {
-        return this.data.data.category;
+        return this.system.category;
     }
 
     get hands(): "0" | "1" | "1+" | "2" {
@@ -72,25 +72,25 @@ class WeaponPF2e extends PhysicalItemPF2e {
             "held-in-two-hands": "2",
         } as const;
 
-        return usageToHands[this.data.data.usage.value] ?? "1";
+        return usageToHands[this.system.usage.value] ?? "1";
     }
 
     /** The range increment of this weapon, or null if a melee weapon */
     get rangeIncrement(): WeaponRangeIncrement | null {
-        return this.data.data.range;
+        return this.system.range;
     }
 
     /** The maximum range of this weapon: `null` if melee, and usually 6 * range increment if ranged */
     get maxRange(): number | null {
-        return this.data.data.maxRange ?? (this.rangeIncrement ? this.rangeIncrement * 6 : null);
+        return this.system.maxRange ?? (this.rangeIncrement ? this.rangeIncrement * 6 : null);
     }
 
     get reload(): WeaponReloadTime | null {
-        return this.data.data.reload.value || null;
+        return this.system.reload.value || null;
     }
 
     get isSpecific(): boolean {
-        return this.data.data.specific?.value ?? false;
+        return this.system.specific?.value ?? false;
     }
 
     get isMelee(): boolean {
@@ -106,7 +106,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     override get material(): WeaponMaterialData {
-        return this.data.data.material;
+        return this.system.material;
     }
 
     /** Does this weapon require ammunition in order to make a strike? */
@@ -115,20 +115,20 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get ammo(): Embedded<ConsumablePF2e> | null {
-        const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
+        const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
     }
 
     get otherTags(): Set<OtherWeaponTag> {
-        return new Set(this.data.data.traits.otherTags);
+        return new Set(this.system.traits.otherTags);
     }
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "weapon"): string[] {
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const damage = {
-            type: this.data.data.damage.damageType,
-            dieFaces: Number(this.data.data.damage.die.replace(/^d/, "")),
+            type: this.system.damage.damageType,
+            dieFaces: Number(this.system.damage.die.replace(/^d/, "")),
         };
         const { actor } = this;
         const actorSize = actor?.data.data.traits.size;
@@ -151,7 +151,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
                 [`damage:die:faces:${damage.dieFaces}`]: true,
-                [`damage-dice:${1 + this.data.data.runes.striking}`]: true,
+                [`damage-dice:${1 + this.system.runes.striking}`]: true,
                 ["deity-favored"]: isDeityFavored,
                 oversized,
                 melee: this.isMelee,
@@ -160,7 +160,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
-            this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
+            this.system.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
         ]
             .flat()
             .sort();
@@ -169,7 +169,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         systemData.category ||= "simple";
         systemData.group ||= null;
         systemData.baseItem ||= null;
@@ -198,16 +198,16 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
         if (systemData.baseItem === "alchemical-bomb" || traitsArray.some((t) => /^thrown(?:-\d+)?$/.test(t))) {
-            this.data.data.reload.value = "-";
+            this.system.reload.value = "-";
         }
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;
         const mandatoryRanged = setHasElement(RANGED_WEAPON_GROUPS, systemData.group) || traitSet.has("thrown");
         if (mandatoryRanged) {
-            this.data.data.range ??= 10;
+            this.system.range ??= 10;
 
-            if (traitSet.has("combination")) this.data.data.group = "firearm";
+            if (traitSet.has("combination")) this.system.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
             if (this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType)) {
@@ -217,15 +217,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
         const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
-        if (mandatoryMelee) this.data.data.range = null;
+        if (mandatoryMelee) this.system.range = null;
 
         // Set whether the ammunition or weapon itself should be consumed
         systemData.reload.consume = this.isMelee ? null : this.reload !== null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
-        this.data.flags.pf2e.comboMeleeUsage ??= false;
+        this.flags.pf2e.comboMeleeUsage ??= false;
         // Ensure presence of traits array on melee usage if not have been added yet
-        if (this.data.data.meleeUsage) this.data.data.meleeUsage.traits ??= [];
+        if (this.system.meleeUsage) this.system.meleeUsage.traits ??= [];
 
         this.processMaterialAndRunes();
     }
@@ -233,9 +233,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
-        this.data.data.runes = {
+        this.system.runes = {
             potency: potencyRune.value ?? 0,
             striking: getStrikingDice({ strikingRune }),
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
@@ -255,15 +255,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     processMaterialAndRunes(): void {
-        const systemData = this.data.data;
+        const systemData = this.system;
 
         // Collect all traits from the runes and apply them to the weapon
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
         const hasRunes = (() => {
-            const hasFundamentalRunes = !!this.data.data.potencyRune.value || !!this.data.data.strikingRune.value;
+            const hasFundamentalRunes = !!this.system.potencyRune.value || !!this.system.strikingRune.value;
             const hasPropertyRunes = ([1, 2, 3, 4] as const)
-                .map((n) => this.data.data[`propertyRune${n}` as const])
+                .map((n) => this.system[`propertyRune${n}` as const])
                 .some((r) => !!r.value);
             const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
             return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
@@ -316,7 +316,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     getRunesData(): RuneValuationData[] {
-        const systemData = this.data.data;
+        const systemData = this.system;
         const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
@@ -354,7 +354,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const storedName = this.data._source.name;
         if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.data.name;
 
-        const systemData = this.data.data;
+        const systemData = this.system;
 
         const potencyRune = systemData.potencyRune.value;
         const strikingRune = systemData.strikingRune.value;
@@ -437,7 +437,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
     private toThrownUsage(): this | null {
-        const traits = this.data.data.traits.value;
+        const traits = this.system.traits.value;
         const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
         if (this.isRanged || !thrownTrait) return null;
 
@@ -456,7 +456,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
     private toMeleeUsage(): this | null {
-        const { meleeUsage } = this.data.data;
+        const { meleeUsage } = this.system;
         if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
 
         const overlay: DeepPartial<WeaponSource> = {
@@ -484,7 +484,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const baseDamage = ((): MeleeDamageRoll => {
-            const weaponDamage = this.data.data.damage;
+            const weaponDamage = this.system.damage;
             const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
@@ -506,7 +506,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 damageType: weaponDamage.damageType,
             };
         })();
-        const fromPropertyRunes = this.data.data.runes.property
+        const fromPropertyRunes = this.system.runes.property
             .flatMap((r) => WEAPON_PROPERTY_RUNES[r].damage?.dice ?? [])
             .map(
                 (d): MeleeDamageRoll => ({
@@ -584,7 +584,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         {}
                     ),
                 traits: {
-                    value: toAttackTraits(this.data.data.traits.value),
+                    value: toAttackTraits(this.system.traits.value),
                 },
                 rules: deepClone(this.data._source.data.rules),
             },
