@@ -2,7 +2,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
-export class Migration767RemoveCamelCasePersistentDamageImages extends MigrationBase{
+/** Removes any instances of persistentDamage.webp and replaces them with persistent-damage.webp **/
+export class Migration767RemoveCamelCasePersistentDamageImages extends MigrationBase {
     static override version = 0.767;
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (
