@@ -49,9 +49,9 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
-        if (spell.baseLevel > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
-            console.warn(`Attempted to add level ${spell.baseLevel} spell to level ${spellLevel} spell slot.`);
+    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+        if (spell.baseLevel > slotLevel && !(slotLevel === 0 && spell.isCantrip)) {
+            console.warn(`Attempted to add level ${spell.baseLevel} spell to level ${slotLevel} spell slot.`);
             return this.entry;
         }
 
@@ -61,10 +61,10 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             );
         }
 
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
+        const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}`;
         const updates: Record<string, unknown> = { [key]: { id: spell.id } };
 
-        const slot = this.entry.data.data.slots[`slot${spellLevel}` as SlotKey].prepared[spellSlot];
+        const slot = this.entry.data.data.slots[`slot${slotLevel}` as SlotKey].prepared[spellSlot];
         if (slot) {
             if (slot.prepared !== undefined) {
                 updates[`${key}.-=prepared`] = null;
@@ -78,14 +78,14 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(spellLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
+    unprepareSpell(slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
         if (CONFIG.debug.hooks === true) {
             console.debug(
-                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${spellLevel}`
+                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${slotLevel}`
             );
         }
 
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
+        const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}`;
         return this.entry.update({
             [key]: {
                 name: game.i18n.localize("PF2E.SpellSlotEmpty"),
@@ -97,8 +97,8 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(spellLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}.expended`;
+    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
+        const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}.expended`;
         return this.entry.update({ [key]: isExpended });
     }
 }

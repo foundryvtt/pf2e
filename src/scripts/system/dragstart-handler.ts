@@ -20,9 +20,9 @@ export function extendDragData() {
         }
 
         // Detect spell level of containing element, if available
-        const containerElement = event.target.closest("[data-spell-lvl]");
-        const spellLevel = Number(containerElement?.dataset.spellLvl);
-        if (spellLevel > 0) data.level = spellLevel;
+        const containerElement = event.target.closest("[data-cast-level]");
+        const castLevel = Number(containerElement?.dataset.castLevel);
+        if (castLevel > 0) data.level = castLevel;
 
         dataTransfer.setData("text/plain", JSON.stringify(data));
     });
