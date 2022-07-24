@@ -41,6 +41,15 @@ export class MeleePF2e extends ItemPF2e {
         return typeof rangeIncrement === "number" ? rangeIncrement * 6 : null;
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // Normalize damage instance formulas
+        for (const instance of Object.values(this.system.damageRolls)) {
+            instance.damage = new Roll(instance.damage).formula;
+        }
+    }
+
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
