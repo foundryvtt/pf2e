@@ -14,16 +14,14 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         const actorIsCreature = this.actor instanceof CreaturePF2e;
         const valueIsValid = typeof data.value === "number" || typeof data.value === "string";
         if (!(actorIsCreature && valueIsValid)) this.ignored = true;
-        this.reevaluateOnUpdate = Boolean(data.reevaluateOnUpdate ?? false);
+        this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored) return;
         const value = Math.abs(Number(this.resolveValue()) || 0);
-        if (typeof value === "number") {
-            const currentHP = this.actor.data._source.data.attributes.hp.value;
-            actorUpdates["data.attributes.hp.value"] = Math.max(currentHP - value, 0);
-        }
+        const currentHP = this.actor.data._source.data.attributes.hp.value;
+        actorUpdates["data.attributes.hp.value"] = Math.max(currentHP - value, 0);
     }
 
     override async preUpdate(changed: DeepPartial<ItemSourcePF2e>): Promise<void> {
@@ -31,15 +29,13 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         const previousValue = Math.abs(Number(this.resolveValue()) || 0);
         mergeObject(this.item.data, changed);
         const newValue = Math.abs(Number(this.resolveValue()) || 0);
-        if (typeof previousValue === "number" && typeof newValue === "number") {
-            const valueChange = newValue - previousValue;
-            if (valueChange > 0) {
-                const currentHP = this.actor.data._source.data.attributes.hp.value;
-                await this.actor.update(
-                    { "data.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
-                    { render: false }
-                );
-            }
+        const valueChange = newValue - previousValue;
+        if (valueChange > 0) {
+            const currentHP = this.actor.data._source.data.attributes.hp.value;
+            await this.actor.update(
+                { "data.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
+                { render: false }
+            );
         }
     }
 }
