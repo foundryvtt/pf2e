@@ -1,21 +1,8 @@
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { MeleeSystemData } from "@item/melee/data";
+import { MeleeSystemSource } from "@item/melee/data";
 import { IdentificationData, MystifiedData } from "@item/physical/data";
 import { MigrationBase } from "../base";
-
-type ItemDataWithIdentification = ItemSourcePF2e & {
-    "data.-=identification"?: null;
-    "data.identification.unidentified.data.-=traits"?: null;
-};
-
-interface MeleeWithIdentification extends MeleeSystemData {
-    identification?: IdentificationData;
-}
-
-type UnidentifiedWithTraits = MystifiedData["data"] & {
-    traits?: unknown;
-};
 
 /** OK, let's not store mystified traits. */
 export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
@@ -45,4 +32,17 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
             }
         }
     }
+}
+
+type ItemDataWithIdentification = ItemSourcePF2e & {
+    "data.-=identification"?: null;
+    "data.identification.unidentified.data.-=traits"?: null;
+};
+
+type UnidentifiedWithTraits = MystifiedData["data"] & {
+    traits?: unknown;
+};
+
+interface MeleeWithIdentification extends MeleeSystemSource {
+    identification?: IdentificationData;
 }
