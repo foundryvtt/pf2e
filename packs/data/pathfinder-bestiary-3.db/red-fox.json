@@ -27,7 +27,7 @@
                 "value": 17
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -56,7 +56,7 @@
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Elusive and shrewd, foxes have gained a reputation as sly tricksters, earning them a place in many folk tales.</p>\n<hr />\n<p>The shy and perceptive red fox has uncanny adaptability and is just as comfortable in urban areas as in the wilds. Red foxes typically have rust-red fur, a white underbelly, and a characteristic white-tipped bushy tail. They are omnivorous, and eat insects, lizards, and small birds, pouncing on their prey to catch it. Because these opportunistic hunters see eggs and captive livestock as an easy meal, many farmers see them as foes.</p>",
+            "publicNotes": "<p>The shy and perceptive red fox has uncanny adaptability and is just as comfortable in urban areas as in the wilds. Red foxes typically have rust-red fur, a white underbelly, and a characteristic white-tipped bushy tail. They are omnivorous, and eat insects, lizards, and small birds, pouncing on their prey to catch it. Because these opportunistic hunters see eggs and captive livestock as an easy meal, many farmers see them as foes.</p>\n<hr />\n<p>Elusive and shrewd, foxes have gained a reputation as sly tricksters, earning them a place in many folk tales.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -256,7 +256,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The red fox either Strides or Leaps up to its Speed and makes a Strike at the end of that movement. If the fox began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after this ability's Strike.</p>"
+                    "value": "<p>The red fox either Strides or Leaps up to its Speed and makes a Strike at the end of that movement.</p>\n<p>If the fox began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after this ability's Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -344,20 +344,10 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To High Jump",
+                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
                         "predicate": {
-                            "all": [
-                                "action:high-jump"
-                            ]
-                        },
-                        "selector": "athletics",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Long Jump",
-                        "predicate": {
-                            "all": [
+                            "any": [
+                                "action:high-jump",
                                 "action:long-jump"
                             ]
                         },
@@ -376,12 +366,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+4 to High Jump",
-                        "options": "action:high-jump"
-                    },
-                    "1": {
-                        "label": "or Long Jump",
-                        "options": "action:long-jump"
+                        "label": "+4 to High Jump or Long Jump",
+                        "options": "action:high-jump, action:long-jump"
                     }
                 }
             },
