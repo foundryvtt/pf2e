@@ -617,6 +617,8 @@ class NPCPF2e extends CreaturePF2e {
                             }
 
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
+                            if (rangeIncrement) rollOptions.push(`target:range-increment:${rangeIncrement}`);
+
                             const rangePenalty = calculateRangePenalty(this, rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
                             const checkName = game.i18n.format(
