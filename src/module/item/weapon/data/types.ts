@@ -47,7 +47,7 @@ interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
 type WeaponTraits = Required<WeaponSourceTraits>;
 
 interface WeaponDamage {
-    value: string;
+    value?: string;
     dice: number;
     die: DamageDieSize;
     damageType: DamageType;
