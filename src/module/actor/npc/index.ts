@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { RollFunction, TraitViewData } from "@actor/data/base";
-import { calculateMAPs } from "@actor/helpers";
+import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -617,7 +617,7 @@ class NPCPF2e extends CreaturePF2e {
                             }
 
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
+                            const rangePenalty = calculateRangePenalty(this, rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
                             const checkName = game.i18n.format(
                                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
