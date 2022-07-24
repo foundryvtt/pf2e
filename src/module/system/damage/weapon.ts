@@ -13,7 +13,9 @@ import {
 import { AbilityString } from "@actor/types";
 import { WeaponPF2e } from "@item";
 import { WeaponData } from "@item/data";
+import { MeleeDamageRoll } from "@item/melee/data";
 import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
+import { WeaponDamage } from "@item/weapon/data";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
@@ -40,85 +42,38 @@ export class WeaponDamagePF2e {
         strikeAdjustments: StrikeAdjustment[]
     ): DamageTemplate {
         // ensure the base damage object exists
-        weapon.data.damage ??= {};
+        const damageInstances = Object.values(weapon.data.damageRolls as Record<string, MeleeDamageRoll>).map(
+            this.npcDamageToWeaponDamage
+        );
+        weapon.data.damage = damageInstances[0];
+        const secondaryInstances = damageInstances.slice(1);
 
-        const damageRolls = Array.isArray(weapon.data.damageRolls)
-            ? weapon.data.damageRolls
-            : Object.values(weapon.data.damageRolls);
-        let parsedBaseDamage = false;
-        for (const dmg of damageRolls) {
-            let dice: number | null = null;
-            let die: string | null = null;
-            let modifier = 0;
-            const parts = dmg.damage.split("");
-            let digits = "";
-            let operator = null;
-            for (const part of parts) {
-                if (part === "d") {
-                    dice = Number(digits);
-                    digits = "";
-                } else if ("+-".includes(part)) {
-                    if (operator) {
-                        // deal with the previous flat modifier part
-                        if (operator === "-") {
-                            modifier -= Number(digits);
-                        } else if (operator === "+") {
-                            modifier += Number(digits);
-                        }
-                    } else {
-                        die = `d${digits}`;
-                    }
-                    digits = "";
-                    operator = part;
-                } else if (!Number.isNaN(Number(part))) {
-                    digits += part;
-                }
+        for (const dmg of secondaryInstances) {
+            // amend damage dice with any extra dice
+            if (dmg.dice && dmg.die) {
+                const dd = (damageDice.damage ??= []);
+                dd.push(
+                    new DamageDicePF2e({
+                        slug: "base",
+                        selector: "damage",
+                        name: "Base",
+                        diceNumber: dmg.dice,
+                        dieSize: dmg.die as DamageDieSize,
+                        damageType: dmg.damageType,
+                    })
+                );
             }
-            if (dice && !die) {
-                die = `d${digits}`;
-            } else if (operator === "-") {
-                modifier -= Number(digits);
-            } else {
-                modifier += Number(digits);
-            }
-
-            weapon.data.material = { effects: [] };
-
-            if (parsedBaseDamage) {
-                const { damageType } = dmg;
-                // amend damage dice with any extra dice
-                if (dice && die) {
-                    const dd = (damageDice.damage ??= []);
-                    dd.push(
-                        new DamageDicePF2e({
-                            slug: "base",
-                            selector: "damage",
-                            name: "Base",
-                            diceNumber: dice,
-                            dieSize: die as DamageDieSize,
+            // Amend numeric modifiers with any flat modifier
+            if (dmg.modifier) {
+                const modifiers = (statisticsModifiers.damage ??= []);
+                modifiers.push(
+                    () =>
+                        new ModifierPF2e({
+                            label: "PF2E.WeaponBaseLabel",
+                            modifier: dmg.modifier,
                             damageType: dmg.damageType,
                         })
-                    );
-                }
-                // Amend numeric modifiers with any flat modifier
-                if (modifier) {
-                    const modifiers = (statisticsModifiers.damage ??= []);
-                    modifiers.push(() => new ModifierPF2e({ label: "PF2E.WeaponBaseLabel", modifier, damageType }));
-                }
-            } else {
-                weapon.data.damage.dice = dice || 0;
-                weapon.data.damage.die = die || "";
-                const strengthMod = actor.data.data.abilities.str.mod;
-                const weaponTraits: string[] = weapon.data.traits.value;
-
-                if (WeaponDamagePF2e.strengthModToDamage(weapon)) {
-                    modifier -= strengthMod;
-                } else if (weaponTraits.some((t) => t === "propulsive")) {
-                    modifier -= strengthMod < 0 ? -strengthMod : Math.round(strengthMod / 2);
-                }
-                weapon.data.damage.modifier = modifier;
-                weapon.data.damage.damageType = dmg.damageType;
-                parsedBaseDamage = true;
+                );
             }
         }
 
@@ -806,6 +761,36 @@ export class WeaponDamagePF2e {
         }
 
         return selectors;
+    }
+
+    /** Parse damage formulas from melee items and construct `WeaponDamage` objects out of them */
+    static npcDamageToWeaponDamage(instance: MeleeDamageRoll): WeaponDamage {
+        const roll = new Roll(instance.damage);
+        const die = roll.dice.at(0);
+        const operator = ((): ArithmeticOperator => {
+            const operators = roll.terms.filter((t): t is OperatorTerm => t instanceof OperatorTerm);
+            if (operators.length === 1) {
+                // Simplest case: a single operator
+                return operators.at(0)?.operator ?? "+";
+            } else if (operators.length === 2) {
+                // A plus and minus?
+                const [first, second] = operators;
+                if (first.operator !== second.operator && operators.every((o) => ["+", "-"].includes(o.operator))) {
+                    return "-";
+                }
+            }
+
+            // Don't handle cases other than the above
+            return "+";
+        })();
+        const modifier = roll.terms.find((t): t is NumericTerm => t instanceof NumericTerm)?.number ?? 0;
+
+        return {
+            dice: die?.number ?? 0,
+            die: die?.faces ? (`d${die.faces}` as DamageDieSize) : "d4",
+            modifier: operator === "+" ? modifier : -1 * modifier,
+            damageType: instance.damageType,
+        };
     }
 
     /** Determine whether a strike's damage includes the actor's strength modifier */
