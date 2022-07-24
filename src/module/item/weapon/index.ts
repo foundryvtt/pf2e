@@ -497,7 +497,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const constant = ((): string => {
                 const fromAbility = actor.abilities[ability].mod;
                 const totalModifier = fromAbility + (actor.level > 1 ? dice : 0);
-                const sign = totalModifier < 0 ? " - " : " + ";
+                const sign = totalModifier < 0 ? "-" : "+";
                 return totalModifier === 0 ? "" : [sign, Math.abs(totalModifier)].join("");
             })();
 
