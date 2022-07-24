@@ -166,3 +166,4 @@ export { Migration763RestoreAnimalStrikeOptions } from "./763-restore-animal-str
 export { Migration764PanacheVivaciousREs } from "./764-panache-vivacious-res";
 export { Migration765ChoiceOwnedItemTypes } from "./765-choice-owned-item-types";
 export { Migration766WipeURLSources } from "./766-wipe-url-sources";
+export { Migration767RemoveCamelCasePersistentDamageImages } from "./767-remove-camelCase-persistent-damage-images";
