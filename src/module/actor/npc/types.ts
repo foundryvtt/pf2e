@@ -1,7 +1,7 @@
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { HitPointsData, PerceptionData } from "@actor/data/base";
 import { SaveType } from "@actor/types";
-import { ActionData, EffectData, ItemDataPF2e } from "@item/data";
+import { ActionItemData, EffectData, ItemDataPF2e } from "@item/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
 import { NPCPF2e } from ".";
 import {
@@ -16,7 +16,7 @@ import {
 
 interface ActionsDetails {
     label: string;
-    actions: NPCSheetItemData<RawObject<ActionData>>[];
+    actions: NPCSheetItemData<RawObject<ActionItemData>>[];
 }
 
 interface NPCActionSheetData {
