@@ -18,7 +18,7 @@ import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
-import { objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { StrikeAttackTraits } from "./strike-attack-traits";
@@ -667,7 +667,7 @@ class NPCPF2e extends CreaturePF2e {
                             .sort();
 
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                            context.self.item.data,
+                            context.self.item,
                             context.self.actor,
                             [attackTrait],
                             deepClone(statisticsModifiers),
@@ -678,6 +678,8 @@ class NPCPF2e extends CreaturePF2e {
                             rollNotes,
                             this.synthetics.strikeAdjustments
                         );
+                        if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
                         const { self, target } = context;
 
                         await DamageRollPF2e.roll(
