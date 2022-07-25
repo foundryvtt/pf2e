@@ -10,7 +10,7 @@ import {
 import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAPs } from "@actor/helpers";
+import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -913,6 +913,7 @@ class CharacterPF2e extends CreaturePF2e {
             const save = systemData.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const modifiers: ModifierPF2e[] = [];
+            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.data.data.resiliencyRune.value) {
@@ -924,12 +925,14 @@ class CharacterPF2e extends CreaturePF2e {
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
+                const slug = "bulwark";
                 const bulwarkModifier = new ModifierPF2e({
-                    slug: "bulwark",
+                    slug,
                     type: MODIFIER_TYPE.UNTYPED,
                     label: CONFIG.PF2E.armorTraits.bulwark,
                     modifier: 3,
                     predicate: { all: ["damaging-effect"] },
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
                 });
                 modifiers.push(bulwarkModifier);
 
@@ -943,7 +946,6 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             // Add custom modifiers and roll notes relevant to this save.
-            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
             modifiers.push(...extractModifiers(this.synthetics, selectors));
 
             const stat = new Statistic(this, {
@@ -1712,19 +1714,15 @@ class CharacterPF2e extends CreaturePF2e {
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [
-                        this.getRangePenalty(rangeIncrement, selectors, baseOptions) ?? [],
+                        calculateRangePenalty(this, rangeIncrement, selectors, baseOptions) ?? [],
                         context.self.modifiers,
                     ].flat();
 
                     // Collect roll options from all sources
                     const options = Array.from(
-                        new Set([
-                            ...(args.options ?? []),
-                            ...context.options,
-                            ...action.options,
-                            ...baseOptions,
-                            ...incrementOption,
-                        ])
+                        new Set(
+                            [args.options ?? [], context.options, action.options, baseOptions, incrementOption].flat()
+                        )
                     ).sort();
 
                     // Get just-in-time roll options from rule elements
@@ -1790,7 +1788,7 @@ class CharacterPF2e extends CreaturePF2e {
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
-                    context.self.item.data,
+                    context.self.item,
                     context.self.actor,
                     context.traits,
                     statisticsModifiers,
@@ -1803,6 +1801,8 @@ class CharacterPF2e extends CreaturePF2e {
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
+                if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
 
                 // Find a critical specialization note
@@ -2084,24 +2084,6 @@ class CharacterPF2e extends CreaturePF2e {
                 {}
             );
             await this.update({ "data.abilities": deletions });
-        }
-    }
-
-    /** Toggle between boost-driven and manual management of ability scores */
-    async toggleVoluntaryFlaw(): Promise<void> {
-        if (!this.ancestry) return;
-        if (Object.keys(this.ancestry?.data._source.data.voluntaryFlaws || []).length === 0) {
-            await this.ancestry.update({
-                "data.voluntaryBoosts.vb": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-                "data.voluntaryFlaws.vf1": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-                "data.voluntaryFlaws.vf2": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-            });
-        } else {
-            await this.ancestry.update({
-                "data.voluntaryBoosts.-=vb": null,
-                "data.voluntaryFlaws.-=vf1": null,
-                "data.voluntaryFlaws.-=vf2": null,
-            });
         }
     }
 }

@@ -31,7 +31,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
                     row.querySelector<HTMLImageElement>("img.token-image")?.removeAttribute("title");
                 }
 
-                if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
+                if (game.user.isGM && combatant.actor && combatant.actor.alliance !== "party") {
                     const toggleNameVisibility = document.createElement("a");
                     const isActive = combatant.playersCanSeeName;
                     toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());

@@ -1,4 +1,4 @@
-import type { ActionData, ActionSource } from "@item/action/data";
+import type { ActionItemData, ActionItemSource } from "@item/action/data";
 import type { AncestryData, AncestrySource } from "@item/ancestry/data";
 import type { ArmorData, ArmorSource } from "@item/armor/data";
 import type { BackgroundData, BackgroundSource } from "@item/background/data";
@@ -59,7 +59,7 @@ export type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | Tre
 
 export type ItemDataPF2e = (
     | PhysicalItemData
-    | ActionData
+    | ActionItemData
     | AncestryData
     | BackgroundData
     | ClassData
@@ -93,7 +93,7 @@ export interface TraitChatData {
 }
 
 export type {
-    ActionData,
+    ActionItemData,
     AncestryData,
     ArmorData,
     BackgroundData,
@@ -115,7 +115,7 @@ export type {
 };
 
 export {
-    ActionSource,
+    ActionItemSource,
     AncestrySource,
     ArmorSource,
     BackgroundSource,

@@ -6,6 +6,7 @@ import { AncestryData } from "./data";
 import { sluggify } from "@util";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { SIZE_TO_REACH } from "@actor/creature/values";
+import { AbilityString } from "@actor/types";
 
 class AncestryPF2e extends ABCItemPF2e {
     get traits(): Set<CreatureTrait> {
@@ -24,6 +25,13 @@ class AncestryPF2e extends ABCItemPF2e {
         return this.data.data.size;
     }
 
+    get lockedBoosts(): AbilityString[] {
+        return Object.values(this.data.data.boosts)
+            .filter((boost) => boost.value.length === 1)
+            .map((boost) => boost.selected)
+            .filter((boost): boost is AbilityString => !!boost);
+    }
+
     /** Include all ancestry features in addition to any with the expected location ID */
     override getLinkedFeatures(): Embedded<FeatPF2e>[] {
         if (!this.actor) return [];
@@ -34,6 +42,15 @@ class AncestryPF2e extends ABCItemPF2e {
                 ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
             ])
         );
+    }
+
+    /** Toggle between voluntary flaws being on or off */
+    async toggleVoluntaryFlaw(): Promise<void> {
+        if (this.data._source.data.voluntary) {
+            await this.update({ "data.-=voluntary": null });
+        } else {
+            await this.update({ "data.voluntary": { boost: null, flaws: [] } });
+        }
     }
 
     override prepareBaseData(): void {
@@ -77,14 +94,19 @@ class AncestryPF2e extends ABCItemPF2e {
 
         // Add ability boosts and flaws
         const { build } = actor.data.data;
-
-        for (const list of ["boosts", "flaws", "voluntaryBoosts", "voluntaryFlaws"] as const) {
-            const target = ["boosts", "voluntaryBoosts"].includes(list) ? "boosts" : "flaws";
-            for (const ability of Object.values(this.data.data[list])) {
+        for (const target of ["boosts", "flaws"] as const) {
+            for (const ability of Object.values(this.data.data[target])) {
                 if (ability.selected) {
                     build.abilities[target].ancestry.push(ability.selected);
                 }
             }
+        }
+
+        // Add voluntary boost and flaws (if they exist)
+        if (this.data.data.voluntary) {
+            const { boost, flaws } = this.data.data.voluntary;
+            if (boost) build.abilities.boosts.ancestry.push(boost);
+            build.abilities.flaws.ancestry.push(...flaws);
         }
 
         // Add languages

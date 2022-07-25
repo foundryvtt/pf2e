@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { RollFunction, TraitViewData } from "@actor/data/base";
-import { calculateMAPs } from "@actor/helpers";
+import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -18,7 +18,7 @@ import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
-import { objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { StrikeAttackTraits } from "./strike-attack-traits";
@@ -617,7 +617,9 @@ class NPCPF2e extends CreaturePF2e {
                             }
 
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
+                            if (rangeIncrement) rollOptions.push(`target:range-increment:${rangeIncrement}`);
+
+                            const rangePenalty = calculateRangePenalty(this, rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
                             const checkName = game.i18n.format(
                                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
@@ -665,7 +667,7 @@ class NPCPF2e extends CreaturePF2e {
                             .sort();
 
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                            context.self.item.data,
+                            context.self.item,
                             context.self.actor,
                             [attackTrait],
                             deepClone(statisticsModifiers),
@@ -676,6 +678,8 @@ class NPCPF2e extends CreaturePF2e {
                             rollNotes,
                             this.synthetics.strikeAdjustments
                         );
+                        if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
                         const { self, target } = context;
 
                         await DamageRollPF2e.roll(

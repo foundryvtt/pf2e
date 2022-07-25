@@ -256,26 +256,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return false;
     }
 
-    /** Construct a range penalty for this creature when making a ranged attack */
-    protected getRangePenalty(
-        increment: number | null,
-        selectors: string[],
-        rollOptions: string[]
-    ): ModifierPF2e | null {
-        if (!increment || increment === 1) return null;
-        const slug = "range-penalty";
-        const modifier = new ModifierPF2e({
-            label: "PF2E.RangePenalty",
-            slug,
-            type: MODIFIER_TYPE.UNTYPED,
-            modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
-            predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
-            adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
-        });
-        modifier.test(rollOptions);
-        return modifier;
-    }
-
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();

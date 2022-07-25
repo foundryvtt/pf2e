@@ -1,5 +1,7 @@
 import { ItemPF2e } from "@item/base";
+import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
+import { WeaponDamagePF2e } from "@system/damage";
 import { MeleeData, NPCAttackTrait } from "./data";
 
 export class MeleePF2e extends ItemPF2e {
@@ -39,6 +41,33 @@ export class MeleePF2e extends ItemPF2e {
         // No explicit maximum range: multiply range increment by six or return null
         const rangeIncrement = this.rangeIncrement;
         return typeof rangeIncrement === "number" ? rangeIncrement * 6 : null;
+    }
+
+    /** The first of this attack's damage instances */
+    get baseDamage(): WeaponDamage {
+        const instance = Object.values(this.system.damageRolls).shift();
+        if (!instance) {
+            return {
+                dice: 0,
+                die: null,
+                modifier: 0,
+                damageType: "untyped",
+            };
+        }
+
+        return WeaponDamagePF2e.npcDamageToWeaponDamage(instance);
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // Set precious material (currently unused)
+        this.system.material = { precious: null };
+
+        // Normalize damage instance formulas
+        for (const instance of Object.values(this.system.damageRolls)) {
+            instance.damage = new Roll(instance.damage).formula;
+        }
     }
 
     /** Generate a list of strings for use in predication */
