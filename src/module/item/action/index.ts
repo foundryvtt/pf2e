@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { ActionData } from "./data";
+import { ActionItemData } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
@@ -53,5 +53,5 @@ export class ActionItemPF2e extends ItemPF2e {
 }
 
 export interface ActionItemPF2e {
-    readonly data: ActionData;
+    readonly data: ActionItemData;
 }

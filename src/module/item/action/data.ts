@@ -9,10 +9,10 @@ import {
 import { ActionItemPF2e } from ".";
 import { OneToThree } from "@module/data";
 
-type ActionSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
+type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 
-type ActionData = Omit<ActionSource, "effects" | "flags"> &
-    BaseItemDataPF2e<ActionItemPF2e, "action", ActionSystemData, ActionSource>;
+type ActionItemData = Omit<ActionItemSource, "effects" | "flags"> &
+    BaseItemDataPF2e<ActionItemPF2e, "action", ActionSystemData, ActionItemSource>;
 
 type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
 type ActionTraits = ItemTraits<ActionTrait>;
@@ -40,4 +40,4 @@ interface ActionSystemSource extends ItemSystemSource {
 
 type ActionSystemData = ActionSystemSource;
 
-export { ActionSource, ActionData, ActionTrait, ActionTraits };
+export { ActionItemSource, ActionItemData, ActionTrait, ActionTraits };

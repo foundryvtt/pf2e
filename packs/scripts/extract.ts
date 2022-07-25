@@ -9,7 +9,7 @@ import type { ItemPF2e } from "@item/base";
 import { isObject, sluggify } from "@util";
 import systemJSON from "system.json";
 import templateJSON from "static/template.json";
-import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
+import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { NPCSystemData } from "@actor/npc/data";
 import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
 import { isPhysicalData } from "@item/data/helpers";
@@ -619,7 +619,7 @@ function sortActions(docName: string, actions: Set<ItemSourcePF2e>): ItemSourceP
     ]);
 
     for (const action of Array.from(actions).sort((a, b) => a.name.localeCompare(b.name))) {
-        const actionData = action as ActionSource;
+        const actionData = action as ActionItemSource;
         const notActionMatch = notActions.find((naName) => actionData.name.match(naName[0]));
         if (notActionMatch) {
             console.log(
