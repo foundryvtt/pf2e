@@ -590,8 +590,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         type WithPreUpdate = RuleElementPF2e & { preUpdate: NonNullable<RuleElementPF2e["preUpdate"]> };
         const rules = this.rules.filter((r): r is WithPreUpdate => !!r.preUpdate);
         if (rules.length > 0) {
-            const clone = this.clone(changed, { keepId: true });
-            this.data.flags.pf2e.rollOptions = clone.data.flags.pf2e.rollOptions;
             for (const rule of rules) {
                 await rule.preUpdate(changed);
             }
