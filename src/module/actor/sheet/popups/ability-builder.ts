@@ -242,6 +242,7 @@ export class AbilityBuilderPopup extends Application {
             for (const flaw of voluntary.flaws) {
                 ancestryBoosts[flaw].voluntaryFlaws += 1;
                 ancestryBoosts[flaw].canVoluntaryFlaw = true;
+                ancestryBoosts[flaw].canVoluntaryFlawAgain = ancestryBoosts[flaw].lockedBoost;
             }
 
             if (voluntary.boost) {
@@ -400,6 +401,7 @@ interface BoostFlawState {
     available: boolean;
     voluntaryFlaws: number;
     canVoluntaryFlaw: boolean;
+    canVoluntaryFlawAgain: boolean;
     voluntaryBoost: boolean;
     canVoluntaryBoost: boolean;
 }
@@ -412,6 +414,7 @@ function defaultBoostFlawState(): BoostFlawState {
         available: false,
         voluntaryFlaws: 0,
         canVoluntaryFlaw: false,
+        canVoluntaryFlawAgain: false,
         voluntaryBoost: false,
         canVoluntaryBoost: false,
     };
