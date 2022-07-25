@@ -70,7 +70,10 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     /** Whether this aura should be rendered to the user */
     get shouldRender(): boolean {
-        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE || !canvas.scene?.active) return false;
+        const sceneOfFocus = game.combats.active?.combatant?.token?.scene ?? game.scenes.active ?? null;
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE || !(canvas.scene && canvas.scene === sceneOfFocus)) {
+            return false;
+        }
 
         return (
             this.token.actor?.alliance === "party" ||
