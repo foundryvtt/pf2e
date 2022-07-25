@@ -34,7 +34,7 @@
 
     .row {
         display: grid;
-        grid-template-columns: 200px repeat(6, 79px);
+        grid-template-columns: 200px repeat(6, 84px);
         grid-template-rows: auto;
 
         &.not-eligible {
@@ -62,8 +62,24 @@
 
     .voluntary-flaw-row {
         margin: 0.5rem 0;
-        .row-column {
-            justify-content: flex-end;
+
+        .flaw-buttons {
+            display: flex;
+            flex-direction: row;
+            width: 58px;
+            button {
+                width: auto;
+                flex: 1 1 0;
+            }
+            .first {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            .second {
+                border-left: 0;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
         }
     }
 
@@ -139,17 +155,17 @@
         text-align: center;
 
         button {
-            border: none;
             color: $boost-color;
             font-size: var(--font-size-10);
             height: 14px;
             line-height: var(--font-size-10);
-            margin-bottom: 4px;
-            margin-top: 4px;
-            outline: 1px solid $boost-color;
+            margin: 4px 0;
+            border: 1px solid $boost-color;
+            outline: none;
+            padding: 1px 4px;
             position: relative;
             text-transform: uppercase;
-            width: 54px;
+            width: 58px;
 
             &:hover {
                 box-shadow: 0 0 5px $boost-color;
@@ -165,7 +181,7 @@
                     box-shadow: none;
                     color: rgba($boost-color, 0.4);
                     cursor: not-allowed;
-                    outline-color: rgba($boost-color, 0.4);
+                    border-color: rgba($boost-color, 0.4);
                 }
             }
 
@@ -181,7 +197,7 @@
                 background: rgba(0, 0, 0, 0.04);
                 color: rgba($boost-color, 0.4);
                 display: block;
-                outline-color: rgba($boost-color, 0.4);
+                border-color: rgba($boost-color, 0.4);
                 pointer-events: none;
                 visibility: hidden;
             }
@@ -190,7 +206,7 @@
                 display: block;
                 background: rgba(0, 0, 0, 0.04);
                 color: rgba($boost-color, 0.4);
-                outline-color: rgba($boost-color, 0.4);
+                border-color: rgba($boost-color, 0.4);
 
                 &:active {
                     pointer-events: none;
@@ -203,14 +219,14 @@
             }
 
             &.locked {
-                outline-color: $locked-color;
+                border-color: $locked-color;
                 background: $locked-color;
                 color: white;
                 pointer-events: none;
             }
 
             &.flaw {
-                outline: 1px solid $flaw-color;
+                border: 1px solid $flaw-color;
                 color: $flaw-color;
 
                 &.selected {
@@ -223,13 +239,13 @@
                     &:disabled {
                         box-shadow: none;
                         color: rgba($flaw-color, 0.4);
-                        outline-color: rgba($flaw-color, 0.4);
+                        border-color: rgba($flaw-color, 0.4);
                     }
                 }
 
                 &:disabled {
                     color: rgba($flaw-color, 0.4);
-                    outline-color: rgba($flaw-color, 0.4);
+                    border-color: rgba($flaw-color, 0.4);
                 }
             }
 
@@ -246,11 +262,11 @@
             }
 
             &.neutral {
-                outline: 1px solid $neutral-color;
+                border: 1px solid $neutral-color;
                 color: $neutral-color;
 
                 &.selected {
-                    outline: none;
+                    border: none;
                     background: $neutral-color;
                     color: white;
                 }
