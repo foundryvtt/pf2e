@@ -28,6 +28,7 @@ interface AuraData {
 
 interface AuraEffectData {
     uuid: string;
+    level: number | null;
     affects: "allies" | "enemies" | "all";
     events: ("enter" | "turn-start" | "turn-end")[];
     save: {

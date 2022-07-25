@@ -13,7 +13,7 @@ export class AuraRuleElement extends RuleElementPF2e {
     radius: number | string;
 
     /** References to effects included in this aura */
-    effects: AuraEffectData[];
+    effects: AuraREEffectData[];
 
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
     traits: ItemTrait[];
@@ -51,7 +51,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         const radius = Math.clamped(Number(this.resolveValue(this.radius)), 5, 240);
 
         if (typeof Number.isInteger(radius) && radius > 0 && radius % 5 === 0) {
-            const data: AuraData = { slug: this.slug, radius, effects: this.effects, traits: this.traits };
+            const data: AuraData = { slug: this.slug, radius, effects: this.#processEffects(), traits: this.traits };
             this.actor.auras.set(this.slug, data);
             if (this.colors) data.colors = this.colors;
         }
@@ -84,7 +84,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         );
     }
 
-    #isEffectData(effect: unknown): effect is AuraEffectData {
+    #isEffectData(effect: unknown): effect is AuraREEffectData {
         if (!isObject<AuraEffectData>(effect)) return false;
         effect.affects ??= "all";
         effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
@@ -92,12 +92,18 @@ export class AuraRuleElement extends RuleElementPF2e {
 
         return (
             typeof effect.uuid === "string" &&
+            (!("level" in effect) || ["string", "number"].includes(typeof effect.level)) &&
             typeof effect.affects === "string" &&
             ["allies", "enemies", "all"].includes(effect.affects) &&
             Array.isArray(effect.events) &&
             effect.events.every((e) => typeof e === "string" && ["enter", "turn-start", "turn-end"].includes(e)) &&
             typeof effect.removeOnExit === "boolean"
         );
+    }
+
+    /** Resolve level values on effects */
+    #processEffects(): AuraEffectData[] {
+        return this.effects.map((e) => ({ ...e, level: Number(this.resolveValue(e.level)) || null }));
     }
 }
 
@@ -112,7 +118,11 @@ interface AuraRuleElementSource extends RuleElementSource {
 interface AuraRuleElementData extends RuleElementSource {
     predicate: PredicatePF2e;
     radius: string | number;
-    effects: AuraEffectData[];
+    effects: AuraREEffectData[];
     traits: ItemTrait[];
     colors?: AuraColors;
+}
+
+interface AuraREEffectData extends Omit<AuraEffectData, "level"> {
+    level?: string | number;
 }
