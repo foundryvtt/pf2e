@@ -2082,24 +2082,6 @@ class CharacterPF2e extends CreaturePF2e {
             await this.update({ "data.abilities": deletions });
         }
     }
-
-    /** Toggle between boost-driven and manual management of ability scores */
-    async toggleVoluntaryFlaw(): Promise<void> {
-        if (!this.ancestry) return;
-        if (Object.keys(this.ancestry?.data._source.data.voluntaryFlaws || []).length === 0) {
-            await this.ancestry.update({
-                "data.voluntaryBoosts.vb": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-                "data.voluntaryFlaws.vf1": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-                "data.voluntaryFlaws.vf2": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-            });
-        } else {
-            await this.ancestry.update({
-                "data.voluntaryBoosts.-=vb": null,
-                "data.voluntaryFlaws.-=vf1": null,
-                "data.voluntaryFlaws.-=vf2": null,
-            });
-        }
-    }
 }
 
 interface CharacterPF2e {
