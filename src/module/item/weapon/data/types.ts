@@ -49,7 +49,7 @@ type WeaponTraits = Required<WeaponSourceTraits>;
 interface WeaponDamage {
     value?: string;
     dice: number;
-    die: DamageDieSize;
+    die: DamageDieSize | null;
     damageType: DamageType;
     modifier: number;
 }

@@ -1786,7 +1786,7 @@ class CharacterPF2e extends CreaturePF2e {
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
-                    context.self.item.data,
+                    context.self.item,
                     context.self.actor,
                     context.traits,
                     statisticsModifiers,
@@ -1799,6 +1799,8 @@ class CharacterPF2e extends CreaturePF2e {
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
+                if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
 
                 // Find a critical specialization note

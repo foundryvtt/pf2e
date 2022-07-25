@@ -17,7 +17,7 @@ import {
     WEAPON_PROPERTY_RUNES,
     WEAPON_VALUATION_DATA,
 } from "../runes";
-import { WeaponData, WeaponMaterialData, WeaponSource } from "./data";
+import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
     OtherWeaponTag,
@@ -105,6 +105,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && this.reload === "-";
     }
 
+    /** This weapon's damage before modification by creature abilities, effects, etc. */
+    get baseDamage(): WeaponDamage {
+        return this.system.damage;
+    }
+
     override get material(): WeaponMaterialData {
         return this.system.material;
     }
@@ -128,7 +133,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const damage = {
             type: this.system.damage.damageType,
-            dieFaces: Number(this.system.damage.die.replace(/^d/, "")),
+            dieFaces: Number(this.system.damage.die?.replace(/^d/, "")),
         };
         const { actor } = this;
         const actorSize = actor?.data.data.traits.size;
@@ -484,7 +489,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const baseDamage = ((): MeleeDamageRoll => {
-            const weaponDamage = this.system.damage;
+            const weaponDamage = this.baseDamage;
             const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
