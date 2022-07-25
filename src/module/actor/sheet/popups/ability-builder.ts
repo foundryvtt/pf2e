@@ -3,6 +3,7 @@ import { Abilities } from "@actor/creature/data";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
+import { setHasElement } from "@util";
 
 export class AbilityBuilderPopup extends Application {
     constructor(private actor: CharacterPF2e) {
@@ -51,7 +52,7 @@ export class AbilityBuilderPopup extends Application {
 
         $html.find<HTMLInputElement>("input[name=toggle-voluntary-flaw]").on("change", async (event) => {
             if (event.originalEvent) {
-                await actor.toggleVoluntaryFlaw();
+                await actor.ancestry?.toggleVoluntaryFlaw();
             }
         });
 
@@ -75,55 +76,38 @@ export class AbilityBuilderPopup extends Application {
         });
 
         $html.find("button[data-action=voluntary-flaw]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
+            const $button = $(event.currentTarget);
+            const ability = $button.attr("data-ability");
+            const removing = $button.hasClass("selected");
+            const { ancestry } = actor;
+            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
 
-            const flawToRemove = Object.entries(actor.ancestry?.data.data.voluntaryFlaws ?? {}).find(
-                ([, b]) => b.selected === ability
-            );
-            if (flawToRemove) {
-                // we can only remove a voluntary flaw if they don't have a voluntary boost selected
-                const hasVoluntaryBoostSelected = Object.entries(actor.ancestry?.data.data.voluntaryBoosts ?? {}).find(
-                    ([, b]) => b.selected
-                );
-                if (!hasVoluntaryBoostSelected) {
-                    await actor.ancestry?.update({
-                        [`data.voluntaryFlaws.${flawToRemove[0]}.selected`]: null,
-                    });
-                }
-                return;
+            const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [], boost: null };
+            const alreadyHasFlaw = flaws.includes(ability);
+
+            // If removing, it must exist and there shouldn't be a boost selected
+            if (removing && alreadyHasFlaw && !boost) {
+                flaws.splice(flaws.indexOf(ability), 1);
+                await ancestry.update({ data: { voluntary: { flaws } } });
             }
 
-            const freeFlaw = Object.entries(actor.ancestry?.data.data.voluntaryFlaws ?? {}).find(
-                ([, b]) => !b.selected && b.value.length > 0
-            );
-            if (freeFlaw) {
-                await actor.ancestry?.update({
-                    [`data.voluntaryFlaws.${freeFlaw[0]}.selected`]: ability,
-                });
+            // If adding, we need to be under 2 flaws, it must be new or be a locked ancestry boost (to double flaw)
+            const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
+            if (!removing && flaws.length < 2 && (!alreadyHasFlaw || boostedByAncestry)) {
+                flaws.push(ability);
+                await ancestry.update({ data: { voluntary: { flaws } } });
             }
         });
 
         $html.find("button[data-action=voluntary-boost]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
+            const $button = $(event.currentTarget);
+            const removing = $button.hasClass("selected");
+            const ability = $button.attr("data-ability");
+            const { ancestry } = actor;
+            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
 
-            const boostToRemove = Object.entries(actor.ancestry?.data.data.voluntaryBoosts ?? {}).find(
-                ([, b]) => b.selected === ability
-            );
-            if (boostToRemove) {
-                await actor.ancestry?.update({
-                    [`data.voluntaryBoosts.${boostToRemove[0]}.selected`]: null,
-                });
-                return;
-            }
-
-            const freeBoost = Object.entries(actor.ancestry?.data.data.voluntaryBoosts ?? {}).find(
-                ([, b]) => !b.selected && b.value.length > 0
-            );
-            if (freeBoost) {
-                await actor.ancestry?.update({
-                    [`data.voluntaryBoosts.${freeBoost[0]}.selected`]: ability,
-                });
-            }
+            const boost = removing ? null : ability;
+            await ancestry.update({ data: { voluntary: { boost } } });
         });
 
         $html.find("button[data-action=background-boost]").on("click", async (event) => {
@@ -201,7 +185,7 @@ export class AbilityBuilderPopup extends Application {
             keyOptions: build.keyOptions,
             ancestryBoosts: this.calculateAncestryBoosts(),
             backgroundBoosts: this.calculateBackgroundBoosts(),
-            voluntaryFlaw: Object.keys(actor.ancestry?.data.data.voluntaryBoosts ?? {}).length > 0,
+            voluntaryFlaw: !!actor.ancestry?.data.data.voluntary,
             levelBoosts: this.calculatedLeveledBoosts(),
         };
     }
@@ -224,13 +208,14 @@ export class AbilityBuilderPopup extends Application {
             }
         }
 
+        for (const lockedBoost of actor.ancestry.lockedBoosts) {
+            ancestryBoosts[lockedBoost].lockedBoost = true;
+        }
+
         let shownBoost = false;
         let boostsRemaining = 0;
         for (const boost of Object.values(actor.ancestry.data.data.boosts)) {
             if (boost.selected) {
-                if (boost.value.length === 1) {
-                    ancestryBoosts[boost.selected].lockedBoost = true;
-                }
                 ancestryBoosts[boost.selected].boosted = true;
                 ancestryBoosts[boost.selected].available = true;
             } else if (boost.value.length > 0) {
@@ -244,31 +229,24 @@ export class AbilityBuilderPopup extends Application {
             }
         }
 
-        let voluntaryBoostsRemaining = 0;
-        let voluntaryFlawsRemaining = false;
-        for (const flaw of Object.values(actor.ancestry.data.data.voluntaryFlaws)) {
-            if (flaw.selected) {
-                ancestryBoosts[flaw.selected].voluntaryFlaws = true;
-                ancestryBoosts[flaw.selected].canVoluntaryFlaw = true;
-            } else {
-                voluntaryFlawsRemaining = true;
-                for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
-                    ancestryBoosts[ability].canVoluntaryFlaw = true;
-                }
-            }
-        }
+        const { voluntary } = actor.ancestry.system;
+        const voluntaryBoostsRemaining = voluntary && !voluntary.boost ? 1 : 0;
 
-        for (const boost of Object.values(actor.ancestry.data.data.voluntaryBoosts)) {
-            if (boost.selected) {
-                ancestryBoosts[boost.selected].voluntaryBoost = true;
-                ancestryBoosts[boost.selected].canVoluntaryBoost = true;
-            } else {
-                voluntaryBoostsRemaining += 1;
-                if (!voluntaryFlawsRemaining) {
-                    for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
-                        ancestryBoosts[ability].canVoluntaryBoost = true;
-                    }
-                }
+        if (voluntary) {
+            // Initalize ancestry boosts according to flaw/boost state
+            for (const boost of Object.values(ancestryBoosts)) {
+                boost.canVoluntaryFlaw = voluntary.flaws.length < 2;
+                boost.canVoluntaryBoost = !boost.canVoluntaryFlaw && voluntaryBoostsRemaining > 0;
+            }
+
+            for (const flaw of voluntary.flaws) {
+                ancestryBoosts[flaw].voluntaryFlaws += 1;
+                ancestryBoosts[flaw].canVoluntaryFlaw = true;
+            }
+
+            if (voluntary.boost) {
+                ancestryBoosts[voluntary.boost].voluntaryBoost = true;
+                ancestryBoosts[voluntary.boost].canVoluntaryBoost = true;
             }
         }
 
@@ -290,7 +268,7 @@ export class AbilityBuilderPopup extends Application {
         return {
             boosts: ancestryBoosts,
             remaining: boostsRemaining,
-            voluntaryBoostsRemaining: voluntaryBoostsRemaining,
+            voluntaryBoostsRemaining,
             labels: this.calculateBoostLabels(actor.ancestry.data.data.boosts),
             flawLabels: this.calculateBoostLabels(actor.ancestry.data.data.flaws),
         };
@@ -420,7 +398,7 @@ interface BoostFlawState {
     lockedBoost: boolean;
     boosted: boolean;
     available: boolean;
-    voluntaryFlaws: boolean;
+    voluntaryFlaws: number;
     canVoluntaryFlaw: boolean;
     voluntaryBoost: boolean;
     canVoluntaryBoost: boolean;
@@ -432,7 +410,7 @@ function defaultBoostFlawState(): BoostFlawState {
         lockedBoost: false,
         boosted: false,
         available: false,
-        voluntaryFlaws: false,
+        voluntaryFlaws: 0,
         canVoluntaryFlaw: false,
         voluntaryBoost: false,
         canVoluntaryBoost: false,
