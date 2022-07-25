@@ -16,7 +16,7 @@ export class AbilityBuilderPopup extends Application {
             ...super.defaultOptions,
             classes: ["ability-builder-popup"],
             title: game.i18n.localize("PF2E.AbilityScoresHeader"),
-            template: "systems/pf2e/templates/actors/ability-builder.html",
+            template: "systems/pf2e/templates/actors/character/ability-builder.html",
             width: "auto",
         };
     }
