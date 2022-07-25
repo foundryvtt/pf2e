@@ -306,7 +306,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     },
                 };
 
-                toCreate.push(mergeObject(effect.toObject(), { flags }));
+                const source = mergeObject(effect.toObject(), { flags });
+                source.data.level.value = data.level ?? source.data.level.value;
+                toCreate.push(source);
             }
         }
 
