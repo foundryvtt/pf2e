@@ -79,6 +79,15 @@
                 {{#if voluntaryFlaw}}
                     {{#each ancestryBoosts.boosts as |boost ability|}}
                         <div class="row-column">
+                            {{#if boost.lockedBoost}}
+                                <button type="button" data-action="voluntary-flaw" data-ability="{{ability}}"
+                                    class="flaw {{#if (gte boost.voluntaryFlaws 2)}} selected{{/if}}"
+                                    {{disabled (not boost.canVoluntaryFlawAgain)}}
+                                >
+                                {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
+                                </button>
+                            {{/if}}
+
                             <button type="button" data-action="voluntary-flaw" data-ability="{{ability}}"
                                 class="flaw {{~#if boost.voluntaryFlaws}} selected{{/if}}"
                                 {{disabled (not boost.canVoluntaryFlaw)}}
@@ -86,6 +95,7 @@
                                 {{#if boost.lockedFlaw}}<i class="fas fa-lock"></i>{{/if}}
                                 {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
                             </button>
+
                             <button type="button" data-action="voluntary-boost" data-ability="{{ability}}"
                                 {{#unless boost.canVoluntaryBoost}}title="{{localize "PF2E.Actor.Character.AbilityBuilder.VoluntaryFlaw.Description"}}"{{/unless}}
                                 class="tooltip boost {{~#if boost.voluntaryBoost}} selected{{/if}}"
