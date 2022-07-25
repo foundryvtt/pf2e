@@ -4,6 +4,15 @@ import { measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
+    /** Whether the Token Auras module is active */
+    kimsNaughtyModule: boolean;
+
+    constructor(document: TokenDocumentPF2e) {
+        super(document);
+
+        this.kimsNaughtyModule = game.modules.get("token-auras")?.active ?? false;
+    }
+
     /** Visual representation and proximity-detection facilities for auras */
     auras = new AuraRenderers(this);
 
@@ -146,7 +155,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Make the drawing promise accessible to `#redraw` */
     override async draw(): Promise<this> {
-        this.auras.clear();
+        if (!this.kimsNaughtyModule) this.auras.clear();
         this.drawLock = super.draw();
         await this.drawLock;
 
@@ -155,7 +164,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Draw auras along with effect icons */
     override drawEffects(): Promise<void> {
-        this.auras.draw();
+        if (!this.kimsNaughtyModule) this.auras.draw();
         return super.drawEffects();
     }
 
@@ -300,7 +309,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
-        this.auras.refresh();
+        if (!this.kimsNaughtyModule) this.auras.refresh();
         canvas.lighting.setPerceivedLightLevel(this);
     }
 
@@ -311,7 +320,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         const hasLowLightVision = canvas.sight.sources.some((s) => s.object !== this && s.object.hasLowLightVision);
         canvas.lighting.setPerceivedLightLevel({ hasLowLightVision });
         super._onRelease(options);
-        this.auras.refresh();
+        if (!this.kimsNaughtyModule) this.auras.refresh();
     }
 
     /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
@@ -334,7 +343,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
         super._onDragLeftStart(event);
-        this.auras.clearHighlights();
+        if (!this.kimsNaughtyModule) this.auras.clearHighlights();
     }
 
     /** If a single token (this one) was dropped, re-establish the hover status */
@@ -347,7 +356,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             this.emitHoverIn();
         }
 
-        this.auras.refresh();
+        if (!this.kimsNaughtyModule) this.auras.refresh();
 
         return dropped;
     }
@@ -355,7 +364,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
-        this.auras.refresh();
+        if (!this.kimsNaughtyModule) this.auras.refresh();
 
         return true;
     }
@@ -363,7 +372,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
-        this.auras.refresh();
+        if (!this.kimsNaughtyModule) this.auras.refresh();
 
         return true;
     }
@@ -371,13 +380,13 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Destroy auras before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
         super._onDelete(options, userId);
-        this.auras.clear();
+        if (!this.kimsNaughtyModule) this.auras.clear();
     }
 
     /** A callback for when a movement animation for this token finishes */
     private async onFinishMoveAnimation(): Promise<void> {
         if (this._movement) return;
-        this.auras.refresh();
+        if (!this.kimsNaughtyModule) this.auras.refresh();
     }
 }
 
