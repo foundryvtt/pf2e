@@ -51,6 +51,7 @@ export const Load = {
             lte: (a: number, b: number) => a <= b,
             ne: (a: number, b: number) => a !== b,
             ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => (condition ? ifTrue : ifFalse),
+            coalesce: <T extends number | boolean>(value: T | null | undefined, fallback: T): T => value ?? fallback,
         });
 
         // Make available immediately on load for module subclassing

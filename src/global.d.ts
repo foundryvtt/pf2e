@@ -197,6 +197,7 @@ declare global {
         lte: (a: number, b: number) => boolean;
         ne: (a: number, b: number) => boolean;
         ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
+        coalesce: <T extends number | boolean>(value: T | null | undefined, fallback: T) => T;
     }
 
     const BUILD_MODE: "development" | "production";
