@@ -913,6 +913,7 @@ class CharacterPF2e extends CreaturePF2e {
             const save = systemData.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const modifiers: ModifierPF2e[] = [];
+            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.data.data.resiliencyRune.value) {
@@ -924,12 +925,14 @@ class CharacterPF2e extends CreaturePF2e {
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
+                const slug = "bulwark";
                 const bulwarkModifier = new ModifierPF2e({
-                    slug: "bulwark",
+                    slug,
                     type: MODIFIER_TYPE.UNTYPED,
                     label: CONFIG.PF2E.armorTraits.bulwark,
                     modifier: 3,
                     predicate: { all: ["damaging-effect"] },
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
                 });
                 modifiers.push(bulwarkModifier);
 
@@ -943,7 +946,6 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             // Add custom modifiers and roll notes relevant to this save.
-            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
             modifiers.push(...extractModifiers(this.synthetics, selectors));
 
             const stat = new Statistic(this, {
