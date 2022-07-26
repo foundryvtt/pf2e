@@ -550,7 +550,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
-        // If this item is of a certain type and is being added to a PC, increase HP by amount increased by new ABC item
+        // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const clone = this.actor.clone({
                 items: [...this.actor.toObject().items, data],
@@ -584,6 +584,23 @@ class ItemPF2e extends Item<ActorPF2e> {
     ): Promise<void> {
         if (changed.data?.description?.value === null) {
             changed.data.description.value = "";
+        }
+
+        // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
+        if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
+            const actorClone = this.actor.clone();
+            const item = actorClone.items.get(this.id, { strict: true });
+            item.data.update(changed, options);
+            actorClone.prepareData();
+
+            const hpMaxDifference = actorClone.hitPoints.max - this.actor.hitPoints.max;
+            if (hpMaxDifference !== 0) {
+                const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
+                await this.actor.update(
+                    { "data.attributes.hp.value": newHitPoints },
+                    { render: false, allowHPOverage: true }
+                );
+            }
         }
 
         // Run preUpdateItem rule element callbacks
