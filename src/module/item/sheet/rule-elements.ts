@@ -35,6 +35,13 @@ class RollNoteForm extends RuleElementForm {
         if (Array.isArray(ruleData.outcome) && ruleData.outcome.length === 0) {
             delete ruleData.outcome;
         }
+
+        if (typeof ruleData.title === "string") {
+            ruleData.title = ruleData.title.trim();
+            if (ruleData.title === "") {
+                delete ruleData.title;
+            }
+        }
     }
 }
 
