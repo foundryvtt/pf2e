@@ -1,9 +1,8 @@
 .ability-builder-popup .window-content {
     $boost-color: #316549;
-    $boost-locked-color: #1B3C2A;
-    $locked-color: #1B3C2A;
-    $flaw-color: #5E0000;
-    $flaw-locked-color: #5E0000;
+    $boost-locked-color: #1b3c2a;
+    $flaw-color: #5e0000;
+    $flaw-locked-color: #5e0000;
     $neutral-color: var(--alt);
 
     background: url("../assets/sheet/background.webp");
@@ -66,27 +65,35 @@
         .flaw-buttons {
             display: flex;
             flex-direction: row;
-            width: 58px;
+
             button {
-                width: auto;
                 flex: 1 1 0;
-            }
-            .first {
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-            }
-            .second {
-                border-left: 0;
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
+
+                &.first {
+                    border-bottom-right-radius: 0;
+                    border-right: none;
+                    border-top-right-radius: 0;
+                    width: 4em;
+                }
+
+                &.second {
+                    border-bottom-left-radius: 0;
+                    border-top-left-radius: 0;
+                    max-width: 2em;
+                    text-transform: none;
+
+                    &.selected {
+                        border-left-color: rgba(white, 50%);
+                    }
+                }
             }
         }
     }
 
     .full-row {
+        align-items: center;
         display: flex;
         grid-column: 2 / span 6;
-        align-items: center;
         justify-content: center;
     }
 
@@ -155,20 +162,20 @@
         text-align: center;
 
         button {
-            color: $boost-color;
-            font-size: var(--font-size-10);
-            height: 14px;
-            line-height: var(--font-size-10);
+            align-items: center;
+            display: flex;
+            font-size: var(--font-size-12);
+            height: 1.5em;
+            justify-content: space-around;
+            line-height: inherit;
             margin: 4px 0;
-            border: 1px solid $boost-color;
             outline: none;
-            padding: 1px 4px;
+            padding: 0.1em 0 0;
             position: relative;
             text-transform: uppercase;
-            width: 58px;
+            width: 6em;
 
             &:hover {
-                box-shadow: 0 0 5px $boost-color;
                 cursor: pointer;
 
                 &.key-ability.selected {
@@ -179,59 +186,81 @@
                 &:disabled {
                     background: rgba(0, 0, 0, 0.04);
                     box-shadow: none;
-                    color: rgba($boost-color, 0.4);
                     cursor: not-allowed;
-                    border-color: rgba($boost-color, 0.4);
                 }
             }
 
             i.fas {
-                font-size: var(--font-size-8);
-                left: 3px;
-                line-height: var(--font-size-8);
-                margin: auto;
+                font-size: var(--font-size-10);
+                left: 0.5em;
                 position: absolute;
+                text-align: left;
             }
 
             &.hidden {
-                background: rgba(0, 0, 0, 0.04);
-                color: rgba($boost-color, 0.4);
-                display: block;
-                border-color: rgba($boost-color, 0.4);
                 pointer-events: none;
                 visibility: hidden;
             }
 
             &:disabled {
-                display: block;
                 background: rgba(0, 0, 0, 0.04);
-                color: rgba($boost-color, 0.4);
-                border-color: rgba($boost-color, 0.4);
 
                 &:active {
                     pointer-events: none;
                 }
             }
 
-            &.selected {
-                background: $boost-color;
-                color: white;
+            &.locked {
+                pointer-events: none;
             }
 
-            &.locked {
-                border-color: $locked-color;
-                background: $locked-color;
-                color: white;
-                pointer-events: none;
+            &.boost {
+                border: 1px solid $boost-color;
+                color: $boost-color;
+
+                &.locked, &.selected {
+                    color: white;
+                }
+
+                &.selected {
+                    background: $boost-color;
+                }
+
+                &.locked {
+                    background: $boost-locked-color;
+                    border-color: $boost-locked-color;
+                }
+
+                &:hover {
+                    box-shadow: 0 0 5px $boost-color;
+                    &:disabled {
+                        box-shadow: none;
+                        color: rgba($boost-color, 0.4);
+                        border-color: rgba($boost-color, 0.4);
+                    }
+                }
+
+                &:disabled {
+                    color: rgba($boost-color, 0.4);
+                    border-color: rgba($boost-color, 0.4);
+                }
             }
 
             &.flaw {
                 border: 1px solid $flaw-color;
                 color: $flaw-color;
 
+                &.locked, &.selected {
+                    color: white;
+                }
+
                 &.selected {
                     background: $flaw-color;
-                    color: white;
+                }
+
+                &.locked {
+                    background: $flaw-locked-color;
+                    border-color: $flaw-locked-color;
                 }
 
                 &:hover {
@@ -387,12 +416,12 @@
     }
 
     h3 {
-        font: 400 var(--font-size-20) var(--serif-condensed);
-        line-height: var(--font-size-16);
+        font: 400 var(--font-size-24) var(--serif-condensed);
+        line-height: var(--font-size-24);
     }
 
     h4 {
-        font: 400 var(--font-size-9) var(--sans-serif);
+        font: 400 var(--font-size-10) var(--sans-serif);
         text-transform: uppercase;
         color: #605856;
     }

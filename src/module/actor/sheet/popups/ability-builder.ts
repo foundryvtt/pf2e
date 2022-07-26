@@ -242,7 +242,8 @@ export class AbilityBuilderPopup extends Application {
             for (const flaw of voluntary.flaws) {
                 ancestryBoosts[flaw].voluntaryFlaws += 1;
                 ancestryBoosts[flaw].canVoluntaryFlaw = true;
-                ancestryBoosts[flaw].canVoluntaryFlawAgain = ancestryBoosts[flaw].lockedBoost;
+                ancestryBoosts[flaw].canVoluntaryFlawAgain =
+                    ancestryBoosts[flaw].lockedBoost && voluntary.flaws.length < 2;
             }
 
             if (voluntary.boost) {
@@ -261,7 +262,13 @@ export class AbilityBuilderPopup extends Application {
             if (ancestryBoosts[ability].boosted && !hasFlaw) {
                 ancestryBoosts[ability].canVoluntaryBoost = false;
             }
-            if (ancestryBoosts[ability].voluntaryBoost && !ancestryBoosts[ability].lockedFlaw) {
+            if (
+                ancestryBoosts[ability].voluntaryBoost &&
+                !hasFlaw &&
+                !ancestryBoosts[ability].boosted &&
+                !ancestryBoosts[ability].lockedBoost &&
+                !ancestryBoosts[ability].lockedFlaw
+            ) {
                 ancestryBoosts[ability].available = false;
             }
         }
@@ -286,8 +293,8 @@ export class AbilityBuilderPopup extends Application {
             }),
             {} as BoostFlawRow
         );
-        let boostsRemaining = 0;
 
+        let boostsRemaining = 0;
         let shownBoost = false;
         for (const boost of Object.values(actor.background.data.data.boosts)) {
             if (boost.selected) {
