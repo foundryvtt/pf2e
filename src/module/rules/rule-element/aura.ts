@@ -45,7 +45,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         }
     }
 
-    override beforePrepareData(): void {
+    override afterPrepareData(): void {
         if (!this.test()) return;
 
         const radius = Math.clamped(Number(this.resolveValue(this.radius)), 5, 240);

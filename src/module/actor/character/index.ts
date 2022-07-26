@@ -526,6 +526,10 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
 
             systemData.attributes.hp = stat;
+
+            // Set a roll option for HP percentage
+            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
+            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
         }
 
         this.prepareFeats();
