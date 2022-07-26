@@ -86,7 +86,7 @@ interface ModifierAdjustment {
     predicate: PredicatePF2e;
     damageType?: DamageType;
     relabel?: string;
-    suppress: boolean;
+    suppress?: boolean;
     getNewValue?: (current: number) => number;
     getDamageType?: (current: DamageType | null) => DamageType | null;
 }
@@ -564,8 +564,13 @@ class CheckModifier extends StatisticModifier {
      * @param statistic The statistic modifier to copy fields from.
      * @param modifiers Additional modifiers to add to this check.
      */
-    constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
-        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers));
+    constructor(
+        name: string,
+        statistic: StatisticModifier,
+        modifiers: ModifierPF2e[] = [],
+        rollOptions: string[] = []
+    ) {
+        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), rollOptions);
     }
 }
 

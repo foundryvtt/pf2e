@@ -59,7 +59,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     get description(): string {
-        return this.system.description.value;
+        return this.system.description.value.trim();
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */

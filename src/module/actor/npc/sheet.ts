@@ -15,7 +15,14 @@ import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement }
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
 import { NPCSkillData } from "./data";
-import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSheetItemData, NPCSystemSheetData } from "./types";
+import {
+    NPCActionSheetData,
+    NPCAttackSheetData,
+    NPCSheetData,
+    NPCSheetItemData,
+    NPCSpellcastingSheetData,
+    NPCSystemSheetData,
+} from "./types";
 
 export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
@@ -324,6 +331,24 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             save.adjustedHigher = save.totalModifier > Number(save.base);
             save.adjustedLower = save.totalModifier < Number(save.base);
         }
+    }
+
+    protected override prepareSpellcasting(): NPCSpellcastingSheetData[] {
+        const entries: NPCSpellcastingSheetData[] = super.prepareSpellcasting();
+        for (const entry of entries) {
+            const entryItem = this.actor.items.get(entry.id);
+            if (!entryItem?.isOfType("spellcastingEntry")) continue;
+            entry.adjustedHigher = {
+                dc: entry.statistic.dc.value > entryItem.data._source.data.spelldc.dc,
+                mod: entry.statistic.check.mod > entryItem.data._source.data.spelldc.value,
+            };
+            entry.adjustedLower = {
+                dc: entry.statistic.dc.value < entryItem.data._source.data.spelldc.dc,
+                mod: entry.statistic.check.mod < entryItem.data._source.data.spelldc.value,
+            };
+        }
+
+        return entries;
     }
 
     /**

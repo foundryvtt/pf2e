@@ -5,7 +5,7 @@ import { ErrorPF2e } from "@util";
 /**
  * @category Other
  */
-export class DicePF2e {
+class DicePF2e {
     _rolled?: boolean;
     terms?: string[];
 
@@ -189,6 +189,7 @@ export class DicePF2e {
      * @param critical      Allow critical hits to be chosen
      * @param onClose       Callback for actions to take when the dialog form is closed
      * @param dialogOptions Modal dialog options
+     * @param simplify      Whether alike terms should be combined
      */
     static async damageRoll({
         event,
@@ -203,7 +204,7 @@ export class DicePF2e {
         critical = false,
         onClose,
         dialogOptions,
-        combineTerms = false,
+        simplify = false,
     }: {
         event: JQuery.Event;
         item?: Embedded<ItemPF2e> | null;
@@ -218,7 +219,7 @@ export class DicePF2e {
         critical?: boolean;
         onClose?: Function;
         dialogOptions?: Partial<ApplicationOptions>;
-        combineTerms?: boolean;
+        simplify?: boolean;
     }): Promise<Rolled<Roll> | null> {
         // Inner roll function
         const defaultRollMode = game.settings.get("core", "rollMode");
@@ -250,7 +251,7 @@ export class DicePF2e {
 
             const rule = game.settings.get("pf2e", "critRule");
             const formula = Roll.replaceFormulaData(rollParts.join("+"), data);
-            const baseRoll = combineTerms ? this.combineTerms(formula) : new Roll(formula);
+            const baseRoll = simplify ? combineTerms(formula) : new Roll(formula);
             if (crit) {
                 if (rule === "doubledamage") {
                     rollParts = [`(${baseRoll.formula}) * 2`];
@@ -340,29 +341,6 @@ export class DicePF2e {
         });
     }
 
-    /** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
-    static combineTerms(formula: string): Roll {
-        const roll = new Roll(formula);
-        if (
-            !roll.terms.every((term) => term.expression === " + " || term instanceof Die || term instanceof NumericTerm)
-        ) {
-            // This isn't a simple summing of dice: return the roll unaltered
-            return roll;
-        }
-        const dice = roll.terms.filter((term): term is Die => term instanceof Die);
-        const diceByFaces = dice.reduce((counts: Record<number, number>, die) => {
-            counts[die.faces] = (counts[die.faces] ?? 0) + die.number;
-            return counts;
-        }, {});
-        const stringTerms = [4, 6, 8, 10, 12, 20].reduce((terms: string[], faces) => {
-            return typeof diceByFaces[faces] === "number" ? [...terms, `${diceByFaces[faces]}d${faces}`] : terms;
-        }, []);
-        const numericTerms = roll.terms.filter((term): term is NumericTerm => term instanceof NumericTerm);
-        const constant = numericTerms.reduce((runningTotal, term) => runningTotal + term.number, 0);
-
-        return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+"));
-    }
-
     alter(add: number, multiply: number): this {
         const rgx = new RegExp(DiceTerm.REGEXP, "g");
         if (this._rolled) throw ErrorPF2e("You may not alter a Roll which has already been rolled");
@@ -406,3 +384,26 @@ export class DicePF2e {
         return traits.prop("outerHTML");
     }
 }
+
+/** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
+function combineTerms(formula: string): Roll {
+    const roll = new Roll(formula);
+    if (!roll.terms.every((t) => t.expression === " + " || t instanceof Die || t instanceof NumericTerm)) {
+        // This isn't a simple summing of dice: return the roll unaltered
+        return roll;
+    }
+    const dice = roll.terms.filter((term): term is Die => term instanceof Die);
+    const diceByFaces = dice.reduce((counts: Record<number, number>, die) => {
+        counts[die.faces] = (counts[die.faces] ?? 0) + die.number;
+        return counts;
+    }, {});
+    const stringTerms = [4, 6, 8, 10, 12, 20].reduce((terms: string[], faces) => {
+        return typeof diceByFaces[faces] === "number" ? [...terms, `${diceByFaces[faces]}d${faces}`] : terms;
+    }, []);
+    const numericTerms = roll.terms.filter((term): term is NumericTerm => term instanceof NumericTerm);
+    const constant = numericTerms.reduce((runningTotal, term) => runningTotal + term.number, 0);
+
+    return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+"));
+}
+
+export { DicePF2e, combineTerms };

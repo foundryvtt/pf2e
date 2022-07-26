@@ -1,6 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
+import { combineTerms } from "@scripts/dice";
 import { WeaponDamagePF2e } from "@system/damage";
 import { MeleeData, NPCAttackTrait } from "./data";
 
@@ -19,6 +20,16 @@ export class MeleePF2e extends ItemPF2e {
 
     get isThrown(): boolean {
         return this.isRanged && this.data.data.traits.value.some((t) => t.startsWith("thrown"));
+    }
+
+    /** The ability score this attack is based on: determines which of the Clumsy and Enfeebled conditions apply */
+    get ability(): "str" | "dex" {
+        const { traits } = this;
+        return this.isMelee ? (traits.has("finesse") ? "dex" : "str") : traits.has("brutal") ? "str" : "dex";
+    }
+
+    get attackModifier(): number {
+        return Number(this.system.bonus.value) || 0;
     }
 
     /** The range increment of this attack, or null if a melee attack */
@@ -58,13 +69,23 @@ export class MeleePF2e extends ItemPF2e {
         return WeaponDamagePF2e.npcDamageToWeaponDamage(instance);
     }
 
+    /** Additional effects that are part of this attack */
+    get attackEffects(): string[] {
+        return this.system.attackEffects.value;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Set precious material (currently unused)
         this.system.material = { precious: null };
+    }
 
-        // Normalize damage instance formulas
+    override prepareActorData(): void {
+        if (!this.actor?.isOfType("npc")) return;
+
+        // Normalize damage instance formulas and add elite/weak adjustments
+        const damageInstances = Object.values(this.system.damageRolls);
         for (const instance of Object.values(this.system.damageRolls)) {
             try {
                 instance.damage = new Roll(instance.damage).formula;
@@ -72,6 +93,39 @@ export class MeleePF2e extends ItemPF2e {
                 const message = `Unable to parse damage formula on NPC attack ${this.name}`;
                 console.warn(`PF2e System | ${message}`);
                 instance.damage = "1d4";
+            }
+
+            const roll = new Roll(instance.damage);
+            const { terms } = roll;
+            const { isElite, isWeak } = this.actor;
+            if ((isElite || isWeak) && damageInstances.indexOf(instance) === 0) {
+                // Add weak or elite adjustment: Foundry's `Roll` class makes all negative `NumericTerms` positive with
+                // a preceding negative `OperatorTerm`: change operator if adjustment would change the value's sign
+                const modifier =
+                    [...terms].reverse().find((t): t is NumericTerm => t instanceof NumericTerm) ??
+                    new NumericTerm({ number: 0 });
+                const previousTerm = terms[terms.indexOf(modifier) - 1];
+                const signFlip = previousTerm instanceof OperatorTerm && previousTerm.operator === "-" ? -1 : 1;
+                const baseValue = modifier.number * signFlip;
+                const adjustedBase = baseValue + (isElite ? 2 : -2);
+                modifier.number = Math.abs(adjustedBase);
+
+                if (previousTerm instanceof OperatorTerm) {
+                    if (baseValue < 0 && adjustedBase >= 0 && previousTerm.operator === "-") {
+                        previousTerm.operator = "+";
+                    }
+                    if (baseValue >= 0 && adjustedBase < 0 && previousTerm.operator === "+") {
+                        previousTerm.operator = "-";
+                    }
+                }
+
+                if (!terms.includes(modifier)) {
+                    const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
+                    terms.push(operator, modifier);
+                }
+                instance.damage = combineTerms(Roll.fromTerms(terms).formula).formula;
+            } else {
+                instance.damage = roll.formula;
             }
         }
     }
