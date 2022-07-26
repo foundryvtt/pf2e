@@ -122,6 +122,15 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/loot/inventory.hbs",
         "systems/pf2e/templates/actors/loot/sidebar.hbs",
 
+        // Siege weapon partials
+        "systems/pf2e/templates/actors/siege-weapon/header.hbs",
+        "systems/pf2e/templates/actors/siege-weapon/sidebar/health.hbs",
+        "systems/pf2e/templates/actors/siege-weapon/sidebar/armorclass.hbs",
+        "systems/pf2e/templates/actors/siege-weapon/sidebar/saves.hbs",
+        "systems/pf2e/templates/actors/siege-weapon/sidebar/iwr.hbs",
+        "systems/pf2e/templates/actors/siege-weapon/tabs/details.hbs",
+        "systems/pf2e/templates/actors/siege-weapon/tabs/description.hbs",
+
         // Vehicle partials
         "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.hbs",

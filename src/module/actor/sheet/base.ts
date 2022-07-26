@@ -79,6 +79,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             switch (this.actor.type) {
                 case "hazard":
                     return CONFIG.PF2E.hazardTraits;
+                case "siegeWeapon":
+                    return CONFIG.PF2E.siegeWeaponTraits;
                 case "vehicle":
                     return CONFIG.PF2E.vehicleTraits;
                 default:

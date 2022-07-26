@@ -105,7 +105,7 @@ const packsDataPath = path.resolve(process.cwd(), "packs/data");
 
 type CompendiumSource = CompendiumDocument["_source"];
 
-const actorTypes = ["character", "npc", "hazard", "loot", "familiar", "vehicle"];
+const actorTypes = ["character", "npc", "hazard", "loot", "familiar", "siegeWeapon", "vehicle"];
 const itemTypes = [
     "action",
     "ancestry",

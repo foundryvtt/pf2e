@@ -3,6 +3,7 @@ import { FamiliarSheetPF2e } from "@actor/familiar/sheet";
 import { HazardSheetPF2e } from "@actor/hazard/sheet";
 import { LootSheetPF2e } from "@actor/loot/sheet";
 import { NPCSheetPF2e } from "@actor/npc/sheet";
+import { SiegeWeaponSheetPF2e } from "@actor/siege-weapon/sheet";
 import { VehicleSheetPF2e } from "@actor/vehicle/sheet";
 import {
     ActionSheetPF2e,
@@ -95,6 +96,13 @@ export function registerSheets() {
     Actors.registerSheet("pf2e", FamiliarSheetPF2e, {
         types: ["familiar"],
         label: game.i18n.format(sheetLabel, { type: localizeType("familiar") }),
+        makeDefault: true,
+    });
+
+    // Register Siege Weapon Sheet
+    Actors.registerSheet("pf2e", SiegeWeaponSheetPF2e, {
+        types: ["siegeWeapon"],
+        label: game.i18n.format(sheetLabel, { type: localizeType("siegeWeapon") }),
         makeDefault: true,
     });
 

@@ -1,0 +1,22 @@
+<header class="char-header">
+    <div class="char-details">
+        <h1 class="char-name">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" />
+        </h1>
+        <div class="traits-bar">
+            {{#unless (eq system.traits.rarity "common")}}
+                <span class="trait {{system.traits.rarity}}" data-trait="{{data.traits.rarity}}">{{localize actorRarity}}</span>
+            {{/unless}}
+            <span class="trait size">{{localize actorSize}}</span>
+            {{#each traits as |trait|}}
+                <span class="trait" data-trait="{{trait.value}}">{{trait.label}}</span>
+            {{/each}}
+        </div>
+    </div>
+    <div class="char-level">
+        <div class="level">
+            <label>{{localize "PF2E.siegeWeapon.SiegeWeaponLevelLabel"}}</label>
+            <input name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" size="2" />
+        </div>
+    </div>
+</header>

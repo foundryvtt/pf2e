@@ -1,4 +1,4 @@
-import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
+import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, SiegeWeaponPF2e, VehiclePF2e } from "@actor";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
 import { Alignment } from "@actor/creature/types";
 import { ActorType } from "@actor/data";
@@ -39,6 +39,8 @@ import {
     WeaponPropertyRuneType,
     WeaponReloadTime,
 } from "@item/weapon/types";
+import { SiegeWeaponProficiencyType } from "@actor/siege-weapon/types";
+import { SiegeWeaponPropulsionMethod } from "@actor/siege-weapon/types";
 import { Size } from "@module/data";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { DAMAGE_TYPES } from "@system/damage";
@@ -67,6 +69,7 @@ import {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
+    siegeWeaponTraits,
     spellOtherTraits,
     spellTraits,
     vehicleTraits,
@@ -81,6 +84,7 @@ const actorTypes: Record<ActorType, string> = {
     hazard: "ACTOR.TypeHazard",
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
+    siegeWeapon: "ACTOR.TypeSiegeweapon",
     vehicle: "ACTOR.TypeVehicle",
 };
 
@@ -715,6 +719,17 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     10: "PF2E.Item.Weapon.ReloadOneMinute",
 };
 
+const siegeWeaponProficiencyTypes: Record<SiegeWeaponProficiencyType, string> = {
+    simple: "PF2E.siegeWeapon.ProficiencySimple",
+    martial: "PF2E.siegeWeapon.ProficiencyMartial",
+    advanced: "PF2E.siegeWeapon.ProficiencyAdvancedWeapon",
+};
+
+const siegeWeaponPropulsionMethods: Record<SiegeWeaponPropulsionMethod, string> = {
+    none: "PF2E.siegeWeapon.PropulsionMethodNone",
+    pp: "PF2E.siegeWeapon.PropulsionMethodPushedOrPulled",
+};
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false,
 
@@ -1063,6 +1078,9 @@ export const PF2ECONFIG = {
     weaponTraits,
     otherWeaponTags,
 
+    siegeWeaponProficiencyTypes,
+    siegeWeaponPropulsionMethods,
+
     armorTraits,
     otherArmorTags,
 
@@ -1078,6 +1096,7 @@ export const PF2ECONFIG = {
     monsterTraits: creatureTraits,
     npcAttackTraits,
     hazardTraits,
+    siegeWeaponTraits,
     vehicleTraits,
 
     traitsDescriptions,
@@ -1677,6 +1696,7 @@ export const PF2ECONFIG = {
             hazard: HazardPF2e,
             loot: LootPF2e,
             familiar: FamiliarPF2e,
+            siegeWeapon: SiegeWeaponPF2e,
             vehicle: VehiclePF2e,
         },
     },

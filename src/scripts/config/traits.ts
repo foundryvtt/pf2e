@@ -707,6 +707,11 @@ const hazardTraits = {
     visual: "PF2E.TraitVisual",
 };
 
+const siegeWeaponTraits = {
+    mounted: "PF2E.TraitMounted",
+    portable: "PF2E.TraitPortable",
+};
+
 const vehicleTraits = {
     ...magicSchools,
     artifact: "PF2E.TraitArtifact",
@@ -820,6 +825,7 @@ export {
     otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
+    siegeWeaponTraits,
     spellOtherTraits,
     spellTraits,
     vehicleTraits,

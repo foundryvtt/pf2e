@@ -1,0 +1,122 @@
+@import "actions";
+
+.sheet-navigation {
+    min-width: 375px;
+}
+
+aside .sidebar {
+    .save-roll input[type=number] {
+        width: 3ch;
+        font-size: var(--font-size-20);
+        height: 24px;
+    }
+
+    .hitpoints .container {
+        display: grid;
+    }
+
+    .armor-class {
+        grid: "ac hardness" 1fr;
+
+        .shield {
+            padding: 18px 20px 0 20px;
+        }
+        .hardness {
+            background: url(../assets/sheet/shield-red.webp) no-repeat top center;
+        }
+    }
+
+    li.tag {
+        font-size: var(--font-size-10);
+    }
+}
+
+header.char-header {
+    .char-details {
+        font-size: var(--font-size-13);
+        font-weight: normal;
+    }
+}
+
+.sheet-content > .tab {
+    &:not(.inventory), .inventory .inventory-list {
+        @include scrollbar;
+        flex-grow: 1;
+        overflow: hidden scroll;
+    }
+
+    &.details {
+        .siege-weapon-details {
+            display: grid;
+            grid: "img details" 150px/120px 1fr;
+            min-width: 330px;
+
+            .frame {
+                margin-left: 5px;
+
+                .actor-image {
+                    margin-top: 8px;
+                    max-height: 90%;
+                    object-fit: contain;
+                    border-radius: 0;
+                    cursor: pointer;
+                    border: none;
+                    box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+                }
+            }
+
+            .detail-sheet {
+                display: grid;
+                grid: repeat(3,42px) / 3fr 2fr;
+                grid-row-gap: 8px;
+                padding-left: 12px;
+            }
+
+            .detail-small {
+                display: flex;
+            }
+        }
+
+        .siege-weapon-properties {
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 8px;
+        }
+
+        .siege-weapon-properties > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .siege-weapon-properties > div > span {
+            width: 100%;
+        }
+
+        .detailsInput {
+            margin-bottom: 8px;
+        }
+    }
+}
+
+// Grid-positions
+.row-nr-1 { grid-row: 1/2; }
+.row-nr-2 { grid-row: 2/3; }
+.row-nr-3 { grid-row: 3/4; }
+.span-2-columns { grid-column-end: span 2; }
+
+// Flex-positions
+.flexitem-1 {
+    flex: 1 1 10%
+}
+.flexitem-2 {
+    flex: 2 1 20%
+}
+.flexitem-5 {
+    flex: 5 1 50%
+}
+.flexitem-full {
+    flex: 100%
+}
