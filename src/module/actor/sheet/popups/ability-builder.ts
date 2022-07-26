@@ -3,7 +3,7 @@ import { Abilities } from "@actor/creature/data";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
-import { setHasElement } from "@util";
+import { ErrorPF2e, setHasElement } from "@util";
 
 export class AbilityBuilderPopup extends Application {
     constructor(private actor: CharacterPF2e) {
@@ -143,18 +143,24 @@ export class AbilityBuilderPopup extends Application {
         });
 
         $html.find("button[data-action=level]").on("click", async (event) => {
-            const ability: AbilityString = $(event.currentTarget).attr("data-ability") as AbilityString;
-            const level = ($(event.currentTarget).attr("data-level") ?? "1") as "1" | "5" | "10" | "15" | "20";
-            let boosts = actor.data.data.build.abilities.boosts[level] ?? [];
+            const ability = event.currentTarget.dataset.ability;
+            const level = event.currentTarget.dataset.level;
+            if (
+                !setHasElement(ABILITY_ABBREVIATIONS, ability) ||
+                !setHasElement(new Set(["1", "5", "10", "15", "20"] as const), level)
+            ) {
+                throw ErrorPF2e("Unexpected update requested to ability boosts and flaws");
+            }
+
+            const buildSource = mergeObject(actor.toObject().data.build ?? {}, { abilities: { boosts: {} } });
+            const boosts = (buildSource.abilities.boosts[level] ??= []);
             if (boosts.includes(ability)) {
-                boosts = boosts.filter((a) => a !== ability);
+                boosts.splice(boosts.indexOf(ability), 1);
             } else {
                 boosts.push(ability);
             }
-            await actor.update(
-                { [`data.build.abilities.boosts.${level}`]: boosts },
-                { diff: false } // arrays are stupid. This is necessary or it doesn't work
-            );
+
+            await actor.update({ "data.build": buildSource });
         });
 
         $html.find<HTMLInputElement>("input[data-property]").on("blur", async (event) => {
