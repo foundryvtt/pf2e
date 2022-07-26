@@ -8,11 +8,8 @@
         <input type="checkbox" class="hidden-value" {{checked (or (eq rule.visibility "gm") (eq rule.visibility "owner"))}}>
     </label>
 </div>
-<label>
-    {{localize "PF2E.RuleEditor.Note.Title"}}
-    <input type="text" name="data.rules.{{@index}}.title" value="{{rule.title}}" />
-</label>
-<textarea name="data.rules.{{@index}}.text" spellcheck="false" placeholder="Text Content">{{rule.text}}</textarea>
+<input type="text" name="data.rules.{{@index}}.title" value="{{rule.title}}" placeholder="{{localize "PF2E.RuleEditor.Note.Title"}}"/>
+<textarea name="data.rules.{{@index}}.text" spellcheck="false" placeholder="{{localize "PF2E.RuleEditor.Note.Text"}}">{{rule.text}}</textarea>
 <div class="labelled-element">
     {{localize "PF2E.RuleEditor.Note.Outcome"}}
     <input class="item-tagify outcomes" name="data.rules.{{@index}}.outcome" value="{{rule.outcome}}" data-dtype="JSON" />
