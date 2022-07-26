@@ -1997,9 +1997,11 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData = this.data.data;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        const level = changed.data?.details?.level;
-        if (typeof level?.value === "number") {
-            level.value = Math.clamped(Number(level.value) || 0, 0, 30);
+        if (changed.data?.details?.level || changed.data?.build?.abilities) {
+            const level = changed.data?.details?.level;
+            if (typeof level?.value === "number") {
+                level.value = Math.clamped(Number(level.value) || 0, 0, 30) || 0;
+            }
 
             // Adjust hit points if level is changing
             const clone = this.clone(changed);
