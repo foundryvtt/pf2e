@@ -587,12 +587,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         // Run preUpdateItem rule element callbacks
-        type WithPreUpdate = RuleElementPF2e & { preUpdate: NonNullable<RuleElementPF2e["preUpdate"]> };
-        const rules = this.rules.filter((r): r is WithPreUpdate => !!r.preUpdate);
-        if (rules.length > 0) {
-            for (const rule of rules) {
-                await rule.preUpdate(changed);
-            }
+        for (const rule of this.rules) {
+            await rule.preUpdate?.(changed);
         }
 
         await super._preUpdate(changed, options, user);
