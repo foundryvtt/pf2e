@@ -616,6 +616,7 @@ const traitsDescriptions = {
     "thrown-40": "PF2E.TraitDescriptionThrown",
     "thrown-50": "PF2E.TraitDescriptionThrown",
     "thrown-60": "PF2E.TraitDescriptionThrown",
+    "thrown-80": "PF2E.TraitDescriptionThrown",
     tiefling: "PF2E.TraitDescriptionTiefling",
     time: "PF2E.TraitDescriptionTime",
     transmutation: "PF2E.TraitDescriptionTransmutation",
