@@ -585,6 +585,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (changed.data?.description?.value === null) {
             changed.data.description.value = "";
         }
+
+        // Run preUpdateItem rule element callbacks
+        for (const rule of this.rules) {
+            await rule.preUpdate?.(changed);
+        }
+
         await super._preUpdate(changed, options, user);
     }
 
