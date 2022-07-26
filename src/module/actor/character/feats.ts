@@ -15,8 +15,8 @@ interface FeatCategoryOptions {
 }
 
 class CharacterFeats extends Collection<FeatCategory> {
-    /** Feats with no actual category (referred to by paizo as bonus feats)  */
-    unorganized = new Array<BonusFeat>();
+    /** Feats with no actual category ("bonus feats" in rules text) */
+    unorganized: BonusFeat[] = [];
 
     constructor(private actor: CharacterPF2e) {
         super();
@@ -119,25 +119,27 @@ class CharacterFeats extends Collection<FeatCategory> {
     async insertFeat(feat: FeatPF2e, options: { categoryId: string; slotId?: string }): Promise<ItemPF2e[]> {
         const { category, slotId } = this.get(options.categoryId)?.isFeatValid(feat)
             ? {
-                  category: this.get(options.categoryId)!,
+                  category: this.get(options.categoryId),
                   slotId: options.slotId ?? null,
               }
-            : this.findBestLocation(feat);
+            : this.findBestLocation(feat, { requested: options.categoryId });
         const location = (category?.slotted ? slotId : category?.id) || null;
         const isFeatValidInSlot = !!category?.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
         const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === location);
 
         // If the feat is invalid in the targeted category and no alternative was found, warn and exit out
-        if (category && !category.isFeatValid(feat)) {
-            const label = game.i18n.format(category.label);
-            ui.notifications.warn(
-                game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
-                    item: feat.name,
-                    category: label,
-                })
-            );
-            return [];
+        if (options.categoryId !== "bonus" && !category) {
+            const badCategory = this.get(options.categoryId);
+            if (badCategory) {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
+                        item: feat.name,
+                        category: game.i18n.format(badCategory.label),
+                    })
+                );
+                return [];
+            }
         }
 
         // Handle case where its actually dragging away from a location
@@ -172,12 +174,16 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 
     /** If a drop target is omitted or turns out to be invalid, make a limited attempt to find an eligible slot */
-    private findBestLocation(feat: FeatPF2e): { category: FeatCategory | null; slotId: string | null } {
+    private findBestLocation(
+        feat: FeatPF2e,
+        { requested }: { requested?: string }
+    ): { category: FeatCategory | null; slotId: string | null } {
         if (feat.isFeature) return { category: this.get(feat.featType) ?? null, slotId: null };
+        if (requested === "bonus") return { category: null, slotId: null };
 
-        const validCategories = this.filter((g) => g.isFeatValid(feat));
+        const validCategories = this.filter((c) => c.isFeatValid(feat) && !c.isFull);
         const category = validCategories.at(0);
-        if (validCategories.length === 1 && category && category.id !== "bonus") {
+        if (validCategories.length === 1 && category) {
             const slotId = category.slotted
                 ? Object.keys(category.slots).find((s) => !category.slots[s].feat) ?? null
                 : null;
@@ -277,6 +283,11 @@ class FeatCategory {
                 this.slots[id] = slot;
             }
         }
+    }
+
+    /** Is this category slotted and without any empty slots */
+    get isFull(): boolean {
+        return this.slotted && Object.values(this.slots).every((s) => !!s.feat);
     }
 
     isFeatValid(feat: FeatPF2e): boolean {

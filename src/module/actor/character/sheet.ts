@@ -344,7 +344,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     private prepareFeats(): FeatCategorySheetData[] {
         const unorganized: FeatCategorySheetData = {
-            id: "",
+            id: "bonus",
             label: "PF2E.FeatBonusHeader",
             feats: this.actor.feats.unorganized,
         };
