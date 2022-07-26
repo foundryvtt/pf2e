@@ -91,7 +91,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
 ] as const);
 
 const THROWN_RANGES = new Set([10, 15, 20, 30, 40, 60, 80, 100] as const);
-const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 80, 90, 120, 140, 150, 180, 240, 300] as const);
+const WEAPON_RANGES = new Set([...THROWN_RANGES, 50, 70, 90, 120, 140, 150, 180, 240, 300] as const);
 
 // Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
 const CROSSBOW_WEAPONS = new Set([
