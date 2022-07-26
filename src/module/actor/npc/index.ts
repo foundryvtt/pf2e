@@ -214,6 +214,11 @@ class NPCPF2e extends CreaturePF2e {
             ].join(", ");
 
             data.attributes.hp = stat;
+
+            // Set a roll option for HP percentage
+            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
+            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
+            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
         }
 
         // Speeds
