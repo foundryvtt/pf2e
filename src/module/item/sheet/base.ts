@@ -364,15 +364,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if (editingRuleElement) {
             const ruleText = JSON.stringify(editingRuleElement, null, 2);
             const view = new CodeMirror.EditorView({
-                state: CodeMirror.EditorState.create({
-                    doc: ruleText,
-                    extensions: [
-                        CodeMirror.basicSetup,
-                        CodeMirror.keybindings,
-                        CodeMirror.json(),
-                        CodeMirror.jsonLinter(),
-                    ],
-                }),
+                doc: ruleText,
+                extensions: [CodeMirror.basicSetup, CodeMirror.keybindings, CodeMirror.json(), CodeMirror.jsonLinter()],
             });
 
             $html.find(".rule-editing .editor-placeholder").replaceWith(view.dom);
