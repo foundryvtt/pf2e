@@ -54,11 +54,32 @@
         & > .cm-editor {
             flex: 1;
             background-color: white;
-            overflow: hidden;
 
             .cm-scroller {
                 @include scrollbar;
                 overflow: scroll;
+            }
+
+            // Undo global style overrides
+            button {
+                width: auto;
+                line-height: normal;
+            }
+
+            // Undo global style overrides
+            input[type=checkbox] {
+                width: auto;
+                height: auto;
+            }
+
+            // Undo legacy pf2e style overrides
+            label {
+                display: inline;
+            }
+
+            // Reduction in size so that it wraps neatly
+            .cm-search .cm-textfield {
+                width: 100px;
             }
 
             ::selection {
