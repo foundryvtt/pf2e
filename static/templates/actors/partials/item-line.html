@@ -61,8 +61,8 @@
                 {{#if (and isSellable (ne @root.actor.type "loot"))}}
                     <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
                 {{/if}}
-                {{#if (and @root.npcAttacksFromWeapons (eq item.type "weapon") (eq @root.actor.type "npc"))}}
-                    <a class="item-control" data-action="generate-attack" title="Generate Attack"><i class="fas fa-bolt"></i></a>
+                {{#if (and (eq item.type "weapon") (eq @root.actor.type "npc"))}}
+                    <a class="item-control" data-action="generate-attack" title="{{localize "PF2E.Actor.NPC.GenerateAttack.Label"}}"><i class="fas fa-bolt"></i></a>
                 {{/if}}
                 {{#if (or @root.user.isGM item.isIdentified)}}
                     <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>

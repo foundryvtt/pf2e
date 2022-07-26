@@ -105,7 +105,6 @@ interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T>
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
-    npcAttacksFromWeapons?: boolean;
 }
 
 type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
