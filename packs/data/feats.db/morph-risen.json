@@ -1,0 +1,72 @@
+{
+    "_id": "znX4u20IFE7TPi9Y",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You were once a shapeshifter or spellcaster using polymorph magic, but something went wrong, and you became trapped in the form of the creature you were imitating. This accident might have drained your power, or you might have retained some of your skills, but either way, your form resists further forced transformation. You gain a +1 circumstance bonus to saving throws against transmutation effects, and if you roll a success on a saving throw against a hostile morph or polymorph effect, you get a critical success instead.</p>"
+        },
+        "featType": {
+            "value": "ancestry"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": null,
+        "maxTakable": [
+            null,
+            "1"
+        ],
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "transmutation"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "item:trait:polymorph",
+                        "item:trait:morph"
+                    ]
+                },
+                "selector": "all",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "reflection"
+            ]
+        }
+    },
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Morph-Risen",
+    "type": "feat"
+}
