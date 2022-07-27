@@ -4,15 +4,6 @@ import { measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
-    /** Whether the Token Auras module is active */
-    kimsNaughtyModule: boolean;
-
-    constructor(document: TokenDocumentPF2e) {
-        super(document);
-
-        this.kimsNaughtyModule = game.modules.get("token-auras")?.active ?? false;
-    }
-
     /** Visual representation and proximity-detection facilities for auras */
     auras = new AuraRenderers(this);
 
@@ -60,6 +51,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The ID of the highlight layer for this token */
     get highlightId(): string {
         return `Token.${this.id}`;
+    }
+
+    get kimsNaughtyModule(): boolean {
+        return canvas.tokens.kimsNaughtyModule;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
