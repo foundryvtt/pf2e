@@ -331,6 +331,16 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             const { data } = this;
             const postChange = { width: data.width, height: data.height, scale: data.scale, img: data.img };
             mergeObject(changed, diffObject({ width, height, scale, img }, postChange));
+
+            // If an aura is newly present or removed, redraw effects
+            if (
+                !changed.effects &&
+                !this.kimsNaughtyModule &&
+                (Array.from(this.document.auras.keys()).some((k) => !this.auras.has(k)) ||
+                    Array.from(this.auras.keys()).some((k) => !this.document.auras.has(k)))
+            ) {
+                changed.effects = deepClone(this.data._source.effects);
+            }
         }
 
         super._onUpdate(changed, options, userId);
