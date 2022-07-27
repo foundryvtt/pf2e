@@ -3,6 +3,7 @@ import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
+    FrequencySource,
     ItemSystemSource,
     ItemTraits,
 } from "@item/data/base";
@@ -35,9 +36,11 @@ interface ActionSystemSource extends ItemSystemSource {
         value: string;
     };
     deathNote: boolean;
-    frequency?: Frequency;
+    frequency?: FrequencySource;
 }
 
-type ActionSystemData = ActionSystemSource;
+interface ActionSystemData extends ActionSystemSource {
+    frequency?: Frequency;
+}
 
 export { ActionItemSource, ActionItemData, ActionTrait, ActionTraits };

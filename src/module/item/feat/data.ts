@@ -3,6 +3,7 @@ import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
+    FrequencySource,
     ItemLevelData,
     ItemSystemData,
     ItemTraits,
@@ -45,12 +46,13 @@ export interface FeatSystemSource extends ItemSystemData, ItemLevelData {
         value: PrerequisiteTagData[];
     };
     location: string | null;
-    frequency?: Frequency;
+    frequency?: FrequencySource;
 }
 
 export interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
     /** `null` is set to `Infinity` during data preparation */
     maxTakable: number;
+    frequency?: Frequency;
 }
 
 export { FeatData, FeatSource };
