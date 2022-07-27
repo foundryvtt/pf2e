@@ -27,6 +27,7 @@ import { Migration764PanacheVivaciousREs } from "@module/migration/migrations/76
 import { Migration765ChoiceOwnedItemTypes } from "@module/migration/migrations/765-choice-owned-item-types";
 import { Migration766WipeURLSources } from "@module/migration/migrations/766-wipe-url-sources";
 import { Migration767ConvertVoluntaryFlaws } from "@module/migration/migrations/767-convert-voluntary-flaws";
+import { Migration768MarshalDedicationAura } from "@module/migration/migrations/768-marshal-dedication-aura";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -56,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration765ChoiceOwnedItemTypes(),
     new Migration766WipeURLSources(),
     new Migration767ConvertVoluntaryFlaws(),
+    new Migration768MarshalDedicationAura(),
 ];
 
 global.deepClone = <T>(original: T): T => {
