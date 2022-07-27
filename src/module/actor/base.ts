@@ -713,10 +713,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const shieldBlock =
             actorShield && shieldBlockRequest
                 ? ((): boolean => {
+                      const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
                       if (actorShield.broken) {
-                          const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
                           ui.notifications.warn(
                               game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: actorShield.name })
+                          );
+                          return false;
+                      } else if (actorShield.destroyed) {
+                          ui.notifications.warn(
+                              game.i18n.format(warnings.ShieldIsDestroyed, {
+                                  actor: token.name,
+                                  shield: actorShield.name,
+                              })
                           );
                           return false;
                       } else if (!actorShield.raised) {

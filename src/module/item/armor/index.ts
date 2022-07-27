@@ -51,7 +51,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     get acBonus(): number {
         const potencyRune = this.isArmor && this.isInvested ? this.system.runes.potency : 0;
         const baseArmor = Number(this.system.armor.value) || 0;
-        return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
+        return this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
     }
 
     get hitPoints(): PhysicalItemHitPoints {
@@ -149,7 +149,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && actor.heldShield === this) {
             // Set actor-shield data from this shield item
             const { hitPoints } = this;
-            actor.data.data.attributes.shield = {
+            actor.system.attributes.shield = {
                 itemId: this.id,
                 name: this.name,
                 ac: this.acBonus,
@@ -162,6 +162,11 @@ class ArmorPF2e extends PhysicalItemPF2e {
                 icon: this.img,
             };
             actor.rollOptions.all["self:shield:equipped"] = true;
+            if (this.isBroken) {
+                actor.rollOptions.all["self:shield:broken"] = true;
+            } else if (this.isDestroyed) {
+                actor.rollOptions.all["self:shield:destroyed"] = true;
+            }
         }
     }
 
