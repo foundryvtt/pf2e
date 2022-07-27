@@ -1,5 +1,5 @@
 {
-    "_id": "MYzRfNExDYp25rro",
+    "_id": "5xdxSBAeO2mJOYz7",
     "data": {
         "actionCategory": {
             "value": ""
@@ -39,8 +39,37 @@
                     }
                 ],
                 "key": "Aura",
+                "predicate": {
+                    "not": [
+                        "marshalStance"
+                    ]
+                },
                 "radius": 10,
                 "slug": "marshals-aura",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual"
+                ]
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Ru4BNABCZ0hUbX7S"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": {
+                    "all": [
+                        "marshalStance"
+                    ]
+                },
+                "radius": "{item|flags.pf2e.rulesSelections.marshallAuraSize}",
+                "slug": "marshals-stance",
                 "traits": [
                     "emotion",
                     "mental",
