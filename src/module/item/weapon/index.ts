@@ -491,9 +491,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const baseDamage = ((): MeleeDamageRoll => {
             const weaponDamage = this.baseDamage;
             const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
-            const actorLevel = actor.level;
+            const actorLevel = actor.system.details.level.base;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
-                Math.abs(dice - Math.round(actorLevel / 4)) < Math.abs(closest - Math.round(actorLevel / 4))
+                Math.abs(dice - Math.round((actorLevel + 2) / 4)) < Math.abs(closest - Math.round((actorLevel + 2) / 4))
                     ? dice
                     : closest
             );
