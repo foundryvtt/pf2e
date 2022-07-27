@@ -21,8 +21,9 @@ export const PackError = (message: string) => {
     process.exit(1);
 };
 
-/** A rule element, possibly a ChoiceSet or GrantItem */
-export interface REMaybeChoiceGrant extends RuleElementSource {
+/** A rule element, possibly an Aura, ChoiceSet, GrantItem */
+export interface REMaybeWithUUIDs extends RuleElementSource {
+    effects?: unknown[];
     choices?: Record<string, string | { value?: string }>;
     uuid?: unknown;
 }
@@ -125,7 +126,7 @@ export class CompendiumPack {
         }
 
         const filenames = fs.readdirSync(dirPath);
-        const filePaths = filenames.map((filename) => path.resolve(dirPath, filename));
+        const filePaths = filenames.map((f) => path.resolve(dirPath, f));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
             const packSource: CompendiumSource = (() => {
@@ -216,7 +217,7 @@ export class CompendiumPack {
         return `Compendium.${this.systemId}.${this.name}.${documentId}`;
     }
 
-    /** Convert UUIDs in ChoiceSet/GrantItem REs to resemble links by name or back again */
+    /** Convert UUIDs in REs to resemble links by name or back again */
     static convertRuleUUIDs(
         source: ItemSourcePF2e,
         { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> }
@@ -250,9 +251,15 @@ export class CompendiumPack {
         };
 
         const convert = to === "ids" ? toIDRef : toNameRef;
-        const rules: REMaybeChoiceGrant[] = source.data.rules;
+        const rules: REMaybeWithUUIDs[] = source.data.rules;
         for (const rule of rules) {
-            if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
+            if (rule.key === "Aura" && Array.isArray(rule.effects)) {
+                for (const effect of rule.effects) {
+                    if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
+                        effect.uuid = convert(effect.uuid);
+                    }
+                }
+            } else if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
                 rule.uuid = convert(rule.uuid);
             } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
                 for (const [key, choice] of Object.entries(rule.choices)) {

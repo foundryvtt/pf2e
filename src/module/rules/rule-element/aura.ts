@@ -35,7 +35,7 @@ export class AuraRuleElement extends RuleElementPF2e {
 
         if (this.#isValid(data)) {
             this.radius = data.radius;
-            this.effects = data.effects;
+            this.effects = deepClone(data.effects);
             this.traits = deepClone(data.traits);
             if (data.colors) this.colors = data.colors;
         } else {
