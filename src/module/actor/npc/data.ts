@@ -19,7 +19,7 @@ import {
 import { ActorFlagsPF2e, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { AbilityString, SaveType } from "@actor/types";
+import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
 import { ValueAndMax } from "@module/data";
 import type { NPCPF2e } from ".";
@@ -46,7 +46,7 @@ interface NPCSystemSource extends CreatureSystemSource {
     attributes: NPCAttributesSource;
 
     /** Details about this actor, such as alignment or ancestry. */
-    details: NPCDetails;
+    details: NPCDetailsSource;
 
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSavesSource;
@@ -125,11 +125,11 @@ interface NPCTraitsData extends CreatureTraitsData, NPCTraitsSource {
     size: ActorSizePF2e;
 }
 
-type NPCDetails = CreatureDetails & {
-    /** The presence of a `base` that is different from the `value` indicates the level was automatically adjusted. */
+interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
     level: {
-        base?: number;
+        value: number;
     };
+
     /** Which sourcebook this creature comes from. */
     source: {
         value: string;
@@ -143,7 +143,17 @@ type NPCDetails = CreatureDetails & {
     publicNotes: string;
     /** The private GM notes */
     privateNotes: string;
-};
+}
+
+interface NPCDetails extends NPCDetailsSource {
+    level: {
+        value: number;
+        /** The presence of a `base` that is different from the `value` indicates the level was adjusted. */
+        base: number;
+    };
+
+    alliance: ActorAlliance;
+}
 
 /** The full data for a NPC action (used primarily for strikes.) */
 interface NPCStrike extends StrikeData {

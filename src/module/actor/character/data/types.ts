@@ -277,7 +277,7 @@ interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-type CharacterDetails = CreatureDetails & {
+type CharacterDetails = Omit<CreatureDetails, "creature"> & {
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AbilityString };
 
