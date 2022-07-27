@@ -1,0 +1,78 @@
+{
+    "_id": "eUv2L0CLidxtA3sh",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>A sweltering heat and sparks of flame that take the form of tiny copies of you surround your body. You're hot to the touch, gaining resistance 5 to cold and fire. Whenever an adjacent creature Strikes you with a melee attack or touches you, it takes [[/r {1d6}[persistent,fire]]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}. You gain the @Compendium[pf2e.actionspf2e.Thermal Eruption]{Thermal Eruption} action.</p>"
+        },
+        "featType": {
+            "value": "class"
+        },
+        "level": {
+            "value": 14
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You've been brought to 0 Hit Points by an enemy that has the fire trait or an enemy's ability that has the fire trait"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": {
+                    "not": [
+                        "thermal-eruption"
+                    ]
+                },
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": {
+                    "not": [
+                        "thermal-eruption"
+                    ]
+                },
+                "type": "cold",
+                "value": 5
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Thermal Eruption"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.AftermathFeats.DormantEruptionToggle",
+                "option": "thermal-eruption",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "rare",
+            "value": [
+                "aftermath",
+                "fire"
+            ]
+        }
+    },
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dormant Eruption",
+    "type": "feat"
+}
