@@ -5,18 +5,17 @@ import { MigrationBase } from "../base";
 export class Migration768AddNewAuras extends MigrationBase {
     static override version = 0.768;
 
-    #marshalsAura = {
+    #auraOfLife = {
         effects: [
             {
                 affects: "allies",
                 events: ["enter"],
-                uuid: "Compendium.pf2e.feat-effects.Ru4BNABCZ0hUbX7S",
+                uuid: "Compendium.pf2e.feat-effects.FPuICuxBLiDaEbDX",
             },
         ],
         key: "Aura",
-        radius: 10,
-        slug: "marshals-aura",
-        traits: ["emotion", "mental", "visual"],
+        radius: 15,
+        slug: "aura-of-life",
     };
 
     #enlightenedPresence = {
@@ -59,15 +58,36 @@ export class Migration768AddNewAuras extends MigrationBase {
         },
     ];
 
+    #marshalsAura = {
+        effects: [
+            {
+                affects: "allies",
+                events: ["enter"],
+                uuid: "Compendium.pf2e.feat-effects.Ru4BNABCZ0hUbX7S",
+            },
+        ],
+        key: "Aura",
+        radius: 10,
+        slug: "marshals-aura",
+        traits: ["emotion", "mental", "visual"],
+    };
+
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat" || source.data.rules.length > 0) return;
 
-        if (source.data.slug === "marshal-dedication") {
-            source.data.rules = [deepClone(this.#marshalsAura)];
-        } else if (source.data.slug === "enlightened-presence") {
-            source.data.rules = [deepClone(this.#enlightenedPresence)];
-        } else if (source.data.slug === "eternal-blessing") {
-            source.data.rules = deepClone(this.#eternalBlessing);
+        switch (source.data.slug) {
+            case "aura-of-life":
+                source.data.rules = [deepClone(this.#auraOfLife)];
+                break;
+            case "enlightened-presence":
+                source.data.rules = [deepClone(this.#enlightenedPresence)];
+                break;
+            case "eternal-blessing":
+                source.data.rules = deepClone(this.#eternalBlessing);
+                break;
+            case "marshal-dedication":
+                source.data.rules = [deepClone(this.#marshalsAura)];
+                break;
         }
     }
 }
