@@ -250,15 +250,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         };
     }
 
-    override prepareActorData(): void {
-        if (!this.actor?.isOfType("character")) return;
-
-        // Add a roll option if carrying a weapon that is a thaumaturge's implement
-        if (this.isEquipped && this.otherTags.has("implement")) {
-            this.actor.rollOptions.all["implement:weapon"] = true;
-        }
-    }
-
     processMaterialAndRunes(): void {
         const systemData = this.system;
 

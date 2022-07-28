@@ -514,9 +514,7 @@ const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    implement: "PF2E.Item.Physical.OtherTag.Implement",
     improvised: "PF2E.Item.Weapon.OtherTag.Improvised",
-    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
