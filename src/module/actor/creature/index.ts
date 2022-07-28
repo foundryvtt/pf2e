@@ -803,12 +803,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
         const actions: StrikeData[] = selfActor.data.data.actions?.flatMap((a) => [a, a.altUsages ?? []].flat()) ?? [];
 
-        const selfItem =
+        const selfItem: AttackItem =
             params.viewOnly || params.item.isOfType("spell")
                 ? params.item
                 : actions
                       .map((a): AttackItem => a.item)
-                      .find((weapon): weapon is I => {
+                      .find((weapon) => {
                           // Find the matching weapon or melee item
                           if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
                           if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
@@ -857,7 +857,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const self = {
             actor: selfActor,
             token: selfToken?.document ?? null,
-            item: selfItem,
+            item: selfItem as I,
             modifiers: [],
         };
 
