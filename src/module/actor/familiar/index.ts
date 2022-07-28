@@ -14,9 +14,9 @@ export class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | null {
         // The Actors world collection needs to be initialized for data preparation
-        if (!game.ready || !this.data.data.master.id) return null;
+        if (!game.ready || !this.system.master.id) return null;
 
-        const master = game.actors.get(this.data.data.master.id ?? "");
+        const master = game.actors.get(this.system.master.id ?? "");
         if (master instanceof CharacterPF2e) {
             master.familiar ??= this;
             return master;
@@ -40,7 +40,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             details: {};
         };
 
-        const systemData: PartialSystemData = this.data.data;
+        const systemData: PartialSystemData = this.system;
         systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
         systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
@@ -82,7 +82,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         const master = this.master;
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         const { attributes, details } = systemData;
 
         // Apply active effects now that the master (if selected) is ready.
@@ -97,13 +97,13 @@ export class FamiliarPF2e extends CreaturePF2e {
         // The familiar's alliance is the same as its master's
         const level = (details.level.value = master.level);
         this.rollOptions.all[`self:level:${level}`] = true;
-        details.alliance = master.data.data.details.alliance;
+        details.alliance = master.system.details.alliance;
 
         const masterLevel =
             game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : master.level;
 
         systemData.master.ability ||= "cha";
-        const spellcastingAbilityModifier = master.data.data.abilities[systemData.master.ability].mod;
+        const spellcastingAbilityModifier = master.system.abilities[systemData.master.ability].mod;
 
         const { synthetics } = this;
         const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
@@ -145,7 +145,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const source = master.data.data.attributes.ac.modifiers.filter(
+            const source = master.system.attributes.ac.modifiers.filter(
                 (modifier) => !["status", "circumstance"].includes(modifier.type)
             );
             const base = 10 + new StatisticModifier("base", source).totalModifier;
@@ -188,13 +188,13 @@ export class FamiliarPF2e extends CreaturePF2e {
             return { ...partialSaves, [saveType]: stat };
         }, {} as Record<SaveType, Statistic>);
 
-        this.data.data.saves = SAVE_TYPES.reduce(
+        this.system.saves = SAVE_TYPES.reduce(
             (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getCompatData() }),
             {} as CreatureSaves
         );
 
         // Senses
-        this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);
+        this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Attack
         {

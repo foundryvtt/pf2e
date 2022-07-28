@@ -30,7 +30,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     override async getData(): Promise<LootSheetDataPF2e> {
         const sheetData = await super.getData();
-        const isLoot = this.actor.data.data.lootSheetType === "Loot";
+        const isLoot = this.actor.system.lootSheetType === "Loot";
         return { ...sheetData, isLoot };
     }
 

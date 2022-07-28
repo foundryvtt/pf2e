@@ -1,4 +1,4 @@
-import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { PhysicalItemPF2e } from "@item";
 import { stackDefinitions } from "@item/physical/bulk";
 import { Coins, Price } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
@@ -62,15 +62,15 @@ export class CraftingFormula implements CraftingFormulaData {
     }
 
     get minimumBatchSize(): number {
-        return stackDefinitions[this.item.data.data.stackGroup ?? ""]?.size ?? 1;
+        return stackDefinitions[this.item.system.stackGroup ?? ""]?.size ?? 1;
     }
 
     get defaultBatchSize(): number {
         const { item } = this;
-        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
+        const isMundaneAmmo = item.isOfType("consumable") && item.isAmmunition && !item.isMagical;
         const isConsumable =
-            (item instanceof ConsumablePF2e && item.consumableType !== "wand") ||
-            (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
+            (item.isOfType("consumable") && item.consumableType !== "wand") ||
+            (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
 
         return Math.max(this.minimumBatchSize, isMundaneAmmo ? 10 : isConsumable ? 4 : 1);
     }

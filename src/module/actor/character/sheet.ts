@@ -129,7 +129,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Is the character's key ability score overridden by an Active Effect?
-        sheetData.data.details.keyability.singleOption = this.actor.class?.data.data.keyAbility.value.length === 1;
+        sheetData.data.details.keyability.singleOption = this.actor.class?.system.keyAbility.value.length === 1;
 
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
@@ -196,9 +196,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Show hints for some things being modified
         const baseData = this.actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =
-            this.actor.attributes.bonusEncumbranceBulk !== baseData.data.attributes.bonusEncumbranceBulk;
+            this.actor.attributes.bonusEncumbranceBulk !== baseData.system.attributes.bonusEncumbranceBulk;
         sheetData.adjustedBonusLimitBulk =
-            this.actor.attributes.bonusLimitBulk !== baseData.data.attributes.bonusLimitBulk;
+            this.actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
 
         sheetData.tabVisibility = deepClone(this.actor.data.flags.pf2e.sheetTabs);
 
@@ -324,7 +324,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             alchemical: {
                 entries: [],
                 totalReagentCost: 0,
-                infusedReagents: this.actor.data.data.resources.crafting.infusedReagents,
+                infusedReagents: this.actor.system.resources.crafting.infusedReagents,
             },
         };
 
@@ -493,7 +493,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             event.stopPropagation();
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
-            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const action = this.actor.system.actions[Number(actionIndex)];
             const weapon = this.actor.items.get(action.item?.id ?? "");
             const ammo = this.actor.items.get($(event.currentTarget).val() as string);
 
@@ -609,12 +609,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (!formula) return;
 
             if (this.actor.data.flags.pf2e.quickAlchemy) {
-                const reagentValue = this.actor.data.data.resources.crafting.infusedReagents.value - itemQuantity;
+                const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - itemQuantity;
                 if (reagentValue < 0) {
                     ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
                     return;
                 }
-                await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+                await this.actor.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
 
                 return craftItem(formula.item, itemQuantity, this.actor, true);
             }
@@ -631,7 +631,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visibility: "all",
-                adjustments: this.actor.data.data.skills.cra.adjustments,
+                adjustments: this.actor.system.skills.cra.adjustments,
                 scope: "check",
             };
 
@@ -725,9 +725,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $formulas.find(".infused-reagents").on("change", (event) => {
             const change = Number($(event.target).val());
-            const infusedReagents = this.actor.data.data.resources.crafting.infusedReagents;
+            const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
             const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
-            this.actor.update({ "data.resources.crafting.infusedReagents.value": value });
+            this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
         });
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
@@ -826,13 +826,13 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Retrieve and validate the updated value
         const newValue = ((): number | undefined => {
             if (item instanceof SpellcastingEntryPF2e) {
-                const proficiencyRank = item.data.data.proficiency.value;
+                const proficiencyRank = item.system.proficiency.value;
                 const dispatch: Record<string, () => number> = {
-                    "data.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
+                    "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item instanceof LorePF2e) {
-                const currentRank = item.data.data.proficient.value;
+                const currentRank = item.system.proficient.value;
                 return Math.clamped(currentRank + change, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");

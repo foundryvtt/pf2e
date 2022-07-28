@@ -68,7 +68,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         return {
             ...sheetData,
-            languages: createSheetTags(CONFIG.PF2E.languages, actor.data.data.traits.languages),
+            languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
@@ -197,7 +197,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 ["dying", "wounded"].includes(className)
             );
             if (condition) {
-                const currentMax = this.actor.data.data.attributes[condition]?.max;
+                const currentMax = this.actor.attributes[condition]?.max;
                 if (event.type === "click" && currentMax) {
                     this.actor.increaseCondition(condition, { max: currentMax });
                 } else if (event.type === "contextmenu") {
@@ -227,21 +227,21 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const $strikesList = $html.find("ol.strikes-list");
 
         $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
-            if (!["character", "npc"].includes(this.actor.data.type)) {
+            if (!this.actor.isOfType("character", "npc")) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
             await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
         });
 
         $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
-            if (!["character", "npc"].includes(this.actor.data.type)) {
+            if (!this.actor.isOfType("character", "npc")) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
             await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
         $html.find(".spell-attack").on("click", async (event) => {
-            if (!["character"].includes(this.actor.data.type)) {
+            if (!this.actor.isOfType("character")) {
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
@@ -268,21 +268,21 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const actor = this.actor;
             const item = actor.items.get(itemId);
             if (item instanceof SpellcastingEntryPF2e) {
-                const data = item.data.toObject();
-                if (!data.data.slots) return;
+                const data = item.toObject();
+                if (!data.system.slots) return;
                 const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-                data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
+                data.system.slots[slotLevel].value = data.system.slots[slotLevel].max;
                 item.update(data);
-            } else if (item instanceof SpellPF2e) {
-                const max = item.data.data.location.uses?.max;
+            } else if (item?.isOfType("spell")) {
+                const max = item.system.location.uses?.max;
                 if (!max) return;
-                item.update({ "data.location.uses.value": max });
+                item.update({ "system.location.uses.value": max });
             }
         });
 
         const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
         $strikesList.find(attackSelectors).on("click", (event) => {
-            if (!("actions" in this.actor.data.data)) {
+            if (!("actions" in this.actor.system)) {
                 throw ErrorPF2e("Strikes are not supported on this actor");
             }
 
@@ -302,7 +302,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         // We can't use form submission for these updates since duplicates force array updates.
         // We'll have to move focus points to the top of the sheet to remove this
         $html.find(".focus-pool").on("change", (event) => {
-            this.actor.update({ "data.resources.focus.max": $(event.target).val() });
+            this.actor.update({ "system.resources.focus.max": $(event.target).val() });
         });
 
         $html.find(".toggle-signature-spell").on("click", (event) => {
@@ -362,7 +362,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
         const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
-        const rootAction = this.actor.data.data.actions?.[actionIndex];
+        const rootAction = this.actor.system.actions?.[actionIndex];
         if (!rootAction) return null;
 
         const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
@@ -381,7 +381,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             return;
         }
 
-        spell.update({ "data.location.signature": !spell.data.data.location.signature });
+        spell.update({ "system.location.signature": !spell.system.location.signature });
     }
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
@@ -406,7 +406,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
 
         const target = event.currentTarget;
-        if (target.name === "data.attributes.hp.value") {
+        if (target.name === "system.attributes.hp.value") {
             const inputted = Number(target.value) || 0;
             target.value = Math.floor(Math.clamped(inputted, 0, this.actor.hitPoints.max)).toString();
         }
@@ -417,12 +417,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Redirect an update to shield HP to the actual item */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const heldShield = this.actor.heldShield;
-        if (heldShield && typeof formData["data.attributes.shield.hp.value"] === "number") {
+        if (heldShield && typeof formData["system.attributes.shield.hp.value"] === "number") {
             await heldShield.update({
-                "data.hp.value": formData["data.attributes.shield.hp.value"],
+                "system.hp.value": formData["system.attributes.shield.hp.value"],
             });
         }
-        delete formData["data.attributes.shield.hp.value"];
+        delete formData["system.attributes.shield.hp.value"];
 
         return super._updateObject(event, formData);
     }

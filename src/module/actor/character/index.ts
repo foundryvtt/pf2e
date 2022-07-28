@@ -124,19 +124,19 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     get keyAbility(): AbilityString {
-        return this.data.data.details.keyability.value || "str";
+        return this.system.details.keyability.value || "str";
     }
 
     /** This PC's ability scores */
     get abilities(): Abilities {
-        return deepClone(this.data.data.abilities);
+        return deepClone(this.system.abilities);
     }
 
     override get hitPoints(): CharacterHitPointsSummary {
         return {
             ...super.hitPoints,
-            recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
-            recoveryAddend: this.data.data.attributes.hp.recoveryAddend,
+            recoveryMultiplier: this.system.attributes.hp.recoveryMultiplier,
+            recoveryAddend: this.system.attributes.hp.recoveryAddend,
         };
     }
 
@@ -145,9 +145,9 @@ class CharacterPF2e extends CreaturePF2e {
         for (const [key, skill] of Object.entries(skills)) {
             if (!skill) continue;
             const originalKey = SKILL_DICTIONARY_REVERSE[skill.slug] ?? skill.slug;
-            if (!objectHasKey(this.data.data.skills, originalKey)) continue;
+            if (!objectHasKey(this.system.skills, originalKey)) continue;
 
-            const data = this.data.data.skills[originalKey];
+            const data = this.system.skills[originalKey];
             skills[key] = mergeObject(skill, {
                 rank: data.rank,
                 ability: data.ability,
@@ -159,11 +159,11 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     get heroPoints(): { value: number; max: number } {
-        return deepClone(this.data.data.resources.heroPoints);
+        return deepClone(this.system.resources.heroPoints);
     }
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
-        const { formulas } = this.data.data.crafting;
+        const { formulas } = this.system.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
         const items: unknown[] = await fromUUIDs(formulas.map((data) => data.uuid));
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
@@ -178,14 +178,14 @@ class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingEntries(): Promise<CraftingEntry[]> {
         const craftingFormulas = await this.getCraftingFormulas();
-        return Object.values(this.data.data.crafting.entries)
+        return Object.values(this.system.crafting.entries)
             .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
             .map((entry) => new CraftingEntry(this, craftingFormulas, entry));
     }
 
     async getCraftingEntry(selector: string): Promise<CraftingEntry | null> {
         const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntryData = this.data.data.crafting.entries[selector];
+        const craftingEntryData = this.system.crafting.entries[selector];
         if (CraftingEntry.isValid(craftingEntryData)) {
             return new CraftingEntry(this, craftingFormulas, craftingEntryData);
         }
@@ -197,17 +197,17 @@ class CharacterPF2e extends CreaturePF2e {
         const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
         const alchemicalEntries = entries.filter((e) => e.isAlchemical);
         const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
-        const reagentValue = (this.data.data.resources.crafting.infusedReagents.value || 0) - reagentCost;
+        const reagentValue = (this.system.resources.crafting.infusedReagents.value || 0) - reagentCost;
         if (reagentValue < 0) {
             ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
             return;
         } else {
-            await this.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+            await this.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
         }
 
         // Remove infused/temp items
         for (const item of this.inventory) {
-            if (item.data.data.temporary) await item.delete();
+            if (item.system.temporary) await item.delete();
         }
 
         for (const entry of entries) {
@@ -248,7 +248,7 @@ class CharacterPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.data.data;
+        const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.system;
 
         // Flags
         const { flags } = this;
@@ -308,7 +308,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Actor document and data properties from items
-        const { details } = this.data.data;
+        const { details } = this.system;
         for (const property of ["ancestry", "heritage", "background", "class", "deity"] as const) {
             this[property] = null;
 
@@ -331,7 +331,7 @@ class CharacterPF2e extends CreaturePF2e {
             : "opposition";
 
         // Attributes
-        const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
+        const attributes: DeepPartial<CharacterAttributes> = this.attributes;
         attributes.ac = {};
         attributes.classDC = { rank: 0 };
         attributes.dexCap = [{ value: Infinity, source: "" }];
@@ -343,7 +343,7 @@ class CharacterPF2e extends CreaturePF2e {
         perception.rank ??= 0;
 
         // Hit points
-        const hitPoints = this.data.data.attributes.hp;
+        const hitPoints = this.attributes.hp;
         hitPoints.recoveryMultiplier = 1;
         hitPoints.recoveryAddend = 0;
         attributes.ancestryhp = 0;
@@ -353,7 +353,7 @@ class CharacterPF2e extends CreaturePF2e {
         attributes.familiarAbilities = { value: 0 };
 
         // Saves and skills
-        const saves: DeepPartial<CharacterSaves> = this.data.data.saves;
+        const saves: DeepPartial<CharacterSaves> = this.system.saves;
         for (const save of SAVE_TYPES) {
             saves[save] = {
                 ability: CONFIG.PF2E.savingThrowDefaultAbilities[save],
@@ -361,7 +361,7 @@ class CharacterPF2e extends CreaturePF2e {
             };
         }
 
-        const skills = this.data.data.skills;
+        const skills = this.system.skills;
         for (const key of SKILL_ABBREVIATIONS) {
             const skill = skills[key];
             skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].ability;
@@ -380,7 +380,7 @@ class CharacterPF2e extends CreaturePF2e {
         };
 
         // Resources
-        const { resources } = this.data.data;
+        const { resources } = this.system;
         resources.heroPoints.max = 3;
         resources.investiture = { value: 0, max: 10 };
 
@@ -392,10 +392,10 @@ class CharacterPF2e extends CreaturePF2e {
         resources.crafting.infusedReagents.max = 0;
 
         // Size
-        this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
+        this.system.traits.size = new ActorSizePF2e({ value: "med" });
 
         // Weapon and Armor category proficiencies
-        const martial: DeepPartial<MartialProficiencies> = this.data.data.martial;
+        const martial: DeepPartial<MartialProficiencies> = this.system.martial;
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
@@ -412,7 +412,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Indicate that crafting formulas stored directly on the actor are deletable
-        for (const formula of this.data.data.crafting.formulas) {
+        for (const formula of this.system.crafting.formulas) {
             formula.deletable = true;
         }
 
@@ -441,7 +441,7 @@ class CharacterPF2e extends CreaturePF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         const { synthetics } = this;
 
         if (!this.flags.pf2e.disableABP) {
@@ -594,7 +594,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Senses
-        this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);
+        this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Class DC
         {
@@ -725,7 +725,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
             const { ability, tradition } = entry;
-            const rank = (entry.data.data.proficiency.value = entry.rank);
+            const rank = (entry.system.proficiency.value = entry.rank);
 
             const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
             const attackSelectors = [
@@ -758,7 +758,7 @@ class CharacterPF2e extends CreaturePF2e {
                 },
             });
 
-            entry.data.data.statisticData = entry.statistic.getChatData();
+            entry.system.statisticData = entry.statistic.getChatData();
         }
 
         // Expose best spellcasting DC to character attributes
@@ -766,15 +766,15 @@ class CharacterPF2e extends CreaturePF2e {
             const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
                 return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
             });
-            this.data.data.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
+            this.system.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
         } else {
-            this.data.data.attributes.spellDC = null;
+            this.system.attributes.spellDC = null;
         }
 
         // Expose the higher between highest spellcasting DC and (if present) class DC
-        this.data.data.attributes.classOrSpellDC = ((): { rank: number; value: number } => {
-            const classDC = this.data.data.attributes.classDC.rank > 0 ? this.data.data.attributes.classDC : null;
-            const spellDC = this.data.data.attributes.spellDC;
+        this.system.attributes.classOrSpellDC = ((): { rank: number; value: number } => {
+            const classDC = this.system.attributes.classDC.rank > 0 ? this.system.attributes.classDC : null;
+            const spellDC = this.system.attributes.spellDC;
             return spellDC && classDC
                 ? spellDC.value > classDC.value
                     ? { ...spellDC }
@@ -790,7 +790,7 @@ class CharacterPF2e extends CreaturePF2e {
         this.prepareInitiative();
 
         // Resources
-        const { focus, crafting } = this.data.data.resources;
+        const { focus, crafting } = this.system.resources;
         focus.max = Math.clamped(focus.max, 0, focus.cap);
         crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
@@ -815,7 +815,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     private setAbilityScores(): void {
-        const { build, details } = this.data.data;
+        const { build, details } = this.system;
 
         if (!build.abilities.manual) {
             for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
@@ -823,11 +823,11 @@ class CharacterPF2e extends CreaturePF2e {
                 const boosts = build.abilities.boosts[section];
                 if (typeof boosts === "string") {
                     // Class's key ability score
-                    const ability = this.data.data.abilities[boosts];
+                    const ability = this.system.abilities[boosts];
                     ability.value += ability.value >= 18 ? 1 : 2;
                 } else if (Array.isArray(boosts)) {
                     for (const abbrev of boosts) {
-                        const ability = this.data.data.abilities[abbrev];
+                        const ability = this.system.abilities[abbrev];
                         ability.value += ability.value >= 18 ? 1 : 2;
                     }
                 }
@@ -835,7 +835,7 @@ class CharacterPF2e extends CreaturePF2e {
                 // Optional and non-optional flaws only come from the ancestry section
                 const flaws = section === "ancestry" ? build.abilities.flaws[section] : [];
                 for (const abbrev of flaws) {
-                    const ability = this.data.data.abilities[abbrev];
+                    const ability = this.system.abilities[abbrev];
                     ability.value -= 2;
                 }
             }
@@ -844,7 +844,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics
-        for (const ability of Object.values(this.data.data.abilities)) {
+        for (const ability of Object.values(this.system.abilities)) {
             ability.value = Math.clamped(ability.value, 8, 30);
             // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
             ability.base = ability.value;
@@ -853,7 +853,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     private setAbilityModifiers(): void {
         // Set modifiers
-        for (const ability of Object.values(this.data.data.abilities)) {
+        for (const ability of Object.values(this.system.abilities)) {
             ability.mod = Math.floor((ability.value - 10) / 2);
         }
     }
@@ -862,7 +862,7 @@ class CharacterPF2e extends CreaturePF2e {
     protected setNumericRollOptions(): void {
         const rollOptionsAll = this.rollOptions.all;
 
-        const perceptionRank = this.data.data.attributes.perception.rank;
+        const perceptionRank = this.system.attributes.perception.rank;
         rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
         for (const key of ABILITY_ABBREVIATIONS) {
@@ -871,22 +871,22 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         for (const key of SKILL_ABBREVIATIONS) {
-            const rank = this.data.data.skills[key].rank;
+            const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
         for (const key of ARMOR_CATEGORIES) {
-            const rank = this.data.data.martial[key].rank;
+            const rank = this.system.martial[key].rank;
             rollOptionsAll[`defense:${key}:rank:${rank}`] = true;
         }
 
         for (const key of WEAPON_CATEGORIES) {
-            const rank = this.data.data.martial[key].rank;
+            const rank = this.system.martial[key].rank;
             rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
         }
 
         for (const key of SAVE_TYPES) {
-            const rank = this.data.data.saves[key].rank;
+            const rank = this.system.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
 
@@ -907,7 +907,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     private prepareSaves(): void {
-        const systemData = this.data.data;
+        const systemData = this.system;
         const { wornArmor } = this;
         const { rollNotes } = this.synthetics;
 
@@ -920,8 +920,8 @@ class CharacterPF2e extends CreaturePF2e {
             const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
-            if (wornArmor?.data.data.resiliencyRune.value) {
-                const resilientBonus = getResiliencyBonus(wornArmor.data.data);
+            if (wornArmor?.system.resiliencyRune.value) {
+                const resilientBonus = getResiliencyBonus(wornArmor.system);
                 if (resilientBonus > 0 && wornArmor.isInvested) {
                     modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
                 }
@@ -967,14 +967,14 @@ class CharacterPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            this.data.data.saves[saveType] = mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            this.system.saves[saveType] = mergeObject(this.system.saves[saveType], stat.getCompatData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
     private prepareSkills(): Record<SkillAbbreviation, CharacterSkillData> {
-        const systemData = this.data.data;
+        const systemData = this.system;
 
         // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, wornArmor } = this;
@@ -997,7 +997,7 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             // Indicate that the strength requirement of this actor's armor is met
-            if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
+            if (typeof wornArmor?.strength === "number" && this.system.abilities.str.value >= wornArmor.strength) {
                 for (const selector of ["skill-check", "initiative"]) {
                     const rollOptions = (this.rollOptions[selector] ??= {});
                     // Nullish assign to not overwrite setting by rule element
@@ -1050,7 +1050,7 @@ class CharacterPF2e extends CreaturePF2e {
             stat.rank = skill.rank;
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
-                    `Rolling skill checks via actor.data.data.skills.${shortForm}.roll() is deprecated, use actor.skills.${longForm}.check.roll() instead`
+                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${longForm}.check.roll() instead`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
@@ -1133,7 +1133,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
-                    `Rolling skill checks via actor.data.data.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
+                    `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                 const rollOptions = args.options ?? [];
@@ -1177,7 +1177,7 @@ class CharacterPF2e extends CreaturePF2e {
     override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
-        const strength = this.data.data.abilities.str.value;
+        const strength = this.system.abilities.str.value;
         const requirement = wornArmor?.strength ?? strength;
         const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
 
@@ -1387,7 +1387,7 @@ class CharacterPF2e extends CreaturePF2e {
         const { synthetics } = this;
         const { rollNotes, statisticsModifiers, strikeAdjustments } = synthetics;
         const modifiers: ModifierPF2e[] = [];
-        const systemData = this.data.data;
+        const systemData = this.system;
         const { categories } = options;
         const ammos = options.ammos ?? [];
 
@@ -1439,7 +1439,7 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponSpecificSelectors = [
             weapon.baseType ? `${weapon.baseType}-base-attack-roll` : [],
             weapon.group ? `${weapon.group}-group-attack-roll` : [],
-            weapon.data.data.traits.otherTags.map((t) => `${t}-tag-attack-roll`),
+            weapon.system.traits.otherTags.map((t) => `${t}-tag-attack-roll`),
         ].flat();
 
         const baseSelectors = [
@@ -1536,10 +1536,10 @@ class CharacterPF2e extends CreaturePF2e {
         const isRealItem = this.items.has(weapon.id);
 
         if (isRealItem && weapon.category !== "unarmed") {
-            const traitsArray = weapon.data.data.traits.value;
+            const traitsArray = weapon.system.traits.value;
             const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
             const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
-            const { usage } = weapon.data.data;
+            const { usage } = weapon.system;
             const canWield2H = (usage.type === "held" && usage.hands === 2) || hasFatalAimTrait || hasTwoHandTrait;
 
             switch (weapon.carryType) {
@@ -1907,7 +1907,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     /** Prepare stored and synthetic martial proficiencies */
     prepareMartialProficiencies(): void {
-        const systemData = this.data.data;
+        const systemData = this.system;
 
         // Set ranks of linked proficiencies to their respective categories
         const linkedProficiencies = Object.values(systemData.martial).filter(
@@ -1953,19 +1953,19 @@ class CharacterPF2e extends CreaturePF2e {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }
 
-        return !!(await item.update({ "data.equipped.invested": !item.isInvested }));
+        return !!(await item.update({ "system.equipped.invested": !item.isInvested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */
     async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        const currentProficiencies = this.data.data.martial;
+        const currentProficiencies = this.system.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
-        await this.update({ [`data.martial.${key}`]: newProficiency });
+        await this.update({ [`system.martial.${key}`]: newProficiency });
     }
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        await this.update({ [`data.martial.-=${key}`]: null });
+        await this.update({ [`system.martial.-=${key}`]: null });
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */
@@ -1995,11 +1995,11 @@ class CharacterPF2e extends CreaturePF2e {
         options: CreatureUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const systemData = this.data.data;
+        const systemData = this.system;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        if (changed.data?.details?.level || changed.data?.build?.abilities) {
-            const level = changed.data?.details?.level;
+        if (changed.system?.details?.level || changed.system?.build?.abilities) {
+            const level = changed.system?.details?.level;
             if (typeof level?.value === "number") {
                 level.value = Math.clamped(Number(level.value) || 0, 0, 30) || 0;
             }
@@ -2014,25 +2014,25 @@ class CharacterPF2e extends CreaturePF2e {
                     currentHP + hpMaxDifference,
                     currentHP === 0 ? 0 : 1 // Refrain from killing the character merely by lowering level
                 );
-                changed.data = mergeObject(changed.data ?? {}, { attributes: { hp: { value: newHP } } });
+                changed.system = mergeObject(changed.system ?? {}, { attributes: { hp: { value: newHP } } });
             }
         }
 
         // Clamp Stamina and Resolve
         if (game.settings.get("pf2e", "staminaVariant")) {
             // Do not allow stamina to go over max
-            if (changed.data?.attributes?.sp) {
-                changed.data.attributes.sp.value = Math.clamped(
-                    changed.data?.attributes?.sp?.value || 0,
+            if (changed.system?.attributes?.sp) {
+                changed.system.attributes.sp.value = Math.clamped(
+                    changed.system?.attributes?.sp?.value || 0,
                     0,
                     systemData.attributes.sp.max
                 );
             }
 
             // Do not allow resolve to go over max
-            if (changed.data?.attributes?.resolve) {
-                changed.data.attributes.resolve.value = Math.clamped(
-                    changed.data?.attributes?.resolve?.value || 0,
+            if (changed.system?.attributes?.resolve) {
+                changed.system.attributes.resolve.value = Math.clamped(
+                    changed.system?.attributes?.resolve?.value || 0,
                     0,
                     systemData.attributes.resolve.max
                 );
@@ -2040,18 +2040,18 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Add or remove class features as necessary
-        const newLevel = changed.data?.details?.level?.value ?? this.level;
+        const newLevel = changed.system?.details?.level?.value ?? this.level;
         if (newLevel !== this.level) {
             await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
         }
 
         // Constrain PFS player and character numbers
         for (const property of ["playerNumber", "characterNumber"] as const) {
-            if (typeof changed.data?.pfs?.[property] === "number") {
+            if (typeof changed.system?.pfs?.[property] === "number") {
                 const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
-                changed.data.pfs[property] = Math.clamped(changed.data.pfs[property] || 0, min, max);
-            } else if (changed.data?.pfs && changed.data.pfs[property] !== null) {
-                changed.data.pfs[property] = this.data.data.pfs[property] ?? null;
+                changed.system.pfs[property] = Math.clamped(changed.system.pfs[property] || 0, min, max);
+            } else if (changed.system?.pfs && changed.system.pfs[property] !== null) {
+                changed.system.pfs[property] = this.system.pfs[property] ?? null;
             }
         }
 
@@ -2071,7 +2071,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     /** Toggle between boost-driven and manual management of ability scores */
     async toggleAbilityManagement(): Promise<void> {
-        if (Object.keys(this.data._source.data.abilities).length === 0) {
+        if (Object.keys(this.data._source.system.abilities).length === 0) {
             // Add stored ability scores for manual management
             const baseAbilities = Array.from(ABILITY_ABBREVIATIONS).reduce(
                 (accumulated: Record<string, { value: 10 }>, abbrev) => ({
@@ -2080,7 +2080,7 @@ class CharacterPF2e extends CreaturePF2e {
                 }),
                 {}
             );
-            await this.update({ "data.abilities": baseAbilities });
+            await this.update({ "system.abilities": baseAbilities });
         } else {
             // Delete stored ability scores for boost-driven management
             const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
@@ -2090,7 +2090,7 @@ class CharacterPF2e extends CreaturePF2e {
                 }),
                 {}
             );
-            await this.update({ "data.abilities": deletions });
+            await this.update({ "system.abilities": deletions });
         }
     }
 }

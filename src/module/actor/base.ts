@@ -3,7 +3,7 @@ import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
-import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { EffectFlags, EffectSource } from "@item/effect/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -221,18 +221,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const tokenIcon = (data: ConditionData) => {
+        const tokenIcon = (data: ConditionPF2e["system"]) => {
             const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
-            const statusName = data.data.hud.statusName;
+            const statusName = data.hud.statusName;
             return `${folder}${statusName}.webp`;
         };
         const conditionTokenIcons = this.itemTypes.condition
             .filter((condition) => condition.fromSystem)
-            .map((condition) => tokenIcon(condition.data));
+            .map((condition) => tokenIcon(condition.system));
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
-            .filter((effect) => effect.data.data.tokenIcon?.show)
+            .filter((effect) => effect.system.tokenIcon?.show)
             .map((effect) => new TokenEffect(effect.img));
 
         return super.temporaryEffects
@@ -758,7 +758,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 return item?.isOfType("armor") ? item : null;
             })();
             await shield?.update(
-                { "data.hp.value": shield.hitPoints.value - shieldDamage },
+                { "system.hp.value": shield.hitPoints.value - shieldDamage },
                 { render: hpDamage === 0 }
             );
         }
@@ -767,7 +767,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
         if (this.hitPoints?.value === 0) {
             const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
-            if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero)) {
+            if (this.isOfType("npc") && ["npcsOnly", "both"].includes(deadAtZero)) {
                 await game.combat?.combatants.find((c) => c.actor === this && !c.defeated)?.toggleDefeated();
             }
         }
@@ -873,14 +873,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (removeFromSource) {
             await item.delete();
         } else {
-            await item.update({ "data.quantity": newQuantity });
+            await item.update({ "system.quantity": newQuantity });
         }
 
         const newItemData = item.toObject();
-        newItemData.data.quantity = quantity;
-        newItemData.data.equipped.carryType = "worn";
+        newItemData.system.quantity = quantity;
+        newItemData.system.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            newItemData.data.equipped.invested = item.traits.has("invested") ? false : null;
+            newItemData.system.equipped.invested = item.traits.has("invested") ? false : null;
         }
 
         return targetActor.addToInventory(newItemData, container, newStack);
@@ -893,9 +893,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
-        if (!newStack && stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + itemData.data.quantity;
-            await stackItem.update({ "data.quantity": stackQuantity });
+        if (!newStack && stackItem && !stackItem.isOfType("backpack")) {
+            const stackQuantity = stackItem.quantity + itemData.system.quantity;
+            await stackItem.update({ "system.quantity": stackQuantity });
             return stackItem;
         }
 
@@ -917,7 +917,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const stackCandidates = actor.inventory.filter(
             (stackCandidate) =>
                 !stackCandidate.isInContainer &&
-                testItem instanceof PhysicalItemPF2e &&
+                testItem.isOfType("physical") &&
                 stackCandidate.isStackableWith(testItem)
         );
         if (stackCandidates.length === 0) {
@@ -940,18 +940,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (!container) {
             await item.update({
-                "data.containerId": null,
-                "data.equipped.carryType": "worn",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
+                "system.containerId": null,
+                "system.equipped.carryType": "worn",
+                "system.equipped.handsHeld": 0,
+                "system.equipped.inSlot": false,
             });
         } else if (!isCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
-                "data.containerId": container.id,
-                "data.equipped.carryType": carryType,
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
+                "system.containerId": container.id,
+                "system.equipped.carryType": carryType,
+                "system.equipped.handsHeld": 0,
+                "system.equipped.inSlot": false,
             });
         }
     }
@@ -967,7 +967,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const appliedToTemp = ((): number => {
             if (!hp.temp || delta <= 0) return 0;
             const applied = Math.min(hp.temp, delta);
-            updates["data.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
+            updates["system.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
 
             return applied;
         })();
@@ -977,7 +977,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);
-            updates["data.attributes.sp.value"] = Math.max(sp.value - applied, 0);
+            updates["system.attributes.sp.value"] = Math.max(sp.value - applied, 0);
 
             return applied;
         })();
@@ -985,7 +985,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const appliedToHP = ((): number => {
             const remaining = delta - appliedToTemp - appliedToSP;
             const applied = remaining > 0 ? Math.min(hp.value, remaining) : Math.max(hp.value - hp.max, remaining);
-            updates["data.attributes.hp.value"] = Math.max(hp.value - applied, 0);
+            updates["system.attributes.hp.value"] = Math.max(hp.value - applied, 0);
 
             return applied;
         })();
@@ -1177,11 +1177,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         user: UserPF2e
     ): Promise<void> {
         // Show floaty text when applying damage or healing
-        const changedHP = changed.data?.attributes?.hp;
+        const changedHP = changed.system?.attributes?.hp;
         const currentHP = this.hitPoints;
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
-            const levelChanged = !!changed.data?.details && "level" in changed.data.details;
+            const levelChanged = !!changed.system?.details && "level" in changed.system.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
         }
 
@@ -1215,7 +1215,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         // If alliance has changed, reprepare token data to update the color of bounding boxes
-        if (canvas.ready && changed.data?.details && "alliance" in changed.data.details) {
+        if (canvas.ready && changed.system?.details && "alliance" in changed.system.details) {
             for (const token of this.getActiveTokens(true, true)) {
                 token.prepareData();
             }

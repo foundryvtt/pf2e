@@ -427,7 +427,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
     }
 
     private async rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString): Promise<void> {
-        const bonus = this.actor.data.data.abilities[abilityId].mod;
+        const bonus = this.actor.abilities[abilityId].mod;
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
         const data = { bonus };
@@ -495,17 +495,17 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // do not update max health if the value has not actually changed
         if (this.isElite || this.isWeak) {
-            const { max } = this.actor.data.data.attributes.hp;
-            if (formData["data.attributes.hp.max"] === max) {
-                delete formData["data.attributes.hp.max"];
+            const { max } = this.actor.attributes.hp;
+            if (formData["system.attributes.hp.max"] === max) {
+                delete formData["system.attributes.hp.max"];
             }
         }
 
         // update shield hp
         const shield = this.actor.heldShield;
-        if (shield && Number.isInteger(formData["data.attributes.shield.value"])) {
+        if (shield && Number.isInteger(formData["system.attributes.shield.value"])) {
             await shield.update({
-                "data.hp.value": formData["data.attributes.shield.value"],
+                "system.hp.value": formData["system.attributes.shield.value"],
             });
         }
 

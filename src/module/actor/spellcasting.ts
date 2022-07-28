@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection";
 import { ErrorPF2e, tupleHasValue } from "@util";
@@ -25,7 +25,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
-        const spellData = item.data.data.spell?.data?.data;
+        const spellData = item.system.spell?.data?.data;
         return (
             !!spellData &&
             this.spellcastingFeatures.some((entry) => tupleHasValue(spellData.traditions.value, entry.tradition))
@@ -37,13 +37,13 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             throw ErrorPF2e("Actors do not currently support regular refocusing");
         }
 
-        if (this.actor instanceof NPCPF2e || this.actor instanceof CharacterPF2e) {
-            const focus = this.actor.data.data.resources.focus;
+        if (this.actor.isOfType("npc", "character")) {
+            const focus = this.actor.system.resources.focus;
 
             const rechargeFocus = focus?.max && focus.value < focus.max;
             if (focus && rechargeFocus) {
                 focus.value = focus.max;
-                return { "data.resources.focus.value": focus.value };
+                return { "system.resources.focus.value": focus.value };
             }
         }
 
@@ -66,13 +66,13 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             // Innate spells should refresh uses instead
             if (entry.isInnate) {
                 return entry.spells.map((spell) => {
-                    const value = spell.data.data.location.uses?.max ?? 1;
-                    return { _id: spell.id, "data.location.uses.value": value };
+                    const value = spell.system.location.uses?.max ?? 1;
+                    return { _id: spell.id, "system.location.uses.value": value };
                 });
             }
 
             // Spontaneous, and Prepared spells
-            const slots = entry.data.data.slots;
+            const slots = entry.system.slots;
             let updated = false;
             for (const slot of Object.values(slots)) {
                 if (entry.isPrepared && !entry.isFlexible) {
@@ -89,7 +89,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             }
 
             if (updated) {
-                return { _id: entry.id, "data.slots": slots };
+                return { _id: entry.id, "system.slots": slots };
             }
 
             return [];

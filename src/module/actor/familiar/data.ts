@@ -16,7 +16,7 @@ import type { FamiliarPF2e } from ".";
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
 interface FamiliarData
-    extends Omit<FamiliarSource, "data" | "effects" | "flags" | "items" | "token" | "type">,
+    extends Omit<FamiliarSource, "data" | "system" | "effects" | "flags" | "items" | "token" | "type">,
         BaseCreatureData<FamiliarPF2e, "familiar", FamiliarSystemData, FamiliarSource> {}
 
 interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {

@@ -20,7 +20,7 @@ function calculateMAPs(item: ItemPF2e, { domains, options }: { domains: string[]
 function calculateBaseMAP(item: ItemPF2e): MAPData {
     if (item.isOfType("melee", "weapon")) {
         // calculate multiple attack penalty tiers
-        const alternateMAP = item.isOfType("weapon") ? item.data.data.MAP.value : null;
+        const alternateMAP = item.isOfType("weapon") ? item.system.MAP.value : null;
         switch (alternateMAP) {
             case "1":
                 return { label: "PF2E.MultipleAttackPenalty", map1: -1, map2: -2 };

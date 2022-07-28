@@ -61,12 +61,12 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         const inputData: DeepPartial<SpellcastingEntrySource> = expandObject(formData);
 
         // When swapping to innate, convert to cha, but don't force it
-        if (inputData.data?.prepared?.value === "innate" && !wasInnate && inputData.data?.ability) {
-            inputData.data.ability.value = "cha";
+        if (inputData.system?.prepared?.value === "innate" && !wasInnate && inputData.system?.ability) {
+            inputData.system.ability.value = "cha";
         }
 
-        if (inputData.data?.autoHeightenLevel) {
-            inputData.data.autoHeightenLevel.value ||= null;
+        if (inputData.system?.autoHeightenLevel) {
+            inputData.system.autoHeightenLevel.value ||= null;
         }
 
         this.object.data.update(inputData);
@@ -84,12 +84,12 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         const updateData = this.object.toObject();
 
         if (this.object.isRitual) {
-            updateData.data.tradition.value = "";
-            updateData.data.ability.value = "";
+            updateData.system.tradition.value = "";
+            updateData.system.ability.value = "";
         }
 
         if (!this.object.isPrepared) {
-            delete updateData.data.prepared.flexible;
+            delete updateData.system.prepared.flexible;
         }
 
         if (this.object.id === null) {
@@ -103,7 +103,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
             const actualEntry = this.actor.spellcasting.get(this.object.id);
-            const data = pick(updateData.data, ["prepared", "tradition", "ability", "autoHeightenLevel"]);
+            const data = pick(updateData.system, ["prepared", "tradition", "ability", "autoHeightenLevel"]);
             await actualEntry?.update({ data });
         }
 

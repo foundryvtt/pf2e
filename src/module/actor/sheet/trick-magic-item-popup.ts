@@ -60,7 +60,7 @@ export class TrickMagicItemPopup {
 
     handleTrickItem(skill: TrickMagicItemSkill) {
         const options = ["all", "skill-check", "action:trick-magic-item"].concat(SKILL_DICTIONARY[skill]);
-        const stat = this.actor.data.data.skills[skill];
+        const stat = this.actor.system.skills[skill];
         stat.roll({
             options: options,
             dc: { value: this.checkDC[skill] ?? 0 },

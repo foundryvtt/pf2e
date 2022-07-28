@@ -23,6 +23,7 @@ declare module foundry {
             type: TType;
             img: ImagePath;
             data: TSystemSource;
+            system: TSystemSource;
             effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;

@@ -34,7 +34,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         const thisActor = this.object;
         const selectedActors: CharacterPF2e[] = formData.actorIds.flatMap((actorId) => {
             const maybeActor = game.actors.get(actorId);
-            return maybeActor instanceof CharacterPF2e ? maybeActor : [];
+            return maybeActor?.isOfType("character") ? maybeActor : [];
         });
 
         const playerCount = selectedActors.length;
@@ -108,7 +108,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
 
     override async getData(): Promise<PopupData> {
         const sheetData: PopupData = await super.getData();
-        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof CharacterPF2e);
+        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.isOfType("character"));
         sheetData.actorInfo = playerActors.map((actor) => ({
             id: actor.id,
             name: actor.name,

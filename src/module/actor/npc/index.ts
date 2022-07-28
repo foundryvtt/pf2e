@@ -31,11 +31,11 @@ class NPCPF2e extends CreaturePF2e {
 
     /** This NPC's ability scores */
     get abilities(): Abilities {
-        return deepClone(this.data.data.abilities);
+        return deepClone(this.system.abilities);
     }
 
     get description(): string {
-        return this.data.data.details.publicNotes;
+        return this.system.details.publicNotes;
     }
 
     /** Does this NPC have the Elite adjustment? */
@@ -96,7 +96,7 @@ class NPCPF2e extends CreaturePF2e {
 
         this.data.flags.pf2e.lootable ??= false;
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
@@ -117,7 +117,7 @@ class NPCPF2e extends CreaturePF2e {
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
     override prepareEmbeddedDocuments(): void {
         const { traits } = this;
-        const { level } = this.data.data.details;
+        const { level } = this.system.details;
 
         const baseLevel = level.value;
         level.value = traits.has("elite") ? baseLevel + 1 : traits.has("weak") ? baseLevel - 1 : baseLevel;
@@ -132,7 +132,7 @@ class NPCPF2e extends CreaturePF2e {
         const { data } = this.data;
 
         // Add rarity and custom traits to main trait list
-        const traits = this.data.data.traits;
+        const traits = this.system.traits;
         const customTraits = traits.traits.custom.split(/\s*[,;|]\s*/).filter((trait) => trait);
         const traitSet = new Set(traits.traits.value.concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
@@ -140,7 +140,7 @@ class NPCPF2e extends CreaturePF2e {
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = this.synthetics;
         const itemTypes = this.itemTypes;
-        const baseLevel = this.data._source.data.details.level.value;
+        const baseLevel = this.data._source.system.details.level.value;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -182,7 +182,7 @@ class NPCPF2e extends CreaturePF2e {
         data.details.level.base = baseLevel;
 
         // Compute 10+mod ability scores from ability modifiers
-        for (const ability of Object.values(this.data.data.abilities)) {
+        for (const ability of Object.values(this.system.abilities)) {
             ability.mod = Number(ability.mod) || 0;
             ability.value = ability.mod * 2 + 10;
         }
@@ -780,7 +780,7 @@ class NPCPF2e extends CreaturePF2e {
     }
 
     prepareSaves(): void {
-        const data = this.data.data;
+        const data = this.system;
         const { rollNotes } = this.synthetics;
 
         // Saving Throws
@@ -810,8 +810,8 @@ class NPCPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
-            this.data.data.saves[saveType].base = base;
+            mergeObject(this.system.saves[saveType], stat.getCompatData());
+            this.system.saves[saveType].base = base;
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
@@ -844,7 +844,7 @@ class NPCPF2e extends CreaturePF2e {
 
         for (const attackEffect of sourceItemData.data.attackEffects.value) {
             const item = this.items.find(
-                (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
+                (item) => item.isOfType("melee") && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
             );
             const note = new RollNotePF2e({ selector: "all", text: "" });
             if (item) {
@@ -912,8 +912,8 @@ class NPCPF2e extends CreaturePF2e {
             }
         })();
         const newHPAdjustment = this.getHpAdjustment(this.getBaseLevel(), adjustment);
-        const currentHP = this.data.data.attributes.hp.value;
-        const maxHP = this.data.data.attributes.hp.max;
+        const currentHP = this.attributes.hp.value;
+        const maxHP = this.attributes.hp.max;
         const newHP = (() => {
             if (this.isElite) {
                 if (adjustment === "weak") {
@@ -923,15 +923,15 @@ class NPCPF2e extends CreaturePF2e {
                 }
             } else if (this.isWeak) {
                 if (adjustment === "elite") {
-                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
+                    this.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
                     return currentHP + currentHPAdjustment + newHPAdjustment;
                 } else if (adjustment === "normal") {
-                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment;
+                    this.attributes.hp.max = maxHP + currentHPAdjustment;
                     return currentHP + currentHPAdjustment;
                 }
             } else {
                 if (adjustment === "elite") {
-                    this.data.data.attributes.hp.max = currentHP + newHPAdjustment;
+                    this.attributes.hp.max = currentHP + newHPAdjustment;
                     return currentHP + newHPAdjustment;
                 } else if (adjustment === "weak") {
                     return currentHP - newHPAdjustment;
@@ -943,7 +943,7 @@ class NPCPF2e extends CreaturePF2e {
         const toAdd = adjustment === "normal" ? [] : [adjustment];
         const toRemove = adjustment === "weak" ? ["elite"] : adjustment === "elite" ? ["weak"] : ["elite", "weak"];
         const newTraits = this.toObject()
-            .data.traits.traits.value.filter((trait) => !toRemove.includes(trait))
+            .system.traits.traits.value.filter((trait) => !toRemove.includes(trait))
             .concat(toAdd);
 
         await this.update({
@@ -971,8 +971,8 @@ class NPCPF2e extends CreaturePF2e {
         const source = this.data._source;
         const changes: DeepPartial<NPCSource> = {
             name: params.name ?? this.name,
-            data: {
-                details: { publicNotes: params.description ?? source.data.details.publicNotes },
+            system: {
+                details: { publicNotes: params.description ?? source.system.details.publicNotes },
             },
             img: params.img?.actor ?? source.img,
             token: { img: params.img?.token ?? source.token.img },

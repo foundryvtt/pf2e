@@ -30,6 +30,7 @@ declare module foundry {
             type: TType;
             img: ImagePath;
             data: TSystemSource;
+            system: TSystemSource;
             token: PrototypeTokenSource;
             items: TItemSource[];
             effects: ActiveEffectSource[];

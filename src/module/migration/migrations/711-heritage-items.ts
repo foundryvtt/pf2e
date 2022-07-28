@@ -164,7 +164,7 @@ export class Migration711HeritageItems extends MigrationBase {
 
     private ancestrySlugs = Object.keys(this.officialAncestries);
 
-    private heritageFromFeat(feature: FeatSource): HeritageSource {
+    private heritageFromFeat(feature: FeatSource): Omit<HeritageSource, "data"> {
         const featureSlug = feature.data.slug ?? "";
         const ancestrySlug =
             this.heritagesWithoutAncestryInName[featureSlug] ?? this.ancestrySlugs.find((s) => featureSlug.includes(s));
@@ -186,7 +186,7 @@ export class Migration711HeritageItems extends MigrationBase {
             flags: feature.flags,
             sort: feature.sort,
             permission: feature.permission,
-            data: {
+            system: {
                 description: feature.data.description,
                 rules: feature.data.rules,
                 schema: feature.data.schema,
@@ -234,7 +234,7 @@ export class Migration711HeritageItems extends MigrationBase {
         if (itemSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
             itemSource.img = "systems/pf2e/icons/default-icons/heritage.svg";
         }
-        const newSystemData: HeritageSystemSource & FeatPropertyDeletions = this.heritageFromFeat(itemSource).data;
+        const newSystemData: HeritageSystemSource & FeatPropertyDeletions = this.heritageFromFeat(itemSource).system;
         const toDelete = ["featType", "actionCategory", "actions", "actionType", "level", "location"] as const;
         const deletionProperties = toDelete.map((k) => `-=${k}` as const);
         for (const property of deletionProperties) {

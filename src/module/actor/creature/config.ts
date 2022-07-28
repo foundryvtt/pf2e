@@ -27,7 +27,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
 
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<CreatureConfigData<TActor>> {
         const source: BaseCreatureSource = this.actor.data._source;
-        const alliance = source.data.details?.alliance ?? "default";
+        const alliance = source.system.details?.alliance ?? "default";
         const defaultValue = game.i18n.localize(
             this.actor.hasPlayerOwner ? "PF2E.Actor.Creature.Alliance.Party" : "PF2E.Actor.Creature.Alliance.Opposition"
         );
@@ -47,12 +47,12 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
 
     /** Remove stored property if it's set to default; otherwise, update */
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const key = "data.details.alliance";
+        const key = "system.details.alliance";
         const alliance = formData[key];
 
         if (alliance === "default") {
             delete formData[key];
-            formData["data.details.-=alliance"] = null;
+            formData["system.details.-=alliance"] = null;
         } else if (alliance === "neutral") {
             formData[key] = null;
         } else if (!setHasElement(ALLIANCES, alliance)) {

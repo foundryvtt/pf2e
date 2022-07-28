@@ -93,8 +93,10 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         // Spellcasting entries and focus points
         const spellcastingRecharge = actor.spellcasting.recharge();
         itemUpdates.push(...spellcastingRecharge.itemUpdates);
-        if (spellcastingRecharge.actorUpdates?.["data.resources.focus.value"]) {
-            actorUpdates.resources.focus = { value: spellcastingRecharge.actorUpdates?.["data.resources.focus.value"] };
+        if (spellcastingRecharge.actorUpdates?.["system.resources.focus.value"]) {
+            actorUpdates.resources.focus = {
+                value: spellcastingRecharge.actorUpdates?.["system.resources.focus.value"],
+            };
         }
 
         // Action Frequencies

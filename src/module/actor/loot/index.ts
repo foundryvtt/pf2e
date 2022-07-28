@@ -16,16 +16,16 @@ export class LootPF2e extends ActorPF2e {
     }
 
     get isLoot(): boolean {
-        return this.data.data.lootSheetType === "Loot";
+        return this.system.lootSheetType === "Loot";
     }
 
     get isMerchant(): boolean {
-        return this.data.data.lootSheetType === "Merchant";
+        return this.system.lootSheetType === "Merchant";
     }
 
     /** Should this actor's token(s) be hidden when there are no items in its inventory? */
     get hiddenWhenEmpty(): boolean {
-        return this.isLoot && this.data.data.hiddenWhenEmpty;
+        return this.isLoot && this.system.hiddenWhenEmpty;
     }
 
     /** Loot actors can never benefit from rule elements */
@@ -108,7 +108,7 @@ export class LootPF2e extends ActorPF2e {
         options: DocumentUpdateContext<this>,
         userId: string
     ): void {
-        if (changed.data?.hiddenWhenEmpty !== undefined) {
+        if (changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
         }
         super._onUpdate(changed, options, userId);

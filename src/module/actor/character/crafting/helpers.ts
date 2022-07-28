@@ -51,7 +51,7 @@ function calculateCosts(
     const lostMaterials = new CoinsPF2e();
     const reductionPerDay = new CoinsPF2e();
 
-    const proficiency = skillRankToProficiency(actor.data.data.skills.cra.rank);
+    const proficiency = skillRankToProficiency(actor.system.skills.cra.rank);
     if (!proficiency) return null;
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
@@ -165,7 +165,7 @@ export async function renderCraftingInline(
     quantity: number,
     actor: ActorPF2e
 ): Promise<string | null> {
-    if (!(actor instanceof CharacterPF2e)) return null;
+    if (!actor.isOfType("character")) return null;
 
     const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);

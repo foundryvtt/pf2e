@@ -80,11 +80,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
 
         // IWR
-        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.data.traits.di);
-        for (const weakness of actorData.data.traits.dv) {
+        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.system.traits.di);
+        for (const weakness of actorData.system.traits.dv) {
             weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
         }
-        for (const resistance of actorData.data.traits.dr) {
+        for (const resistance of actorData.system.traits.dr) {
             resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
         }
 
@@ -108,11 +108,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             owner: this.actor.isOwner,
             title: this.title,
             actor: actorData,
-            data: actorData.data,
+            data: actorData.system,
             effects: actorData.effects,
             items: items,
             user: { isGM: game.user.isGM },
-            traits: createSheetTags(traitsMap, actorData.data.traits.traits),
+            traits: createSheetTags(traitsMap, actorData.system.traits.traits),
             immunities,
             hasImmunities: Object.keys(immunities).length > 0,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
@@ -210,7 +210,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html);
+        if (!this.actor.isOfType("character", "npc")) InlineRollLinks.listen($html);
 
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {
@@ -225,7 +225,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         $html.find(".roll-init").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { attributes } = this.actor.data.data;
+            const { attributes } = this.actor.system;
             if (!$target.hasClass("disabled") && "initiative" in attributes) {
                 const { skipDialog, secret } = eventToRollParams(event);
                 const options = secret ? ["secret"] : [];
@@ -253,7 +253,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             event.preventDefault();
             const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
             const isSecret = event.currentTarget.getAttribute("data-secret");
-            const attributes: object = this.actor.data.data.attributes;
+            const attributes = this.actor.attributes;
             const attribute: unknown = objectHasKey(attributes, key) ? attributes[key] : null;
             const isRollable = (property: unknown): property is { roll: RollFunction } =>
                 property instanceof Object && "roll" in property && typeof property["roll"] === "function";
@@ -418,9 +418,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!itemUuid) return;
 
             if (this.actor instanceof CharacterPF2e) {
-                const actorFormulas = this.actor.data.toObject().data.crafting.formulas ?? [];
+                const actorFormulas = this.actor.data.toObject().system.crafting.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                this.actor.update({ "data.crafting.formulas": actorFormulas });
+                this.actor.update({ "system.crafting.formulas": actorFormulas });
             }
         });
 
@@ -432,7 +432,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             await this.actor.updateEmbeddedDocuments("Item", [
                 {
                     _id: itemId,
-                    "data.ability.value": event.target.value,
+                    "system.ability.value": event.target.value,
                 },
             ]);
         });
@@ -456,7 +456,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             await this.actor.updateEmbeddedDocuments("Item", [
                 {
                     _id: itemId ?? "",
-                    "data.showSlotlessLevels.value": bool,
+                    "system.showSlotlessLevels.value": bool,
                 },
             ]);
         });
@@ -513,12 +513,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 buttons: {
                     Yes: {
                         icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
+                        label: game.i18n.localize("Yes"),
                         callback: deleteCondition,
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
+                        label: game.i18n.localize("Cancel"),
                     },
                 },
                 default: "Yes",
@@ -530,12 +530,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     // normalize skill name to lower-case and dash-separated words
                     const skill = item.name.toLowerCase().replace(/\s+/g, "-");
                     // remove derived skill data
-                    await this.actor.update({ [`data.skills.-=${skill}`]: null });
+                    await this.actor.update({ [`system.skills.-=${skill}`]: null });
                 } else {
                     // clean up any individually targeted modifiers to attack and damage
                     await this.actor.update({
-                        [`data.customModifiers.-=${itemId}-attack`]: null,
-                        [`data.customModifiers.-=${itemId}-damage`]: null,
+                        [`system.customModifiers.-=${itemId}-attack`]: null,
+                        [`system.customModifiers.-=${itemId}-damage`]: null,
                     });
                 }
                 $li.slideUp(200, () => this.render(false));
@@ -554,12 +554,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 buttons: {
                     Yes: {
                         icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
+                        label: game.i18n.localize("Yes"),
                         callback: deleteItem,
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
+                        label: game.i18n.localize("Cancel"),
                     },
                 },
                 default: "Yes",
@@ -709,7 +709,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const dropId = $dropItemEl.attr("data-item-id") ?? "";
                 const target = this.actor.items.get(dropId);
                 if (target?.isOfType("spell") && item.id !== dropId) {
-                    const sourceLocation = item.data.data.location.value;
+                    const sourceLocation = item.system.location.value;
 
                     // Inner helper to test if two spells are siblings
                     const testSibling = (item: SpellPF2e, test: SpellPF2e) => {
@@ -737,7 +737,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
 
                 const dropId = $(event.target).parents(".item-container").attr("data-container-id");
-                return dropId ? [await item.update({ "data.location.value": dropId })] : [];
+                return dropId ? [await item.update({ "system.location.value": dropId })] : [];
             }
         } else if (item.isOfType("spellcastingEntry")) {
             // target and source are spellcastingEntries and need to be sorted
@@ -761,7 +761,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (target && item.isStackableWith(target)) {
                 const stackQuantity = item.quantity + target.quantity;
                 if (await item.delete({ render: false })) {
-                    await target.update({ "data.quantity": stackQuantity });
+                    await target.update({ "system.quantity": stackQuantity });
                 }
 
                 return [];
@@ -886,10 +886,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 itemSource.data.level.value = level;
             }
         } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
-            const actorFormulas = actor.data.toObject().data.crafting.formulas;
+            const actorFormulas = actor.data.toObject().system.crafting.formulas;
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
                 actorFormulas.push({ uuid: item.uuid });
-                await actor.update({ "data.crafting.formulas": actorFormulas });
+                await actor.update({ "system.crafting.formulas": actorFormulas });
             }
             return [item];
         }
@@ -995,8 +995,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const item = this.actor.items.get(itemId);
         if (!item?.isOfType("backpack")) return;
 
-        const isCollapsed = item.data.data.collapsed ?? false;
-        await item.update({ "data.collapsed": !isCollapsed });
+        const isCollapsed = item.system.collapsed ?? false;
+        await item.update({ "system.collapsed": !isCollapsed });
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
@@ -1010,10 +1010,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const newLabel = game.i18n.localize("PF2E.NewLabel");
             const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
             data.name = `${newLabel} ${actionTypeLabel}`;
-            mergeObject(data, { "data.actionType.value": data.actionType });
+            mergeObject(data, { "system.actionType.value": data.actionType });
         } else if (data.type === "melee") {
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
-            mergeObject(data, { "data.weaponType.value": data.actionType });
+            mergeObject(data, { "system.weaponType.value": data.actionType });
         } else if (data.type === "spell") {
             data.level = Number(data.level ?? 1);
             const newLabel = game.i18n.localize("PF2E.NewLabel");
@@ -1021,8 +1021,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const spellLabel = data.level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
             data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
             mergeObject(data, {
-                "data.level.value": data.level,
-                "data.location.value": data.location,
+                "system.level.value": data.level,
+                "system.location.value": data.location,
             });
         } else if (data.type === "lore") {
             data.name =
@@ -1069,13 +1069,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 buttons: {
                     Yes: {
                         icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
+                        label: game.i18n.localize("Yes"),
                         callback: async () => {
                             console.debug("PF2e System | Deleting Spell Container: ", item.name);
                             // Delete all child objects
                             const itemsToDelete: string[] = [];
                             for (const item of this.actor.itemTypes.spell) {
-                                if (item.data.data.location.value === itemId) {
+                                if (item.system.location.value === itemId) {
                                     itemsToDelete.push(item.id);
                                 }
                             }
@@ -1088,7 +1088,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
+                        label: game.i18n.localize("Cancel"),
                     },
                 },
                 default: "Yes",
@@ -1116,12 +1116,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 buttons: {
                     Yes: {
                         icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
+                        label: game.i18n.localize("Yes"),
                         callback: async () => this.actor.inventory.sellAllTreasure(),
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
+                        label: game.i18n.localize("Cancel"),
                     },
                 },
                 default: "Yes",
