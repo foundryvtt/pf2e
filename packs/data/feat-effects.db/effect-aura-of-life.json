@@ -1,6 +1,7 @@
 {
     "_id": "FPuICuxBLiDaEbDX",
     "data": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by @Compendium[pf2e.feats-srd.Aura of Life]{Aura of Life}</p>\n<p>Your allies within 15 feet gain a +1 status bonus to saves against necromancy effects.</p>"
         },
@@ -16,7 +17,6 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Aura of Life (vs. necromancy)",
                 "predicate": {
                     "all": [
                         "necromancy"
@@ -25,10 +25,15 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "negative",
+                "value": 5
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

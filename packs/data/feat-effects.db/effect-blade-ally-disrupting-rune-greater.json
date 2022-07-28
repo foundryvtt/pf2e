@@ -23,6 +23,7 @@
                         "weapon"
                     ]
                 },
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
@@ -36,7 +37,7 @@
                         "target:trait:undead"
                     ]
                 },
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyDisruptingRuneGreater}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess"
             },
             {
@@ -49,7 +50,16 @@
                         "target:trait:undead"
                     ]
                 },
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyDisruptingRuneGreater}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "any": [
+                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    ]
+                }
             }
         ],
         "source": {

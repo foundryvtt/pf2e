@@ -8,6 +8,9 @@ class ScenePF2e extends Scene<
     TileDocumentPF2e,
     TokenDocumentPF2e
 > {
+    /** A promise to prevent concurrent executions of #checkAuras() */
+    auraCheckLock?: Promise<void>;
+
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
@@ -28,6 +31,55 @@ class ScenePF2e extends Scene<
 
     get isDark(): boolean {
         return this.lightLevel <= LightLevels.DARKNESS;
+    }
+
+    /** Check for auras containing newly-placed or moved tokens */
+    async checkAuras(): Promise<void> {
+        if (!this.active || this.data.gridType !== CONST.GRID_TYPES.SQUARE) return;
+
+        // Prevent concurrent executions of this method
+        await this.auraCheckLock;
+        const lock: { release: () => void } = { release: () => {} };
+        this.auraCheckLock = new Promise((resolve) => {
+            lock.release = resolve;
+        });
+
+        // Get all tokens in the scene, excluding additional tokens linked to a common actor
+        const tokens = this.tokens.contents.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
+            if (token.data.actorLink && list.some((t) => t.actor === token.actor)) {
+                return list;
+            }
+            list.push(token);
+            return list;
+        }, []);
+
+        const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
+        for (const aura of auras) {
+            const auradTokens = tokens.filter((t) => aura.containsToken(t));
+            await aura.notifyActors(auradTokens);
+            const nonAuradTokens = tokens.filter((t) => !auradTokens.includes(t));
+            const nonAuradActors = new Set(nonAuradTokens.flatMap((t) => t.actor ?? []));
+            for (const actor of nonAuradActors) {
+                await actor.checkAreaEffects();
+            }
+        }
+
+        const sceneActors = new Set(
+            tokens.flatMap((t) => (t.actor?.canUserModify(game.user, "update") ? t.actor : []))
+        );
+        for (const actor of sceneActors) {
+            await actor.checkAreaEffects();
+        }
+
+        lock.release();
+    }
+
+    override prepareData(): void {
+        super.prepareData();
+
+        Promise.resolve().then(() => {
+            this.checkAuras();
+        });
     }
 
     /** Toggle Unrestricted Global Vision according to scene darkness level */

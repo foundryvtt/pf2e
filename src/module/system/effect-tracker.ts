@@ -6,6 +6,9 @@ import { EncounterPF2e } from "@module/encounter";
 export class EffectTracker {
     private trackedEffects: Embedded<EffectPF2e>[] = [];
 
+    /** A separate collection of aura effects, including ones with unlimited duration */
+    auraEffects: Collection<Embedded<EffectPF2e>> = new Collection();
+
     private insert(effect: Embedded<EffectPF2e>, duration: { expired: boolean; remaining: number }) {
         if (this.trackedEffects.length === 0) {
             this.trackedEffects.push(effect);
@@ -37,6 +40,10 @@ export class EffectTracker {
     }
 
     register(effect: Embedded<EffectPF2e>): void {
+        if (effect.fromAura && effect.id) {
+            this.auraEffects.set(effect.uuid, effect);
+        }
+
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
         const systemData = effect.data.data;
         const duration = systemData.duration.unit;
@@ -68,6 +75,7 @@ export class EffectTracker {
 
     unregister(toRemove: Embedded<EffectPF2e>): void {
         this.trackedEffects = this.trackedEffects.filter((effect) => effect !== toRemove);
+        this.auraEffects.delete(toRemove.uuid);
     }
 
     async refresh(): Promise<void> {
@@ -120,6 +128,10 @@ export class EffectTracker {
             } else {
                 break;
             }
+        }
+
+        for (const effect of expired) {
+            this.auraEffects.delete(effect.uuid);
         }
 
         const owners = actor

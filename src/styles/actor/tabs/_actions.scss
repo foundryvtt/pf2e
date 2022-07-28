@@ -1,6 +1,5 @@
 .actions-container {
-    display: grid;
-    padding-bottom: 2rem;
+    padding: 0 0.5rem 2rem 0;
 
     .actions-tabs-wrapper {
         display: grid;
@@ -8,49 +7,6 @@
 
         .action-radio {
             display: none;
-        }
-
-        .actions-nav {
-            @include p-reset;
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            align-items: flex-start;
-            list-style: none;
-            border-radius: 3px;
-            margin-bottom: 1rem;
-
-            .tab {
-                display: block;
-                padding: 0.5rem 2rem 0.4rem;
-                color: white;
-                text-decoration: none;
-                background-color: var(--alt);
-                cursor: pointer;
-                border-right: 1px solid rgba(0, 0, 0, 0.2);
-                border-left: 1px solid rgba(255, 255, 255, 0.3);
-                box-shadow: 0 1px 0 1px darken($alt-color, 10);
-
-                &.active {
-                    background-color: var(--primary);
-                    box-shadow: 0 1px 0 1px darken($primary-color, 10),
-                                inset 0 0 3px rgba(255, 255, 255, 0.2);
-                }
-
-                &:first-child {
-                    border-radius: 3px 0 0 3px;
-                    border-left: none;
-                }
-
-                &:last-child {
-                    border-radius: 0 3px 3px 0;
-                    border-right: none;
-                }
-
-                &:hover {
-                    text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
-                }
-            }
         }
 
         .actions-panels {
@@ -69,7 +25,7 @@
                 @include frame-elegant;
                 display: flex;
                 flex-wrap: wrap;
-                margin: 0 1rem 1rem;
+                margin-bottom: 1rem;
                 padding: 0.5rem 1rem;
 
                 .actions-option {
@@ -174,11 +130,7 @@
 
                         .item-controls {
                             white-space: nowrap;
-                            font-size: var(--font-size-10);
-
-                            a + a {
-                                margin-left: 4px;
-                            }
+                            font-size: var(--font-size-11);
                         }
 
                         .item-summary {

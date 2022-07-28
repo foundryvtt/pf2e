@@ -46,7 +46,8 @@ interface CreatureSystemSource extends ActorSystemSource {
     details?: {
         level?: { value: number };
         alliance?: ActorAlliance;
-        [key: string]: unknown;
+        /** Present on familiars */
+        creature?: unknown;
     };
 
     /** Traits, languages, and other information. */

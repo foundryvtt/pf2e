@@ -28,10 +28,9 @@ import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/data";
-import { FeatData, ProficiencyRank } from "@item/data";
+import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
 import { DeityDomain } from "@item/deity/types";
-import { FeatType } from "@item/feat/data";
 import { MagicTradition } from "@item/spell/types";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types";
 import { ZeroToFour } from "@module/data";
@@ -52,9 +51,18 @@ interface CharacterData
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
+        /** If applicable, the character's proficiency rank in their deity's favored weapon */
+        favoredWeaponRank: number;
+        /** Whether items are crafted without consuming resources */
         freeCrafting: boolean;
+        /** Whether the alchemist's (and related dedications) Quick Alchemy ability is enabled */
+        quickAlchemy: boolean;
+        /** Whether ABP should be disabled despite it being on for the world */
         disableABP?: boolean;
+        /** Which sheet tabs are displayed */
         sheetTabs: CharacterSheetTabVisibility;
+        /** Whether the basic unarmed attack is shown on the Actions tab */
+        showBasicUnarmed: boolean;
     };
 };
 
@@ -90,6 +98,14 @@ interface CharacterSystemData extends CreatureSystemData {
                 10: AbilityString[];
                 15: AbilityString[];
                 20: AbilityString[];
+            };
+
+            allowedBoosts: {
+                1: number;
+                5: number;
+                10: number;
+                15: number;
+                20: number;
             };
 
             flaws: {
@@ -247,7 +263,7 @@ type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
 interface CharacterResources {
     /** The current number of focus points and pool size */
-    focus: { value: number; max: number };
+    focus: { value: number; max: number; cap: number };
     /** The current and maximum number of hero points */
     heroPoints: { value: number; max: number };
     /** The current and maximum number of invested items */
@@ -261,7 +277,7 @@ interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-type CharacterDetails = CreatureDetails & {
+type CharacterDetails = Omit<CreatureDetails, "creature"> & {
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AbilityString };
 
@@ -331,7 +347,7 @@ interface CharacterDeities {
 }
 
 type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
-    weapons: { option: string; label: string }[];
+    weapons: BaseWeaponType[];
 };
 
 interface CharacterAttributes extends CreatureAttributes {
@@ -413,22 +429,13 @@ interface GrantedFeat {
 interface SlottedFeat {
     id: string;
     level: number | string;
-    feat?: FeatData;
+    feat?: FeatPF2e;
     grants: GrantedFeat[];
 }
 
 interface BonusFeat {
-    feat: FeatData;
+    feat: FeatPF2e;
     grants: GrantedFeat[];
-}
-
-interface FeatSlot {
-    label: string;
-    feats: (SlottedFeat | BonusFeat)[];
-    /** Whether the feats are slotted by level or free-form */
-    slotted?: boolean;
-    featFilter?: string;
-    supported: FeatType[] | "all";
 }
 
 export {
@@ -448,7 +455,6 @@ export {
     CharacterStrike,
     CharacterSystemData,
     ClassDCData,
-    FeatSlot,
     GrantedFeat,
     LinkedProficiency,
     MagicTraditionProficiencies,

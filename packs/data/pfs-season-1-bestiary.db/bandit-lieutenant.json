@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-14: Lions of Katapesh"
             }
         },
         "resources": {},
@@ -90,7 +90,9 @@
                 "value": []
             },
             "rarity": "common",
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
@@ -106,12 +108,28 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JoULBBBynvY5TD8S",
+            "_id": "h3Uq4kg1LDmEsZpc",
             "data": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
+                "MAP": {
                     "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 1,
+                    "die": "d8",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, 1 persistent fire damage, and 1 fire splash damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -121,6 +139,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": "bomb",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -128,10 +147,13 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -140,40 +162,125 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "gp": 3
+                    }
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AlchemistsFire.Lesser.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AlchemistsFire.Lesser.criticalSuccess"
+                    }
+                ],
+                "size": "med",
+                "slug": "alchemists-fire-lesser",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 1
+                },
                 "stackGroup": null,
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "splash"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "lesser alchemist's fire (3)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.yd3kEK21YknZLlcT"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Lesser)",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "FAMjomwsWJRIWNnB",
+            "_id": "wjLU4FODuEfv7xyF",
             "data": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
+                "MAP": {
                     "value": ""
+                },
+                "baseItem": "shortbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -183,6 +290,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": "bow",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -195,47 +303,114 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "gp": 3
+                    }
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "shortbow",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": null,
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "deadly-d10"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-one-plus-hands"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hIgqLgH3YcLZBeoT"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
+            "name": "Shortbow",
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "iRoVUWEamyP7QQjn",
+            "_id": "4hbrsyfuOEKdInYB",
             "data": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
+                "MAP": {
                     "value": ""
+                },
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -245,6 +420,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": "sword",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -257,6 +433,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -264,45 +443,228 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "sp": 9
+                    }
                 },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "shortsword",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": null,
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "shortbow (20 arrows)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.7tKkkF8eZ4iCLJtp"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
+            "name": "Shortsword",
             "sort": 300000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "WvrkG4TmYmC3f0R9",
+            "_id": "411aAE8ngfUR74Rx",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 1
+                },
+                "baseItem": "leather-armor",
+                "category": "light",
+                "check": {
+                    "value": -1
+                },
                 "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": 4
                 },
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
+                },
+                "equippedBulk": {
+                    "value": "1"
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "leather-armor",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": 0
+                },
+                "stackGroup": null,
+                "strength": {
+                    "value": 10
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "name": "Leather Armor",
+            "sort": 400000,
+            "type": "armor"
+        },
+        {
+            "_id": "agKrxhd8MI5wVPm1",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -326,16 +688,33 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
-                "quantity": 1,
+                "quantity": 10,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": null,
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": "arrows",
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -344,17 +723,29 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "shortsword",
-            "sort": 400000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 500000,
+            "type": "consumable"
         },
         {
-            "_id": "dMxHakGJL0FeliQj",
+            "_id": "v3ULrNFKHjNGZnHM",
             "data": {
                 "attack": {
                     "value": ""
@@ -366,8 +757,8 @@
                     "value": 8
                 },
                 "damageRolls": {
-                    "337h9irouhlc5i8wm233": {
-                        "damage": "1d6+1",
+                    "y7t3vn8h78mpbk02": {
+                        "damage": "1d6 + 1",
                         "damageType": "piercing"
                     }
                 },
@@ -394,11 +785,11 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
-            "sort": 500000,
+            "sort": 600000,
             "type": "melee"
         },
         {
-            "_id": "9T4Wiq21BxmnVNah",
+            "_id": "s1LrEUhzkrp4Kzjz",
             "data": {
                 "attack": {
                     "value": ""
@@ -410,15 +801,32 @@
                     "value": 8
                 },
                 "damageRolls": {
-                    "p13w2zzqx7trzgej4puf": {
+                    "osvfbxaa5vsle4y5": {
                         "damage": "1d8",
                         "damageType": "fire"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>[[/r {1}[splash,fire]]]{1 fire splash damage}.</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AlchemistsFire.Lesser.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AlchemistsFire.Lesser.criticalSuccess"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -427,7 +835,10 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "range-increment-20"
+                        "bomb",
+                        "consumable",
+                        "range-increment-20",
+                        "splash"
                     ]
                 },
                 "weaponType": {
@@ -435,12 +846,12 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Lesser Alchemist's Fire",
-            "sort": 600000,
+            "name": "Alchemist's Fire (Lesser)",
+            "sort": 700000,
             "type": "melee"
         },
         {
-            "_id": "ObA2jWxSFNaJTZ2T",
+            "_id": "jNfa3V9AcKGi937Z",
             "data": {
                 "attack": {
                     "value": ""
@@ -452,13 +863,13 @@
                     "value": 8
                 },
                 "damageRolls": {
-                    "41looiybzjssm4ds9qhz": {
+                    "rttj6nqvsfilhr9a": {
                         "damage": "1d6",
                         "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>(deadly d10, range increment 60 feet, reload 0)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -480,7 +891,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortbow",
-            "sort": 700000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -501,7 +912,39 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "MultipleAttackPenalty",
+                        "predicate": {
+                            "all": [
+                                "agile",
+                                "single-out"
+                            ]
+                        },
+                        "selector": "attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "MultipleAttackPenalty",
+                        "predicate": {
+                            "all": [
+                                "single-out"
+                            ],
+                            "not": [
+                                "agile"
+                            ]
+                        },
+                        "selector": "attack",
+                        "value": -3
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "single-out",
+                        "toggleable": true,
+                        "value": false
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -520,7 +963,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Single Out",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -548,7 +991,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -576,7 +1019,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -604,7 +1047,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -632,7 +1075,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

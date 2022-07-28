@@ -3,8 +3,12 @@ import { FeatData, FeatSource, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
+import { FeatCategory } from "@actor/character/feats";
+import { Frequency } from "@item/data/base";
 
 class FeatPF2e extends ItemPF2e {
+    category!: FeatCategory | null;
+
     get featType(): FeatType {
         return this.data.data.featType.value;
     }
@@ -27,6 +31,10 @@ class FeatPF2e extends ItemPF2e {
         };
     }
 
+    get frequency(): Frequency | null {
+        return this.data.data.frequency ?? null;
+    }
+
     get isFeature(): boolean {
         return ["classfeature", "ancestryfeature"].includes(this.featType);
     }
@@ -47,6 +55,8 @@ class FeatPF2e extends ItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.category = null;
 
         // Handle legacy data with empty-string locations
         this.data.data.location ||= null;
@@ -85,6 +95,11 @@ class FeatPF2e extends ItemPF2e {
         // Feats takable only at level 1 can never be taken multiple times
         if (this.data.data.onlyLevel1) {
             this.data.data.maxTakable = 1;
+        }
+
+        // Initialize frequency uses if not set
+        if (this.actor && this.system.frequency) {
+            this.system.frequency.value ??= this.system.frequency.max;
         }
     }
 
@@ -128,6 +143,9 @@ class FeatPF2e extends ItemPF2e {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
             this.data._source.data.location = null;
+            if (this.data._source.data.frequency) {
+                delete this.data._source.data.frequency.value;
+            }
         }
 
         return super._preCreate(data, options, user);

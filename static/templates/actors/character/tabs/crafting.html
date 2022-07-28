@@ -38,7 +38,7 @@
                         {{#if @root.owner}}
                             <div class="item-controls">
                                 <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}"
-                                    data-type="equipment" data-level="{{lvl}}" data-location="{{entry._id}}"><i class="fas fa-search"></i></a>
+                                    data-type="equipment" data-level="{{lvl}}" data-location="{{entry._id}}"><i class="fas fa-fw fa-search"></i></a>
                             </div>
                         {{/if}}
                     </li>
@@ -67,9 +67,9 @@
                                     {{/if}}
                                     <a class="item-control" title="{{localize "PF2E.CraftItemTitle"}}" data-action="craft-item" data-item-uuid="{{craftedItem.uuid}}"><i class="fas fa-hammer"></i></a>
                                     {{#if craftedItem.deletable}}
-                                        <a class="item-control formula-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                        <a class="item-control formula-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                     {{else}}
-                                        <span class="item-control disabled" title="{{localize "PF2E.CraftingTab.UndeletableTooltip"}}"><i class="fas fa-trash"></i></span>
+                                        <span class="item-control disabled" title="{{localize "PF2E.CraftingTab.UndeletableTooltip"}}"><i class="fas fa-fw fa-trash"></i></span>
                                     {{/if}}
                                 </div>
                             {{/if}}
@@ -81,7 +81,7 @@
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
                             <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}"
                                 data-type="equipment" data-location="{{entry._id}}">
-                                <i class="fas fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
+                                <i class="fas fa-fw fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
                             </a>
                         </li>
                     {{/if}}

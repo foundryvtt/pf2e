@@ -6,7 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { RollSubstitution } from "@module/rules/rule-element/data";
+import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { UserVisibility } from "@scripts/ui/user-visibility";
@@ -27,7 +27,7 @@ import { LocalizePF2e } from "./localize";
 import { PredicatePF2e } from "./predication";
 import { TextEditorPF2e } from "./text-editor";
 
-export interface RollDataPF2e extends RollData {
+interface RollDataPF2e extends RollData {
     rollerId?: string;
     totalModifier?: number;
     isReroll?: boolean;
@@ -40,7 +40,7 @@ export interface RollDataPF2e extends RollData {
 }
 
 /** Possible parameters of a RollFunction */
-export interface RollParameters {
+interface RollParameters {
     /** The triggering event */
     event?: JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
@@ -53,7 +53,7 @@ export interface RollParameters {
     modifiers?: ModifierPF2e[];
 }
 
-export interface StrikeRollParams extends RollParameters {
+interface StrikeRollParams extends RollParameters {
     /** Retrieve the formula of the strike roll without following through to the end */
     getFormula?: true;
     /** The strike is involve throwing a thrown melee weapon or to use the melee usage of a combination weapon */
@@ -62,10 +62,10 @@ export interface StrikeRollParams extends RollParameters {
     rollTwice?: RollTwiceOption;
 }
 
-export type RollTwiceOption = "keep-higher" | "keep-lower" | false;
+type RollTwiceOption = "keep-higher" | "keep-lower" | false;
 
-export type AttackCheck = "attack-roll" | "spell-attack-roll";
-export type CheckType =
+type AttackCheck = "attack-roll" | "spell-attack-roll";
+type CheckType =
     | "check"
     | "counteract-check"
     | "initiative"
@@ -75,7 +75,7 @@ export type CheckType =
     | "flat-check"
     | AttackCheck;
 
-export interface BaseRollContext {
+interface BaseRollContext {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Any notes which should be shown for the roll. */
@@ -98,7 +98,7 @@ export interface BaseRollContext {
     skipDialog?: boolean;
 }
 
-export interface CheckRollContext extends BaseRollContext {
+interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
     target?: AttackTarget | null;
@@ -114,6 +114,8 @@ export interface CheckRollContext extends BaseRollContext {
     title?: string;
     /** Optional DC data for the check */
     dc?: CheckDC | null;
+    /** The domains this roll had, for reporting purposes */
+    domains?: string[];
     /** Is the roll a reroll? */
     isReroll?: boolean;
     /** D20 results substituted for an actual roll */
@@ -128,7 +130,7 @@ interface CheckTargetFlag {
 }
 
 type ContextFlagOmission = "actor" | "token" | "item" | "target" | "altUsage" | "createMessage";
-export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
+interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
@@ -141,17 +143,19 @@ interface RerollOptions {
     keep?: "new" | "best" | "worst";
 }
 
-export class CheckPF2e {
+type CheckRollCallback = (
+    roll: Rolled<CheckRoll>,
+    outcome: DegreeOfSuccessString | null | undefined,
+    message: ChatMessagePF2e
+) => Promise<void> | void;
+
+class CheckPF2e {
     /** Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down. */
     static async roll(
         check: CheckModifier,
         context: CheckRollContext = {},
         event: JQuery.TriggeredEvent | null = null,
-        callback?: (
-            roll: Rolled<CheckRoll>,
-            outcome: DegreeOfSuccessString | null | undefined,
-            message: ChatMessagePF2e
-        ) => Promise<void> | void
+        callback?: CheckRollCallback
     ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
@@ -310,6 +314,7 @@ export class CheckPF2e {
             item: undefined,
             actor: context.actor?.id ?? null,
             token: context.token?.id ?? null,
+            domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: context.options ?? [],
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
@@ -783,7 +788,7 @@ interface CreateTagFlavorParams {
     extraTags: string[];
 }
 
-export class DamageRollPF2e {
+class DamageRollPF2e {
     static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function) {
         // Change the base damage type in case it was overridden
         const baseDamageType = damage.formula[context.outcome ?? "success"]?.data.baseDamageType;
@@ -800,3 +805,17 @@ export class DamageRollPF2e {
         await DamageRollModifiersDialog.roll(damage, context, callback);
     }
 }
+
+export {
+    BaseRollContext,
+    CheckPF2e,
+    CheckRollCallback,
+    CheckRollContext,
+    CheckRollContextFlag,
+    CheckType,
+    DamageRollPF2e,
+    RollDataPF2e,
+    RollParameters,
+    RollTwiceOption,
+    StrikeRollParams,
+};

@@ -218,22 +218,12 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    // this section starts questionable rule settings, all of them should have a 'RAI.' at the start of their name
-    // will be removed soon, it has been confirmed that the answer is "yes".
+    // This only exists to not break existing macros (yet). We'll keep it for a few versions
     game.settings.register("pf2e", "RAI.TreatWoundsAltSkills", {
-        name: "PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name",
-        hint: "PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint",
-        scope: "world",
-        config: true,
-        default: true,
-        type: Boolean,
-    });
-
-    game.settings.register("pf2e", "npcAttacksFromWeapons", {
-        name: "NPC Attacks From Weapons",
+        name: "Treat Wounds Macro Compat",
         scope: "world",
         config: false,
-        default: false,
+        default: true,
         type: Boolean,
     });
 

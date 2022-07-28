@@ -1,6 +1,7 @@
 {
     "_id": "ZzE6jPbCyUqEqhcb",
     "data": {
+        "badge": null,
         "description": {
             "value": "<p>Complex and symmetrical, an <em>axiomatic</em> rune imbues a weapon with lawful energy. A weapon with this rune deals an additional 1d6 lawful damage against chaotic targets. If you are chaotic, you are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} while carrying or wielding this weapon.</p>\n<p>When you critically succeed at an attack roll with this weapon against a chaotic creature, instead of rolling, count each weapon damage die as average damage rounded up (3 for d4, 4 for d6, 5 for d8, 6 for d10, 7 for d12).</p>\n<p><strong>Craft Requirements</strong> You are lawful.</p>"
         },
@@ -22,12 +23,21 @@
                         "weapon"
                     ]
                 },
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "Note",
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyAxiomaticRune}-damage",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "target:trait:chaotic"
+                    ]
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "<strong>Axiomatic</strong> When you critically succeed at an attack roll with this weapon against a chaotic creature, instead of rolling, count each weapon damage die as average damage rounded up (3 for d4, 4 for d6, 5 for d8, 6 for d10, 7 for d12)."
             },
             {
@@ -35,7 +45,21 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyAxiomaticRune}-damage"
+                "predicate": {
+                    "all": [
+                        "target:trait:chaotic"
+                    ]
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "any": [
+                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    ]
+                }
             }
         ],
         "source": {

@@ -23,7 +23,7 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { extractModifiers, extractRollTwice } from "@module/rules/util";
+import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
@@ -51,6 +51,7 @@ import {
     AlignmentTrait,
     AttackItem,
     AttackRollContext,
+    CreatureUpdateContext,
     GetReachParameters,
     IsFlatFootedParams,
     StrikeRollContext,
@@ -232,22 +233,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
-    /** Whether this actor is an ally of the provided actor */
-    override isAllyOf(actor: ActorPF2e): boolean {
-        const thisAlliance = this.data.data.details.alliance;
-
-        if (thisAlliance === null) return false;
-
-        const otherAlliance =
-            actor instanceof CreaturePF2e
-                ? actor.data.data.details.alliance
-                : actor.hasPlayerOwner
-                ? "party"
-                : "opposition";
-
-        return thisAlliance === otherAlliance;
-    }
-
     /** Whether the actor is flat-footed in the current scene context: currently only handles flanking */
     isFlatFooted({ dueTo }: IsFlatFootedParams): boolean {
         // The first data preparation round will occur before the game is ready
@@ -269,26 +254,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         return false;
-    }
-
-    /** Construct a range penalty for this creature when making a ranged attack */
-    protected getRangePenalty(
-        increment: number | null,
-        selectors: string[],
-        rollOptions: string[]
-    ): ModifierPF2e | null {
-        if (!increment || increment === 1) return null;
-        const slug = "range-penalty";
-        const modifier = new ModifierPF2e({
-            label: "PF2E.RangePenalty",
-            slug,
-            type: MODIFIER_TYPE.UNTYPED,
-            modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
-            predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
-            adjustments: this.getModifierAdjustments(selectors, slug),
-        });
-        modifier.test(rollOptions);
-        return modifier;
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -450,9 +415,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
                       CONFIG.PF2E.skills[checkType],
                   ] as const);
 
-        const { statisticsModifiers, rollNotes } = this.synthetics;
+        const { rollNotes } = this.synthetics;
         const domains = ["all", "initiative", `${ability}-based`, proficiency];
-        const modifiers = extractModifiers(statisticsModifiers, domains, {
+        const modifiers = extractModifiers(this.synthetics, domains, {
             test: [proficiency, ...this.getRollOptions(domains)],
         });
         const notes = rollNotes.initiative?.map((n) => n.clone()) ?? [];
@@ -535,18 +500,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const { statisticsModifiers } = this.synthetics;
         for (const [selector, modifiers] of Object.entries(customModifiers)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(
-                ...modifiers.map((modifier) => () => {
-                    modifier.adjustments = this.getModifierAdjustments([selector], modifier.slug);
-                    return modifier;
-                })
-            );
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */
     protected getShieldBonus(): ModifierPF2e | null {
-        if (!(this.data.type === "character" || this.data.type === "npc")) return null;
+        if (!this.isOfType("character", "npc")) return null;
         const shieldData = this.data.data.attributes.shield;
         if (shieldData.raised && !shieldData.broken) {
             const slug = "raised-shield";
@@ -554,7 +514,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             return new ModifierPF2e({
                 label: shieldData.name,
                 slug,
-                adjustments: this.getModifierAdjustments(["ac"], slug),
+                adjustments: extractModifierAdjustments(
+                    this.synthetics.modifierAdjustments,
+                    ["all", "dex-based", "ac"],
+                    slug
+                ),
                 type: MODIFIER_TYPE.CIRCUMSTANCE,
                 modifier: shieldData.ac,
             });
@@ -730,7 +694,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const systemData = this.data.data;
         const selectors = ["speed", "all-speeds", `${movementType}-speed`];
         const rollOptions = this.getRollOptions(selectors);
-        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, selectors);
+        const modifiers = extractModifiers(this.synthetics, selectors);
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
@@ -916,13 +880,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentUpdateContext<this>,
+        options: CreatureUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points
         const hitPoints = changed.data?.attributes?.hp;
         if (typeof hitPoints?.value === "number") {
-            hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
+            hitPoints.value = options.allowHPOverage
+                ? Math.max(0, hitPoints.value)
+                : Math.clamped(hitPoints.value, 0, this.hitPoints.max);
         }
 
         // Clamp focus points
@@ -948,6 +914,9 @@ export interface CreaturePF2e {
     saves: Record<SaveType, Statistic>;
 
     get hitPoints(): HitPointsSummary;
+
+    /** Expand DocumentModificationContext for creatures */
+    update(data: DocumentUpdateData<this>, options?: CreatureUpdateContext<this>): Promise<this>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(

@@ -33,6 +33,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             hasDetails: true,
             detailsTemplate: () => "systems/pf2e/templates/items/deity-details.html",
             alignments: CONFIG.PF2E.alignments,
+            atheistic: this.item.category === "philosophy",
             skills: CONFIG.PF2E.skills,
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
@@ -42,16 +43,23 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
         };
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         // Create tagify selection inputs
         const html = $html.get(0)!;
-        const getInput = (name: string): HTMLInputElement | null =>
-            html.querySelector<HTMLInputElement>(`input[name="${name}"]`);
+        const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
 
         tagify(getInput("data.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
         tagify(getInput("data.alignment.follower"), { whitelist: CONFIG.PF2E.alignments, maxTags: 9 });
+
+        // Everything past this point requires a deity or pantheon
+        if (this.item.category === "philosophy") return;
+
         tagify(getInput("data.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
         tagify(getInput("data.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
         tagify(getInput("data.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
@@ -103,10 +111,6 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             });
     }
 
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
     override async _onDrop(event: ElementDragEvent): Promise<void> {
         if (!this.isEditable) return;
 
@@ -136,27 +140,13 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             if (typeof formData[property] === "string") formData[property] ||= null;
         }
 
-        // Process Tagify outputs
-        const inputNames = [
-            "data.ability",
-            "data.alignment.follower",
-            "data.weapons",
-            "data.domains.primary",
-            "data.domains.alternate",
-        ] as const;
-        for (const path of inputNames) {
-            const selections = formData[path];
-            if (Array.isArray(selections)) {
-                formData[path] = selections.map((w: { id: string }) => w.id);
-            }
-        }
-
         return super._updateObject(event, formData);
     }
 }
 
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     alignments: Record<Alignment, string>;
+    atheistic: boolean;
     skills: Record<SkillAbbreviation, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];

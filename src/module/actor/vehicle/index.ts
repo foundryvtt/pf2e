@@ -10,7 +10,7 @@ import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "physical"];
+        return [...super.allowedItemTypes, "physical", "action"];
     }
 
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
@@ -76,7 +76,7 @@ export class VehiclePF2e extends ActorPF2e {
                 type: "untyped",
                 modifier: this.data.data.saves.fortitude.value,
             }),
-            ...extractModifiers(synthetics.statisticsModifiers, domains),
+            ...extractModifiers(synthetics, domains),
         ];
         const fortitude = new Statistic(this, {
             slug: "fortitude",

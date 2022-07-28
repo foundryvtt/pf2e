@@ -17,6 +17,7 @@ export function longJump(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.LongJump", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.LongJump", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.LongJump", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.LongJump", "criticalFailure"),

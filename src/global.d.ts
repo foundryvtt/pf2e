@@ -136,6 +136,7 @@ declare global {
         get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
+        get(module: "pf2e", setting: "gradualBoostsVariant"): boolean;
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
@@ -177,7 +178,6 @@ declare global {
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "nathMode"): boolean;
-        get(module: "pf2e", setting: "npcAttacksFromWeapons"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
@@ -209,7 +209,7 @@ type ConfiguredConfig = Config<
     ChatMessagePF2e,
     EncounterPF2e,
     CombatantPF2e,
-    EncounterTrackerPF2e,
+    EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
     FogExplorationPF2e,
     FolderPF2e,

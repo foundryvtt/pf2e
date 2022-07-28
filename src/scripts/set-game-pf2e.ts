@@ -21,6 +21,7 @@ import { raiseAShield } from "@scripts/macros/raise-a-shield";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { steelYourResolve } from "@scripts/macros/steel-your-resolve";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
+import { treatWounds } from "@scripts/macros/treat-wounds";
 import { calculateXP } from "@scripts/macros/xp";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
@@ -43,6 +44,7 @@ export const SetGamePF2e = {
             raiseAShield,
             restForTheNight,
             steelYourResolve,
+            treatWounds,
             ...ActionMacros,
         };
 

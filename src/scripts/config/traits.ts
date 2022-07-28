@@ -1,6 +1,8 @@
 import { AlignmentTrait } from "@actor/creature/types";
+import { OtherArmorTag } from "@item/armor/types";
 import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
+import { OtherEquipmentTag } from "@item/equipment/types";
 import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool, MagicTradition } from "@item/spell/types";
 import { OtherWeaponTag } from "@item/weapon/types";
@@ -142,6 +144,7 @@ const creatureTraits = {
     ghoran: "PF2E.TraitGhoran",
     ghost: "PF2E.TraitGhost",
     ghoul: "PF2E.TraitGhoul",
+    ghul: "PF2E.TraitGhul",
     giant: "PF2E.TraitGiant",
     golem: "PF2E.TraitGolem",
     gremlin: "PF2E.TraitGremlin",
@@ -183,6 +186,7 @@ const creatureTraits = {
     psychopomp: "PF2E.TraitPsychopomp",
     qlippoth: "PF2E.TraitQlippoth",
     rakshasa: "PF2E.TraitRakshasa",
+    reflection: "PF2E.TraitReflection",
     sahkil: "PF2E.TraitSahkil",
     samsaran: "PF2E.TraitSamsaran",
     "sea devil": "PF2E.TraitSeaDevil",
@@ -239,16 +243,19 @@ const classTraits: Record<ClassTrait, string> = {
     magus: "PF2E.TraitMagus",
     monk: "PF2E.TraitMonk",
     oracle: "PF2E.TraitOracle",
+    psychic: "PF2E.TraitPsychic",
     ranger: "PF2E.TraitRanger",
     rogue: "PF2E.TraitRogue",
     sorcerer: "PF2E.TraitSorcerer",
     summoner: "PF2E.TraitSummoner",
     swashbuckler: "PF2E.TraitSwashbuckler",
+    thaumaturge: "PF2E.TraitThaumaturge",
     witch: "PF2E.TraitWitch",
     wizard: "PF2E.TraitWizard",
 };
 
 const spellOtherTraits = {
+    amp: "PF2E.TraitAmp",
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
@@ -275,6 +282,7 @@ const spellOtherTraits = {
     hex: "PF2E.TraitHex",
     incapacitation: "PF2E.TraitIncapacitation",
     incarnate: "PF2E.TraitIncarnate",
+    incorporeal: "PF2E.TraitIncorporeal",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
     linguistic: "PF2E.TraitLinguistic",
@@ -291,6 +299,7 @@ const spellOtherTraits = {
     polymorph: "PF2E.TraitPolymorph",
     possession: "PF2E.TraitPossession",
     prediction: "PF2E.TraitPrediction",
+    psyche: "PF2E.TraitPsyche",
     revelation: "PF2E.TraitRevelation",
     scrying: "PF2E.TraitScrying",
     shadow: "PF2E.TraitShadow",
@@ -337,6 +346,8 @@ const spellTraits = {
     ...classTraits,
     ...damageTraits,
     ...elementalTraits,
+    ...magicSchools,
+    ...magicTraditions,
     ...spellOtherTraits,
 };
 
@@ -444,6 +455,7 @@ const weaponTraits = {
     "thrown-30": "PF2E.TraitThrown30",
     "thrown-40": "PF2E.TraitThrown40",
     "thrown-60": "PF2E.TraitThrown60",
+    "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
     time: "PF2E.TraitTime",
     trip: "PF2E.TraitTrip",
@@ -492,9 +504,17 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
+const otherArmorTags: Record<OtherArmorTag, string> = {
+    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
+};
+
+const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
+    implement: "PF2E.Item.Physical.OtherTag.Implement",
+};
+
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    improvised: "PF2E.Item.Weapon.Improvised",
+    improvised: "PF2E.Item.Weapon.OtherTag.Improvised",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -535,6 +555,7 @@ const featTraits = {
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
+    aftermath: "PF2E.TraitAftermath",
     alchemical: "PF2E.TraitAlchemical",
     archetype: "PF2E.TraitArchetype",
     auditory: "PF2E.TraitAuditory",
@@ -543,9 +564,11 @@ const featTraits = {
     concentrate: "PF2E.TraitConcentrate",
     dedication: "PF2E.TraitDedication",
     detection: "PF2E.TraitDetection",
+    deviant: "PF2E.TraitDeviant",
     downtime: "PF2E.TraitDowntime",
     emotion: "PF2E.TraitEmotion",
     evolution: "PF2E.TraitEvolution",
+    esoterica: "PF2E.TraitEsoterica",
     exploration: "PF2E.TraitExploration",
     fear: "PF2E.TraitFear",
     finisher: "PF2E.TraitFinisher",
@@ -556,6 +579,7 @@ const featTraits = {
     lineage: "PF2E.TraitLineage",
     manipulate: "PF2E.TraitManipulate",
     metamagic: "PF2E.TraitMetamagic",
+    mindshift: "PF2E.TraitMindshift",
     modification: "PF2E.TraitModification",
     move: "PF2E.TraitMove",
     multiclass: "PF2E.TraitMulticlass",
@@ -567,8 +591,10 @@ const featTraits = {
     press: "PF2E.TraitPress",
     rage: "PF2E.TraitRage",
     reckless: "PF2E.TraitReckless",
+    reflection: "PF2E.TraitReflection",
     secret: "PF2E.TraitSecret",
     skill: "PF2E.TraitSkill",
+    social: "PF2E.TraitSocial",
     spellshot: "PF2E.TraitSpellshot",
     stamina: "PF2E.TraitStamina",
     stance: "PF2E.TraitStance",
@@ -593,6 +619,7 @@ const consumableTraits = {
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
     contact: "PF2E.TraitContact",
+    cursed: "PF2E.TraitCursed",
     drug: "PF2E.TraitDrug",
     elixir: "PF2E.TraitElixir",
     emotion: "PF2E.TraitEmotion",
@@ -666,6 +693,7 @@ const hazardTraits = {
     teleportation: "PF2E.TraitTeleportation",
     trap: "PF2E.TraitTrap",
     virulent: "PF2E.TraitVirulent",
+    visual: "PF2E.TraitVisual",
 };
 
 const vehicleTraits = {
@@ -692,6 +720,8 @@ export {
     magicSchools,
     magicTraditions,
     npcAttackTraits,
+    otherArmorTags,
+    otherEquipmentTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,

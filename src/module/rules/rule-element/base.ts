@@ -385,6 +385,10 @@ interface RuleElementPF2e {
     preDelete?({ pendingItems, context }: RuleElementPF2e.PreDeleteParams): Promise<void>;
 
     /**
+     * Runs before this rules element's parent item is updated */
+    preUpdate?(changes: DeepPartial<ItemSourcePF2e>): Promise<void>;
+
+    /**
      * Runs after an item holding this rule is added to an actor. If you modify or add the rule after the item
      * is already present on the actor, nothing will happen. Rules that add toggles won't work here since this method is
      * only called on item add.

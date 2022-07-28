@@ -20,8 +20,31 @@
 </div>
 
 <div class="form-group">
+    <label>{{localize "PF2E.Frequency.Label"}}</label>
+    {{#if data.frequency}}
+        <div class="frequency">
+            <input type="number" name="data.frequency.max" value="{{data.frequency.max}}" />
+            <span>{{localize "PF2E.Frequency.per"}}</span>
+            <select name="data.frequency.per">
+                {{#select data.frequency.per}}
+                    {{#each @root.frequencies as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <a data-action="frequency-delete"><i class="fas fa-fw fa-times"></i></a>
+        </div>
+    {{else}}
+        <span class="frequency empty">
+            {{localize "PF2E.Frequency.AtWill"}}
+            <a data-action="frequency-add">({{localize "PF2E.AddShortLabel"}})</a>
+        </span>
+    {{/if}}
+</div>
+
+<div class="form-group">
     <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
-    <select name="data.actionCategory.value" data-dtype="String">
+    <select name="data.actionCategory.value">
         {{#select data.actionCategory.value}}
             <option value=""></option>
             {{#each categories as |name type|}}
@@ -54,12 +77,12 @@
 {{/if}}
 <div class="form-group-stacked tags">
     <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
-    <input type="text" name="data.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
+    <input class="item-tagify" type="text" name="data.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
 </div>
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="featTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="featTraits" data-property="data.traits"><i class="fas fa-fw fa-edit"></i></a>
     </label>
     <ul class="traits-list tags">
         {{#each traits as |trait|}}

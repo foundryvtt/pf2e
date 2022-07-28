@@ -18,7 +18,7 @@
                 "mod": 1
             },
             "wis": {
-                "mod": 0
+                "mod": -1
             }
         },
         "attributes": {
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-16: The Perennial Crown Part 1, Opal of Bhopan"
             }
         },
         "resources": {},
@@ -171,13 +171,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -199,16 +199,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -219,7 +219,7 @@
                 "size": "med",
                 "slug": "kukri",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -277,6 +277,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -301,10 +302,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -331,7 +332,7 @@
                 "size": "med",
                 "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -372,6 +373,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -405,9 +407,9 @@
                 "size": "med",
                 "slug": "clothing-fine",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -475,7 +477,7 @@
             "type": "melee"
         },
         {
-            "_id": "912PvAkD2aZ9n0zd",
+            "_id": "nsZ6hhutzrffFiw1",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -487,15 +489,33 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Mirror Lelzeshin is targeted by a melee or ranged attack by an attacker he can see</p>\n<hr />\n<p><strong>Effect</strong> Mirror Lelzeshin gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> Mirror Lelzeshin is targeted by a melee or ranged attack by an attacker he can see.</p>\n<hr />\n<p><strong>Effect</strong> Mirror Lelzeshin gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nimble-dodge"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "nimble-dodge",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -504,9 +524,11 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.wCnsRCHvtZkZTmO0"
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
@@ -515,7 +537,7 @@
             "type": "action"
         },
         {
-            "_id": "sxeDnvM3A1SIeGIr",
+            "_id": "sk4uzxnxcxXoloZY",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -527,7 +549,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Mirrored Lelzeshin deals an 1d6 extra precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>Mirror Lelzeshin deals 1d6 extra precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -540,21 +562,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"
@@ -676,7 +684,7 @@
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Mirrored Lelzeshin (Tier 3-4)",
+        "name": "Mirrored Lelzeshin",
         "width": 1
     },
     "type": "npc"

@@ -23,21 +23,25 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
         throw ErrorPF2e("Usable only on input elements with JSON data-dtype");
     }
 
+    const whitelistTransformed = Array.isArray(whitelist)
+        ? whitelist
+        : Object.entries(whitelist).map(([key, locPath]) => ({
+              id: key,
+              value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
+          }));
+
     return new Tagify(input, {
         enforceWhitelist: true,
         keepInvalidTags: false,
         skipInvalid: true,
-        maxTags,
+        maxTags: maxTags ?? whitelistTransformed.length,
         dropdown: {
             closeOnSelect: false,
             enabled: 0,
             maxItems: Object.keys(whitelist).length,
             searchKeys: ["id", "value"],
         },
-        whitelist: Object.entries(whitelist).map(([key, locPath]) => ({
-            id: key,
-            value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
-        })),
+        whitelist: whitelistTransformed,
     });
 }
 
@@ -49,9 +53,9 @@ type TagRecord = Record<"id" | "value", string>;
 
 interface TagifyOptions {
     /** The maximum number of tags that may be added to the input */
-    maxTags: number;
+    maxTags?: number;
     /** A whitelist record, typically pulled from `CONFIG.PF2E` */
-    whitelist: Record<string, string | { label: string }>;
+    whitelist: string[] | Record<string, string | { label: string }>;
 }
 
 export { tagify, traitSlugToObject };

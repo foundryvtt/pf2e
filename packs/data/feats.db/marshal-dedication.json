@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've combined your social skills and combat training to become a talented combat leader. Choose Diplomacy or Intimidation. You become trained in that skill or become an expert if you were already trained in it.</p>\n<p>In addition, you're surrounded by a marshal's aura in a @Template[type:emanation|distance:10]. Your aura has the emotion, mental, and visual traits and grants you and allies within the aura a +1 status bonus to saving throws against fear.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the marshal archetype.</p>"
+            "value": "<p>You've combined your social skills and combat training to become a talented combat leader. Choose Diplomacy or Intimidation. You become trained in that skill or become an expert if you were already trained in it.</p>\n<p>In addition, you're surrounded by a marshal's aura in a @Template[type:emanation|distance:10]. Your aura has the emotion, mental, and visual traits and grants you and allies within the aura a +1 status bonus to saving throws against fear.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the marshal archetype.</p>\n<hr />\n<p>@Compendium[pf2e.feat-effects.Effect: Marshal's Aura]{Effect: Marshal's Aura}</p>"
         },
         "featType": {
             "value": "archetype"
@@ -19,6 +19,7 @@
         "level": {
             "value": 2
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,27 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Effect: Marshal's Aura"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 10,
+                "slug": "marshals-aura",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual"
+                ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

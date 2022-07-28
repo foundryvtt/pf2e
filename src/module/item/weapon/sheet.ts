@@ -9,7 +9,7 @@ import { objectHasKey, setHasElement } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";
-import { createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { RANGED_WEAPON_GROUPS, WEAPON_RANGES } from "./values";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
@@ -132,6 +132,13 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             rangedOnlyTraits.some((trait) => traitSet.has(trait));
         const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
 
+        // Restrict the Implement tag to one-handed weapons
+        const otherTags = ((): SheetOptions => {
+            const otherWeaponTags: Record<string, string> = deepClone(CONFIG.PF2E.otherWeaponTags);
+            if (this.item.hands !== "1") delete otherWeaponTags.implement;
+            return createSheetTags(otherWeaponTags, sheetData.item.data.traits.otherTags);
+        })();
+
         const meleeUsage = sheetData.data.meleeUsage ?? {
             group: "knife",
             damage: { type: "piercing", die: "d4" },
@@ -146,7 +153,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
             traits: createSheetTags(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits),
-            otherTags: createSheetTags(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags),
+            otherTags,
             adjustedLevelHint,
             adjustedPriceHint,
             abpEnabled,
@@ -188,13 +195,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             maxWidth: 400,
             theme: "crb-hover",
             contentAsHTML: true,
-        });
-
-        const $otherTagsHint = $html.find("i.other-tags-hint");
-        $otherTagsHint.tooltipster({
-            maxWidth: 350,
-            theme: "crb-hover",
-            content: game.i18n.localize($otherTagsHint.attr("title") ?? ""),
         });
     }
 

@@ -44,7 +44,7 @@ interface HazardAttributes extends BaseActorAttributes {
         tiebreakPriority: ZeroToTwo;
     };
     stealth: {
-        value: number;
+        value: number | null;
         details: string;
     };
 }

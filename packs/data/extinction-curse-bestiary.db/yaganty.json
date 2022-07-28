@@ -146,7 +146,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -244,7 +244,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -272,6 +272,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 4
@@ -517,10 +527,6 @@
                 },
                 "location": {
                     "heightenedLevel": 3,
-                    "uses": {
-                        "max": 2,
-                        "value": 2
-                    },
                     "value": "kCl7ix3UfVgsJxQ8"
                 },
                 "materials": {
@@ -747,7 +753,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "fire",
+                        "magical",
+                        "reach-10"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -789,7 +799,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -801,27 +815,27 @@
             "type": "melee"
         },
         {
-            "_id": "AbH8oVqRKJ6Ima48",
+            "_id": "wiJYkffuGVmDIgZQ",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "greater-darkvision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -835,9 +849,59 @@
                     "value": ""
                 }
             },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "Sd1XeR2dY94yR6eY",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -853,7 +917,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>60 feet. The flames from a yaganty's fingers shed bright light in a 10-foot radius and are visible even in areas affected by magical darkness, but they do not shed dim light beyond that radius. Any creature within 60 feet in an area of darkness or dim light that sees the yaganty's candle fingers must succeed at a @Check[type:will|dc:27] save or become @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the yaganty for 1 minute or until the yaganty uses a hostile action against the creature, whichever comes first.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The flames from a yaganty's fingers shed bright light in a 10-foot radius and are visible even in areas affected by magical darkness, but they do not shed dim light beyond that radius. Any creature within 60 feet in an area of darkness or dim light that sees the yaganty's candle fingers must succeed at a @Check[type:will|dc:27] save or become @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the yaganty for 1 minute or until the yaganty uses a hostile action against the creature, whichever comes first.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -883,7 +947,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light in the Darkness",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -893,13 +957,13 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>A yaganty who is doused with water or otherwise has their candle fingers extinguished takes [[/r {3d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}, becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened 1}, and screams in agony until they reignite their candles (typically by casting produce flame and lighting their fingers with an Interact action).</p>"
+                    "value": "<p>A yaganty who is doused with water or otherwise has their candle fingers extinguished takes @Localize[PF2E.PersistentDamage.Mental3d6.success], becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened 1}, and screams in agony until they reignite their candles (typically by casting produce flame and lighting their fingers with an Interact action).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -921,9 +985,9 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vulnerability to Extinguishing",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -939,7 +1003,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The yaganty whips a stream of scalding wax in a @Template[type:line|distance:30]. Each glob deals [[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. An affected creature or adjacent ally can remove one glob of wax by spending an Interact action to scrape it off. The yaganty can't use Fling Wax again for [[/br 1d4 #rounds]]{1d4 rounds}. Creatures in the area must attempt a @Check[type:reflex|dc:27|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is splattered with 1d2+1 globs of wax.</p>\n<p><strong>Failure</strong> The creature is splattered with 1d4+2 globs of wax.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is blinded until it removes the globs of wax.</p>"
+                    "value": "<p>The yaganty whips a stream of scalding wax in a @Template[type:line|distance:30]. Each glob deals [[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. An affected creature or adjacent ally can remove one glob of wax by spending an Interact action to scrape it off. The yaganty can't use Fling Wax again for [[/br 1d4 #rounds]]{1d4 rounds}. Creatures in the area must attempt a @Check[type:reflex|dc:27|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is splattered with 1d2+1 globs of wax.</p>\n<p><strong>Failure</strong> The creature is splattered with 1d4+2 globs of wax.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until it removes the globs of wax.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -965,7 +1029,52 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Fling Wax",
-            "sort": 1100000,
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "Q9t0tU1IUEQaozBF",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -993,7 +1102,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1021,7 +1130,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1049,7 +1158,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1077,7 +1186,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         }
     ],

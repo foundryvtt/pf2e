@@ -16,8 +16,7 @@ abstract class IWRRuleElement extends RuleElementPF2e {
     validate(value: unknown): boolean {
         return (
             this.data.type in this.dictionary &&
-            typeof value === "number" &&
-            value > 0 &&
+            ((typeof value === "number" && Number.isInteger(value) && value > 0) || typeof value === "string") &&
             (!this.data.except || typeof this.data.except === "string")
         );
     }

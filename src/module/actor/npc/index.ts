@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { RollFunction, TraitViewData } from "@actor/data/base";
-import { calculateMAPs } from "@actor/helpers";
+import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -18,7 +18,7 @@ import { LocalizePF2e } from "@system/localize";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
-import { objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { StrikeAttackTraits } from "./strike-attack-traits";
@@ -191,8 +191,8 @@ class NPCPF2e extends CreaturePF2e {
         {
             const base = data.attributes.hp.max;
             const modifiers: ModifierPF2e[] = [
-                extractModifiers(statisticsModifiers, ["hp"], { test: this.getRollOptions(["hp"]) }),
-                extractModifiers(statisticsModifiers, ["hp-per-level"], {
+                extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
+                extractModifiers(this.synthetics, ["hp-per-level"], {
                     test: this.getRollOptions(["hp-per-level"]),
                 }).map((modifier) => {
                     modifier.modifier *= this.level;
@@ -214,6 +214,11 @@ class NPCPF2e extends CreaturePF2e {
             ].join(", ");
 
             data.attributes.hp = stat;
+
+            // Set a roll option for HP percentage
+            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
+            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
+            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
         }
 
         // Speeds
@@ -232,7 +237,7 @@ class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
                 this.getShieldBonus() ?? [],
-                extractModifiers(statisticsModifiers, domains),
+                extractModifiers(this.synthetics, domains),
             ].flat();
 
             const rollOptions = this.getRollOptions(domains);
@@ -261,7 +266,7 @@ class NPCPF2e extends CreaturePF2e {
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
-                ...extractModifiers(statisticsModifiers, domains),
+                ...extractModifiers(this.synthetics, domains),
             ];
 
             const stat = mergeObject(
@@ -313,7 +318,7 @@ class NPCPF2e extends CreaturePF2e {
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
-                ...extractModifiers(statisticsModifiers, domains),
+                ...extractModifiers(this.synthetics, domains),
             ];
             const notes = extractNotes(rollNotes, domains);
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
@@ -388,7 +393,7 @@ class NPCPF2e extends CreaturePF2e {
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], mod, MODIFIER_TYPE.ABILITY),
-                    extractModifiers(statisticsModifiers, domains),
+                    extractModifiers(this.synthetics, domains),
                 ].flat();
 
                 const stat = mergeObject(
@@ -491,7 +496,7 @@ class NPCPF2e extends CreaturePF2e {
                     "attack-roll",
                     "all",
                 ];
-                modifiers.push(...extractModifiers(statisticsModifiers, domains));
+                modifiers.push(...extractModifiers(this.synthetics, domains));
                 modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
                 const notes = extractNotes(rollNotes, domains);
 
@@ -607,8 +612,19 @@ class NPCPF2e extends CreaturePF2e {
                                 rollOptions.push("melee");
                             }
 
+                            // Check whether target is out of maximum range; abort early if so
+                            if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                                const maxRange = item.maxRange ?? 10;
+                                if (context.target.distance > maxRange) {
+                                    ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
+                                    return null;
+                                }
+                            }
+
                             const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
+                            if (rangeIncrement) rollOptions.push(`target:range-increment:${rangeIncrement}`);
+
+                            const rangePenalty = calculateRangePenalty(this, rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
                             const checkName = game.i18n.format(
                                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
@@ -656,15 +672,19 @@ class NPCPF2e extends CreaturePF2e {
                             .sort();
 
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                            context.self.item.data,
+                            context.self.item,
                             context.self.actor,
                             [attackTrait],
                             deepClone(statisticsModifiers),
+                            deepClone(this.synthetics.modifierAdjustments),
                             this.cloneSyntheticsRecord(damageDice),
                             1,
                             options,
-                            rollNotes
+                            rollNotes,
+                            this.synthetics.strikeAdjustments
                         );
+                        if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
                         const { self, target } = context;
 
                         await DamageRollPF2e.roll(
@@ -704,8 +724,7 @@ class NPCPF2e extends CreaturePF2e {
             const attackModifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                ...extractModifiers(statisticsModifiers, baseSelectors),
-                ...extractModifiers(statisticsModifiers, attackSelectors),
+                ...extractModifiers(this.synthetics, [...baseSelectors, ...attackSelectors]),
             ];
 
             // Save Modifiers, reverse engineer using the user configured value - 10
@@ -713,8 +732,7 @@ class NPCPF2e extends CreaturePF2e {
             const saveModifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                ...extractModifiers(statisticsModifiers, baseSelectors),
-                ...extractModifiers(statisticsModifiers, saveSelectors),
+                ...extractModifiers(this.synthetics, [...baseSelectors, ...saveSelectors]),
             ];
 
             // Assign statistic data to the spellcasting entry
@@ -763,7 +781,7 @@ class NPCPF2e extends CreaturePF2e {
 
     prepareSaves(): void {
         const data = this.data.data;
-        const { rollNotes, statisticsModifiers } = this.synthetics;
+        const { rollNotes } = this.synthetics;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -783,7 +801,7 @@ class NPCPF2e extends CreaturePF2e {
                 modifiers: [
                     new ModifierPF2e("PF2E.BaseModifier", base - abilityMod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                    ...extractModifiers(statisticsModifiers, selectors),
+                    ...extractModifiers(this.synthetics, selectors),
                 ],
                 check: {
                     type: "saving-throw",

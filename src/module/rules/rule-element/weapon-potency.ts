@@ -1,15 +1,14 @@
 import { RuleElementPF2e } from "./";
 import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
-import { PredicatePF2e } from "@system/predication";
 import { MODIFIER_TYPE } from "@actor/modifiers";
-import { WeaponPropertyRuneType } from "@item/weapon/types";
+import { PotencySynthetic } from "../synthetics";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
  * @category RuleElement
  */
-class WeaponPotencyRuleElement extends RuleElementPF2e {
+export class WeaponPotencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     override beforePrepareData(): void {
@@ -29,7 +28,7 @@ class WeaponPotencyRuleElement extends RuleElementPF2e {
             const label = this.data.label.includes(":")
                 ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
                 : this.data.label;
-            const potency: WeaponPotencyPF2e = { label, bonus: value, type: bonusType };
+            const potency: PotencySynthetic = { label, bonus: value, type: bonusType };
             if (this.data.predicate) {
                 potency.predicate = this.data.predicate;
             }
@@ -39,13 +38,3 @@ class WeaponPotencyRuleElement extends RuleElementPF2e {
         }
     }
 }
-
-interface WeaponPotencyPF2e {
-    label: string;
-    bonus: number;
-    type: "item" | "potency";
-    predicate?: PredicatePF2e;
-    property?: WeaponPropertyRuneType[];
-}
-
-export { WeaponPotencyRuleElement, WeaponPotencyPF2e };

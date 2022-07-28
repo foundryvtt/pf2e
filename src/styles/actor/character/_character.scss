@@ -1,14 +1,4 @@
 &.character {
-    h3 {
-        position: relative;
-        margin-top: 0.75em;
-        font-family: var(--serif);
-        font-weight: 600;
-        color: var(--primary);
-        line-height: 1;
-        border-bottom: 1px solid var(--primary);
-    }
-
     select {
         width: calc(100% - 6px);
         background-color: var(--alt);
@@ -24,50 +14,36 @@
 
     .pc {
         h3 {
-            grid-area: mod;
-            border: none;
-            @include p-reset;
             background-color: rgba($text-dark-color, 0.1);
-            height: 26px;
-            padding: 8px 4px 6px;
+            border: none;
             color: var(--body);
-            font-family: var(--body-serif);
-            font-size: var(--font-size-14);
-            font-weight: 700;
+            display: flex;
+            font: 700 var(--font-size-14) var(--body-serif);
+            grid-area: mod;
+            line-height: 1;
+            margin: 0;
+            padding: 8px 4px 6px;
             width: calc(100% - 6px);
-            i {
-                position: relative;
-                right: -2px;
-                top: -2px;
-                float: right;
+
+            a {
+                margin-left: auto;
+
+                i {
+                    position: relative;
+                    right: -2px;
+                    top: -2px;
+                    float: right;
+                }
             }
 
             span.value {
                 display: inline-block;
-                max-width: 87%;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                width: 87%;
             }
         }
-    }
-
-    button[data-action=edit-ability-scores] {
-        background: transparent;
-        border-radius: 2px 2px 0 0;
-        border: 1px solid rgba(211, 204, 188, 1);
-        bottom: 0;
-        color: var(--primary);
-        cursor: pointer;
-        font-size: var(--font-size-12);
-        height: 20px;
-        line-height: var(--font-size-12);
-        margin: -1;
-        outline: none;
-        position: absolute;
-        right: 0;
-        text-transform: uppercase;
-        width: auto;
     }
 
     .character-details {
@@ -135,9 +111,7 @@
             }
 
             input[type="text"] {
-                font-family: var(--body-serif);
-                font-size: var(--font-size-14);
-                font-weight: 700;
+                font: 700 var(--font-size-14) var(--body-serif);
                 text-align: center;
                 max-width: 138px;
             }
@@ -157,14 +131,26 @@
             align-items: center;
             display: flex;
             grid-area: deity;
-            justify-content: end;
+            margin-left: auto;
+            min-width: 10em;
             padding-bottom: 0.7em;
 
             .input {
                 display: flex;
-                flex-basis: 55%;
-                flex-wrap: wrap;
+                flex-flow: column wrap;
                 justify-content: end;
+
+                label {
+                    text-align: right;
+                }
+
+                h3 {
+                    min-width: 9em;
+
+                    span {
+                        max-width: 10em;
+                    }
+                }
             }
 
             img.symbol {

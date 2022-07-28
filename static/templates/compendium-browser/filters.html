@@ -1,6 +1,6 @@
 <div class="control-area">
     <div class="sortcontainer" id="tagfilter">
-        <input class="" name="textFilter" type="text" value="{{filterData.search.text}}" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
+        <input name="textFilter" type="text" value="{{filterData.search.text}}" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}" />
         <dl>
             <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
             <dd>
@@ -48,7 +48,7 @@
             {{#each ../filterData.multiselects as |select type|}}
                 <div class="filtercontainer" data-filter-type="multiselects" data-filter-name="{{type}}">
                     <h3>{{localize select.label}}</h3>
-                    <input name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json select.selected}}" />
+                    <input class="paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json select.selected}}" />
                 </div>
             {{/each}}
         {{/if}}

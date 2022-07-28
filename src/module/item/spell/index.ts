@@ -21,9 +21,11 @@ import { DamageCategorization, DamageType } from "@system/damage";
 import { CheckPF2e } from "@system/rolls";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { ErrorPF2e, objectHasKey, ordinal } from "@util";
-import { SpellData, SpellHeightenLayer, SpellSource } from "./data";
+import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
+import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource } from "./data";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { SpellOverlayCollection } from "./overlay";
+import { ActionTrait } from "@item/action/data";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -34,6 +36,8 @@ class SpellPF2e extends ItemPF2e {
 
     /** The original spell. Only exists if this is a variant */
     original?: SpellPF2e;
+    /** The overlays that were applied to create this variant */
+    appliedOverlays?: Map<SpellOverlayType, string>;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry: TrickMagicItemEntry | null = null;
@@ -52,6 +56,18 @@ class SpellPF2e extends ItemPF2e {
 
     get traits(): Set<SpellTrait> {
         return new Set(this.data.data.traits.value);
+    }
+
+    /** Action traits added when Casting this Spell */
+    get castingTraits(): ActionTrait[] {
+        const { components } = this;
+        return (
+            [
+                getActionIcon(this.data.data.time.value, null) === null ? "exploration" : [],
+                components.verbal ? "concentrate" : [],
+                (["focus", "material", "somatic"] as const).some((c) => components[c]) ? "manipulate" : [],
+            ] as const
+        ).flat();
     }
 
     get school(): MagicSchool {
@@ -94,7 +110,7 @@ class SpellPF2e extends ItemPF2e {
         };
     }
 
-    /** Returns true if this spell has unlimited uses, false otherwise. */
+    /** Whether this spell has unlimited uses */
     get unlimited(): boolean {
         // In the future handle at will and constant
         return this.isCantrip;
@@ -102,6 +118,14 @@ class SpellPF2e extends ItemPF2e {
 
     get isVariant(): boolean {
         return !!this.original;
+    }
+
+    get hasVariants(): boolean {
+        return this.overlays.size > 0;
+    }
+
+    override get uuid(): ItemUUID {
+        return this.isVariant ? this.original!.uuid : super.uuid;
     }
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
@@ -156,7 +180,7 @@ class SpellPF2e extends ItemPF2e {
 
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
-            const variant = this.loadVariant(castLevel);
+            const variant = this.loadVariant({ castLevel });
             if (variant) return variant.getDamageFormula(castLevel, rollData);
         }
 
@@ -210,13 +234,13 @@ class SpellPF2e extends ItemPF2e {
             formulas.push(formula);
         }
 
-        // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this
+        // Add flat damage increases if this spell can deal damage.
+        // Until damage is refactored, we can't get anything fancier than this
         const { actor } = this;
-        if (actor) {
-            const statisticsModifiers = actor.synthetics.statisticsModifiers;
+        if (actor && Object.keys(this.data.data.damage.value).length) {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
-            const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
+            const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
@@ -231,23 +255,54 @@ class SpellPF2e extends ItemPF2e {
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(castLevel: number): SpellPF2e | null {
+    loadVariant(options: { castLevel?: number; overlayIds?: string[] } = {}): Embedded<SpellPF2e> | null {
         if (this.original) {
-            return this.original.loadVariant(castLevel);
+            return this.original.loadVariant(options);
         }
+        const { castLevel, overlayIds } = options;
+        const appliedOverlays: Map<SpellOverlayType, string> = new Map();
 
-        // Retrieve and apply variant overlays to override data
-        const heightenEntries = this.getHeightenLayers(castLevel);
-        if (heightenEntries.length === 0) return null;
+        const override = (() => {
+            // Retrieve and apply variant overlays to override data
+            const heightenEntries = this.getHeightenLayers(castLevel);
+            if (heightenEntries.length === 0 && !overlayIds) return null;
+            let source = this.toObject();
+            if (overlayIds) {
+                const overlays: Map<string, SpellOverlay> = new Map(
+                    overlayIds.map((id) => [id, this.overlays.get(id, { strict: true })])
+                );
+                const overlayTypes = [...overlays.values()].map((overlay) => overlay.overlayType);
+                if (overlayTypes.filter((type) => type === "override").length > 1) {
+                    throw ErrorPF2e(
+                        `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`
+                    );
+                }
+                for (const [overlayId, overlayData] of overlays) {
+                    switch (overlayData.overlayType) {
+                        case "override": {
+                            // Sanitize data
+                            delete source.data.overlays;
+                            source.data.rules = [];
 
-        const override = this.toObject();
-        for (const overlay of heightenEntries) {
-            mergeObject(override.data, overlay.data);
-        }
+                            source = mergeObject(source, overlayData, { overwrite: true });
+                            break;
+                        }
+                    }
+                    appliedOverlays.set(overlayData.overlayType, overlayId);
+                }
+            }
 
-        override.data = mergeObject(override.data, { heightenedLevel: { value: castLevel } });
-        const variantSpell = new SpellPF2e(override, { parent: this.actor });
+            for (const overlay of heightenEntries) {
+                mergeObject(source.data, overlay.data);
+            }
+
+            return source;
+        })();
+        if (!override) return null;
+
+        const variantSpell = new SpellPF2e(override, { parent: this.actor }) as Embedded<SpellPF2e>;
         variantSpell.original = this;
+        variantSpell.appliedOverlays = appliedOverlays;
         return variantSpell;
     }
 
@@ -268,6 +323,8 @@ class SpellPF2e extends ItemPF2e {
             line: "ray",
             cone: "cone",
             rect: "rect",
+            square: "rect",
+            cube: "rect",
         } as const;
 
         const { area } = this.data.data;
@@ -310,6 +367,8 @@ class SpellPF2e extends ItemPF2e {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.data.data.level.value = Math.clamped(this.data.data.level.value, 1, 10) as OneToTen;
+
+        this.overlays = new SpellOverlayCollection(this, this.data.data.overlays);
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
@@ -363,7 +422,18 @@ class SpellPF2e extends ItemPF2e {
 
         chatData.flags.pf2e.isFromConsumable = this.isFromConsumable;
 
-        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : message;
+        if (this.isVariant) {
+            chatData.flags.pf2e.spellVariant = {
+                overlayIds: [...this.appliedOverlays!.values()],
+            };
+        }
+
+        if (!create) {
+            message.data.update(chatData);
+            return message;
+        }
+
+        return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
     override getChatData(
@@ -375,9 +445,26 @@ class SpellPF2e extends ItemPF2e {
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {
-            const variant = this.loadVariant(level);
+            const variant = this.loadVariant({ castLevel: level });
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
+
+        const variants = this.overlays.overrideVariants
+            .flatMap((variant): SpellVariantChatData => {
+                const overlayIds = [...variant.appliedOverlays!.values()];
+                const actions = (() => {
+                    const actionIcon = getActionIcon(variant.data.data.time.value, null);
+                    return variant.data.data.time.value !== this.data.data.time.value && actionIcon ? actionIcon : null;
+                })();
+
+                return {
+                    actions,
+                    name: variant.name,
+                    overlayIds,
+                    sort: variant.data.sort,
+                };
+            })
+            .sort((a, b) => a.sort - b.sort);
 
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         rollData.item ??= this;
@@ -455,9 +542,8 @@ class SpellPF2e extends ItemPF2e {
             systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
 
-        const traits = this.traitChatData({
+        const spellTraits = this.traitChatData({
             ...CONFIG.PF2E.spellTraits,
-            ...CONFIG.PF2E.magicSchools,
             ...CONFIG.PF2E.magicTraditions,
         });
 
@@ -482,11 +568,13 @@ class SpellPF2e extends ItemPF2e {
             damageLabel,
             formula,
             properties,
-            traits,
+            spellTraits,
+            actionTraits: this.castingTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             areaSize,
             areaType,
             areaUnit,
             item,
+            variants,
         };
     }
 
@@ -621,6 +709,14 @@ class SpellPF2e extends ItemPF2e {
         );
     }
 
+    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this> {
+        // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
+        if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
+            return this.original.overlays.updateOverride(this as Embedded<SpellPF2e>, data, options) as Promise<this>;
+        }
+        return super.update(data, options);
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<SpellSource>,
         options: DocumentModificationContext<this>,
@@ -655,6 +751,15 @@ class SpellPF2e extends ItemPF2e {
 
 interface SpellPF2e {
     readonly data: SpellData;
+
+    overlays: SpellOverlayCollection;
+}
+
+interface SpellVariantChatData {
+    actions: ImagePath | null;
+    name: string;
+    overlayIds: string[];
+    sort: number;
 }
 
 export { SpellPF2e };

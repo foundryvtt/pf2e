@@ -3,12 +3,15 @@ import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenDataPF2e } from "@actor/data/base";
+import { TokenAura } from "./aura";
 
 class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
-    private initialized?: true;
+    private initialized!: boolean;
+
+    auras!: Map<string, TokenAura>;
 
     /** Filter trackable attributes for relevance and avoidance of circular references */
     static override getTrackedAttributes(data: Record<string, unknown> = {}, _path: string[] = []): TokenAttributes {
@@ -43,13 +46,27 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         return super.getTrackedAttributes(prunedData, _path);
     }
 
+    /** An instance property in V10 */
+    get x(): number {
+        return this.data.x;
+    }
+
+    /** An instance property in V10 */
+    get y(): number {
+        return this.data.y;
+    }
+
     /** This should be in Foundry core, but ... */
-    get scene(): ScenePF2e | null {
+    get scene(): this["parent"] {
         return this.parent;
     }
 
     protected override _initialize(): void {
+        this.initialized = false;
+        this.auras = new Map();
+
         super._initialize();
+
         this.initialized = true;
     }
 
@@ -70,22 +87,44 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
-        return this.data.flags.pf2e.linkToActorSize;
+        return this.flags.pf2e.linkToActorSize;
     }
 
     /** Is this token's scale locked at 1 or (for small creatures) 0.8? */
     get autoscale(): boolean {
-        return this.data.flags.pf2e.autoscale;
+        return this.flags.pf2e.autoscale;
     }
 
     get playersCanSeeName(): boolean {
         const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
         const nameDisplayMode = this.data.displayName ?? 0;
-        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.hasPlayerOwner;
+        return anyoneCanSee.includes(nameDisplayMode) || this.actor?.alliance === "party";
+    }
+
+    /** The pixel-coordinate definition of this token's space */
+    get bounds(): NormalizedRectangle {
+        const gridSize = this.scene?.data.grid ?? 100;
+        // Use source values since coordinates are changed in real time over the course of movement animation
+        return new NormalizedRectangle(
+            this.data._source.x,
+            this.data._source.y,
+            this.data.width * gridSize,
+            this.data.height * gridSize
+        );
+    }
+
+    /** The pixel-coordinate pair constituting this token's center */
+    get center(): Point {
+        const { bounds } = this;
+        return {
+            x: bounds.x + bounds.width / 2,
+            y: bounds.y + bounds.height / 2,
+        };
     }
 
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
+        this.auras.clear();
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
             canvas.lighting.setPerceivedLightLevel();
@@ -95,16 +134,31 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        if (!(this.initialized && this.actor)) return;
+
+        if (!this.actor || !this.isEmbedded) return;
+        for (const [key, data] of this.actor.auras.entries()) {
+            this.auras.set(
+                key,
+                new TokenAura({
+                    slug: key,
+                    radius: data.radius,
+                    token: this as Embedded<TokenDocumentPF2e>,
+                    traits: new Set(data.traits),
+                    includesSelf: true,
+                })
+            );
+        }
+
+        if (!this.initialized) return;
 
         // Dimensions and scale
         const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
-        const linkToActorSize = this.data.flags.pf2e?.linkToActorSize ?? linkDefault;
+        const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
         // Autoscaling is a secondary feature of linking to actor size
-        const autoscale = linkToActorSize ? this.data.flags.pf2e?.autoscale ?? autoscaleDefault : false;
-        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { linkToActorSize, autoscale });
+        const autoscale = linkToActorSize ? this.flags.pf2e?.autoscale ?? autoscaleDefault : false;
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Vision
         if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
@@ -133,7 +187,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Alliance coloration, appropriating core token dispositions
-        const { alliance } = this.actor.data.data.details;
+        const { alliance } = this.actor.system.details;
         this.data.disposition = alliance
             ? {
                   party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
@@ -245,6 +299,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (Object.keys(changed).length > 0) {
             // TokenDocument#_onUpdate doesn't actually do anything with the user ID
             this._onUpdate(changed, {}, game.user.id);
+        } else if (canvas.ready && this.scene?.active) {
+            if (!canvas.tokens.kimsNaughtyModule) this.object.auras.draw();
+            this.scene.checkAuras();
         }
     }
 
@@ -284,6 +341,15 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             ui.combat.render();
         }
     }
+
+    /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+        super._onDelete(options, userId);
+
+        if (this.isLinked && !this.scene?.tokens.some((t) => t.actor === this.actor)) {
+            this.actor?.checkAreaEffects();
+        }
+    }
 }
 
 interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
@@ -295,7 +361,7 @@ interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenD
 
     readonly parent: ScenePF2e | null;
 
-    get combatant(): Embedded<CombatantPF2e> | null;
+    get combatant(): CombatantPF2e<EncounterPF2e> | null;
 
     _sheet: TokenConfigPF2e<this> | null;
 

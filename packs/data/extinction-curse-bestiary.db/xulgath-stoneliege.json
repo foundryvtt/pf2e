@@ -145,7 +145,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -219,7 +219,7 @@
                 "spelldc": {
                     "dc": 26,
                     "mod": 0,
-                    "value": 16
+                    "value": 18
                 },
                 "tradition": {
                     "value": "primal"
@@ -236,7 +236,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "POitpYRpZFl6iiWE",
+            "_id": "YwHD4QeXnVB1tD8C",
             "data": {
                 "ability": {
                     "value": ""
@@ -244,6 +244,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -261,7 +264,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You shape the stone into a rough shape of your choice. The shaping process is too crude to produce intricate parts, fine details, moving pieces, or the like. Any creatures standing atop the stone when you reshape it must each attempt a Reflex save or Acrobatics check.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> The creature falls @Compendium[pf2e.conditionitems.Prone]{Prone} atop the stone.</p>\n<p><strong>Critical Failure</strong> The creature falls off the stone (if applicable) and lands @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p>You shape the stone into a rough shape of your choice. The shaping process is too crude to produce intricate parts, fine details, moving pieces, or the like. Any creatures standing atop the stone when you reshape it must each attempt a Reflex save or Acrobatics check.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature falls @Compendium[pf2e.conditionitems.Prone]{Prone} atop the stone.</p>\n<p><strong>Critical Failure</strong> The creature falls off the stone (if applicable) and lands Prone.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -273,6 +276,7 @@
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "uses": {
                         "max": 3,
                         "value": 3
@@ -285,23 +289,32 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "reflex"
                 },
                 "school": {
                     "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "shape-stone",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=276"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
@@ -324,6 +337,11 @@
                     "value": [
                         "earth"
                     ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.McnPlLFvKtQVXNcG"
                 }
             },
             "img": "systems/pf2e/icons/spells/shape-stone.webp",
@@ -460,6 +478,96 @@
             "type": "melee"
         },
         {
+            "_id": "BOeEBr5RTcqfpH0m",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "iUtdet5TqBqTZ7LU",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "dFflNs9ymwMB3ky8",
             "data": {
                 "actionCategory": {
@@ -499,7 +607,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -542,7 +650,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Earthen Blow",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -558,7 +666,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> The stoneliege is standing on or next to at least 10 cubic feet of dirt, stone, or other earthen material</p>\n<hr />\n<p><strong>Effect</strong> The stoneliege creates a violent wave of roiling earth. Creatures in a @Template[type:cone|distance:15] take [[/r {7d8}[bludgeoning]]]{7d8 bludgeoning damage} (@Check[type:reflex|dc:26|basic:true] save; on a critical failure, creatures are also knocked prone).</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> The stoneliege is standing on or next to at least 10 cubic feet of dirt, stone, or other earthen material</p>\n<hr />\n<p><strong>Effect</strong> The stoneliege creates a violent wave of roiling earth. Creatures in a @Template[type:cone|distance:15] take [[/r {7d8}[bludgeoning]]]{7d8 bludgeoning damage} (@Check[type:reflex|dc:26|basic:true] save; on a critical failure, creatures are also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -585,7 +693,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Earthen Torrent",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -601,7 +709,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The stoneliege turns their own body into solid stone like a statue and immediately becomes petrified. Any creature grappled or restrained by the stoneliege becomes immobilized; to get free, the creature must damage the statue enough to break it or succeed at a @Check[type:acrobatics|dc:28|name:Escape Stone Throes|traits:action:escape] check to Escape.</p>"
+                    "value": "<p>The stoneliege turns their own body into solid stone like a statue and immediately becomes @Compendium[pf2e.conditionitems.Petrified]{Petrified}. Any creature grappled or restrained by the stoneliege becomes @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}; to get free, the creature must damage the statue enough to break it or succeed at a @Check[type:acrobatics|dc:28|name:Escape Stone Throes|traits:action:escape] check to @Compendium[pf2e.actionspf2e.Escape]{Escape}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -628,7 +736,52 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Stone Throes",
-            "sort": 900000,
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "higNsDz9ZW1P7b5G",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -656,7 +809,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -684,7 +837,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Cave Lore",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -712,7 +865,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Geology Lore",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -740,7 +893,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Initmidation",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -768,7 +921,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
         }
     ],

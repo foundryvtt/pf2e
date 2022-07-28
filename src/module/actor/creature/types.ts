@@ -11,6 +11,7 @@ import { SheetOptions } from "@module/sheet/helpers";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
 import { TraitViewData } from "@actor/data/base";
 import { FlattenedCondition } from "@system/conditions";
+import { ActorUpdateContext } from "@actor/base";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
@@ -65,6 +66,10 @@ interface IsFlatFootedParams {
     dueTo: "flanking" | "surprise" | "hidden" | "undetected";
 }
 
+interface CreatureUpdateContext<T extends CreaturePF2e> extends ActorUpdateContext<T> {
+    allowHPOverage?: boolean;
+}
+
 interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
     languages: SheetOptions;
     abilities: ConfigPF2e["PF2E"]["abilities"];
@@ -72,6 +77,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     actorSizes: ConfigPF2e["PF2E"]["actorSizes"];
     alignments: { [K in Alignment]?: string };
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
+    frequencies: ConfigPF2e["PF2E"]["frequencies"];
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
     conditions: FlattenedCondition[];
@@ -82,7 +88,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     };
 }
 
-type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
+type SpellcastingSheetData = RawObject<SpellcastingEntryData> & SpellcastingEntryListData;
 
 export {
     Alignment,
@@ -91,6 +97,7 @@ export {
     AttackRollContext,
     AttackTarget,
     CreatureSheetData,
+    CreatureUpdateContext,
     GetReachParameters,
     IsFlatFootedParams,
     ModeOfBeing,

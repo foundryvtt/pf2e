@@ -15,7 +15,19 @@
         @import "kit-sheet";
     }
 
+    &.spell form {
+        @import "spell-sheet";
+    }
+
     form {
+        .tagify > span {
+            min-width: 40px;
+        }
+
+        .tagify--hasMaxTags > span {
+            display: none;
+        }
+
         @import "abc-sheet";
         @import "activations";
         @import "identify-item";
@@ -77,7 +89,7 @@
             }
         }
 
-        > article {
+        article {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -95,68 +107,76 @@
             }
 
             @import "sidebar";
+        }
 
-            > section.sheet-body {
-                > .tabs {
-                    border-bottom: 1px solid var(--secondary-background);
-                    a {
-                        flex: 1 1 auto;
-                    }
-                    a.active {
-                        text-decoration: underline;
-                    }
+        section.sheet-body {
+            .tabs {
+                border-bottom: 1px solid var(--secondary-background);
+                a {
+                    flex: 1 1 auto;
                 }
-
-                input[type="text"], input[type="number"] {
-                    background: rgba(255, 255, 255, 0.5);
-                    border: 1px solid #aaa;
-                    padding: 3px;
+                a.active {
+                    text-decoration: underline;
                 }
+            }
 
-                > .tab.active {
-                    padding-left: 10px;
+            input[type="text"], input[type="number"] {
+                background: rgba(255, 255, 255, 0.5);
+                border: 1px solid #aaa;
+                padding: 3px;
+            }
 
-                    /** Any tab */
-                    .editor {
-                        height: 100%;
-                    }
+            .tab {
+                padding-left: 10px;
 
-                    /** Details */
-                    &.item-details {
-                        padding: 0.5rem 0.5rem 0;
-                        @include scrollbar;
-
-                        label {
-                            color: #353535;
-                            font-weight: bold;
-                        }
-
-                        select {
-                            font-size: 0.75rem;
-                            height: 1.5rem;
-                            padding-right: 1em;
-                        }
-                    }
-
-                    &.item-mystification {
-                        padding: 8px 8px 0;
-                        @include scrollbar;
-
-                        label {
-                            color: #353535;
-                            font-weight: bold;
-                        }
-                    }
-                }
-
+                /** Any tab */
                 .editor {
-                    --space-s: 0.25em;
-                    --space-m: 0.5em;
-                    --space-l: 1em;
-                    --space-xl: 1.5em;
-                    --radius: 3px;
-                    @include tinymce-system-specific;
+                    height: 100%;
                 }
+
+                /** Details */
+                &.item-details {
+                    padding: 0.5rem 0.5rem 0;
+                    @include scrollbar;
+
+                    label {
+                        color: #353535;
+                        font-weight: 500;
+                    }
+
+                    select {
+                        font-size: var(--font-size-12);
+                        height: 1.5rem;
+                        padding-right: 1em;
+
+                        &.rarity {
+                            max-width: fit-content;
+                        }
+                    }
+
+                    .tags .tag {
+                        font-size: var(--font-size-10);
+                    }
+                }
+
+                &.item-mystification {
+                    padding: 8px 8px 0;
+                    @include scrollbar;
+
+                    label {
+                        color: #353535;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .editor {
+                --space-s: 0.25em;
+                --space-m: 0.5em;
+                --space-l: 1em;
+                --space-xl: 1.5em;
+                --radius: 3px;
+                @include tinymce-system-specific;
             }
         }
 
@@ -181,6 +201,7 @@
             padding: 0.25em;
             margin: 0.5em 0;
             h3 {
+                font-weight: 600;
                 font-size: 1.05em;
                 margin-bottom: 0.25em;
             }
@@ -200,7 +221,11 @@
             }
 
             & > label:not(.large) {
-                max-width: 145px;
+                max-width: 11em;
+            }
+
+            & > label.short {
+                max-width: 9em;
             }
 
             & > input[type="checkbox"] {
@@ -356,36 +381,26 @@
             }
         }
 
-        .damage-formulas {
-            margin-top: 8px;
-
-            .details-container-flex-row {
-                gap: 2px;
-                margin-top: 4px;
-            }
-
-            input[type="checkbox"] {
-                margin-left: 2px;
-            }
-
-            .traits-list {
-                display: flex;
-                margin-top: 2px;
-            }
-
-            .tag {
-                float: none; // remove when global rule is removed
-            }
-        }
-
-        button[data-action="damage-add"] {
-            margin-top: 4px;
-        }
-
         input {
             &.adjusted:not(:focus) {
                 font-weight: 700;
                 color: $adjusted-higher;
+            }
+        }
+
+        .frequency {
+            align-items: baseline;
+            display: flex;
+            gap: 0.2rem;
+            text-align: end;
+            &.empty {
+                justify-content: flex-end;
+            }
+            select {
+                flex: 1 1 auto;
+            }
+            a {
+                align-self: center;
             }
         }
     }

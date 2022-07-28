@@ -1,21 +1,17 @@
 &.inventory {
     height: calc(100% - 40px);
 
+    .inventory-list {
+        padding-right: 0.1rem;
+    }
+
     .item-controls {
         flex: 0 0 100px;
     }
 
-    .inventory-list {
-        height: calc(100% - 60px);
-    }
-
-    .inventory-list, .item-list {
+    .inventory-items {
         border: 1px solid var(--alt);
         border-top: none;
-    }
-
-    .currency, .wealth {
-        margin: 0 0.5rem auto;
     }
 
     .wealth {
@@ -33,8 +29,8 @@
     .item-summary {
         display: grid;
         grid:
-            'content btn' min-content
-            'tags btn' min-content
+            "content btn" min-content
+            "tags btn" min-content
             / 1fr min-content;
         column-gap: 8px;
         align-items: center;
@@ -55,7 +51,7 @@
         align-items: center;
         display: grid;
         grid:
-            'img bar overflow' min-content
+            "img bar overflow" min-content
             / 24px 1fr;
         margin: auto;
 

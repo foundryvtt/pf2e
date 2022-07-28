@@ -14,8 +14,8 @@
     }
 
     .rules {
-        padding: 7px;
-
+        padding-top: 7px;
+        padding-right: 7px;
         .rule-element-header {
             display: flex;
             justify-content: space-between;
@@ -27,6 +27,12 @@
 
         .add-rule-element {
             text-align: right;
+        }
+
+        textarea {
+            padding: 4px;
+            min-height: 60px;
+            resize: vertical;
         }
     }
 
@@ -48,10 +54,32 @@
         & > .cm-editor {
             flex: 1;
             background-color: white;
-            overflow: hidden;
 
             .cm-scroller {
                 @include scrollbar;
+                overflow: scroll;
+            }
+
+            // Undo global style overrides
+            button {
+                width: auto;
+                line-height: normal;
+            }
+
+            // Undo global style overrides
+            input[type=checkbox] {
+                width: auto;
+                height: auto;
+            }
+
+            // Undo legacy pf2e style overrides
+            label {
+                display: inline;
+            }
+
+            // Reduction in size so that it wraps neatly
+            .cm-search .cm-textfield {
+                width: 100px;
             }
 
             ::selection {
@@ -61,6 +89,23 @@
 
         .item-controls {
             margin: 0;
+        }
+    }
+
+    .rule-form {
+        label, .labelled-element {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            input, tags {
+                flex: 1;
+            }
+        }
+
+        &[data-key="Note"] {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
     }
 }

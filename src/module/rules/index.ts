@@ -1,16 +1,11 @@
 import type { ItemPF2e } from "@item";
-import {
-    RuleElementData,
-    RuleElementOptions,
-    RuleElementPF2e,
-    RuleElementSource,
-    RuleElementSynthetics,
-} from "./rule-element";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./rule-element";
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
 import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
 import { AdjustStrikeRuleElement } from "./rule-element/adjust-strike";
 import { AELikeRuleElement } from "./rule-element/ae-like";
+import { AuraRuleElement } from "./rule-element/aura";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
@@ -43,6 +38,7 @@ import { TokenImageRuleElement } from "./rule-element/token-image";
 import { TokenLightRuleElement } from "./rule-element/token-light";
 import { TokenNameRuleElement } from "./rule-element/token-name";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
+export { RuleElementSynthetics } from "./synthetics";
 
 /**
  * @category RuleElement
@@ -54,6 +50,7 @@ class RuleElements {
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
         AdjustModifier: AdjustModifierRuleElement,
         AdjustStrike: AdjustStrikeRuleElement,
+        Aura: AuraRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,
@@ -130,4 +127,4 @@ type RuleElementConstructor = new (
     options?: RuleElementOptions
 ) => RuleElementPF2e;
 
-export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleElementSynthetics };
+export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions };

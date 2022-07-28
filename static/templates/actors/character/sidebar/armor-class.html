@@ -73,8 +73,13 @@
             </span>
         </div>
         <div class="shield-status">
-            <span class="sidebar_label" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</span>
-            {{#if data.attributes.shield.broken}}<i class="far fa-times-circle"></i>{{else}}<i class="far fa-circle"></i>{{/if}}
+            {{#if data.attributes.shield.destroyed}}
+                <span class="sidebar_label">{{localize "PF2E.Item.Physical.Destroyed"}}</span>
+                <i class="far fa-times-circle"></i>
+            {{else}}
+                <span class="sidebar_label">{{localize "PF2E.Item.Physical.Broken"}}</span>
+                {{#if data.attributes.shield.broken}}<i class="far fa-times-circle"></i>{{else}}<i class="far fa-circle"></i>{{/if}}
+            {{/if}}
         </div>
     </div>
 </div>

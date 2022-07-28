@@ -18,27 +18,31 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
+import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
+import { CharacterConfig } from "./config";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
-    // A cache of this PC's known formulas, for use by sheet callbacks
+    protected readonly actorConfigClass = CharacterConfig;
+
+    /** A cache of this PC's known formulas, for use by sheet callbacks */
     private knownFormulas: Record<string, CraftingFormula> = {};
 
-    // Non-persisted tweaks to formula data
+    /** Non-persisted tweaks to formula data */
     private formulaQuantities: Record<string, number> = {};
 
     static override get defaultOptions(): ActorSheetOptions {
-        return mergeObject(super.defaultOptions, {
-            classes: ["default", "sheet", "actor", "character"],
-            width: 750,
-            height: 800,
-            tabs: [
-                { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
-                { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
-            ],
-        });
+        const options = super.defaultOptions;
+        options.classes = ["default", "sheet", "actor", "character"];
+        options.width = 750;
+        options.height = 800;
+        options.scrollY.push(".tab.active .tab-content");
+        options.tabs = [
+            { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
+            { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+        ];
+        return options;
     }
 
     override get template(): string {
@@ -129,8 +133,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
-
-        this.prepareSpellcasting(sheetData);
+        sheetData.spellcastingEntries = this.prepareSpellcasting();
+        sheetData.feats = this.prepareFeats();
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.data.flags.pf2e;
@@ -184,7 +188,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             )
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
-        // show hints for some things being modified
+        // Hide basic unarmed attack if configured so
+        if (!this.actor.flags.pf2e.showBasicUnarmed) {
+            sheetData.data.actions.findSplice((s: CharacterStrike) => s.item.id === "xxPF2ExUNARMEDxx");
+        }
+
+        // Show hints for some things being modified
         const baseData = this.actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =
             this.actor.attributes.bonusEncumbranceBulk !== baseData.data.attributes.bonusEncumbranceBulk;
@@ -295,26 +304,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         // Assign and return
-        actorData.featSlots = this.actor.featGroups;
         actorData.pfsBoons = this.actor.pfsBoons;
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-    }
-
-    private prepareSpellcasting(sheetData: CharacterSheetData): void {
-        sheetData.spellcastingEntries = [];
-        for (const itemData of sheetData.items) {
-            if (itemData.type === "spellcastingEntry") {
-                const entry = this.actor.spellcasting.get(itemData._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
-                sheetData.spellcastingEntries.push({
-                    ...itemData,
-                    ...entry.getSpellData(),
-                });
-            }
-        }
     }
 
     protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {
@@ -346,6 +340,15 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return craftingEntries;
+    }
+
+    private prepareFeats(): FeatCategorySheetData[] {
+        const unorganized: FeatCategorySheetData = {
+            id: "bonus",
+            label: "PF2E.FeatBonusHeader",
+            feats: this.actor.feats.unorganized,
+        };
+        return [...this.actor.feats.contents, unorganized];
     }
 
     /** Disable the initiative button located on the sidebar */
@@ -882,12 +885,10 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private getNearestSlotId(event: ElementDragEvent): JQuery.PlainObject {
-        const data = $(event.target).closest("[data-slot-id]").data();
-        if (!data) {
-            return { slotId: undefined, featType: undefined };
-        }
-        return data;
+    private getNearestFeatSlotId(event: ElementDragEvent) {
+        const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
+        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+        return typeof categoryId === "string" ? { slotId, categoryId: categoryId } : null;
     }
 
     protected override async _onDropItem(
@@ -902,13 +903,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
         if (item instanceof FeatPF2e) {
-            const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
-            const results = await this.actor.insertFeat(item, featType ?? "", slotId ?? "");
-            if (results.length > 0) {
-                return results;
-            } else {
-                return super._onDropItem(event, data);
-            }
+            const featSlot = this.getNearestFeatSlotId(event) ?? { categoryId: "" };
+            return await this.actor.feats.insertFeat(item, featSlot);
         }
 
         const source = item.toObject();
@@ -954,11 +950,15 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const item = this.actor.items.get(itemData._id);
         if (item instanceof FeatPF2e) {
-            const { slotId, featType } = this.getNearestSlotId(event);
-            const group = this.actor.featGroups[featType];
-            const resorting = group && !group.slotted && item.data.data.location === featType;
-            if (slotId && featType && !resorting) {
-                return this.actor.insertFeat(item, featType, slotId);
+            const featSlot = this.getNearestFeatSlotId(event);
+            if (!featSlot) return [];
+
+            const group = this.actor.feats.get(featSlot.categoryId) ?? null;
+            const resorting = item.category === group && !group?.slotted;
+            if (group?.slotted && !featSlot.slotId) {
+                return [];
+            } else if (!resorting) {
+                return this.actor.feats.insertFeat(item, featSlot);
             }
         }
 

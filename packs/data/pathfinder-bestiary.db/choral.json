@@ -2579,7 +2579,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs Magic",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 2500000,
             "type": "action"
         },
@@ -2596,12 +2596,51 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the area gain a +2 status bonus to sonic damage rolls and a +1 status bonus to AC and all saves against sonic and auditory effects. Enemies in the area take a -2 status bonus to sonic damage rolls and a -1 status bonus to AC and all saves against sonic and auditory effects.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Harmonizing Aura (Allies)]{Effect: Harmonizing Aura (Allies)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Harmonizing Aura (Enemies)]{Effect: Harmonizing Aura (Enemies)}</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the area gain a +2 status bonus to sonic damage rolls and a +1 status bonus to AC and all saves against sonic and auditory effects. Enemies in the area take a -2 status bonus to sonic damage rolls and a -1 status bonus to AC and all saves against sonic and auditory effects.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Harmonizing Aura (Enemies)]{Effect: Harmonizing Aura (Enemies)}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.31nnjHZqiaqaWBUi"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "harmonizing-aura-ally",
+                        "traits": [
+                            "divine",
+                            "evocation",
+                            "sonic"
+                        ]
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "enemies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.tSF9z5VTeevxoww3"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "harmonizing-aura-enemy",
+                        "traits": [
+                            "divine",
+                            "evocation",
+                            "sonic"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

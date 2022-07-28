@@ -1,5 +1,5 @@
 import { ItemPF2e, LorePF2e } from "@item";
-import { ItemDataPF2e } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
 import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -12,15 +12,11 @@ import {
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
 import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue } from "@util";
-import { ItemSheetDataPF2e } from "./data-types";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
-
-import { EditorState, EditorView, basicSetup } from "@codemirror/basic-setup";
-import { keymap } from "@codemirror/view";
-import { indentWithTab } from "@codemirror/commands";
-import { linter } from "@codemirror/lint";
-import { json, jsonParseLinter } from "@codemirror/lang-json";
+import { CodeMirror } from "./codemirror";
+import { ItemSheetDataPF2e } from "./data-types";
+import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -51,6 +47,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** If we are currently editing an RE, this is the index */
     private editingRuleElementIndex: number | null = null;
+
+    private ruleElementForms: Record<number, RuleElementForm> = {};
 
     get editingRuleElement() {
         if (this.editingRuleElementIndex === null) return null;
@@ -189,6 +187,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }, {})
                 ),
             },
+            ruleElements: rules.map((rule, index) => ({
+                template: RULE_ELEMENT_FORMS[rule.key]?.template ?? "systems/pf2e/templates/items/rules/default.html",
+                index,
+                rule,
+            })),
         };
     }
 
@@ -360,11 +363,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const editingRuleElement = this.editingRuleElement;
         if (editingRuleElement) {
             const ruleText = JSON.stringify(editingRuleElement, null, 2);
-            const view = new EditorView({
-                state: EditorState.create({
-                    doc: ruleText,
-                    extensions: [basicSetup, keymap.of([indentWithTab]), json(), linter(jsonParseLinter())],
-                }),
+            const view = new CodeMirror.EditorView({
+                doc: ruleText,
+                extensions: [CodeMirror.basicSetup, CodeMirror.keybindings, CodeMirror.json(), CodeMirror.jsonLinter()],
             });
 
             $html.find(".rule-editing .editor-placeholder").replaceWith(view.dom);
@@ -408,6 +409,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
+        // Activate rule element sub forms
+        this.ruleElementForms = {};
+        const html = $html.get(0)!;
+        const ruleSections = html.querySelectorAll<HTMLElement>(".rules .rule-form");
+        for (const ruleSection of Array.from(ruleSections)) {
+            const { idx, key } = ruleSection.dataset;
+            const FormClass = RULE_ELEMENT_FORMS[key ?? ""];
+            if (FormClass) {
+                const form = new FormClass();
+                this.ruleElementForms[Number(idx)] = form;
+                form.activateListeners(ruleSection);
+            }
+        }
+
         InlineRollLinks.listen($html);
     }
 
@@ -427,7 +442,19 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
-        return flattenObject(data); // return the flattened submission data
+        const flattenedData = flattenObject(data);
+
+        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
+        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
+        for (const inputEl of Array.from(tagifyInputElements)) {
+            const path = inputEl.name;
+            const selections = flattenedData[path];
+            if (Array.isArray(selections)) {
+                flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
+            }
+        }
+
+        return flattenedData;
     }
 
     /** Hide the sheet-config button unless there is more than one sheet option. */
@@ -461,10 +488,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     ): Promise<Record<string, unknown>> {
         const $form = $<HTMLFormElement>(this.form);
         $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
-            if (input.value === "") {
-                input.value = "[]";
-            }
+            if (input.value === "") input.value = "[]";
         });
+
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
@@ -474,32 +500,61 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             formData["data.baseItem"] = null;
         }
 
-        // ensure all rules objects are parsed and saved as objects before proceeding to update
         const rulesVisible = !!this.form.querySelector(".rules");
-        if (rulesVisible) {
-            try {
-                const rules: object[] = [];
-                Object.entries(formData)
-                    .filter(([key, _]) => key.startsWith("data.rules."))
-                    .forEach(([_, value]) => {
-                        try {
-                            rules.push(JSON.parse(value as string));
-                        } catch (error) {
-                            if (error instanceof Error) {
-                                ui.notifications.error(
-                                    game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                                );
-                                console.warn("Syntax error in rule element definition.", error.message, value);
-                                throw error;
-                            }
+        const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
+
+        if (rulesVisible && expanded.data?.rules) {
+            const itemData = this.item.toObject();
+            const rules = itemData.data.rules ?? [];
+
+            for (const [key, value] of Object.entries(expanded.data.rules)) {
+                const idx = Number(key);
+
+                // If the entire thing is a string, this is a regular JSON textarea
+                if (typeof value === "string") {
+                    try {
+                        rules[idx] = JSON.parse(value as string);
+                    } catch (error) {
+                        if (error instanceof Error) {
+                            ui.notifications.error(
+                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                            );
+                            console.warn("Syntax error in rule element definition.", error.message, value);
+                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
                         }
-                    });
-                formData["data.rules"] = rules;
-            } catch (e) {
-                return;
+                    }
+                    continue;
+                }
+
+                if (!value) continue;
+
+                rules[idx] = mergeObject(rules[idx] ?? {}, value);
+
+                // Call any special handlers in the rule element forms
+                this.ruleElementForms[idx]?._updateObject(rules[idx]);
+
+                // predicate is special cased as always json. Later on extend such parsing to more things
+                const predicateValue = value.predicate as unknown;
+                if (typeof predicateValue === "string" && predicateValue.trim() === "") {
+                    delete rules[idx].predicate;
+                } else {
+                    try {
+                        rules[idx].predicate = JSON.parse(predicateValue as string);
+                    } catch (error) {
+                        if (error instanceof Error) {
+                            ui.notifications.error(
+                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                            );
+                            console.warn("Syntax error in rule element definition.", error.message, predicateValue);
+                            throw error; // prevent update, to give the user a chance to correct, and prevent bad data
+                        }
+                    }
+                }
             }
+
+            expanded.data.rules = rules;
         }
 
-        return super._updateObject(event, formData);
+        return super._updateObject(event, flattenObject(expanded));
     }
 }

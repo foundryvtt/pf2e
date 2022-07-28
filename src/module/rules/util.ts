@@ -1,15 +1,39 @@
-import { DeferredValueParams, ModifierPF2e } from "@actor/modifiers";
+import { DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { RollTwiceOption } from "@system/rolls";
-import { DeferredModifier, RollSubstitution, RollTwiceSynthetic } from "./rule-element/data";
+import { RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
-    modifiers: Record<string, DeferredModifier[]>,
+    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "statisticsModifiers">,
     selectors: string[],
     options: DeferredValueParams = {}
 ): ModifierPF2e[] {
-    return selectors.flatMap((selector) => modifiers[selector] ?? []).flatMap((m) => m(options) ?? []);
+    const { modifierAdjustments, statisticsModifiers } = synthetics;
+    const modifiers = Array.from(new Set(selectors))
+        .flatMap((s) => statisticsModifiers[s] ?? [])
+        .flatMap((d) => d(options) ?? []);
+    for (const modifier of modifiers) {
+        modifier.adjustments = extractModifierAdjustments(modifierAdjustments, selectors, modifier.slug);
+    }
+
+    return modifiers;
+}
+
+function extractModifierAdjustments(
+    adjustmentsRecord: Record<string, ModifierAdjustment[]>,
+    selectors: string[],
+    slug: string
+): ModifierAdjustment[] {
+    const selectorMatches = Array.from(
+        new Set(
+            selectors.includes("all")
+                ? Object.values(adjustmentsRecord).flat()
+                : selectors.flatMap((s) => adjustmentsRecord[s] ?? [])
+        )
+    );
+
+    return selectorMatches.filter((a) => [slug, null].includes(a.slug));
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
@@ -41,4 +65,4 @@ function extractRollSubstitutions(
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
-export { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice };
+export { extractModifierAdjustments, extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice };

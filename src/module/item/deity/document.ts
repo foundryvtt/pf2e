@@ -1,3 +1,4 @@
+import { Alignment } from "@actor/creature/types";
 import { ALIGNMENTS } from "@actor/creature/values";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types";
@@ -6,8 +7,28 @@ import { DeityData } from "./data";
 import { DeitySheetPF2e } from "./sheet";
 
 class DeityPF2e extends ItemPF2e {
+    get category(): "deity" | "pantheon" | "philosophy" {
+        return this.system.category;
+    }
+
+    get alignment(): Alignment | null {
+        return this.system.alignment.own;
+    }
+
     get favoredWeapons(): BaseWeaponType[] {
-        return [...this.data.data.weapons];
+        return [...this.system.weapons];
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        if (this.category === "philosophy") {
+            const systemData = this.system;
+            systemData.domains = { primary: [], alternate: [] };
+            systemData.font = [];
+            systemData.spells = {};
+            systemData.weapons = [];
+        }
     }
 
     override prepareActorData(this: Embedded<DeityPF2e>): void {
@@ -20,17 +41,15 @@ class DeityPF2e extends ItemPF2e {
         this.actor.deity = this;
 
         const { deities } = this.actor.data.data.details;
-        const systemData = this.data.data;
+        const systemData = this.system;
         deities.primary = {
             alignment: deepClone(systemData.alignment),
             skill: deepClone(systemData.skill),
-            weapons: systemData.weapons.flatMap((w) =>
-                w in CONFIG.PF2E.baseWeaponTypes ? { option: w, label: CONFIG.PF2E.baseWeaponTypes[w] } : []
-            ),
+            weapons: deepClone(systemData.weapons),
         };
 
         // Set available domains from this deity
-        for (const domain of this.data.data.domains.primary) {
+        for (const domain of this.system.domains.primary) {
             const label = CONFIG.PF2E.deityDomains[domain]?.label;
             deities.domains[domain] = label ?? domain;
         }
@@ -39,16 +58,21 @@ class DeityPF2e extends ItemPF2e {
         const slug = this.slug ?? sluggify(this.name);
         const prefix = "deity:primary";
         const actorRollOptions = this.actor.rollOptions;
+        actorRollOptions.all["deity"] = true;
         actorRollOptions.all[`${prefix}:${slug}`] = true;
 
         for (const baseType of this.favoredWeapons) {
             actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
         }
 
-        const alignments = (
-            this.data.data.alignment.follower.length > 0 ? this.data.data.alignment.follower : Array.from(ALIGNMENTS)
+        if (this.alignment) {
+            actorRollOptions.all[`${prefix}:alignment:${this.alignment.toLowerCase()}`] = true;
+        }
+
+        const followerAlignments = (
+            this.system.alignment.follower.length > 0 ? this.system.alignment.follower : Array.from(ALIGNMENTS)
         ).map((a) => a.toLowerCase());
-        for (const alignment of alignments) {
+        for (const alignment of followerAlignments) {
             actorRollOptions.all[`${prefix}:alignment:follower:${alignment}`] = true;
         }
 
@@ -60,9 +84,9 @@ class DeityPF2e extends ItemPF2e {
     setFavoredWeaponRank(this: Embedded<DeityPF2e>): void {
         if (!this.actor.isOfType("character")) return;
 
-        const favoredWeaponRank = this.actor.data.flags.pf2e.favoredWeaponRank;
+        const favoredWeaponRank = this.actor.flags.pf2e.favoredWeaponRank;
         if (favoredWeaponRank > 0) {
-            const proficiencies = this.actor.data.data.martial;
+            const proficiencies = this.actor.system.martial;
             for (const baseType of this.favoredWeapons) {
                 mergeObject(proficiencies, {
                     [`weapon-base-${baseType}`]: {

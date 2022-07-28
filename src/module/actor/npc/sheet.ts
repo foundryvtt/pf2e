@@ -6,7 +6,6 @@ import { NPCPF2e } from "@actor/index";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
-import { SpellcastingEntryPF2e } from "@item";
 import { EffectData } from "@item/data";
 import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
@@ -19,6 +18,8 @@ import { NPCSkillData } from "./data";
 import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSheetItemData, NPCSystemSheetData } from "./types";
 
 export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
+    protected readonly actorConfigClass = NPCConfig;
+
     static override get defaultOptions() {
         const options = super.defaultOptions;
 
@@ -76,7 +77,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
-        this.prepareSpellcasting(sheetData);
+        sheetData.spellcastingEntries = this.prepareSpellcasting();
     }
 
     private getIdentifyCreatureData(): IdentifyCreatureData {
@@ -160,7 +161,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
 
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
-        sheetData.npcAttacksFromWeapons = game.settings.get("pf2e", "npcAttacksFromWeapons");
 
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
@@ -204,45 +204,33 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
 
-        $html.find(".item-control.generate-attack").on("click", async (event) => {
+        $html.find(".item-control[data-action=generate-attack]").on("click", async (event) => {
             const { actor } = this;
-            const itemId = event.currentTarget.closest("li")?.dataset.itemId ?? "";
+            const itemId = event.currentTarget.closest<HTMLElement>(".item")?.dataset.itemId ?? "";
             const item = actor.items.get(itemId, { strict: true });
-            if (item.isOfType("weapon")) {
-                const attacks = item.toNPCAttacks().map((a) => a.toObject());
-                await actor.createEmbeddedDocuments("Item", attacks);
-                ui.notifications.info(`Generated NPC attack: ${attacks.at(0)?.name}`);
+            if (!item.isOfType("weapon")) return;
+
+            // Get confirmation from the user before replacing existing generated attacks
+            const existing = actor.itemTypes.melee.filter((m) => m.flags.pf2e.linkedWeapon === itemId).map((m) => m.id);
+            if (existing.length > 0) {
+                const proceed = await Dialog.confirm({
+                    title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
+                    content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
+                    defaultYes: false,
+                });
+                if (proceed) {
+                    await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
+                } else {
+                    return;
+                }
             }
+
+            const attacks = item.toNPCAttacks().map((a) => a.toObject());
+            await actor.createEmbeddedDocuments("Item", attacks);
+            ui.notifications.info(
+                game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", { attack: attacks.at(0)?.name ?? "" })
+            );
         });
-    }
-
-    /** Replace sheet config with a special NPC config form application */
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-
-        if (this.isEditable) {
-            const index = buttons.findIndex((b) => b.class === "close");
-            buttons.splice(index, 0, {
-                label: "Configure", // Top-level foundry localization key
-                class: "configure-npc",
-                icon: "fas fa-cog",
-                onclick: (event) => this._onConfigureSheet(event),
-            });
-        }
-
-        return buttons;
-    }
-
-    /**
-     * Shim for {@link DocumentSheet#_onConfigureSheet} that will be replaced in v10 when this class subclasses it.
-     */
-    protected override _onConfigureSheet(event: Event): void {
-        event.preventDefault();
-        const [top, left, width] = [this.position.top ?? 0, this.position.left ?? 0, this.position.width ?? 0];
-        new NPCConfig(this.actor, {
-            top: top + 40,
-            left: (left + (width - Number(TokenConfig.defaultOptions.width ?? 0))) / 2,
-        }).render(true);
     }
 
     private prepareAbilities(abilities: Abilities): void {
@@ -412,22 +400,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
                 });
             return { attack, traits };
         });
-    }
-
-    /**
-     * Prepare spells and spell entries
-     * @param sheetData Data of the actor to show in the sheet.
-     */
-    private prepareSpellcasting(sheetData: NPCSheetData<TActor>): void {
-        sheetData.spellcastingEntries = [];
-
-        for (const item of sheetData.items) {
-            if (item.type === "spellcastingEntry") {
-                const entry = this.actor.spellcasting.get(item._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
-                sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
-            }
-        }
     }
 
     private get isWeak(): boolean {

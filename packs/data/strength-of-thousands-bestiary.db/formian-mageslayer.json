@@ -144,9 +144,28 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {3d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Mental3d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Mental3d6.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Mental3d6.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

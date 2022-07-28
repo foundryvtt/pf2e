@@ -1,5 +1,10 @@
 <section class="summary">
-    <div>{{localize "PF2E.Roll.Type"}}: <input disabled value="{{context.type}}"></div>
+    <div class="type">{{localize "PF2E.Roll.Type"}}: <input disabled value="{{context.type}}"></div>
+    {{#if context.domains}}
+        <div class="tags domains">
+            {{#each context.domains}}<span class="tag tag_alt">{{this}}</span>{{/each}}
+        </div>
+    {{/if}}
 </section>
 <section class="roll-options">
     <h3>{{localize "PF2E.ChatRollDetails.RollOptions"}}</h3>
@@ -18,7 +23,6 @@
             </div>
         {{/unless}}
         {{#each modifiers as |m|}}
-            {{log m}}
             <div class="modifier {{disabled (not m.enabled)}}">
                 <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
                 <div>

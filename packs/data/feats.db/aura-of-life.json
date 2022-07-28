@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to negative energy and a +1 status bonus to saves against necromancy effects.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Aura of Life]{Effect: Aura of Life}</p>"
+            "value": "<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to negative energy and a +1 status bonus to saves against necromancy effects.</p>\n<hr />\n<p>@Compendium[pf2e.feat-effects.Effect: Aura of Life]{Effect: Aura of Life}</p>"
         },
         "featType": {
             "value": "class"
@@ -29,20 +29,18 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "necromancy"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "Resistance",
-                "type": "negative",
-                "value": 5
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Effect: Aura of Life"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 15,
+                "slug": "aura-of-life"
             }
         ],
         "source": {

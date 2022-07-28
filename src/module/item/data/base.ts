@@ -20,7 +20,7 @@ interface BaseItemDataPF2e<
     TType extends ItemType = ItemType,
     TSystemData extends ItemSystemData = ItemSystemData,
     TSource extends BaseItemSourcePF2e<TType> = BaseItemSourcePF2e<TType>
-> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "effects">,
+> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "data" | "effects">,
         foundry.data.ItemData<TItem, ActiveEffectPF2e> {
     readonly type: TType;
     readonly data: TSystemData;
@@ -93,11 +93,24 @@ interface ItemSystemSource {
 
 type ItemSystemData = ItemSystemSource;
 
+interface FrequencySource {
+    value?: number;
+    max: number;
+    /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
+    per: keyof ConfigPF2e["PF2E"]["frequencies"];
+}
+
+interface Frequency extends FrequencySource {
+    value: number;
+}
+
 export {
     ActionCost,
     ActionType,
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
+    Frequency,
+    FrequencySource,
     ItemFlagsPF2e,
     ItemGrantData,
     ItemGrantDeleteAction,

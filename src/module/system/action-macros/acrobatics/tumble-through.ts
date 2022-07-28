@@ -18,8 +18,10 @@ export function tumbleThrough(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TumbleThrough", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.TumbleThrough", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.TumbleThrough", "failure"),
+            ActionMacroHelpers.note(selector, "PF2E.Actions.TumbleThrough", "criticalFailure"),
         ],
     });
 }

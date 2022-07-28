@@ -47,9 +47,9 @@ interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
 type WeaponTraits = Required<WeaponSourceTraits>;
 
 interface WeaponDamage {
-    value: string;
+    value?: string;
     dice: number;
-    die: DamageDieSize;
+    die: DamageDieSize | null;
     damageType: DamageType;
     modifier: number;
 }
@@ -95,6 +95,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         value: string;
     };
     range: WeaponRangeIncrement | null;
+    maxRange?: number | null;
     reload: {
         value: WeaponReloadTime | null;
     };
@@ -136,11 +137,10 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-interface WeaponSystemData
-    extends Omit<WeaponSystemSource, "price" | "temporary" | "usage">,
-        Investable<PhysicalSystemData> {
+interface WeaponSystemData extends Omit<WeaponSystemSource, "price" | "temporary">, Investable<PhysicalSystemData> {
     baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
+    maxRange: number | null;
     reload: {
         value: WeaponReloadTime | null;
         /** Whether the ammunition (or the weapon itself, if thrown) should be consumed upon firing */

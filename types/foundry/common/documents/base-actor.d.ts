@@ -55,6 +55,9 @@ declare module foundry {
 
             readonly parent: BaseToken | null;
 
+            // V10 shim
+            readonly system: this["data"]["data"];
+
             get documentName(): typeof BaseActor["metadata"]["name"];
         }
 

@@ -1,10 +1,16 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
+import {
+    AttackItem,
+    AttackRollContext,
+    CreatureUpdateContext,
+    StrikeRollContext,
+    StrikeRollContextParams,
+} from "@actor/creature/types";
 import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAPs } from "@actor/helpers";
+import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import {
     AbilityModifier,
     CheckModifier,
@@ -38,8 +44,7 @@ import {
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { FeatData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ItemGrantData } from "@item/data/base";
+import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ItemCarryType } from "@item/physical/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
@@ -50,7 +55,13 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import {
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollSubstitutions,
+    extractRollTwice,
+} from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { DamageRollContext } from "@system/damage/damage";
@@ -80,17 +91,15 @@ import {
     CharacterSkillData,
     CharacterStrike,
     CharacterSystemData,
-    FeatSlot,
-    GrantedFeat,
     LinkedProficiency,
     MagicTraditionProficiencies,
     MartialProficiencies,
     MartialProficiency,
-    SlottedFeat,
     WeaponGroupProficiencyKey,
 } from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
+import { CharacterFeats } from "./feats";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
 
@@ -105,9 +114,9 @@ class CharacterPF2e extends CreaturePF2e {
     /** A cached reference to this PC's familiar */
     familiar: FamiliarPF2e | null = null;
 
-    featGroups!: Record<string, FeatSlot | undefined>;
-    pfsBoons!: FeatData[];
-    deityBoonsCurses!: FeatData[];
+    feats!: CharacterFeats;
+    pfsBoons!: FeatPF2e[];
+    deityBoonsCurses!: FeatPF2e[];
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
@@ -219,51 +228,12 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    async insertFeat(feat: FeatPF2e, featType: string, slotId?: string): Promise<ItemPF2e[]> {
-        const group = this.featGroups[featType];
-        const location = group?.slotted ? slotId ?? "" : featType;
-
-        const resolvedFeatType = (() => {
-            if (feat.featType === "archetype") {
-                if (feat.data.data.traits.value.includes("skill")) {
-                    return "skill";
-                } else {
-                    return "class";
-                }
-            }
-
-            return feat.featType;
-        })();
-
-        const isFeatValidInSlot = group && (group.supported === "all" || group.supported.includes(resolvedFeatType));
-        const alreadyHasFeat = this.items.has(feat.id);
-        const existing = this.itemTypes.feat.filter((x) => x.data.data.location === location);
-
-        // Handle case where its actually dragging away from a location
-        if (alreadyHasFeat && feat.data.data.location && !isFeatValidInSlot) {
-            return this.updateEmbeddedDocuments("Item", [{ _id: feat.id, "data.location": "" }]);
-        }
-
-        const changed: ItemPF2e[] = [];
-
-        // If this is a new feat, create a new feat item on the actor first
-        if (!alreadyHasFeat && isFeatValidInSlot) {
-            const source = feat.toObject();
-            source.data.location = location;
-            changed.push(...(await this.createEmbeddedDocuments("Item", [source])));
-        }
-
-        // Determine what feats we have to move around
-        const locationUpdates = group?.slotted ? existing.map((x) => ({ _id: x.id, "data.location": "" })) : [];
-        if (alreadyHasFeat && isFeatValidInSlot) {
-            locationUpdates.push({ _id: feat.id, "data.location": location });
-        }
-
-        if (locationUpdates.length > 0) {
-            changed.push(...(await this.updateEmbeddedDocuments("Item", locationUpdates)));
-        }
-
-        return changed;
+    /** @deprecated */
+    async insertFeat(feat: FeatPF2e, categoryId: string, slotId?: string): Promise<ItemPF2e[]> {
+        console.warn(
+            "CharacterPF2e#insertFeat(feat, categoryId, slotId) is deprecated: use CharacterPF2e#feats#insertFeat(feat, { categoryId, slotId })"
+        );
+        return this.feats.insertFeat(feat, { categoryId, slotId });
     }
 
     /** If one exists, prepare this character's familiar */
@@ -281,7 +251,7 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData: DeepPartial<CharacterSystemData> & { abilities: Abilities } = this.data.data;
 
         // Flags
-        const { flags } = this.data;
+        const { flags } = this;
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
@@ -295,8 +265,22 @@ class CharacterPF2e extends CreaturePF2e {
             ),
             flags.pf2e.sheetTabs ?? {}
         );
+        flags.pf2e.showBasicUnarmed ??= true;
 
         // Build selections: boosts and skill trainings
+        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
+        const boostLevels = [1, 5, 10, 15, 20] as const;
+        const allowedBoosts = boostLevels.reduce((result, level) => {
+            const allowed = (() => {
+                if (this.level < 1) return 0;
+                if (isGradual) return 4 - Math.clamped(level - this.level, 0, 4);
+                return this.level >= level ? 4 : 0;
+            })();
+
+            result[level] = allowed;
+            return result;
+        }, {} as Record<typeof boostLevels[number], number>);
+        const existingBoosts = systemData.build?.abilities?.boosts;
         systemData.build = {
             abilities: {
                 manual: Object.keys(systemData.abilities).length > 0,
@@ -305,12 +289,13 @@ class CharacterPF2e extends CreaturePF2e {
                     ancestry: [],
                     background: [],
                     class: null,
-                    1: systemData.build?.abilities?.boosts?.[1] ?? [],
-                    5: systemData.build?.abilities?.boosts?.[5] ?? [],
-                    10: systemData.build?.abilities?.boosts?.[10] ?? [],
-                    15: systemData.build?.abilities?.boosts?.[15] ?? [],
-                    20: systemData.build?.abilities?.boosts?.[20] ?? [],
+                    1: existingBoosts?.[1]?.slice(0, allowedBoosts[1]) ?? [],
+                    5: existingBoosts?.[5]?.slice(0, allowedBoosts[5]) ?? [],
+                    10: existingBoosts?.[10]?.slice(0, allowedBoosts[10]) ?? [],
+                    15: existingBoosts?.[15]?.slice(0, allowedBoosts[15]) ?? [],
+                    20: existingBoosts?.[20]?.slice(0, allowedBoosts[20]) ?? [],
                 },
+                allowedBoosts,
                 flaws: {
                     ancestry: [],
                 },
@@ -401,6 +386,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         resources.focus = mergeObject({ value: 0, max: 0 }, resources.focus ?? {});
         resources.focus.max = 0;
+        resources.focus.cap = 3;
 
         resources.crafting = mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
         resources.crafting.infusedReagents.max = 0;
@@ -458,7 +444,7 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData = this.data.data;
         const { synthetics } = this;
 
-        if (!this.data.flags.pf2e.disableABP) {
+        if (!this.flags.pf2e.disableABP) {
             game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
 
@@ -504,22 +490,24 @@ class CharacterPF2e extends CreaturePF2e {
                         ability: "con",
                         type: MODIFIER_TYPE.ABILITY,
                         modifier: conLevelBonus,
-                        adjustments: this.getModifierAdjustments(["con-based"], "hp-con"),
+                        adjustments: extractModifierAdjustments(
+                            synthetics.modifierAdjustments,
+                            ["con-based"],
+                            "hp-con"
+                        ),
                     })
                 );
             }
 
             const hpRollOptions = this.getRollOptions(["hp"]);
-            modifiers.push(...extractModifiers(statisticsModifiers, ["hp"], { test: hpRollOptions }));
+            modifiers.push(...extractModifiers(synthetics, ["hp"], { test: hpRollOptions }));
 
             const perLevelRollOptions = this.getRollOptions(["hp-per-level"]);
             modifiers.push(
-                ...extractModifiers(statisticsModifiers, ["hp-per-level"], { test: perLevelRollOptions }).map(
-                    (clone) => {
-                        clone.modifier *= this.level;
-                        return clone;
-                    }
-                )
+                ...extractModifiers(synthetics, ["hp-per-level"], { test: perLevelRollOptions }).map((clone) => {
+                    clone.modifier *= this.level;
+                    return clone;
+                })
             );
 
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hitPoints, { overwrite: false });
@@ -538,6 +526,10 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
 
             systemData.attributes.hp = stat;
+
+            // Set a roll option for HP percentage
+            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
+            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
         }
 
         this.prepareFeats();
@@ -553,7 +545,7 @@ class CharacterPF2e extends CreaturePF2e {
             ];
 
             const domains = ["perception", "wis-based", "all"];
-            modifiers.push(...extractModifiers(statisticsModifiers, domains));
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const stat = mergeObject(
                 new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
@@ -613,7 +605,7 @@ class CharacterPF2e extends CreaturePF2e {
                     systemData.abilities[systemData.details.keyability.value].value
                 ),
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
-                ...extractModifiers(statisticsModifiers, domains),
+                ...extractModifiers(synthetics, domains),
             ];
 
             const stat = mergeObject(
@@ -659,7 +651,7 @@ class CharacterPF2e extends CreaturePF2e {
                         type: MODIFIER_TYPE.ITEM,
                         slug,
                         modifier: wornArmor.acBonus,
-                        adjustments: this.getModifierAdjustments(["all", "ac"], slug),
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
                     })
                 );
             }
@@ -683,8 +675,8 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            const domains = ["ac", `${acAbility}-based`];
-            modifiers.push(...extractModifiers(statisticsModifiers, ["all", ...domains]));
+            const domains = ["all", "ac", `${acAbility}-based`];
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const rollOptions = this.getRollOptions(domains);
             const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
@@ -751,17 +743,17 @@ class CharacterPF2e extends CreaturePF2e {
                 label: CONFIG.PF2E.magicTraditions[tradition],
                 ability: entry.ability,
                 rank,
-                modifiers: extractModifiers(statisticsModifiers, baseSelectors),
+                modifiers: extractModifiers(synthetics, baseSelectors),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
-                    modifiers: extractModifiers(statisticsModifiers, attackSelectors),
+                    modifiers: extractModifiers(synthetics, attackSelectors),
                     domains: attackSelectors,
                 },
                 dc: {
-                    modifiers: extractModifiers(statisticsModifiers, saveSelectors),
+                    modifiers: extractModifiers(synthetics, saveSelectors),
                     domains: saveSelectors,
                 },
             });
@@ -799,7 +791,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Resources
         const { focus, crafting } = this.data.data.resources;
-        focus.max = Math.clamped(focus.max, 0, 3);
+        focus.max = Math.clamped(focus.max, 0, focus.cap);
         crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
         if (focus.max === 0 && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
@@ -827,11 +819,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         if (!build.abilities.manual) {
             for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
-                // Skip applying boosts from levels higher than the character's
-                if (typeof section === "number" && this.level < section) {
-                    continue;
-                }
-
+                // All higher levels are stripped out during data prep
                 const boosts = build.abilities.boosts[section];
                 if (typeof boosts === "string") {
                     // Class's key ability score
@@ -921,7 +909,7 @@ class CharacterPF2e extends CreaturePF2e {
     private prepareSaves(): void {
         const systemData = this.data.data;
         const { wornArmor } = this;
-        const { rollNotes, statisticsModifiers } = this.synthetics;
+        const { rollNotes } = this.synthetics;
 
         // Saves
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -929,6 +917,7 @@ class CharacterPF2e extends CreaturePF2e {
             const save = systemData.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const modifiers: ModifierPF2e[] = [];
+            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.data.data.resiliencyRune.value) {
@@ -940,12 +929,14 @@ class CharacterPF2e extends CreaturePF2e {
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
             if (affectedByBulwark) {
+                const slug = "bulwark";
                 const bulwarkModifier = new ModifierPF2e({
-                    slug: "bulwark",
+                    slug,
                     type: MODIFIER_TYPE.UNTYPED,
                     label: CONFIG.PF2E.armorTraits.bulwark,
                     modifier: 3,
                     predicate: { all: ["damaging-effect"] },
+                    adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
                 });
                 modifiers.push(bulwarkModifier);
 
@@ -959,8 +950,7 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             // Add custom modifiers and roll notes relevant to this save.
-            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
-            modifiers.push(...extractModifiers(statisticsModifiers, selectors));
+            modifiers.push(...extractModifiers(this.synthetics, selectors));
 
             const stat = new Statistic(this, {
                 slug: saveType,
@@ -999,7 +989,11 @@ class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             for (const modifier of modifiers) {
-                modifier.adjustments = this.getModifierAdjustments(domains, modifier.slug);
+                modifier.adjustments = extractModifierAdjustments(
+                    synthetics.modifierAdjustments,
+                    domains,
+                    modifier.slug
+                );
             }
 
             // Indicate that the strength requirement of this actor's armor is met
@@ -1018,7 +1012,7 @@ class CharacterPF2e extends CreaturePF2e {
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
                     type: MODIFIER_TYPE.UNTYPED,
-                    adjustments: this.getModifierAdjustments(domains, slug),
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, slug),
                 });
 
                 // Set requirements for ignoring the check penalty according to skill
@@ -1039,7 +1033,7 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            modifiers.push(...extractModifiers(synthetics.statisticsModifiers, domains));
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
                 overwrite: false,
@@ -1108,8 +1102,15 @@ class CharacterPF2e extends CreaturePF2e {
             const modifiers = [
                 AbilityModifier.fromScore("int", systemData.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                ...extractModifiers(synthetics.statisticsModifiers, domains),
             ];
+            for (const modifier of modifiers) {
+                modifier.adjustments = extractModifierAdjustments(
+                    synthetics.modifierAdjustments,
+                    domains,
+                    modifier.slug
+                );
+            }
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const loreSkill = systemData.skills[shortForm];
             const stat = mergeObject(
@@ -1188,7 +1189,11 @@ class CharacterPF2e extends CreaturePF2e {
                   label: modifierName,
                   modifier: value,
                   type: MODIFIER_TYPE.UNTYPED,
-                  adjustments: this.getModifierAdjustments(["speed", `${movementType}-speed`], slug),
+                  adjustments: extractModifierAdjustments(
+                      this.synthetics.modifierAdjustments,
+                      ["speed", `${movementType}-speed`],
+                      slug
+                  ),
               })
             : null;
         if (armorPenalty) {
@@ -1201,192 +1206,22 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     prepareFeats(): void {
-        this.featGroups = {
-            ancestryfeature: {
-                label: "PF2E.FeaturesAncestryHeader",
-                feats: [],
-                supported: ["ancestryfeature"],
-            },
-            classfeature: {
-                label: "PF2E.FeaturesClassHeader",
-                feats: [],
-                supported: ["classfeature"],
-            },
-            ancestry: {
-                label: "PF2E.FeatAncestryHeader",
-                feats: [],
-                slotted: true,
-                featFilter: "ancestry-" + this.ancestry?.slug,
-                supported: ["ancestry"],
-            },
-            class: {
-                label: "PF2E.FeatClassHeader",
-                feats: [],
-                slotted: true,
-                featFilter: "classes-" + this.class?.slug,
-                supported: ["class"],
-            },
-            dualclass: {
-                label: "PF2E.FeatDualClassHeader",
-                feats: [],
-                slotted: true,
-                supported: ["class"],
-            },
-            archetype: {
-                label: "PF2E.FeatArchetypeHeader",
-                feats: [],
-                slotted: true,
-                supported: ["class"],
-            },
-            skill: {
-                label: "PF2E.FeatSkillHeader",
-                feats: [],
-                slotted: true,
-                supported: ["skill"],
-            },
-            general: {
-                label: "PF2E.FeatGeneralHeader",
-                feats: [],
-                slotted: true,
-                supported: ["general", "skill"],
-            },
-            campaign: {
-                label: "PF2E.FeatCampaignHeader",
-                feats: [],
-                supported: "all",
-            },
-            bonus: {
-                label: "PF2E.FeatBonusHeader",
-                feats: [],
-                supported: "all",
-            },
-        };
-
         this.pfsBoons = [];
         this.deityBoonsCurses = [];
+        this.feats = new CharacterFeats(this);
+        this.feats.assignFeats();
 
-        if (game.settings.get("pf2e", "dualClassVariant")) {
-            this.featGroups.dualclass?.feats.push({ id: "dualclass-1", level: 1, grants: [] });
-            for (let level = 2; level <= this.level; level += 2) {
-                this.featGroups.dualclass?.feats.push({ id: `dualclass-${level}`, level, grants: [] });
-            }
-        } else {
-            // Use delete so it is in the right place on the sheet
-            delete this.featGroups.dualclass;
-        }
-        if (game.settings.get("pf2e", "freeArchetypeVariant")) {
-            for (let level = 2; level <= this.level; level += 2) {
-                this.featGroups.archetype?.feats.push({ id: `archetype-${level}`, level, grants: [] });
-            }
-        } else {
-            // Use delete so it is in the right place on the sheet
-            delete this.featGroups.archetype;
-        }
-        if (!game.settings.get("pf2e", "campaignFeats")) {
-            // Use delete so it is in the right place on the sheet
-            delete this.featGroups.campaign;
-        }
-
-        // Add feat slots from class
-        if (this.class) {
-            const classItem = this.class.data;
-            const mapFeatLevels = (featLevels: number[], prefix: string): SlottedFeat[] => {
-                if (!featLevels) {
-                    return [];
-                }
-                return featLevels
-                    .filter((featSlotLevel: number) => this.level >= featSlotLevel)
-                    .map((level) => ({ id: `${prefix}-${level}`, level, grants: [] }));
-            };
-
-            mergeObject(this.featGroups, {
-                ancestry: { feats: mapFeatLevels(classItem.data.ancestryFeatLevels?.value, "ancestry") },
-                class: { feats: mapFeatLevels(classItem.data.classFeatLevels?.value, "class") },
-                skill: { feats: mapFeatLevels(classItem.data.skillFeatLevels?.value, "skill") },
-                general: { feats: mapFeatLevels(classItem.data.generalFeatLevels?.value, "general") },
-            });
-        }
-
-        if (game.settings.get("pf2e", "ancestryParagonVariant")) {
-            this.featGroups.ancestry?.feats.unshift({
-                id: "ancestry-bonus",
-                level: 1,
-                grants: [],
-            });
-            for (let level = 3; level <= this.level; level += 4) {
-                const index = (level + 1) / 2;
-                this.featGroups.ancestry?.feats.splice(index, 0, { id: `ancestry-${level}`, level, grants: [] });
-            }
-        }
-
-        const background = this.background;
-        if (background && Object.keys(background.data.data.items).length > 0) {
-            this.featGroups.skill?.feats.unshift({
-                id: background.id,
-                level: game.i18n.localize("PF2E.FeatBackgroundShort"),
-                grants: [],
-            });
-        }
-
-        // put the feats in their feat slots
-        const allFeatSlots = Object.values(this.featGroups).flatMap((slot) => slot?.feats ?? []);
-        const feats = this.itemTypes.feat.sort((f1, f2) => f1.data.sort - f2.data.sort);
+        // These are not handled by character feats
+        const feats = this.itemTypes.feat
+            .filter((f) => ["pfsboon", "deityboon", "curse"].includes(f.featType))
+            .sort((f1, f2) => f1.data.sort - f2.data.sort);
         for (const feat of feats) {
-            const featData = feat.data;
-            if (featData.flags.pf2e.grantedBy && !featData.data.location) {
-                const granter = this.items.get(featData.flags.pf2e.grantedBy.id);
-                if (granter?.isOfType("feat")) continue;
-            }
-
-            const location = featData.data.location;
-            const featType = featData.data.featType.value;
-            let slotIndex = allFeatSlots.findIndex((slotted) => "id" in slotted && slotted.id === location);
-            const existing = allFeatSlots[slotIndex]?.feat;
-            if (slotIndex !== -1 && existing) {
-                console.debug(`Foundry VTT | Multiple feats with same index: ${featData.name}, ${existing.name}`);
-                slotIndex = -1;
-            }
-
-            const getGrantedItems = (grants: ItemGrantData[]): GrantedFeat[] => {
-                return grants.flatMap((grant) => {
-                    const item = this.items.get(grant.id);
-                    return item?.isOfType("feat") && !item.data.data.location
-                        ? { feat: item, grants: getGrantedItems(item.data.flags.pf2e.itemGrants) }
-                        : [];
-                });
-            };
-
-            // If we know the slot, place directly into the slot
-            if (slotIndex !== -1) {
-                const slot = allFeatSlots[slotIndex];
-                slot.feat = featData;
-                slot.grants = getGrantedItems(featData.flags.pf2e.itemGrants);
-                continue;
-            }
-
-            // Handle PFS and Deity boons and curses
-            if (featType === "pfsboon") {
-                this.pfsBoons.push(featData);
-                continue;
-            } else if (["deityboon", "curse"].includes(featType)) {
-                this.deityBoonsCurses.push(featData);
-                continue;
-            }
-
-            // Perhaps this belongs to a un-slotted group matched on the location or
-            // on the feat type. Failing that, it gets dumped into bonuses.
-            const groups: Record<string, FeatSlot | undefined> = this.featGroups;
-            const lookedUpGroup = groups[location ?? ""] ?? groups[featType];
-            const group = lookedUpGroup && !lookedUpGroup.slotted ? lookedUpGroup : this.featGroups.bonus;
-            if (group && !group.slotted) {
-                const grants = getGrantedItems(featData.flags.pf2e.itemGrants);
-                group.feats.push({ feat: featData, grants });
+            if (feat.featType === "pfsboon") {
+                this.pfsBoons.push(feat);
+            } else {
+                this.deityBoonsCurses.push(feat);
             }
         }
-
-        this.featGroups.classfeature?.feats.sort(
-            (a, b) => (a.feat?.data.level.value || 0) - (b.feat?.data.level.value || 0)
-        );
     }
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */
@@ -1631,7 +1466,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
             const options = { resolvables: { weapon } };
-            const abilityModifier = [...modifiers, ...extractModifiers(statisticsModifiers, baseSelectors, options)]
+            const abilityModifier = [...modifiers, ...extractModifiers(synthetics, baseSelectors, options)]
                 .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
                 .flatMap((modifier) => (modifier.predicate.test(baseOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
@@ -1691,7 +1526,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Everything from relevant synthetics
         modifiers.push(
-            ...extractModifiers(statisticsModifiers, selectors, { injectables: { weapon }, resolvables: { weapon } })
+            ...extractModifiers(synthetics, selectors, { injectables: { weapon }, resolvables: { weapon } })
         );
 
         // Multiple attack penalty
@@ -1870,23 +1705,29 @@ class CharacterPF2e extends CreaturePF2e {
                         viewOnly: args.getFormula ?? false,
                     });
 
+                    // Check whether target is out of maximum range; abort early if so
+                    if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                        const maxRange = context.self.item.maxRange ?? 10;
+                        if (context.target.distance > maxRange) {
+                            ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
+                            return null;
+                        }
+                    }
+
                     // Set range-increment roll option and penalty
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [
-                        this.getRangePenalty(rangeIncrement, selectors, baseOptions) ?? [],
+                        calculateRangePenalty(this, rangeIncrement, selectors, baseOptions) ?? [],
                         context.self.modifiers,
                     ].flat();
 
                     // Collect roll options from all sources
-                    args.options ??= [];
-                    const options = [
-                        args.options,
-                        context.options,
-                        action.options,
-                        baseOptions,
-                        incrementOption,
-                    ].flat();
+                    const options = Array.from(
+                        new Set(
+                            [args.options ?? [], context.options, action.options, baseOptions, incrementOption].flat()
+                        )
+                    ).sort();
 
                     // Get just-in-time roll options from rule elements
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -1951,10 +1792,11 @@ class CharacterPF2e extends CreaturePF2e {
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
-                    context.self.item.data,
+                    context.self.item,
                     context.self.actor,
                     context.traits,
                     statisticsModifiers,
+                    synthetics.modifierAdjustments,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
                     Array.from(options),
@@ -1963,6 +1805,8 @@ class CharacterPF2e extends CreaturePF2e {
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
+                if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
 
                 // Find a critical specialization note
@@ -2147,15 +1991,30 @@ class CharacterPF2e extends CreaturePF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<CharacterSource>,
-        options: DocumentModificationContext<this>,
+        options: CreatureUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         const systemData = this.data.data;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        const level = changed.data?.details?.level;
-        if (level?.value !== undefined) {
-            level.value = Math.clamped(Number(level.value) || 0, 0, 30);
+        if (changed.data?.details?.level || changed.data?.build?.abilities) {
+            const level = changed.data?.details?.level;
+            if (typeof level?.value === "number") {
+                level.value = Math.clamped(Number(level.value) || 0, 0, 30) || 0;
+            }
+
+            // Adjust hit points if level is changing
+            const clone = this.clone(changed);
+            const hpMaxDifference = clone.hitPoints.max - this.hitPoints.max;
+            if (hpMaxDifference !== 0) {
+                options.allowHPOverage = true;
+                const currentHP = this.hitPoints.value;
+                const newHP = Math.max(
+                    currentHP + hpMaxDifference,
+                    currentHP === 0 ? 0 : 1 // Refrain from killing the character merely by lowering level
+                );
+                changed.data = mergeObject(changed.data ?? {}, { attributes: { hp: { value: newHP } } });
+            }
         }
 
         // Clamp Stamina and Resolve
@@ -2231,24 +2090,6 @@ class CharacterPF2e extends CreaturePF2e {
                 {}
             );
             await this.update({ "data.abilities": deletions });
-        }
-    }
-
-    /** Toggle between boost-driven and manual management of ability scores */
-    async toggleVoluntaryFlaw(): Promise<void> {
-        if (!this.ancestry) return;
-        if (Object.keys(this.ancestry?.data._source.data.voluntaryFlaws || []).length === 0) {
-            await this.ancestry.update({
-                "data.voluntaryBoosts.vb": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-                "data.voluntaryFlaws.vf1": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-                "data.voluntaryFlaws.vf2": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
-            });
-        } else {
-            await this.ancestry.update({
-                "data.voluntaryBoosts.-=vb": null,
-                "data.voluntaryFlaws.-=vf1": null,
-                "data.voluntaryFlaws.-=vf2": null,
-            });
         }
     }
 }

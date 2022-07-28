@@ -11,11 +11,11 @@ import {
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
-import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { extractModifierAdjustments, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
-import { CheckPF2e, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
+import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
 import { isObject } from "@util";
 import {
     BaseStatisticData,
@@ -48,7 +48,7 @@ export interface StatisticRollParameters {
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
     /** Callback called when the roll occurs. */
-    callback?: (roll: Rolled<Roll>) => void;
+    callback?: CheckRollCallback;
 }
 
 interface RollOptionParameters {
@@ -102,7 +102,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         if (actor instanceof CharacterPF2e && this.ability) {
             this.abilityModifier = AbilityModifier.fromScore(this.ability, actor.abilities[this.ability].value);
-            this.abilityModifier.adjustments = actor.getModifierAdjustments(data.domains ?? [], this.ability);
+            this.abilityModifier.adjustments = extractModifierAdjustments(
+                actor.synthetics.modifierAdjustments,
+                data.domains ?? [],
+                this.ability
+            );
             this.modifiers.unshift(this.abilityModifier);
         }
 
@@ -342,6 +346,7 @@ class StatisticCheck {
         const context: CheckRollContext = {
             actor,
             item,
+            domains,
             target: rollContext?.target ?? null,
             dc: args.dc ?? rollContext?.dc,
             notes: data.notes,

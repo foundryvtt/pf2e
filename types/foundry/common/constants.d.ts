@@ -123,23 +123,6 @@ declare global {
         };
 
         /**
-         * Define the allowed Entity class types
-         */
-        ENTITY_TYPES: [
-            "Actor",
-            "ChatMessage",
-            "Combat",
-            "Item",
-            "Folder",
-            "JournalEntry",
-            "Macro",
-            "Playlist",
-            "RollTable",
-            "Scene",
-            "User"
-        ];
-
-        /**
          * EULA version number
          */
         EULA_VERSION: string;
@@ -163,10 +146,10 @@ declare global {
         /**
          * Define the allowed Entity types which Folders may contain
          */
-        FOLDER_DOCUMENT_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "RollTable"];
+        FOLDER_DOCUMENT_TYPES: ["Actor", "Cards", "Item", "Scene", "JournalEntry", "RollTable"];
 
         /** Define the allowed Entity types which may be dynamically linked in chat */
-        ENTITY_LINK_TYPES: ["Actor", "Item", "Scene", "JournalEntry", "Macro", "RollTable"];
+        ENTITY_LINK_TYPES: ["Actor", "Cards", "Item", "Scene", "JournalEntry", "Macro", "RollTable"];
 
         /** The allowed Grid types which are supported by the software */
         GRID_TYPES: {
@@ -446,6 +429,9 @@ declare global {
             SECRET: 2;
         };
 
+        /** The wall properties which restrict the way interaction occurs with a specific wall */
+        WALL_RESTRICTION_TYPES: ["light", "sight", "sound", "move"];
+
         /**
          * The allowed door states which may describe a Wall that contains a door
          * CLOSED: The door is closed
@@ -490,17 +476,18 @@ declare global {
         AUDIO_FILE_EXTENSIONS: ["flac", "m4a", "mp3", "ogg", "opus", "wav", "webm"];
     };
 
-    type CanvasPerformanceMode = typeof CONST.CANVAS_PERFORMANCE_MODES[keyof typeof CONST.CANVAS_PERFORMANCE_MODES];
-    type ImageFileExtension = typeof CONST.IMAGE_FILE_EXTENSIONS[number];
-    type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
     type AudioFileExtension = typeof CONST.AUDIO_FILE_EXTENSIONS[number];
+    type CanvasPerformanceMode = typeof CONST.CANVAS_PERFORMANCE_MODES[keyof typeof CONST.CANVAS_PERFORMANCE_MODES];
     type DocumentPermission = keyof typeof CONST.DOCUMENT_PERMISSION_LEVELS;
     type DocumentPermissionNumber = typeof CONST.DOCUMENT_PERMISSION_LEVELS[DocumentPermission];
     type GridType = typeof CONST.GRID_TYPES[keyof typeof CONST.GRID_TYPES];
+    type ImageFileExtension = typeof CONST.IMAGE_FILE_EXTENSIONS[number];
     type PermissionLevel = typeof CONST.DOCUMENT_PERMISSION_LEVELS[DocumentPermission];
-    type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
-    type UserAction = "create" | "update" | "delete";
     type TileOcclusionMode = typeof CONST.TILE_OCCLUSION_MODES[keyof typeof CONST.TILE_OCCLUSION_MODES];
-    type TokenDisposition = typeof CONST.TOKEN_DISPOSITIONS[keyof typeof CONST.TOKEN_DISPOSITIONS];
     type TokenDisplayMode = typeof CONST.TOKEN_DISPLAY_MODES[keyof typeof CONST.TOKEN_DISPLAY_MODES];
+    type TokenDisposition = typeof CONST.TOKEN_DISPOSITIONS[keyof typeof CONST.TOKEN_DISPOSITIONS];
+    type UserAction = "create" | "update" | "delete";
+    type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
+    type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
+    type WallRestrictionType = typeof CONST.WALL_RESTRICTION_TYPES[number];
 }

@@ -9,7 +9,10 @@ declare global {
      * @see {@link data.CombatantData} The Combatant data schema
      * @see {@link documents.Combat}   The Combat document which contains Combatant embedded documents
      */
-    class Combatant<TActor extends Actor | null = Actor | null> extends CombatantConstructor {
+    class Combatant<
+        TParent extends Combat | null = Combat | null,
+        TActor extends Actor | null = Actor | null
+    > extends CombatantConstructor {
         constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<Combatant>);
 
         /** A cached reference to the Token which this Combatant represents, if any */
@@ -103,8 +106,11 @@ declare global {
         _getInitiativeFormula(): string;
     }
 
-    interface Combatant {
-        readonly parent: Combat | null;
+    interface Combatant<TParent extends Combat | null = Combat | null, TActor extends Actor | null = Actor | null> {
+        readonly data: foundry.data.CombatantData<this>;
+
+        readonly parent: TParent;
+
         _sheet: CombatantConfig<this>;
     }
 }

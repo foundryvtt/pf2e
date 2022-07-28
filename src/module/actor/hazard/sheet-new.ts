@@ -3,7 +3,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
@@ -44,13 +44,13 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         const systemData: HazardSystemData = sheetData.data;
         const actor = this.actor;
 
-        const hasHealth = !!actor.hitPoints?.max;
+        const hasDefenses = !!actor.hitPoints?.max || !!actor.attributes.ac.value;
         const hasImmunities = systemData.traits.di.value.length > 0;
         const hasResistances = systemData.traits.dr.length > 0;
         const hasWeaknesses = systemData.traits.dv.length > 0;
-        const hasIWR = hasHealth || hasImmunities || hasResistances || hasWeaknesses;
+        const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
         const stealthMod = actor.data.data.attributes.stealth.value;
-        const stealthDC = stealthMod ? stealthMod + 10 : null;
+        const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
         const hasStealthDescription = !!systemData.attributes.stealth?.details;
 
         return {
@@ -65,7 +65,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             saves: this.prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
-            hasHealth,
+            hasDefenses,
             hasHPDetails: !!systemData.attributes.hp.details.trim(),
             hasSaves: Object.keys(actor.saves ?? {}).length > 0,
             hasIWR,
@@ -78,22 +78,12 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
-    private prepareActions() {
-        const actions: HazardActionSheetData = {
-            action: { label: "Actions", actions: [] },
-            reaction: { label: "Reactions", actions: [] },
-            free: { label: "Free Actions", actions: [] },
-            passive: { label: "Passive Actions", actions: [] },
+    private prepareActions(): HazardActionSheetData {
+        const actions = this.actor.itemTypes.action.sort((a, b) => a.data.sort - b.data.sort);
+        return {
+            reaction: actions.filter((a) => a.actionCost?.type === "reaction"),
+            action: actions.filter((a) => a.actionCost?.type !== "reaction"),
         };
-
-        for (const item of this.actor.itemTypes.action) {
-            const actionType = item.actionCost?.type || "passive";
-            if (objectHasKey(actions, actionType)) {
-                actions[actionType].actions.push(item);
-            }
-        }
-
-        return actions;
     }
 
     private prepareSaves(): HazardSaveSheetData[] {

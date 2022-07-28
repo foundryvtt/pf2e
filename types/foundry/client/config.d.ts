@@ -1,5 +1,4 @@
 import type * as TinyMCE from "tinymce";
-import * as PIXI from "pixi.js";
 
 declare global {
     interface Config<
@@ -9,8 +8,8 @@ declare global {
         TChatLog extends ChatLog = ChatLog,
         TChatMessage extends ChatMessage = ChatMessage,
         TCombat extends Combat = Combat,
-        TCombatant extends Combatant<TActor | null> = Combatant<TActor | null>,
-        TCombatTracker extends CombatTracker<TCombat> = CombatTracker<TCombat>,
+        TCombatant extends Combatant<TCombat | null, TActor | null> = Combatant<TCombat | null, TActor | null>,
+        TCombatTracker extends CombatTracker<TCombat | null> = CombatTracker<TCombat | null>,
         TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
         TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
@@ -61,9 +60,15 @@ declare global {
             typeLabels: Record<string, string | undefined>;
         };
 
-        /**
-         * Configuration for the FogExploration document
-         */
+        /** Configuration for the Cards primary Document type */
+        Cards: {
+            collection: WorldCollection<Cards>;
+            documentClass: ConstructorOf<Cards>;
+            sidebarIcon: string;
+            presets: Record<string, { type: string; label: string; source: string }>;
+        };
+
+        /** Configuration for the FogExploration document */
         FogExploration: {
             documentClass: {
                 new (
@@ -204,8 +209,8 @@ declare global {
         /** Configuration for the Combatant document */
         Combatant: {
             documentClass: new (
-                data: PreCreate<TCombat["turns"][number]["data"]["_source"]>,
-                context?: DocumentConstructionContext<TCombat["turns"][number]>
+                data: PreCreate<TCombatant["data"]["_source"]>,
+                context?: DocumentConstructionContext<TCombatant>
             ) => TCombatant;
         };
 
@@ -400,6 +405,12 @@ declare global {
             };
         };
 
+        /** Configure the default Token text style so that it may be reused and overridden by modules */
+        canvasTextStyle: PIXI.TextStyle;
+
+        /** Available Weather Effects implemntations */
+        weatherEffects: Record<string, SpecialEffect>;
+
         /** Configuration for dice rolling behaviors in the Foundry VTT client */
         Dice: {
             types: Array<typeof Die | typeof DiceTerm>;
@@ -414,9 +425,7 @@ declare global {
             randomUniform: Function;
         };
 
-        /**
-         * The control icons used for rendering common HUD operations
-         */
+        /** The control icons used for rendering common HUD operations */
         controlIcons: {
             combat: string;
             visibility: string;
@@ -433,9 +442,6 @@ declare global {
 
         /** The default font family used for text labels on the PIXI Canvas */
         defaultFontFamily: string;
-
-        /** Available Weather Effects implemntations */
-        weatherEffects: Record<string, SpecialEffect>;
 
         /** An array of status effect icons which can be applied to Tokens */
         statusEffects: string[];

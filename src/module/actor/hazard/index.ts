@@ -44,7 +44,6 @@ export class HazardPF2e extends ActorPF2e {
         const { data } = this.data;
 
         this.prepareSynthetics();
-        const { statisticsModifiers } = this.synthetics;
 
         // Armor Class
         {
@@ -52,7 +51,7 @@ export class HazardPF2e extends ActorPF2e {
             const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
-                ...extractModifiers(statisticsModifiers, domains, { test: this.getRollOptions(domains) }),
+                ...extractModifiers(this.synthetics, domains, { test: this.getRollOptions(domains) }),
             ];
 
             const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
@@ -73,7 +72,7 @@ export class HazardPF2e extends ActorPF2e {
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
         const data = this.data.data;
-        const { rollNotes, statisticsModifiers } = this.synthetics;
+        const { rollNotes } = this.synthetics;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
@@ -94,7 +93,7 @@ export class HazardPF2e extends ActorPF2e {
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
-                    ...extractModifiers(statisticsModifiers, selectors),
+                    ...extractModifiers(this.synthetics, selectors),
                 ],
                 check: {
                     type: "saving-throw",

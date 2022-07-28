@@ -13,7 +13,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isShield(): boolean {
-        return this.data.data.category === "shield";
+        return this.system.category === "shield";
     }
 
     get isArmor(): boolean {
@@ -21,45 +21,45 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get baseType(): BaseArmorType | null {
-        return this.data.data.baseItem ?? null;
+        return this.system.baseItem ?? null;
     }
 
     get group(): ArmorGroup | null {
-        return this.data.data.group || null;
+        return this.system.group || null;
     }
 
     get category(): ArmorCategory {
-        return this.data.data.category;
+        return this.system.category;
     }
 
     get dexCap(): number | null {
-        return this.isShield ? null : this.data.data.dex.value;
+        return this.isShield ? null : this.system.dex.value;
     }
 
     get strength(): number | null {
-        return this.isShield ? null : this.data.data.strength.value;
+        return this.isShield ? null : this.system.strength.value;
     }
 
     get checkPenalty(): number | null {
-        return this.isShield ? null : this.data.data.check.value;
+        return this.isShield ? null : this.system.check.value;
     }
 
     get speedPenalty(): number {
-        return this.data.data.speed.value;
+        return this.system.speed.value;
     }
 
     get acBonus(): number {
-        const potencyRune = this.isArmor && this.isInvested ? this.data.data.runes.potency : 0;
-        const baseArmor = Number(this.data.data.armor.value) || 0;
-        return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
+        const potencyRune = this.isArmor && this.isInvested ? this.system.runes.potency : 0;
+        const baseArmor = Number(this.system.armor.value) || 0;
+        return this.isShield && (this.isBroken || this.isDestroyed) ? 0 : baseArmor + potencyRune;
     }
 
     get hitPoints(): PhysicalItemHitPoints {
-        return deepClone(this.data.data.hp);
+        return deepClone(this.system.hp);
     }
 
     get hardness(): number {
-        return this.data.data.hardness;
+        return this.system.hardness;
     }
 
     get isBroken(): boolean {
@@ -101,20 +101,23 @@ class ArmorPF2e extends PhysicalItemPF2e {
         super.prepareBaseData();
 
         // Add traits from potency rune
-        const baseTraits = this.data.data.traits.value;
+        const baseTraits = this.system.traits.value;
         const fromRunes: ("invested" | "abjuration")[] =
-            this.data.data.potencyRune.value || this.data.data.resiliencyRune.value ? ["invested", "abjuration"] : [];
+            this.system.potencyRune.value || this.system.resiliencyRune.value ? ["invested", "abjuration"] : [];
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
-        this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+
+        const { traits } = this.system;
+        traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+        traits.otherTags ??= [];
     }
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
-        this.data.data.runes = {
+        this.system.runes = {
             potency: potencyRune.value ?? 0,
             resilient: getResiliencyBonus({ resiliencyRune }),
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
@@ -146,7 +149,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && actor.heldShield === this) {
             // Set actor-shield data from this shield item
             const { hitPoints } = this;
-            actor.data.data.attributes.shield = {
+            actor.system.attributes.shield = {
                 itemId: this.id,
                 name: this.name,
                 ac: this.acBonus,
@@ -159,18 +162,23 @@ class ArmorPF2e extends PhysicalItemPF2e {
                 icon: this.img,
             };
             actor.rollOptions.all["self:shield:equipped"] = true;
+            if (this.isBroken) {
+                actor.rollOptions.all["self:shield:broken"] = true;
+            } else if (this.isDestroyed) {
+                actor.rollOptions.all["self:shield:destroyed"] = true;
+            }
         }
     }
 
     override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+        const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const properties = [
             this.isArmor ? CONFIG.PF2E.armorTypes[this.category] : CONFIG.PF2E.weaponCategories.martial,
             `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
-            this.isArmor ? `${data.dex.value || 0} ${translations.ArmorDexLabel}` : null,
-            this.isArmor ? `${data.check.value || 0} ${translations.ArmorCheckLabel}` : null,
-            this.speedPenalty ? `${data.speed.value || 0} ${translations.ArmorSpeedLabel}` : null,
+            this.isArmor ? `${systemData.dex.value || 0} ${translations.ArmorDexLabel}` : null,
+            this.isArmor ? `${systemData.check.value || 0} ${translations.ArmorCheckLabel}` : null,
+            this.speedPenalty ? `${systemData.speed.value || 0} ${translations.ArmorSpeedLabel}` : null,
         ];
 
         return this.processChatData(htmlOptions, {

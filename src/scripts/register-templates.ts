@@ -43,6 +43,7 @@ export function registerTemplates() {
 
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
+        "systems/pf2e/templates/actors/partials/inventory.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
         "systems/pf2e/templates/actors/partials/carry-type.html",
         "systems/pf2e/templates/actors/partials/conditions.html",
@@ -51,7 +52,6 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html",
-        "systems/pf2e/templates/actors/ability-builder.html",
 
         // SVG icons
         "systems/pf2e/templates/actors/character/icons/d20.html",
@@ -111,6 +111,10 @@ export function registerTemplates() {
         "systems/pf2e/templates/items/weapon-details.html",
         "systems/pf2e/templates/items/weapon-sidebar.html",
         "systems/pf2e/templates/items/activation-panel.html",
+
+        // Rule Element partials
+        "systems/pf2e/templates/items/rules/default.html",
+        "systems/pf2e/templates/items/rules/note.html",
 
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.html",

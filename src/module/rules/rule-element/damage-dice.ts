@@ -46,7 +46,11 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
                     ((typeof override.upgrade === "boolean" && !("downgrade" in override)) ||
                         (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
                         setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
-                        setHasElement(DAMAGE_TYPES, override.damageType))
+                        setHasElement(DAMAGE_TYPES, override.damageType) ||
+                        (typeof override.diceNumber === "number" &&
+                            Number.isInteger(override.diceNumber) &&
+                            override.diceNumber > 0 &&
+                            override.diceNumber <= 10))
                 );
             };
 

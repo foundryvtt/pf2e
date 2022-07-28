@@ -18,6 +18,7 @@ export function track(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Track", "criticalFailure"),

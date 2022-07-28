@@ -1,0 +1,30 @@
+<section class="inventory-list directory-list inventory-pane">
+    {{#each inventory.sections as |section|}}
+        <div class="inventory-header">
+            <h3 class="item-name">{{section.label}}</h3>
+            {{#if (and (eq section.type "equipment") @root.inventory.invested)}}
+                <span class="item-invested-total{{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}} overinvested{{/if}}">
+                    {{localize "PF2E.InvestedLabel"}} ({{@root.inventory.invested.value}}/{{@root.inventory.invested.max}})
+                </span>
+            {{/if}}
+            {{#if (or @root.inventory.showValueAlways (eq section.type "treasure"))}}
+                <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+            {{/if}}
+            <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+            {{#if (ne @root.actor.type "npc")}}
+                <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+            {{/if}}
+            {{#if @root.editable}}
+                <div class="item-controls">
+                    <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{section.type}}"><i class="fas fa-fw fa-plus"></i></a>
+                    <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{section.type}}"><i class="fas fa-fw fa-search"></i></a>
+                </div>
+            {{/if}}
+        </div>
+        <ol class="inventory-items item-list" data-item-type="{{section.type}}">
+            {{#each section.items}}
+                {{> "systems/pf2e/templates/actors/partials/item-line.html" this=this editable=@root.editable owner=@root.owner user=@root.user}}
+            {{/each}}
+        </ol>
+    {{/each}}
+</section>

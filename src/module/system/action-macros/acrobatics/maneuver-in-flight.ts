@@ -17,6 +17,7 @@ export function maneuverInFlight(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
+            ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "failure"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ManeuverInFlight", "criticalFailure"),

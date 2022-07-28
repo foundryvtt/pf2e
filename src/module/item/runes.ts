@@ -1,5 +1,6 @@
 import { DiceModifierPF2e } from "@actor/modifiers";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
+import { DamageType } from "@system/damage";
 import { DamageDieSize } from "@system/damage/damage";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RawPredicate } from "@system/predication";
@@ -89,7 +90,7 @@ export interface WeaponPropertyRuneData {
     };
     damage?: {
         dice?: {
-            damageType?: string;
+            damageType?: DamageType;
             diceNumber?: number;
             dieSize?: DamageDieSize;
             predicate?: RawPredicate;

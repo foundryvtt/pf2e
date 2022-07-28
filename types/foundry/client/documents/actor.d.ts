@@ -70,12 +70,12 @@ declare global {
          * @param [document=false] Return the Document instance rather than the PlaceableObject
          * @return An array of Token instances in the current Scene which reference this Actor.
          */
-        getActiveTokens(linked: boolean | undefined, document: true): NonNullable<TParent>[];
+        getActiveTokens(linked: boolean | undefined, document: true): Embedded<NonNullable<TParent>>[];
         getActiveTokens(linked?: undefined, document?: undefined): NonNullable<TParent["object"]>[];
         getActiveTokens(
             linked?: boolean,
             document?: boolean
-        ): NonNullable<TParent["object"]>[] | NonNullable<TParent["object"]>[];
+        ): Embedded<NonNullable<TParent>>[] | NonNullable<TParent["object"]>[];
 
         /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
         getRollData(): Record<string, unknown>;
@@ -175,6 +175,9 @@ declare global {
         readonly data: foundry.data.ActorData<Actor, ActiveEffect, Item>;
 
         readonly parent: TParent | null;
+
+        // V10 shim
+        readonly flags: this["data"]["flags"];
 
         get collection(): Actors<this>;
 

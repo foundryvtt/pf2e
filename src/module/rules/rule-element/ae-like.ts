@@ -16,7 +16,7 @@ class AELikeRuleElement extends RuleElementPF2e {
      */
     static SKILL_LONG_FORM_PATH = ((): RegExp => {
         const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
-        return new RegExp(String.raw`(?<=^data\.skills\.)(?:${skillLongForms})\b`);
+        return new RegExp(String.raw`^data\.skills\.(${skillLongForms})\b`);
     })();
 
     constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
@@ -90,7 +90,8 @@ class AELikeRuleElement extends RuleElementPF2e {
         // Convert long-form skill slugs in paths to short forms
         this.data.path = this.resolveInjectedProperties(this.data.path).replace(
             AELikeRuleElement.SKILL_LONG_FORM_PATH,
-            (match) => (objectHasKey(SKILL_EXPANDED, match) ? SKILL_EXPANDED[match].shortform : match)
+            (match, group) =>
+                objectHasKey(SKILL_EXPANDED, group) ? `data.skills.${SKILL_EXPANDED[group].shortform}` : match
         );
 
         // Do not proceed if injected-property resolution failed

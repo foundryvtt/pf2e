@@ -27,7 +27,38 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "eternal-blessing-active",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.spell-effects.Spell Effect: Bless"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": {
+                    "all": [
+                        "eternal-blessing-active"
+                    ]
+                },
+                "radius": 15,
+                "slug": "eternal-blessing",
+                "traits": [
+                    "enchantment",
+                    "mental"
+                ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

@@ -1,17 +1,18 @@
-import { ActorSheetPF2e } from "../sheet/base";
-import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ConditionPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import { goesToEleven, ZeroToFour } from "@module/data";
-import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
-import { eventToRollParams } from "@scripts/sheet-util";
-import { CreatureSheetData } from "./types";
+import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
+import { ConditionPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
+import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ActorSheetPF2e } from "../sheet/base";
+import { CreatureConfig } from "./config";
+import { SkillData } from "./data";
+import { CreatureSheetData, SpellcastingSheetData } from "./types";
 
 /**
  * Base class for NPC and character sheets
@@ -19,6 +20,9 @@ import { createSheetTags } from "@module/sheet/helpers";
  */
 export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
     override itemRenderer = new CreatureSheetItemRenderer(this);
+
+    /** A DocumentSheet class presenting additional, per-actor settings */
+    protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
     override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
         const sheetData = await super.getData(options);
@@ -70,6 +74,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             actorSizes: CONFIG.PF2E.actorSizes,
             alignments: deepClone(CONFIG.PF2E.alignments),
             rarity: CONFIG.PF2E.rarityTraits,
+            frequencies: CONFIG.PF2E.frequencies,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
             conditions: game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition),
@@ -79,6 +84,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 remainingWounded: Math.max(actor.attributes.wounded.max - actor.attributes.wounded.value),
             },
         };
+    }
+
+    protected prepareSpellcasting(): SpellcastingSheetData[] {
+        return this.actor.spellcasting.map((entry) => {
+            const data = entry.toObject(false);
+            const spellData = entry.getSpellData();
+            return mergeObject(data, spellData);
+        });
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
@@ -240,18 +253,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         $html.find("button[data-action=cast-spell]").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");
             const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
-            const entry = this.actor.spellcasting.get(entryId);
-            if (!(entry instanceof SpellcastingEntryPF2e)) {
-                console.warn("PF2E System | Failed to load spellcasting entry");
-                return;
-            }
-
-            const spell = entry.spells.get(itemId);
-            if (!spell) {
-                console.warn("PF2E System | Failed to load spell");
-                return;
-            }
-
+            const entry = this.actor.spellcasting.get(entryId, { strict: true });
+            const spell = entry.spells.get(itemId, { strict: true });
             entry.cast(spell, { slot: slotId, level: spellLvl });
         });
 
@@ -338,6 +341,30 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 await this.actor.increaseCondition(effect);
             }
         });
+    }
+
+    /** Replace sheet config with a special PC config form application */
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (!this.actor.isOfType("character", "npc")) return buttons;
+
+        if (this.isEditable) {
+            const index = buttons.findIndex((b) => b.class === "close");
+            buttons.splice(index, 0, {
+                label: "Configure", // Top-level foundry localization key
+                class: "configure-creature",
+                icon: "fas fa-cog",
+                onclick: () => this.onConfigureActor(),
+            });
+        }
+
+        return buttons;
+    }
+
+    /** Open actor configuration for this sheet's creature */
+    private onConfigureActor(): void {
+        if (!this.actorConfigClass) return;
+        new this.actorConfigClass(this.actor).render(true);
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {

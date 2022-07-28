@@ -18,14 +18,14 @@ export const CanvasReady = {
                 game.pf2e.effectPanel.render(true);
             }
 
-            // Redraw tokens
-            (async () => {
+            Promise.resolve().then(async () => {
+                // Redraw tokens
                 for (const token of canvas.tokens.placeables) {
                     const { visible } = token;
                     await token.draw();
                     token.visible = visible;
                 }
-            })();
+            });
         });
     },
 };

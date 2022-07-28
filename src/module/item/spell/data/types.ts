@@ -14,7 +14,7 @@ import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "../type
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
-type SpellData = Omit<SpellSource, "effects" | "flags"> &
+type SpellData = Omit<SpellSource, "data" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
 export type SpellTraits = ItemTraits<SpellTrait>;
@@ -40,13 +40,30 @@ export interface SpellHeighteningInterval {
 
 export interface SpellHeighteningFixed {
     type: "fixed";
-    levels: Record<OneToTen, Partial<SpellSystemData>>;
+    levels: Record<OneToTen, Partial<SpellSystemSource>>;
 }
 
 export interface SpellHeightenLayer {
     level: number;
     data: Partial<SpellSystemData>;
 }
+
+interface SpellOverlayOverride {
+    _id: string;
+    data: Partial<SpellSystemSource>;
+    name?: string;
+    overlayType: "override";
+    sort: number;
+}
+
+/** Not implemented */
+interface SpellOverlayDamage {
+    overlayType: "damage";
+    choices: DamageType[];
+}
+
+type SpellOverlay = SpellOverlayOverride | SpellOverlayDamage;
+type SpellOverlayType = SpellOverlay["overlayType"];
 
 interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     traits: SpellTraits;
@@ -87,6 +104,7 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
         value: Record<string, SpellDamage>;
     };
     heightening?: SpellHeighteningFixed | SpellHeighteningInterval;
+    overlays?: Record<string, SpellOverlay>;
     save: {
         basic: string;
         value: SaveType | "";
@@ -122,4 +140,4 @@ interface SpellSystemData extends SpellSystemSource, ItemSystemData {
     traits: SpellTraits;
 }
 
-export { SpellData, SpellSource, SpellSystemData, SpellSystemSource };
+export { SpellData, SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayType };

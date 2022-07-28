@@ -63,7 +63,6 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 actionCost: { value: 1, type: "action" },
                 components: { command: false, envision: false, interact: false, cast: false },
                 description: { value: "" },
-                frequency: { value: 0, max: 0, duration: null },
                 traits: { value: [], custom: "" },
             };
             this.item.update({ [`data.activations.${id}`]: action });
@@ -71,13 +70,35 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         $html.find("[data-action=activation-delete]").on("click", (event) => {
             event.preventDefault();
-            const id = $(event.target).closest("[data-action=activation-delete]").attr("data-action-id") ?? "";
+            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
             const isLast = Object.values(this.item.data.data.activations ?? []).length === 1;
-            if (isLast && id in (this.item.data.data.activations ?? {})) {
+            if (isLast && id && id in (this.item.data.data.activations ?? {})) {
                 this.item.update({ "data.-=activations": null });
             } else {
                 this.item.update({ [`data.activations.-=${id}`]: null });
             }
+        });
+
+        $html.find("[data-action=activation-frequency-add]").on("click", (event) => {
+            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
+            if (id && id in (this.item.data.data.activations ?? {})) {
+                const per = CONFIG.PF2E.frequencies.day;
+                this.item.update({ [`data.activations.${id}.frequency`]: { value: 1, max: 1, per } });
+            }
+        });
+
+        $html.find("[data-action=activation-frequency-delete]").on("click", (event) => {
+            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
+            if (id && id in (this.item.data.data.activations ?? {})) {
+                this.item.update({ [`data.activations.${id}.-=frequency`]: null });
+            }
+        });
+
+        const $otherTagsHint = $html.find("i.other-tags-hint");
+        $otherTagsHint.tooltipster({
+            maxWidth: 350,
+            theme: "crb-hover",
+            content: game.i18n.localize($otherTagsHint.attr("title") ?? ""),
         });
     }
 
@@ -110,9 +131,6 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                     actionCost.value = isAction ? actionCost.value || 1 : null;
                 }
             }
-
-            // Ensure frequency is a proper format
-            if (action.frequency && !action.frequency?.duration) action.frequency.duration = null;
         }
 
         return super._updateObject(event, flattenObject(expanded));

@@ -1,0 +1,19 @@
+<form autocomplete="off">
+    <div class="form-group">
+        <label>{{localize "PF2E.Actor.Creature.Configure.Alliance.Label"}}</label>
+        <select name="data.details.alliance">
+            {{#each alliances as |option|}}
+                <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
+            {{/each}}
+        </select>
+        <p class="hint">{{localize "PF2E.Actor.Creature.Configure.Alliance.Hint"}}</p>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Actor.Character.Configure.ShowBasicUnarmed.Label"}}</label>
+        <input type="checkbox" name="flags.pf2e.showBasicUnarmed" {{checked showBasicUnarmed}} />
+        <p class="hint">{{{localize "PF2E.Actor.Character.Configure.ShowBasicUnarmed.Hint"}}}</p>
+    </div>
+    <button type="submit" name="submit">
+        <i class="fas fa-save"></i> {{localize "SETTINGS.Save"}}
+    </button>
+</form>
