@@ -5,10 +5,17 @@ import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Visual representation and proximity-detection facilities for auras */
-    auras = new AuraRenderers(this);
+    auras!: AuraRenderers;
 
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
+
+    constructor(document: TokenDocumentPF2e) {
+        super(document);
+        if (!canvas.tokens.kimsNaughtyModule) {
+            this.auras = new AuraRenderers(this);
+        }
+    }
 
     /** The promise returned by the last call to `Token#draw()` */
     private drawLock?: Promise<this>;
