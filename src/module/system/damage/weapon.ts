@@ -42,7 +42,7 @@ class WeaponDamagePF2e {
         // Add secondary damage instances to flat modifier and damage dice synthetics
         for (const instance of secondaryInstances) {
             const { damageType } = instance;
-            if (instance.dice && instance.die) {
+            if (instance.dice > 0 && instance.die) {
                 damageDice.damage.push(
                     new DamageDicePF2e({
                         slug: "base",
@@ -94,7 +94,9 @@ class WeaponDamagePF2e {
         strikeAdjustments: StrikeAdjustment[]
     ): DamageTemplate | null {
         const { baseDamage } = weapon;
-        if (!baseDamage.die) return null;
+        if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
+            return null;
+        }
 
         let effectDice = baseDamage.dice;
         const diceModifiers: DiceModifierPF2e[] = [];
@@ -452,9 +454,9 @@ class WeaponDamagePF2e {
         const hasDowngrade = diceModifiers.some(
             (dm) => dm.enabled && dm.override?.downgrade && (critical || !dm.critical)
         );
-        if (hasUpgrade && !hasDowngrade) {
+        if (base.dieSize && hasUpgrade && !hasDowngrade) {
             base.dieSize = nextDamageDieSize({ upgrade: base.dieSize });
-        } else if (hasDowngrade && !hasUpgrade) {
+        } else if (base.dieSize && hasDowngrade && !hasUpgrade) {
             base.dieSize = nextDamageDieSize({ downgrade: base.dieSize });
         }
 
@@ -478,38 +480,23 @@ class WeaponDamagePF2e {
             base: true,
             categories: {
                 [DamageCategorization.fromDamageType(base.damageType)]: {
-                    dice: { [base.dieSize]: base.diceNumber },
+                    dice: base.dieSize ? { [base.dieSize]: base.diceNumber } : {},
                     modifier: base.modifier ?? 0,
                 },
             },
         };
 
         // dice modifiers always stack
-        diceModifiers
-            .filter((dm) => dm.enabled)
-            .filter((dm) => !dm.critical || critical)
-            .forEach((dm) => {
-                if (critical && dm.critical) {
-                    // critical-only stuff
-                    if (dm.diceNumber) {
-                        this.addDice(
-                            critPool,
-                            dm.damageType ?? base.damageType,
-                            dm.category,
-                            dm.dieSize ?? base.dieSize,
-                            dm.diceNumber
-                        );
-                    }
-                } else if (!dm.critical && dm.diceNumber) {
-                    this.addDice(
-                        dicePool,
-                        dm.damageType ?? base.damageType,
-                        dm.category,
-                        dm.dieSize ?? base.dieSize,
-                        dm.diceNumber
-                    );
-                }
-            });
+        for (const dm of diceModifiers.filter((dm) => dm.enabled && (!dm.critical || critical))) {
+            const dieSize = dm.dieSize || base.dieSize || null;
+            if (dm.diceNumber <= 0 || !dieSize) continue;
+            if (critical && dm.critical) {
+                // critical-only stuff
+                this.addDice(critPool, dm.damageType ?? base.damageType, dm.category, dieSize, dm.diceNumber);
+            } else if (!dm.critical) {
+                this.addDice(dicePool, dm.damageType ?? base.damageType, dm.category, dieSize, dm.diceNumber);
+            }
+        }
 
         // Apply stacking rules here and distribute on dice pools
         {
@@ -555,11 +542,11 @@ class WeaponDamagePF2e {
                     let category =
                         pool.categories[nm.damageCategory ?? DamageCategorization.fromDamageType(damageType)];
                     if (!category) {
-                        category = {};
+                        category = { modifier: 0, dice: {} };
                         pool.categories[nm.damageCategory ?? DamageCategorization.fromDamageType(damageType)] =
                             category;
                     }
-                    category.modifier = (category.modifier ?? 0) + nm.modifier;
+                    category.modifier = category.modifier + nm.modifier;
                     (nm.traits ?? [])
                         .filter((t) => !damage.traits.includes(t))
                         .forEach((t) => {
@@ -632,11 +619,11 @@ class WeaponDamagePF2e {
         // First collect all of the individual components of the pool into one flattened list...
         const parts: string[] = [];
         let minValue = 0;
-        for (const [type, cats] of Object.entries(pool)) {
-            for (const [category, info] of Object.entries(cats.categories)) {
+        for (const [type, components] of Object.entries(pool)) {
+            for (const [category, info] of Object.entries(components.categories)) {
                 const p: string[] = [];
                 // Add all of the dice components; each individual dice adds one to the minimum value.
-                for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
+                for (const [dieSize, count] of Object.entries(info.dice)) {
                     minValue += count;
                     parts.push(`${count}${dieSize}`);
                     p.push(`${count}${dieSize}`);
@@ -716,7 +703,7 @@ class WeaponDamagePF2e {
     static doubleFormula(formula: string): string {
         const rule = game.settings.get("pf2e", "critRule");
         if (rule === "doubledamage") {
-            return `2 * (${formula})`;
+            return /^\d+$/.test(formula) ? `2 * ${formula}` : `2 * (${formula})`;
         } else {
             const critRoll = new Roll(formula).alter(2, 0, { multiplyNumeric: true });
             return critRoll.formula;
@@ -815,7 +802,7 @@ export interface DamageTemplate {
     base: {
         damageType: DamageType;
         diceNumber: number;
-        dieSize: DamageDieSize;
+        dieSize: DamageDieSize | null;
         category: string;
         modifier: number;
     };
@@ -843,9 +830,9 @@ export type DamagePool = Record<
         categories: {
             [category: string]: {
                 /** The static amount of damage of the current damage type and category. */
-                modifier?: number;
-                /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
-                dice?: Record<string, number>;
+                modifier: number;
+                /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
+                dice: Record<string, number>;
             };
         };
     }

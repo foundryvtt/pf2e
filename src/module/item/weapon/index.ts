@@ -187,6 +187,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.reload.value ||= null;
         systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
+        systemData.damage.die ||= null;
+        systemData.damage.modifier ??= 0;
+        // Alchemical bombs fake a constant damage value by having a `die` (number of faces) of "" and a `dice`
+        // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula. An arrest warrant has been issued.
+        if (!systemData.damage.die && systemData.damage.dice > 0) {
+            systemData.damage.modifier ||= systemData.damage.dice;
+            systemData.damage.dice = 0;
+        }
 
         const preciousMaterial =
             systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
