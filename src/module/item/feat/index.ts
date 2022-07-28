@@ -96,6 +96,11 @@ class FeatPF2e extends ItemPF2e {
         if (this.data.data.onlyLevel1) {
             this.data.data.maxTakable = 1;
         }
+
+        // Initialize frequency uses if not set
+        if (this.actor && this.system.frequency) {
+            this.system.frequency.value ??= this.system.frequency.max;
+        }
     }
 
     /** Set a self roll option for this feat(ure) */
@@ -138,6 +143,9 @@ class FeatPF2e extends ItemPF2e {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
             this.data._source.data.location = null;
+            if (this.data._source.data.frequency) {
+                delete this.data._source.data.frequency.value;
+            }
         }
 
         return super._preCreate(data, options, user);

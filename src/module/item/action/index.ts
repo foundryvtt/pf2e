@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { ActionItemData } from "./data";
+import { ActionItemData, ActionItemSource } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
@@ -19,15 +19,13 @@ export class ActionItemPF2e extends ItemPF2e {
         return this.data.data.frequency ?? null;
     }
 
-    override prepareData() {
-        const data = super.prepareData();
+    override prepareBaseData(): void {
+        super.prepareBaseData();
 
-        /**
-         * @todo Fill this out like so or whatever we settle on
-         * data.data.playMode.encounter ??= false; // etc.
-         **/
-
-        return data;
+        // Initialize frequency uses if not set
+        if (this.actor && this.system.frequency) {
+            this.system.frequency.value ??= this.system.frequency.max;
+        }
     }
 
     override getChatData(this: Embedded<ActionItemPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
@@ -37,6 +35,21 @@ export class ActionItemPF2e extends ItemPF2e {
         const properties = [CONFIG.PF2E.actionTypes[data.actionType.value]].filter((property) => property);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
+    }
+
+    protected override async _preCreate(
+        data: PreDocumentId<ActionItemSource>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        // In case this was copied from an actor, clear any active frequency value
+        if (!this.parent) {
+            if (this.data._source.data.frequency) {
+                delete this.data._source.data.frequency.value;
+            }
+        }
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(

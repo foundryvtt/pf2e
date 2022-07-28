@@ -93,11 +93,15 @@ interface ItemSystemSource {
 
 type ItemSystemData = ItemSystemSource;
 
-interface Frequency {
-    value: number;
+interface FrequencySource {
+    value?: number;
     max: number;
     /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
     per: keyof ConfigPF2e["PF2E"]["frequencies"];
+}
+
+interface Frequency extends FrequencySource {
+    value: number;
 }
 
 export {
@@ -106,6 +110,7 @@ export {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
+    FrequencySource,
     ItemFlagsPF2e,
     ItemGrantData,
     ItemGrantDeleteAction,
