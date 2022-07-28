@@ -209,7 +209,7 @@ type ConfiguredConfig = Config<
     ChatMessagePF2e,
     EncounterPF2e,
     CombatantPF2e,
-    EncounterTrackerPF2e,
+    EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
     FogExplorationPF2e,
     FolderPF2e,

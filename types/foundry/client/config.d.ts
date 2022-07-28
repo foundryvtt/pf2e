@@ -8,8 +8,8 @@ declare global {
         TChatLog extends ChatLog = ChatLog,
         TChatMessage extends ChatMessage = ChatMessage,
         TCombat extends Combat = Combat,
-        TCombatant extends Combatant<TActor | null> = Combatant<TActor | null>,
-        TCombatTracker extends CombatTracker<TCombat> = CombatTracker<TCombat>,
+        TCombatant extends Combatant<TCombat | null, TActor | null> = Combatant<TCombat | null, TActor | null>,
+        TCombatTracker extends CombatTracker<TCombat | null> = CombatTracker<TCombat | null>,
         TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
         TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
@@ -209,8 +209,8 @@ declare global {
         /** Configuration for the Combatant document */
         Combatant: {
             documentClass: new (
-                data: PreCreate<TCombat["turns"][number]["data"]["_source"]>,
-                context?: DocumentConstructionContext<TCombat["turns"][number]>
+                data: PreCreate<TCombatant["data"]["_source"]>,
+                context?: DocumentConstructionContext<TCombatant>
             ) => TCombatant;
         };
 

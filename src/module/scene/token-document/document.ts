@@ -3,7 +3,7 @@ import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatantPF2e } from "@module/encounter";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenDataPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
 
@@ -361,7 +361,7 @@ interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenD
 
     readonly parent: ScenePF2e | null;
 
-    get combatant(): Embedded<CombatantPF2e> | null;
+    get combatant(): CombatantPF2e<EncounterPF2e> | null;
 
     _sheet: TokenConfigPF2e<this> | null;
 
