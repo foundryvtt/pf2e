@@ -32,13 +32,11 @@ export class ItemTransfer implements ItemTransferData {
     ) {}
 
     async request(): Promise<void> {
-        const gamemaster = game.users.find((user) => user.isGM && user.active);
+        const gamemaster = game.users.find((u) => u.isGM && u.active);
         if (!gamemaster) {
             const source = this.getSource();
             const target = this.getTarget();
-            const loot = [source, target].find(
-                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.isOwner
-            );
+            const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
             if (!(loot instanceof ActorPF2e)) throw ErrorPF2e("Unexpected missing actor");
             const translations = LocalizePF2e.translations.PF2E.loot;
@@ -60,7 +58,7 @@ export class ItemTransfer implements ItemTransferData {
 
         console.debug("PF2e System | Enacting item transfer");
         const sourceActor = this.getSource();
-        const sourceItem = sourceActor?.items?.find((item) => item.id === this.source.itemId);
+        const sourceItem = sourceActor?.items?.find((i) => i.id === this.source.itemId);
         const targetActor = this.getTarget();
 
         // Sanity checks
@@ -95,7 +93,7 @@ export class ItemTransfer implements ItemTransferData {
     /** Retrieve the full actor from the source or target ID */
     private getActor(tokenId: string | undefined, actorId: string): ActorPF2e | null {
         if (typeof tokenId === "string") {
-            const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
+            const token = canvas.tokens.placeables.find((t) => t.id === tokenId);
             return token?.actor ?? null;
         }
         return game.actors.get(actorId) ?? null;
@@ -110,23 +108,22 @@ export class ItemTransfer implements ItemTransferData {
     }
 
     // Prefer token names over actor names
-    private static tokenName(entity: ActorPF2e | User): string {
-        if (entity instanceof ActorPF2e) {
+    private static tokenName(document: ActorPF2e | User): string {
+        if (document instanceof ActorPF2e) {
             // Synthetic actor: use its token name or, failing that, actor name
-            if (entity.isToken && entity.token instanceof Token) {
-                return entity.token.name;
-            }
+            if (document.token) return document.token.name;
+
             // Linked actor: use its token prototype name
-            return entity.data.token?.name ?? entity.name;
+            return document.data.token?.name ?? document.name;
         }
         // User with an assigned character
-        if (entity.character instanceof ActorPF2e) {
-            const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.actor?.id === entity.id);
-            return token?.name ?? entity.character?.name;
+        if (document.character instanceof ActorPF2e) {
+            const token = canvas.tokens.placeables.find((t) => t.actor?.id === document.id);
+            return token?.name ?? document.character?.name;
         }
 
         // User with no assigned character (should never happen)
-        return entity.name;
+        return document.name;
     }
 
     /** Send a chat message that varies on the types of transaction and parties involved
