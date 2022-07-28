@@ -11,7 +11,6 @@ import { TokenPF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
-import { CombatantPF2e } from "@module/encounter";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { RuleElementSynthetics } from "@module/rules";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
@@ -595,7 +594,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
         rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
 
-        const thisCombatant = participants.find((c): c is Embedded<CombatantPF2e<this>> => c.actor === this)!;
+        const thisCombatant = participants.find((c) => c.actor === this);
+        if (!thisCombatant) return;
+
         const rank = participants.indexOf(thisCombatant) + 1;
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }

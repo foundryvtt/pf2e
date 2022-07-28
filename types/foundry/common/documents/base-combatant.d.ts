@@ -16,6 +16,7 @@ declare module foundry {
 
         interface BaseCombatant {
             readonly data: foundry.data.CombatantData<this>;
+
             readonly parent: BaseCombat | null;
         }
 

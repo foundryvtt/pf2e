@@ -2,8 +2,11 @@ import type { ActorPF2e } from "@actor/base";
 import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
-class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
-    get encounter(): EncounterPF2e | null {
+class CombatantPF2e<
+    TParent extends EncounterPF2e | null = EncounterPF2e | null,
+    TActor extends ActorPF2e | null = ActorPF2e | null
+> extends Combatant<TParent, TActor> {
+    get encounter(): TParent {
         return this.parent;
     }
 
@@ -25,7 +28,10 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         return this.data.flags.pf2e.overridePriority[initiative] ?? null;
     }
 
-    hasHigherInitiative(this: RolledCombatant, { than }: { than: RolledCombatant }): boolean {
+    hasHigherInitiative(
+        this: RolledCombatant<NonNullable<TParent>>,
+        { than }: { than: RolledCombatant<NonNullable<TParent>> }
+    ): boolean {
         if (this.parent !== than.parent) {
             throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
         }
@@ -123,6 +129,13 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     }
 }
 
+interface CombatantPF2e<
+    TParent extends EncounterPF2e | null = EncounterPF2e | null,
+    TActor extends ActorPF2e | null = ActorPF2e | null
+> extends Combatant<TParent, TActor> {
+    readonly data: CombatantDataPF2e<this>;
+}
+
 type CombatantDataPF2e<T extends CombatantPF2e> = foundry.data.CombatantData<T> & {
     flags: {
         pf2e: {
@@ -132,12 +145,6 @@ type CombatantDataPF2e<T extends CombatantPF2e> = foundry.data.CombatantData<T> 
     };
 };
 
-interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
-    readonly parent: EncounterPF2e | null;
-
-    readonly data: CombatantDataPF2e<this>;
-}
-
-type RolledCombatant = Embedded<CombatantPF2e> & { get initiative(): number };
+type RolledCombatant<TEncounter extends EncounterPF2e> = CombatantPF2e<TEncounter> & { get initiative(): number };
 
 export { CombatantPF2e, RolledCombatant };
