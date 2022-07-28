@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 3.13.1
+
+### Bugfixes
+* (stwlam) Work around adverse interaction between system auras and a combination of the Perfect Vision and Token Auras modules
+* (stwlam) Fix processing of weapon damage with no dice
+* (Supe) Fix actions tab styling around navigation
+
+### System Improvements
+* (Supe) Show that a strike is for a temporary item
+
+
 ## Version 3.13.0
 
 ### New Features
