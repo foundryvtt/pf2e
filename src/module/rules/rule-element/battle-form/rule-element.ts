@@ -338,10 +338,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!newSkill) continue;
 
             const currentSkill = this.actor.system.skills[key];
-            if (currentSkill.totalModifier > newSkill.modifier && newSkill.ownIfHigher) {
+            const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
+            if (currentSkill.totalModifier > newModifier && newSkill.ownIfHigher) {
                 continue;
             }
-            const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
 
             this.suppressModifiers(currentSkill);
             currentSkill.unshift(new ModifierPF2e(this.modifierLabel, newModifier, "untyped"));
