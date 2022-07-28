@@ -23,6 +23,7 @@ import {
     DexterityModifierCapData,
     PerceptionData,
     StrikeData,
+    TraitViewData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
@@ -224,6 +225,7 @@ interface CharacterStrike extends StrikeData {
     adjustments?: DegreeOfSuccessAdjustment[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
+    weaponTraits: TraitViewData[];
 }
 
 interface AuxiliaryAction {

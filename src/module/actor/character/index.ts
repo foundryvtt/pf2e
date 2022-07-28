@@ -1608,6 +1608,7 @@ class CharacterPF2e extends CreaturePF2e {
             ...flavor,
             options: itemData.data.options?.value ?? [],
             traits: [],
+            weaponTraits: Array.from(weaponTraits).map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
             altUsages,
