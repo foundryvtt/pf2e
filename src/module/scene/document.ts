@@ -64,11 +64,11 @@ class ScenePF2e extends Scene<
             }
         }
 
-        if (auras.length === 0) {
-            const sceneActors = new Set(tokens.flatMap((t) => t.actor ?? []));
-            for (const actor of sceneActors) {
-                await actor.checkAreaEffects();
-            }
+        const sceneActors = new Set(
+            tokens.flatMap((t) => (t.actor?.canUserModify(game.user, "update") ? t.actor : []))
+        );
+        for (const actor of sceneActors) {
+            await actor.checkAreaEffects();
         }
 
         lock.release();
