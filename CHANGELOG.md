@@ -1,5 +1,92 @@
 # Changelog
 
+## Version 3.13.0
+
+### New Features
+* (In3luki) Add support for spell variants of spells with a variable cast time
+* (stwlam) Add basic support for auras that transmit effects to allies
+* (stwlam) Add ability for GMs to generate NPC attacks from inventory weapons
+* (Supe) Implement Gradual Ability Boosts variant rule
+
+### Bugfixes
+* (Eddie) Have drained condition remove hit points when its value is increased
+* (Eddie) Add missing critical success and fail notes to action macros
+* (stwlam) Handle ranged attacks with only max range, abort strikes if out of range
+* (stwlam) Fix issue causing bulwark and mighty bulwark to both apply to some reflex saves
+* (stwlam) Prevent destroyed shields from being utilizable by Raise a Shield
+* (Supe) Conditionally allow application of voluntary flaw to same ability twice
+* (Supe) Fix PFS boons styling, feat double summary rendering
+* (Supe) Skip damage modifiers on spells that don't have formulas
+* (Supe) Fix and localize IWR exceptions and placeholder text
+* (Supe) Fix issue causing Vehicle sheets to reject attempts to add actions
+* (Tikael) Prevent bonuses to skills from increasing inline DCs improperly
+
+### System Improvements
+* (Mats, Supe) Restyle actions sub-navigation and feats tab
+* (stwlam) Add ability to set alliance of PCs and to hide their basic unarmed attack
+* (stwlam) Automatically adjust current hit points when changing PC level or adding ancestry, class, etc.
+* (stwlam) Refactor javascript preventing the Safari browser from fully loading a world
+* (Supe) Add frequency and display to actions and feats in PC sheet
+* (Supe) Implement Roll Note RE Editor
+* (Supe) Show carried bulk for loot actors
+* (Supe) Allow rule elements to increase focus pools beyond three points
+* (Supe) Improve feat drag/drop and handle invalid feat drops
+
+### Data Updates
+* (Abaddon) Review Bestiary 3 (lots)
+* (Avagdu, SpartanCPA, Tikael) Add Dark Archive content (w/ errata)
+* (Avagdu) Add Aspirational State Ritual from PFS 2-22
+* (Avagdu) Consolidate several duplicated Backgrounds items with user selections
+* (Avagdu) Correct description of the Staff of Illusion Items
+* (Avagdu) Fix Telekinetic Storm Rule Elements on Poltergeists
+* (Avagdu) Add Rules Elements to Wyrmblessed bloodline
+* (Avagdu) Update NPCs from Extinction Curse Book 3 Adventure Toolbox
+* (Cheps) Correct the ability flaw in the description of the Android Ancestry
+* (Drental) Fix regression with Migration 766
+* (Eddie) Automate Sniping Duo
+* (In3luki) Update Sorching Ray with spell variants
+* (InfamousSky) Add icons for Psychic class features and Guns & Gears items
+* (InfamousSky) Link Fleeing condition in Expeditious Retreat potion
+* (LebombJames) Update several items to bring them in line with 3rd Printing CRB Errata
+* (Manni) Localize data on Bloody Blade Mercenary, Falrok (AoA), Hunt Prey action
+* (NullWolf) Add weapon specialization to Blade Ally Effects
+* (NullWolf) Add Blade Launcher from Guns & Gears
+* (NullWolf) Update Kelorbeyan Guard Longsword attack modifier
+* (NullWolf) Fix several stance effect durations
+* (NullWolf) Update Skill Mastery (Rogue) to correct feat type
+* (NullWolf) Update Slayer's Strike Rule Element
+* (NullWolf) Update Tempest Touch with secondary damage
+* (NullWolf) Fix Undine heritage's swim speed
+* (rectulo) Add "Special" clause in vampire dedication feat
+* (rectulo) Fix base speed of Pest form spell effect
+* (rectulo) Fix prerequisites in Named Artillery
+* (Robin Gicquel) Fix healing bomb feat traits
+* (Shandyan) Add spell variants to heal, harm, heal animal, heal companion, and damage spells with variable cast times
+* (Shandyan) Automate orc, poppet, ratfolk, shisk, shoony, and sprite feats
+* (SpartanCPA) Correct deadly die size for lances
+* (SpartanCPA) Add an effect for Aid bonus
+* (SpartanCPA) Add Owb Prophet Forsakens as Deity
+* (SpartanCPA) Add Persistent Damage Notes to Ember Fox Jaws
+* (SpartanCPA) Add a rollable button to Terrifying Howl
+* (SpartanCPA) Add rollable damage buttons per action to the Ring of the Ram
+* (SpartanCPA) Add several player-facing aura effects
+* (SpartanCPA) Automate Choral's Harmonizing Aura
+* (SpartanCPA) Make Critical Spec saving throws rollable
+* (stwlam) Add toggleable aura to Eternal Blessing feat
+* (stwlam) Fix damage dice number on Gaff (weapon)
+* (stwlam) Fix speed adjustment on Stoked Flame Stance effect
+* (Telekenunes) Update elemental form to properly size non-medium creatures
+* (Tikael) Add Clockwork Reanimator archetype feats
+* (Tikael) Automate Signifier Armor Expertise feat
+* (Tikael) Fix details of Mark for Death on Siora Fallowglade
+* (TMun) Add/update NPCs from PFS scenarios
+  * Season 1: 1-17
+  * Season 3: 18, 19, 98, 99
+  * Season 4: 1-3
+* (VestOfHolding) Add icons for Fandarr and Ydersius deities
+* (VestOfHolding) Fix automation on the Bravery NPC ability
+* (Yuri Voronin) Fix Forge Warden shield stats from CRB errata 1
+
 ## Version 3.12.2
 
 ### Bugfixes
@@ -7,7 +94,7 @@
 
 ### Data Updates
 * (Abaddon) Review Bestiary 3: Forest dragons, divs
-* (Avagdu Mortesin) Add Backgrounds from Pathfinder Society Year 4 Blog
+* (Avagdu) Add Backgrounds from Pathfinder Society Year 4 Blog
 * (Avagdu) Update NPCs from Extinction  Book 3 Ch 3
 * (Friz) Added inline automation to inventor feats
 * (Friz) Added note to Recognize Ambush feat
@@ -19,8 +106,8 @@
 * (Shandyan) Add rule elements to Oread feats
 * (stwlam) Migrate Panache and Vicacious Speed to latest iterations (dropped Panache toggle in favor of effect)
 * (stwlam) Predicate Raise a Shield effect rule elements on actually wielding a shield
-* (TMunsie) Add NPCs from PFS 3-16 and PFS 3-17
-* (TMunsie) add Fistful of flowers items, PCs and NPCs
+* (TMun) Add NPCs from PFS 3-16 and PFS 3-17
+* (TMun) add Fistful of flowers items, PCs and NPCs
 * (xdy) Updated the Shadow Blast spell so it has area template buttons.
 
 
@@ -50,7 +137,7 @@
 * (fryguy, Mats) Add functionality and interface for managing PCs' ability boosts
 * (stwlam) Add content searching to compendium search bar
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Add a Critical Specialization rule element
 * (stwlam) Ramp up outdated module nagging to every load, include abandoned modules
 * (stwlam) Extend MAP rule element to spellcasting and NPCs
@@ -126,7 +213,7 @@
 ### New Features
 * (Supe) Add a roll inspection dialog, accessible from chat message context menu (currently supports check rolls)
 
-### Core System Improvements
+### System Improvements
 * (Supe) Show when the beta hazard sheet is in edit mode in the application titlebar, display source and author
 
 ### Bugfixes
@@ -172,7 +259,7 @@
 * (Supe) Add syntax highlighter and linter for Rule Element editing
 * (Supe) Add new (in-testing) Hazard sheet
 
-### Core System Improvements
+### System Improvements
 * (Anathema) Rework readme for official status and license info
 * (Friz) Add logic to grey Inventory, Effect and Notes tabs for NPC if relative tab is empty
 * (JDCalvert) Make the AdjustStrike rule element replace existing traits of the same type and lower value
@@ -365,7 +452,7 @@
 * (stwlam) Register a keybinding to cycle a mouse-hovered token stack
 * (Supe) Implement fixed level spell heightening (e.g., Acid Splash)
 
-### Core System Improvements
+### System Improvements
 * (In3luki) Improve Compendium Browser filters
 * (In3luki) Support PF2e inline links in all chat messages
 * (nikolaj-a) Add flag to suppress damage buttons on chat cards
@@ -461,7 +548,7 @@
 ### New Features
 * (Cerapter) Allow equipment to be purchased directly from compendium browser
 
-### Core System Improvements
+### System Improvements
 * (Telekenunes) Add more versatile traits
 * (Tikael) Add armor and weapon proficiencies to roll options, automate proficiency feats
 * (Vyklade) expand `SpellPF2e#rollAttack()` method to allow more arguments to be passed from macros
@@ -485,7 +572,7 @@
 
 ## Version 3.9.0
 
-### Core System Improvements
+### System Improvements
 * (In3luki) Sort core skills on the character sheet by localized label
 * (nikolaj-a) Add Avoid Notice, Arcane Slam, and Treat Poison action macros
 * (nikolaj-a) Add tooltip with trait description in action macro chat cards
@@ -567,7 +654,7 @@
 
 ## Version 3.8.4
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Have tiny crafters craft tiny items during daily preparation
 * (Supe) Expose best spell dc for characters in attributes as @actor.attributes.spellDC.value
 
@@ -644,7 +731,7 @@
 * (stwlam) Add deities as items, begin integrating them with system automation: players running champions and clerics may want to drop new classes onto their sheets.
 * (Supe) Implement innate-spell usage tracking
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Show limited-permissions NPCs with actor links in the actor directory
 * (stwlam) Automate jousting trait (simplified to requiring a lance to be held in one hand)
 * (stwlam) Retire ToggleProperty rule element in favor of toggleable RollOptions
@@ -760,7 +847,7 @@
 * (putty) Add world clock buttons to advance to dawn, noon, dusk, and midnight
 * (SkepticRobot) Add support for combining stacks of alike items via drag & drop
 
-### Core System Improvements
+### System Improvements
 * (Friz) Remove sell and equip buttons from loot actor sheets
 * (Friz) Show skill modifier next to skill when displaying dialog for trick magic item check
 * (fryguy) Show rarities in compendium browser lists
@@ -823,7 +910,7 @@
 * (stwlam) Add damage buttons to strike attack-roll messages
 * (TMun) Add Sasmira's Pathfinder-themed Dice So Nice! textures to the system
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Show check roll results to everyone by default
 * (stwlam) Clear targets on encounter end, remove as target when a token's actor dies
 * (stwlam) Prevent players from deleting chat messages, undoing surprise change made in Foundry 9.251
@@ -868,7 +955,7 @@
 
 ## Version 3.5.1
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Make no-ammo message more helpful for new players
 
 ### Bugfixes
@@ -882,7 +969,7 @@
 
 ## Version 3.5.0
 
-### Core System Improvements
+### System Improvements
 * (stwlam) On system update, warn GMs for each active module without V9 compatibility
 * (stwlam) Bundle Roboto font variants that include Cyrillic
 * (stwlam) Enforce ammunition usage when necessary to strike
@@ -963,7 +1050,7 @@
 
 ## Version 3.4.3
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Take token elevation into account when assessing flanking
 * (stwlam) Represent token spaces as cubes rather than squares when calculating three-dimensional reach and range increments
 * (stwlam) Provide sufficient information for Gravity Weapon effect to automatically determine number of weapon damage dice
@@ -987,7 +1074,7 @@
 
 ## Version 3.4.1
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Accommodate 0-hp eidolon play from Companion Compendia module when assessing flanking
 
 ### Bugfixes
@@ -1009,7 +1096,7 @@
 * (stwlam) Automate flanking and various ways to mitigate/ignore it
 * (stwlam) Add a TokenLight rule element (see Everburning Torch and Spell Effect: Light)
 
-### Core System Improvements
+### System Improvements
 * (Friz) Add Quick Add button to crafting screen to allow one click adding formula to daily crafting
 * (Glunt) Add item bonuses from weapons with appropriate traits to skill actions
 * (SkepticRobot) Add increment and decrement controls to pc effect tab
@@ -1072,7 +1159,7 @@
 
 ## Version 3.3.1
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Apply range penalties to NPC strikes when applicable
 
 ### Bugfixes
@@ -1120,7 +1207,7 @@
 * (stwlam) Fix issue causing sickened and frightened conditions to penalize movement speed
 * (Supe) Add speaker to fast healing and temp hp messages
 
-### Core System Improvements
+### System Improvements
 * (Apikoros) Gray out npc spells tab when npc does not have any spells
 * (Apikoros) Pass isFromConsumable as a flag on chat messages created by spells, to properly exclude dangerous sorcery bonus for consumables
 * (Chup) Adjust player/vehicle sheet sidebar colors to follow a consistent color scheme
@@ -1215,7 +1302,7 @@
 * (stwlam) Correctly resize equipment when requested by Creature Size rule element
 * (Supe) Fix effect panel refresh for players, fix fast healing effect duration
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Prevent modules from acting on drop canvas data handled by the system
 * (stwlam) Clamp PC level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
 * (SoldierC4) Improve styling of Effects Panel
@@ -1244,7 +1331,7 @@
 * (Tikael) Make Resilient armor with no potency runes invested (ABP)
 * (Tikael) Return to token layer after placing a premade template
 
-### Core System Improvements
+### System Improvements
 * (stwlam) Add distance-measuring support for gridless scenes
 
 ### Data Updates
@@ -1284,7 +1371,7 @@
 * (Supe) Fix Trick Magic Item and supporting rule elements
 * (Supe) Fix display bug with some ignored modifiers on actor sheets
 
-### Core System Improvements
+### System Improvements
 * (Cerapter) Pre-filter compendium browser when looking up feats/features from PC sheets
 * (Chup) Adjust actor sheet sidebar banner styling
 * (fryguy) Remove separator from effects and conditions on NPC sidebar
@@ -1393,7 +1480,7 @@
 * (stwlam) Fix issue sometimes causing familiars to be unimportable
 * (stwlam) Fix issue sometimes causing multiple ability modifiers to apply to damage
 
-### Core System Improvements
+### System Improvements
 * (Cerapter) Allow class features and feats to be infinitely nestable
 * (stwlam) Show levels for class features on PC sheet
 
@@ -1445,7 +1532,7 @@
 * (stwlam) Fix issue causing token vision to not refresh for players without mouse interaction
 * (stwlam) Remove token-image title attribute when names are hidden from the encounter tracker
 
-### Core System Improvements
+### System Improvements
 * (andriusch) Allow using deltas (with + or - prefix) when inputting XP
 * (SoldierC4) Give text editor on PC sheet buttons a legible fill color
 * (stwlam, Supe) Change dice-formula data replacement to operate at actor and item instance levels
@@ -1482,7 +1569,7 @@
 * (stwlam) Refresh the effect tracker every turn of an encounter
 * (stwlam) Fix rolling initiative from encounter tracker
 
-### Core System Improvements
+### System Improvements
 * (Abaddon) Create localized default label and error messages for @Template
 * (SoldierC4) Cleanup loot sheet formatting
 * (stwlam) Set default of "Pan to Speaker Token" setting to false
@@ -1513,7 +1600,7 @@
 * (stwlam) Ensure item descriptions are always strings
 * (stwlam) Fix pressing Enter key on PC sheet sometimes triggering the "Complete Daily Crafting" button
 
-### Core System Improvements
+### System Improvements
 * (fryguy, In3luki, Supe, stwlam) Update system to support Foundry V9
 * (In3luki) Refrain from defaulting resistance and weakness selector values to zero
 * (stwlam) Expand `ChoiceSet` rule elements to accommodate followup `GrantItem` rule elements
