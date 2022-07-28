@@ -19,6 +19,20 @@ export class Migration768AddNewAuras extends MigrationBase {
         traits: ["emotion", "mental", "visual"],
     };
 
+    #enlightenedPresence = {
+        effects: [
+            {
+                affects: "allies",
+                events: ["enter"],
+                uuid: "Compendium.pf2e.feat-effects.XM1AA8z5cHm8sJXM",
+            },
+        ],
+        key: "Aura",
+        radius: 15,
+        slug: "enlightened-presence",
+        traits: ["emotion", "mental"],
+    };
+
     #eternalBlessing = [
         {
             domain: "all",
@@ -32,7 +46,7 @@ export class Migration768AddNewAuras extends MigrationBase {
                 {
                     affects: "allies",
                     events: ["enter"],
-                    uuid: "Compendium.pf2e.spell-effects.Spell Effect: Bless",
+                    uuid: "Compendium.pf2e.spell-effects.Gqy7K6FnbLtwGpud",
                 },
             ],
             key: "Aura",
@@ -50,6 +64,8 @@ export class Migration768AddNewAuras extends MigrationBase {
 
         if (source.data.slug === "marshal-dedication") {
             source.data.rules = [deepClone(this.#marshalsAura)];
+        } else if (source.data.slug === "enlightened-presence") {
+            source.data.rules = [deepClone(this.#enlightenedPresence)];
         } else if (source.data.slug === "eternal-blessing") {
             source.data.rules = deepClone(this.#eternalBlessing);
         }
