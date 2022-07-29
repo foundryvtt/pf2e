@@ -7,27 +7,22 @@
                     <div class="item-name flexrow">
                         <h3>{{localize section.label}}</h3>
 
+                        <!-- {{entry.isFocusPool}} -->
                         {{#if (and section.isCantrip (not section.uses))}}
                             <span class="spell-slots infinity">&infin;</span>
                             <span class="flex0"> / </span>
                             <span class="spell-max infinity">&infin;</span>
-                        {{else if (and entry.isFocusPool (eq ../../focusStyle "pips"))}}
-                            <div class="focus-points" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                {{#times section.uses.max}}
-                                    <i class="{{#if (gt section.uses.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
-                                {{/times}}
-                            </div>
-                        {{else if (and entry.isFocusPool (eq ../../focusStyle "inputs"))}}
-                            <div class="focus-pool-input" title="{{localize "PF2E.Focus.pointTitle"}}">
+                        {{else if (and entry.isFocusPool (not (eq @root.actor.type "character"))) }}
+                            <div class="focus-pool-input">
                                 <span class="spell-slots-input">
-                                    <input type="number" name="data.resources.focus.value" value="{{@root.data.resources.focus.value}}" placeholder="0" />
+                                    <input type="number" name="data.resources.focus.value" value="{{@root.data.resources.focus.value}}" title="{{localize "PF2E.Focus.pointTitle"}}" placeholder="0" />
                                 </span>
                                 <span class="slash"> / </span>
                                 <span class="spell-max-input">
-                                    <input type="number" name="data.resources.focus.max" value="{{@root.data.resources.focus.max}}" placeholder="0" />
+                                    <input type="number" name="data.resources.focus.max" value="{{@root.data.resources.focus.max}}" title="{{localize "PF2E.Focus.poolTitle"}}" placeholder="0" />
                                 </span>
                             </div>
-                        {{else if section.uses}}
+                        {{else if (and section.uses (not entry.isFocusPool))}}
                             {{#if section.uses.value includeZero=true}}
                                 <span class="spell-slots-input">
                                     <input type="number" data-item-id="{{entry.id}}" data-item-property="data.slots.slot{{section.level}}.value" value="{{section.uses.value}}" placeholder="0" />
