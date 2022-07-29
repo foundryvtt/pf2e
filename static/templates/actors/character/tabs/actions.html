@@ -88,7 +88,10 @@
                                     </div>
                                     <div class="item-properties tags">
                                         {{#each action.traits as |trait|}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{localize trait.label}}</span>
+                                            <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{localize trait.label}}</span>
+                                        {{/each}}
+                                        {{#each action.weaponTraits as |trait|}}
+                                            <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{localize trait.label}}</span>
                                         {{/each}}
                                     </div>
                                 </div>
