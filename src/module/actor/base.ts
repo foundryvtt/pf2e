@@ -1,6 +1,6 @@
 import { ModeOfBeing } from "@actor/creature/types";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
-import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, type ConditionPF2e } from "@item";
+import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
@@ -494,9 +494,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         );
         this.inventory = new ActorInventory(this, physicalItems);
 
-        const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
-            (item) => item instanceof SpellcastingEntryPF2e
-        );
+        const spellcastingEntries = this.itemTypes.spellcastingEntry;
         this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
 
         // Track all effects on this actor

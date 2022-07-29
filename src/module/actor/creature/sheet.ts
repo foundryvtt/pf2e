@@ -87,11 +87,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     protected prepareSpellcasting(): SpellcastingSheetData[] {
-        return this.actor.spellcasting.map((entry) => {
-            const data = entry.toObject(false);
-            const spellData = entry.getSpellData();
-            return mergeObject(data, spellData);
-        });
+        return this.actor.spellcasting
+            .map((entry) => {
+                const data = entry.toObject(false);
+                const spellData = entry.getSpellData();
+                return mergeObject(data, spellData);
+            })
+            .sort((a, b) => a.sort - b.sort);
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
