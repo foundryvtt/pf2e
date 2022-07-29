@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 3.13.2
+
+### Bugfixes
+* (stwlam) Restore display of weapon traits in PC strike summaries
+* (Supe) Fix NPC item rarity colors
+
+### Data Updates
+* (Abaddon) Review Guecubu (Bestiary 3)
+* (LebombJames) Add frequencies to all feats
+* (Tikael) Add missing class feature options and heritage from Dark Archive
+* (Tikael) Fix some details of Psychic and Thaumaturge classes, localization of implements
+
+
 ## Version 3.13.1
 
 ### Bugfixes
@@ -94,8 +107,11 @@
   * Season 1: 1-17
   * Season 3: 18, 19, 98, 99
   * Season 4: 1-3
+* (VestOfHolding) Add most missing automation to mutagen effects
+* (VestOfHolding) Fix rule elements giving bonuses to saves against magical effects
 * (VestOfHolding) Add icons for Fandarr and Ydersius deities
 * (VestOfHolding) Fix automation on the Bravery NPC ability
+* (VestOfHolding) Add missing traits: Aftermath, Class, Ghul, Social
 * (Yuri Voronin) Fix Forge Warden shield stats from CRB errata 1
 
 ## Version 3.12.2
