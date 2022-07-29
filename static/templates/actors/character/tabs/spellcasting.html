@@ -40,33 +40,28 @@
                             </div>
 
                             {{#if entry.isFocusPool}}
-                            <div class="skill-container focus-pool">
-                                <img class="pool-size" src="systems/pf2e/assets/sheet/circle.svg" />
-                                <span class="skill-item focus-pool-text" title="{{localize "PF2E.Focus.poolTitle"}}">
-                                    <h4 class="skill-item">{{localize "PF2E.Focus.poolLabel"}}</h4>
-                                    <span class="focus-pool-max">
-                                        {{#if @root.data.resources.focus.max}}
-                                            {{@root.data.resources.focus.max}}
-                                        {{else}}
-                                            0
-                                        {{/if}}
+                                <div class="focus-pool">
+                                    <span class="pips">
+                                        {{#times @root.actor.data.resources.focus.max}}
+                                            <i class="{{#if (gt @root.actor.data.resources.focus.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
+                                        {{/times}}
                                     </span>
-                                </span>
-                            </div>
+                                    <h4>{{localize "PF2E.Focus.Pool"}}</h4>
+                                </div>
                             {{/if}}
                         </li>
                         <li class="spell-ability">
                             <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
                             <div class="spellcasting-prof button-group skill-container">
                                 <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">
-                                    {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html excludeUntrained=true proflevel=entry.data.proficiency.value}}
+                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.data.proficiency.value}}
                                 </select>
                             </div>
                         </li>
                     </ol>
                 {{/unless}}
 
-                {{> systems/pf2e/templates/actors/spellcasting-spell-list.html entry=entry focusStyle="pips"}}
+                {{> "systems/pf2e/templates/actors/spellcasting-spell-list.html" entry=entry}}
             </li>
         {{/each}}
 
