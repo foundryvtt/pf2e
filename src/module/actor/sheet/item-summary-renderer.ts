@@ -195,7 +195,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                 }
 
                 if (actor instanceof CharacterPF2e) {
-                    if (chatData.variants) {
+                    if (Array.isArray(chatData.variants) && chatData.variants.length) {
                         const label = game.i18n.localize("PF2E.Item.Spell.Variants.SelectVariantLabel");
                         buttons.append(
                             `<span><button class="spell_attack" data-action="selectVariant">${label}</button></span>`
