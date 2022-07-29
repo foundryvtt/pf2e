@@ -1,12 +1,11 @@
-import { CharacterPF2e } from "@actor";
 import { FeatSlotLevel } from "@actor/character/feats";
 import { SaveType } from "@actor/types";
-import { SAVE_TYPES } from "@actor/values";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
-import { sluggify } from "@util";
+import { setHasElement, sluggify } from "@util";
 import { ClassData, ClassTrait } from "./data";
 
 class ClassPF2e extends ABCItemPF2e {
@@ -77,13 +76,13 @@ class ClassPF2e extends ABCItemPF2e {
 
     /** Prepare a character's data derived from their class */
     override prepareActorData(this: Embedded<ClassPF2e>): void {
-        if (!(this.actor instanceof CharacterPF2e)) {
+        if (!this.actor.isOfType("character")) {
             console.error("Only a character can have a class");
             return;
         }
 
         this.actor.class = this;
-        const { attributes, build, details, martial, saves } = this.actor.data.data;
+        const { attributes, build, details, martial, saves, skills } = this.actor.system;
 
         // Add base key ability options
 
@@ -112,6 +111,12 @@ class ClassPF2e extends ABCItemPF2e {
         for (const saveType of SAVE_TYPES) {
             saves[saveType].rank = Math.max(saves[saveType].rank, this.savingThrows[saveType]) as ZeroToFour;
             this.logAutoChange(`data.saves.${saveType}.rank`, this.savingThrows[saveType]);
+        }
+
+        for (const trainedSkill of this.system.trainedSkills.value) {
+            if (setHasElement(SKILL_ABBREVIATIONS, trainedSkill)) {
+                skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
+            }
         }
 
         const slug = this.slug ?? sluggify(this.name);
