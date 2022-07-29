@@ -892,15 +892,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Clamp focus points
-        const focus = changed.data && "resources" in changed.data ? changed.data?.resources?.focus ?? null : null;
-        if (focus && "resources" in this.data.data) {
-            if (typeof focus.max === "number") {
-                focus.max = Math.clamped(focus.max, 0, 3);
+        const focusUpdate = changed.data?.resources?.focus;
+        if (focusUpdate && this.system.resources) {
+            if (typeof focusUpdate.max === "number") {
+                focusUpdate.max = Math.clamped(focusUpdate.max, 0, 3);
             }
 
-            const currentPoints = focus.value ?? this.data.data.resources.focus?.value ?? 0;
-            const currentMax = focus.max ?? this.data.data.resources.focus?.max ?? 0;
-            focus.value = Math.clamped(currentPoints, 0, currentMax);
+            const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
+            const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
+            focusUpdate.value = Math.clamped(updatedPoints, 0, enforcedMax);
+            if (this.isToken) options.diff = false; // Force an update and sheet re-render
         }
 
         await super._preUpdate(changed, options, user);
