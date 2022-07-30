@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 3.13.3
+
+### Bugfixes
+* (In3luki) Fix spell variant check in item summary renderer
+* (stwlam) Fix issue causing Animal Instinct damage rolls to error out at level >= 7
+* (Supe) Fix spellcasting entries not being sortable
+
+### System Improvements
+* (stwlam) Move focus pool pips on PC sheet to area that is always visible
+* (stwlam) Redraw auras and reassess aura inclusion when radius and token size changes
+
+### Data Updates
+* (LebombJames) Add Deity Boons/Curses from the Gods and Magic Web Supplement
+* (rectulo) Fix the prerequisite in Bound in ice feat
+* (stwlam) Add rule elements to have Esoteric Lore checks use charisma
+* (stwlam) Exclude wizards with the Universalist class feature from starting with a focus pool
+* (Tikael) Add automation to Implement's Empowerment feature
+* (Tikael) Fix roll formula in Restore the Mind action
+* (Tikael) Add missing automation to flames oracle
+* (Tikael) Add Unleash Psyche effect
+* (VestOfHolding) Add more spell variants
+
+
 ## Version 3.13.2
 
 ### Bugfixes
@@ -701,8 +724,8 @@
 * (SpartanCPA) Widen the line template of the Wand of Crackling Lightning
 * (TMun) Convert Lightning Storm to Saving Throw
 * (TMun) Update the Stabbing Beast stat block
-* (TikaelSol) Automate Sealed Poppet feat
-* (TikaelSol) Resolve the value of TokenImage REs
+* (Tikael) Automate Sealed Poppet feat
+* (Tikael) Resolve the value of TokenImage REs
 * (rectulo) Fix the Drained effect in Violet Venom
 * (stwlam) Remove Laughing Shadow toggle and fully automate
 * (stwlam) Remove coins from kits
@@ -1061,18 +1084,18 @@
 * (stwlam) Fix bug causing effects from invested items to apply even when not invested
 * (stwlam) Fix ability score used with melee usage of combination weapons
 * (stwlam) Fix damage application to familiars and hazards
-* (TikaelSol) Fix blind rolling of checks with the secret trait
+* (Tikael) Fix blind rolling of checks with the secret trait
 
 ### Data Updates
 * (Abaddon) Review Chapter 1 of AV Book 2
 * (rectulo) Fix a typo in the mudrock snare
 * (stwlam) Replace Fatal Aim trait with Fatal on several two-handed firearms
-* (TikaelSol) Grant Surprise Attack feature with Rogue Dedication
-* (TikaelSol) Fix description of Ventriloquism spell
-* (TikaelSol) Add fey trait to Fey-Touched Gnome heritage
-* (TikaelSol) Add unarmed category to fighter weapon group improvements
-* (TikaelSol) Fix spell type of several spells
-* (TikaelSol) Change several instances of claws to claw in rule element selectors
+* (Tikael) Grant Surprise Attack feature with Rogue Dedication
+* (Tikael) Fix description of Ventriloquism spell
+* (Tikael) Add fey trait to Fey-Touched Gnome heritage
+* (Tikael) Add unarmed category to fighter weapon group improvements
+* (Tikael) Fix spell type of several spells
+* (Tikael) Change several instances of claws to claw in rule element selectors
 
 
 ## Version 3.4.3
