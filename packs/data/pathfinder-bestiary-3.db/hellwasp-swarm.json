@@ -27,7 +27,7 @@
                 "value": 24
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -96,25 +96,21 @@
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Bludgeoning",
                     "type": "bludgeoning",
                     "value": 5
                 },
                 {
                     "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
                     "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Piercing",
                     "type": "piercing",
                     "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Slashing",
                     "type": "slashing",
                     "value": 5
                 }
@@ -337,7 +333,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d8}[poison]]]{2d8 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d8}[poison]]]{2d8 poison damage} and clumsy 2 (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -379,7 +375,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The hellwasp swarm animates the corpse of a Small, Medium, or Large humanoid that protected by <em>@Compendium[pf2e.spells-srd.Gentle Repose]{Gentle Repose}</em> or similar magic, crawling into its mouth and other orifices.</p>\n<p>Its size changes to that of the corpse and it loses its piercing and slashing resistances, fly Speed, and Hellwasp Stings.</p>\n<p>It gains a fist melee Strike with a [[/r 1d20+18]] attack modifier that deals [[/r {2d8}[bludgeoning]]]{2d8 bludgeoning damage} plus [[/r {2d8}[piercing]]]{2d8 piercing damage} and hellwasp venom.The hellwasp swarm gains 40 temporary Hit Points when it Infests a Corpse; when these temporary HP are depleted, the corpse falls apart and the swarm Abandons the Corpse automatically.</p>"
+                    "value": "<p>The hellwasp swarm animates the corpse of a Small, Medium, or Large humanoid that protected by <em>@Compendium[pf2e.spells-srd.Gentle Repose]{Gentle Repose}</em> or similar magic, crawling into its mouth and other orifices.</p>\n<p>Its size changes to that of the corpse and it loses its piercing and slashing resistances, fly Speed, and Hellwasp Stings.</p>\n<p>It gains a fist melee Strike with a [[/r 1d20+18 #Fist]]{+18}/[[/r 1d20+13 #Fist]]{+13}/[[/r 1d20+8 #Fist]]{+8} attack modifier that deals [[/r {2d8}[bludgeoning]+{2d8}[piercing]]]{2d8 bludgeoning damage plus 2d8 piercing damage} and hellwasp venom. The hellwasp swarm gains [[/r 40 #Temporary Hit Points]]{40 temporary Hit Points} when it Infests a Corpse; when these temporary HP are depleted, the corpse falls apart and the swarm Abandons the Corpse automatically.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -421,7 +417,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The swarm emits a distracting, cacophonous buzzing. Each creature within 20 feet must attempt a @Check[type:will|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is confused for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The swarm emits a distracting, cacophonous buzzing. Each creature within @Template[type:emanation|distance:20]{20 feet} must attempt a @Check[type:will|dc:26] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is confused for [[/br 1d4 #Duration Confused]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
