@@ -144,6 +144,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                     radius: data.radius,
                     token: this as Embedded<TokenDocumentPF2e>,
                     traits: new Set(data.traits),
+                    colors: data.colors,
                     includesSelf: true,
                 })
             );
@@ -322,6 +323,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         userId: string
     ): void {
         if (this.isLinked) {
+            // If the size of this token changed, check to see if the tokens contained by auras also changed
+            const sizeChanged = "height" in changed || "width" in changed;
+            if (sizeChanged && this.auras.size > 0 && canvas.ready && this.scene?.active) {
+                this.scene.checkAuras();
+            }
+
             super._onUpdate(changed, options, userId);
         } else {
             // Handle updates to unlinked tokens' light data via actor overrides
