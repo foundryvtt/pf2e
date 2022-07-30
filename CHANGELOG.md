@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 3.13.3
+## Version 3.13.4
 
 ### Bugfixes
 * (stwlam) Fix issue causing Esoteric Lore ability replacement to affect all check modifiers
