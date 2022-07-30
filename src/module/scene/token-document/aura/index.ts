@@ -16,9 +16,6 @@ class TokenAura implements TokenAuraData {
     /** The radius of the aura in feet */
     radius: number;
 
-    /** The aura radius from the center in pixels */
-    radiusPixels: number;
-
     traits: Set<ItemTrait>;
 
     colors: AuraColors | null;
@@ -31,16 +28,18 @@ class TokenAura implements TokenAuraData {
         this.token = args.token;
 
         this.radius = args.radius;
-        this.radiusPixels = ((): number => {
-            const gridSize = this.scene.data.gridDistance;
-            const gridSizePixels = this.scene.data.grid;
-            const tokenWidth = this.token.data.width * gridSizePixels;
-            return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
-        })();
 
         this.traits = args.traits;
         this.colors = args.colors ?? null;
         this.includesSelf = args.includesSelf;
+    }
+
+    /** The aura radius from the center in pixels */
+    get radiusPixels(): number {
+        const gridSize = this.scene.data.gridDistance;
+        const gridSizePixels = this.scene.data.grid;
+        const tokenWidth = this.token.data.width * gridSizePixels;
+        return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
 
     private get scene(): ScenePF2e {
