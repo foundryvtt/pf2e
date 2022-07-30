@@ -32,6 +32,8 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
         id: string | null;
         ability: AbilityString | null;
     };
+
+    resources?: never;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */

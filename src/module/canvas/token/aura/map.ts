@@ -19,15 +19,19 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         }
 
         for (const slug of this.keys()) {
-            if (!this.token.actor.auras.has(slug)) {
+            if (!this.token.document.auras.has(slug)) {
                 this.delete(slug);
             }
         }
 
-        for (const [slug, data] of this.token.actor.auras.entries() ?? []) {
-            const aura = this.get(slug) ?? new AuraRenderer({ token: this.token, ...data });
-            if (!this.token.children.includes(aura)) {
-                this.set(slug, this.token.addChild(aura));
+        for (const [slug, aura] of this.token.document.auras.entries() ?? []) {
+            const renderer = this.get(slug) ?? new AuraRenderer({ ...aura, token: this.token });
+            if (!this.token.children.includes(renderer)) {
+                this.set(slug, this.token.addChild(renderer));
+            } else if (renderer.radiusPixels !== aura.radiusPixels) {
+                // The radius changed: remove old aura and set new one
+                this.delete(slug);
+                this.set(slug, this.token.addChild(new AuraRenderer({ ...aura, token: this.token })));
             }
         }
 
@@ -54,7 +58,10 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
     /** Deallocate the aura's GPU memory before removing from map */
     override delete(key: string): boolean {
         const aura = this.get(key);
-        if (!aura?.destroyed) aura?.destroy();
+        if (!aura) return false;
+        this.token.removeChild(aura);
+        if (!aura.destroyed) aura.destroy();
+
         return super.delete(key);
     }
 

@@ -556,6 +556,16 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             await new AbilityBuilderPopup(this.actor).render(true);
         });
 
+        // SPELLCASTING
+        const $castingTab = $html.find(".tab.spellcasting");
+
+        $castingTab.find(".focus-pool .pips").on("click contextmenu", (event) => {
+            const change = event.type === "click" ? 1 : -1;
+            const points = (this.actor.system.resources.focus?.value ?? 0) + change;
+            this.actor.update({ "data.resources.focus.value": points });
+        });
+
+        // CRAFTING
         const $craftingTab = $html.find(".tab.crafting");
 
         const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");

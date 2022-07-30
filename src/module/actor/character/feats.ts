@@ -154,7 +154,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             const source = feat.toObject();
             source.data.location = location;
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
-            const label = game.i18n.localize(category?.label ?? "PF2E.FeatBonusHeader");
+            const label = game.i18n.localize(location && category?.label ? category.label : "PF2E.FeatBonusHeader");
             ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
         }
 

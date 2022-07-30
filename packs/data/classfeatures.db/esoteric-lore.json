@@ -25,6 +25,25 @@
         },
         "rules": [
             {
+                "ability": "cha",
+                "key": "FlatModifier",
+                "selector": "esoteric-lore",
+                "type": "ability"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": {
+                    "all": [
+                        "modifier:type:ability"
+                    ],
+                    "not": [
+                        "modifier:ability:cha"
+                    ]
+                },
+                "selector": "esoteric-lore",
+                "suppress": true
+            },
+            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Dubious Knowledge"
             }

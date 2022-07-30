@@ -57,8 +57,8 @@
 
         .skills-list {
             @include p-reset;
-            display: flex;
             align-items: center;
+            display: flex;
             flex: 1;
             justify-content: space-between;
             margin: 0.25em 0;
@@ -66,11 +66,27 @@
             .skill-grid {
                 @include flex-center;
                 gap: 1em;
-                padding-top: 2px;
 
-                .skill-data {
+                .skill-data, .focus-pool {
                     @include flex-center;
                 }
+
+                .focus-pool {
+                    gap: 0.3em;
+
+                    .pips {
+                        cursor: pointer;
+                        display: flex;
+                        font-size: var(--font-size-10);
+                        gap: 1px;
+                        padding-bottom: 0.1em;
+                    }
+
+                    h4 {
+                        white-space: nowrap;
+                    }
+                }
+
 
                 .rollable {
                     cursor: pointer;
@@ -90,7 +106,7 @@
                 }
 
                 .skill-name {
-                    margin: 0 4px;
+                    margin: 0 0.3em;
                     white-space: nowrap;
                 }
 

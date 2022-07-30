@@ -276,7 +276,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
             if (cantrips.length) {
                 results.push({
-                    label: "PF2E.TraitCantrip",
+                    label: "PF2E.Actor.Creature.Spellcasting.Cantrips",
                     level: 0,
                     isCantrip: true,
                     active: cantrips.map((spell) => ({ spell, chatData: spell.getChatData() })),
@@ -285,10 +285,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
             if (leveled.length) {
                 results.push({
-                    label: "PF2E.Focus.label",
+                    label: actor.isOfType("character") ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
                     level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
                     isCantrip: false,
-                    uses: actor.data.data.resources.focus ?? { value: 0, max: 0 },
+                    uses: actor.system.resources.focus ?? { value: 0, max: 0 },
                     active: leveled.map((spell) => ({ spell, chatData: spell.getChatData() })),
                 });
             }
