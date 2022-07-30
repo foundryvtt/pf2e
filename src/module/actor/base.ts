@@ -339,8 +339,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             })();
 
             const aura = auraToken?.auras.get(auraData.slug);
+
+            // Main sure this isn't an identically-slugged aura with different effects
+            const effects = auraToken?.actor?.auras.get(auraData.slug)?.effects ?? [];
+            const auraHasEffect = effects.some((e) => e.uuid === effect.sourceId);
+
             for (const token of thisTokens) {
-                if (aura?.containsToken(token)) {
+                if (auraHasEffect && aura?.containsToken(token)) {
                     toKeep.push(effect.id);
                 } else {
                     toDelete.push(effect.id);
