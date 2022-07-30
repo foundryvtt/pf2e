@@ -3,6 +3,19 @@
 ## Version 3.13.3
 
 ### Bugfixes
+* (stwlam) Fix issue causing Esoteric Lore ability replacement to affect all check modifiers
+
+### Data Updates
+* (Manni) Standardize language note "Can't Speak"
+* (SoldierC4) Fix details of several spells
+* (SpartanCPA) Add rollable saves to Crystal Balls
+* (SpartanCPA) Review Age of Ashes book 1
+* (Tikael) Fix rule elements of Unleash Psyche effect
+
+
+## Version 3.13.3
+
+### Bugfixes
 * (In3luki) Fix spell variant check in item summary renderer
 * (stwlam) Fix issue causing Animal Instinct damage rolls to error out at level >= 7
 * (Supe) Fix spellcasting entries not being sortable
