@@ -52,6 +52,65 @@
                 "mode": "upgrade",
                 "path": "data.skills.acr.rank",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.reflex.rank",
+                "predicate": {
+                    "all": [
+                        "class:oracle",
+                        {
+                            "gte": [
+                                "self:level",
+                                13
+                            ]
+                        },
+                        "feature:lightning-reflexes"
+                    ]
+                },
+                "value": 3
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": {
+                    "all": [
+                        "class:oracle",
+                        {
+                            "gte": [
+                                "self:level",
+                                13
+                            ]
+                        },
+                        "feature:lightning-reflexes"
+                    ]
+                },
+                "selector": "reflex",
+                "text": "When you roll a success on a Reflex save, you get a critical success instead.",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "class:oracle",
+                        {
+                            "gte": [
+                                "self:level",
+                                13
+                            ]
+                        },
+                        "feature:lightning-reflexes"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "save"
             }
         ],
         "source": {
