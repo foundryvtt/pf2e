@@ -40,7 +40,7 @@ export class EffectTracker {
     }
 
     register(effect: Embedded<EffectPF2e>): void {
-        if (effect.fromAura && effect.id) {
+        if (effect.fromAura && (canvas.ready || !effect.actor.isToken) && effect.id) {
             this.auraEffects.set(effect.uuid, effect);
         }
 
