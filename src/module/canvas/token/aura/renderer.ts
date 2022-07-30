@@ -13,21 +13,25 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** The radius of the aura in feet */
     radius: number;
 
-    /** Border and fill colors in hexadecimal */
-    private colors: TokenAuraColors;
+    /** The aura radius from the center in pixels */
+    radiusPixels: number;
 
     /** Traits associated with this aura: used to configure collision detection */
     traits: Set<ItemTrait>;
 
+    /** Border and fill colors in hexadecimal */
+    private colors: TokenAuraColors;
+
     /** Standard line thickness for circle shape and label markers */
     static readonly LINE_THICKNESS = 3;
 
-    constructor(params: AuraRendererData) {
+    constructor(params: AuraRendererParams) {
         super();
 
         this.token = params.token;
         this.colors = this.#convertColors(params.colors);
         this.radius = params.radius;
+        this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
 
         this.draw();
@@ -52,11 +56,6 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** ID of `GridHighlight` container for this aura's token */
     private get highlightId(): string {
         return this.token.highlightId;
-    }
-
-    /** The aura radius from the center in pixels */
-    get radiusPixels(): number {
-        return 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
     }
 
     /** The squares covered by this aura */
@@ -110,7 +109,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
      * Convert HTML color strings to hexadecimal values
      * Due to a bug in the core BaseGrid class, black (0) is treated as the color being excluded
      */
-    #convertColors(colors: AuraColors | undefined): TokenAuraColors {
+    #convertColors(colors: AuraColors | null): TokenAuraColors {
         if (colors) {
             return {
                 border: foundry.utils.colorStringToHex(colors.border) || 1,
@@ -151,8 +150,9 @@ interface TokenAuraColors {
     fill: number;
 }
 
-interface AuraRendererData extends Omit<AuraData, "effects"> {
+interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
     token: TokenPF2e;
+    traits: Set<ItemTrait>;
 }
 
 export { AuraRenderer, TokenAuraColors };

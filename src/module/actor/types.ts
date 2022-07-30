@@ -22,7 +22,7 @@ interface AuraData {
     slug: string;
     radius: number;
     effects: AuraEffectData[];
-    colors?: AuraColors;
+    colors: AuraColors | null;
     traits: ItemTrait[];
 }
 
