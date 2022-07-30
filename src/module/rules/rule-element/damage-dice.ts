@@ -21,7 +21,7 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        this.data.diceNumber = Number(this.resolveValue(this.data.diceNumber));
+        this.data.diceNumber = Number(this.resolveValue(this.data.diceNumber)) || 0;
         const data = deepClone(this.data);
         if (this.data.value) {
             const bracketed = this.resolveValue(this.data.value);
