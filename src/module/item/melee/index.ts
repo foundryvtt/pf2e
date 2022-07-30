@@ -66,7 +66,13 @@ export class MeleePF2e extends ItemPF2e {
 
         // Normalize damage instance formulas
         for (const instance of Object.values(this.system.damageRolls)) {
-            instance.damage = new Roll(instance.damage).formula;
+            try {
+                instance.damage = new Roll(instance.damage).formula;
+            } catch {
+                const message = `Unable to parse damage formula on NPC attack ${this.name}`;
+                console.warn(`PF2e System | ${message}`);
+                instance.damage = "1d4";
+            }
         }
     }
 
