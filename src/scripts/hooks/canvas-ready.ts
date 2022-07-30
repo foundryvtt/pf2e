@@ -10,6 +10,14 @@ export const CanvasReady = {
             for (const li of $("#chat-log").children("li")) {
                 SetAsInitiative.listen($(li));
             }
+
+            // Register aura effects on synthetic actors after scene and canvas are ready
+            const tokenActors = canvas.scene?.tokens.contents.flatMap((t) => t.actor ?? []) ?? [];
+            for (const actor of tokenActors) {
+                for (const effect of actor.itemTypes.effect.filter((e) => e.fromAura)) {
+                    game.pf2e.effectTracker.register(effect);
+                }
+            }
         });
 
         Hooks.on("canvasReady", () => {
