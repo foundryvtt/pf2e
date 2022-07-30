@@ -16,22 +16,18 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Border and fill colors in hexadecimal */
     private colors: TokenAuraColors;
 
-    /** Whether the aura includes the creature from which it is emanating */
-    includesSelf: boolean;
-
     /** Traits associated with this aura: used to configure collision detection */
     traits: Set<ItemTrait>;
 
     /** Standard line thickness for circle shape and label markers */
     static readonly LINE_THICKNESS = 3;
 
-    constructor(params: TokenAuraConstructorParams) {
+    constructor(params: AuraRendererData) {
         super();
 
         this.token = params.token;
         this.colors = this.#convertColors(params.colors);
         this.radius = params.radius;
-        this.includesSelf = params.includesSelf ?? true;
         this.traits = new Set(params.traits);
 
         this.draw();
@@ -155,9 +151,8 @@ interface TokenAuraColors {
     fill: number;
 }
 
-interface TokenAuraConstructorParams extends AuraData {
+interface AuraRendererData extends Omit<AuraData, "effects"> {
     token: TokenPF2e;
-    includesSelf?: boolean;
 }
 
 export { AuraRenderer, TokenAuraColors };
