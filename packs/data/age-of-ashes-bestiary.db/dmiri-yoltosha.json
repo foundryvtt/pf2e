@@ -159,13 +159,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -187,16 +187,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 60,
@@ -269,8 +269,8 @@
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -290,7 +290,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 1
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": null
@@ -402,8 +402,8 @@
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -423,13 +423,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -451,16 +451,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -481,7 +481,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
@@ -529,8 +529,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -543,7 +544,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 5
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -560,7 +561,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 160
+                        "gp": 2
                     }
                 },
                 "propertyRune1": {
@@ -672,7 +673,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/held-items/skeleton-key.webp",
-            "name": "Key to Chest (See Treasure)",
+            "name": "Key to Chest",
             "sort": 500000,
             "type": "equipment"
         },
@@ -1103,16 +1104,17 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Target is the Hunted Prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
                         "option": "hunted-prey",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": {
                             "all": [
-                                "hunted-prey",
-                                "action:seek"
+                                "action:seek",
+                                "hunted-prey"
                             ]
                         },
                         "selector": "perception",
@@ -1121,15 +1123,26 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": {
                             "all": [
-                                "hunted-prey",
-                                "action:track"
+                                "action:track",
+                                "hunted-prey"
                             ]
                         },
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey"
+                            ]
+                        }
                     }
                 ],
                 "slug": null,
