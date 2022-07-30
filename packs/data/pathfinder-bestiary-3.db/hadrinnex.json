@@ -112,6 +112,162 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "fmeQBNnhZYs7wjnO",
+            "data": {
+                "badge": null,
+                "description": {
+                    "value": "<p>The creature gains physical damage resistance similar to the triggering type.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 4
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "flag": "physical-damage",
+                        "key": "ChoiceSet",
+                        "selection": "bludgeoning"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.physical-damage}",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 126
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.E0YoQTMkZWLEk5HB"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/wholeness-of-body.webp",
+            "name": "Effect: Rapid Evolution - Husk (Bludgeoning)",
+            "sort": 100000,
+            "type": "effect"
+        },
+        {
+            "_id": "xjnt94ZAdaOcCrIZ",
+            "data": {
+                "badge": null,
+                "description": {
+                    "value": "<p>The creature gains energy damage resistance similar to the triggering type.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 4
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitForce",
+                                "value": "force"
+                            },
+                            {
+                                "label": "PF2E.TraitNegative",
+                                "value": "negative"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            }
+                        ],
+                        "flag": "energy-damage",
+                        "key": "ChoiceSet",
+                        "selection": "sonic"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "{item|flags.pf2e.rulesSelections.energy-damage}",
+                        "value": 15
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 126
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Item.UtSGsTGKq7FNKCF1"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/prismatic-sphere.webp",
+            "name": "Effect: Rapid Evolution - Energy Gland (Sonic)",
+            "sort": 200000,
+            "type": "effect"
+        },
+        {
             "_id": "rPTqCxoOB0B5ON1m",
             "data": {
                 "attack": {
@@ -125,13 +281,13 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "733xut7ov8b09kmvmhz6": {
+                    "tzm8oydo2xt3n0md8ciy": {
                         "damage": "2d8 + 9",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>see Rapid Evolution, other possbile attacks:</p>\n<ul>\n<li>[[/r {2d8+9}[piercing]]]{2d8+9 piercing damage} ([[/r 2*{2d8+9}[piercing]]]{critical}), reach 10 feet, deadly d8</li>\n<li>[[/r {2d8+9}[slashing]]]{2d8+9 slashing damage} ([[/r 2*{2d8+9}[slashing]]]{critical}), reach 10 feet, sweep</li>\n</ul>"
                 },
                 "rules": [],
                 "slug": null,
@@ -142,7 +298,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "reach-10"
+                        "reach-10",
+                        "shove"
                     ]
                 },
                 "weaponType": {
@@ -151,30 +308,29 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Weapon Arm",
-            "sort": 100000,
+            "sort": 300000,
             "type": "melee"
         },
         {
-            "_id": "mCsjzDPoxbrIsgTP",
+            "_id": "SuGCwf8YVqJ0KZNG",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
                     "value": 18
                 },
                 "damageRolls": {
-                    "w0a5aa9cltv5c1c2u3wa": {
+                    "f98avpdf9cqk94xicz87": {
                         "damage": "5d6",
                         "damageType": "sonic"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>see Rapid Evolution, other possbile attacks:</p>\n<ul>\n<li>[[/r {5d6}[acid]]]{5d6 acid damage} ([[/r 2*{5d6}[acid]]]{critical})</li>\n<li>[[/r {5d6}[cold]]]{5d6 cold damage} ([[/r 2*{5d6}[cold]]]{critical})</li>\n<li>[[/r {5d6}[electricity]]]{5d6 electricity damage} ([[/r 2*{5d6}[electricity]]]{critical})</li>\n<li>[[/r {5d6}[fire]]]{5d6 fire damage} ([[/r 2*{5d6}[fire]]]{critical})</li>\n<li>[[/r {5d6}[force]]]{5d6 force damage} ([[/r 2*{5d6}[force]]]{critical})</li>\n<li>[[/r {5d6}[negative]]]{5d6 negative damage} ([[/r 2*{5d6}[negative]]]{critical})</li>\n</ul>"
                 },
                 "rules": [],
                 "slug": null,
@@ -196,7 +352,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Energy Ray",
-            "sort": 200000,
+            "sort": 400000,
             "type": "melee"
         },
         {
@@ -241,7 +397,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -290,7 +446,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy (Touch)",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -334,7 +490,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Rapid Evolution",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -374,7 +530,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Extend Limbs",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -390,7 +546,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The hadrinnex purges the energy in its energy gland for an external discharge.</p>\n<p>It either blasts the energy to deal [[/r 7d6]] energy damage to creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true] save), or directs the energy to its weapon arms, making its weapon arm Strikes deal an extra [[/r 2d6]] energy damage for 1 minute.</p>\n<p>Either one expends the damage type stored in the hadrinnex's energy gland, as described below.</p>\n<p>After the energy is vented, the energy gland goes dormant. The hadrinnex loses its energy resistance and can't use energy ray until it uses Rapid Evolution to reconfigure its energy gland again. Directing energy to its weapon arms again removes any previous energy boost to its weapon arm.</p>"
+                    "value": "<p>The hadrinnex purges the energy in its energy gland for an external discharge.</p>\n<p>It either blasts the energy to deal 7d6 energy damage to creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true] save), or directs the energy to its weapon arms, making its weapon arm Strikes deal an extra 2d6 energy damage for 1 minute.</p>\n<p>Either one expends the damage type stored in the hadrinnex's energy gland, as described below.</p>\n<p>After the energy is vented, the energy gland goes dormant. The hadrinnex loses its energy resistance and can't use energy ray until it uses Rapid Evolution to reconfigure its energy gland again. Directing energy to its weapon arms again removes any previous energy boost to its weapon arm.</p>\n<hr />\n<p>Possible damage types for this ability:</p>\n<ul>\n<li>[[/r {7d6}[acid]]]{7d6 acid damage} ([[/r 2*{7d6}[acid]]]{critical})</li>\n<li>[[/r {7d6}[cold]]]{7d6 cold damage} ([[/r 2*{7d6}[cold]]]{critical})</li>\n<li>[[/r {7d6}[electricity]]]{7d6 electricity damage} ([[/r 2*{7d6}[electricity]]]{critical})</li>\n<li>[[/r {7d6}[fire]]]{7d6 fire damage} ([[/r 2*{7d6}[fire]]]{critical})</li>\n<li>[[/r {7d6}[force]]]{7d6 force damage} ([[/r 2*{7d6}[force]]]{critical})</li>\n<li>[[/r {7d6}[negative]]]{7d6 negative damage} ([[/r 2*{7d6}[negative]]]{critical})</li>\n<li>[[/r {7d6}[sonic]]]{7d6 sonic damage} ([[/r 2*{7d6}[sonic]]]{critical})</li>\n</ul>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Vent Energy]{Effect: Vent Energy}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -417,7 +573,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Vent Energy",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -445,7 +601,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -473,7 +629,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -501,7 +657,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
