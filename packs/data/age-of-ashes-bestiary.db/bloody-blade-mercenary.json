@@ -140,8 +140,8 @@
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -161,13 +161,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -189,16 +189,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -291,13 +291,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -319,16 +319,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 60,
@@ -395,7 +395,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -419,10 +420,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -608,7 +609,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -653,7 +655,7 @@
                     "value": ""
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "flags": {
@@ -780,10 +782,11 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": {
                             "all": [
-                                "hunted-prey",
-                                "action:seek"
+                                "action:seek",
+                                "hunted-prey"
                             ]
                         },
                         "selector": "perception",
@@ -792,15 +795,26 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": {
                             "all": [
-                                "hunted-prey",
-                                "action:track"
+                                "action:track",
+                                "hunted-prey"
                             ]
                         },
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey"
+                            ]
+                        }
                     }
                 ],
                 "slug": null,
@@ -884,6 +898,13 @@
                 },
                 "rules": [
                     {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitSwitch",
+                        "option": "first-attack",
+                        "toggleable": true
+                    },
+                    {
                         "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d8",
@@ -891,17 +912,10 @@
                         "label": "PF2E.SpecificRule.HuntPrey.FirstHitDamage",
                         "predicate": {
                             "all": [
-                                "precisionDamage"
+                                "first-attack"
                             ]
                         },
                         "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitSwitch",
-                        "option": "precisionDamage",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -1072,7 +1086,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 5
+                    "value": 4
                 },
                 "proficient": {
                     "value": 0

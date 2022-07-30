@@ -295,7 +295,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -319,10 +319,20 @@
                     "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures you know by name and have met in person"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -531,7 +541,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -659,8 +669,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "sonic"
                             },
                             "value": "2d10"
@@ -786,6 +798,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "force"
                             },
                             "value": "1d8"
@@ -888,7 +901,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1253,7 +1266,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1276,6 +1289,119 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "data": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "value": "1d10+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d10+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        },
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "data": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        },
+                        "overlayType": "override",
+                        "sort": 1
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "data": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        },
+                        "overlayType": "override",
+                        "sort": 4
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "data": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        },
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1346,8 +1472,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "emanation",
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "varies"
@@ -1367,8 +1493,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -1376,7 +1504,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1400,6 +1528,119 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "data": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightenedLevel": {},
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        },
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "data": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        },
+                        "overlayType": "override",
+                        "sort": 1
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "data": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        },
+                        "overlayType": "override",
+                        "sort": 4
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "data": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "spellType": {
+                                "value": "save"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        },
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3
+                    }
+                },
                 "prepared": {
                     "value": ""
                 },
@@ -1411,8 +1652,8 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1473,7 +1714,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1585,7 +1826,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1692,7 +1933,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1820,8 +2061,8 @@
                     "value": "<p>This sharp-taloned <em>+1 striking spiked gauntlet</em> appears to have been crafted from dragon scales, with claws built from iron. In addition to the typical weapon traits, a Cinderclaw gauntlet has the versatile S trait.</p>\n<p>On a critical hit, the <em>Cinderclaw gauntlet</em> deals an additional 1d6 fire damage.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">R</span> command</p>\n<p><strong>Trigger</strong> Your attack roll with the <em>Cinderclaw gauntlet</em> is a critical success.</p>\n<hr />\n<p><strong>Effect</strong> The creature you hit must succeed at a @Check[type:fortitude|dc:19|showDC:owner] save or be @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} by the gauntlet's acrid smoke. Creatures that don't need to breathe are immune.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1968,8 +2209,8 @@
                     "value": "<p>This small axe can be used in close combat or thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1989,13 +2230,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -2017,16 +2258,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -2095,8 +2336,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -2109,7 +2351,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 5
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -2126,7 +2368,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 160
+                        "gp": 5
                     }
                 },
                 "propertyRune1": {
@@ -2193,7 +2435,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "invested": false
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2286,10 +2529,11 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This piece of gold is emblazoned with an image representing Dahak. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
                     "invested": null
                 },
@@ -2363,12 +2607,12 @@
                 },
                 "damageRolls": {
                     "s6n235z629k2wsopna3z": {
-                        "damage": "2d4+5",
+                        "damage": "2d4 + 5",
                         "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>[[/r {1d6}[fire]]]{1d6 fire damage} on a critical hit</p>"
                 },
                 "rules": [
                     {
@@ -2459,7 +2703,7 @@
                 },
                 "damageRolls": {
                     "4482pg3na4ryuvnk87z8": {
-                        "damage": "1d6+5",
+                        "damage": "1d6 + 5",
                         "damageType": "slashing"
                     }
                 },
@@ -2478,7 +2722,7 @@
                         "agile",
                         "deadly-d6",
                         "sweep",
-                        "thrown-20"
+                        "thrown-10"
                     ]
                 },
                 "weaponType": {
@@ -2636,7 +2880,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Cost</strong> Expend a <em>@Compendium[pf2e.spells-srd.Harm]{Harm}</em> or <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em> spell.</p>\n<hr />\n<p><strong>Effect</strong> Malarunk siphons the destructive energies of positive or negative energy through a melee attack and into his foe. He makes a melee Strike and adds the spell's damage to the Strike's damage. This is negative damage if he expended a harm spell or positive damage if he expended a heal spell. The spell is expended with no effect if his Strike fails or hits a creature that isn't damaged by that energy type (such as if he hits a non-undead creature with a heal spell).</p>"
+                    "value": "<p><strong>Cost</strong> Expend a <em>@Compendium[pf2e.spells-srd.Harm]{Harm}</em> or <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em> spell.</p>\n<hr />\n<p>Malarunk siphon's the destructive energies of positive or negative energy through a melee attack and into his foe.</p>\n<p>Make a melee Strike and add the spell's damage to the Strike's damage.</p>\n<p>This is negative damage if Malarunk expended a <em>harm</em> spell or positive damage if he expended a <em>heal</em> spell. The spell is expended with no effect if his Strike fails or hits a creature that isn't damaged by that energy type (such as if he hit a non-undead creature with a <em>heal</em> spell).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2676,7 +2920,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Malarunk's turn begins.</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p>Malarunk is @Compendium[pf2e.conditionitems.Quickened]{Quickened} until the end of his turn, and can use the extra action to Stride or Strike. Due to his loud wailing while in a shrieking frenzy, Malarunk can't speak and automatically critically fails all Stealth checks.</p>"
+                    "value": "<p><strong>Trigger</strong> Malarunk's turn begins.</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Malarunk is @Compendium[pf2e.conditionitems.Quickened]{Quickened} until the end of his turn, and can use the extra action to Stride or Strike. Due to his loud wailing while in a shrieking frenzy, Malarunk can't speak and automatically critically fails all Stealth checks.</p>"
                 },
                 "requirements": {
                     "value": ""

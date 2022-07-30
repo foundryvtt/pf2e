@@ -25,15 +25,8 @@ function extractModifierAdjustments(
     selectors: string[],
     slug: string
 ): ModifierAdjustment[] {
-    const selectorMatches = Array.from(
-        new Set(
-            selectors.includes("all")
-                ? Object.values(adjustmentsRecord).flat()
-                : selectors.flatMap((s) => adjustmentsRecord[s] ?? [])
-        )
-    );
-
-    return selectorMatches.filter((a) => [slug, null].includes(a.slug));
+    const adjustments = Array.from(new Set(selectors.flatMap((s) => adjustmentsRecord[s] ?? [])));
+    return adjustments.filter((a) => [slug, null].includes(a.slug));
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
