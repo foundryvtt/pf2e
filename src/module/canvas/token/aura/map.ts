@@ -28,6 +28,10 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             const aura = this.get(slug) ?? new AuraRenderer({ token: this.token, ...data });
             if (!this.token.children.includes(aura)) {
                 this.set(slug, this.token.addChild(aura));
+            } else if (aura.radius !== data.radius) {
+                // The radius changed: remove old aura and set new one
+                this.delete(slug);
+                this.set(slug, new AuraRenderer({ token: this.token, ...data }));
             }
         }
 
