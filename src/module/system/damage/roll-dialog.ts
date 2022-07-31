@@ -121,11 +121,20 @@ export class DamageRollModifiersDialog extends Application {
                 ? `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`
                 : damageBaseModifier.toString();
         const damageTypes: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
-        const damageType = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
-        const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageType}</span>`;
+        const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
+        const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
         const modifierBreakdown = [damage.diceModifiers.filter((m) => m.diceNumber !== 0), damage.numericModifiers]
             .flat()
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
+            .sort((a, b) =>
+                a.damageType === damage.base.damageType && b.damageType === damage.base.damageType
+                    ? 0
+                    : a.damageType === damage.base.damageType
+                    ? -1
+                    : b.damageType === damage.base.damageType
+                    ? 1
+                    : 0
+            )
             .map((m) => {
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
                 const damageType =
