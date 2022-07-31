@@ -5,7 +5,7 @@ import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
 import { BracketedValue, RuleElementSource, RuleElementData, RuleValue } from "./data";
-import { isObject } from "@util";
+import { isObject, sluggify } from "@util";
 import { CheckRoll } from "@system/check/roll";
 import { ItemSourcePF2e } from "@item/data";
 
@@ -39,6 +39,7 @@ abstract class RuleElementPF2e {
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
         this.key = data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
+        this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
         this.suppressWarnings = options.suppressWarnings ?? false;
 
         const validActorType = this.constructor.validActorTypes.includes(item.actor.data.type);
@@ -62,8 +63,6 @@ abstract class RuleElementPF2e {
         if (this.data.predicate && !this.data.predicate.isValid) {
             console.debug(`Invalid predicate on ${this.item.name} (${this.item.uuid})`);
         }
-
-        this.slug = this.data.slug ?? null;
 
         if (item instanceof PhysicalItemPF2e) {
             this.requiresEquipped = !!(data.requiresEquipped ?? true);

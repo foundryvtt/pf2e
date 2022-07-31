@@ -61,9 +61,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         const label = this.data.label.includes(":")
             ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
             : this.data.label;
-        const slug =
-            this.data.slug ??
-            (this.type === "ability" && this.ability ? this.ability : sluggify(this.item.slug ?? label));
+        const slug = this.slug ?? (this.type === "ability" && this.ability ? this.ability : sluggify(label));
 
         if (selector && this.data.value) {
             // Strip out the title ("Effect:", etc.) of the effect name
