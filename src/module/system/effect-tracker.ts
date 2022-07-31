@@ -109,8 +109,7 @@ export class EffectTracker {
             }
         }
 
-        const firstGM = game.users.find((u) => u.active && u.isGM);
-        if (game.user === firstGM && game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+        if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
             for (const actor of updatedActors) {
                 await this.removeExpired(actor);
             }
@@ -130,14 +129,10 @@ export class EffectTracker {
             }
         }
 
-        for (const effect of expired) {
-            this.auraEffects.delete(effect.uuid);
-        }
-
         const owners = actor
             ? [actor]
             : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
-        for (const owner of owners) {
+        for (const owner of owners.filter((a) => game.user === a.primaryUpdater)) {
             await owner.deleteEmbeddedDocuments(
                 "Item",
                 expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
@@ -151,7 +146,10 @@ export class EffectTracker {
         const autoExpireEffects = !autoRemoveExpired && game.settings.get("pf2e", "automation.effectExpiration");
         if (!(autoExpireEffects || autoRemoveExpired)) return;
 
-        const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
+        const actors = encounter.combatants.contents
+            .flatMap((c) => c.actor ?? [])
+            .filter((a) => game.user === a.primaryUpdater);
+
         for (const actor of actors) {
             const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
             if (expiresNow.length === 0) continue;
