@@ -34,14 +34,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 ? game.i18n.localize("PF2E.SpellCategoryFocusCantrip")
                 : this.item.isCantrip
                 ? game.i18n.localize("PF2E.TraitCantrip")
-                : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
+                : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.system.category.value]);
 
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
                 id: variant.id,
                 sort: variant.data.sort,
-                actions: getActionGlyph(variant.data.data.time.value),
+                actions: getActionGlyph(variant.system.time.value),
             }))
             .sort((variantA, variantB) => variantA.sort - variantB.sort);
 
@@ -343,7 +343,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         const data = (() => {
             if (overlayType === "heighten") {
-                const heightening = this.item.data.data.heightening;
+                const heightening = this.item.system.heightening;
                 if (heightening?.type === "fixed") {
                     return heightening.levels[level as OneToTen];
                 }

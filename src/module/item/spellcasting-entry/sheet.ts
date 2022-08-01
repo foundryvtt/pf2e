@@ -83,7 +83,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         $html.find(".toggle-signature-spell").on("click", (event) => {
             const item = this.getItemFromEvent(event);
             if (item instanceof SpellPF2e) {
-                item.update({ "data.location.signature": !item.data.data.location.signature });
+                item.update({ "data.location.signature": !item.system.location.signature });
             }
         });
 

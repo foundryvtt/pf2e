@@ -33,7 +33,7 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
     tradition = TrickMagicTradition[this.skill];
 
     constructor(public actor: CharacterPF2e, public skill: TrickMagicItemSkill) {
-        const { abilities } = actor.data.data;
+        const { abilities } = actor;
         const { ability } = (["int", "wis", "cha"] as const)
             .map((ability) => {
                 return { ability, value: abilities[ability].value };
@@ -63,7 +63,7 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
             ability,
-            rank: actor.data.data.skills[skill].rank,
+            rank: actor.system.skills[skill].rank,
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
             check: {
