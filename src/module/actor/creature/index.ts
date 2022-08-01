@@ -404,7 +404,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected prepareInitiative(): void {
-        if (!(this.data.type === "character" || this.data.type === "npc")) return;
+        if (!this.isOfType("character", "npc")) return;
 
         const systemData = this.data.data;
         const checkType = systemData.attributes.initiative.ability || "perception";
@@ -421,22 +421,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const { rollNotes } = this.synthetics;
         const domains = ["all", "initiative", `${ability}-based`, proficiency];
+        const rollOptions = this.getRollOptions(domains);
         const modifiers = extractModifiers(this.synthetics, domains, {
-            test: [proficiency, ...this.getRollOptions(domains)],
+            test: [proficiency, ...rollOptions],
         });
         const notes = rollNotes.initiative?.map((n) => n.clone()) ?? [];
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
-        const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
+        const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers, rollOptions), {
             ability: checkType,
             label,
-            tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
+            tiebreakPriority: systemData.attributes.initiative.tiebreakPriority,
             roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
-                if (!("initiative" in this.data.data.attributes)) return null;
+                if (!("initiative" in this.system.attributes)) return null;
                 const rollOptions = Array.from(
                     new Set([...this.getRollOptions(domains), ...(args.options ?? []), proficiency])
                 );
 
-                if (this.data.type === "character") ensureProficiencyOption(rollOptions, initStat.rank ?? -1);
+                if (this.isOfType("character")) ensureProficiencyOption(rollOptions, initStat.rank ?? -1);
 
                 // Get or create the combatant
                 const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {

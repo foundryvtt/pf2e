@@ -1,7 +1,7 @@
 <div class="tab spells" data-group="primary" data-tab="spells">
     <ol class="entries-list">
         {{#each spellcastingEntries as |entry eid|}}
-            <li class="spellcasting-entry item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
+            <li class="spellcasting-entry item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
                 <div class="header">
                     <a class="drag-handle"><i class="fas fa-bars"></i></a>
                     {{#if entry.isPrepared}}
@@ -13,11 +13,23 @@
                     </h4>
                     <div class="spellDC inline-field">
                         <label title="{{entry.statistic.dc.breakdown}}">{{localize "PF2E.NPC.Spells.DCLabel"}}</label>
-                        <input type="number" class="dc-input modifier" data-display-value="{{entry.statistic.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.statistic.dc.value}}" placeholder="0" />
+                        <input type="number"
+                            class="dc-input modifier adjustable{{#if entry.adjustedHigher.dc}} adjusted-higher{{/if}}{{#if entry.adjustedLower.dc}} adjusted-lower{{/if}}"
+                            data-display-value="{{entry.statistic.dc.value}}"
+                            data-base-property="data.items.{{eid}}.data.spelldc.dc"
+                            value="{{entry.statistic.dc.value}}"
+                            placeholder="0"
+                        />
                     </div>
                     <div class="spellAttack inline-field">
                         <label class="rollable" title="{{entry.statistic.check.breakdown}}">{{localize "PF2E.NPC.Spells.AttackLabel"}}</label>
-                        <input type="number" class="attack-input modifier" data-display-value="{{entry.statistic.check.mod}}" data-base-property="data.items.{{eid}}.data.spelldc.value" value="{{numberFormat entry.statistic.check.mod decimals=0}}" placeholder="0" />
+                        <input type="number"
+                            class="attack-input modifier adjustable{{#if entry.adjustedHigher.mod}} adjusted-higher{{/if}}{{#if entry.adjustedLower.mod}} adjusted-lower{{/if}}"
+                            data-display-value="{{entry.statistic.check.mod}}"
+                            data-base-property="data.items.{{eid}}.data.spelldc.value"
+                            value="{{numberFormat entry.statistic.check.mod decimals=0}}"
+                            placeholder="0"
+                        />
                     </div>
                     <div class="ability-score inline-field">
                         <select data-base-property="data.items.{{eid}}.data.ability.value">

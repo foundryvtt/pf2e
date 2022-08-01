@@ -202,6 +202,7 @@ interface NPCPerception extends PerceptionData {
 interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
+    ability: AbilityString;
     label: string;
     expanded: string;
 }

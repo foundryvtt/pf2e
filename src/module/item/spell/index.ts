@@ -15,7 +15,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
-import { DicePF2e } from "@scripts/dice";
+import { combineTerms, DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamageType } from "@system/damage";
 import { CheckPF2e } from "@system/rolls";
@@ -231,7 +231,7 @@ class SpellPF2e extends ItemPF2e {
             // These must be padded to support - or roll parsing will fail (Foundry 0.8)
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            const formula = DicePF2e.combineTerms(baseFormulaFixed).formula;
+            const formula = combineTerms(baseFormulaFixed).formula;
             formulas.push(formula);
         }
 
