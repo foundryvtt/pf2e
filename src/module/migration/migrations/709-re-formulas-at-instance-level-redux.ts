@@ -29,14 +29,14 @@ export class Migration709REFormulasAtInstanceLevelRedux extends Migration702REFo
 
     /** Migrate nested roll formulas on rule elements */
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules = itemSource.data.rules.filter((r) => r.key === "BattleForm");
+        const rules = itemSource.system.rules.filter((r) => r.key === "BattleForm");
         for (const rule of rules) {
             this.walkObject(rule);
         }
 
         // Empty rule elements on wild-shape spell, as they interfere with battle forms
-        if (itemSource.type === "spell" && itemSource.data.slug === "wild-shape") {
-            itemSource.data.rules = [];
+        if (itemSource.type === "spell" && itemSource.system.slug === "wild-shape") {
+            itemSource.system.rules = [];
         }
     }
 }

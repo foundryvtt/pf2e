@@ -43,7 +43,7 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
         if (!(replacement instanceof ItemPF2e)) throw ErrorPF2e("Unexpected error retrieving compendium item");
         const newSource = replacement.toObject();
         if (current.type === "feat" && newSource.type === "feat") {
-            newSource.data.location = current.data.location;
+            newSource.system.location = current.system.location;
         }
         items.splice(items.indexOf(current), 1, newSource);
     }
@@ -52,7 +52,7 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
         if (actorSource.type === "character") {
             this.slugToPromise.forEach(async (promise, slug) => {
                 const current = actorSource.items.find(
-                    (itemSource) => itemSource.type === "feat" && itemSource.data.slug === slug
+                    (itemSource) => itemSource.type === "feat" && itemSource.system.slug === slug
                 );
                 if (current)
                     this.replaceItem({

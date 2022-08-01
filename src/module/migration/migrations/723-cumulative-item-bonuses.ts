@@ -30,7 +30,7 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
 
         const effects = source.items.filter((i): i is EffectSource => i.type === "effect");
         for (const effect of effects) {
-            if (effect.data.slug?.startsWith("stance-mountain")) {
+            if (effect.system.slug?.startsWith("stance-mountain")) {
                 source.items.findSplice((i) => i === effect);
             }
         }
@@ -38,31 +38,31 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
 
     /** Update feat, effect, and equipment items */
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!source.data.slug) return;
+        if (!source.system.slug) return;
 
         switch (source.type) {
             case "feat": {
-                if (source.data.slug === "animal-skin") {
-                    const feat = (await this.stanceFeats)[source.data.slug];
-                    if (feat) source.data.rules = feat.toObject().data.rules;
-                } else if (this.mountainPattern.test(source.data.slug)) {
-                    const feat = (await this.stanceFeats)[source.data.slug];
-                    if (feat) source.data.description.value = feat.description;
+                if (source.system.slug === "animal-skin") {
+                    const feat = (await this.stanceFeats)[source.system.slug];
+                    if (feat) source.system.rules = feat.toObject().system.rules;
+                } else if (this.mountainPattern.test(source.system.slug)) {
+                    const feat = (await this.stanceFeats)[source.system.slug];
+                    if (feat) source.system.description.value = feat.description;
                 }
                 return;
             }
             case "equipment": {
-                if (!source.data.slug.startsWith("bracers-of-armor-")) return;
+                if (!source.system.slug.startsWith("bracers-of-armor-")) return;
 
-                for (const rule of source.data.rules) {
+                for (const rule of source.system.rules) {
                     if (rule.key === "FlatModifier") rule.slug = "bracers-of-armor";
                 }
                 return;
             }
             case "effect": {
-                if (source.data.slug !== "spell-effect-mage-armor") return;
+                if (source.system.slug !== "spell-effect-mage-armor") return;
 
-                for (const rule of source.data.rules) {
+                for (const rule of source.system.rules) {
                     if (rule.key === "FlatModifier") rule.slug = "mage-armor";
                 }
             }

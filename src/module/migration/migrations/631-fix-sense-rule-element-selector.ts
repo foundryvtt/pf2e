@@ -11,7 +11,7 @@ export class Migration631FixSenseRuleElementSelector extends MigrationBase {
     } as const;
 
     override async updateItem(itemData: ItemSourcePF2e) {
-        itemData.data.rules.forEach((rule) => {
+        itemData.system.rules.forEach((rule) => {
             if (rule.key === "PF2E.RuleElement.Sense" && rule.selector) {
                 rule.selector = this.SENSE_SELECTOR_CONVERSION[rule.selector] ?? rule.selector;
             }

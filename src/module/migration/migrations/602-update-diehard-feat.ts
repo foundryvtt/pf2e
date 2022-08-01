@@ -15,11 +15,11 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
 
     override async updateActor(actorData: ActorSourcePF2e) {
         const diehard = actorData.items.find(
-            (itemData) => itemData.data.slug === "diehard" && itemData.type === "feat"
+            (itemData) => itemData.system.slug === "diehard" && itemData.type === "feat"
         );
 
         if (actorData.type === "character" && diehard !== undefined) {
-            actorData.data.attributes.dying.max = 4;
+            actorData.system.attributes.dying.max = 4;
             const diehardIndex = actorData.items.indexOf(diehard);
             const newDiehard = await this.diehardPromise;
             if (!(newDiehard instanceof FeatPF2e)) {

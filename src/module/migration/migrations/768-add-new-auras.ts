@@ -73,20 +73,20 @@ export class Migration768AddNewAuras extends MigrationBase {
     };
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type !== "feat" || source.data.rules.length > 0) return;
+        if (source.type !== "feat" || source.system.rules.length > 0) return;
 
-        switch (source.data.slug) {
+        switch (source.system.slug) {
             case "aura-of-life":
-                source.data.rules = [deepClone(this.#auraOfLife)];
+                source.system.rules = [deepClone(this.#auraOfLife)];
                 break;
             case "enlightened-presence":
-                source.data.rules = [deepClone(this.#enlightenedPresence)];
+                source.system.rules = [deepClone(this.#enlightenedPresence)];
                 break;
             case "eternal-blessing":
-                source.data.rules = deepClone(this.#eternalBlessing);
+                source.system.rules = deepClone(this.#eternalBlessing);
                 break;
             case "marshal-dedication":
-                source.data.rules = [deepClone(this.#marshalsAura)];
+                source.system.rules = [deepClone(this.#marshalsAura)];
                 break;
         }
     }

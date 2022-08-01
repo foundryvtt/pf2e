@@ -16,7 +16,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
     );
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: MaybeFlatAbilityRule[] = itemSource.data.rules;
+        const rules: MaybeFlatAbilityRule[] = itemSource.system.rules;
         for (const rule of rules) {
             if (
                 rule.key.endsWith("FlatModifier") &&
@@ -32,7 +32,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
             }
         }
 
-        if (itemSource.data.slug === "thief-racket" && !rules.some((rule) => rule.ability === "dex")) {
+        if (itemSource.system.slug === "thief-racket" && !rules.some((rule) => rule.ability === "dex")) {
             rules.unshift({
                 ability: "dex",
                 key: "FlatModifier",

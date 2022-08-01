@@ -9,7 +9,7 @@ export class Migration609LootActorTraits extends MigrationBase {
 
     override async updateActor(actorData: ActorSourcePF2e) {
         if (actorData.type === "loot") {
-            const systemData: MaybeWithNoTraits = actorData.data;
+            const systemData: MaybeWithNoTraits = actorData.system;
             if (!systemData.traits) {
                 systemData.traits = {
                     rarity: { value: "common" },

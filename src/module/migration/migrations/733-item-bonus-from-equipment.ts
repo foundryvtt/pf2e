@@ -9,11 +9,11 @@ export class Migration733ItemBonusFromEquipment extends MigrationBase {
     slugs = new Set(["animal-skin", "stance-mountain-stance", "spell-effect-mage-armor"]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const compendiumItem = this.slugs.has(source.data.slug ?? "");
+        const compendiumItem = this.slugs.has(source.system.slug ?? "");
         const homebrewItem = !compendiumItem && source.type === "feat";
         if (!(compendiumItem || homebrewItem)) return;
 
-        const rules: (RuleElementSource & { type?: string; fromEquipment?: boolean })[] = source.data.rules;
+        const rules: (RuleElementSource & { type?: string; fromEquipment?: boolean })[] = source.system.rules;
         for (const rule of rules) {
             if (rule.key === "FlatModifier" && rule.type === "item") {
                 rule.fromEquipment = false;

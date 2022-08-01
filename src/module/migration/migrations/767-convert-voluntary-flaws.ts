@@ -9,7 +9,7 @@ export class Migration767ConvertVoluntaryFlaws extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "ancestry") return;
 
-        const system: AncestrySystemDataMaybeOld = source.data;
+        const system: AncestrySystemDataMaybeOld = source.system;
         const oldFlaws = Object.values(system.voluntaryFlaws ?? {})
             .map((b) => b.selected)
             .filter((a): a is AbilityString => !!a);

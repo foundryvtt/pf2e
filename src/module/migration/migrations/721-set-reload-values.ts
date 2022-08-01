@@ -24,10 +24,10 @@ export class Migration721SetReloadValues extends MigrationBase {
     ]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!(source.type === "weapon" && setHasElement(this.toUpdate, source.data.slug))) {
+        if (!(source.type === "weapon" && setHasElement(this.toUpdate, source.system.slug))) {
             return;
         }
 
-        source.data.reload.value = "0";
+        source.system.reload.value = "0";
     }
 }

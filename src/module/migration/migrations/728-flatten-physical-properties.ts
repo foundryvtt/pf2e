@@ -14,7 +14,7 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (!isPhysicalData(source)) return;
 
-        const systemSource: MaybeOldSystemSource = source.data;
+        const systemSource: MaybeOldSystemSource = source.system;
 
         if (systemSource.currency) {
             delete systemSource.currency;
@@ -29,9 +29,9 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
         if (systemSource.equipped && systemSource.invested instanceof Object) {
             const value = systemSource.invested.value;
             if (typeof value === "boolean" || value === null) {
-                const traits: string[] = source.data.traits.value;
+                const traits: string[] = source.system.traits.value;
                 const shouldBeBoolean =
-                    traits.includes("invested") || (source.type === "armor" && source.data.potencyRune.value > 0);
+                    traits.includes("invested") || (source.type === "armor" && source.system.potencyRune.value > 0);
 
                 systemSource.equipped.invested = shouldBeBoolean ? Boolean(value) : null;
             }

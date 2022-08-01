@@ -14,7 +14,7 @@ export class Migration632DeleteOrphanedSpells extends MigrationBase {
             (itemData): itemData is SpellcastingEntrySource => itemData.type === "spellcastingEntry"
         );
         const orphans = spells.filter(
-            (spellData) => !entries.some((entryData) => entryData._id === spellData.data.location.value)
+            (spellData) => !entries.some((entryData) => entryData._id === spellData.system.location.value)
         );
         actorData.items = actorData.items.filter((itemData) => !orphans.some((orphan) => orphan._id === itemData._id));
     }

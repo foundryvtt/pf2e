@@ -32,12 +32,12 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updated) document.data.update(updated);
         }
 
-        document.data.update({ "data.schema.version": currentVersion });
+        document.data.update({ "system.schema.version": currentVersion });
         // Discriminate between item and actor without importing, which would throw errors on the migration test
         if ("items" in document && "token" in document) {
             for (const item of document.items) {
                 if (!item.schemaVersion) {
-                    item.data.update({ "data.schema.version": currentVersion });
+                    item.data.update({ "system.schema.version": currentVersion });
                 }
             }
         }

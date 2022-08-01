@@ -26,8 +26,8 @@ export class Migration725QuickClimbREs extends MigrationBase {
     ];
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type === "feat" && source.data.slug === "quick-climb") {
-            source.data.rules = deepClone(this.quickClimb);
+        if (source.type === "feat" && source.system.slug === "quick-climb") {
+            source.system.rules = deepClone(this.quickClimb);
         }
     }
 }

@@ -9,8 +9,8 @@ export class Migration742RMAbilityBoostLevels extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "class") return;
 
-        const systemData: MaybeWithAbilityBoostLevels = source.data;
-        if ("abilityBoostLevels" in source.data) {
+        const systemData: MaybeWithAbilityBoostLevels = source.system;
+        if ("abilityBoostLevels" in source.system) {
             delete systemData.abilityBoostLevels;
             systemData["-=abilityBoostLevels"] = null;
         }

@@ -24,7 +24,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "weapon") {
-            const systemData: MaybeOldData = itemSource.data;
+            const systemData: MaybeOldData = itemSource.system;
 
             // Category
             systemData.category =
@@ -71,7 +71,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
         }
 
         // Remove setting of ability on Strike rule elements
-        const { rules } = itemSource.data;
+        const { rules } = itemSource.system;
         const strikeRules = rules.filter((rule): rule is StrikeRuleSource => /\bStrike$/.test(rule.key));
         for (const rule of strikeRules) {
             rule.key = "Strike";

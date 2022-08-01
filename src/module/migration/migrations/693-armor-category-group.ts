@@ -17,7 +17,7 @@ export class Migration693ArmorCategoryGroup extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "armor") return;
 
-        const systemData: MaybeOldData = itemSource.data;
+        const systemData: MaybeOldData = itemSource.system;
 
         // Category
         systemData.category = (systemData.armorType ? systemData.armorType.value : systemData.category) || "simple";

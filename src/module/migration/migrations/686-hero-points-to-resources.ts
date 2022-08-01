@@ -9,7 +9,7 @@ export class Migration686HeroPointsToResources extends MigrationBase {
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
 
-        const systemSource: MaybeWithOldHeroPoints = actorSource.data;
+        const systemSource: MaybeWithOldHeroPoints = actorSource.system;
         if (systemSource.attributes.heroPoints) {
             const resources: { heroPoints: { value: number } } = systemSource.resources;
             resources.heroPoints = { value: systemSource.attributes.heroPoints.rank };

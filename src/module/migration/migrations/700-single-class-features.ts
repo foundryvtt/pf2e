@@ -66,12 +66,12 @@ export class Migration700SingleClassFeatures extends MigrationBase {
 
     /** Update the reference ID and name of the each feature entry */
     private migrateClass(itemSource: ClassSource): void {
-        for (const refId in itemSource.data.items) {
-            const itemRef = itemSource.data.items[refId];
+        for (const refId in itemSource.system.items) {
+            const itemRef = itemSource.system.items[refId];
             itemRef.level = Number(itemRef.level) || 1;
 
             for (const feature of this.features) {
-                if (itemSource.data.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
+                if (itemSource.system.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
                 if (this.itemIds[feature.slug].includes(itemRef.id)) {
                     itemRef.id = this.itemIds[feature.slug][0];
                     itemRef.name = feature.name;
@@ -83,11 +83,11 @@ export class Migration700SingleClassFeatures extends MigrationBase {
     /** Update the name, slug, and traits of each feature */
     private migrateFeature(itemSource: FeatSource): void {
         for (const feature of this.features) {
-            if (itemSource.data.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
-            if (itemSource.data.slug?.startsWith(`${feature.slug}-level-`)) {
-                itemSource.data.slug = feature.slug;
+            if (itemSource.system.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
+            if (itemSource.system.slug?.startsWith(`${feature.slug}-level-`)) {
+                itemSource.system.slug = feature.slug;
                 if (itemSource.name.startsWith(`${feature.name} `)) itemSource.name = feature.name;
-                itemSource.data.traits.value = [];
+                itemSource.system.traits.value = [];
             }
         }
     }
@@ -95,7 +95,7 @@ export class Migration700SingleClassFeatures extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "class") {
             this.migrateClass(itemSource);
-        } else if (itemSource.type === "feat" && itemSource.data.featType.value === "classfeature") {
+        } else if (itemSource.type === "feat" && itemSource.system.featType.value === "classfeature") {
             this.migrateFeature(itemSource);
         }
     }

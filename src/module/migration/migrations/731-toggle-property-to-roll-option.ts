@@ -15,9 +15,9 @@ export class Migration731TogglePropertyToRollOption extends Migration727TrimSelf
     #pathPattern = /^flags\.pf2e\.rollOptions\.([^.]+)\.([^.]+)$/;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        source.data.rules = source.data.rules.map((r) => this.trimPredicates(r)) as RuleElementSource[];
+        source.system.rules = source.system.rules.map((r) => this.trimPredicates(r)) as RuleElementSource[];
 
-        const rules: TogglePropertyOrRollOption[] = source.data.rules;
+        const rules: TogglePropertyOrRollOption[] = source.system.rules;
         for (const rule of [...rules]) {
             if (rule.key !== "ToggleProperty") continue;
 
@@ -38,7 +38,7 @@ export class Migration731TogglePropertyToRollOption extends Migration727TrimSelf
                 delete rule.default;
             }
 
-            if (sluggify(rule.label ?? "") === source.data.slug) {
+            if (sluggify(rule.label ?? "") === source.system.slug) {
                 delete rule.label;
             }
         }

@@ -10,11 +10,11 @@ export class Migration640CantripsAreNotZeroLevel extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "spell") return;
 
-        const level: LevelOld = itemData.data.level;
+        const level: LevelOld = itemData.system.level;
         if (level.value === 0) {
             level.value = 1;
-            if (!itemData.data.traits.value.includes("cantrip")) {
-                itemData.data.traits.value.push("cantrip");
+            if (!itemData.system.traits.value.includes("cantrip")) {
+                itemData.system.traits.value.push("cantrip");
             }
         }
     }

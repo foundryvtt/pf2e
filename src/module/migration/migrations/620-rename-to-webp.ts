@@ -38,7 +38,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
 
         if (actorData.type === "character") {
-            const details: CharacterDetails & { deity?: { image: string } } = actorData.data.details;
+            const details: CharacterDetails & { deity?: { image: string } } = actorData.system.details;
             if (details.deity) {
                 details.deity.image = this.renameToWebP(details.deity.image);
             }
@@ -53,17 +53,17 @@ export class Migration620RenameToWebp extends MigrationBase {
             effect.icon = this.renameToWebP(effect.icon);
         }
 
-        if (itemData.type === "consumable" && itemData.data.spell?.data) {
-            const embeddedSpell = itemData.data.spell.data;
+        if (itemData.type === "consumable" && itemData.system.spell?.data) {
+            const embeddedSpell = itemData.system.spell.data;
             embeddedSpell.img = this.renameToWebP(embeddedSpell.img);
         }
 
         if (itemData.type === "condition" && itemData.flags.pf2e?.condition) {
-            itemData.data.hud.img.value = this.renameToWebP(itemData.data.hud.img.value);
+            itemData.system.hud.img.value = this.renameToWebP(itemData.system.hud.img.value);
         }
 
         if (this.isABCK(itemData)) {
-            const embedData = itemData.data.items;
+            const embedData = itemData.system.items;
             const embeds = Object.values(embedData).filter(
                 (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed
             );

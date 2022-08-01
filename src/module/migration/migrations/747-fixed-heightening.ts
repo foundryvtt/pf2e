@@ -11,15 +11,15 @@ export class Migration747FixedHeightening extends MigrationBase {
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (item.type !== "spell") return;
 
-        const isAcidSplash = (item.data.slug ?? sluggify(item.name)) === "acid-splash";
-        if (item.data.heightening?.type === "fixed" && !isAcidSplash) return;
+        const isAcidSplash = (item.system.slug ?? sluggify(item.name)) === "acid-splash";
+        if (item.system.heightening?.type === "fixed" && !isAcidSplash) return;
 
         const sourceId = item.flags.core?.sourceId;
         if (sourceId && this.fixedHeightenSpells.has(sourceId)) {
             const spells = await this.loadSpells();
             const spell = spells[sourceId];
             if (spell && spell.data.data.heightening?.type === "fixed") {
-                item.data.heightening = spell.data.data.heightening;
+                item.system.heightening = spell.data.data.heightening;
                 this.overwriteDamage(item, spell.data);
             }
         }
@@ -28,8 +28,8 @@ export class Migration747FixedHeightening extends MigrationBase {
     protected overwriteDamage(item: SpellSource, newItem: SpellData) {
         const newDamage = newItem.data.damage;
         const newKeys = new Set(Object.keys(newDamage.value));
-        const diff = Object.keys(item.data.damage.value).filter((key) => !newKeys.has(key));
-        const damage: { value: Record<string, unknown> } = item.data.damage;
+        const diff = Object.keys(item.system.damage.value).filter((key) => !newKeys.has(key));
+        const damage: { value: Record<string, unknown> } = item.system.damage;
         damage.value = newDamage.value;
         for (const deleteKey of diff) {
             damage.value[`-=${deleteKey}`] = null;

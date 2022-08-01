@@ -19,7 +19,7 @@ export class Migration625EnsurePresenceOfSaves extends MigrationBase {
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (actorData.type !== "npc") return;
 
-        const saves: BaseNPCSaves = actorData.data.saves;
+        const saves: BaseNPCSaves = actorData.system.saves;
         for (const key of ["fortitude", "reflex", "will"] as const) {
             saves[key] ??= {
                 value: 0,

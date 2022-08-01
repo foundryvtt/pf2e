@@ -11,7 +11,7 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
     override async updateItem(itemData: ItemDataWithIdentification): Promise<void> {
         // This definitely shouldn't be here
         if (itemData.type === "melee") {
-            const systemData: MeleeWithIdentification = itemData.data;
+            const systemData: MeleeWithIdentification = itemData.system;
             if (systemData.identification) {
                 if ("game" in globalThis) {
                     itemData["data.-=identification"] = null;
@@ -23,7 +23,7 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
 
         if (!isPhysicalData(itemData)) return;
 
-        const unidentifiedDataData: UnidentifiedWithTraits = itemData.data.identification?.unidentified?.data;
+        const unidentifiedDataData: UnidentifiedWithTraits = itemData.system.identification?.unidentified?.data;
         if (unidentifiedDataData?.traits) {
             if ("game" in globalThis) {
                 itemData["data.identification.unidentified.data.-=traits"] = null;

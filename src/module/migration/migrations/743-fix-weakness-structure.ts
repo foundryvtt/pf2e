@@ -8,13 +8,13 @@ export class Migration743FixWeaknessStructure extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character" && source.type !== "npc") return;
 
-        if (!Array.isArray(source.data.traits.dv)) {
-            source.data.traits.dv = [];
+        if (!Array.isArray(source.system.traits.dv)) {
+            source.system.traits.dv = [];
         }
 
         // No sign of this being broken anywhere, but just to make sure
-        if (!Array.isArray(source.data.traits.dr)) {
-            source.data.traits.dr = [];
+        if (!Array.isArray(source.system.traits.dr)) {
+            source.system.traits.dr = [];
         }
     }
 }

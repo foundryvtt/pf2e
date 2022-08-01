@@ -6,18 +6,18 @@ export class Migration706FormulasAtInstanceLevelEverythingElse extends Migration
     static override version = 0.706;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (itemSource.data.description.value) {
-            itemSource.data.description.value = this.replaceInlineRolls(itemSource.data.description.value);
+        if (itemSource.system.description.value) {
+            itemSource.system.description.value = this.replaceInlineRolls(itemSource.system.description.value);
         }
 
         if (itemSource.type === "spell") {
-            for (const value of Object.values(itemSource.data.damage.value)) {
+            for (const value of Object.values(itemSource.system.damage.value)) {
                 value.value = this.raiseToInstanceLevel(value.value);
             }
         }
 
         if (itemSource.type === "melee") {
-            for (const value of Object.values(itemSource.data.damageRolls)) {
+            for (const value of Object.values(itemSource.system.damageRolls)) {
                 value.damage = this.raiseToInstanceLevel(value.damage);
             }
         }

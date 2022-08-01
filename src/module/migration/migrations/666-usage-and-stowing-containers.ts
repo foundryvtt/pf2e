@@ -45,16 +45,16 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
     ]);
 
     override async updateItem(itemSource: ItemSourcePF2e) {
-        if (!itemSource.data.traits) return;
+        if (!itemSource.system.traits) return;
 
-        const traits: TraitsWithUsage = itemSource.data.traits;
+        const traits: TraitsWithUsage = itemSource.system.traits;
         // Delete old usage "traits":
         if (typeof traits.usage?.value === "string") {
             const traitUsage = traits.usage.value;
             const isPhysical = isPhysicalData(itemSource);
-            const keepUsage = isPhysical && (traitUsage !== "held-in-one-hand" || itemSource.data.usage.value === "");
+            const keepUsage = isPhysical && (traitUsage !== "held-in-one-hand" || itemSource.system.usage.value === "");
             if (isPhysical && keepUsage) {
-                itemSource.data.usage.value = traits.usage.value;
+                itemSource.system.usage.value = traits.usage.value;
             }
             "game" in globalThis ? (traits["-=usage"] = null) : delete traits.usage;
         }
@@ -62,21 +62,21 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
         // Set usage on containers and whether they're for stowing
         if (itemSource.type !== "backpack") return;
 
-        const slug = itemSource.data.slug ?? sluggify(itemSource.name);
+        const slug = itemSource.system.slug ?? sluggify(itemSource.name);
 
         if (this.backpacks.has(slug)) {
-            itemSource.data.usage.value = "wornbackpack";
+            itemSource.system.usage.value = "wornbackpack";
         } else if (this.heldInTwoHands.has(slug)) {
-            itemSource.data.usage.value = "held-in-two-hands";
+            itemSource.system.usage.value = "held-in-two-hands";
         } else if (this.wornGarment.has(slug)) {
-            itemSource.data.usage.value = "worngarment";
+            itemSource.system.usage.value = "worngarment";
         } else if (this.wornGloves.has(slug)) {
-            itemSource.data.usage.value = "worngloves";
+            itemSource.system.usage.value = "worngloves";
         } else {
-            itemSource.data.usage.value = "worn";
+            itemSource.system.usage.value = "worn";
         }
 
-        itemSource.data.stowing = this.stowingContainers.has(slug);
+        itemSource.system.stowing = this.stowingContainers.has(slug);
     }
 }
 

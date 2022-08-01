@@ -99,7 +99,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = actorSource.data;
+        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = actorSource.system;
         systemData.resources ??= {};
 
         const resources = systemData.resources;
@@ -113,7 +113,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "feat") return;
 
-        const systemData = itemSource.data;
+        const systemData = itemSource.system;
 
         const rule = ((): (RuleElementSource & { [key: string]: unknown }) | null => {
             const slug = systemData.slug ?? sluggify(itemSource.name);
@@ -139,7 +139,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
             if (
                 ["composition-spells", "devotion-spells", "druidic-order", "hexes"].includes(slug) ||
-                (/^(?:arcane-school|bloodline)-/.test(slug) && itemSource.data.featType.value === "classfeature")
+                (/^(?:arcane-school|bloodline)-/.test(slug) && itemSource.system.featType.value === "classfeature")
             ) {
                 return {
                     key: "ActiveEffectLike",
@@ -162,6 +162,6 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             return null;
         })();
 
-        if (rule && this.needsRuleElement(itemSource.data.rules)) systemData.rules.push(rule);
+        if (rule && this.needsRuleElement(itemSource.system.rules)) systemData.rules.push(rule);
     }
 }

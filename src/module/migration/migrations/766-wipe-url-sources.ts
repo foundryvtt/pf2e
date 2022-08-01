@@ -9,11 +9,11 @@ export class Migration766WipeURLSources extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (
             (!("game" in globalThis) || source.flags.core?.sourceId?.startsWith("Compendium.pf2e.")) &&
-            isObject<{ value: unknown }>(source.data.source) &&
-            typeof source.data.source.value === "string" &&
-            source.data.source.value.startsWith("http")
+            isObject<{ value: unknown }>(source.system.source) &&
+            typeof source.system.source.value === "string" &&
+            source.system.source.value.startsWith("http")
         ) {
-            source.data.source.value = "";
+            source.system.source.value = "";
         }
     }
 }

@@ -37,11 +37,11 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
         }
 
         // Convert to lowercase
-        const tradition: Tradition = item.data.tradition;
+        const tradition: Tradition = item.system.tradition;
         tradition.value = makeLowercase(tradition.value);
 
         // Do not change regular spellcasting entries any further
-        if (tupleHasValue(LEGIT_TRADITIONS, item.data.tradition.value)) {
+        if (tupleHasValue(LEGIT_TRADITIONS, item.system.tradition.value)) {
             return;
         }
 
@@ -51,10 +51,10 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
         );
         const highestTradition = allEntries.reduce<HighestTradition>(
             (prev, current) => {
-                if (tupleHasValue(LEGIT_TRADITIONS, current.data.tradition.value)) {
-                    const value = current.data.spelldc.value ?? 0;
+                if (tupleHasValue(LEGIT_TRADITIONS, current.system.tradition.value)) {
+                    const value = current.system.spelldc.value ?? 0;
                     if (value > prev.value) {
-                        const name = current.data.tradition.value;
+                        const name = current.system.tradition.value;
                         return { name, value };
                     }
                 }

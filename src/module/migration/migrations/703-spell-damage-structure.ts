@@ -7,10 +7,10 @@ export class Migration703SpellDamageStructure extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "spell") {
-            if (!(itemSource.data.damage instanceof Object)) {
-                itemSource.data.damage = { value: {} };
-            } else if (!(itemSource.data.damage.value instanceof Object)) {
-                itemSource.data.damage.value = {};
+            if (!(itemSource.system.damage instanceof Object)) {
+                itemSource.system.damage = { value: {} };
+            } else if (!(itemSource.system.damage.value instanceof Object)) {
+                itemSource.system.damage.value = {};
             }
         }
     }

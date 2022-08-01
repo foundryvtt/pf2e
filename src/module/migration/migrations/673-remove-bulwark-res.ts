@@ -14,7 +14,7 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
     }
 
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
-        const { rules } = item.data;
+        const { rules } = item.system;
         if (item.type === "armor") {
             const index = rules.findIndex(
                 (rule: RESourceWithAbility) =>
@@ -26,7 +26,7 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
             if (index !== -1) rules.splice(index);
         }
 
-        const slug = item.data.slug ?? sluggify(item.name);
+        const slug = item.system.slug ?? sluggify(item.name);
         if (item.type === "feat" && slug === "mighty-bulwark" && !this.hasRuleElement(rules)) {
             const newRules = [
                 {

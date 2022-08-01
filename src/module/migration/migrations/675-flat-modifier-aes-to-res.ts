@@ -47,7 +47,7 @@ export class Migration675FlatModifierAEsToREs extends MigrationBase {
                 const reData = this.toRuleElement(change.value);
                 if (reData) {
                     effect.changes.splice(effect.changes.indexOf(change), 1);
-                    itemSource.data.rules.push(reData);
+                    itemSource.system.rules.push(reData);
                 }
             }
             if (effect.changes.length === 0) {

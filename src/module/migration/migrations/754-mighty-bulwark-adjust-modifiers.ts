@@ -6,7 +6,7 @@ export class Migration754MightyBulwarkAdjustModifiers extends MigrationBase {
     static override version = 0.754;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!(source.type === "feat" && source.data.slug === "mighty-bulwark")) {
+        if (!(source.type === "feat" && source.system.slug === "mighty-bulwark")) {
             return;
         }
 
@@ -33,6 +33,6 @@ export class Migration754MightyBulwarkAdjustModifiers extends MigrationBase {
             },
         ];
 
-        source.data.rules = newRules;
+        source.system.rules = newRules;
     }
 }

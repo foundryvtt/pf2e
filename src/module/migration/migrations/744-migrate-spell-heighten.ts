@@ -7,7 +7,7 @@ export class Migration744MigrateSpellHeighten extends MigrationBase {
 
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (item.type !== "spell") return;
-        const system: SpellScalingOld = item.data;
+        const system: SpellScalingOld = item.system;
         if (system.scaling) {
             system.heightening = {
                 type: "interval",

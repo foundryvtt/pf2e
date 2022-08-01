@@ -13,35 +13,35 @@ export class Migration729CumulativeItemBonusCleanup extends MigrationBase {
     ]);
 
     private isExplorersClothing(source: ItemSourcePF2e): source is ArmorSource {
-        return source.type === "armor" && this.#explorersClothingVariants.has(source.data.slug ?? "");
+        return source.type === "armor" && this.#explorersClothingVariants.has(source.system.slug ?? "");
     }
 
     private isStanceEffectOrAnimalSkinFeat(source: ItemSourcePF2e): boolean {
         return (
-            (source.type === "effect" && source.data.slug === "stance-mountain-stance") ||
-            (source.type === "feat" && source.data.slug === "animal-skin")
+            (source.type === "effect" && source.system.slug === "stance-mountain-stance") ||
+            (source.type === "feat" && source.system.slug === "animal-skin")
         );
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (this.isExplorersClothing(source)) {
             // Early versions of explorer's clothing lacked group, base, and possibly the comfort trait
-            source.data.category = "unarmored";
-            source.data.group = "cloth";
-            source.data.baseItem = "explorers-clothing";
-            if (!source.data.traits.value.includes("comfort")) {
-                source.data.traits.value.push("comfort");
+            source.system.category = "unarmored";
+            source.system.group = "cloth";
+            source.system.baseItem = "explorers-clothing";
+            if (!source.system.traits.value.includes("comfort")) {
+                source.system.traits.value.push("comfort");
             }
         } else if (this.isStanceEffectOrAnimalSkinFeat(source)) {
             // Fix slug on AdjustModifier RE
-            const rule = source.data.rules.find((r) => r.key === "AdjustModifier" && r.slug === "clothing-explorers");
+            const rule = source.system.rules.find((r) => r.key === "AdjustModifier" && r.slug === "clothing-explorers");
             if (rule) rule.slug = "explorers-clothing";
         } else if (source.type === "equipment") {
             // Fix every equipment FlatModifier RE getting a "bracers-of-armor" slug
-            const isBracers = !!source.data.slug?.startsWith("bracers-of-armor-");
-            for (const rule of source.data.rules) {
+            const isBracers = !!source.system.slug?.startsWith("bracers-of-armor-");
+            for (const rule of source.system.rules) {
                 if (rule.key === "FlatModifier" && rule.slug === "bracers-of-armor" && !isBracers) {
-                    if (source.data.slug === "metuaks-pendant") {
+                    if (source.system.slug === "metuaks-pendant") {
                         rule.slug = "metuaks-pendant";
                     } else {
                         delete rule.slug;
