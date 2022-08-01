@@ -27,7 +27,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         if (this.actor.isOfType("character")) {
             return {
                 value: this.filter((item) => !!item.isInvested).length,
-                max: this.actor.data.data.resources.investiture.max,
+                max: this.actor.system.resources.investiture.max,
             };
         }
 

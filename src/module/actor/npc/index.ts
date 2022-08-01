@@ -32,11 +32,11 @@ class NPCPF2e extends CreaturePF2e {
 
     /** This NPC's ability scores */
     get abilities(): Abilities {
-        return deepClone(this.data.data.abilities);
+        return deepClone(this.system.abilities);
     }
 
     get description(): string {
-        return this.data.data.details.publicNotes;
+        return this.system.details.publicNotes;
     }
 
     /** Does this NPC have the Elite adjustment? */
@@ -97,7 +97,7 @@ class NPCPF2e extends CreaturePF2e {
 
         this.flags.pf2e.lootable ??= false;
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         systemData.actions = [];
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
@@ -119,7 +119,7 @@ class NPCPF2e extends CreaturePF2e {
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
     override prepareEmbeddedDocuments(): void {
         const { traits } = this;
-        const { level } = this.data.data.details;
+        const { level } = this.system.details;
 
         const baseLevel = level.value;
         level.value = traits.has("elite") ? baseLevel + 1 : traits.has("weak") ? baseLevel - 1 : baseLevel;
@@ -180,7 +180,7 @@ class NPCPF2e extends CreaturePF2e {
         data.details.level.base = baseLevel;
 
         // Compute 10+mod ability scores from ability modifiers
-        for (const ability of Object.values(this.data.data.abilities)) {
+        for (const ability of Object.values(this.system.abilities)) {
             ability.mod = Number(ability.mod) || 0;
             ability.value = ability.mod * 2 + 10;
         }
@@ -346,7 +346,7 @@ class NPCPF2e extends CreaturePF2e {
                     visible: false,
                     roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                         console.warn(
-                            `Rolling skill checks via actor.data.data.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                            `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
                         );
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         const rollOptions = args.options ?? [];
@@ -429,7 +429,7 @@ class NPCPF2e extends CreaturePF2e {
                     .join(", ");
                 stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                     console.warn(
-                        `Rolling skill checks via actor.data.data.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                        `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
                     );
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
                     const rollOptions = args.options ?? [];
@@ -693,15 +693,15 @@ class NPCPF2e extends CreaturePF2e {
             const { ability, tradition } = entry;
 
             // There are still some bestiary entries where these values are strings
-            entry.data.data.spelldc.dc = Number(entry.data.data.spelldc.dc);
-            entry.data.data.spelldc.value = Number(entry.data.data.spelldc.value);
+            entry.system.spelldc.dc = Number(entry.system.spelldc.dc);
+            entry.system.spelldc.value = Number(entry.system.spelldc.value);
             // Modifier adjustments aren't implemented in `Statistic` yet
             if (this.isElite) {
-                entry.data.data.spelldc.dc += 2;
-                entry.data.data.spelldc.value += 2;
+                entry.system.spelldc.dc += 2;
+                entry.system.spelldc.value += 2;
             } else if (this.isWeak) {
-                entry.data.data.spelldc.dc -= 2;
-                entry.data.data.spelldc.value -= 2;
+                entry.system.spelldc.dc -= 2;
+                entry.system.spelldc.value -= 2;
             }
 
             const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
@@ -715,14 +715,14 @@ class NPCPF2e extends CreaturePF2e {
             const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
             // Check Modifiers, calculate using the user configured value
-            const baseMod = Number(entry.data.data?.spelldc?.value ?? 0);
+            const baseMod = Number(entry.system?.spelldc?.value ?? 0);
             const attackModifiers = [
                 new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED),
                 ...extractModifiers(this.synthetics, [...baseSelectors, ...attackSelectors]),
             ];
 
             // Save Modifiers, reverse engineer using the user configured value - 10
-            const baseDC = Number(entry.data.data?.spelldc?.dc ?? 0);
+            const baseDC = Number(entry.system?.spelldc?.dc ?? 0);
             const saveModifiers = [
                 new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, MODIFIER_TYPE.UNTYPED),
                 ...extractModifiers(this.synthetics, [...baseSelectors, ...saveSelectors]),
@@ -746,7 +746,7 @@ class NPCPF2e extends CreaturePF2e {
                 },
             });
 
-            entry.data.data.statisticData = entry.statistic.getChatData();
+            entry.system.statisticData = entry.statistic.getChatData();
         }
 
         // Initiative
@@ -797,7 +797,7 @@ class NPCPF2e extends CreaturePF2e {
             });
 
             saves[saveType] = stat;
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            mergeObject(this.system.saves[saveType], stat.getCompatData());
             systemData.saves[saveType].base = base;
         }
 
@@ -900,8 +900,8 @@ class NPCPF2e extends CreaturePF2e {
             }
         })();
         const newHPAdjustment = this.getHpAdjustment(this.getBaseLevel(), adjustment);
-        const currentHP = this.data.data.attributes.hp.value;
-        const maxHP = this.data.data.attributes.hp.max;
+        const currentHP = this.system.attributes.hp.value;
+        const maxHP = this.system.attributes.hp.max;
         const newHP = (() => {
             if (isElite) {
                 if (adjustment === "weak") {
@@ -911,15 +911,15 @@ class NPCPF2e extends CreaturePF2e {
                 }
             } else if (isWeak) {
                 if (adjustment === "elite") {
-                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
+                    this.system.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
                     return currentHP + currentHPAdjustment + newHPAdjustment;
                 } else if (adjustment === "normal") {
-                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment;
+                    this.system.attributes.hp.max = maxHP + currentHPAdjustment;
                     return currentHP + currentHPAdjustment;
                 }
             } else {
                 if (adjustment === "elite") {
-                    this.data.data.attributes.hp.max = currentHP + newHPAdjustment;
+                    this.system.attributes.hp.max = currentHP + newHPAdjustment;
                     return currentHP + newHPAdjustment;
                 } else if (adjustment === "weak") {
                     return currentHP - newHPAdjustment;

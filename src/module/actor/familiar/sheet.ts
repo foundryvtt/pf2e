@@ -37,7 +37,7 @@ export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
         // list of abilities that can be selected as spellcasting ability
         const abilities = CONFIG.PF2E.abilities;
 
-        const size = CONFIG.PF2E.actorSizes[familiar.data.data.traits.size.value] ?? null;
+        const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
         const familiarAbilities = this.actor.master?.attributes?.familiarAbilities ?? { value: 0 };
 
         // Update save labels
@@ -70,7 +70,7 @@ export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
 
         $html.find("[data-attack-roll] *").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "attack"]);
-            this.actor.data.data.attack.roll({ event, options });
+            this.actor.system.attack.roll({ event, options });
         });
     }
 }

@@ -7,14 +7,14 @@ import { DAMAGE_DIE_FACES } from "@system/damage";
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class StrikeWeaponTraits {
     static adjustWeapon(weapon: WeaponPF2e): void {
-        const traits = weapon.data.data.traits.value;
+        const traits = weapon.system.traits.value;
         for (const trait of traits) {
             switch (trait.replace(/-d?\d{1,3}$/, "")) {
                 case "fatal-aim": {
                     if (weapon.rangeIncrement && weapon.handsHeld === 2) {
                         const fatal = trait.replace("-aim", "");
                         if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal)) {
-                            weapon.data.data.traits.value.push(fatal);
+                            weapon.system.traits.value.push(fatal);
                         }
                     }
                     break;
@@ -23,7 +23,7 @@ class StrikeWeaponTraits {
                     if (weapon.handsHeld === 1) {
                         const die = /(d\d{1,2})$/.exec(trait)?.[1];
                         if (setHasElement(DAMAGE_DIE_FACES, die)) {
-                            weapon.data.data.damage.die = die;
+                            weapon.system.damage.die = die;
                         }
                     }
                     break;
@@ -35,7 +35,7 @@ class StrikeWeaponTraits {
     }
 
     static createAttackModifiers(weapon: WeaponPF2e): ModifierPF2e[] {
-        const traitsAndTags = [weapon.data.data.traits.value, weapon.data.data.traits.otherTags].flat();
+        const traitsAndTags = [weapon.system.traits.value, weapon.system.traits.otherTags].flat();
 
         const getLabel = (traitOrTag: string): string => {
             const traits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;

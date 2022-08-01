@@ -117,7 +117,7 @@ export class AutomaticBonusProgression {
     /** Remove stored runes from specific magic weapons or otherwise set prior to enabling ABP */
     static cleanupRunes(weapon: WeaponPF2e): void {
         const setting = game.settings.get("pf2e", "automaticBonusVariant");
-        const systemData = weapon.data.data;
+        const systemData = weapon.system;
 
         switch (setting) {
             case "noABP":
@@ -143,7 +143,7 @@ export class AutomaticBonusProgression {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
         const potencyBonuses = potency.filter((p) => p.type === "potency");
         for (const bonus of potencyBonuses) {
-            bonus.property = deepClone(weapon.data.data.runes.property);
+            bonus.property = deepClone(weapon.system.runes.property);
         }
     }
 

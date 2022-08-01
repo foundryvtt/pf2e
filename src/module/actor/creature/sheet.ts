@@ -68,7 +68,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         return {
             ...sheetData,
-            languages: createSheetTags(CONFIG.PF2E.languages, actor.data.data.traits.languages),
+            languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
@@ -197,7 +197,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 ["dying", "wounded"].includes(className)
             );
             if (condition) {
-                const currentMax = this.actor.data.data.attributes[condition]?.max;
+                const currentMax = this.actor.system.attributes[condition]?.max;
                 if (event.type === "click" && currentMax) {
                     this.actor.increaseCondition(condition, { max: currentMax });
                 } else if (event.type === "contextmenu") {
@@ -274,7 +274,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
                 item.update(data);
             } else if (item instanceof SpellPF2e) {
-                const max = item.data.data.location.uses?.max;
+                const max = item.system.location.uses?.max;
                 if (!max) return;
                 item.update({ "data.location.uses.value": max });
             }
@@ -282,7 +282,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
         $strikesList.find(attackSelectors).on("click", (event) => {
-            if (!("actions" in this.actor.data.data)) {
+            if (!("actions" in this.actor.system)) {
                 throw ErrorPF2e("Strikes are not supported on this actor");
             }
 
@@ -362,7 +362,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
         const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
-        const rootAction = this.actor.data.data.actions?.[actionIndex];
+        const rootAction = this.actor.system.actions?.[actionIndex];
         if (!rootAction) return null;
 
         const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
@@ -381,7 +381,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             return;
         }
 
-        spell.update({ "data.location.signature": !spell.data.data.location.signature });
+        spell.update({ "data.location.signature": !spell.system.location.signature });
     }
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
