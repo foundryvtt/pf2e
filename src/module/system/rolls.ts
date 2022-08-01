@@ -482,7 +482,7 @@ class CheckPF2e {
             }
         }
 
-        const systemFlags = deepClone(message.data.flags.pf2e);
+        const systemFlags = deepClone(message.flags.pf2e);
         const context = systemFlags.context;
         if (!context) return;
 
@@ -516,7 +516,7 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = message.data.flags.pf2e.context?.dc ?? null;
+        const dc = message.flags.pf2e.context?.dc ?? null;
         const oldFlavor = message.data.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
         const createNewFlavor = keptRoll === newRoll && !!degree;
@@ -524,7 +524,7 @@ class CheckPF2e {
         const newFlavor = createNewFlavor
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
-                  const target = message.data.flags.pf2e.context?.target ?? null;
+                  const target = message.flags.pf2e.context?.target ?? null;
                   const flavor = await this.createResultFlavor({ degree, target });
                   if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
@@ -532,7 +532,7 @@ class CheckPF2e {
             : oldFlavor;
 
         // If this was an initiative roll, apply the result to the current encounter
-        const { initiativeRoll } = message.data.flags.core;
+        const { initiativeRoll } = message.flags.core;
         if (initiativeRoll) {
             const combatant = message.token?.combatant;
             await combatant?.parent.setInitiative(combatant.id, newRoll.total);
@@ -610,7 +610,7 @@ class CheckPF2e {
                 return fromUuid(target.token);
             })();
 
-            const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.data.token.toObject() ?? {}))
+            const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.prototypeToken.toObject() ?? {}))
                 .playersCanSeeName;
             const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
 

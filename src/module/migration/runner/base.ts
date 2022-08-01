@@ -124,7 +124,7 @@ export class MigrationRunnerBase {
             version: {
                 schema: fromVersion,
                 foundry: "game" in globalThis ? game.version : undefined,
-                system: "game" in globalThis ? game.system.data.version : undefined,
+                system: "game" in globalThis ? game.system.version : undefined,
             },
         };
     }

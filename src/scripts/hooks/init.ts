@@ -5,7 +5,6 @@ import {
     AmbientLightPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
-    SightLayerPF2e,
     TemplateLayerPF2e,
     TokenLayerPF2e,
     TokenPF2e,
@@ -18,14 +17,11 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
 import { PF2ECONFIG } from "@scripts/config";
-import { createV10Shims } from "@scripts/create-v10-shims";
 
 export const Init = {
     listen: (): void => {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
-
-            createV10Shims();
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
@@ -45,7 +41,6 @@ export const Init = {
             CONFIG.Token.layerClass = TokenLayerPF2e;
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
-            CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
 
@@ -64,9 +59,6 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
-
-            // Remove fonts available only on Windows 10/11
-            CONFIG.fontFamilies = CONFIG.fontFamilies.filter((f) => !["Courier", "Helvetica", "Times"].includes(f));
 
             // Insert templates into DOM tree so Applications can render into
             if (document.querySelector("#ui-top") !== null) {
@@ -140,8 +132,8 @@ export const Init = {
             });
 
             // Soft-set system-preferred core settings until they've been explicitly set by the GM
-            const schema = foundry.data.PrototypeTokenData.schema;
-            schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+            // const schema = foundry.data.PrototypeTokenData.schema;
+            // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             // Register stuff with the Foundry client
             registerSettings();

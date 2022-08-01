@@ -49,7 +49,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
 
         return {
             options: this.options,
-            systemVersion: game.system.data.version,
+            systemVersion: game.system.version,
             latestSchemaVersion,
             actors,
             items,

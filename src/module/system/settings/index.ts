@@ -53,7 +53,7 @@ export function registerSettings() {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
         default: "{}",
-        type: String,
+        type: Object,
         scope: "world",
         onChange: () => {
             game.pf2e.compendiumBrowser.loadSettings();
@@ -148,7 +148,7 @@ export function registerSettings() {
         name: "World System Version",
         scope: "world",
         config: false,
-        default: game.system.data.version,
+        default: game.system.version,
         type: String,
     });
 

@@ -160,15 +160,15 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
-                    (docSource.token as Partial<foundry.data.PrototypeTokenSource>) = {
-                        disposition: docSource.token.disposition,
-                        height: docSource.token.height,
-                        img: docSource.token.img.replace(
+                    (docSource.prototypeToken as Partial<foundry.data.PrototypeTokenSource>) = {
+                        disposition: docSource.prototypeToken.disposition,
+                        height: docSource.prototypeToken.height,
+                        img: docSource.prototypeToken.img.replace(
                             "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
                             "systems/pf2e/"
                         ) as VideoPath,
-                        name: docSource.token.name,
-                        width: docSource.token.width,
+                        name: docSource.prototypeToken.name,
+                        width: docSource.prototypeToken.width,
                     };
 
                     if (docSource.type === "npc") {

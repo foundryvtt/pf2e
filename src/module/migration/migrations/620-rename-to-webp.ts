@@ -28,8 +28,8 @@ export class Migration620RenameToWebp extends MigrationBase {
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         actorData.img = this.renameToWebP(actorData.img);
 
-        if (typeof actorData.token?.img === "string") {
-            actorData.token.img = this.renameToWebP(actorData.token.img);
+        if (typeof actorData.prototypeToken?.img === "string") {
+            actorData.prototypeToken.img = this.renameToWebP(actorData.prototypeToken.img);
         }
 
         // Icons for active effects

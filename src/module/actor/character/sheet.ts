@@ -137,7 +137,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.feats = this.prepareFeats();
 
         const formulasByLevel = await this.prepareCraftingFormulas();
-        const flags = this.actor.data.flags.pf2e;
+        const flags = this.actor.flags.pf2e;
         const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
         const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
@@ -200,7 +200,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.adjustedBonusLimitBulk =
             this.actor.attributes.bonusLimitBulk !== baseData.data.attributes.bonusLimitBulk;
 
-        sheetData.tabVisibility = deepClone(this.actor.data.flags.pf2e.sheetTabs);
+        sheetData.tabVisibility = deepClone(this.actor.flags.pf2e.sheetTabs);
 
         // Return data for rendering
         return sheetData;
@@ -434,7 +434,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Filter strikes
         $actions.find(".toggle-unready-strikes").on("click", () => {
-            this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.data.flags.pf2e.showUnreadyStrikes);
+            this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.flags.pf2e.showUnreadyStrikes);
         });
 
         const $strikesList = $actions.find(".strikes-list");
@@ -608,7 +608,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const formula = this.knownFormulas[itemUuid ?? ""];
             if (!formula) return;
 
-            if (this.actor.data.flags.pf2e.quickAlchemy) {
+            if (this.actor.flags.pf2e.quickAlchemy) {
                 const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - itemQuantity;
                 if (reagentValue < 0) {
                     ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
@@ -619,7 +619,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return craftItem(formula.item, itemQuantity, this.actor, true);
             }
 
-            if (this.actor.data.flags.pf2e.freeCrafting) {
+            if (this.actor.flags.pf2e.freeCrafting) {
                 const itemId = itemUuid?.split(".").pop() ?? "";
                 if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
                     return craftSpellConsumable(formula.item, itemQuantity, this.actor);

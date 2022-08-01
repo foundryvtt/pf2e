@@ -47,10 +47,10 @@ export class VehiclePF2e extends ActorPF2e {
         size.width = dimensions.width;
 
         // Set the prototype token's dimensions according to the vehicle dimensions
-        if (this.data.token.flags?.pf2e?.linkToActorSize) {
+        if (this.data.prototypeToken.flags?.pf2e?.linkToActorSize) {
             const { width, height } = this.getTokenDimensions();
-            this.data.token.width = width;
-            this.data.token.height = height;
+            this.data.prototypeToken.width = width;
+            this.data.prototypeToken.height = height;
         }
     }
 
@@ -96,7 +96,7 @@ export class VehiclePF2e extends ActorPF2e {
         user: UserPF2e
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
-        if (this.data.token.flags?.pf2e?.linkToActorSize) {
+        if (this.data.prototypeToken.flags?.pf2e?.linkToActorSize) {
             const { space } = this.system.details;
             const spaceUpdates = {
                 width: changed.data?.details?.space?.wide ?? space.wide,

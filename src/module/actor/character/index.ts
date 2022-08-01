@@ -86,6 +86,7 @@ import {
     CharacterArmorClass,
     CharacterAttributes,
     CharacterData,
+    CharacterFlags,
     CharacterProficiency,
     CharacterSaves,
     CharacterSkillData,
@@ -2097,6 +2098,8 @@ class CharacterPF2e extends CreaturePF2e {
 
 interface CharacterPF2e {
     readonly data: CharacterData;
+
+    flags: CharacterFlags;
 
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect",

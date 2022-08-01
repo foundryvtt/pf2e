@@ -34,7 +34,10 @@ interface BaseCreatureData<
     TType extends CreatureType = CreatureType,
     TSystemData extends CreatureSystemData = CreatureSystemData,
     TSource extends BaseCreatureSource<TType> = BaseCreatureSource<TType>
-> extends Omit<BaseCreatureSource<TType>, "data" | "system" | "effects" | "flags" | "items" | "token" | "type">,
+> extends Omit<
+            BaseCreatureSource<TType>,
+            "data" | "system" | "effects" | "flags" | "items" | "prototypeToken" | "type"
+        >,
         BaseActorDataPF2e<TItem, TType, TSystemData, TSource> {}
 
 /** Skill and Lore statistics for rolling. Both short and longform are supported, but eventually only long form will be */

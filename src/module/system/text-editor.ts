@@ -10,7 +10,7 @@ import { Statistic } from "./statistic";
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
     static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string {
-        const enriched = super.enrichHTML(this.enrichString(content, options), options);
+        const enriched = super.enrichHTML(this.enrichString(content, options), { ...options, async: false });
         const $html = $("<div>").html(enriched);
         const actor = options.rollData?.actor ?? null;
         UserVisibilityPF2e.process($html, { actor });

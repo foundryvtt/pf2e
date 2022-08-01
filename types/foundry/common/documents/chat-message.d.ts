@@ -9,6 +9,14 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseChatMessage extends abstract.Document {
+            content: string;
+
+            speaker: foundry.data.ChatSpeakerSource;
+
+            rolls: Roll[];
+
+            flags: foundry.data.ChatMessageFlags;
+
             static override get schema(): typeof data.ChatMessageData;
 
             static override get metadata(): ChatMessageMetadata;
@@ -34,8 +42,6 @@ declare module foundry {
         }
 
         interface BaseChatMessage {
-            readonly data: data.ChatMessageData<BaseChatMessage>;
-
             readonly parent: null;
 
             get documentName(): "ChatMessage";

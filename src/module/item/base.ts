@@ -531,7 +531,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         user: UserPF2e
     ): Promise<void> {
         // Set default icon
-        if (this.data._source.img === foundry.data.ItemData.DEFAULT_ICON) {
+        if (this.data._source.img === ItemPF2e.DEFAULT_ICON) {
             this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 

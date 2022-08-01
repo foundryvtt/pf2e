@@ -65,8 +65,8 @@ class PackLoader {
     }
 }
 
-export class CompendiumBrowser extends Application {
-    settings!: Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+class CompendiumBrowser extends Application {
+    settings!: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
     tabs: Record<Exclude<TabName, "settings">, TabType>;
     packLoader = new PackLoader();
@@ -88,13 +88,14 @@ export class CompendiumBrowser extends Application {
             hazard: new BrowserTab.Hazards(this),
             spell: new BrowserTab.Spells(this),
         };
+
         this.loadSettings();
         this.initCompendiumList();
         this.injectActorDirectory();
         this.hookTab();
     }
 
-    override get title() {
+    override get title(): string {
         return game.i18n.localize("PF2E.CompendiumBrowser.Title");
     }
 
@@ -118,7 +119,7 @@ export class CompendiumBrowser extends Application {
         });
     }
 
-    override async _render(force?: boolean, options?: RenderOptions) {
+    override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         await super._render(force, options);
         this.activateResultListeners();
     }
@@ -130,7 +131,7 @@ export class CompendiumBrowser extends Application {
         await super.close(options);
     }
 
-    private initCompendiumList() {
+    private initCompendiumList(): void {
         const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
             action: {},
             bestiary: {},
@@ -211,11 +212,11 @@ export class CompendiumBrowser extends Application {
         this.settings = settings;
     }
 
-    loadSettings() {
-        this.settings = JSON.parse(game.settings.get("pf2e", "compendiumBrowserPacks"));
+    loadSettings(): void {
+        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
     }
 
-    hookTab() {
+    hookTab(): void {
         this.navigationTab = this._tabs[0];
         const tabCallback = this.navigationTab.callback;
         this.navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
@@ -233,7 +234,7 @@ export class CompendiumBrowser extends Application {
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
-    async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null) {
+    async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null): Promise<void> {
         const filter: string[] = [];
 
         if (entry.isRitual || entry.isFocusPool) {
@@ -337,7 +338,7 @@ export class CompendiumBrowser extends Application {
                         pack.load = formData.has(`${t}-${key}`);
                     }
                 }
-                await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
+                await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
                 this.loadSettings();
                 this.initCompendiumList();
                 for (const tab of Object.values(this.tabs)) {
@@ -804,3 +805,7 @@ export class CompendiumBrowser extends Application {
         this.tabs[tab].scrollLimit = 100;
     }
 }
+
+type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+
+export { CompendiumBrowser, CompendiumBrowserSettings };

@@ -195,8 +195,8 @@ declare global {
          */
         get system(): {
             id: string;
+            version: string;
             data: {
-                author: string;
                 authors: string[];
                 availability: number;
                 bugs: string;
@@ -235,7 +235,6 @@ declare global {
                 title: string;
                 unavailable: boolean;
                 url: string;
-                version: string;
             };
             documentTypes: {
                 Actor: string[];

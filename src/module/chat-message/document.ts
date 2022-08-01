@@ -1,12 +1,12 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
-import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
@@ -27,31 +27,34 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         super(data, context);
 
         // Backward compatibility for roll messages prior to `rollerId` (user ID) being stored with the roll
-        if (this.roll instanceof CheckRoll) {
-            this.roll.roller ??= this.user ?? null;
+        for (const roll of this.rolls) {
+            if (roll instanceof CheckRoll) {
+                roll.roller ??= this.user ?? null;
+            }
         }
     }
 
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
-        if (this.isRoll && this.roll.terms.some((term) => term instanceof FateDie || term instanceof Coin)) {
+        const firstRoll = this.rolls.at(0);
+        if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
-        const isDamageRoll = !!this.data.flags.pf2e.damageRoll;
-        const fromRollTable = !!this.data.flags.core.RollTable;
+        const isDamageRoll = !!this.flags.pf2e.damageRoll;
+        const fromRollTable = !!this.flags.core.RollTable;
         const isRoll = isDamageRoll || this.isRoll;
-        const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
+        const isD20 = (isRoll && firstRoll.dice[0]?.faces === 20) || false;
         return isRoll && !(isD20 || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
     get actor(): ActorPF2e | null {
-        return ChatMessagePF2e.getSpeakerActor(this.data.speaker);
+        return ChatMessagePF2e.getSpeakerActor(this.speaker);
     }
 
     /** If this is a check or damage roll, it will have target information */
     get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
-        const targetUUID = this.data.flags.pf2e.context?.target?.token;
+        const targetUUID = this.flags.pf2e.context?.target?.token;
         if (!targetUUID) return null;
 
         const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
@@ -64,7 +67,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
     get journalEntry(): JournalEntry | null {
-        const uuid = this.data.flags.pf2e.journalEntry;
+        const uuid = this.flags.pf2e.journalEntry;
         if (!uuid) return null;
 
         const entryId = /^JournalEntry.([A-Za-z0-9]{16})$/.exec(uuid)?.at(1);
@@ -78,7 +81,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        return !!this.data.flags.pf2e.context?.isReroll;
+        return !!this.flags.pf2e.context?.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
@@ -98,20 +101,21 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const domItem = this.getItemFromDOM();
             if (domItem) return domItem;
 
-            const origin = this.data.flags.pf2e?.origin ?? null;
+            const origin = this.flags.pf2e?.origin ?? null;
             const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
             return this.actor?.items.get(match?.[1] ?? "") ?? null;
         })();
+        if (!item) return null;
 
         // Assign spellcasting entry, currently only used for trick magic item
-        const { tradition } = this.data.flags.pf2e?.casting ?? {};
-        const isCharacter = item && item.actor instanceof CharacterPF2e;
-        if (tradition && item instanceof SpellPF2e && !item.spellcasting && isCharacter) {
+        const { tradition } = this.flags.pf2e?.casting ?? {};
+        const isCharacter = item.actor.isOfType("character");
+        if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
             const trick = new TrickMagicItemEntry(item.actor, TraditionSkills[tradition]);
             item.trickMagicEntry = trick;
         }
 
-        const spellVariant = this.data.flags.pf2e.spellVariant;
+        const spellVariant = this.flags.pf2e.spellVariant;
         if (spellVariant && item?.isOfType("spell")) {
             return item.loadVariant({
                 overlayIds: spellVariant.overlayIds,
@@ -130,7 +134,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const item = itemSource
                 ? new ItemPF2e(itemSource, {
                       parent: this.actor,
-                      fromConsumable: this.data.flags?.pf2e?.isFromConsumable,
+                      fromConsumable: this.flags?.pf2e?.isFromConsumable,
                   })
                 : null;
             return item as Embedded<ItemPF2e> | null;
@@ -140,15 +144,15 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     async showDetails() {
-        if (!this.data.flags.pf2e.context) return;
+        if (!this.flags.pf2e.context) return;
         new ChatRollDetails(this).render(true);
     }
 
     /** Get the token of the speaker if possible */
     get token(): Embedded<TokenDocumentPF2e> | null {
         if (!game.scenes) return null;
-        const sceneId = this.data.speaker.scene ?? "";
-        const tokenId = this.data.speaker.token ?? "";
+        const sceneId = this.speaker.scene ?? "";
+        const tokenId = this.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
@@ -161,7 +165,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         super.prepareData();
 
         const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
-        this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
+        this.content = TextEditorPF2e.enrichHTML(this.content, { rollData });
     }
 
     override async getHTML(): Promise<JQuery> {
@@ -181,7 +185,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const dcResult = $html[0].querySelector(".dc-result");
         if (dcResult?.innerHTML.trim() === "") dcResult.remove();
 
-        if (!this.data.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
+        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
 
             // Clean up styling of old damage messages
@@ -272,6 +276,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
 interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
+
+    flags: ChatMessageFlagsPF2e;
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
 

@@ -176,8 +176,7 @@ declare global {
 
         readonly parent: TParent | null;
 
-        // V10 shim
-        readonly flags: this["data"]["flags"];
+        prototypeToken: foundry.data.PrototypeTokenData;
 
         get collection(): Actors<this>;
 

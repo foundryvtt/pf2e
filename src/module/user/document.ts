@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor/base";
-import { UserDataPF2e } from "./data";
+import { UserFlagsPF2e } from "./data";
 import { PlayerConfigPF2e, UserSettingsPF2e } from "./player-config";
 
 export class UserPF2e extends User<ActorPF2e> {
@@ -13,13 +13,13 @@ export class UserPF2e extends User<ActorPF2e> {
     /** Set user settings defaults */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.flags = mergeObject(
+        this.flags = mergeObject(
             {
                 pf2e: {
                     settings: deepClone(PlayerConfigPF2e.defaultSettings),
                 },
             },
-            this.data.flags
+            this.flags
         );
     }
 
@@ -34,5 +34,5 @@ export class UserPF2e extends User<ActorPF2e> {
 }
 
 export interface UserPF2e extends User<ActorPF2e> {
-    readonly data: UserDataPF2e<this>;
+    flags: UserFlagsPF2e;
 }

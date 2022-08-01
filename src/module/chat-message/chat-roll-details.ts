@@ -17,7 +17,7 @@ class ChatRollDetails extends Application {
     }
 
     override getData() {
-        const { context, modifiers } = this.message.data.flags.pf2e;
+        const { context, modifiers } = this.message.flags.pf2e;
         const rollOptions = [...(context?.options ?? [])].sort();
         return { context, modifiers, rollOptions };
     }
