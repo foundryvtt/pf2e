@@ -20,7 +20,6 @@ export { Migration618MigrateItemImagePaths } from "./618-migrate-item-img-paths"
 export { Migration619TraditionLowercaseAndRemoveWandScroll } from "./619-remove-wand-and-scroll-tradition";
 export { Migration620RenameToWebp } from "./620-rename-to-webp";
 export { Migration621RemoveConfigSpellSchools } from "./621-remove-config-spell-schools";
-export { Migration622RemoveOldTokenEffectIcons } from "./622-remove-old-token-effect-icons";
 export { Migration623NumifyPotencyRunes } from "./623-numify-potency-runes";
 export { Migration624RemoveTokenEffectIconFlags } from "./624-removed-token-effect-icon-flags";
 export { Migration625EnsurePresenceOfSaves } from "./625-ensure-presence-of-saves";
