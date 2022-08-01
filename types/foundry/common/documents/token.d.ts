@@ -6,6 +6,24 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseToken extends abstract.Document {
+            readonly actorLink: boolean;
+
+            img: VideoPath;
+
+            displayName: TokenDisplayMode;
+
+            disposition: TokenDisposition;
+
+            width: number;
+
+            height: number;
+
+            sightAngle: number;
+
+            scale: number;
+
+            light: foundry.data.LightData<this>;
+
             static override get schema(): typeof data.TokenData;
 
             static override get metadata(): TokenMetadata;

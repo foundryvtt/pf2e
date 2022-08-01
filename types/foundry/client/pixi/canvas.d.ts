@@ -102,6 +102,9 @@ declare global {
         /*  Properties and Attributes                   */
         /* -------------------------------------------- */
 
+        /** The currently displayed darkness level, which may override the saved Scene value. */
+        get darknessLevel(): number;
+
         /** The id of the currently displayed Scene. */
         get id(): string | null;
 

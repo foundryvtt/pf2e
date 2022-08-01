@@ -70,7 +70,7 @@ export class WorldClockSettings extends FormApplication {
 
         const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
             const value = ((): unknown => {
-                if (key === "syncDarknessScene") return canvas.scene?.data.flags.pf2e.syncDarkness;
+                if (key === "syncDarknessScene") return canvas.scene?.flags.pf2e.syncDarkness;
                 const rawValue = game.settings.get("pf2e", `worldClock.${key}`);
 
                 // Present the world-creation timestamp as an HTML datetime-locale input

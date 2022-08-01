@@ -9,33 +9,47 @@ declare global {
              * @property data The constructed data object for the document.
              */
             class BaseScene extends abstract.Document {
+                grid: data.GridData;
+
+                darkness: number;
+
+                tokenVision: boolean;
+
+                globalLight: boolean;
+
+                hasGlobalThreshold: boolean;
+
+                globalLightThreshold: number;
+
+                flags: Record<string, Record<string, unknown>>;
+
+                /** A reference to the Collection of Drawing instances in the Scene document, indexed by _id. */
+                readonly drawings: this["data"]["drawings"];
+
+                /** A reference to the Collection of AmbientLight instances in the Scene document, indexed by _id. */
+                readonly lights: this["data"]["lights"];
+
+                /** A reference to the Collection of Note instances in the Scene document, indexed by _id. */
+                readonly notes: this["data"]["notes"];
+
+                /** A reference to the Collection of AmbientSound instances in the Scene document, indexed by _id. */
+                readonly sounds: this["data"]["sounds"];
+
+                /** A reference to the Collection of MeasuredTemplate instances in the Scene document, indexed by _id. */
+                readonly templates: this["data"]["templates"];
+
+                /** A reference to the Collection of Token instances in the Scene document, indexed by _id. */
+                readonly tokens: this["data"]["tokens"];
+
+                /** A reference to the Collection of Tile instances in the Scene document, indexed by _id. */
+                readonly tiles: this["data"]["tiles"];
+
+                /** A reference to the Collection of Wall instances in the Scene document, indexed by _id. */
+                readonly walls: this["data"]["walls"];
+
                 static override get schema(): typeof data.SceneData;
 
                 static override get metadata(): SceneMetadata;
-
-                /** A reference to the Collection of Drawing instances in the Scene document, indexed by _id. */
-                get drawings(): this["data"]["drawings"];
-
-                /** A reference to the Collection of AmbientLight instances in the Scene document, indexed by _id. */
-                get lights(): this["data"]["lights"];
-
-                /** A reference to the Collection of Note instances in the Scene document, indexed by _id. */
-                get notes(): this["data"]["notes"];
-
-                /** A reference to the Collection of AmbientSound instances in the Scene document, indexed by _id. */
-                get sounds(): this["data"]["sounds"];
-
-                /** A reference to the Collection of MeasuredTemplate instances in the Scene document, indexed by _id. */
-                get templates(): this["data"]["templates"];
-
-                /** A reference to the Collection of Token instances in the Scene document, indexed by _id. */
-                get tokens(): this["data"]["tokens"];
-
-                /** A reference to the Collection of Tile instances in the Scene document, indexed by _id. */
-                get tiles(): this["data"]["tiles"];
-
-                /** A reference to the Collection of Wall instances in the Scene document, indexed by _id. */
-                get walls(): this["data"]["walls"];
 
                 /**
                  * Get the Canvas dimensions which would be used to display this Scene.

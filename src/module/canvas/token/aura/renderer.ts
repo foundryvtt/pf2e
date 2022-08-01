@@ -72,7 +72,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
         return (
             this.token.actor?.alliance === "party" ||
-            !this.token.scene?.data.tokenVision ||
+            !this.token.scene?.tokenVision ||
             this.traits.has("visual") ||
             this.traits.has("auditory") ||
             game.user.isGM
@@ -134,7 +134,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
         style.align = "center";
 
-        const label = [this.radius, canvas.scene?.data.gridUnits ?? game.system.data.gridUnits].join("");
+        const label = [this.radius, canvas.scene?.grid.units ?? game.system.data.gridUnits].join("");
         const text = new PreciseText(label, style);
         text.position.set(this.center.x, this.center.y - this.radiusPixels);
 
