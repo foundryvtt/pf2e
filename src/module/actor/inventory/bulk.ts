@@ -64,7 +64,7 @@ export class InventoryBulk {
 
         // Figure out which items have stack groups and which don't
         const nonStackingItems = items.filter(
-            (i) => i.isOfType("backpack") || (i.data.data.bulk.per === 1 && i.data.data.baseItem)
+            (i) => i.isOfType("backpack") || (i.system.bulk.per === 1 && i.system.baseItem)
         );
         const nonStackingIds = new Set(nonStackingItems.map((i) => i.id));
         const stackingItems = items.filter((i) => !nonStackingIds.has(i.id));
@@ -74,10 +74,10 @@ export class InventoryBulk {
 
         // Group by stack group, then combine into quantities, then compute bulk from combined quantities
         const stackingBehaviors = stackingItems.map((item) => ({
-            per: item.data.data.bulk.per,
+            per: item.system.bulk.per,
             item,
-            group: item.data.data.baseItem,
-            bulk: new Bulk({ light: item.data.data.bulk.value }).convertToSize(item.size, actorSize),
+            group: item.system.baseItem,
+            bulk: new Bulk({ light: item.system.bulk.value }).convertToSize(item.size, actorSize),
         }));
         const grouped = groupBy(stackingBehaviors, (d) => `${d.group}-${d.per}-${d.bulk.toLightBulk()}`);
         const bulks = [...grouped.values()].map((dataEntries) => {

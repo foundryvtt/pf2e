@@ -16,9 +16,9 @@ export class VehiclePF2e extends ActorPF2e {
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
     override get dimensions(): ActorDimensions {
         return {
-            length: this.data.data.details.space.long,
-            width: this.data.data.details.space.wide,
-            height: this.data.data.details.space.high,
+            length: this.system.details.space.long,
+            width: this.system.details.space.wide,
+            height: this.system.details.space.high,
         };
     }
 
@@ -33,7 +33,7 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareBaseData();
 
         // Vehicles never have negative healing
-        const { attributes, details } = this.data.data;
+        const { attributes, details } = this.system;
 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
@@ -41,7 +41,7 @@ export class VehiclePF2e extends ActorPF2e {
         details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
-        const { size } = this.data.data.traits;
+        const { size } = this.system.traits;
         const { dimensions } = this;
         size.length = dimensions.length;
         size.width = dimensions.width;
@@ -58,10 +58,7 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareDerivedData();
 
         this.saves = this.prepareSaves();
-        this.data.data.saves.fortitude = mergeObject(
-            this.data.data.saves.fortitude,
-            this.saves.fortitude.getCompatData()
-        );
+        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, this.saves.fortitude.getCompatData());
     }
 
     private prepareSaves(): { fortitude: Statistic } {
@@ -74,7 +71,7 @@ export class VehiclePF2e extends ActorPF2e {
                 label: "PF2E.ModifierTitle",
                 slug,
                 type: "untyped",
-                modifier: this.data.data.saves.fortitude.value,
+                modifier: this.system.saves.fortitude.value,
             }),
             ...extractModifiers(synthetics, domains),
         ];
@@ -100,7 +97,7 @@ export class VehiclePF2e extends ActorPF2e {
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
         if (this.data.token.flags?.pf2e?.linkToActorSize) {
-            const { space } = this.data.data.details;
+            const { space } = this.system.details;
             const spaceUpdates = {
                 width: changed.data?.details?.space?.wide ?? space.wide,
                 length: changed.data?.details?.space?.long ?? space.long,

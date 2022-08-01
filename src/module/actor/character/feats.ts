@@ -23,7 +23,7 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         const classFeatSlots = actor.class?.grantedFeatSlots;
         const skillPrepend = (() => {
-            if (actor.background && Object.keys(actor.background.data.data.items).length) {
+            if (actor.background && Object.keys(actor.background.system.items).length) {
                 return [{ id: actor.background?.id, label: game.i18n.localize("PF2E.FeatBackgroundShort") }];
             }
             return [];
@@ -106,7 +106,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         const getGrantedItems = (grants: ItemGrantData[]): GrantedFeat[] => {
             return grants.flatMap((grant) => {
                 const item = this.actor.items.get(grant.id);
-                return item?.isOfType("feat") && !item.data.data.location
+                return item?.isOfType("feat") && !item.system.location
                     ? { feat: item, grants: getGrantedItems(item.data.flags.pf2e.itemGrants) }
                     : [];
             });
@@ -126,7 +126,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         const location = (category?.slotted ? slotId : category?.id) || null;
         const isFeatValidInSlot = !!category?.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
-        const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === location);
+        const existing = this.actor.itemTypes.feat.filter((x) => x.system.location === location);
 
         // If the feat is invalid in the targeted category and no alternative was found, warn and exit out
         if (options.categoryId !== "bonus" && !category) {
@@ -143,7 +143,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         }
 
         // Handle case where its actually dragging away from a location
-        if (alreadyHasFeat && feat.data.data.location && !isFeatValidInSlot) {
+        if (alreadyHasFeat && feat.system.location && !isFeatValidInSlot) {
             return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "data.location": null }]);
         }
 
@@ -205,7 +205,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         // put the feats in their feat slots
         const feats = this.actor.itemTypes.feat.sort((f1, f2) => f1.data.sort - f2.data.sort);
         for (const feat of feats) {
-            if (feat.data.flags.pf2e.grantedBy && !feat.data.data.location) {
+            if (feat.data.flags.pf2e.grantedBy && !feat.system.location) {
                 const granter = this.actor.items.get(feat.data.flags.pf2e.grantedBy.id);
                 if (granter?.isOfType("feat")) continue;
             }
@@ -217,7 +217,7 @@ class CharacterFeats extends Collection<FeatCategory> {
 
             const base = this.combineGrants(feat);
 
-            const location = feat.data.data.location;
+            const location = feat.system.location;
             const categoryForSlot = categoryBySlot[location ?? ""];
             const slot = categoryForSlot?.slots[location ?? ""];
             if (slot && slot.feat) {
@@ -230,7 +230,7 @@ class CharacterFeats extends Collection<FeatCategory> {
             } else {
                 // Perhaps this belongs to a un-slotted group matched on the location or
                 // on the feat type. Failing that, it gets dumped into bonuses.
-                const group = this.get(feat.data.data.location ?? "") ?? this.get(feat.featType);
+                const group = this.get(feat.system.location ?? "") ?? this.get(feat.featType);
                 if (group && !group.slotted) {
                     group.feats.push(base);
                     feat.category = group;
@@ -293,7 +293,7 @@ class FeatCategory {
     isFeatValid(feat: FeatPF2e): boolean {
         const resolvedFeatType = (() => {
             if (feat.featType === "archetype") {
-                if (feat.data.data.traits.value.includes("skill")) {
+                if (feat.system.traits.value.includes("skill")) {
                     return "skill";
                 } else {
                     return "class";

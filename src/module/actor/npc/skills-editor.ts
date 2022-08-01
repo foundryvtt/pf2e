@@ -30,7 +30,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const trainedSkills: Record<string, NPCSkillData> = {};
         const untrainedSkills: Record<string, NPCSkillData> = {};
 
-        const { skills } = this.npc.data.data;
+        const { skills } = this.npc.system;
         for (const [key, skill] of Object.entries(skills)) {
             if (this.isLoreSkill(key)) {
                 skill.isLore = true;
@@ -167,7 +167,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * @param skillId ID of the skill to search for.
      */
     private findSkillItem(skillId: string): Embedded<LorePF2e> | null {
-        const { skills } = this.npc.data.data;
+        const { skills } = this.npc.system;
         const skillData = objectHasKey(skills, skillId) ? skills[skillId] : null;
 
         if (!skillData) {

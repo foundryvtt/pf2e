@@ -225,7 +225,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         $html.find(".roll-init").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { attributes } = this.actor.data.data;
+            const { attributes } = this.actor.system;
             if (!$target.hasClass("disabled") && "initiative" in attributes) {
                 const { skipDialog, secret } = eventToRollParams(event);
                 const options = secret ? ["secret"] : [];
@@ -253,7 +253,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             event.preventDefault();
             const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
             const isSecret = event.currentTarget.getAttribute("data-secret");
-            const attributes: object = this.actor.data.data.attributes;
+            const attributes: object = this.actor.system.attributes;
             const attribute: unknown = objectHasKey(attributes, key) ? attributes[key] : null;
             const isRollable = (property: unknown): property is { roll: RollFunction } =>
                 property instanceof Object && "roll" in property && typeof property["roll"] === "function";
@@ -709,7 +709,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const dropId = $dropItemEl.attr("data-item-id") ?? "";
                 const target = this.actor.items.get(dropId);
                 if (target?.isOfType("spell") && item.id !== dropId) {
-                    const sourceLocation = item.data.data.location.value;
+                    const sourceLocation = item.system.location.value;
 
                     // Inner helper to test if two spells are siblings
                     const testSibling = (item: SpellPF2e, test: SpellPF2e) => {
@@ -995,7 +995,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const item = this.actor.items.get(itemId);
         if (!item?.isOfType("backpack")) return;
 
-        const isCollapsed = item.data.data.collapsed ?? false;
+        const isCollapsed = item.system.collapsed ?? false;
         await item.update({ "data.collapsed": !isCollapsed });
     }
 
@@ -1075,7 +1075,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                             // Delete all child objects
                             const itemsToDelete: string[] = [];
                             for (const item of this.actor.itemTypes.spell) {
-                                if (item.data.data.location.value === itemId) {
+                                if (item.system.location.value === itemId) {
                                     itemsToDelete.push(item.id);
                                 }
                             }
