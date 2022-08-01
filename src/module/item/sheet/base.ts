@@ -332,7 +332,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         $html.find(".add-skill-variant").on("click", (_event) => {
             if (!(this.item instanceof LorePF2e)) return;
-            const variants = this.item.data.data.variants ?? {};
+            const variants = this.item.system.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
                 [`data.variants.${index}`]: { label: "+X in terrain", options: "" },

@@ -176,7 +176,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { flags } = this.data;
+        const { flags } = this;
         flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
@@ -280,10 +280,8 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     getChatData(htmlOptions: EnrichHTMLOptionsPF2e = {}, _rollOptions: Record<string, unknown> = {}): ItemSummaryData {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
-        return this.processChatData(htmlOptions, {
-            ...duplicate(this.data.data),
-            traits: this.traitChatData(),
-        });
+        const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
+        return this.processChatData(htmlOptions, deepClone(systemData));
     }
 
     protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
@@ -317,28 +315,19 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Roll a NPC Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1): void {
         if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
         if (!this.actor?.isOfType("hazard")) {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
         // Prepare roll data
         const itemData: any = this.getChatData();
-        const rollData: HazardSystemData & { item?: unknown; itemBonus?: number } = deepClone(this.actor.data.data);
+        const rollData: HazardSystemData & { item?: unknown; itemBonus?: number } = deepClone(this.actor.system);
         const parts = ["@itemBonus"];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
 
         rollData.item = itemData;
-
-        let adjustment = 0;
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === "elite")) {
-            adjustment = 2;
-        } else if (traits.some((trait) => trait === "weak")) {
-            adjustment = -2;
-        }
-
-        rollData.itemBonus = Number(itemData.bonus.value) + adjustment;
+        rollData.itemBonus = Number(itemData.bonus.value) || 0;
 
         if (multiAttackPenalty === 2) parts.push(itemData.map2);
         else if (multiAttackPenalty === 3) parts.push(itemData.map3);
@@ -364,24 +353,23 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Roll NPC Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
+    rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false): void {
         if (!this.isOfType("melee")) throw ErrorPF2e("Wrong item type!");
         if (!this.actor.isOfType("hazard")) {
             throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
 
         // Get item and actor data and format it for the damage roll
-        const item = this.data;
-        const itemData = item.data;
+        const systemData = this.system;
         const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).data;
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 
         // If the NPC is using the updated NPC Attack data object
-        if (itemData.damageRolls && typeof itemData.damageRolls === "object") {
-            Object.keys(itemData.damageRolls).forEach((key) => {
-                if (itemData.damageRolls[key].damage) parts.push(itemData.damageRolls[key].damage);
-                partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
+        if (systemData.damageRolls && typeof systemData.damageRolls === "object") {
+            Object.keys(systemData.damageRolls).forEach((key) => {
+                if (systemData.damageRolls[key].damage) parts.push(systemData.damageRolls[key].damage);
+                partsType.push(`${systemData.damageRolls[key].damage} ${systemData.damageRolls[key].damageType}`);
             });
         }
 
@@ -394,15 +382,8 @@ class ItemPF2e extends Item<ActorPF2e> {
             parts = ["0"];
         }
 
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === "elite")) {
-            parts.push("+2");
-        } else if (traits.some((trait) => trait === "weak")) {
-            parts.push("-2");
-        }
-
         // Call the roll helper utility
-        rollData.item = itemData;
+        rollData.item = systemData;
         DicePF2e.damageRoll({
             event,
             parts,
@@ -647,29 +628,29 @@ class ItemPF2e extends Item<ActorPF2e> {
             const slug = this.slug ?? sluggify(this.name);
             if (!this.actor.isToken) {
                 const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];
-                this.actor.itemTypes.melee.forEach((item) => {
-                    const attackEffects = item.data.data.attackEffects.value;
+                for (const attack of this.actor.itemTypes.melee) {
+                    const attackEffects = attack.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {
                         const updatedEffects = attackEffects.filter((effect) => effect !== slug);
                         itemUpdates.push({
-                            _id: item.id,
+                            _id: attack.id,
                             data: { attackEffects: { value: updatedEffects } },
                         });
                     }
-                });
+                }
                 if (itemUpdates.length > 0) {
                     mergeObject(actorUpdates, { items: itemUpdates });
                 }
             } else {
                 // The above method of updating embedded items in an actor update does not work with synthetic actors
                 const promises: Promise<ItemPF2e>[] = [];
-                this.actor.itemTypes.melee.forEach((item) => {
-                    const attackEffects = item.data.data.attackEffects.value;
+                for (const item of this.actor.itemTypes.melee) {
+                    const attackEffects = item.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {
                         const updatedEffects = attackEffects.filter((effect) => effect !== slug);
                         promises.push(item.update({ ["data.attackEffects.value"]: updatedEffects }));
                     }
-                });
+                }
                 if (promises.length > 0) {
                     Promise.allSettled(promises);
                 }

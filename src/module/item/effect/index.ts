@@ -12,15 +12,15 @@ class EffectPF2e extends ItemPF2e {
     };
 
     get level(): number {
-        return this.data.data.level.value;
+        return this.system.level.value;
     }
 
     get isExpired(): boolean {
-        return this.data.data.expired;
+        return this.system.expired;
     }
 
     get totalDuration(): number {
-        const { duration } = this.data.data;
+        const { duration } = this.system;
         if (["unlimited", "encounter"].includes(duration.unit)) {
             return Infinity;
         } else {
@@ -30,13 +30,13 @@ class EffectPF2e extends ItemPF2e {
 
     get remainingDuration(): { expired: boolean; remaining: number } {
         const duration = this.totalDuration;
-        if (this.data.data.duration.unit === "encounter") {
-            const isExpired = this.data.data.expired;
+        if (this.system.duration.unit === "encounter") {
+            const isExpired = this.system.expired;
             return { expired: isExpired, remaining: isExpired ? 0 : Infinity };
         } else if (duration === Infinity) {
             return { expired: false, remaining: Infinity };
         } else {
-            const start = this.data.data.start?.value ?? 0;
+            const start = this.system.start?.value ?? 0;
             const remaining = start + duration - game.time.worldTime;
             const result = { remaining, expired: remaining <= 0 };
             if (
@@ -47,10 +47,10 @@ class EffectPF2e extends ItemPF2e {
                 game.combat.turns.length > game.combat.turn
             ) {
                 const initiative = game.combat.combatant.initiative ?? 0;
-                if (initiative === this.data.data.start.initiative) {
-                    result.expired = this.data.data.duration.expiry !== "turn-end";
+                if (initiative === this.system.start.initiative) {
+                    result.expired = this.system.duration.expiry !== "turn-end";
                 } else {
-                    result.expired = initiative < (this.data.data.start.initiative ?? 0);
+                    result.expired = initiative < (this.system.start.initiative ?? 0);
                 }
             }
             return result;
@@ -64,7 +64,7 @@ class EffectPF2e extends ItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const { duration } = this.data.data;
+        const { duration } = this.system;
         if (["unlimited", "encounter"].includes(duration.unit)) {
             duration.expiry = null;
         } else {

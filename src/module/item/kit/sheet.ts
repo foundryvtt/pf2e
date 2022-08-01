@@ -61,7 +61,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             items: {},
         };
 
-        let { items } = this.item.data.data;
+        let { items } = this.item.system;
         let pathPrefix = "data.items";
 
         if (containerId !== undefined) {
