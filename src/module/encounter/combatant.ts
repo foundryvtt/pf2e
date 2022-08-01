@@ -121,7 +121,7 @@ class CombatantPF2e<
 
         if (changed.defeated && game.user.id === userId) {
             for (const action of this.actor?.itemTypes.action ?? []) {
-                if (action.data.data.deathNote) {
+                if (action.system.deathNote) {
                     action.toMessage(undefined, { rollMode: this.actor?.hasPlayerOwner ? "publicroll" : "gmroll" });
                 }
             }

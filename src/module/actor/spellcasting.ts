@@ -25,7 +25,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
-        const spellData = item.data.data.spell?.data?.data;
+        const spellData = item.system.spell?.data?.data;
         return (
             !!spellData &&
             this.spellcastingFeatures.some((entry) => tupleHasValue(spellData.traditions.value, entry.tradition))
@@ -38,7 +38,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
         }
 
         if (this.actor instanceof NPCPF2e || this.actor instanceof CharacterPF2e) {
-            const focus = this.actor.data.data.resources.focus;
+            const focus = this.actor.system.resources.focus;
 
             const rechargeFocus = focus?.max && focus.value < focus.max;
             if (focus && rechargeFocus) {
@@ -66,13 +66,13 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             // Innate spells should refresh uses instead
             if (entry.isInnate) {
                 return entry.spells.map((spell) => {
-                    const value = spell.data.data.location.uses?.max ?? 1;
+                    const value = spell.system.location.uses?.max ?? 1;
                     return { _id: spell.id, "data.location.uses.value": value };
                 });
             }
 
             // Spontaneous, and Prepared spells
-            const slots = entry.data.data.slots;
+            const slots = entry.system.slots;
             let updated = false;
             for (const slot of Object.values(slots)) {
                 if (entry.isPrepared && !entry.isFlexible) {

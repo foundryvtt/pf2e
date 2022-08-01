@@ -93,7 +93,7 @@ class RuleElements {
 
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
-        for (const data of item.data.data.rules) {
+        for (const data of item.system.rules) {
             const key = data.key.replace(/^PF2E\.RuleElement\./, "");
             const REConstructor = this.custom[key] ?? this.custom[data.key] ?? this.builtin[key];
             if (REConstructor) {

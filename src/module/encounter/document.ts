@@ -17,8 +17,8 @@ class EncounterPF2e extends Combat {
             const [priorityA, priorityB] = [a, b].map(
                 (combatant): number =>
                     combatant.overridePriority(combatant.initiative ?? 0) ??
-                    (combatant.actor && "initiative" in combatant.actor.data.data.attributes
-                        ? combatant.actor.data.data.attributes.initiative.tiebreakPriority
+                    (combatant.actor && "initiative" in combatant.actor.system.attributes
+                        ? combatant.actor.system.attributes.initiative.tiebreakPriority
                         : 3)
             );
             return priorityA === priorityB ? a.id.localeCompare(b.id) : priorityA - priorityB;
@@ -93,7 +93,7 @@ class EncounterPF2e extends Combat {
                     skills[checkType] ?? checkType,
                 ]);
                 if (options.secret) rollOptions.push("secret");
-                return combatant.actor.data.data.attributes.initiative.roll({
+                return combatant.actor.system.attributes.initiative.roll({
                     options: rollOptions,
                     updateTracker: false,
                     skipDialog: !!options.skipDialog,

@@ -232,7 +232,7 @@ class CheckPF2e {
 
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
-                const strikes: StrikeData[] = context.actor.data.data.actions;
+                const strikes: StrikeData[] = context.actor.system.actions;
                 const strike = strikes.find(
                     (a): a is StrikeData & { item: ItemPF2e } =>
                         a.item?.id === contextItem.id && a.item.slug === contextItem.slug
