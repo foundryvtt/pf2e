@@ -10,13 +10,13 @@ import { KitData, KitEntryData } from "./data";
 
 class KitPF2e extends ItemPF2e {
     get entries(): KitEntryData[] {
-        return Object.values(this.data.data.items);
+        return Object.values(this.system.items);
     }
 
     get price(): Price {
         return {
-            value: new CoinsPF2e(this.data.data.price.value),
-            per: this.data.data.price.per ?? 1,
+            value: new CoinsPF2e(this.system.price.value),
+            per: this.system.price.per ?? 1,
         };
     }
 

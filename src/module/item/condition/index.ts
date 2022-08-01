@@ -6,20 +6,20 @@ import { ConditionData, ConditionSlug } from "./data";
 class ConditionPF2e extends ItemPF2e {
     /** Forthcoming universal "effect badge" */
     get badge(): { value: number } | null {
-        return this.data.data.value.value ? { value: this.data.data.value.value } : null;
+        return this.system.value.value ? { value: this.system.value.value } : null;
     }
 
     get value(): number | null {
-        return this.data.data.value.value;
+        return this.system.value.value;
     }
 
     get duration(): number | null {
-        return this.data.data.duration.perpetual ? null : this.data.data.duration.value;
+        return this.system.duration.perpetual ? null : this.system.duration.value;
     }
 
     /** Is the condition currently active? */
     get isActive(): boolean {
-        return this.data.data.active;
+        return this.system.active;
     }
 
     /** Is the condition from the pf2e system or a module? */
@@ -29,13 +29,13 @@ class ConditionPF2e extends ItemPF2e {
 
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
-        return this.data.data.sources.hud;
+        return this.system.sources.hud;
     }
 
     /** Ensure value.isValued and value.value are in sync */
     override prepareBaseData() {
         super.prepareBaseData();
-        const systemData = this.data.data;
+        const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
     }
 
@@ -73,7 +73,7 @@ class ConditionPF2e extends ItemPF2e {
         }
 
         /* Suppress floaty text on "linked" conditions */
-        if (this.data.data.references.parent?.type !== "condition") {
+        if (this.system.references.parent?.type !== "condition") {
             this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
         }
     }
@@ -92,7 +92,7 @@ class ConditionPF2e extends ItemPF2e {
         const [priorValue, newValue] = [options.conditionValue, this.value];
         const valueChanged = !!priorValue && !!newValue && priorValue !== newValue;
         // Suppress floaty text on "linked" conditions
-        if (valueChanged && this.data.data.references.parent?.type !== "condition") {
+        if (valueChanged && this.system.references.parent?.type !== "condition") {
             const change = newValue > priorValue ? { create: this } : { delete: this };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
@@ -106,8 +106,8 @@ class ConditionPF2e extends ItemPF2e {
         }
 
         /* Suppress floaty text on "linked" conditions */
-        if (this.data.data.references.parent?.type !== "condition") {
-            const baseName = this.data.data.base;
+        if (this.system.references.parent?.type !== "condition") {
+            const baseName = this.system.base;
             const change = { delete: { name: baseName } };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }

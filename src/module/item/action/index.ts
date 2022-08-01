@@ -4,19 +4,19 @@ import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
 
-export class ActionItemPF2e extends ItemPF2e {
+class ActionItemPF2e extends ItemPF2e {
     get actionCost(): ActionCost | null {
-        const actionType = this.data.data.actionType.value || "passive";
+        const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
 
         return {
             type: actionType,
-            value: this.data.data.actions.value,
+            value: this.system.actions.value,
         };
     }
 
     get frequency(): Frequency | null {
-        return this.data.data.frequency ?? null;
+        return this.system.frequency ?? null;
     }
 
     override prepareBaseData(): void {
@@ -29,12 +29,12 @@ export class ActionItemPF2e extends ItemPF2e {
     }
 
     override getChatData(this: Embedded<ActionItemPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
-        const data = this.data.data;
+        const systemData = this.system;
 
         // Feat properties
-        const properties = [CONFIG.PF2E.actionTypes[data.actionType.value]].filter((property) => property);
+        const properties = [CONFIG.PF2E.actionTypes[systemData.actionType.value]].filter((property) => property);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...data, properties, traits });
+        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }
 
     protected override async _preCreate(
@@ -65,6 +65,8 @@ export class ActionItemPF2e extends ItemPF2e {
     }
 }
 
-export interface ActionItemPF2e {
+interface ActionItemPF2e {
     readonly data: ActionItemData;
 }
+
+export { ActionItemPF2e };

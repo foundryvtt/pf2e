@@ -7,19 +7,19 @@ import { MeleeData, NPCAttackTrait } from "./data";
 
 export class MeleePF2e extends ItemPF2e {
     get traits(): Set<NPCAttackTrait> {
-        return new Set(this.data.data.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get isMelee(): boolean {
-        return this.data.data.weaponType.value === "melee";
+        return this.system.weaponType.value === "melee";
     }
 
     get isRanged(): boolean {
-        return this.data.data.weaponType.value === "ranged";
+        return this.system.weaponType.value === "ranged";
     }
 
     get isThrown(): boolean {
-        return this.isRanged && this.data.data.traits.value.some((t) => t.startsWith("thrown"));
+        return this.isRanged && this.system.traits.value.some((t) => t.startsWith("thrown"));
     }
 
     /** The ability score this attack is based on: determines which of the Clumsy and Enfeebled conditions apply */
@@ -36,7 +36,7 @@ export class MeleePF2e extends ItemPF2e {
     get rangeIncrement(): WeaponRangeIncrement | null {
         if (this.isMelee) return null;
 
-        const incrementTrait = this.data.data.traits.value.find((t) => /^(?:range(?:-increment)?|thrown)-\d+$/.test(t));
+        const incrementTrait = this.system.traits.value.find((t) => /^(?:range(?:-increment)?|thrown)-\d+$/.test(t));
         const increment = Number(incrementTrait?.replace(/\D/g, "")) || 10;
         return Number.isInteger(increment) ? (increment as WeaponRangeIncrement) : null;
     }
@@ -45,7 +45,7 @@ export class MeleePF2e extends ItemPF2e {
     get maxRange(): number | null {
         if (this.isMelee) return null;
 
-        const rangeTrait = this.data.data.traits.value.find((t) => /^range-\d+$/.test(t));
+        const rangeTrait = this.system.traits.value.find((t) => /^range-\d+$/.test(t));
         const range = Number(rangeTrait?.replace(/\D/g, ""));
         if (Number.isInteger(range)) return range;
 
@@ -148,14 +148,14 @@ export class MeleePF2e extends ItemPF2e {
     }
 
     override getChatData(this: Embedded<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+        const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
         const isAgile = this.traits.has("agile");
         const map2 = isAgile ? "-4" : "-5";
         const map3 = isAgile ? "-8" : "-10";
 
-        return this.processChatData(htmlOptions, { ...data, traits, map2, map3 });
+        return this.processChatData(htmlOptions, { ...systemData, traits, map2, map3 });
     }
 }
 
