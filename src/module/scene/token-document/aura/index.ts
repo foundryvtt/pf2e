@@ -36,8 +36,8 @@ class TokenAura implements TokenAuraData {
 
     /** The aura radius from the center in pixels */
     get radiusPixels(): number {
-        const gridSize = this.scene.data.gridDistance;
-        const gridSizePixels = this.scene.data.grid;
+        const gridSize = this.scene.grid.distance;
+        const gridSizePixels = this.scene.grid.size;
         const tokenWidth = this.token.data.width * gridSizePixels;
         return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
@@ -48,7 +48,7 @@ class TokenAura implements TokenAuraData {
 
     get bounds(): NormalizedRectangle {
         const { token, radiusPixels } = this;
-        const tokenWidth = token.data.width * this.scene.data.grid;
+        const tokenWidth = token.data.width * this.scene.grid.size;
         const tokenBounds = token.bounds;
 
         return new NormalizedRectangle(

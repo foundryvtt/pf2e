@@ -29,7 +29,7 @@ declare global {
         override get isOwner(): boolean;
 
         /** A convenient reference for whether this TokenDocument is linked to the Actor it represents, or is a synthetic copy */
-        get isLinked(): this["data"]["actorLink"];
+        get isLinked(): this["actorLink"];
 
         /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
         get combatant(): Combatant<Combat> | null;

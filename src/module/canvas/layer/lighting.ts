@@ -8,7 +8,7 @@ export class LightingLayerPF2e<
     noRefreshHooks = false;
 
     get lightingLevel(): number {
-        return 1 - this.darknessLevel;
+        return 1 - canvas.darknessLevel;
     }
 
     /** Is the rules-based vision setting enabled? */

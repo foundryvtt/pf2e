@@ -13,7 +13,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
     }
 
     override highlightGrid(): void {
-        if (!["circle", "cone"].includes(this.type) || canvas.scene?.data.gridType !== CONST.GRID_TYPES.SQUARE) {
+        if (!["circle", "cone"].includes(this.type) || canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
             return super.highlightGrid();
         }
 

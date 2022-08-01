@@ -27,9 +27,6 @@ declare global {
          */
         version: number;
 
-        /** The currently displayed darkness level, which may override the saved Scene value */
-        darknessLevel: number;
-
         /** The current client setting for whether global illumination is used or not */
         globalLight: boolean;
 

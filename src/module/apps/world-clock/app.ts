@@ -50,7 +50,7 @@ export class WorldClock extends Application {
 
     /** Setting: whether to keep the scene's darkness level synchronized with the world time */
     get syncDarkness(): boolean {
-        const sceneSetting = canvas.scene?.data.flags.pf2e.syncDarkness ?? "default";
+        const sceneSetting = canvas.scene?.flags.pf2e.syncDarkness ?? "default";
         return {
             enabled: true,
             disabled: false,

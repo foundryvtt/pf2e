@@ -87,19 +87,19 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     get playersCanSeeName(): boolean {
         const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
-        const nameDisplayMode = this.data.displayName ?? 0;
+        const nameDisplayMode = this.displayName;
         return anyoneCanSee.includes(nameDisplayMode) || this.actor?.alliance === "party";
     }
 
     /** The pixel-coordinate definition of this token's space */
     get bounds(): NormalizedRectangle {
-        const gridSize = this.scene?.data.grid ?? 100;
+        const gridSize = this.scene?.grid.size ?? 100;
         // Use source values since coordinates are changed in real time over the course of movement animation
         return new NormalizedRectangle(
             this.data._source.x,
             this.data._source.y,
-            this.data.width * gridSize,
-            this.data.height * gridSize
+            this.width * gridSize,
+            this.height * gridSize
         );
     }
 
@@ -156,27 +156,27 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data[property] = this.data._source[property] = 0;
             }
-            this.data.sightAngle = this.data._source.sightAngle = 360;
+            this.sightAngle = this.data._source.sightAngle = 360;
         }
 
         // Nath mode
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
-        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.data.img)) {
-            this.data.img = ((): VideoPath => {
+        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.img)) {
+            this.img = ((): VideoPath => {
                 switch (this.actor.alliance) {
                     case "party":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
                     case "opposition":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
                     default:
-                        return this.data.img;
+                        return this.img;
                 }
             })();
         }
 
         // Alliance coloration, appropriating core token dispositions
         const { alliance } = this.actor.system.details;
-        this.data.disposition = alliance
+        this.disposition = alliance
             ? {
                   party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
                   opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
@@ -189,10 +189,10 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (!(this.initialized && this.actor && this.scene)) return;
 
         // Temporary token image
-        mergeObject(this.data, this.actor.overrides.prototypeToken ?? {}, { insertKeys: false });
+        mergeObject(this, this.actor.overrides.prototypeToken ?? {}, { insertKeys: false });
 
         // Token dimensions from actor size
-        TokenDocumentPF2e.prepareSize(this.data, this.actor);
+        TokenDocumentPF2e.prepareSize(this, this.actor);
 
         // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
         // Setting vision radii is less performant but necessary if multiple tokens are controlled
@@ -204,8 +204,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareSize(data: TokenDataPF2e | PrototypeTokenDataPF2e, actor: ActorPF2e | null): void {
-        if (!(actor && data.flags.pf2e.linkToActorSize)) return;
+    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenDataPF2e, actor: ActorPF2e | null): void {
+        if (!(actor && token.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
         const size = {
@@ -214,19 +214,19 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             med: 1,
             lg: 2,
             huge: 3,
-            grg: Math.max(data.width, 4),
+            grg: Math.max(token.width, 4),
         }[actor.size];
         if (actor instanceof VehiclePF2e) {
             // Vehicles can have unequal dimensions
             const { width, height } = actor.getTokenDimensions();
-            data.width = width;
-            data.height = height;
+            token.width = width;
+            token.height = height;
         } else {
-            data.width = size;
-            data.height = size;
+            token.width = size;
+            token.height = size;
 
-            if (game.settings.get("pf2e", "tokens.autoscale") && data.flags.pf2e.autoscale !== false) {
-                data.scale = actor.size === "sm" ? 0.8 : 1;
+            if (game.settings.get("pf2e", "tokens.autoscale") && token.flags.pf2e.autoscale !== false) {
+                token.scale = actor.size === "sm" ? 0.8 : 1;
             }
         }
     }
@@ -319,9 +319,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             super._onUpdate(changed, options, userId);
         } else {
             // Handle updates to unlinked tokens' light data via actor overrides
-            const preUpdate = this.data.light.toObject(false);
+            const preUpdate = this.light.toObject(false);
             super._onUpdate(changed, options, userId);
-            const postUpdate = this.data.light.toObject(false);
+            const postUpdate = this.light.toObject(false);
             const diff = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdate, postUpdate);
             if (canvas.ready && Object.keys(diff).length > 0) {
                 mergeObject(changed, { light: diff });

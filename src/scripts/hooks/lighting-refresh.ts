@@ -7,7 +7,7 @@ export const LightingRefresh = {
             if (layer.noRefreshHooks) return;
 
             // If the scene darkness adjuster is currently being viewed, show the updated darkness
-            SceneDarknessAdjuster.instance.onLightingRefresh(layer.darknessLevel);
+            SceneDarknessAdjuster.instance.onLightingRefresh(canvas.darknessLevel);
         });
     },
 };
