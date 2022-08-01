@@ -9,10 +9,10 @@ export class Migration764PanacheVivaciousREs extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat") return;
 
-        if (source.data.slug === "panache") {
-            source.data.rules = [];
-        } else if (source.data.slug === "vivacious-speed") {
-            source.data.rules = this.#vivaciousRules;
+        if (source.system.slug === "panache") {
+            source.system.rules = [];
+        } else if (source.system.slug === "vivacious-speed") {
+            source.system.rules = this.#vivaciousRules;
         }
     }
 

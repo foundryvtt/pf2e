@@ -7,8 +7,8 @@ export class Migration641SovereignSteelValue extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "weapon") return;
-        if (itemSource.data.preciousMaterial.value?.toLowerCase() === "sovereign steel") {
-            itemSource.data.preciousMaterial.value = "sovereignSteel";
+        if (itemSource.system.preciousMaterial.value?.toLowerCase() === "sovereign steel") {
+            itemSource.system.preciousMaterial.value = "sovereignSteel";
         }
     }
 }

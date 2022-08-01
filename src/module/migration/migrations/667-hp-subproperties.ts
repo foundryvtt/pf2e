@@ -10,7 +10,7 @@ export class Migration667HPSubProperties extends MigrationBase {
     addRecoveryMultiplier(itemSource: ItemSourcePF2e, slug: string): void {
         if (!["dream-may", "fast-recovery"].includes(slug)) return;
 
-        const rules = itemSource.data.rules;
+        const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
             (rule: Record<string, unknown>) =>
                 "path" in rule && rule["path"] === "data.attributes.hp.recoveryMultiplier"
@@ -28,7 +28,7 @@ export class Migration667HPSubProperties extends MigrationBase {
 
     addNegativeHealing(itemSource: ItemSourcePF2e, slug: string): void {
         if (!["dhampir", "negative-healing"].includes(slug)) return;
-        const rules = itemSource.data.rules;
+        const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
             (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.negativeHealing"
         );
@@ -47,7 +47,7 @@ export class Migration667HPSubProperties extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "feat" && itemSource.type !== "action") return;
 
-        const slug = itemSource.data.slug ?? sluggify(itemSource.name);
+        const slug = itemSource.system.slug ?? sluggify(itemSource.name);
         this.addRecoveryMultiplier(itemSource, slug);
         this.addNegativeHealing(itemSource, slug);
     }

@@ -4,7 +4,7 @@ import { IdentificationData, IdentificationStatus, IdentifiedData, PhysicalItemT
 import { isPhysicalData } from "@item/data/helpers";
 
 type MaybeOldData = ItemSourcePF2e & {
-    data: ItemSourcePF2e["data"] & {
+    system: ItemSourcePF2e["system"] & {
         identified?: unknown;
         identification: Partial<IdentificationData> & {
             status?: IdentificationStatus;
@@ -12,8 +12,8 @@ type MaybeOldData = ItemSourcePF2e & {
             unidentified?: IdentifiedData;
         };
     };
-    "data.-=identified"?: unknown;
-    "data.identification.unidentified.-=description"?: unknown;
+    "system.-=identified"?: unknown;
+    "system.identification.unidentified.-=description"?: unknown;
 };
 
 export class Migration628UpdateIdentificationData extends MigrationBase {
@@ -40,10 +40,10 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
         if (!isPhysicalData(itemData)) return;
 
         // Items are occasionally lack a `rarity` property due to missing a previous migration
-        const traits: Omit<PhysicalItemTraits, "rarity"> & { rarity?: unknown } = itemData.data.traits;
+        const traits: Omit<PhysicalItemTraits, "rarity"> & { rarity?: unknown } = itemData.system.traits;
         traits.rarity ??= { value: "common" };
 
-        const systemData = itemData.data;
+        const systemData = itemData.system;
         const hasBadData = systemData.identification && systemData.identification.status === undefined;
         if (!systemData.identification || hasBadData) {
             systemData.identification = this.defaultData;
@@ -71,7 +71,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
         // Remove old properties
         delete systemData["identified"];
         if ("game" in globalThis && "identified" in systemData) {
-            itemData["data.-=identified"] = null;
+            itemData["system.-=identified"] = null;
         }
     }
 }

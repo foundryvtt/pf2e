@@ -9,7 +9,7 @@ export class Migration650StringifyWeaponProperties extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "weapon") return;
 
-        const systemData: MaybeOldData = itemData.data;
+        const systemData: MaybeOldData = itemData.system;
         if (systemData.weaponType) {
             systemData.weaponType.value ||= "simple";
         }

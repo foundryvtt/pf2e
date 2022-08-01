@@ -16,9 +16,9 @@ export class Migration716StrikeDamageSelector extends MigrationBase {
     ]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (this.itemsToSkip.has(source.data.slug ?? "")) return;
+        if (this.itemsToSkip.has(source.system.slug ?? "")) return;
 
-        const { rules } = source.data;
+        const { rules } = source.system;
         for (const rule of rules) {
             if (["damage", "mundane-damage"].includes(rule.selector ?? "")) {
                 rule.selector = "strike-damage";

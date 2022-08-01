@@ -10,7 +10,7 @@ export class Migration741RollOptionToggleToItem extends MigrationBase {
         if (!(source.flags.pf2e?.rollOptions instanceof Object)) return;
 
         const rules = source.items
-            .flatMap((i) => i.data.rules)
+            .flatMap((i) => i.system.rules)
             .filter(
                 (r: MaybeRollOption): r is ToggeableRollOption =>
                     !!r.toggleable &&

@@ -7,9 +7,9 @@ export class Migration665HandwrapsCorrections extends MigrationBase {
     static override version = 0.665;
 
     override async updateItem(itemSource: ItemSourcePF2e) {
-        const slug = itemSource.data.slug ?? sluggify(itemSource.name);
+        const slug = itemSource.system.slug ?? sluggify(itemSource.name);
         if (itemSource.type === "weapon" && slug === "handwraps-of-mighty-blows") {
-            const usage: { value: string } = itemSource.data.usage;
+            const usage: { value: string } = itemSource.system.usage;
             usage.value = "worn-gloves";
         }
 

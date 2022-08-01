@@ -20,18 +20,18 @@ export class Migration738UpdateLaughingShadow extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type === "feat" && source.data.slug === "laughing-shadow") {
+        if (source.type === "feat" && source.system.slug === "laughing-shadow") {
             const laughingShadow = await this.#shadowPromise;
             if (!(laughingShadow instanceof ItemPF2e)) return;
-            source.data.rules = deepClone(laughingShadow.data._source.data.rules);
-        } else if (source.type === "effect" && source.data.slug === "stance-arcane-cascade") {
+            source.system.rules = deepClone(laughingShadow.data._source.system.rules);
+        } else if (source.type === "effect" && source.system.slug === "stance-arcane-cascade") {
             const arcaneCascade = await this.#cascadePromise;
             if (!(arcaneCascade instanceof ItemPF2e)) return;
 
-            const newRules = deepClone(arcaneCascade.data._source.data.rules);
+            const newRules = deepClone(arcaneCascade.data._source.system.rules);
 
             // Retrieve the ChoiceSet selection if one has been made
-            const withSelection = source.data.rules.find(
+            const withSelection = source.system.rules.find(
                 (r: RuleElementSource & { selection?: unknown }): r is RuleElementSource & { selection: string } =>
                     r.key === "ChoiceSet" && typeof r.selection === "string"
             );
@@ -44,7 +44,7 @@ export class Migration738UpdateLaughingShadow extends MigrationBase {
                 if (unselected) unselected.selection = withSelection.selection;
             }
 
-            source.data.rules = newRules;
+            source.system.rules = newRules;
         }
     }
 }

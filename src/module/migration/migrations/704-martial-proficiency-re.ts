@@ -9,19 +9,23 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
     static override version = 0.704;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: MaybeLinkedProficiency[] = itemSource.data.rules.filter((r) => r.key === "LinkedProficiency");
+        const rules: MaybeLinkedProficiency[] = itemSource.system.rules.filter((r) => r.key === "LinkedProficiency");
         for (const rule of rules) {
             rule.key = "MartialProficiency";
             rule.definition = rule.predicate;
             delete rule.predicate;
-            if (typeof rule.slug === "string" && itemSource.data.slug?.endsWith("-weapon-familiarity") && !rule.label) {
+            if (
+                typeof rule.slug === "string" &&
+                itemSource.system.slug?.endsWith("-weapon-familiarity") &&
+                !rule.label
+            ) {
                 const key = sluggify(rule.slug, { camel: "bactrian" });
                 rule.label = `PF2E.SpecificRule.MartialProficiency.${key}`;
             }
         }
 
         if (itemSource.type === "class") {
-            if (itemSource.data.slug === "gunslinger" && itemSource.data.rules.length === 0) {
+            if (itemSource.system.slug === "gunslinger" && itemSource.system.rules.length === 0) {
                 const gunslingerRules: Array<RuleElementSource & { definition?: object }> = [
                     {
                         definition: {
@@ -54,7 +58,7 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
                         value: 1,
                     },
                 ];
-                itemSource.data.rules = gunslingerRules;
+                itemSource.system.rules = gunslingerRules;
             }
         }
     }

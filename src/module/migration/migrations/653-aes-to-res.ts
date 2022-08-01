@@ -31,13 +31,13 @@ export class Migration653AEstoREs extends MigrationBase {
 
     private fixClassKeyAbilities(classSource: ClassSource): void {
         type MaybeOldKeyAbility = { value: AbilityString[] | { value: AbilityString }[] };
-        const keyAbility: MaybeOldKeyAbility = classSource.data.keyAbility;
+        const keyAbility: MaybeOldKeyAbility = classSource.system.keyAbility;
         keyAbility.value = keyAbility.value.map((value) => (typeof value === "string" ? value : value.value));
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData: { martial: Record<string, CharacterProficiency> } = actorSource.data;
+        const systemData: { martial: Record<string, CharacterProficiency> } = actorSource.system;
         systemData.martial = {}; // Only remove on compendium JSON
 
         // Remove transferred ActiveEffects, some of which will be converted to RuleElements
@@ -65,7 +65,7 @@ export class Migration653AEstoREs extends MigrationBase {
 
             // Turn what remains into AE-Like rule elements
             const toAELikes = effect.changes.filter(this.isRemoveableChange);
-            const rules = itemSource.data.rules;
+            const rules = itemSource.system.rules;
             for (const change of toAELikes) {
                 if (change.mode === 0) continue;
                 const newRule = {

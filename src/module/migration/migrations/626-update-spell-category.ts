@@ -18,7 +18,7 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
                 "-=spellCategorie"?: unknown;
                 "-=spellCategory"?: unknown;
             }
-            const systemData: MaybeCategorie = itemData.data;
+            const systemData: MaybeCategorie = itemData.system;
             const traditions: ValuesList = systemData.traditions;
             const isFocus = traditions.value.includes("focus");
             const isRitual = traditions.value.includes("ritual");
@@ -31,7 +31,7 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
 
             if (systemData.spellCategorie || systemData.spellCategory) {
                 const currentCategory = systemData.spellCategorie?.value ?? systemData.spellCategory?.value ?? "";
-                itemData.data.category = {
+                itemData.system.category = {
                     value: isFocus ? "focus" : isRitual ? "ritual" : currentCategory === "" ? "spell" : currentCategory,
                 };
 
@@ -44,14 +44,14 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
                 }
             }
 
-            if (["focus", "ritual"].includes(itemData.data.spellType.value)) {
-                itemData.data.spellType.value = "utility";
+            if (["focus", "ritual"].includes(itemData.system.spellType.value)) {
+                itemData.system.spellType.value = "utility";
             }
             traditions.value = traditions.value.filter((tradition) => !["focus", "ritual"].includes(tradition));
         } else if (itemData.type === "consumable") {
             // Also update any nested consumable spell data
-            if (itemData.data.spell?.data) {
-                await this.updateItem(itemData.data.spell.data);
+            if (itemData.system.spell?.data) {
+                await this.updateItem(itemData.system.spell.data);
             }
         }
     }

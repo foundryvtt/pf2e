@@ -120,19 +120,19 @@ export class Migration714RangeIncrementREs extends MigrationBase {
     })();
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const { rules } = source.data;
+        const { rules } = source.system;
         if (source.type === "feat") {
-            switch (source.data.slug) {
+            switch (source.system.slug) {
                 case "far-lobber": {
-                    source.data.rules = [this.farLobber];
+                    source.system.rules = [this.farLobber];
                     return;
                 }
                 case "far-shot": {
-                    source.data.rules = [this.farShot];
+                    source.system.rules = [this.farShot];
                     return;
                 }
                 case "far-throw": {
-                    source.data.rules = [this.farThrow];
+                    source.system.rules = [this.farThrow];
                     return;
                 }
                 case "hunt-prey": {
@@ -144,7 +144,7 @@ export class Migration714RangeIncrementREs extends MigrationBase {
                     return;
                 }
                 case "legendary-shot": {
-                    source.data.rules = [this.legendaryShot];
+                    source.system.rules = [this.legendaryShot];
                     return;
                 }
                 case "masterful-hunter": {
@@ -156,19 +156,19 @@ export class Migration714RangeIncrementREs extends MigrationBase {
                     return;
                 }
                 case "shootists-edge": {
-                    source.data.rules = this.shootistsEdge;
+                    source.system.rules = this.shootistsEdge;
                     return;
                 }
                 case "triangulate": {
-                    source.data.rules = this.triangulate;
+                    source.system.rules = this.triangulate;
                     return;
                 }
                 case "uncanny-bombs": {
-                    source.data.rules = [this.uncannyBombs];
+                    source.system.rules = [this.uncannyBombs];
                     return;
                 }
                 case "unerring-shot": {
-                    source.data.rules = [this.unerringShot];
+                    source.system.rules = [this.unerringShot];
                     return;
                 }
             }

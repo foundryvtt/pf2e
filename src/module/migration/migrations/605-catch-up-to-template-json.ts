@@ -18,39 +18,39 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         this.addEffects(actorData);
 
         // Add custom trait property
-        if ("traits" in actorData.data && !(typeof actorData.data.traits.traits.custom === "string")) {
-            actorData.data.traits.traits.custom = "";
+        if ("traits" in actorData.system && !(typeof actorData.system.traits.traits.custom === "string")) {
+            actorData.system.traits.traits.custom = "";
         }
 
         if (actorData.type === "character" || actorData.type === "npc") {
             // Numeric HP max
-            if (typeof actorData.data.attributes.hp.max === "string") {
-                const newMax = parseInt(actorData.data.attributes.hp.max as string, 10);
+            if (typeof actorData.system.attributes.hp.max === "string") {
+                const newMax = parseInt(actorData.system.attributes.hp.max as string, 10);
                 if (Number.isInteger(newMax)) {
-                    actorData.data.attributes.hp.max = newMax;
+                    actorData.system.attributes.hp.max = newMax;
                 }
             }
             // Numeric HP value
-            if (typeof actorData.data.attributes.hp.value === "string") {
-                const newValue = parseInt(actorData.data.attributes.hp.value as string, 10);
+            if (typeof actorData.system.attributes.hp.value === "string") {
+                const newValue = parseInt(actorData.system.attributes.hp.value as string, 10);
                 if (Number.isInteger(newValue)) {
-                    actorData.data.attributes.hp.value = newValue;
+                    actorData.system.attributes.hp.value = newValue;
                 }
             }
             // Numeric level
-            if (typeof actorData.data.details.level.value === "string") {
-                const newLevel = parseInt(actorData.data.details.level.value as string, 10);
+            if (typeof actorData.system.details.level.value === "string") {
+                const newLevel = parseInt(actorData.system.details.level.value as string, 10);
                 if (Number.isInteger(newLevel)) {
-                    actorData.data.details.level.value = newLevel;
+                    actorData.system.details.level.value = newLevel;
                 }
             }
 
             // Remove unused/deprecated fields
-            if ("tempmax" in actorData.data.attributes.hp) {
-                delete (actorData.data.attributes.hp as { tempmax?: unknown }).tempmax;
+            if ("tempmax" in actorData.system.attributes.hp) {
+                delete (actorData.system.attributes.hp as { tempmax?: unknown }).tempmax;
             }
-            if ("special" in actorData.data.attributes.speed) {
-                delete (actorData.data.attributes.speed as { special?: unknown }).special;
+            if ("special" in actorData.system.attributes.speed) {
+                delete (actorData.system.attributes.speed as { special?: unknown }).special;
             }
         }
     }
@@ -59,48 +59,48 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         this.addEffects(itemData);
 
         // Add slugs to owned items
-        if (!(itemData.data.slug as string | null) && actorData) {
-            itemData.data.slug = null;
+        if (!(itemData.system.slug as string | null) && actorData) {
+            itemData.system.slug = null;
         }
 
         // Add rule elements
-        if (!Array.isArray(itemData.data.rules)) {
-            itemData.data.rules = [];
+        if (!Array.isArray(itemData.system.rules)) {
+            itemData.system.rules = [];
         }
 
         // Add custom trait field
-        if (itemData.data.traits && !itemData.data.traits.custom) {
-            itemData.data.traits.custom = "";
+        if (itemData.system.traits && !itemData.system.traits.custom) {
+            itemData.system.traits.custom = "";
         }
         // Add rarity trait field
-        const traits: TraitsWithRarityObject = itemData.data.traits;
+        const traits: TraitsWithRarityObject = itemData.system.traits;
         if (traits && !traits.rarity) {
             traits.rarity = { value: "common" };
         }
 
         // Add item-identification property
-        if (isPhysicalData(itemData) && !itemData.data.identification) {
-            const withoutIdentifyData: { identification: { status: string } } = itemData.data;
+        if (isPhysicalData(itemData) && !itemData.system.identification) {
+            const withoutIdentifyData: { identification: { status: string } } = itemData.system;
             withoutIdentifyData.identification.status = "identified";
         }
 
         // Add hasCounteractCheck property
-        if (itemData.type === "spell" && !itemData.data.hasCounteractCheck) {
-            itemData.data.hasCounteractCheck = { value: false };
+        if (itemData.type === "spell" && !itemData.system.hasCounteractCheck) {
+            itemData.system.hasCounteractCheck = { value: false };
         }
 
         // Remove unused fields
-        if (itemData.type === "lore" && (("featType" in itemData.data) as { featType?: string })) {
-            delete (itemData.data as { featType?: string }).featType;
+        if (itemData.type === "lore" && (("featType" in itemData.system) as { featType?: string })) {
+            delete (itemData.system as { featType?: string }).featType;
         }
         if (itemData.type === "action") {
-            if (("skill_requirements" in itemData.data) as { skill_requirements?: unknown }) {
-                delete (itemData.data as { skill_requirements?: unknown }).skill_requirements;
+            if (("skill_requirements" in itemData.system) as { skill_requirements?: unknown }) {
+                delete (itemData.system as { skill_requirements?: unknown }).skill_requirements;
             }
         }
         if (itemData.type === "action") {
-            if (("skill_requirement" in itemData.data) as { skill_requirement?: unknown }) {
-                delete (itemData.data as { skill_requirement?: unknown }).skill_requirement;
+            if (("skill_requirement" in itemData.system) as { skill_requirement?: unknown }) {
+                delete (itemData.system as { skill_requirement?: unknown }).skill_requirement;
             }
         }
     }

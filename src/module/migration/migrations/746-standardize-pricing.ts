@@ -11,12 +11,12 @@ export class Migration746StandardizePricing extends MigrationBase {
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
-        if (!isObject(item.data.price)) {
-            item.data.price = { value: CoinsPF2e.fromString(String(item.data.price)).strip() };
+        if (!isObject(item.system.price)) {
+            item.system.price = { value: CoinsPF2e.fromString(String(item.system.price)).strip() };
         }
 
         if (item.type === "treasure") {
-            const systemData: TreasureSystemOld = item.data;
+            const systemData: TreasureSystemOld = item.system;
             if (systemData.denomination || systemData.value) {
                 const value = systemData.value?.value ?? 0;
                 const denomination = systemData.denomination?.value ?? "gp";
@@ -27,8 +27,8 @@ export class Migration746StandardizePricing extends MigrationBase {
                 systemData["-=value"] = null;
                 delete systemData.value;
             }
-        } else if (!isObject(item.data.price.value)) {
-            item.data.price.value = CoinsPF2e.fromString(String(item.data.price.value)).strip();
+        } else if (!isObject(item.system.price.value)) {
+            item.system.price.value = CoinsPF2e.fromString(String(item.system.price.value)).strip();
         }
     }
 }

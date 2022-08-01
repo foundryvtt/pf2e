@@ -77,11 +77,11 @@ export class MigrationRunnerBase {
         for await (const migration of migrations) {
             await migration.updateItem?.(current);
             // Handle embedded spells
-            if (current.type === "consumable" && current.data.spell.data) {
-                await migration.updateItem?.(current.data.spell.data);
+            if (current.type === "consumable" && current.system.spell.data) {
+                await migration.updateItem?.(current.system.spell.data);
             }
         }
-        if (migrations.length > 0) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
+        if (migrations.length > 0) this.updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
 
         return current;
     }
@@ -94,8 +94,8 @@ export class MigrationRunnerBase {
             for await (const currentItem of currentActor.items) {
                 await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
-                if (currentItem.type === "consumable" && currentItem.data.spell.data) {
-                    await migration.updateItem?.(currentItem.data.spell.data, currentActor);
+                if (currentItem.type === "consumable" && currentItem.system.spell.data) {
+                    await migration.updateItem?.(currentItem.system.spell.data, currentActor);
                 }
             }
         }
@@ -103,11 +103,11 @@ export class MigrationRunnerBase {
         // Don't set schema record on compendium JSON
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
-            currentActor.data.schema ??= { version: null, lastMigration: null };
-            this.updateSchemaRecord(currentActor.data.schema, latestMigration);
+            currentActor.system.schema ??= { version: null, lastMigration: null };
+            this.updateSchemaRecord(currentActor.system.schema, latestMigration);
             for (const itemSource of currentActor.items) {
-                itemSource.data.schema ??= { version: null, lastMigration: null };
-                this.updateSchemaRecord(itemSource.data.schema, latestMigration);
+                itemSource.system.schema ??= { version: null, lastMigration: null };
+                this.updateSchemaRecord(itemSource.system.schema, latestMigration);
             }
         }
 

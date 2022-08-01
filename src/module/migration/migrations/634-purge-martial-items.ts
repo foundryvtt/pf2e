@@ -13,7 +13,7 @@ export class Migration634PurgeMartialItems extends MigrationBase {
         const martialItemWeapons = actorData.items.filter(
             (itemData): itemData is WeaponSource & { data: MaybeOldWeaponSource } => {
                 if (itemData.type !== "weapon") return false;
-                const systemData: MaybeOldWeaponSource = itemData.data;
+                const systemData: MaybeOldWeaponSource = itemData.system;
                 return martialIds.includes(systemData.weaponType?.value ?? "");
             }
         );

@@ -9,13 +9,13 @@ export class Migration759CritSpecRE extends MigrationBase {
         if (!["feat", "weapon"].includes(source.type)) return;
 
         const critSpecKey = "CriticalSpecialization";
-        if (source.data.rules.some((r) => r.key === critSpecKey)) {
+        if (source.system.rules.some((r) => r.key === critSpecKey)) {
             return;
         }
 
-        switch (source.data.slug) {
+        switch (source.system.slug) {
             case "archer-dedication": {
-                source.data.rules.push({
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: ["weapon:group:bow", { gte: ["weapon:proficiency:rank", 2] }],
@@ -24,7 +24,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "azarketi-weapon-aptitude": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: critSpecKey,
                         predicate: {
@@ -42,7 +42,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "brawling-focus": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: critSpecKey,
                         predicate: {
@@ -63,8 +63,8 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "brutality": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.push({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: ["self:effect:rage", "weapon:melee"],
@@ -73,7 +73,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "catfolk-weapon-rake": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -91,7 +91,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "conrasu-weapon-understanding": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -109,7 +109,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "dwarven-weapon-cunning": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -125,7 +125,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "elven-weapon-elegance": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -142,8 +142,8 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "fighter-weapon-mastery": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.push({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: [{ gte: ["weapon:proficiency:rank", 3] }],
@@ -152,7 +152,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "genie-weapon-flourish": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -169,7 +169,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "gnoll-weapon-practicality": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -187,7 +187,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "gnome-weapon-innovator": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -198,7 +198,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "goblin-weapon-frenzy": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: { all: ["weapon:trait:goblin"] },
@@ -207,7 +207,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "grippli-weapon-innovator": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -224,8 +224,8 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "gunslinger-weapon-mastery": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.push({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         any: ["weapon:group:firearm", "weapon:tag:crossbow"],
@@ -234,7 +234,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "halfling-weapon-trickster": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -245,7 +245,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "hobgoblin-weapon-discipline": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -256,7 +256,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "improvised-critical": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: critSpecKey,
                         predicate: {
@@ -267,7 +267,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "kobold-weapon-innovator": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -285,7 +285,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "mauler-dedication": {
-                source.data.rules.push({
+                source.system.rules.push({
                     key: "CriticalSpecialization",
                     predicate: {
                         all: [
@@ -306,7 +306,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "orc-weapon-carnage": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -317,8 +317,8 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "ranger-weapon-expertise": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.push({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: ["hunted-prey"],
@@ -336,19 +336,19 @@ export class Migration759CritSpecRE extends MigrationBase {
                     },
                     text: "PF2E.Item.Weapon.CriticalSpecialization.bow",
                 };
-                source.data.rules.push(rule);
+                source.system.rules.push(rule);
                 return;
             }
             case "student-of-the-staff": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.unshift({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.unshift({
                     key: critSpecKey,
                     predicate: { all: ["weapon:group:club"] },
                 });
                 return;
             }
             case "sun-sling": {
-                source.data.rules.push({
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: ["weapon:id:{item|_id}", "feat:suns-fury"],
@@ -357,18 +357,18 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "suns-fury": {
-                source.data.rules = [];
+                source.system.rules = [];
                 return;
             }
             case "third-doctrine-warpriest": {
-                source.data.rules.push({
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: { all: ["weapon:deity-favored"] },
                 });
                 return;
             }
             case "vanths-weapon-execution": {
-                source.data.rules = [
+                source.system.rules = [
                     {
                         key: "CriticalSpecialization",
                         predicate: {
@@ -384,8 +384,8 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "weapon-expertise-swashbuckler": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.push({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: [{ gte: ["weapon:proficiency:rank", 2] }],
@@ -394,8 +394,8 @@ export class Migration759CritSpecRE extends MigrationBase {
                 return;
             }
             case "weapon-tricks": {
-                source.data.rules = source.data.rules.filter((r) => r.key !== "Note");
-                source.data.rules.push({
+                source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
+                source.system.rules.push({
                     key: critSpecKey,
                     predicate: {
                         all: ["target:condition:flat-footed"],

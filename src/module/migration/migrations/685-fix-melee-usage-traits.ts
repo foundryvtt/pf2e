@@ -9,7 +9,7 @@ export class Migration685FixMeleeUsageTraits extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "weapon") {
-            const systemData: { meleeUsage?: MaybeBadMeleeUsage } = itemSource.data;
+            const systemData: { meleeUsage?: MaybeBadMeleeUsage } = itemSource.system;
             if (systemData.meleeUsage && !Array.isArray(systemData.meleeUsage.traits)) {
                 systemData.meleeUsage.traits = systemData.meleeUsage.traits.value;
             }

@@ -8,10 +8,10 @@ export class Migration762UpdateBackgroundItems extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (
             source.type === "background" &&
-            (source.data.slug === "amnesiac" || source.data.slug === "discarded-duplicate")
+            (source.system.slug === "amnesiac" || source.system.slug === "discarded-duplicate")
         ) {
-            if (Object.values(source.data.boosts).length !== 3) {
-                source.data.boosts["2"] = {
+            if (Object.values(source.system.boosts).length !== 3) {
+                source.system.boosts["2"] = {
                     value: ["cha", "con", "dex", "int", "str", "wis"],
                     selected: null,
                 };

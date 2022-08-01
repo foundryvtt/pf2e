@@ -46,7 +46,7 @@ export class Migration687FamiliarityAEsToREs extends MigrationBase {
             for (const change of effect.changes.filter((change) => change.key.startsWith("data.martial."))) {
                 const linkTo = change.key.replace(/^data\.martial\.|\.familiarity$/g, "");
                 const reData = this.toRuleElement(linkTo, change.value);
-                if (reData) itemSource.data.rules.push(reData);
+                if (reData) itemSource.system.rules.push(reData);
             }
         }
         itemSource.effects = [];

@@ -42,14 +42,14 @@ export class Migration684RationsToConsumable extends MigrationBase {
             newRation.folder = oldRation.folder;
             newRation.sort = oldRation.sort;
 
-            const oldContainerId = oldRation.data.containerId ?? { value: null };
+            const oldContainerId = oldRation.system.containerId ?? { value: null };
             if (oldContainerId instanceof Object) {
-                newRation.data.containerId = oldContainerId.value;
+                newRation.system.containerId = oldContainerId.value;
             }
 
-            const oldQuantity: number | { value: number } = oldRation.data.quantity;
+            const oldQuantity: number | { value: number } = oldRation.system.quantity;
             if (isObject<{ value: number }>(oldQuantity)) {
-                newRation.data.quantity = Math.ceil((oldQuantity.value ?? 1) / 7);
+                newRation.system.quantity = Math.ceil((oldQuantity.value ?? 1) / 7);
             }
             actorSource.items.findSplice((item) => item === oldRation, newRation);
         }
@@ -59,7 +59,7 @@ export class Migration684RationsToConsumable extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "kit") return;
 
-        const rationRefs = this.getRationRefs(itemSource.data.items);
+        const rationRefs = this.getRationRefs(itemSource.system.items);
         for (const rationRef of rationRefs) {
             rationRef.quantity = Math.ceil(rationRef.quantity / 7);
         }

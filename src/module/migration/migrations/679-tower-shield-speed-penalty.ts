@@ -14,10 +14,10 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "armor") {
-            const systemData: ArmorSystemSourceWithResilient = itemSource.data;
+            const systemData: ArmorSystemSourceWithResilient = itemSource.system;
 
             if (this.towerShieldSlugs.includes(systemData.slug ?? "")) {
-                itemSource.data.speed.value = -5;
+                itemSource.system.speed.value = -5;
             }
 
             systemData.armor.value = Number(systemData.armor.value) || 0;
@@ -31,7 +31,7 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
     }
 }
 
-type ArmorSystemSourceWithResilient = ArmorSource["data"] & {
+type ArmorSystemSourceWithResilient = ArmorSource["system"] & {
     resilient?: unknown;
     "-=resilient"?: null;
 };

@@ -30,11 +30,11 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type === "spell") {
-            const school: { value: string } = itemData.data.school ?? { value: "evocation" };
+            const school: { value: string } = itemData.system.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
-        } else if (itemData.type === "consumable" && itemData.data.spell?.data) {
-            const spell = itemData.data.spell.data;
-            const school: { value: string } = spell.data.school ?? { value: "evocation" };
+        } else if (itemData.type === "consumable" && itemData.system.spell?.data) {
+            const spell = itemData.system.spell.data;
+            const school: { value: string } = spell.system.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
         }
     }

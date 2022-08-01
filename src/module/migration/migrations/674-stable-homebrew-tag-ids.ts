@@ -28,14 +28,14 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type === "familiar") return;
 
-        this.updateDocumentTags(actorSource.data.traits.traits.value);
+        this.updateDocumentTags(actorSource.system.traits.traits.value);
         if (actorSource.type === "character" || actorSource.type === "npc") {
-            this.updateDocumentTags(actorSource.data.traits?.languages.value);
+            this.updateDocumentTags(actorSource.system.traits?.languages.value);
         }
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        this.updateDocumentTags(itemSource.data.traits?.value);
+        this.updateDocumentTags(itemSource.system.traits?.value);
     }
 
     override async migrate(): Promise<void> {

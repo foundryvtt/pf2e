@@ -12,15 +12,15 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
     private coinSlugs = new Set(["platinum-pieces", "gold-pieces", "silver-pieces", "copper-pieces"]);
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
-        if ("level" in itemData.data) {
-            itemData.data.level.value = Number(itemData.data.level.value) || 0;
+        if ("level" in itemData.system) {
+            itemData.system.level.value = Number(itemData.system.level.value) || 0;
         }
 
-        if (!isPhysicalData(itemData) || this.coinSlugs.has(itemData.data.slug ?? "")) {
+        if (!isPhysicalData(itemData) || this.coinSlugs.has(itemData.system.slug ?? "")) {
             return;
         }
 
-        const system: PhysicalDataOld = itemData.data;
+        const system: PhysicalDataOld = itemData.system;
         const price = system.price;
 
         // This is new data being run through an old migration, shouldn't happen but we should appease typescript

@@ -7,8 +7,8 @@ export class Migration769NoUniversalistFocusPool extends MigrationBase {
     static override version = 0.769;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type === "feat" && source.data.slug === "arcane-school") {
-            const rule = source.data.rules.find(
+        if (source.type === "feat" && source.system.slug === "arcane-school") {
+            const rule = source.system.rules.find(
                 (r: RuleElementSource & { path?: unknown }) =>
                     r.key === "ActiveEffectLike" && r.path === "data.resources.focus.max"
             );

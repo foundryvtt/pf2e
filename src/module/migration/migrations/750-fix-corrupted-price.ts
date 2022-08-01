@@ -9,8 +9,8 @@ export class Migration750FixCorruptedPrice extends MigrationBase {
     override async updateItem(item: ItemSourcePF2e) {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
-        if (typeof item.data.price === "string") {
-            item.data.price = { value: CoinsPF2e.fromString(item.data.price).strip() };
+        if (typeof item.system.price === "string") {
+            item.system.price = { value: CoinsPF2e.fromString(item.system.price).strip() };
         }
     }
 }

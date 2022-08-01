@@ -20,16 +20,22 @@ import { FakeActors, FakeCollection, FakeItems, FakeWorldCollection } from "test
 import { LocalizePF2e } from "@module/system/localize";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
+// Convert compendium data to use system for v10. Can be removed when all packs are converted.
+delete Object.assign(characterData, { system: characterData.data }).data;
 characterData.effects = [];
-characterData.data.schema = { version: 0, lastMigration: null };
+characterData.system.schema = { version: 0, lastMigration: null };
 for (const item of characterData.items) {
     item.effects = [];
-    item.data.schema = { version: 0, lastMigration: null };
+    // Convert compendium data to use system for v10. Can be removed when all packs are converted.
+    delete Object.assign(item, { system: item.data }).data;
+    item.system.schema = { version: 0, lastMigration: null };
 }
 
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
+// Convert compendium data to use system for v10. Can be removed when all packs are converted.
+delete Object.assign(armorData, { system: armorData.data }).data;
 armorData.effects = [];
-armorData.data.schema = { version: 0, lastMigration: null };
+armorData.system.schema = { version: 0, lastMigration: null };
 
 LocalizePF2e.ready = true;
 
@@ -98,7 +104,7 @@ describe("test migration runner", () => {
     class ChangeAlignmentMigration extends MigrationBase {
         static version = 12;
         async updateActor(actor: CharacterSource) {
-            actor.data.details.alignment.value = "CG";
+            actor.system.details.alignment.value = "CG";
         }
     }
 
@@ -112,7 +118,7 @@ describe("test migration runner", () => {
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
         async updateItem(item: any) {
-            item.data["-=someFakeProperty"] = null;
+            item.system["-=someFakeProperty"] = null;
         }
     }
 
@@ -165,7 +171,7 @@ describe("test migration runner", () => {
 
         const migrationRunner = new MigrationRunner([new ChangeAlignmentMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.data.details.alignment.value).toEqual("CG");
+        expect(game.actors.contents[0]._data.system.details.alignment.value).toEqual("CG");
     });
 
     test.skip("expect unlinked actor in scene gets migrated", async () => {
@@ -203,34 +209,34 @@ describe("test migration runner", () => {
 
     test("properties can be removed", async () => {
         game.items.set(armorData._id, new FakeItem(armorData));
-        game.items.contents[0]._data.data.someFakeProperty = 123123;
+        game.items.contents[0]._data.system.someFakeProperty = 123123;
 
         const migrationRunner = new MigrationRunner([new RemoveItemProperty()]);
         await migrationRunner.runMigration();
-        expect("someFakeProperty" in game.items.contents[0]._data.data).toEqual(false);
+        expect("someFakeProperty" in game.items.contents[0]._data.system).toEqual(false);
     });
 
     test("migrations run in sequence", async () => {
         class ChangeItemProp extends MigrationBase {
             static version = 13;
             async updateItem(item: any) {
-                item.data.prop = 456;
+                item.system.prop = 456;
             }
         }
 
         class UpdateItemNameWithProp extends MigrationBase {
             static version = 14;
             async updateItem(item: any) {
-                item.name = `${item.data.prop}`;
+                item.name = `${item.system.prop}`;
             }
         }
 
         game.items.set(armorData._id, new FakeItem(armorData));
-        game.items.contents[0]._data.data.prop = 123;
+        game.items.contents[0]._data.system.prop = 123;
 
         const migrationRunner = new MigrationRunner([new ChangeItemProp(), new UpdateItemNameWithProp()]);
         await migrationRunner.runMigration();
-        expect(game.items.contents[0]._data.data.prop).toEqual(456);
+        expect(game.items.contents[0]._data.system.prop).toEqual(456);
         expect(game.items.contents[0]._data.name).toEqual("456");
     });
 
@@ -260,7 +266,7 @@ describe("test migration runner", () => {
                 name: "sample item",
                 type: "melee",
                 effects: [],
-                data: {
+                system: {
                     schema: {
                         version: null,
                         lastMigration: null,
@@ -285,7 +291,7 @@ describe("test migration runner", () => {
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
         async updateActor(actor: { items: any[] }) {
-            actor.data.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
+            actor.system.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
         }
     }
 
@@ -294,7 +300,7 @@ describe("test migration runner", () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.data.sampleItemId).toEqual("item1");
+        expect(game.actors.contents[0]._data.system.sampleItemId).toEqual("item1");
     });
 
     test.skip("migrations can reference previously added items on tokens", async () => {
@@ -314,7 +320,7 @@ describe("test migration runner", () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.data.sampleItemId).toEqual("item2");
+        expect(game.actors.contents[0]._data.system.sampleItemId).toEqual("item2");
     });
 
     test("expect free migration function gets called", async () => {

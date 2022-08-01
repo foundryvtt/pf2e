@@ -13,7 +13,7 @@ export class Migration739RecoveryCheckDC extends MigrationBase {
         {
             key: "ActiveEffectLike",
             mode: "downgrade",
-            path: "data.attributes.dying.recoveryDC",
+            path: "system.attributes.dying.recoveryDC",
             value: 9,
         },
     ];
@@ -23,14 +23,14 @@ export class Migration739RecoveryCheckDC extends MigrationBase {
             key: "ActiveEffectLike",
             mode: "downgrade",
             predicate: { not: ["feat:toughness"] },
-            path: "data.attributes.dying.recoveryDC",
+            path: "system.attributes.dying.recoveryDC",
             value: 9,
         },
         {
             key: "ActiveEffectLike",
             mode: "downgrade",
             predicate: { all: ["feat:toughness"] },
-            path: "data.attributes.dying.recoveryDC",
+            path: "system.attributes.dying.recoveryDC",
             value: 8,
         },
     ];
@@ -46,14 +46,14 @@ export class Migration739RecoveryCheckDC extends MigrationBase {
             key: "ActiveEffectLike",
             mode: "downgrade",
             predicate: { not: ["feat:toughness"] },
-            path: "data.attributes.dying.recoveryDC",
+            path: "system.attributes.dying.recoveryDC",
             value: 9,
         },
         {
             key: "ActiveEffectLike",
             mode: "downgrade",
             predicate: { all: ["feat:toughness"] },
-            path: "data.attributes.dying.recoveryDC",
+            path: "system.attributes.dying.recoveryDC",
             value: 6,
         },
     ];
@@ -61,21 +61,21 @@ export class Migration739RecoveryCheckDC extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat") return;
 
-        if (source.data.slug === "toughness") {
-            source.data.rules = this.toughness;
+        if (source.system.slug === "toughness") {
+            source.system.rules = this.toughness;
             return;
-        } else if (source.data.slug === "defy-death") {
-            source.data.rules = this.defyDeath;
+        } else if (source.system.slug === "defy-death") {
+            source.system.rules = this.defyDeath;
             return;
-        } else if (source.data.slug === "mountains-stoutness") {
-            source.data.rules = this.mountainsStoutness;
+        } else if (source.system.slug === "mountains-stoutness") {
+            source.system.rules = this.mountainsStoutness;
             return;
         }
 
-        const { rules } = source.data;
+        const { rules } = source.system;
         for (const rule of [...rules]) {
             if (rule.key === "RecoveryCheckDC") {
-                source.data.rules.splice(rules.indexOf(rule), 1);
+                source.system.rules.splice(rules.indexOf(rule), 1);
             }
         }
     }

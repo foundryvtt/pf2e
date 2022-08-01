@@ -12,7 +12,7 @@ export class Migration718CarryType extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (!isPhysicalData(itemData)) return;
 
-        const systemData = itemData.data;
+        const systemData = itemData.system;
 
         // Correct some known past erronous usages
         if (!(systemData.usage instanceof Object)) {
@@ -22,7 +22,7 @@ export class Migration718CarryType extends MigrationBase {
         if (systemData.usage.value === "worn-gloves") {
             systemData.usage.value = "worngloves";
         } else if (itemData.type === "armor") {
-            const { category } = itemData.data;
+            const { category } = itemData.system;
             systemData.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
         } else if (itemData.type === "equipment" && systemData.slug?.startsWith("clothing-")) {
             // Basic adventurer's gear clothing
@@ -48,10 +48,10 @@ export class Migration718CarryType extends MigrationBase {
         }
 
         // Remove dangling containerId references
-        const containerId = itemData.data.containerId ?? { value: null };
+        const containerId = itemData.system.containerId ?? { value: null };
         if (containerId instanceof Object && containerId.value) {
             const inStowingContainer = actor.items.some(
-                (i) => i.type === "backpack" && i.data.stowing && i._id === containerId.value
+                (i) => i.type === "backpack" && i.system.stowing && i._id === containerId.value
             );
 
             if (!inStowingContainer) {

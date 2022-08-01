@@ -6,6 +6,6 @@ export class Migration699ItemDescriptionEmptyString extends MigrationBase {
     static override version = 0.699;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        itemSource.data.description.value ??= "";
+        itemSource.system.description.value ??= "";
     }
 }

@@ -29,14 +29,14 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
             const weapon = actorSource.items.find(
                 (i): i is WeaponSource => i.type === "weapon" && i._id === rule.targetId
             );
-            if (weapon) newRE.selection = weapon.data.slug ?? sluggify(weapon.name);
+            if (weapon) newRE.selection = weapon.system.slug ?? sluggify(weapon.name);
         }
 
-        if (itemSource.data.slug?.includes("blade-ally")) {
+        if (itemSource.system.slug?.includes("blade-ally")) {
             newRE.choices.includeHandwraps = true;
-        } else if (itemSource.data.slug?.includes("weapon-surge")) {
+        } else if (itemSource.system.slug?.includes("weapon-surge")) {
             newRE.choices.predicate = { all: ["item:equipped"] };
-        } else if (itemSource.data.slug === "shillelagh") {
+        } else if (itemSource.system.slug === "shillelagh") {
             newRE.adjustName = false;
             newRE.prompt = "PF2E.SpecificRule.Prompt.Shillelagh";
             newRE.choices.predicate = {
@@ -51,7 +51,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
-        const { rules } = source.data;
+        const { rules } = source.system;
         for (const rule of rules) {
             if (this.#isEffectTargetRE(rule)) {
                 rules[rules.indexOf(rule)] = this.#toChoiceSet(rule, source, actorSource ?? null);
@@ -60,7 +60,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
                         typeof r.selector === "string" && /item\|data\.target/.test(r.selector)
                 );
                 for (const other of otherRules) {
-                    const flag = sluggify(source.data.slug ?? source.name, { camel: "dromedary" });
+                    const flag = sluggify(source.system.slug ?? source.name, { camel: "dromedary" });
                     other.selector = other.selector.replace(/\bdata\.target\b/, `flags.pf2e.rulesSelections.${flag}`);
                 }
             }

@@ -27,7 +27,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
             };
         }
 
-        const spellcasting: SpellcastingOld = item.data;
+        const spellcasting: SpellcastingOld = item.system;
         if (spellcasting.tradition.value === "ritual") {
             spellcasting.prepared.value = "ritual";
             spellcasting.tradition.value = "";
@@ -37,7 +37,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
             // Try to see if there's a matching spellcasting entry that is similar to this one
             const possibleMatch = actor.items.find((testItem): testItem is SpellcastingEntrySource => {
                 if (testItem.type !== "spellcastingEntry") return false;
-                const testSpellcasting: SpellcastingOld = testItem.data;
+                const testSpellcasting: SpellcastingOld = testItem.system;
                 return (
                     tupleHasValue(["prepared", "spontaneous"] as const, testSpellcasting.prepared.value) &&
                     testSpellcasting.tradition.value !== "focus" &&
@@ -49,12 +49,12 @@ export class Migration644SpellcastingCategory extends MigrationBase {
             });
 
             if (possibleMatch) {
-                spellcasting.tradition.value = possibleMatch.data.tradition.value;
+                spellcasting.tradition.value = possibleMatch.system.tradition.value;
             } else {
                 // Try to derive it from the class name or slug. No other way to do it.
                 // Users can always edit their tradition in the actual spellcasting entry.
                 const classItem = actor.items.find((testItem): testItem is ClassSource => testItem.type === "class");
-                const className = classItem?.data.slug || sluggify(classItem?.name ?? "");
+                const className = classItem?.system.slug || sluggify(classItem?.name ?? "");
                 spellcasting.tradition.value = defaultTraditionByClass[className] ?? "arcane";
             }
         }

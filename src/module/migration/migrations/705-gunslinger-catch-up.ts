@@ -6,9 +6,9 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
     static override version = 0.705;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (!(itemSource.type === "feat" && itemSource.data.featType.value === "classfeature")) return;
+        if (!(itemSource.type === "feat" && itemSource.system.featType.value === "classfeature")) return;
 
-        switch (itemSource.data.slug) {
+        switch (itemSource.system.slug) {
             case "singular-expertise": {
                 const rules = [
                     {
@@ -25,7 +25,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 1,
                     },
                 ];
-                itemSource.data.rules = rules;
+                itemSource.system.rules = rules;
                 break;
             }
             case "gunslinger-weapon-mastery": {
@@ -67,7 +67,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 3,
                     },
                 ];
-                itemSource.data.rules = rules;
+                itemSource.system.rules = rules;
                 break;
             }
             case "gunslinging-legend": {
@@ -109,7 +109,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 4,
                     },
                 ];
-                itemSource.data.rules = rules;
+                itemSource.system.rules = rules;
                 break;
             }
         }

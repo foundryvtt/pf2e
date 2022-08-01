@@ -9,7 +9,7 @@ export class Migration698RemoveDerivedActorTraits extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type === "character" || actorSource.type === "npc") {
-            const traits = actorSource.data.traits.traits.value;
+            const traits = actorSource.system.traits.traits.value;
             for (const trait of ALIGNMENT_TRAITS) {
                 const index = traits.indexOf(trait);
                 if (index >= 0) traits.splice(index, 1);
@@ -18,7 +18,7 @@ export class Migration698RemoveDerivedActorTraits extends MigrationBase {
             if (actorSource.type === "character") {
                 const ancestry = actorSource.items.find((i): i is AncestrySource => i.type === "ancestry");
                 if (!ancestry) return;
-                for (const trait of ancestry.data.traits.value) {
+                for (const trait of ancestry.system.traits.value) {
                     const index = traits.indexOf(trait);
                     if (index >= 0) traits.splice(index, 1);
                 }

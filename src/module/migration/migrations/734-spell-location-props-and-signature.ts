@@ -17,11 +17,11 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
 
         // Handle signature spells. We need to move it from the entry to the spell's location property
         for (const spellSource of spells) {
-            const spellData: SpellSystemDataOld = spellSource.data;
+            const spellData: SpellSystemDataOld = spellSource.system;
             const entrySource = entries.find((entry) => entry._id === spellData.location.value);
             if (!entrySource) continue;
 
-            const entryData: SpellcastingEntrySystemDataOld = entrySource.data;
+            const entryData: SpellcastingEntrySystemDataOld = entrySource.system;
             if (!entryData.signatureSpells) continue;
 
             const isSignature = entryData.signatureSpells.value.includes(spellSource._id);
@@ -34,7 +34,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         // updateItem() runs after updateActor(). We rely on that to do some cleanup on spellcasting entry
         if (source.type === "spellcastingEntry") {
-            const data: SpellcastingEntrySystemDataOld = source.data;
+            const data: SpellcastingEntrySystemDataOld = source.system;
             if (data.signatureSpells) {
                 delete data.signatureSpells;
                 if ("game" in globalThis) {
@@ -44,7 +44,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
         }
 
         if (source.type === "spell") {
-            const data: SpellSystemDataOld = source.data;
+            const data: SpellSystemDataOld = source.system;
             if (data.heightenedLevel || data.autoHeightenLevel) {
                 // These fields should only exist if there's an actor
                 if (actor) {

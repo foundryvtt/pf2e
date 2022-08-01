@@ -30,7 +30,7 @@ export class Migration656OtherFocusPoolSources extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "feat") return;
 
-        const systemData = itemSource.data;
+        const systemData = itemSource.system;
 
         const rule = ((): (RuleElementSource & { [key: string]: unknown }) | null => {
             const slug = systemData.slug ?? sluggify(itemSource.name);
@@ -57,6 +57,6 @@ export class Migration656OtherFocusPoolSources extends MigrationBase {
             return null;
         })();
 
-        if (rule && this.needsRuleElement(itemSource.data.rules)) systemData.rules.push(rule);
+        if (rule && this.needsRuleElement(itemSource.system.rules)) systemData.rules.push(rule);
     }
 }

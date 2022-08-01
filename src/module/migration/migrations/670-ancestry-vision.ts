@@ -19,7 +19,7 @@ export class Migration670AncestryVision extends MigrationBase {
             this.setAncestryVision(ancestry);
             for (const vision of ["darkvision", "low-light-vision"]) {
                 const index = actorSource.items.findIndex(
-                    (item) => item.type === "feat" && (item.data.slug ?? sluggify(item.name)) === vision
+                    (item) => item.type === "feat" && (item.system.slug ?? sluggify(item.name)) === vision
                 );
                 if (index !== -1) actorSource.items.splice(index, 1);
             }
@@ -34,17 +34,17 @@ export class Migration670AncestryVision extends MigrationBase {
     }
 
     private setAncestryVision(ancestry: AncestrySource): void {
-        const features: Record<string, ABCFeatureEntryData | null> = ancestry.data.items;
+        const features: Record<string, ABCFeatureEntryData | null> = ancestry.system.items;
         for (const [key, value] of Object.entries(features)) {
             if (value?.id === this.LOWLIGHTVISION_ID) {
                 "game" in globalThis ? (features[`-=${key}`] = null) : delete features[key];
                 // Prefer darkvision if the ancestry item somehow has both features
-                ancestry.data.vision = ancestry.data.vision === "darkvision" ? "darkvision" : "lowLightVision";
+                ancestry.system.vision = ancestry.system.vision === "darkvision" ? "darkvision" : "lowLightVision";
             } else if (value?.id === this.DARKVISION_ID) {
                 "game" in globalThis ? (features[`-=${key}`] = null) : delete features[key];
-                ancestry.data.vision = "darkvision";
+                ancestry.system.vision = "darkvision";
             }
         }
-        ancestry.data.vision ??= "normal";
+        ancestry.system.vision ??= "normal";
     }
 }

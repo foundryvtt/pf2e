@@ -6,18 +6,18 @@ export class Migration753WeaponReloadTimes extends MigrationBase {
     static override version = 0.753;
 
     #hasThrownTrait(source: WeaponSource): boolean {
-        return source.data.traits.value.some((t) => t.startsWith("thrown"));
+        return source.system.traits.value.some((t) => t.startsWith("thrown"));
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "weapon") return;
 
-        const slug = source.data.slug ?? "";
+        const slug = source.system.slug ?? "";
 
         if (["backpack-catapult", "backpack-catapult"].includes(slug)) {
-            source.data.reload.value = "10";
-        } else if (source.data.baseItem === "alchemical-bomb" || this.#hasThrownTrait(source)) {
-            source.data.reload.value = "-";
+            source.system.reload.value = "10";
+        } else if (source.system.baseItem === "alchemical-bomb" || this.#hasThrownTrait(source)) {
+            source.system.reload.value = "-";
         }
     }
 }

@@ -11,14 +11,14 @@ export class Migration732FixDedicationFeatTypes extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "feat") {
-            if (!this.#hasWellFormedFeatType(source.data.featType)) {
-                source.data.featType = { value: "bonus" };
+            if (!this.#hasWellFormedFeatType(source.system.featType)) {
+                source.system.featType = { value: "bonus" };
             }
 
-            const featType: { value: string } = source.data.featType;
+            const featType: { value: string } = source.system.featType;
             const shouldBeArchetype =
                 featType.value === "dedication" ||
-                (featType.value === "class" && source.data.slug?.endsWith("-dedication"));
+                (featType.value === "class" && source.system.slug?.endsWith("-dedication"));
 
             if (shouldBeArchetype) featType.value = "archetype";
         }

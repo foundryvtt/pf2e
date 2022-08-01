@@ -20,7 +20,7 @@ export class Migration760SeparateNoteTitle extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const notes = source.data.rules.filter(
+        const notes = source.system.rules.filter(
             (r: MaybeNoteSource): r is RollNoteSource =>
                 r.key === "Note" && typeof r.text === "string" && !("title" in r)
         );

@@ -18,12 +18,12 @@ export class Migration676ReplaceItemsWithRELikeAEs extends MigrationBase {
     private replaceItem({ items, type, slug, replacement }: ReplaceItemArgs): void {
         if (!(replacement instanceof ItemPF2e)) throw ErrorPF2e("Unexpected error retrieving compendium item");
         const current = items.find(
-            (itemSource) => itemSource.type === type && itemSource.data.slug?.replace(/'/g, "") === slug
+            (itemSource) => itemSource.type === type && itemSource.system.slug?.replace(/'/g, "") === slug
         );
         if (current) {
             const newSource = replacement.toObject();
             if (current.type === "feat" && newSource.type === "feat") {
-                newSource.data.location = current.data.location;
+                newSource.system.location = current.system.location;
             }
             items.splice(items.indexOf(current), 1, newSource);
         }

@@ -6,9 +6,9 @@ export class Migration613RemoveAmmoCharges extends MigrationBase {
     static override version = 0.613;
 
     override async updateItem(itemData: ItemSourcePF2e) {
-        if (itemData.type === "consumable" && itemData.data.consumableType.value === "ammo") {
-            itemData.data.charges.value = 0;
-            itemData.data.charges.max = 0;
+        if (itemData.type === "consumable" && itemData.system.consumableType.value === "ammo") {
+            itemData.system.charges.value = 0;
+            itemData.system.charges.max = 0;
         }
     }
 }

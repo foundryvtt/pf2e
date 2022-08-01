@@ -17,7 +17,7 @@ export class Migration761ShotRules extends MigrationBase {
     }
 
     #updateEffect(source: ItemSourcePF2e): void {
-        if (source.data.slug === "stance-multishot-stance") {
+        if (source.system.slug === "stance-multishot-stance") {
             const newRules = [
                 {
                     key: "AdjustModifier",
@@ -42,12 +42,12 @@ export class Migration761ShotRules extends MigrationBase {
                     value: 1,
                 },
             ];
-            source.data.rules = newRules;
+            source.system.rules = newRules;
         }
     }
 
     #updateFeat(source: ItemSourcePF2e): void {
-        switch (source.data.slug) {
+        switch (source.system.slug) {
             case "double-shot": {
                 const newRules = [
                     {
@@ -66,7 +66,7 @@ export class Migration761ShotRules extends MigrationBase {
                         value: -2,
                     },
                 ];
-                source.data.rules = newRules;
+                source.system.rules = newRules;
                 break;
             }
             case "triple-shot": {
@@ -93,7 +93,7 @@ export class Migration761ShotRules extends MigrationBase {
                         value: -4,
                     },
                 ];
-                source.data.rules = newRules;
+                source.system.rules = newRules;
                 break;
             }
         }

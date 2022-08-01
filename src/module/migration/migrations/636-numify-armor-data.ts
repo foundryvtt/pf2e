@@ -7,7 +7,7 @@ export class Migration636NumifyArmorData extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "armor") return;
 
-        const systemData = itemData.data;
+        const systemData = itemData.system;
         systemData.armor.value = Number(systemData.armor.value) || 0;
         systemData.check.value = Number(systemData.check.value) || 0;
         systemData.dex.value = Number(systemData.dex.value) || 0;

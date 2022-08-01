@@ -20,13 +20,13 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
 
         const oldFeatsData = actorData.items.filter(
             (itemData): itemData is FeatSource =>
-                this.featSlugs.includes(itemData.data.slug ?? "") && itemData.type === "feat"
+                this.featSlugs.includes(itemData.system.slug ?? "") && itemData.type === "feat"
         );
         for await (const oldFeatData of oldFeatsData) {
-            if (oldFeatData.data.slug === "mountain-s-stoutness") {
-                oldFeatData.data.slug = "mountains-stoutness";
+            if (oldFeatData.system.slug === "mountain-s-stoutness") {
+                oldFeatData.system.slug = "mountains-stoutness";
             }
-            const slug = oldFeatData.data.slug;
+            const slug = oldFeatData.system.slug;
             const newFeat =
                 slug === "toughness"
                     ? (await this.featsPromise).find((feat) => feat.slug === "toughness")
@@ -34,7 +34,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
             if (!(newFeat instanceof FeatPF2e)) {
                 throw Error("PF2E System | Expected item not found in Compendium");
             }
-            newFeat.data.data.location = oldFeatData.data.location;
+            newFeat.data.data.location = oldFeatData.system.location;
             const oldFeatIndex = actorData.items.indexOf(oldFeatData);
             actorData.items.splice(oldFeatIndex, 1, newFeat.toObject());
         }
