@@ -15,7 +15,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<HeritageSheetData> {
         const sheetData = super.getBaseData(options);
         const ancestry = await (async (): Promise<AncestryPF2e | null> => {
-            const item = this.item.data.data.ancestry ? await fromUuid(this.item.data.data.ancestry.uuid) : null;
+            const item = this.item.system.ancestry ? await fromUuid(this.item.system.ancestry.uuid) : null;
             return item instanceof AncestryPF2e ? item : null;
         })();
 

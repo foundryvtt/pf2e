@@ -10,33 +10,33 @@ import { ClassData, ClassTrait } from "./data";
 
 class ClassPF2e extends ABCItemPF2e {
     get attacks() {
-        return this.data.data.attacks;
+        return this.system.attacks;
     }
 
     get defenses() {
-        return this.data.data.defenses;
+        return this.system.defenses;
     }
 
     get classDC(): ZeroToFour {
-        return this.data.data.classDC;
+        return this.system.classDC;
     }
 
     get hpPerLevel(): number {
-        return this.data.data.hp;
+        return this.system.hp;
     }
 
     get perception(): ZeroToFour {
-        return this.data.data.perception;
+        return this.system.perception;
     }
 
     get savingThrows(): Record<SaveType, ZeroToFour> {
-        return this.data.data.savingThrows;
+        return this.system.savingThrows;
     }
 
     get grantedFeatSlots() {
         const actorLevel = this.actor?.level ?? 0;
         const filterLevels = (levels: number[]) => levels.filter((level) => actorLevel >= level) ?? [];
-        const system = this.data.data;
+        const system = this.system;
 
         const ancestryLevels: FeatSlotLevel[] = filterLevels(system.ancestryFeatLevels.value);
         if (game.settings.get("pf2e", "ancestryParagonVariant")) {
@@ -70,7 +70,7 @@ class ClassPF2e extends ABCItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { keyAbility } = this.data.data;
+        const { keyAbility } = this.system;
         keyAbility.selected ??= keyAbility.value.length === 1 ? keyAbility.value[0]! : null;
     }
 
@@ -86,7 +86,7 @@ class ClassPF2e extends ABCItemPF2e {
 
         // Add base key ability options
 
-        const { keyAbility } = this.data.data;
+        const { keyAbility } = this.system;
         build.abilities.keyOptions = [...keyAbility.value];
         build.abilities.boosts.class = keyAbility.selected;
 

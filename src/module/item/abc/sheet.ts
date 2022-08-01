@@ -78,10 +78,10 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
             id: dropData.id,
             img: item.data.img,
             name: item.name,
-            level: item.data.data.level.value,
+            level: item.level,
         };
 
-        const items = this.item.data.data.items;
+        const items = this.item.system.items;
         const pathPrefix = "data.items";
 
         let id: string;
