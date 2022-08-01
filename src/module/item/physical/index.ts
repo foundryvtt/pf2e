@@ -14,40 +14,40 @@ import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
 
-export abstract class PhysicalItemPF2e extends ItemPF2e {
+abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
     private _container: Embedded<ContainerPF2e> | null = null;
 
     get level(): number {
-        return this.data.data.level.value;
+        return this.system.level.value;
     }
 
     get rarity(): Rarity {
-        return this.data.data.traits.rarity;
+        return this.system.traits.rarity;
     }
 
     get traits(): Set<PhysicalItemTrait> {
-        return new Set(this.data.data.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get quantity(): number {
-        return Number(this.data.data.quantity ?? 1);
+        return Number(this.system.quantity ?? 1);
     }
 
     get size(): Size {
-        return this.data.data.size;
+        return this.system.size;
     }
 
     get isEquipped(): boolean {
-        return isEquipped(this.data.data.usage, this.data.data.equipped);
+        return isEquipped(this.system.usage, this.system.equipped);
     }
 
     get carryType(): ItemCarryType {
-        return this.data.data.equipped.carryType ?? (this.data.data.containerId ? "worn" : "stowed");
+        return this.system.equipped.carryType ?? (this.system.containerId ? "worn" : "stowed");
     }
 
     get handsHeld(): number {
-        return this.data.data.equipped.carryType === "held" ? this.data.data.equipped.handsHeld ?? 1 : 0;
+        return this.system.equipped.carryType === "held" ? this.system.equipped.handsHeld ?? 1 : 0;
     }
 
     get isHeld(): boolean {
@@ -55,7 +55,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get price(): Price {
-        return this.data.data.price;
+        return this.system.price;
     }
 
     /** The monetary value of the entire item stack */
@@ -64,11 +64,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get identificationStatus(): IdentificationStatus {
-        return this.data.data.identification.status;
+        return this.system.identification.status;
     }
 
     get isIdentified(): boolean {
-        return this.data.data.identification.status === "identified";
+        return this.system.identification.status === "identified";
     }
 
     get isAlchemical(): boolean {
@@ -84,7 +84,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.isEquipped && this.isIdentified && this.data.data.equipped.invested === true;
+        return this.isEquipped && this.isIdentified && this.system.equipped.invested === true;
     }
 
     get isCursed(): boolean {
@@ -92,15 +92,15 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isTemporary(): boolean {
-        return this.data.data.temporary;
+        return this.system.temporary;
     }
 
     get isDamaged(): boolean {
-        return this.data.data.hp.value > 0 && this.data.data.hp.value < this.data.data.hp.max;
+        return this.system.hp.value > 0 && this.system.hp.value < this.system.hp.max;
     }
 
     get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
-        const systemData = this.data.data;
+        const systemData = this.system;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
             ? {
                   precious: {
@@ -116,14 +116,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isStowed(): boolean {
-        return !!this.container?.data.data.stowing;
+        return !!this.container?.system.stowing;
     }
 
     /** Get this item's container, returning null if it is not in a container */
     get container(): Embedded<ContainerPF2e> | null {
-        if (this.data.data.containerId === null) return (this._container = null);
+        if (this.system.containerId === null) return (this._container = null);
 
-        const container = this._container ?? this.actor?.items.get(this.data.data.containerId ?? "");
+        const container = this._container ?? this.actor?.items.get(this.system.containerId ?? "");
         if (container?.isOfType("backpack")) this._container = container;
 
         return this._container;
@@ -131,7 +131,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** Returns the bulk of this item and all sub-containers */
     get bulk(): Bulk {
-        const { value, per } = this.data.data.bulk;
+        const { value, per } = this.system.bulk;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
         return new Bulk({ light: value })
             .convertToSize(this.size, this.actor?.size ?? this.size)
@@ -139,7 +139,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get activations() {
-        return Object.values(this.data.data.activations ?? {}).map((action) => {
+        return Object.values(this.system.activations ?? {}).map((action) => {
             const components: string[] = [];
             if (action.components.cast) components.push(game.i18n.localize("PF2E.Item.Activation.Cast"));
             if (action.components.command) components.push(game.i18n.localize("PF2E.Item.Activation.Command"));
@@ -172,7 +172,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         // null out empty-string values
         systemData.preciousMaterial.value ||= null;
         systemData.preciousMaterialGrade.value ||= null;
@@ -196,8 +196,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status
-        this.data.data.usage = getUsageDetails(systemData.usage.value);
-        const { equipped, usage } = this.data.data;
+        this.system.usage = getUsageDetails(systemData.usage.value);
+        const { equipped, usage } = this.system;
 
         equipped.handsHeld ??= 0;
         equipped.carryType ??= "worn";
@@ -226,7 +226,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         })();
 
         // Set the _container cache property to null if it no longer matches this item's container ID
-        if (this._container?.id !== this.data.data.containerId) {
+        if (this._container?.id !== this.system.containerId) {
             this._container = null;
         }
     }
@@ -235,7 +235,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.data.data;
+        const systemData = this.system;
         systemData.identification.identified = {
             name: this.name,
             img: this.img,
@@ -254,13 +254,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
         if (this.isStowed) {
-            this.data.data.equipped.carryType = "stowed";
-            delete this.data.data.equipped.inSlot;
+            this.system.equipped.carryType = "stowed";
+            delete this.system.equipped.inSlot;
         }
 
         // Clear the container reference if it turns out to be stale
         if (this._container && !this.actor.items.has(this._container.id)) {
-            this._container = this.data.data.containerId = null;
+            this._container = this.system.containerId = null;
         }
     }
 
@@ -287,7 +287,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
-        const mystifiedData: MystifiedData = this.data.data.identification[status];
+        const mystifiedData: MystifiedData = this.system.identification[status];
 
         const name = mystifiedData.name || this.generateUnidentifiedName();
         const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
@@ -391,7 +391,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         });
 
         if (this.actor) {
-            const isSlottedItem = this.data.data.usage.type === "worn" && !!this.data.data.usage.where;
+            const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
             if (this.actor.isOfType("character", "npc") && isSlottedItem) {
                 this.data.update({ "data.equipped.inSlot": false });
             }
@@ -405,7 +405,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     ): Promise<void> {
         // Clamp hit points to between zero and max
         if (typeof changed.data?.hp?.value === "number") {
-            changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.hp.max);
+            changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.system.hp.max);
         }
 
         if (!changed.data) return super._preUpdate(changed, options, user);
@@ -417,7 +417,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
         const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
-        const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
+        const newCarryType = String(equipped.carryType ?? this.system.equipped.carryType);
         if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
 
         // Clear 0 price denominations and per fields with values 0 or 1
@@ -437,9 +437,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             }
         }
 
-        const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.data.data.usage.value));
+        const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.system.usage.value));
         const hasSlot = newUsage.type === "worn" && newUsage.where;
-        const isSlotted = Boolean(equipped.inSlot ?? this.data.data.equipped.inSlot);
+        const isSlotted = Boolean(equipped.inSlot ?? this.system.equipped.inSlot);
 
         if (hasSlot) {
             equipped.inSlot = isSlotted;
@@ -451,6 +451,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 }
 
-export interface PhysicalItemPF2e {
+interface PhysicalItemPF2e {
     readonly data: PhysicalItemData;
 }
+
+export { PhysicalItemPF2e };

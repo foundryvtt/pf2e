@@ -245,7 +245,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         }
 
         // Ensure melee usage is absent if not a combination weapon
-        if (weapon.data.data.meleeUsage && !this.item.traits.has("combination")) {
+        if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
             formData["data.-=meleeUsage"] = null;
         }
 
