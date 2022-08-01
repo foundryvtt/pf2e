@@ -19,6 +19,7 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,51 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": {
+                    "all": [
+                        "self:heritage:irongut-goblin"
+                    ]
+                },
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "predicate": {
+                    "all": [
+                        "self:heritage:razortooth-goblin"
+                    ]
+                },
+                "selector": "jaws-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "jaws-damage",
+                "text": "@Localize[PF2E.SpecificRule.Goblin.FangSharpener.Note]",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
