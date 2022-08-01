@@ -22,7 +22,7 @@ import { CheckPF2e } from "@system/rolls";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
-import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource } from "./data";
+import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource, SpellSystemData } from "./data";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 import { SpellOverlayCollection } from "./overlay";
 import { ActionTrait } from "@item/action/data";
@@ -43,7 +43,7 @@ class SpellPF2e extends ItemPF2e {
     trickMagicEntry: TrickMagicItemEntry | null = null;
 
     get baseLevel(): OneToTen {
-        return this.data.data.level.value;
+        return this.system.level.value;
     }
 
     /**
@@ -64,7 +64,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     get traits(): Set<SpellTrait> {
-        return new Set(this.data.data.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     /** Action traits added when Casting this Spell */
@@ -72,7 +72,7 @@ class SpellPF2e extends ItemPF2e {
         const { components } = this;
         return (
             [
-                getActionIcon(this.data.data.time.value, null) === null ? "exploration" : [],
+                getActionIcon(this.system.time.value, null) === null ? "exploration" : [],
                 components.verbal ? "concentrate" : [],
                 (["focus", "material", "somatic"] as const).some((c) => components[c]) ? "manipulate" : [],
             ] as const
@@ -80,17 +80,17 @@ class SpellPF2e extends ItemPF2e {
     }
 
     get school(): MagicSchool {
-        return this.data.data.school.value;
+        return this.system.school.value;
     }
 
     get traditions(): Set<MagicTradition> {
         return this.spellcasting?.tradition
             ? new Set([this.spellcasting.tradition])
-            : new Set(this.data.data.traditions.value);
+            : new Set(this.system.traditions.value);
     }
 
     get spellcasting(): SpellcastingEntryPF2e | undefined {
-        const spellcastingId = this.data.data.location.value;
+        const spellcastingId = this.system.location.value;
         return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
     }
 
@@ -99,15 +99,15 @@ class SpellPF2e extends ItemPF2e {
     }
 
     get isFocusSpell() {
-        return this.data.data.category.value === "focus";
+        return this.system.category.value === "focus";
     }
 
     get isRitual(): boolean {
-        return this.data.data.category.value === "ritual";
+        return this.system.category.value === "ritual";
     }
 
     get components(): Record<SpellComponent, boolean> & { value: string } {
-        const components = this.data.data.components;
+        const components = this.system.components;
         const results: string[] = [];
         if (components.focus) results.push(game.i18n.localize("PF2E.SpellComponentShortF"));
         if (components.material) results.push(game.i18n.localize("PF2E.SpellComponentShortM"));
@@ -163,7 +163,7 @@ class SpellPF2e extends ItemPF2e {
         const rollData = super.getRollData();
         if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
-            const { abilities } = this.actor.data.data;
+            const { abilities } = this.actor.system;
             if (!spellcasting?.data && this.trickMagicEntry) {
                 rollData["mod"] = abilities[this.trickMagicEntry.ability].mod;
             } else {
@@ -186,7 +186,7 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const formulas: string[] = [];
-        for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
+        for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
             // Currently unable to handle display of perisistent and splash damage
             if (damage.type.subtype) continue;
 
@@ -196,7 +196,7 @@ class SpellPF2e extends ItemPF2e {
 
             // Add elite/weak if its the first damage entry only
             if (formulas.length === 0) {
-                const traits = this.actor?.data.data.traits.traits.value ?? [];
+                const traits = this.actor?.system.traits.traits.value ?? [];
                 if (traits.some((trait) => trait === "elite")) {
                     parts.push(this.unlimited ? 2 : 4);
                 } else if (traits.some((trait) => trait === "weak")) {
@@ -205,7 +205,7 @@ class SpellPF2e extends ItemPF2e {
             }
 
             // Check for and apply interval Spell scaling
-            const heightening = this.data.data.heightening;
+            const heightening = this.system.heightening;
             if (heightening?.type === "interval" && heightening.interval) {
                 const scalingFormula = heightening.damage[id];
                 if (scalingFormula && scalingFormula !== "0" && heightening.interval) {
@@ -238,7 +238,7 @@ class SpellPF2e extends ItemPF2e {
         // Add flat damage increases if this spell can deal damage.
         // Until damage is refactored, we can't get anything fancier than this
         const { actor } = this;
-        if (actor && Object.keys(this.data.data.damage.value).length) {
+        if (actor && Object.keys(this.system.damage.value).length) {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
@@ -308,7 +308,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     getHeightenLayers(level?: number): SpellHeightenLayer[] {
-        const heightening = this.data.data.heightening;
+        const heightening = this.system.heightening;
         if (heightening?.type !== "fixed") return [];
 
         return Object.entries(heightening.levels)
@@ -328,7 +328,7 @@ class SpellPF2e extends ItemPF2e {
             cube: "rect",
         } as const;
 
-        const { area } = this.data.data;
+        const { area } = this.system;
         const areaType = templateConversion[area.areaType];
 
         const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
@@ -341,7 +341,7 @@ class SpellPF2e extends ItemPF2e {
                         uuid: this.uuid,
                         name: this.name,
                         slug: this.slug,
-                        traits: deepClone(this.data.data.traits?.value ?? []),
+                        traits: deepClone(this.system.traits.value),
                     },
                 },
             },
@@ -367,15 +367,15 @@ class SpellPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         // In case bad level data somehow made it in
-        this.data.data.level.value = (Math.clamped(this.data.data.level.value, 1, 10) || 1) as OneToTen;
+        this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
 
-        this.overlays = new SpellOverlayCollection(this, this.data.data.overlays);
+        this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
-        this.data.data.traits.value.push(this.school, ...this.traditions);
+        this.system.traits.value.push(this.school, ...this.traditions);
         if (this.spellcasting?.isInnate) {
-            mergeObject(this.data.data.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
+            mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
     }
 
@@ -387,17 +387,17 @@ class SpellPF2e extends ItemPF2e {
             options.add(`${prefix}:spell-slot`);
         }
 
-        if (!this.data.data.duration.value) {
+        if (!this.system.duration.value) {
             options.add(`${prefix}:duration:0`);
         }
 
-        for (const damage of Object.values(this.data.data.damage.value)) {
+        for (const damage of Object.values(this.system.damage.value)) {
             const category = DamageCategorization.fromDamageType(damage.type.value);
             if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
             if (category) options.add(`${prefix}:damage:${category}`);
         }
 
-        if (this.data.data.spellType.value !== "heal") {
+        if (this.system.spellType.value !== "heal") {
             options.add("damaging-effect");
         }
 
@@ -459,8 +459,8 @@ class SpellPF2e extends ItemPF2e {
             .flatMap((variant): SpellVariantChatData => {
                 const overlayIds = [...variant.appliedOverlays!.values()];
                 const actions = (() => {
-                    const actionIcon = getActionIcon(variant.data.data.time.value, null);
-                    return variant.data.data.time.value !== this.data.data.time.value && actionIcon ? actionIcon : null;
+                    const actionIcon = getActionIcon(variant.system.time.value, null);
+                    return variant.system.time.value !== this.system.time.value && actionIcon ? actionIcon : null;
                 })();
 
                 return {
@@ -476,7 +476,7 @@ class SpellPF2e extends ItemPF2e {
         rollData.item ??= this;
 
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
-        const systemData = this.data.data;
+        const systemData: SpellSystemData = this.system;
 
         const options = { ...htmlOptions, rollData };
         const description = game.pf2e.TextEditor.enrichHTML(this.description, options);
@@ -532,7 +532,7 @@ class SpellPF2e extends ItemPF2e {
         const levelLabel = (() => {
             const type = this.isCantrip
                 ? localize("PF2E.TraitCantrip")
-                : localize(CONFIG.PF2E.spellCategories[this.data.data.category.value]);
+                : localize(CONFIG.PF2E.spellCategories[this.system.category.value]);
             return game.i18n.format("PF2E.ItemLevel", { type, level: castLevel });
         })();
 
@@ -615,11 +615,11 @@ class SpellPF2e extends ItemPF2e {
 
         // This title creation is temporary, will change once damage cards are finished
         const title = (() => {
-            const isHeal = this.data.data.spellType.value === "heal";
+            const isHeal = this.system.spellType.value === "heal";
             if (isHeal) {
                 return `${this.name} - ${game.i18n.localize("PF2E.SpellTypeHeal")}`;
             } else {
-                const damageType = Object.values(this.data.data.damage.value ?? {})
+                const damageType = Object.values(this.system.damage.value ?? {})
                     .filter((damage) => damage.type.subtype !== "persistent" && damage.type.subtype !== "splash")
                     .map((damage) => damage.type.value)
                     .filter((type): type is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, type))
@@ -659,7 +659,7 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const modifiers: ModifierPF2e[] = [];
-        const ability: AbilityString = spellcastingEntry.data.data.ability?.value || "int";
+        const ability: AbilityString = spellcastingEntry.system.ability?.value || "int";
         const score = this.actor.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromScore(ability, score));
 
@@ -667,7 +667,7 @@ class SpellPF2e extends ItemPF2e {
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.level, proficiencyRank));
 
         const rollOptions = ["all", "counteract-check"];
-        const traits = this.data.data.traits.value;
+        const traits = this.system.traits.value;
 
         let flavor = "<hr>";
         flavor += `<h3>${game.i18n.localize("PF2E.Counteract")}</h3>`;
@@ -731,21 +731,21 @@ class SpellPF2e extends ItemPF2e {
 
         const uses = changed.data?.location?.uses;
         if (uses) {
-            const currentUses = uses.value ?? this.data.data.location.uses?.value ?? 1;
-            const currentMax = uses.max ?? this.data.data.location.uses?.max;
+            const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
+            const currentMax = uses.max ?? this.system.location.uses?.max;
             uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
         }
 
         // If dragged to outside an actor, location properties should be cleaned up
         const newLocation = changed.data?.location?.value;
-        const locationChanged = typeof newLocation === "string" && newLocation !== this.data.data.location.value;
+        const locationChanged = typeof newLocation === "string" && newLocation !== this.system.location.value;
         if (diff && (!this.actor || locationChanged)) {
             type SystemSourceWithDeletions = typeof changed["data"] & { location?: Record<`-=${string}`, null> };
             const data: SystemSourceWithDeletions = (changed.data ??= {});
             const locationUpdates = (data.location = this.actor ? data.location ?? {} : { value: "" });
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
-            const keys = Object.keys(this.data.data.location).filter((k) => k !== "value" && !(k in locationUpdates));
+            const keys = Object.keys(this.system.location).filter((k) => k !== "value" && !(k in locationUpdates));
             for (const key of keys) {
                 locationUpdates[`-=${key}`] = null;
             }

@@ -27,7 +27,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         }
 
         targetLevel ??= spell.level;
-        const spellcastingEntryId = spell.data.data.location.value;
+        const spellcastingEntryId = spell.system.location.value;
         if (spellcastingEntryId === this.id && spell.level === targetLevel) {
             return null;
         }
@@ -64,7 +64,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}`;
         const updates: Record<string, unknown> = { [key]: { id: spell.id } };
 
-        const slot = this.entry.data.data.slots[`slot${slotLevel}` as SlotKey].prepared[spellSlot];
+        const slot = this.entry.system.slots[`slot${slotLevel}` as SlotKey].prepared[spellSlot];
         if (slot) {
             if (slot.prepared !== undefined) {
                 updates[`${key}.-=prepared`] = null;
