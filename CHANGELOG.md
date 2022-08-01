@@ -1,5 +1,24 @@
 # Changelog
 
+# Version 3.13.5
+
+### System Improvements
+* (stwlam) Make aura effects have unlimited duration (still removed on exiting aura if configured so)
+* (stwlam) Warn GMs when the "Foundry Community Macros" module is enabled
+
+### Bugfixes
+* (stwlam) Fix cases of secondary damage types (e.g., draconic rage fire damage) being wrongly excluded if there are also extra dice of the same damage types
+* (stwlam) Take small measure to ensure FlatModifier REs to have unique slugs
+
+### Data Updates
+* (Manni) Fix details and localization of some Age of Ashes actors
+* (SpartanCPA) Remove duplicate Sylvan Wine effect and mistakenly added wineskin item
+* (stwlam) Set Aura of Misfortune effect to not automatically remove itself on roll
+* (stwlam) Add auras to Overwatch Dedication and Wide Overwatch feats
+* (stwlam) Add abjuration trait to Spellguard Blade
+* (Tikael) Audit rule elements on several effects
+
+
 ## Version 3.13.4
 
 ### Bugfixes
@@ -15,14 +34,14 @@
 
 ## Version 3.13.3
 
+### System Improvements
+* (stwlam) Move focus pool pips on PC sheet to area that is always visible
+* (stwlam) Redraw auras and reassess aura inclusion when radius and token size changes
+
 ### Bugfixes
 * (In3luki) Fix spell variant check in item summary renderer
 * (stwlam) Fix issue causing Animal Instinct damage rolls to error out at level >= 7
 * (Supe) Fix spellcasting entries not being sortable
-
-### System Improvements
-* (stwlam) Move focus pool pips on PC sheet to area that is always visible
-* (stwlam) Redraw auras and reassess aura inclusion when radius and token size changes
 
 ### Data Updates
 * (LebombJames) Add Deity Boons/Curses from the Gods and Magic Web Supplement
@@ -51,13 +70,13 @@
 
 ## Version 3.13.1
 
+### System Improvements
+* (Supe) Show that a strike is for a temporary item
+
 ### Bugfixes
 * (stwlam) Work around adverse interaction between system auras and a combination of the Perfect Vision and Token Auras modules
 * (stwlam) Fix processing of weapon damage with no dice
 * (Supe) Fix actions tab styling around navigation
-
-### System Improvements
-* (Supe) Show that a strike is for a temporary item
 
 
 ## Version 3.13.0
@@ -67,6 +86,17 @@
 * (stwlam) Add basic support for auras that transmit effects to allies
 * (stwlam) Add ability for GMs to generate NPC attacks from inventory weapons
 * (Supe) Implement Gradual Ability Boosts variant rule
+
+### System Improvements
+* (Mats, Supe) Restyle actions sub-navigation and feats tab
+* (stwlam) Add ability to set alliance of PCs and to hide their basic unarmed attack
+* (stwlam) Automatically adjust current hit points when changing PC level or adding ancestry, class, etc.
+* (stwlam) Refactor javascript preventing the Safari browser from fully loading a world
+* (Supe) Add frequency and display to actions and feats in PC sheet
+* (Supe) Implement Roll Note RE Editor
+* (Supe) Show carried bulk for loot actors
+* (Supe) Allow rule elements to increase focus pools beyond three points
+* (Supe) Improve feat drag/drop and handle invalid feat drops
 
 ### Bugfixes
 * (Eddie) Have drained condition remove hit points when its value is increased
@@ -80,17 +110,6 @@
 * (Supe) Fix and localize IWR exceptions and placeholder text
 * (Supe) Fix issue causing Vehicle sheets to reject attempts to add actions
 * (Tikael) Prevent bonuses to skills from increasing inline DCs improperly
-
-### System Improvements
-* (Mats, Supe) Restyle actions sub-navigation and feats tab
-* (stwlam) Add ability to set alliance of PCs and to hide their basic unarmed attack
-* (stwlam) Automatically adjust current hit points when changing PC level or adding ancestry, class, etc.
-* (stwlam) Refactor javascript preventing the Safari browser from fully loading a world
-* (Supe) Add frequency and display to actions and feats in PC sheet
-* (Supe) Implement Roll Note RE Editor
-* (Supe) Show carried bulk for loot actors
-* (Supe) Allow rule elements to increase focus pools beyond three points
-* (Supe) Improve feat drag/drop and handle invalid feat drops
 
 ### Data Updates
 * (Abaddon) Review Bestiary 3 (lots)
