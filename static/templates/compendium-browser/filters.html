@@ -48,7 +48,7 @@
             {{#each ../filterData.multiselects as |select type|}}
                 <div class="filtercontainer" data-filter-type="multiselects" data-filter-name="{{type}}">
                     <h3>{{localize select.label}}</h3>
-                    <input class="paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json select.selected}}" />
+                    <input class="tags paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json select.selected}}" />
                 </div>
             {{/each}}
         {{/if}}

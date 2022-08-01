@@ -20,8 +20,8 @@
             <input class="level" name="data.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number" placeholder="1" />
         </div>
 
-        <div class="tags main">
-            {{#if editing}}
+        {{#if editing}}
+            <template class="traits-extra">
                 <select class="tag" name="data.traits.rarity" value="{{data.traits.rarity}}" data-dtype="String">
                     {{#select data.traits.rarity}}
                         {{#each rarity as |label key|}}
@@ -35,17 +35,17 @@
                         <option value="true">Complex</option>
                     {{/select}}
                 </select>
-            {{else}}
-                {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
-                {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
-            {{/if}}
+            </template>
+            <input class="tags paizo-style" name="data.traits.traits.value" value="{{json data.traits.traits.value}}" data-dtype="JSON" />
+        {{else}}
+        <div class="tags paizo-style">
+            {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
+            {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
 
             {{#each actorTraits as |trait id|}}
                 <span class="tag">{{trait}}</span>
             {{/each}}
-            {{#if editing}}
-                <a class="trait-selector" data-trait-selector="basic" data-config-types="hazardTraits" data-property="data.traits.traits"><i class="fas fa-edit"></i></a>
-            {{/if}}
         </div>
+        {{/if}}
     </div>
 </header>

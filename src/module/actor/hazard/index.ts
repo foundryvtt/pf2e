@@ -14,11 +14,11 @@ export class HazardPF2e extends ActorPF2e {
     }
 
     get rarity(): Rarity {
-        return this.data.data.traits.rarity;
+        return this.system.traits.rarity;
     }
 
     get isComplex(): boolean {
-        return this.data.data.details.isComplex;
+        return this.system.details.isComplex;
     }
 
     /** Minimal check since the disabled status of a hazard isn't logged */
@@ -29,7 +29,7 @@ export class HazardPF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { attributes, details } = this.data.data;
+        const { attributes, details } = this.system;
         attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
 
         attributes.hp.negativeHealing = false;
@@ -71,7 +71,7 @@ export class HazardPF2e extends ActorPF2e {
     }
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
-        const data = this.data.data;
+        const data = this.system;
         const { rollNotes } = this.synthetics;
 
         // Saving Throws
@@ -101,7 +101,7 @@ export class HazardPF2e extends ActorPF2e {
                 dc: {},
             });
 
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            mergeObject(this.system.saves[saveType], stat.getCompatData());
 
             saves[saveType] = stat;
             return saves;

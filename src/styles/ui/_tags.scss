@@ -89,19 +89,9 @@
             background-color: $rarity-unique;
         }
     }
-
-    select.tag {
-        border: none;
-        padding: 0;
-        height: auto;
-    }
-
-    &.main .tag {
-        font-size: var(--font-size-12);
-    }
 }
 
-.tagify.paizo-style {
+.tags.paizo-style {
     --tag-bg: var(--primary);
     --tag-hover: var(--primary);
     --tag-remove-btn-color: var(--color-text-trait);
@@ -114,36 +104,39 @@
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 3px;
     padding: 0.05em;
+    gap: 0;
 
     .tagify__input {
         margin: 0;
         padding: 0.1em 0.5em;
     }
 
-    tag {
+    tag, .tag, select.tag {
         border: 2px solid var(--color-border-trait);
-        border-radius: 0;
         margin: 0;
-        padding: 1px;
+        height: 22px;
 
         x {
             align-items: start;
             margin: 0;
         }
 
-        > div {
-            border-radius: 0;
-            display: flex;
-            font: 500 var(--font-size-10) var(--sans-serif);
-            padding: 0.15em;
-
-            .tagify__tag-text {
-                text-transform: uppercase;
-            }
-        }
-
         &__removeBtn {
             align-items: baseline;
+        }
+    }
+
+    tag > div {
+        padding: 0 0.09rem 0 0.16rem;
+    }
+
+    tag > div, .tag, select {
+        border-radius: 0;
+        display: flex;
+        font: 500 var(--font-size-10) var(--sans-serif);
+
+        .tagify__tag-text {
+            text-transform: uppercase;
         }
     }
 }
