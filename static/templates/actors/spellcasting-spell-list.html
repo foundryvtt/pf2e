@@ -68,7 +68,8 @@
                             class="item spell{{#if virtual}} virtual{{/if}}"
                             data-item-id="{{spell.id}}"
                             data-entry-id="{{entry.id}}"
-                            data-spell-lvl="{{section.level}}"
+                            data-cast-level="{{spell.level}}"
+                            data-slot-level="{{section.level}}"
                             {{#if entry.isPrepared}}data-slot-id="{{i}}"{{/if}}
                             data-item-type="spell"
                             data-expended-state="{{expended}}"
@@ -141,7 +142,7 @@
                             {{/if}}
                         </li>
                     {{else}}
-                        <li class="item" data-item-id="{{i}}" data-spell-lvl="{{section.level}}" data-item-type="spellSlot" data-slot-id="{{i}}" data-entry-id="{{entry.id}}" draggable="true">
+                        <li class="item" data-item-id="{{i}}" data-slot-level="{{section.level}}" data-item-type="spellSlot" data-slot-id="{{i}}" data-entry-id="{{entry.id}}" draggable="true">
                             <div class="item-name empty"><h4>{{localize "PF2E.SpellSlotEmpty"}}</h4></div>
                         </li>
                     {{/with}}

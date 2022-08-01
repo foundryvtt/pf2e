@@ -254,10 +254,10 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         // Casting spells and consuming slots
         $html.find("button[data-action=cast-spell]").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");
-            const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
+            const { itemId, slotLevel, slotId, entryId } = $spellEl.data();
             const entry = this.actor.spellcasting.get(entryId, { strict: true });
             const spell = entry.spells.get(itemId, { strict: true });
-            entry.cast(spell, { slot: slotId, level: spellLvl });
+            entry.cast(spell, { slot: slotId, level: slotLevel });
         });
 
         // Regenerating spell slots and spell uses

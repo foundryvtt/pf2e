@@ -268,24 +268,24 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Remove Spell Slot
         $html.find(".item-unprepare").on("click", (event) => {
-            const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
+            const slotLevel = Number($(event.currentTarget).parents(".item").attr("data-slot-level") ?? 0);
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
             const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.unprepareSpell(spellLvl, slotId);
+            collection?.unprepareSpell(slotLevel, slotId);
         });
 
         // Set Expended Status of Spell Slot
         $html.find(".item-toggle-prepare").on("click", (event) => {
+            const slotLevel = Number($(event.currentTarget).parents(".item").attr("data-slot-level") ?? 0);
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
-            const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
             const expendedState = ((): boolean => {
                 const expendedString = $(event.currentTarget).parents(".item").attr("data-expended-state") ?? "";
                 return expendedString !== "true";
             })();
             const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.setSlotExpendedState(spellLvl, slotId, expendedState);
+            collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
         });
 
         $html.find(".carry-type-hover").tooltipster({
@@ -699,10 +699,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 return [spell ?? []].flat();
             } else if ($dropItemEl.attr("data-slot-id")) {
                 const dropId = Number($dropItemEl.attr("data-slot-id"));
-                const spellLvl = Number($dropItemEl.attr("data-spell-lvl"));
+                const slotLevel = Number($dropItemEl.attr("data-slot-level"));
 
-                if (Number.isInteger(dropId) && Number.isInteger(spellLvl)) {
-                    const allocated = await collection.prepareSpell(item, spellLvl, dropId);
+                if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
+                    const allocated = await collection.prepareSpell(item, slotLevel, dropId);
                     if (allocated) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
