@@ -4,7 +4,7 @@ import { TreasureData } from "./data";
 
 class TreasurePF2e extends PhysicalItemPF2e {
     get isCoinage(): boolean {
-        return this.data.data.stackGroup === "coins";
+        return this.system.stackGroup === "coins";
     }
 
     get denomination() {
@@ -17,15 +17,15 @@ class TreasurePF2e extends PhysicalItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         if (this.isCoinage) {
-            this.data.data.size = "med";
+            this.system.size = "med";
         }
     }
 
     override getChatData(this: Embedded<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+        const systemData = this.system;
         const traits = this.traitChatData({});
 
-        return this.processChatData(htmlOptions, { ...data, traits });
+        return this.processChatData(htmlOptions, { ...systemData, traits });
     }
 }
 

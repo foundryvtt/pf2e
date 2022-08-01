@@ -71,8 +71,8 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         $html.find("[data-action=activation-delete]").on("click", (event) => {
             event.preventDefault();
             const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            const isLast = Object.values(this.item.data.data.activations ?? []).length === 1;
-            if (isLast && id && id in (this.item.data.data.activations ?? {})) {
+            const isLast = Object.values(this.item.system.activations ?? []).length === 1;
+            if (isLast && id && id in (this.item.system.activations ?? {})) {
                 this.item.update({ "data.-=activations": null });
             } else {
                 this.item.update({ [`data.activations.-=${id}`]: null });
@@ -81,7 +81,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         $html.find("[data-action=activation-frequency-add]").on("click", (event) => {
             const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            if (id && id in (this.item.data.data.activations ?? {})) {
+            if (id && id in (this.item.system.activations ?? {})) {
                 const per = CONFIG.PF2E.frequencies.day;
                 this.item.update({ [`data.activations.${id}.frequency`]: { value: 1, max: 1, per } });
             }
@@ -89,7 +89,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         $html.find("[data-action=activation-frequency-delete]").on("click", (event) => {
             const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            if (id && id in (this.item.data.data.activations ?? {})) {
+            if (id && id in (this.item.system.activations ?? {})) {
                 this.item.update({ [`data.activations.${id}.-=frequency`]: null });
             }
         });

@@ -136,7 +136,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             dieFaces: Number(this.system.damage.die?.replace(/^d/, "")),
         };
         const { actor } = this;
-        const actorSize = actor?.data.data.traits.size;
+        const actorSize = actor?.system.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const isDeityFavored = !!(
             this.baseType &&
