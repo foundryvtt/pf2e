@@ -139,6 +139,14 @@
             text-transform: uppercase;
         }
     }
+
+    // Tone down disabled effects so we still see trait colors
+    &[disabled] {
+        filter: none;
+        tag > div::before {
+            animation: none!important;
+        }
+    }
 }
 
 li.chat-message .tags .tag {
