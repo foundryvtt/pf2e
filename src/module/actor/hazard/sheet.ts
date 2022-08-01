@@ -1,81 +1,115 @@
 import { ActorSheetPF2e } from "@actor/sheet/base";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
 import { ErrorPF2e } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
+import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat("hazard"),
-            width: 650,
+            classes: ["default", "sheet", "hazard", "actor"],
+            scrollY: [".container > section"],
+            width: 700,
             height: 680,
         });
         return options;
     }
 
-    /** Get the HTML template path to use depending on whether this sheet is in edit mode */
     override get template(): string {
-        const path = "systems/pf2e/templates/actors/hazard/";
-        if (this.actor.getFlag("pf2e", "editHazard.value")) return `${path}sheet.html`;
-        return `${path}sheet-no-edit.html`;
+        return "systems/pf2e/templates/actors/hazard/sheet.html";
     }
 
-    override async getData() {
+    override get title() {
+        if (this.editing) {
+            return game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title });
+        }
+
+        return super.title;
+    }
+
+    get editing() {
+        return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
+    }
+
+    override async getData(): Promise<HazardSheetData> {
         const sheetData = await super.getData();
 
-        // Update save labels
-        for (const key of SAVE_TYPES) {
-            if (!sheetData.data.saves[key]) continue;
-            sheetData.data.saves[key].label = CONFIG.PF2E.saves[key];
-        }
         sheetData.actor.flags.editHazard ??= { value: false };
         const systemData: HazardSystemData = sheetData.data;
+        const actor = this.actor;
+
+        const hasDefenses = !!actor.hitPoints?.max || !!actor.attributes.ac.value;
+        const hasImmunities = systemData.traits.di.value.length > 0;
+        const hasResistances = systemData.traits.dr.length > 0;
+        const hasWeaknesses = systemData.traits.dv.length > 0;
+        const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
+        const stealthMod = actor.data.data.attributes.stealth.value;
+        const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
+        const hasStealthDescription = !!systemData.attributes.stealth?.details;
 
         return {
             ...sheetData,
-            flags: sheetData.actor.flags,
-            hazardTraits: CONFIG.PF2E.hazardTraits,
+            actions: this.prepareActions(),
+            editing: this.editing,
             actorTraits: systemData.traits.traits.value,
-            actorRarities: CONFIG.PF2E.rarityTraits,
-            actorRarity: CONFIG.PF2E.rarityTraits[this.actor.rarity],
-            stealthDC: (systemData.attributes.stealth?.value ?? 0) + 10,
-            hasStealthDescription: systemData.attributes.stealth?.details || false,
-            hasResistances: systemData.traits.dr.length > 0,
-            hasWeaknesses: systemData.traits.dv.length > 0,
-            hasDescription: systemData.details.description || false,
-            hasDisable: systemData.details.disable || false,
-            hasRoutineDetails: systemData.details.routine || false,
-            hasResetDetails: systemData.details.reset || false,
-            hasHPDetails: systemData.attributes.hp.details || false,
-            hasWillSave: !!systemData.saves.will,
-            brokenThreshold: Math.floor(systemData.attributes.hp.max / 2),
+            rarity: CONFIG.PF2E.rarityTraits,
+            rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
+            brokenThreshold: systemData.attributes.hp.brokenThreshold,
+            stealthDC,
+            saves: this.prepareSaves(),
+
+            // Hazard visibility, in order of appearance on the sheet
+            hasDefenses,
+            hasHPDetails: !!systemData.attributes.hp.details.trim(),
+            hasSaves: Object.keys(actor.saves ?? {}).length > 0,
+            hasIWR,
+            hasStealth: stealthDC !== null || hasStealthDescription,
+            hasStealthDescription,
+            hasDescription: !!systemData.details.description.trim(),
+            hasDisable: !!systemData.details.disable.trim(),
+            hasRoutineDetails: !!systemData.details.routine.trim(),
+            hasResetDetails: !!systemData.details.reset.trim(),
         };
     }
 
-    override prepareItems(sheetData: any): void {
+    private prepareActions(): HazardActionSheetData {
+        const actions = this.actor.itemTypes.action.sort((a, b) => a.data.sort - b.data.sort);
+        return {
+            reaction: actions.filter((a) => a.actionCost?.type === "reaction"),
+            action: actions.filter((a) => a.actionCost?.type !== "reaction"),
+        };
+    }
+
+    private prepareSaves(): HazardSaveSheetData[] {
+        if (!this.actor.saves) return [];
+
+        const results: HazardSaveSheetData[] = [];
+        for (const saveType of SAVE_TYPES) {
+            const save = this.actor.saves[saveType];
+            if (this.editing || save) {
+                results.push({
+                    label: game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`),
+                    type: saveType,
+                    mod: save?.check.mod,
+                });
+            }
+        }
+
+        return results;
+    }
+
+    override prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): void {
         const actorData = sheetData.actor;
         // Actions
-        type AttackData = { label: string; items: ItemDataPF2e[]; type: "melee" };
-        const attacks: Record<"melee" | "ranged", AttackData> = {
-            melee: { label: "NPC Melee Attack", items: [], type: "melee" },
-            ranged: { label: "NPC Ranged Attack", items: [], type: "melee" },
-        };
-
-        // Actions
-        type ActionData = { label: string; actions: ItemDataPF2e[] };
-        const actions: Record<string, ActionData> = {
-            action: { label: "Actions", actions: [] },
-            reaction: { label: "Reactions", actions: [] },
-            free: { label: "Free Actions", actions: [] },
-            passive: { label: "Passive Actions", actions: [] },
-        };
+        const attacks: ItemDataPF2e[] = [];
 
         // Iterate through items, allocating to containers
-        const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+        const weaponTraits: Record<string, string> = CONFIG.PF2E.npcAttackTraits;
         const traitsDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
         for (const itemData of actorData.items) {
             itemData.img = itemData.img || CONST.DEFAULT_TOKEN;
@@ -85,6 +119,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 const weaponType: "melee" | "ranged" = itemData.data.weaponType.value || "melee";
                 const traits: string[] = itemData.data.traits.value;
                 const isAgile = traits.includes("agile");
+                itemData.attackRollType = weaponType === "melee" ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged";
                 itemData.data.bonus.total = Number(itemData.data.bonus.value) || 0;
                 itemData.data.isAgile = isAgile;
 
@@ -93,38 +128,11 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     label: weaponTraits[trait] ?? trait.charAt(0).toUpperCase() + trait.slice(1),
                     description: traitsDescriptions[trait] ?? "",
                 }));
-                attacks[weaponType].items.push(itemData);
-            }
-
-            // Actions
-            else if (itemData.type === "action") {
-                const actionType = itemData.data.actionType.value || "action";
-                itemData.img = HazardPF2e.getActionGraphics(
-                    actionType,
-                    Number(itemData.data.actions.value) || 1
-                ).imageUrl;
-
-                // get formated traits for read-only npc sheet
-                const traits: string[] = itemData.data.traits.value;
-                const traitObjects = traits.map((trait) => ({
-                    label: weaponTraits[trait] || trait.charAt(0).toUpperCase() + trait.slice(1),
-                    description: traitsDescriptions[trait] ?? "",
-                }));
-                if (itemData.data.actionType.value) {
-                    const actionType: string = itemData.data.actionType.value;
-                    traitObjects.push({
-                        label: weaponTraits[actionType] || actionType.charAt(0).toUpperCase() + actionType.slice(1),
-                        description: traitsDescriptions[actionType] ?? "",
-                    });
-                }
-                itemData.traits = traitObjects;
-
-                actions[actionType].actions.push(itemData);
+                attacks.push(itemData);
             }
         }
 
-        // Assign and return
-        actorData.actions = actions;
+        // Assign
         actorData.attacks = attacks;
     }
 
@@ -134,6 +142,40 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+
+        // Toggle Edit mode
+        $html.find(".edit-mode-button").on("click", () => {
+            this.actor.setFlag("pf2e", "editHazard.value", !this.editing);
+        });
+
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue: number = getProperty(this.actor.data._source, propertyPath);
+            $input.val(baseValue).attr({ name: propertyPath });
+        });
+
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const valueAttr = $input.attr("data-value");
+            if (valueAttr) {
+                $input.val(valueAttr);
+            } else {
+                const preparedValue = getProperty(this.actor.data, propertyPath);
+                $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
+            }
+        });
+
+        $html.find('[data-action="edit-section"]').on("click", (event) => {
+            const $parent = $(event.target).closest(".section-container");
+            const name = $parent.find("[data-edit]").attr("data-edit");
+            if (name) {
+                this.activateEditor(name);
+            }
+        });
 
         // NPC Weapon Rolling
         $html.find("button").on("click", (event) => {
