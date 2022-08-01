@@ -62,7 +62,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     };
 
     const applyChanges = ($html: JQuery): void => {
-        const { dip } = actor.data.data.skills;
+        const { dip } = actor.system.skills;
         const { name } = actor;
         const mod = Number($html.find("[name=modifier]").val()) || 0;
         const requestedProf = Number($html.find("[name=dc-type]").val()) || 1;
