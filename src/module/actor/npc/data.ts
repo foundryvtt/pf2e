@@ -29,7 +29,7 @@ interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
 }
 
 interface NPCData
-    extends Omit<NPCSource, "data" | "effects" | "items" | "token" | "type">,
+    extends Omit<NPCSource, "data" | "system" | "effects" | "items" | "token" | "type">,
         BaseCreatureData<NPCPF2e, "npc", NPCSystemData, NPCSource> {
     flags: NPCFlags;
 }
