@@ -22,14 +22,14 @@ export class EffectTracker {
                 } else if (remaining > duration.remaining) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
-                } else if ((effect.data.data.start.initiative ?? 0) > (other.data.data.start.initiative ?? 0)) {
+                } else if ((effect.system.start.initiative ?? 0) > (other.system.start.initiative ?? 0)) {
                     // new effect has later initiative - skip ahead
-                } else if ((other.data.data.start.initiative ?? 0) > (effect.data.data.start.initiative ?? 0)) {
+                } else if ((other.system.start.initiative ?? 0) > (effect.system.start.initiative ?? 0)) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
                 } else if (
-                    other.data.data.duration.expiry === "turn-start" &&
-                    effect.data.data.duration.expiry === "turn-end"
+                    other.system.duration.expiry === "turn-start" &&
+                    effect.system.duration.expiry === "turn-end"
                 ) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
@@ -45,7 +45,7 @@ export class EffectTracker {
         }
 
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
-        const systemData = effect.data.data;
+        const systemData = effect.system;
         const duration = systemData.duration.unit;
         switch (duration) {
             case "unlimited":
@@ -58,7 +58,7 @@ export class EffectTracker {
             }
             default: {
                 const duration = effect.remainingDuration;
-                effect.data.data.expired = duration.expired;
+                effect.system.expired = duration.expired;
                 if (this.trackedEffects.length === 0 || index < 0) {
                     this.insert(effect, duration);
                 } else {
@@ -82,7 +82,7 @@ export class EffectTracker {
         const expired: Embedded<EffectPF2e>[] = [];
         for (const effect of this.trackedEffects) {
             const duration = effect.remainingDuration;
-            if (effect.data.data.expired !== duration.expired) {
+            if (effect.system.expired !== duration.expired) {
                 expired.push(effect);
             } else if (!duration.expired) {
                 break;
@@ -151,7 +151,7 @@ export class EffectTracker {
             .filter((a) => game.user === a.primaryUpdater);
 
         for (const actor of actors) {
-            const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
+            const expiresNow = actor.itemTypes.effect.filter((e) => e.system.duration.unit === "encounter");
             if (expiresNow.length === 0) continue;
 
             if (autoExpireEffects) {

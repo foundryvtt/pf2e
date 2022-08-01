@@ -80,7 +80,7 @@ export class ItemTransfer implements ItemTransferData {
             this.quantity,
             this.containerId
         );
-        const sourceIsLoot = sourceActor.data.type === "loot" && sourceActor.data.data.lootSheetType === "Loot";
+        const sourceIsLoot = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Loot";
 
         // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
         if (!sourceItem && sourceIsLoot) {
@@ -141,8 +141,7 @@ export class ItemTransfer implements ItemTransferData {
         const translations = LocalizePF2e.translations.PF2E.loot;
 
         if (!item) {
-            const sourceIsMerchant =
-                sourceActor.data.type === "loot" && sourceActor.data.data.lootSheetType === "Merchant";
+            const sourceIsMerchant = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Merchant";
             if (sourceIsMerchant) {
                 const message = translations.InsufficientFundsMessage;
                 // The buyer didn't have enough funds! No transaction.
@@ -172,16 +171,16 @@ export class ItemTransfer implements ItemTransferData {
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) =>
-                actor.data.type === "loot" && actor.data.data.lootSheetType === "Merchant";
+                actor.isOfType("loot") && actor.system.lootSheetType === "Merchant";
             const isWhat = (actor: ActorPF2e) => ({
-                isCharacter: actor.testUserPermission(requester, "OWNER") && actor.data.type === "character",
+                isCharacter: actor.testUserPermission(requester, "OWNER") && actor.isOfType("character"),
                 isMerchant: isMerchant(actor),
                 isNPC:
-                    actor.data.type === "npc" &&
+                    actor.isOfType("npc") &&
                     actor.isLootableBy(requester) &&
                     !actor.testUserPermission(requester, "OWNER"),
                 isLoot:
-                    actor.data.type === "loot" &&
+                    actor.isOfType("loot") &&
                     actor.isLootableBy(requester) &&
                     !actor.testUserPermission(requester, "OWNER") &&
                     !isMerchant(actor),
@@ -325,7 +324,7 @@ export class ItemTransfer implements ItemTransferData {
                 title: "PF2E.TraitInteract",
                 subtitle: subtitle,
                 tooltip: "PF2E.TraitInteract",
-                typeNumber: sourceActor.data.type === "loot" && targetActor.data.type === "loot" ? 2 : 1,
+                typeNumber: sourceActor.isOfType("loot") && targetActor.isOfType("loot") ? 2 : 1,
             },
             traits: [
                 {

@@ -33,7 +33,7 @@ class TextEditorPF2e extends TextEditor {
                 case "Localize":
                     return this.enrichString(game.i18n.localize(paramString), options);
                 case "Template":
-                    return this.createTemplate(paramString, buttonLabel, item?.data.data);
+                    return this.createTemplate(paramString, buttonLabel, item?.system);
             }
             return match;
         });
@@ -165,7 +165,7 @@ class TextEditorPF2e extends TextEditor {
         const traits: string[] = [];
 
         // Set item traits
-        const itemTraits = item?.data.data.traits;
+        const itemTraits = item?.system.traits;
         if (itemTraits && params.overrideTraits !== "true") {
             traits.push(...itemTraits.value);
             if (itemTraits.custom) {

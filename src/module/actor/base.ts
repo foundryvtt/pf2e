@@ -232,7 +232,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
-            .filter((effect) => effect.data.data.tokenIcon?.show)
+            .filter((effect) => effect.system.tokenIcon?.show)
             .map((effect) => new TokenEffect(effect.img));
 
         return super.temporaryEffects
