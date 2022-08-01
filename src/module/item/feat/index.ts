@@ -10,29 +10,29 @@ class FeatPF2e extends ItemPF2e {
     category!: FeatCategory | null;
 
     get featType(): FeatType {
-        return this.data.data.featType.value;
+        return this.system.featType.value;
     }
 
     get level(): number {
-        return this.data.data.level.value;
+        return this.system.level.value;
     }
 
     get traits(): Set<FeatTrait> {
-        return new Set(this.data.data.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get actionCost() {
-        const actionType = this.data.data.actionType.value || "passive";
+        const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
 
         return {
             type: actionType,
-            value: this.data.data.actions.value,
+            value: this.system.actions.value,
         };
     }
 
     get frequency(): Frequency | null {
-        return this.data.data.frequency ?? null;
+        return this.system.frequency ?? null;
     }
 
     get isFeature(): boolean {
@@ -45,12 +45,12 @@ class FeatPF2e extends ItemPF2e {
 
     /** Whether this feat must be taken at character level 1 */
     get onlyLevel1(): boolean {
-        return this.data.data.onlyLevel1;
+        return this.system.onlyLevel1;
     }
 
     /** The maximum number of times this feat can be taken */
     get maxTakeable(): number {
-        return this.data.data.maxTakable;
+        return this.system.maxTakable;
     }
 
     override prepareBaseData(): void {
@@ -59,9 +59,9 @@ class FeatPF2e extends ItemPF2e {
         this.category = null;
 
         // Handle legacy data with empty-string locations
-        this.data.data.location ||= null;
+        this.system.location ||= null;
 
-        const traits = this.data.data.traits.value;
+        const traits = this.system.traits.value;
 
         // Add the General trait if of the general feat type
         if (this.featType === "general" && !traits.includes("general")) {
@@ -85,16 +85,16 @@ class FeatPF2e extends ItemPF2e {
         }
 
         // Feats with the Lineage trait can only ever be taken at level 1
-        if (this.data.data.traits.value.includes("lineage")) {
-            this.data.data.onlyLevel1 = true;
+        if (this.system.traits.value.includes("lineage")) {
+            this.system.onlyLevel1 = true;
         }
 
         // `Infinity` stored as `null` in JSON, so change back
-        this.data.data.maxTakable ??= Infinity;
+        this.system.maxTakable ??= Infinity;
 
         // Feats takable only at level 1 can never be taken multiple times
-        if (this.data.data.onlyLevel1) {
-            this.data.data.maxTakable = 1;
+        if (this.system.onlyLevel1) {
+            this.system.maxTakable = 1;
         }
 
         // Initialize frequency uses if not set
@@ -111,13 +111,13 @@ class FeatPF2e extends ItemPF2e {
     }
 
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+        const systemData = this.system;
         const properties = [
-            `Level ${data.level.value || 0}`,
-            data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
+            `Level ${systemData.level.value || 0}`,
+            systemData.actionType.value ? CONFIG.PF2E.actionTypes[systemData.actionType.value] : null,
         ].filter((p) => p);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...data, properties, traits });
+        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }
 
     /** Generate a list of strings for use in predication */

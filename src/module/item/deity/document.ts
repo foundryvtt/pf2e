@@ -40,7 +40,7 @@ class DeityPF2e extends ItemPF2e {
 
         this.actor.deity = this;
 
-        const { deities } = this.actor.data.data.details;
+        const { deities } = this.actor.system.details;
         const systemData = this.system;
         deities.primary = {
             alignment: deepClone(systemData.alignment),

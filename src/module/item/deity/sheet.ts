@@ -83,7 +83,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             const $target = $(event.currentTarget);
             const uuidToRemove = $target.closest("li").attr("data-uuid") ?? "";
             const [levelToRemove] =
-                Object.entries(this.item.data.data.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
+                Object.entries(this.item.system.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
             if (!levelToRemove) {
                 this.render(false);
                 return;
@@ -97,7 +97,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             .find<HTMLInputElement>("input[data-action=update-spell-level]")
             .on("change", async (event): Promise<void> => {
                 const oldLevel = Number(event.target.dataset.level);
-                const uuid = this.item.data.data.spells[oldLevel];
+                const uuid = this.item.system.spells[oldLevel];
                 // Shouldn't happen unless the sheet falls out of sync
                 if (!uuid) {
                     this.render(false);
