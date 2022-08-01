@@ -3,7 +3,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, tagify } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
@@ -48,7 +48,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const hasResistances = systemData.traits.dr.length > 0;
         const hasWeaknesses = systemData.traits.dv.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
-        const stealthMod = actor.data.data.attributes.stealth.value;
+        const stealthMod = actor.system.attributes.stealth.value;
         const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
         const hasStealthDescription = !!systemData.attributes.stealth?.details;
 
@@ -141,7 +141,17 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     /* -------------------------------------------- */
 
     override activateListeners($html: JQuery): void {
+        const html = $html[0]!;
         super.activateListeners($html);
+
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="data.traits.traits.value"]');
+        if (traitsEl) {
+            const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.hazardTraits });
+            const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
+            if (traitsPrepend) {
+                tags.DOM.scope.prepend(traitsPrepend.content);
+            }
+        }
 
         // Toggle Edit mode
         $html.find(".edit-mode-button").on("click", () => {
