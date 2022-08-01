@@ -3,7 +3,7 @@ import * as os from "os";
 import * as path from "path";
 import * as process from "process";
 import glob from "glob";
-import { Configuration as WebpackConfiguration, DefinePlugin } from "webpack";
+import webpack from "webpack";
 import { Configuration as WebpackDevServerConfiguration, Request } from "webpack-dev-server";
 // eslint-disable-next-line import/default
 import CopyPlugin from "copy-webpack-plugin";
@@ -16,7 +16,7 @@ import SimpleProgressWebpackPlugin from "simple-progress-webpack-plugin";
 const buildMode = process.argv[3] === "production" ? "production" : "development";
 const isProductionBuild = buildMode === "production";
 
-interface Configuration extends Omit<WebpackConfiguration, "devServer"> {
+interface Configuration extends Omit<webpack.Configuration, "devServer"> {
     devServer?: Omit<WebpackDevServerConfiguration, "proxy"> & {
         // the types in typescript are wrong for this, so we're doing it live here.
         proxy?: {
@@ -27,23 +27,34 @@ interface Configuration extends Omit<WebpackConfiguration, "devServer"> {
     };
 }
 
-const allTemplates = () => {
+const allTemplates = (): string => {
     return glob
         .sync("**/*.html", { cwd: path.join(__dirname, "static/templates") })
         .map((file: string) => `"systems/pf2e/templates/${file}"`)
         .join(", ");
 };
 
-const [outDir, foundryUri] = (() => {
+const [outDir, foundryUri] = ((): [string, string] => {
     const configPath = path.resolve(process.cwd(), "foundryconfig.json");
     const config = fs.readJSONSync(configPath, { throws: false });
     const outDir =
         config instanceof Object
             ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
             : path.join(__dirname, "dist/");
-    const foundryUri = (config instanceof Object ? config.foundryUri : "") ?? "http://localhost:30000";
+    const foundryUri = (config instanceof Object ? String(config.foundryUri) : "") ?? "http://localhost:30000";
     return [outDir, foundryUri];
 })();
+
+/** Create an empty vendor.bundle.js when in dev mode to keep the Foundry server happy */
+class EmptyVendorBundleJsPlugin {
+    apply(compiler: webpack.Compiler): void {
+        compiler.hooks.afterEmit.tap("EmptyVendorBundleJsPlugin", (): void => {
+            if (!isProductionBuild) {
+                fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.bundle.js"), "w"));
+            }
+        });
+    }
+}
 
 type Optimization = Configuration["optimization"];
 const optimization: Optimization = isProductionBuild
@@ -175,7 +186,7 @@ const config: Configuration = {
     },
     plugins: [
         new ForkTsCheckerWebpackPlugin({ typescript: { memoryLimit: 4096 } }),
-        new DefinePlugin({
+        new webpack.DefinePlugin({
             BUILD_MODE: JSON.stringify(buildMode),
         }),
         new CopyPlugin({
@@ -194,6 +205,7 @@ const config: Configuration = {
         }),
         new MiniCssExtractPlugin({ filename: "styles/[name].css" }),
         new SimpleProgressWebpackPlugin({ format: "compact" }),
+        new EmptyVendorBundleJsPlugin(),
     ],
     resolve: {
         alias: {
