@@ -96,6 +96,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     highlight(): void {
         const { dimensions, grid } = canvas;
         if (!dimensions) return;
+        if (!game.combats.active?.started) return this.#drawLabel();
+
         const highlightLayer = grid.getHighlightLayer(this.highlightId)?.clear();
         if (!(highlightLayer && this.shouldRender)) return;
 

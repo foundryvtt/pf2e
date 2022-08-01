@@ -108,7 +108,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const activeUsers = game.users.filter((u) => u.active);
 
         // 1. The first active GM, sorted by ID
-        const firstGM = game.users
+        const firstGM = activeUsers
             .filter((u) => u.isGM)
             .sort((a, b) => (a.id > b.id ? 1 : -1))
             .shift();
@@ -307,6 +307,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
                 const source = mergeObject(effect.toObject(), { flags });
                 source.data.level.value = data.level ?? source.data.level.value;
+                source.data.duration.unit = "unlimited";
+                source.data.duration.expiry = null;
                 toCreate.push(source);
             }
         }

@@ -2,7 +2,6 @@ import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { SKILL_DICTIONARY } from "@actor/values";
-import { UserPF2e } from "@module/user";
 import { ScenePF2e } from "@scene";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
@@ -197,22 +196,11 @@ class EncounterPF2e extends Combat {
         const isNextTurn = typeof changed.turn === "number" && (previous.turn === null || changed.turn > previous.turn);
 
         // Find the best user to make the update, since players can end turns and this runs for everyone
-        const updater = ((): UserPF2e | null => {
-            if (!actor) return null;
-            const userUpdatingThis = game.users.get(userId, { strict: true });
-
-            const activeUsers = game.users.filter((u) => u.active);
-            const assignedUser = activeUsers.find((u) => u.character === actor);
-            const firstGM = activeUsers.find((u) => u.isGM);
-            const anyoneWithPermission = activeUsers.find((u) => actor.canUserModify(u, "update"));
-            return userUpdatingThis.active && actor.canUserModify(userUpdatingThis, "update")
-                ? userUpdatingThis
-                : assignedUser ?? firstGM ?? anyoneWithPermission ?? null;
-        })();
+        if (game.user !== actor?.primaryUpdater) return;
 
         // Update the combatant's data (if necessary), run any turn start events, then update the effect panel
-        (async () => {
-            if (!noActor && !alreadyWent && (isNextRound || isNextTurn) && game.user === updater) {
+        Promise.resolve().then(async (): Promise<void> => {
+            if (!noActor && !alreadyWent && (isNextRound || isNextTurn)) {
                 const actorUpdates: Record<string, unknown> = {};
 
                 // Run any turn start events before the effect tracker updates.
@@ -230,7 +218,7 @@ class EncounterPF2e extends Combat {
 
             await game.pf2e.effectTracker.refresh();
             game.pf2e.effectPanel.refresh();
-        })();
+        });
     }
 }
 
