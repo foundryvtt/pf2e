@@ -44,7 +44,7 @@ export const Ready = {
                 }
 
                 // These modules claim compatibility with all of V9 but are abandoned
-                const abandonedModules = new Set(["pf2e-lootgen", "pf2e-toolbox"]);
+                const abandonedModules = new Set(["foundry_community_macros", "pf2e-lootgen", "pf2e-toolbox"]);
 
                 // Nag the GM for running unmaintained modules
                 const subV9Modules = Array.from(game.modules.values()).filter(
