@@ -1,8 +1,9 @@
 {
     "_id": "XH49blfNDjkqnH5N",
     "data": {
+        "badge": null,
         "description": {
-            "value": ""
+            "value": "<p>You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,22 +17,24 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Motivating Assault",
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Motivating Assault",
-                "selector": "attack",
+                "selector": "damage",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Motivating Assault",
-                "selector": "attack",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }
@@ -53,7 +56,7 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/inspire-courage.webp",
     "name": "Effect: Motivating Assault",
     "type": "effect"
 }

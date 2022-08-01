@@ -3,7 +3,7 @@
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>You gains a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
+            "value": "<p>You gain a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -17,23 +17,19 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Spin Tale",
                 "predicate": {
                     "all": [
-                        "fear",
                         "spin-tale"
                     ]
                 },
-                "selector": "saving-throw",
+                "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Spin Tale",
                 "predicate": {
                     "all": [
-                        "fear",
                         "spin-tale"
                     ]
                 },
