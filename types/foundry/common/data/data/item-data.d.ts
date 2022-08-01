@@ -60,9 +60,6 @@ declare module foundry {
                 flags: typeof fields.OBJECT_FIELD;
             };
 
-            /** The default icon used for newly created Item documents */
-            static DEFAULT_ICON: ImagePath;
-
             protected override _initializeSource(data: this["_source"]): this["_source"];
 
             /** A collection of ActiveEffect embedded Documents */

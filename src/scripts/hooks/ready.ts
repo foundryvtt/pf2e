@@ -38,7 +38,7 @@ export const Ready = {
 
                 // Update the world system version
                 const previous = game.settings.get("pf2e", "worldSystemVersion");
-                const current = game.system.data.version;
+                const current = game.system.version;
                 if (foundry.utils.isNewerVersion(current, previous)) {
                     await game.settings.set("pf2e", "worldSystemVersion", current);
                 }

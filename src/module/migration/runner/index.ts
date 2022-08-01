@@ -308,7 +308,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
             current: game.settings.get("pf2e", "worldSchemaVersion"),
         };
-        const systemVersion = game.system.data.version;
+        const systemVersion = game.system.version;
 
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }), {
             permanent: true,

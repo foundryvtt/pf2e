@@ -8,7 +8,6 @@ import { ChatMessagePF2e } from ".";
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
     extends foundry.data.ChatMessageData<TChatMessage> {
     readonly _source: ChatMessageSourcePF2e;
-    flags: ChatMessageFlagsPF2e;
 }
 
 interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {

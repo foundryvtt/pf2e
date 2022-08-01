@@ -5,8 +5,7 @@ declare global {
         TScene extends Scene = Scene,
         TAmbientLight extends AmbientLight = AmbientLight,
         TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
-        TToken extends Token = Token,
-        TSightLayer extends SightLayer<TToken> = SightLayer<TToken>
+        TToken extends Token = Token
     > {
         constructor();
 
@@ -82,12 +81,11 @@ declare global {
         background: BackgroundLayer;
         controls: ControlsLayer;
         drawings: DrawingsLayer;
-        effects: EffectsLayer;
+        effects: EffectsLayer<TToken>;
         foreground: ForegroundLayer;
         grid: GridLayer;
         lighting: TAmbientLight["layer"];
         notes: NotesLayer;
-        sight: TSightLayer;
         sounds: SoundsLayer;
         templates: TMeasuredTemplate["layer"];
         tokens: TToken["layer"];

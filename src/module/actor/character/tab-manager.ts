@@ -25,7 +25,7 @@ export class PCSheetTabManager {
 
     /** Set each checkbox to be checked according to its corresponding tab visibility */
     private onReady(tooltip: HTMLElement): void {
-        const tabVisibility: Record<string, boolean> = this.actor.data.flags.pf2e.sheetTabs;
+        const tabVisibility: Record<string, boolean> = this.actor.flags.pf2e.sheetTabs;
         const nav = this.link.closest("nav");
         const tabs = nav?.querySelectorAll<HTMLAnchorElement>("a.item[data-tab]") ?? [];
         // Show the hidden tab buttons as present but semi-transparent

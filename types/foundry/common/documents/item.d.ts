@@ -2,6 +2,9 @@ declare module foundry {
     module documents {
         /** The Item document model. */
         class BaseItem extends abstract.Document {
+            /** The default icon used for newly created Item documents */
+            static DEFAULT_ICON: ImagePath;
+
             static override get schema(): ConstructorOf<data.ItemData<BaseItem, BaseActiveEffect>>;
 
             static override get metadata(): ItemMetadata;

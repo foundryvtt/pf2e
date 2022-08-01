@@ -141,7 +141,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
     override updateSource({ defer = false, deleted = false, skipUpdateFog = false } = {}): void {
-        if (this.actor?.type === "npc" || !(canvas.sight.hasLowLightVision || canvas.sight.hasDarkvision)) {
+        if (this.actor?.type === "npc" || !(canvas.lighting.hasLowLightVision || canvas.lighting.hasDarkvision)) {
             return super.updateSource({ defer, deleted, skipUpdateFog });
         }
 
@@ -319,7 +319,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
 
-        const hasLowLightVision = canvas.sight.sources.some((s) => s.object !== this && s.object.hasLowLightVision);
+        const hasLowLightVision = canvas.effects.visionSources.some(
+            (s) => s.object !== this && s.object.hasLowLightVision
+        );
         canvas.lighting.setPerceivedLightLevel({ hasLowLightVision });
         super._onRelease(options);
         if (!this.kimsNaughtyModule) this.auras.refresh();

@@ -13,7 +13,7 @@ import { VehiclePF2e } from ".";
 /** The stored source data of a vehicle actor */
 type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemData>;
 
-type VehicleData = Omit<VehicleSource, "effects" | "flags" | "items"> &
+type VehicleData = Omit<VehicleSource, "effects" | "flags" | "items" | "prototypeToken"> &
     BaseActorDataPF2e<VehiclePF2e, "vehicle", VehicleSystemData, VehicleSource>;
 
 interface VehicleHitPointsData extends Required<BaseHitPointsData> {

@@ -34,7 +34,7 @@ export const ChatCards = {
 
             if (item && !action?.startsWith("strike-")) {
                 const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
-                const strikes: StrikeData[] = actor.isOfType("character", "npc") ? actor.data.data.actions : [];
+                const strikes: StrikeData[] = actor.isOfType("character", "npc") ? actor.system.actions : [];
                 const strike = strikes.find((a) => a.item.id === item.id && a.item.slug === item.slug) ?? null;
                 const rollOptions = actor.getRollOptions(["all", "attack-roll"]);
 
@@ -111,7 +111,7 @@ export const ChatCards = {
                             const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
-                            let flavor = message.data.flavor?.replace(
+                            let flavor = message.flavor.replace(
                                 toReplace,
                                 `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
                             );
@@ -129,7 +129,7 @@ export const ChatCards = {
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = $card.attr("data-strike-index");
                 const strikeName = $card.attr("data-strike-name");
-                const altUsage = message.data.flags.pf2e.context?.altUsage ?? null;
+                const altUsage = message.flags.pf2e.context?.altUsage ?? null;
 
                 const strikeAction = ((): StrikeData | null => {
                     const action = actor.data.data.actions.at(Number(strikeIndex)) ?? null;

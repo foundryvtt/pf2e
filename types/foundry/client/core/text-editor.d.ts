@@ -38,7 +38,7 @@ declare global {
          * @param [options.rollData]       The data object providing context for inline rolls
          * @return The enriched HTML content
          */
-        static enrichHTML(content?: string, { secrets, documents, links, rolls, rollData }?: EnrichHTMLOptions): string;
+        static enrichHTML(content?: string, options?: EnrichHTMLOptions): string;
 
         /**
          * Preview an HTML fragment by constructing a substring of a given length from its inner text.
@@ -178,6 +178,7 @@ declare global {
     }
 
     interface EnrichHTMLOptions {
+        async?: boolean;
         secrets?: boolean;
         documents?: boolean;
         links?: boolean;

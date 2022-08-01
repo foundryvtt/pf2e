@@ -5,10 +5,10 @@ export class CriticalHitAndFumbleCards {
     private static diceSoNice: boolean;
     private static appendButtonsOption: boolean;
 
-    static handleDraw(chatMessage: ChatMessagePF2e): void {
-        if (chatMessage.isAuthor && chatMessage.isContentVisible) {
-            const type = chatMessage.data.flags.pf2e.context?.type ?? "";
-            const firstDie = chatMessage.roll?.dice[0];
+    static handleDraw(message: ChatMessagePF2e): void {
+        if (message.isAuthor && message.isContentVisible) {
+            const type = message.flags.pf2e.context?.type ?? "";
+            const firstDie = message.roll?.dice[0];
             if (firstDie && firstDie.faces === 20 && this.rollTypes.includes(type)) {
                 if (firstDie.total === 20) {
                     this.automaticDraw("critTable");
@@ -50,10 +50,10 @@ export class CriticalHitAndFumbleCards {
             });
     }
 
-    static appendButtons(chatMessage: ChatMessagePF2e, $html: JQuery): void {
+    static appendButtons(message: ChatMessagePF2e, $html: JQuery): void {
         this.appendButtonsOption ??= game.settings.get("pf2e", "critFumbleButtons");
-        if (this.appendButtonsOption && (chatMessage.isAuthor || game.user.isGM) && chatMessage.isContentVisible) {
-            const type = chatMessage.data.flags.pf2e.context?.type ?? "";
+        if (this.appendButtonsOption && (message.isAuthor || game.user.isGM) && message.isContentVisible) {
+            const type = message.flags.pf2e.context?.type ?? "";
             if (this.rollTypes.includes(type)) {
                 const critButton = $(
                     `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(

@@ -4,9 +4,11 @@ import { ChatMessagePF2e } from "@module/chat-message";
 export const DegreeOfSuccessHighlights = {
     listen: (message: ChatMessagePF2e, $html: JQuery): void => {
         if ($html.find(".pf2e-reroll-indicator").length > 0) return;
-        if (!message.roll || message.data.flags.pf2e.damageRoll) return;
 
-        const dice = message.roll.dice[0] ?? {};
+        const firstRoll = message.rolls.at(0);
+        if (!firstRoll || message.isDamageRoll) return;
+
+        const dice = firstRoll.dice[0] ?? {};
         if (!(dice.faces === 20 && message.isContentVisible)) return;
         const $diceTotal = $html.find(".dice-total");
         if (dice.total === 20) {

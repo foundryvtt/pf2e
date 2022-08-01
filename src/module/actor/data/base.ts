@@ -20,7 +20,7 @@ interface BaseActorSourcePF2e<
     TSystemSource extends ActorSystemSource = ActorSystemSource
 > extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
     flags: DeepPartial<ActorFlagsPF2e>;
-    token: PrototypeTokenSourcePF2e;
+    prototypeToken: PrototypeTokenSourcePF2e;
 }
 
 interface BaseActorDataPF2e<
@@ -28,13 +28,12 @@ interface BaseActorDataPF2e<
     TType extends ActorType = ActorType,
     TSystemData extends ActorSystemData = ActorSystemData,
     TSource extends BaseActorSourcePF2e<TType> = BaseActorSourcePF2e<TType>
-> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "token">,
+> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken">,
         foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
     readonly type: TType;
     readonly data: TSystemData;
     readonly system: TSystemData;
     token: PrototypeTokenDataPF2e;
-    flags: ActorFlagsPF2e;
 
     readonly _source: TSource;
 }

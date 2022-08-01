@@ -44,7 +44,7 @@ declare module foundry {
          * @property [bar2]               The configuration of the Token's secondary resource bar
          * @property [flags={}]           An object of optional key/value flags
          */
-        interface TokenSource extends PrototypeTokenSource, TokenLightData {
+        interface TokenSource extends TokenLightData {
             _id: string;
             name: string;
 

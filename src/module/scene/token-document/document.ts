@@ -46,16 +46,6 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         return super.getTrackedAttributes(prunedData, _path);
     }
 
-    /** An instance property in V10 */
-    get x(): number {
-        return this.data.x;
-    }
-
-    /** An instance property in V10 */
-    get y(): number {
-        return this.data.y;
-    }
-
     /** This should be in Foundry core, but ... */
     get scene(): this["parent"] {
         return this.parent;
@@ -170,10 +160,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Nath mode
-        const defaultIcons = [
-            foundry.data.ActorData.DEFAULT_ICON,
-            `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
-        ];
+        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
         if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.data.img)) {
             this.data.img = ((): VideoPath => {
                 switch (this.actor.alliance) {
@@ -202,7 +189,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (!(this.initialized && this.actor && this.scene)) return;
 
         // Temporary token image
-        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+        mergeObject(this.data, this.actor.overrides.prototypeToken ?? {}, { insertKeys: false });
 
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this.data, this.actor);

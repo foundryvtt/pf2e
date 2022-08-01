@@ -9,6 +9,8 @@ declare global {
     class Combat extends CombatConstructor {
         constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<Combat>);
 
+        active: boolean;
+
         /** Track the sorted turn order of this combat encounter */
         turns: Combatant<this>[];
 

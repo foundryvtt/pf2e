@@ -9,6 +9,9 @@ declare global {
             context?: TokenDocumentConstructionContext<TokenDocument>
         );
 
+        x: number;
+        y: number;
+
         /**
          * A cached reference to the Actor document that this Token modifies.
          * This may be a "synthetic" unlinked Token Actor which does not exist in the World.

@@ -25,7 +25,7 @@ import { ErrorPF2e, isObject, objectHasKey, tupleHasValue } from "@util";
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
-import { BaseTraitsData, RollOptionFlags } from "./data/base";
+import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenDataPF2e, RollOptionFlags } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
@@ -72,7 +72,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                         typeof art.token === "string"
                             ? { img: art.token }
                             : { ...art.token, flags: { pf2e: { autoscale: false } } };
-                    data.token = mergeObject(data.token ?? {}, tokenArt);
+                    data.prototypeToken = mergeObject(data.prototypeToken ?? {}, tokenArt);
                 }
             }
 
@@ -379,10 +379,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): Promise<InstanceType<A>[]> {
         // Set additional defaults, some according to actor type
         for (const datum of data) {
-            const { linkToActorSize } = datum.token?.flags?.pf2e ?? {};
+            const { linkToActorSize } = datum.prototypeToken?.flags?.pf2e ?? {};
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
-                token: {
+                prototypeToken: {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
@@ -394,20 +394,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
             // Set default token dimensions for familiars and vehicles
             const dimensionMap: { [K in ActorType]?: number } = { familiar: 0.5, vehicle: 2 };
-            merged.token.height ??= dimensionMap[datum.type] ?? 1;
-            merged.token.width ??= merged.token.height;
+            merged.prototypeToken.height ??= dimensionMap[datum.type] ?? 1;
+            merged.prototypeToken.width ??= merged.prototypeToken.height;
 
             switch (merged.type) {
                 case "character":
                 case "familiar":
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
-                    merged.token.actorLink = true;
-                    merged.token.vision = true;
+                    merged.prototypeToken.actorLink = true;
+                    merged.prototypeToken.vision = true;
                     break;
                 case "loot":
                     // Make loot actors linked and interactable
-                    merged.token.actorLink = true;
+                    merged.prototypeToken.actorLink = true;
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     break;
             }
@@ -454,7 +454,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
         // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
-        const { flags } = this.data;
+        const { flags } = this;
         const rollOptionsAll = flags.pf2e?.rollOptions?.all ?? {};
         rollOptionsAll[`self:type:${this.type}`] = true;
         flags.pf2e = mergeObject({}, flags.pf2e ?? {});
@@ -529,7 +529,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
-    /** Collect all sources of modifiers for statistics */
+    /** Collect all rule element output */
     protected prepareSynthetics(): void {
         // Rule elements
         for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -539,15 +539,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 // Ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
             }
-        }
-
-        // Conditions
-        const conditions = this.itemTypes.condition.filter((c) => c.isActive).map((c) => c.data);
-
-        const { statisticsModifiers } = this.synthetics;
-        for (const [selector, modifiers] of game.pf2e.ConditionManager.getConditionModifiers(conditions)) {
-            const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 
@@ -563,27 +554,27 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
         const tokenImgIsDefault = [
-            foundry.data.ActorData.DEFAULT_ICON,
+            ActorPF2e.DEFAULT_ICON,
             `systems/pf2e/icons/default-icons/${this.type}.svg`,
-        ].includes(this.data.token.img);
-        const tokenImgIsActorImg = this.data.token.img === this.img;
+        ].includes(this.data.prototypeToken.img);
+        const tokenImgIsActorImg = this.data.prototypeToken.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
-            this.data.token.update({ img: this.img });
+            this.prototypeToken.update({ img: this.img });
         }
 
         // Disable manually-configured vision settings on the prototype token
-        if (canvas.sight?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
+        if (canvas.lighting?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
-                this.data.token[property] = this.data.token._source[property] = 0;
+                this.prototypeToken[property] = this.prototypeToken._source[property] = 0;
             }
-            this.data.token.sightAngle = this.data.token._source.sightAngle = 360;
+            this.prototypeToken.sightAngle = this.prototypeToken._source.sightAngle = 360;
         }
 
-        this.data.token.flags = mergeObject(
+        this.prototypeToken.flags = mergeObject(
             { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
-            this.data.token.flags
+            this.prototypeToken.flags
         );
-        TokenDocumentPF2e.prepareSize(this.data.token, this);
+        TokenDocumentPF2e.prepareSize(this.prototypeToken, this);
     }
 
     /** If there is an active encounter, set roll options for it and this actor's participant */
@@ -1157,11 +1148,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         user: UserPF2e
     ): Promise<void> {
         // Set default portrait and token images
-        if (this.data._source.img === foundry.data.ActorData.DEFAULT_ICON) {
+        if (this.data._source.img === ActorPF2e.DEFAULT_ICON) {
             this.data._source.img =
-                this.data._source.token.img =
+                this.data._source.prototypeToken.img =
                 data.img =
-                data.token.img =
+                data.prototypeToken.img =
                     `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
@@ -1192,7 +1183,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const rules = this.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
         if (rules.length > 0) {
             const clone = this.clone(changed, { keepId: true });
-            this.data.flags.pf2e.rollOptions = clone.data.flags.pf2e.rollOptions;
+            this.flags.pf2e.rollOptions = clone.flags.pf2e.rollOptions;
             for (const rule of rules) {
                 await rule.preUpdateActor();
             }
@@ -1251,6 +1242,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
+
+    prototypeToken: PrototypeTokenDataPF2e;
+
+    flags: ActorFlagsPF2e;
 
     _sheet: ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e> | null;
 

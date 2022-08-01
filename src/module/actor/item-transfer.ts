@@ -114,7 +114,7 @@ export class ItemTransfer implements ItemTransferData {
             if (document.token) return document.token.name;
 
             // Linked actor: use its token prototype name
-            return document.data.token?.name ?? document.name;
+            return document.prototypeToken?.name ?? document.name;
         }
         // User with an assigned character
         if (document.character instanceof ActorPF2e) {

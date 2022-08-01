@@ -123,7 +123,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         overrides.resistances ??= [];
 
         // Disable Automatic Bonus Progression
-        this.actor.data.flags.pf2e.disableABP = true;
+        this.actor.flags.pf2e.disableABP = true;
     }
 
     override async preCreate({ itemSource, ruleSource }: RuleElementPF2e.PreCreateParams): Promise<void> {

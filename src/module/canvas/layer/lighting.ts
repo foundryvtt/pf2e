@@ -11,9 +11,24 @@ export class LightingLayerPF2e<
         return 1 - this.darknessLevel;
     }
 
+    /** Is the rules-based vision setting enabled? */
+    get rulesBasedVision(): boolean {
+        // const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
+        // return canvas.ready && !!canvas.scene?.tokenVision && settingEnabled;
+        return false;
+    }
+
+    get hasLowLightVision(): boolean {
+        return this.rulesBasedVision && canvas.effects.visionSources.some((source) => source.object.hasLowLightVision);
+    }
+
+    get hasDarkvision(): boolean {
+        return this.rulesBasedVision && canvas.effects.visionSources.some((source) => source.object.hasDarkvision);
+    }
+
     setPerceivedLightLevel({ hasLowLightVision }: { hasLowLightVision?: boolean } = {}): void {
-        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
-        hasLowLightVision ??= canvas.sight.sources.some((s) => s.object.hasLowLightVision);
+        if (!(canvas.scene && this.rulesBasedVision)) return;
+        hasLowLightVision ??= canvas.effects.visionSources.some((s) => s.object.hasLowLightVision);
 
         const lightEmitters = [
             ...canvas.tokens.placeables.filter((token) => token.emitsLight && !token.light.isDarkness),

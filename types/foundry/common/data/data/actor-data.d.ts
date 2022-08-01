@@ -31,7 +31,7 @@ declare module foundry {
             img: ImagePath;
             data: TSystemSource;
             system: TSystemSource;
-            token: PrototypeTokenSource;
+            prototypeToken: PrototypeTokenSource;
             items: TItemSource[];
             effects: ActiveEffectSource[];
             folder: string | null;
@@ -47,17 +47,11 @@ declare module foundry {
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
-            /** The default icon used for newly created Actor documents */
-            static DEFAULT_ICON: ImagePath;
-
             /** A Collection of ActiveEffect embedded Documents */
             effects: abstract.EmbeddedCollection<TActiveEffect>;
 
             /** A Collection of Item embedded Documents */
             items: abstract.EmbeddedCollection<TItem>;
-
-            /** Default Token settings that are used for Tokens created from this Actor **/
-            token: PrototypeTokenData;
 
             protected override _initializeSource(data: ActorSource): this["_source"];
 
@@ -68,7 +62,7 @@ declare module foundry {
             TDocument extends documents.BaseActor,
             TActiveEffect extends documents.BaseActiveEffect,
             TItem extends documents.BaseItem
-        > extends Omit<ActorSource, "effects" | "items" | "token"> {
+        > extends Omit<ActorSource, "effects" | "flags" | "items" | "token"> {
             readonly _source: ActorSource;
         }
 

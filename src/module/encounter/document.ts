@@ -7,10 +7,6 @@ import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
 
 class EncounterPF2e extends Combat {
-    get active(): boolean {
-        return this.data.active;
-    }
-
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
     protected override _sortCombatants(a: CombatantPF2e<this>, b: CombatantPF2e<this>): number {
         const resolveTie = (): number => {

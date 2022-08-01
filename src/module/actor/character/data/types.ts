@@ -45,10 +45,8 @@ interface CharacterSource extends BaseCreatureSource<"character", CharacterSyste
 }
 
 interface CharacterData
-    extends Omit<CharacterSource, "data" | "system" | "effects" | "items" | "token" | "type">,
-        BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {
-    flags: CharacterFlags;
-}
+    extends Omit<CharacterSource, "data" | "flags" | "effects" | "items" | "prototypeToken" | "system" | "type">,
+        BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {}
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -449,6 +447,7 @@ export {
     CharacterAttributes,
     CharacterData,
     CharacterDetails,
+    CharacterFlags,
     CharacterProficiency,
     CharacterResources,
     CharacterSaves,
