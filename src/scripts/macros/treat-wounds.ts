@@ -5,7 +5,7 @@ import { ActionDefaultOptions } from "@system/action-macros";
 import { CheckDC } from "@system/degree-of-success";
 
 function CheckFeat(actor: ActorPF2e, slug: string) {
-    if (actor.items.find((i) => i.data.data.slug === slug && i.type === "feat")) {
+    if (actor.items.find((i) => i.system.slug === slug && i.type === "feat")) {
         return true;
     }
     return false;

@@ -86,7 +86,7 @@ export const InlineRollLinks = {
             switch (pf2Check) {
                 case "perception": {
                     for (const actor of creatureActors) {
-                        const perceptionCheck = actor.data.data.attributes.perception;
+                        const perceptionCheck = actor.system.attributes.perception;
                         if (perceptionCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }

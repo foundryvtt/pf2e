@@ -32,7 +32,7 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
         title: title,
         content: content,
         yes: () => {
-            const { resolve, sp } = actor.data.data.attributes;
+            const { resolve, sp } = actor.system.attributes;
             const spRatio = `${sp.value}/${sp.max}`;
             const recoverStamina = game.i18n.format(translations.RecoverStamina, {
                 name: actor.name,

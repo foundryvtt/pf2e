@@ -83,7 +83,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         const wandRecharged = itemUpdates.length > 0;
 
         // Restore reagents
-        const resources = actor.data.data.resources;
+        const resources = actor.system.resources;
         const reagents = resources.crafting.infusedReagents;
         if (reagents && reagents.value < reagents.max) {
             actorUpdates.resources.crafting = { infusedReagents: { value: reagents.max } };

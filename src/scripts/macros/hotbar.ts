@@ -47,7 +47,7 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
 
 export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
     const actor = game.actors.get(actorId, { strict: true });
-    const action = actor.isOfType("character", "npc") ? actor.data.data.actions[actionIndex] : null;
+    const action = actor.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
     const actionName = JSON.stringify(action.name);
@@ -70,7 +70,7 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
 export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
     const actor = game.actors.get(actorId);
     if (actor?.isOfType("character", "npc")) {
-        const action = actor.data.data.actions.at(actionIndex);
+        const action = actor.system.actions.at(actionIndex);
         if (action?.name === actionName) {
             if (action.type === "strike") {
                 const templateData = {
@@ -112,7 +112,7 @@ export async function createSkillMacro(skill: SkillAbbreviation, skillName: stri
 const a = game.actors.get("${actorId}");
 if (a) {
     const opts = a.getRollOptions(["all", "skill-check", "${dictName}"]);
-    a.data.data.skills["${skill}"]?.roll(event, opts);
+    a.system.skills["${skill}"]?.roll(event, opts);
 } else {
     ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
 }`;

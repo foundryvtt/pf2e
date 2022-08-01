@@ -108,7 +108,7 @@ export class StatusEffects {
     /** Updates the core CONFIG.statusEffects with the new icons */
     private static updateStatusIcons(): void {
         CONFIG.statusEffects = Array.from(game.pf2e.ConditionManager.conditions.values())
-            .filter((c) => !["attitudes", "detection"].includes(c.data.data.group))
+            .filter((c) => !["attitudes", "detection"].includes(c.system.group))
             .sort((conditionA, conditionB) => conditionA.name.localeCompare(conditionB.name))
             .map((condition) => {
                 const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
@@ -261,7 +261,7 @@ export class StatusEffects {
                 condition.fromSystem &&
                 condition.slug === slug &&
                 condition.isInHUD &&
-                !condition.data.data.references.parent
+                !condition.system.references.parent
         );
 
         if (event.type === "contextmenu") {
@@ -313,7 +313,7 @@ export class StatusEffects {
 
         const { actor } = this;
         const condition = actor?.itemTypes.condition.find(
-            (condition) => condition.slug === slug && condition.isInHUD && !condition.data.data.references.parent
+            (condition) => condition.slug === slug && condition.isInHUD && !condition.system.references.parent
         );
 
         const conditionIds: string[] = [];
@@ -323,7 +323,7 @@ export class StatusEffects {
                 // CTRL key pressed.
                 // Remove all conditions.
                 actor?.itemTypes.condition
-                    .filter((condition) => condition.fromSystem && condition.data.data.base === slug)
+                    .filter((condition) => condition.fromSystem && condition.system.base === slug)
                     .forEach((condition) => conditionIds.push(condition.id));
             } else if (condition) {
                 conditionIds.push(condition.id);
@@ -381,23 +381,20 @@ export class StatusEffects {
         // Iterate the list to create the chat and bubble chat dialog.
 
         const conditions =
-            token.actor?.itemTypes.condition.filter(
-                (condition) => condition.fromSystem && condition.data.data.active
-            ) ?? [];
+            token.actor?.itemTypes.condition.filter((condition) => condition.fromSystem && condition.system.active) ??
+            [];
+        const iconFolder = CONFIG.PF2E.statusEffects.effectsIconFolder;
+        const fileType = CONFIG.PF2E.statusEffects.effectsIconFileType;
         for (const condition of conditions) {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = "summary" in conditionInfo ? conditionInfo.summary : "";
+            const conditionValue = condition.system.value.isValued ? condition.value : "";
+            const iconPath = `${iconFolder}${condition.system.hud.statusName}.${fileType}`;
             statusEffectList += `
-                <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.data.hud.statusName}.${
-                    CONFIG.PF2E.statusEffects.effectsIconFileType
-                }`}" title="${summary}">
+                <li><img src="${iconPath}" title="${summary}">
                     <span class="statuseffect-li">
-                        <span class="statuseffect-li-text">${condition.name} ${
-                condition.data.data.value.isValued ? condition.data.data.value.value : ""
-            }</span>
-                        <div class="statuseffect-rules"><h2>${condition.name}</h2>${
-                condition.data.data.description.value
-            }</div>
+                        <span class="statuseffect-li-text">${condition.name} ${conditionValue}</span>
+                        <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
                     </span>
                 </li>`;
         }
@@ -450,7 +447,7 @@ export class StatusEffects {
                 for (const url of tokenData.effects) {
                     if (url.includes(lastIconType.effectsIconFolder)) {
                         const statusName = this.getSlugFromImg(url);
-                        const newUrl = `${iconType.effectsIconFolder + statusName}.${iconType.effectsIconFileType}`;
+                        const newUrl = `${iconType.effectsIconFolder}${statusName}.${iconType.effectsIconFileType}`;
                         console.log(
                             `PF2e System | Migrating effect ${statusName} of Token ${tokenData.name} on scene ${scene.data.name} | '${url}' to '${newUrl}'`
                         );
