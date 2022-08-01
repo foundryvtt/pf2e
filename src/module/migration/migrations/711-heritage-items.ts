@@ -164,7 +164,7 @@ export class Migration711HeritageItems extends MigrationBase {
 
     private ancestrySlugs = Object.keys(this.officialAncestries);
 
-    private heritageFromFeat(feature: FeatSource): HeritageSource {
+    private heritageFromFeat(feature: FeatSource): Omit<HeritageSource, "system"> {
         const featureSlug = feature.data.slug ?? "";
         const ancestrySlug =
             this.heritagesWithoutAncestryInName[featureSlug] ?? this.ancestrySlugs.find((s) => featureSlug.includes(s));

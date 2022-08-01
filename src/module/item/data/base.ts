@@ -20,7 +20,7 @@ interface BaseItemDataPF2e<
     TType extends ItemType = ItemType,
     TSystemData extends ItemSystemData = ItemSystemData,
     TSource extends BaseItemSourcePF2e<TType> = BaseItemSourcePF2e<TType>
-> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "data" | "effects">,
+> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "data" | "system" | "effects">,
         foundry.data.ItemData<TItem, ActiveEffectPF2e> {
     readonly type: TType;
     readonly data: TSystemData;

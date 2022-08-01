@@ -45,7 +45,7 @@ interface CharacterSource extends BaseCreatureSource<"character", CharacterSyste
 }
 
 interface CharacterData
-    extends Omit<CharacterSource, "data" | "effects" | "items" | "token" | "type">,
+    extends Omit<CharacterSource, "data" | "system" | "effects" | "items" | "token" | "type">,
         BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {
     flags: CharacterFlags;
 }

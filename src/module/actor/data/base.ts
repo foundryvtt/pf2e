@@ -32,6 +32,7 @@ interface BaseActorDataPF2e<
         foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
     readonly type: TType;
     readonly data: TSystemData;
+    readonly system: TSystemData;
     token: PrototypeTokenDataPF2e;
     flags: ActorFlagsPF2e;
 
