@@ -16,12 +16,12 @@
 <div class="pc pc_bonus-bulk encumbered">
     <label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">{{localize "PF2E.BonusEncumbranceBulkLabel"}}</label>
     <input type="number" class="details-input {{#if adjustedBonusEncumbranceBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-encumbrance-bulk"
-        data-property="data.attributes.bonusEncumbranceBulk" value="{{data.attributes.bonusEncumbranceBulk}}" placeholder="0" />
+        data-property="system.attributes.bonusEncumbranceBulk" value="{{data.attributes.bonusEncumbranceBulk}}" placeholder="0" />
 </div>
 <div class="pc pc_bonus-bulk">
     <label class="details-label" for="{{options.id}}-bonus-limit-bulk">{{localize "PF2E.BonusLimitBulkLabel"}}</label>
     <input type="number" class="details-input {{#if adjustedBonusLimitBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-limit-bulk"
-        data-property="data.attributes.bonusLimitBulk" value="{{data.attributes.bonusLimitBulk}}" placeholder="0" />
+        data-property="system.attributes.bonusLimitBulk" value="{{data.attributes.bonusLimitBulk}}" placeholder="0" />
 </div>
 <div class="character-traits">
     <div class="pc pc_speed-types">
@@ -62,7 +62,7 @@
             {{/each}}
             {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
-                    <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
+                    <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
                         {{> systems/pf2e/templates/actors/character/icons/plus.html}}
                     </a>
                 </li>
@@ -78,7 +78,7 @@
             {{/each}}
             {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
-                    <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
+                    <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="system.traits.traits">
                         {{> systems/pf2e/templates/actors/character/icons/plus.html}}
                     </a>
                 </li>

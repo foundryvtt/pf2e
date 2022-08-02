@@ -4,7 +4,7 @@ import { SelectableTagField } from ".";
 import { TagSelectorBase } from "./base";
 
 export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "data.traits.dr";
+    override objectProperty = "system.traits.dr";
 
     static override get defaultOptions(): FormApplicationOptions {
         return {

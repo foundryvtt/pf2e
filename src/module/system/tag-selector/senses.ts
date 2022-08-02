@@ -4,7 +4,7 @@ import { TagSelectorBase } from "./base";
 import { SelectableTagField } from ".";
 
 export class SenseSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "data.traits.senses";
+    override objectProperty = "system.traits.senses";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {

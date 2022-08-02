@@ -51,10 +51,10 @@ export class TagSelectorBasic extends TagSelectorBase {
 
     override getData() {
         const { chosen, custom, flat, disabled } = (() => {
-            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e; data: object } = this.object;
+            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.object;
             // Compare source and prepared properties to determine which tags were automatically selected
             const sourceProperty: unknown = getProperty(document.toObject(), this.objectProperty);
-            const preparedProperty: unknown = getProperty(document.data, this.objectProperty);
+            const preparedProperty: unknown = getProperty(document, this.objectProperty);
 
             if (Array.isArray(preparedProperty)) {
                 const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((prop) => String(prop)) : [];
