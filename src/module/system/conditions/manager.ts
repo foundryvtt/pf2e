@@ -57,24 +57,24 @@ export class ConditionManager {
         let applied: ConditionSource | null = null;
 
         for (const source of sources) {
-            if (!applied || Number(source.data.value.value) > Number(applied.data.value.value)) {
+            if (!applied || Number(source.system.value.value) > Number(applied.system.value.value)) {
                 // First condition, or new max achieved.
 
-                if (!source.data.active) {
+                if (!source.system.active) {
                     // New MAX is inactive, neet to make it active.
                     const update = updates.get(source._id) ?? source;
-                    update.data.active = true;
+                    update.system.active = true;
                     updates.set(update._id, update);
                 }
 
                 if (applied) {
                     // Only fix appliedCondition on n+1 iterations.
 
-                    if (applied.data.active) {
+                    if (applied.system.active) {
                         // Condition came in active, need to deactivate it.
 
                         const update = updates.get(applied._id) ?? source;
-                        update.data.active = false;
+                        update.system.active = false;
                         updates.set(update._id, update);
                     } else {
                         // Came in inactive, but became applied for a time,
@@ -85,10 +85,10 @@ export class ConditionManager {
                 }
 
                 applied = source;
-            } else if (source.data.active) {
+            } else if (source.system.active) {
                 // Not new max, but was active.
                 const update = updates.get(source._id) ?? source;
-                update.data.active = false;
+                update.system.active = false;
                 updates.set(update._id, update);
             }
 
@@ -116,15 +116,15 @@ export class ConditionManager {
             // Set the appliedCondition the first condition we see.
             applied ??= source;
 
-            if (source._id === applied._id && !source.data.active) {
+            if (source._id === applied._id && !source.system.active) {
                 // Is the applied condition and not active
                 const update = updates.get(source._id) ?? source;
-                update.data.active = true;
+                update.system.active = true;
                 updates.set(update._id, update);
-            } else if (source._id !== applied._id && source.data.active) {
+            } else if (source._id !== applied._id && source.system.active) {
                 // Is not the applied condition and is active
                 const update = updates.get(source._id) ?? source;
-                update.data.active = false;
+                update.system.active = false;
                 updates.set(update._id, update);
             }
 
@@ -142,17 +142,17 @@ export class ConditionManager {
      * @param updates   A running list of updates to make to embedded items.
      */
     private static clearOverrides(source: ConditionSource, updates: Map<string, ConditionSource>): void {
-        if (source.data.references.overrides.length) {
+        if (source.system.references.overrides.length) {
             // Clear any overrides
             const update = updates.get(source._id) ?? source;
-            update.data.references.overrides.splice(0, update.data.references.overriddenBy.length);
+            update.system.references.overrides.splice(0, update.system.references.overriddenBy.length);
             updates.set(update._id, update);
         }
 
-        if (source.data.references.overriddenBy.length) {
+        if (source.system.references.overriddenBy.length) {
             // Was previous overridden.  Remove it for now.
             const update = updates.get(source._id) ?? source;
-            update.data.references.overriddenBy.splice(0, update.data.references.overriddenBy.length);
+            update.system.references.overriddenBy.splice(0, update.system.references.overriddenBy.length);
             updates.set(update._id, update);
         }
     }
@@ -162,28 +162,28 @@ export class ConditionManager {
         overrider: ConditionSource,
         updates: Map<string, ConditionSource>
     ) {
-        if (overridden.data.active) {
+        if (overridden.system.active) {
             // Condition was active.  Deactivate it.
 
             const update = updates.get(overridden._id) ?? duplicate(overridden);
-            update.data.active = false;
+            update.system.active = false;
 
             updates.set(update._id, update);
         }
 
-        if (!overridden.data.references.overriddenBy.some((i) => i.id === overrider._id)) {
+        if (!overridden.system.references.overriddenBy.some((i) => i.id === overrider._id)) {
             // Condition doesn't have overrider as part of overridenBy list.
 
             const update = updates.get(overridden._id) ?? duplicate(overridden);
-            update.data.references.overriddenBy.push({ id: overrider._id, type: "condition" });
+            update.system.references.overriddenBy.push({ id: overrider._id, type: "condition" });
             updates.set(update._id, update);
         }
 
-        if (!overrider.data.references.overrides.some((i) => i.id === overridden._id)) {
+        if (!overrider.system.references.overrides.some((i) => i.id === overridden._id)) {
             // Overrider does not have overriden condition in overrides list.
 
             const update = updates.get(overrider._id) ?? duplicate(overrider);
-            update.data.references.overrides.push({ id: overridden._id, type: "condition" });
+            update.system.references.overrides.push({ id: overridden._id, type: "condition" });
             updates.set(update._id, update);
         }
     }
@@ -208,13 +208,13 @@ export class ConditionManager {
         const overriding: string[] = [];
 
         conditions.forEach((condition) => {
-            if (!baseList.has(condition.data.base)) {
+            if (!baseList.has(condition.system.base)) {
                 // Have not seen this base condition before.
-                const base: string = condition.data.base;
+                const base: string = condition.system.base;
                 baseList.add(base);
 
                 // List of conditions with the same base.
-                const list = conditions.filter((c) => c.data.base === base);
+                const list = conditions.filter((c) => c.system.base === base);
 
                 let appliedCondition: ConditionSource;
 
@@ -228,7 +228,7 @@ export class ConditionManager {
 
                 appliedConditions.set(base, appliedCondition);
 
-                if (appliedCondition.data.overrides.length) {
+                if (appliedCondition.system.overrides.length) {
                     overriding.push(base);
                 }
             }
@@ -240,7 +240,7 @@ export class ConditionManager {
             const overrider = updates.get(appliedConditions.get(base)?._id ?? "") ?? appliedConditions.get(base);
 
             // Iterate the condition's overrides.
-            overrider?.data.overrides.forEach((overriddenBase) => {
+            overrider?.system.overrides.forEach((overriddenBase) => {
                 if (appliedConditions.has(overriddenBase)) {
                     // appliedConditions has a condition that needs to be overridden.
 
@@ -249,7 +249,7 @@ export class ConditionManager {
 
                     // Ensure all copies of overridden base are updated.
                     conditions
-                        .filter((c) => c.data.base === overriddenBase)
+                        .filter((c) => c.system.base === overriddenBase)
                         .forEach((conditionData) => {
                             // List of conditions that have been overridden.
                             const overridden = updates.get(conditionData._id) ?? conditionData;
@@ -280,15 +280,15 @@ export class ConditionManager {
         const conditionModifiers: Map<string, ModifierPF2e[]> = new Map();
 
         for (const condition of conditions) {
-            for (const modifier of condition.data.modifiers) {
+            for (const modifier of condition.system.modifiers) {
                 if (!conditionModifiers.has(modifier.group)) {
                     conditionModifiers.set(modifier.group, []);
                 }
 
-                if (condition.data.value.isValued) {
+                if (condition.system.value.isValued) {
                     conditionModifiers
                         .get(modifier.group)
-                        ?.push(new ModifierPF2e(condition.name, -condition.data.value.value, modifier.type));
+                        ?.push(new ModifierPF2e(condition.name, -condition.system.value.value, modifier.type));
                 } else {
                     conditionModifiers
                         .get(modifier.group)
@@ -338,7 +338,7 @@ export class ConditionManager {
 
     private static async createConditions(source: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
         const exists = actor.itemTypes.condition.some(
-            (existing) => existing.system.base === source.data.base && !source.data.references.parent?.id
+            (existing) => existing.system.base === source.system.base && !source.system.references.parent?.id
         );
         if (exists) return null;
 
@@ -354,15 +354,15 @@ export class ConditionManager {
     ): ConditionSource[] {
         const conditionsToCreate: ConditionSource[] = [];
 
-        for (const linked of baseCondition.data.alsoApplies.linked) {
+        for (const linked of baseCondition.system.alsoApplies.linked) {
             const conditionSource = this.getCondition(linked.condition).toObject();
             if (linked.value) {
-                conditionSource.data.value.value = linked.value;
+                conditionSource.system.value.value = linked.value;
             }
             conditionSource._id = randomID(16);
-            conditionSource.data.references.parent = { id: baseCondition._id, type: "condition" };
-            baseCondition.data.references.children.push({ id: conditionSource._id, type: "condition" });
-            conditionSource.data.sources.hud = baseCondition.data.sources.hud;
+            conditionSource.system.references.parent = { id: baseCondition._id, type: "condition" };
+            baseCondition.system.references.children.push({ id: conditionSource._id, type: "condition" });
+            conditionSource.system.sources.hud = baseCondition.system.sources.hud;
 
             // Add linked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
@@ -370,21 +370,21 @@ export class ConditionManager {
             conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource, actor));
         }
 
-        for (const unlinked of baseCondition.data.alsoApplies.unlinked) {
+        for (const unlinked of baseCondition.system.alsoApplies.unlinked) {
             const conditionSource = this.getCondition(unlinked.condition).toObject();
 
             // Unlinked conditions can be abandoned, so we need to prevent duplicates
             const exists = actor.itemTypes.condition.some(
-                (existing) => existing.system.base === conditionSource.data.base
+                (existing) => existing.system.base === conditionSource.system.base
             );
             if (exists) continue;
 
             if (unlinked.value) {
-                conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
-                conditionSource.data.value.value = unlinked.value;
+                conditionSource.name = `${conditionSource.name} ${conditionSource.system.value.value}`;
+                conditionSource.system.value.value = unlinked.value;
             }
             conditionSource._id = randomID(16);
-            conditionSource.data.sources.hud = baseCondition.data.sources.hud;
+            conditionSource.system.sources.hud = baseCondition.system.sources.hud;
 
             // Add unlinked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
@@ -489,13 +489,13 @@ export class ConditionManager {
             conditions.set(name, flattened);
 
             // Update any references
-            const conditionData = condition.data;
-            if (conditionData.data.references.parent) {
-                const refCondition = items.find((other) => other.id === conditionData.data.references.parent?.id);
+            const conditionData = condition.system;
+            if (conditionData.references.parent) {
+                const refCondition = items.find((other) => other.id === conditionData.references.parent?.id);
 
                 if (refCondition) {
                     const ref: ConditionReference = {
-                        id: conditionData.data.references.parent,
+                        id: conditionData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -514,12 +514,12 @@ export class ConditionManager {
                 }
             }
 
-            conditionData.data.references.children.forEach((item) => {
+            conditionData.references.children.forEach((item) => {
                 const refCondition = items.find((other) => other.id === item.id);
 
                 if (refCondition) {
                     const ref: ConditionReference = {
-                        id: conditionData.data.references.parent,
+                        id: conditionData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -537,12 +537,12 @@ export class ConditionManager {
                 }
             });
 
-            conditionData.data.references.overrides.forEach((item) => {
+            conditionData.references.overrides.forEach((item) => {
                 const refCondition = items.find((other) => other.id === item.id);
 
                 if (refCondition) {
                     const ref = {
-                        id: conditionData.data.references.parent,
+                        id: conditionData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -560,12 +560,12 @@ export class ConditionManager {
                 }
             });
 
-            conditionData.data.references.overriddenBy.forEach((item) => {
+            conditionData.references.overriddenBy.forEach((item) => {
                 const refCondition = items.find((other) => other.id === item.id);
 
                 if (refCondition) {
                     const ref = {
-                        id: conditionData.data.references.parent,
+                        id: conditionData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -583,12 +583,12 @@ export class ConditionManager {
                 }
             });
 
-            conditionData.data.references.immunityFrom.forEach((item) => {
+            conditionData.references.immunityFrom.forEach((item) => {
                 const refCondition = items.find((other) => other.id === item.id);
 
                 if (refCondition) {
                     const ref = {
-                        id: conditionData.data.references.parent,
+                        id: conditionData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
