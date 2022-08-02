@@ -2,7 +2,7 @@
     <!-- TOGGLES -->
     <div class="toggles section-container headerless">
         <div class="section-body actions-options item-list">
-            {{#each actor.data.toggles as |toggle idx|}}
+            {{#each actor.system.toggles as |toggle idx|}}
                 <div class="actions-option item">
                     <label>
                         <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />

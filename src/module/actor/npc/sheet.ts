@@ -89,7 +89,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
     private getIdentifyCreatureData(): IdentifyCreatureData {
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        return identifyCreature(this.actor.data, { proficiencyWithoutLevel });
+        return identifyCreature(this.actor, { proficiencyWithoutLevel });
     }
 
     override async getData(): Promise<NPCSheetData<TActor>> {
@@ -521,16 +521,16 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         // do not update max health if the value has not actually changed
         if (this.isElite || this.isWeak) {
             const { max } = this.actor.system.attributes.hp;
-            if (formData["data.attributes.hp.max"] === max) {
-                delete formData["data.attributes.hp.max"];
+            if (formData["system.attributes.hp.max"] === max) {
+                delete formData["system.attributes.hp.max"];
             }
         }
 
         // update shield hp
         const shield = this.actor.heldShield;
-        if (shield && Number.isInteger(formData["data.attributes.shield.value"])) {
+        if (shield && Number.isInteger(formData["system.attributes.shield.value"])) {
             await shield.update({
-                "data.hp.value": formData["data.attributes.shield.value"],
+                "system.hp.value": formData["system.attributes.shield.value"],
             });
         }
 

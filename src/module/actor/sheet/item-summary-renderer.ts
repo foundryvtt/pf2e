@@ -86,7 +86,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
     renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: ItemSummaryData) {
         const localize = game.i18n.localize.bind(game.i18n);
 
-        const itemIsIdentifiedOrUserIsGM = item instanceof PhysicalItemPF2e && (item.isIdentified || game.user.isGM);
+        const itemIsIdentifiedOrUserIsGM = item.isOfType("physical") && (item.isIdentified || game.user.isGM);
 
         const $rarityTag = itemIsIdentifiedOrUserIsGM
             ? (() => {
@@ -187,7 +187,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
         super.renderItemSummary($div, item, chatData);
         const actor = item.actor;
         const buttons = $('<div class="item-buttons"></div>');
-        switch (item.data.type) {
+        switch (item.type) {
             case "spell":
                 if (chatData.isSave) {
                     const save = chatData.save as Record<string, unknown>;

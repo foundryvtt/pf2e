@@ -184,7 +184,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     get isDead(): boolean {
         const deathIcon = game.settings.get("pf2e", "deathIcon");
         const tokens = this.getActiveTokens(false, true);
-        const hasDeathOverlay = tokens.length > 0 && tokens.every((t) => t.data.overlayEffect === deathIcon);
+        const hasDeathOverlay = tokens.length > 0 && tokens.every((t) => t.overlayEffect === deathIcon);
 
         return (
             hasDeathOverlay ||

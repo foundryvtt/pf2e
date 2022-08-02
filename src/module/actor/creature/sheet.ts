@@ -131,7 +131,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue: number = getProperty(this.actor.data, propertyPath);
+            const preparedValue: number = getProperty(this.actor, propertyPath);
             $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
         });
 

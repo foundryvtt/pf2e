@@ -355,6 +355,8 @@ interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenD
     _sheet: TokenConfigPF2e<this> | null;
 
     get sheet(): TokenConfigPF2e<this>;
+
+    overlayEffect: ImagePath;
 }
 
 export { TokenDocumentPF2e };
