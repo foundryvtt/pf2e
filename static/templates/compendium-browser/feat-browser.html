@@ -2,7 +2,7 @@
     {{> systems/pf2e/templates/compendium-browser/filters.html filterData=filterData }}
     <ul class="item-list result-list">
         {{#each indexData as |feat id|}}
-        <li class="item flexrow" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats">
+        <li class="item flexrow" data-entry-uuid="Compendium.{{feat.compendium}}.{{feat._id}}" data-type="Item">
             <div class="image">
                 <img class="" src="{{feat.img}}" title="{{feat.name}}" width="32" height="32" loading="lazy"/>
             </div>
