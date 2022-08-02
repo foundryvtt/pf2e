@@ -147,12 +147,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Vision
-        if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+        /* if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data[property] = this._source[property] = 0;
             }
             this.sightAngle = this._source.sightAngle = 360;
-        }
+        }*/
 
         // Nath mode
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
@@ -191,11 +191,11 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
         // Setting vision radii is less performant but necessary if multiple tokens are controlled
-        if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
+        /* if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
             const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
             const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
             this.data.brightSight = this.data.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
-        }
+        }*/
     }
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */

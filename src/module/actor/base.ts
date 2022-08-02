@@ -562,12 +562,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         // Disable manually-configured vision settings on the prototype token
-        if (canvas.lighting?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
+        /* if (canvas.lighting?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.prototypeToken[property] = this.prototypeToken._source[property] = 0;
             }
             this.prototypeToken.sightAngle = this.prototypeToken._source.sightAngle = 360;
-        }
+        }*/
 
         this.prototypeToken.flags = mergeObject(
             { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
