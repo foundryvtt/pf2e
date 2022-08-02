@@ -37,12 +37,12 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // Prepare source
-                    const source = actorData.data.details.source?.value;
+                    const source = actorData.system.details.source?.value;
                     if (source) {
                         sources.add(source);
-                        actorData.data.details.source.value = sluggify(source);
+                        actorData.system.details.source.value = sluggify(source);
                     } else {
-                        actorData.data.details.source = { value: "" };
+                        actorData.system.details.source = { value: "" };
                     }
 
                     hazardActors.push({
@@ -51,11 +51,11 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         name: actorData.name,
                         img: actorData.img,
                         compendium: pack.collection,
-                        level: actorData.data.details.level.value,
-                        complexity: actorData.data.details.isComplex ? "complex" : "simple",
-                        traits: actorData.data.traits.traits.value,
-                        rarity: actorData.data.traits.rarity,
-                        source: actorData.data.details.source.value,
+                        level: actorData.system.details.level.value,
+                        complexity: actorData.system.details.isComplex ? "complex" : "simple",
+                        traits: actorData.system.traits.traits.value,
+                        rarity: actorData.system.traits.rarity,
+                        source: actorData.system.details.source.value,
                     });
                 }
             }

@@ -48,27 +48,27 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         );
                         continue;
                     }
-                    featData.data.classes = { value: [] };
-                    featData.data.ancestry = { value: [] };
-                    featData.data.skills = { value: [] };
+                    featData.system.classes = { value: [] };
+                    featData.system.ancestry = { value: [] };
+                    featData.system.skills = { value: [] };
                     // determining attributes from traits
-                    if (featData.data.traits.value) {
+                    if (featData.system.traits.value) {
                         // determine class feats
                         const classList = Object.keys(CONFIG.PF2E.classTraits);
-                        const classIntersection = classList.filter((x) => featData.data.traits.value.includes(x));
+                        const classIntersection = classList.filter((x) => featData.system.traits.value.includes(x));
                         if (classIntersection.length !== 0) {
                             classes.add(classIntersection.join(","));
-                            featData.data.classes.value = classIntersection;
+                            featData.system.classes.value = classIntersection;
                         }
 
-                        if (featData.data.featType.value === "ancestry") {
+                        if (featData.system.featType.value === "ancestry") {
                             const ancestryIntersection = ancestryList.filter((x) =>
-                                featData.data.traits.value.includes(x)
+                                featData.system.traits.value.includes(x)
                             );
 
                             if (ancestryIntersection.length !== 0) {
                                 ancestries.add(ancestryIntersection.join(","));
-                                featData.data.ancestry.value = ancestryIntersection;
+                                featData.system.ancestry.value = ancestryIntersection;
                             }
                         }
                     }
@@ -79,7 +79,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     // (Basic Arcana)
                     {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        const prereqs = featData.data.prerequisites.value;
+                        const prereqs = featData.system.prerequisites.value;
                         let prerequisitesArr: string[] = [];
                         prerequisitesArr = prereqs.map((prerequisite: { value: string }) =>
                             prerequisite?.value ? prerequisite.value.toLowerCase() : ""
@@ -91,15 +91,15 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
                         if (skillIntersection.length !== 0) {
                             skills.add(skillIntersection.join(","));
-                            featData.data.skills.value = skillIntersection;
+                            featData.system.skills.value = skillIntersection;
                         }
                     }
 
                     // Prepare source
-                    const source = featData.data.source.value;
+                    const source = featData.system.source.value;
                     if (source) {
                         sources.add(source);
-                        featData.data.source.value = sluggify(source);
+                        featData.system.source.value = sluggify(source);
                     }
 
                     // Only store essential data
@@ -109,14 +109,14 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         name: featData.name,
                         img: featData.img,
                         compendium: pack.collection,
-                        level: featData.data.level.value,
-                        featType: featData.data.featType.value,
-                        classes: featData.data.classes.value,
-                        skills: featData.data.skills.value,
-                        ancestry: featData.data.ancestry.value,
-                        traits: featData.data.traits.value,
-                        rarity: featData.data.traits.rarity,
-                        source: featData.data.source.value,
+                        level: featData.system.level.value,
+                        featType: featData.system.featType.value,
+                        classes: featData.system.classes.value,
+                        skills: featData.system.skills.value,
+                        ancestry: featData.system.ancestry.value,
+                        traits: featData.system.traits.value,
+                        rarity: featData.system.traits.rarity,
+                        source: featData.system.source.value,
                     });
                 }
             }
