@@ -713,26 +713,25 @@ class CompendiumBrowser extends Application {
     protected override _onDragStart(event: ElementDragEvent): void {
         this.element.animate({ opacity: 0.125 }, 250);
 
-        const $item = $(event.currentTarget);
-        const packName = $item.attr("data-entry-compendium");
-        const itemPack = game.packs.find((pack) => pack.collection === packName);
-        if (!itemPack) return;
+        const item = $(event.currentTarget)[0];
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
-                type: itemPack.documentName,
-                pack: itemPack.collection,
-                id: $item.attr("data-entry-id"),
+                type: item.dataset.type,
+                uuid: item.dataset.entryUuid,
             })
         );
-
-        $item.one("dragend", () => {
-            window.setTimeout(() => {
-                this.element.animate({ opacity: 1 }, 250, () => {
-                    this.element.css({ pointerEvents: "" });
-                });
-            }, 500);
-        });
+        item.addEventListener(
+            "dragend",
+            () => {
+                window.setTimeout(() => {
+                    this.element.animate({ opacity: 1 }, 250, () => {
+                        this.element.css({ pointerEvents: "" });
+                    });
+                }, 500);
+            },
+            { once: true }
+        );
     }
 
     protected override _onDragOver(event: ElementDragEvent): void {
