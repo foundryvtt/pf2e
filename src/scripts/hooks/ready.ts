@@ -58,7 +58,7 @@ export const Ready = {
                 );
 
                 for (const badModule of subV9Modules) {
-                    const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.data.title });
+                    const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
                     ui.notifications.warn(message);
                     console.warn(message);
                 }

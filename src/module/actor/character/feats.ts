@@ -107,12 +107,12 @@ class CharacterFeats extends Collection<FeatCategory> {
             return grants.flatMap((grant) => {
                 const item = this.actor.items.get(grant.id);
                 return item?.isOfType("feat") && !item.system.location
-                    ? { feat: item, grants: getGrantedItems(item.data.flags.pf2e.itemGrants) }
+                    ? { feat: item, grants: getGrantedItems(item.flags.pf2e.itemGrants) }
                     : [];
             });
         };
 
-        return { feat, grants: getGrantedItems(feat.data.flags.pf2e.itemGrants) };
+        return { feat, grants: getGrantedItems(feat.flags.pf2e.itemGrants) };
     }
 
     /** Inserts a feat into the character. If category is empty string, its a bonus feat */
@@ -152,7 +152,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         // If this is a new feat, create a new feat item on the actor first
         if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
             const source = feat.toObject();
-            source.data.location = location;
+            source.system.location = location;
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
             const label = game.i18n.localize(location && category?.label ? category.label : "PF2E.FeatBonusHeader");
             ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
@@ -203,10 +203,10 @@ class CharacterFeats extends Collection<FeatCategory> {
         }, {});
 
         // put the feats in their feat slots
-        const feats = this.actor.itemTypes.feat.sort((f1, f2) => f1.data.sort - f2.data.sort);
+        const feats = this.actor.itemTypes.feat.sort((f1, f2) => f1.sort - f2.sort);
         for (const feat of feats) {
-            if (feat.data.flags.pf2e.grantedBy && !feat.system.location) {
-                const granter = this.actor.items.get(feat.data.flags.pf2e.grantedBy.id);
+            if (feat.flags.pf2e.grantedBy && !feat.system.location) {
+                const granter = this.actor.items.get(feat.flags.pf2e.grantedBy.id);
                 if (granter?.isOfType("feat")) continue;
             }
 

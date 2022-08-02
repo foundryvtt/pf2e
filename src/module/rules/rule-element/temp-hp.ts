@@ -20,7 +20,7 @@ class TempHPRuleElement extends RuleElementPF2e {
     override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored || !this.data.onCreate) return;
 
-        const updatedActorData = mergeObject(this.actor.data._source, actorUpdates, { inplace: false });
+        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.data.value);
 
         const rollOptions = Array.from(
@@ -67,7 +67,7 @@ class TempHPRuleElement extends RuleElementPF2e {
             return;
         }
 
-        const updatedActorData = mergeObject(this.actor.data._source, actorUpdates, { inplace: false });
+        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
         const currentTempHP = Number(getProperty(updatedActorData, "data.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
             actorUpdates["data.attributes.hp.temp"] = value;
@@ -76,7 +76,7 @@ class TempHPRuleElement extends RuleElementPF2e {
     }
 
     override onDelete(actorUpdates: Record<string, unknown>): void {
-        const updatedActorData = mergeObject(this.actor.data._source, actorUpdates, { inplace: false });
+        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
         if (getProperty(updatedActorData, "data.attributes.hp.tempsource") === this.item.id) {
             mergeObject(actorUpdates, {
                 "data.attributes.hp.temp": 0,

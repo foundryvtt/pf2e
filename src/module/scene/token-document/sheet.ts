@@ -54,7 +54,7 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
                 }
                 this.disableScale($html);
             } else {
-                const source = this.token.data._source;
+                const source = this.token._source;
                 $sizeInputs.filter("[name=width]").val(source.width);
                 $sizeInputs.filter("[name=height]").val(source.height);
                 $sizeInputs.filter("[name=scale]").val(source.scale);

@@ -52,7 +52,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
-        return this.data.flags.pf2e.linkToActorSize;
+        return this.document.linkToActorSize;
     }
 
     /** The ID of the highlight layer for this token */
@@ -348,7 +348,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 (Array.from(this.document.auras.keys()).some((k) => !this.auras.has(k)) ||
                     Array.from(this.auras.keys()).some((k) => !this.document.auras.has(k)))
             ) {
-                changed.effects = deepClone(this.data._source.effects);
+                changed.effects = deepClone(this.document._source.effects);
             }
         }
 

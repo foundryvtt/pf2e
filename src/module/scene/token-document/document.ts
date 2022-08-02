@@ -95,12 +95,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     get bounds(): NormalizedRectangle {
         const gridSize = this.scene?.grid.size ?? 100;
         // Use source values since coordinates are changed in real time over the course of movement animation
-        return new NormalizedRectangle(
-            this.data._source.x,
-            this.data._source.y,
-            this.width * gridSize,
-            this.height * gridSize
-        );
+        return new NormalizedRectangle(this._source.x, this._source.y, this.width * gridSize, this.height * gridSize);
     }
 
     /** The pixel-coordinate pair constituting this token's center */
@@ -154,9 +149,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Vision
         if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
-                this.data[property] = this.data._source[property] = 0;
+                this.data[property] = this._source[property] = 0;
             }
-            this.sightAngle = this.data._source.sightAngle = 360;
+            this.sightAngle = this._source.sightAngle = 360;
         }
 
         // Nath mode

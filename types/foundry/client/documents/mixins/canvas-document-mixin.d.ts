@@ -49,4 +49,12 @@ declare global {
 
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
+
+    interface CanvasDocument<
+        TDocument extends foundry.abstract.Document = foundry.abstract.Document,
+        TLayer extends PlaceablesLayer = PlaceablesLayer<any>
+    > extends ClientDocument<TDocument> {
+        x: number;
+        y: number;
+    }
 }

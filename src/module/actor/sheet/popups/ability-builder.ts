@@ -63,7 +63,7 @@ export class AbilityBuilderPopup extends Application {
                 ([, b]) => b.selected === ability
             );
             if (boostToRemove) {
-                await actor.ancestry?.update({ [`data.boosts.${boostToRemove[0]}.selected`]: null });
+                await actor.ancestry?.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
                 return;
             }
 
@@ -71,7 +71,7 @@ export class AbilityBuilderPopup extends Application {
                 ([, b]) => !b.selected && b.value.length > 0
             );
             if (freeBoost) {
-                await actor.ancestry?.update({ [`data.boosts.${freeBoost[0]}.selected`]: ability });
+                await actor.ancestry?.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
             }
         });
 
@@ -118,7 +118,7 @@ export class AbilityBuilderPopup extends Application {
             );
             if (boostToRemove) {
                 await actor.background?.update({
-                    [`data.boosts.${boostToRemove[0]}.selected`]: null,
+                    [`system.boosts.${boostToRemove[0]}.selected`]: null,
                 });
                 return;
             }
@@ -128,7 +128,7 @@ export class AbilityBuilderPopup extends Application {
             );
             if (freeBoost) {
                 await actor.background?.update({
-                    [`data.boosts.${freeBoost[0]}.selected`]: ability,
+                    [`system.boosts.${freeBoost[0]}.selected`]: ability,
                 });
             }
         });
@@ -136,9 +136,9 @@ export class AbilityBuilderPopup extends Application {
         $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
             if (actor.system.build.abilities.manual) {
-                await actor.update({ [`data.details.keyability.value`]: ability });
+                await actor.update({ [`system.details.keyability.value`]: ability });
             } else {
-                await actor.class?.update({ [`data.keyAbility.selected`]: ability });
+                await actor.class?.update({ [`system.keyAbility.selected`]: ability });
             }
         });
 
@@ -152,7 +152,7 @@ export class AbilityBuilderPopup extends Application {
                 throw ErrorPF2e("Unexpected update requested to ability boosts and flaws");
             }
 
-            const buildSource = mergeObject(actor.toObject().data.build ?? {}, { abilities: { boosts: {} } });
+            const buildSource = mergeObject(actor.toObject().system.build ?? {}, { abilities: { boosts: {} } });
             const boosts = (buildSource.abilities.boosts[level] ??= []);
             if (boosts.includes(ability)) {
                 boosts.splice(boosts.indexOf(ability), 1);
@@ -160,7 +160,7 @@ export class AbilityBuilderPopup extends Application {
                 boosts.push(ability);
             }
 
-            await actor.update({ "data.build": buildSource });
+            await actor.update({ "system.build": buildSource });
         });
 
         $html.find<HTMLInputElement>("input[data-property]").on("blur", async (event) => {

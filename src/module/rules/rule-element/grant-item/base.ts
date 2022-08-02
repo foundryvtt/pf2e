@@ -140,7 +140,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         if (!this.reevaluateOnUpdate) return;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
-        const alreadyGranted = this.item.data.flags.pf2e.itemGrants.some(
+        const alreadyGranted = this.item.flags.pf2e.itemGrants.some(
             (g) => this.actor.items.get(g.id)?.sourceId === uuid
         );
         if (alreadyGranted) return;
@@ -161,13 +161,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     override async preDelete({ pendingItems }: RuleElementPF2e.PreDeleteParams): Promise<void> {
-        const grants = this.item.data.flags.pf2e.itemGrants ?? [];
+        const grants = this.item.flags.pf2e.itemGrants ?? [];
         const DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
 
         const deletionActions = grants.reduce(
             (actions: Record<ItemGrantDeleteAction, Embedded<ItemPF2e>[]>, grant) => {
                 const item = this.actor.items.get(grant.id);
-                const { grantedBy } = item?.data.flags.pf2e ?? {};
+                const { grantedBy } = item?.flags.pf2e ?? {};
                 if (!(item && grantedBy && tupleHasValue(DELETE_ACTIONS, grantedBy.onDelete))) {
                     return actions;
                 }
@@ -198,7 +198,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     private applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
-        const source = grantedItem.data._source;
+        const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
                 (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.data.flag === flag
@@ -219,7 +219,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         context: DocumentModificationContext<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
-        const grantedSource = grantedItem.data._source;
+        const grantedSource = grantedItem._source;
         for (const rule of grantedItem.rules) {
             const ruleSource = grantedSource.system.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
             await rule.preCreate?.({

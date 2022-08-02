@@ -142,9 +142,9 @@ class FeatPF2e extends ItemPF2e {
     ): Promise<void> {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
-            this.data._source.data.location = null;
-            if (this.data._source.data.frequency) {
-                delete this.data._source.data.frequency.value;
+            this._source.data.location = null;
+            if (this._source.data.frequency) {
+                delete this._source.data.frequency.value;
             }
         }
 
@@ -199,7 +199,7 @@ class FeatPF2e extends ItemPF2e {
         }
 
         // Skip subsequent warnings if this feat is from a grant
-        if (this.data.flags.pf2e.grantedBy) return;
+        if (this.flags.pf2e.grantedBy) return;
 
         const slug = this.slug ?? sluggify(this.name);
         const timesTaken = this.actor.itemTypes.feat.filter((f) => f.slug === slug).length;
