@@ -338,7 +338,7 @@ export class ConditionManager {
 
     private static async createConditions(source: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
         const exists = actor.itemTypes.condition.some(
-            (existing) => existing.data.data.base === source.data.base && !source.data.references.parent?.id
+            (existing) => existing.system.base === source.data.base && !source.data.references.parent?.id
         );
         if (exists) return null;
 
@@ -375,7 +375,7 @@ export class ConditionManager {
 
             // Unlinked conditions can be abandoned, so we need to prevent duplicates
             const exists = actor.itemTypes.condition.some(
-                (existing) => existing.data.data.base === conditionSource.data.base
+                (existing) => existing.system.base === conditionSource.data.base
             );
             if (exists) continue;
 
@@ -429,7 +429,7 @@ export class ConditionManager {
 
             if (condition instanceof ConditionPF2e) {
                 list.push(id);
-                condition.data.data.references.children.forEach((child) => stack.push(child.id));
+                condition.system.references.children.forEach((child) => stack.push(child.id));
             }
         }
 

@@ -238,7 +238,7 @@ class CompendiumBrowser extends Application {
         const filter: string[] = [];
 
         if (entry.isRitual || entry.isFocusPool) {
-            filter.push("category-".concat(entry.data.data.prepared.value));
+            filter.push("category-".concat(entry.system.prepared.value));
         }
 
         if (level || level === 0) {
@@ -259,7 +259,7 @@ class CompendiumBrowser extends Application {
         }
 
         if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.push("traditions-".concat(entry.data.data.tradition.value));
+            filter.push("traditions-".concat(entry.system.tradition.value));
         }
 
         this.openTab("spell", filter);

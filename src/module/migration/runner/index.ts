@@ -19,7 +19,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
-            const source = document.data._source;
+            const source = document._source;
             const updated = await (async () => {
                 try {
                     return "items" in source
@@ -29,15 +29,15 @@ export class MigrationRunner extends MigrationRunnerBase {
                     return null;
                 }
             })();
-            if (updated) document.data.update(updated);
+            if (updated) document.updateSource(updated);
         }
 
-        document.data.update({ "system.schema.version": currentVersion });
+        document.updateSource({ "system.schema.version": currentVersion });
         // Discriminate between item and actor without importing, which would throw errors on the migration test
         if ("items" in document && "token" in document) {
             for (const item of document.items) {
                 if (!item.schemaVersion) {
-                    item.data.update({ "system.schema.version": currentVersion });
+                    item.updateSource({ "system.schema.version": currentVersion });
                 }
             }
         }

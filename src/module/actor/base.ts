@@ -3,7 +3,7 @@ import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
-import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { EffectFlags, EffectSource } from "@item/effect/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -221,14 +221,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const tokenIcon = (data: ConditionData) => {
+        const tokenIcon = (condition: ConditionPF2e) => {
             const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
-            const statusName = data.data.hud.statusName;
+            const statusName = condition.system.hud.statusName;
             return `${folder}${statusName}.webp`;
         };
-        const conditionTokenIcons = this.itemTypes.condition
-            .filter((condition) => condition.fromSystem)
-            .map((condition) => tokenIcon(condition.data));
+        const conditionTokenIcons = this.itemTypes.condition.map((condition) => tokenIcon(condition));
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
@@ -306,9 +304,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 };
 
                 const source = mergeObject(effect.toObject(), { flags });
-                source.data.level.value = data.level ?? source.data.level.value;
-                source.data.duration.unit = "unlimited";
-                source.data.duration.expiry = null;
+                source.system.level.value = data.level ?? source.data.level.value;
+                source.system.duration.unit = "unlimited";
+                source.system.duration.expiry = null;
                 toCreate.push(source);
             }
         }
@@ -423,8 +421,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         super._initialize();
         this.initialized = true;
 
-        // Send any accrued warnings to the console
-        this.synthetics.preparationWarnings.flush();
+        if (game._documentsReady) {
+            this.synthetics.preparationWarnings.flush();
+        }
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
@@ -556,8 +555,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const tokenImgIsDefault = [
             ActorPF2e.DEFAULT_ICON,
             `systems/pf2e/icons/default-icons/${this.type}.svg`,
-        ].includes(this.data.prototypeToken.img);
-        const tokenImgIsActorImg = this.data.prototypeToken.img === this.img;
+        ].includes(this.prototypeToken.img);
+        const tokenImgIsActorImg = this.prototypeToken.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.prototypeToken.update({ img: this.img });
         }
@@ -870,10 +869,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         const newItemData = item.toObject();
-        newItemData.data.quantity = quantity;
-        newItemData.data.equipped.carryType = "worn";
+        newItemData.system.quantity = quantity;
+        newItemData.system.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            newItemData.data.equipped.invested = item.traits.has("invested") ? false : null;
+            newItemData.system.equipped.invested = item.traits.has("invested") ? false : null;
         }
 
         return targetActor.addToInventory(newItemData, container, newStack);
@@ -886,7 +885,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
-        if (!newStack && stackItem && stackItem.data.type !== "backpack") {
+        if (!newStack && stackItem && stackItem.type !== "backpack") {
             const stackQuantity = stackItem.quantity + itemData.data.quantity;
             await stackItem.update({ "data.quantity": stackQuantity });
             return stackItem;
@@ -1115,10 +1114,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         } else if (typeof conditionSlug === "string") {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
-                typeof conditionSource?.data.value.value === "number" && min && max
-                    ? Math.clamped(conditionSource.data.value.value, min, max)
+                typeof conditionSource?.system.value.value === "number" && min && max
+                    ? Math.clamped(conditionSource.system.value.value, min, max)
                     : null;
-            conditionSource.data.value.value = conditionValue;
+            conditionSource.system.value.value = conditionValue;
             await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
         }
     }
@@ -1148,9 +1147,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         user: UserPF2e
     ): Promise<void> {
         // Set default portrait and token images
-        if (this.data._source.img === ActorPF2e.DEFAULT_ICON) {
-            this.data._source.img =
-                this.data._source.prototypeToken.img =
+        if (this._source.img === ActorPF2e.DEFAULT_ICON) {
+            this._source.img =
+                this._source.prototypeToken.img =
                 data.img =
                 data.prototypeToken.img =
                     `systems/pf2e/icons/default-icons/${data.type}.svg`;
@@ -1170,11 +1169,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         user: UserPF2e
     ): Promise<void> {
         // Show floaty text when applying damage or healing
-        const changedHP = changed.data?.attributes?.hp;
+        const changedHP = changed.system?.attributes?.hp;
         const currentHP = this.hitPoints;
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
-            const levelChanged = !!changed.data?.details && "level" in changed.data.details;
+            const levelChanged = !!changed.system?.details && "level" in changed.system.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
         }
 
@@ -1208,7 +1207,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         // If alliance has changed, reprepare token data to update the color of bounding boxes
-        if (canvas.ready && changed.data?.details && "alliance" in changed.data.details) {
+        if (canvas.ready && changed.system?.details && "alliance" in changed.system.details) {
             for (const token of this.getActiveTokens(true, true)) {
                 token.prepareData();
             }

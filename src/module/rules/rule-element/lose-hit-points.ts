@@ -28,7 +28,7 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         if (!this.reevaluateOnUpdate || this.ignored) return;
         const previousValue = Math.abs(Number(this.resolveValue()) || 0);
         const newItem = this.item.clone(changes);
-        const rule = newItem.data.data.rules.find((r) => r.key === this.key);
+        const rule = newItem.system.rules.find((r) => r.key === this.key);
         const newValue = Math.abs(Number(this.resolveValue(rule?.value, 0, { resolvables: { item: newItem } })));
         const valueChange = newValue - previousValue;
         if (valueChange > 0) {

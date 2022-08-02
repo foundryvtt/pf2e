@@ -52,7 +52,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
         this.validateData();
         if (!this.test()) return;
 
-        this.actor.data.data.martial[this.data.slug] = this.createValue();
+        this.actor.system.martial[this.data.slug] = this.createValue();
     }
 
     /** Set this martial proficiency as an AELike value  */

@@ -59,7 +59,7 @@ export class AbilityBuilderPopup extends Application {
         $html.find("button[data-action=ancestry-boost]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
 
-            const boostToRemove = Object.entries(actor.ancestry?.data.data.boosts ?? {}).find(
+            const boostToRemove = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
                 ([, b]) => b.selected === ability
             );
             if (boostToRemove) {
@@ -67,7 +67,7 @@ export class AbilityBuilderPopup extends Application {
                 return;
             }
 
-            const freeBoost = Object.entries(actor.ancestry?.data.data.boosts ?? {}).find(
+            const freeBoost = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
                 ([, b]) => !b.selected && b.value.length > 0
             );
             if (freeBoost) {
@@ -113,7 +113,7 @@ export class AbilityBuilderPopup extends Application {
         $html.find("button[data-action=background-boost]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
 
-            const boostToRemove = Object.entries(actor.background?.data.data.boosts ?? {}).find(
+            const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
                 ([, b]) => b.selected === ability
             );
             if (boostToRemove) {
@@ -123,7 +123,7 @@ export class AbilityBuilderPopup extends Application {
                 return;
             }
 
-            const freeBoost = Object.entries(actor.background?.data.data.boosts ?? {}).find(
+            const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
                 ([, b]) => !b.selected && b.value.length > 0
             );
             if (freeBoost) {
@@ -135,7 +135,7 @@ export class AbilityBuilderPopup extends Application {
 
         $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
             const ability = $(event.currentTarget).attr("data-ability");
-            if (actor.data.data.build.abilities.manual) {
+            if (actor.system.build.abilities.manual) {
                 await actor.update({ [`data.details.keyability.value`]: ability });
             } else {
                 await actor.class?.update({ [`data.keyAbility.selected`]: ability });
@@ -176,7 +176,7 @@ export class AbilityBuilderPopup extends Application {
 
     override async getData(options: Partial<FormApplicationOptions> = {}): Promise<PopupData> {
         const { actor } = this;
-        const build = actor.data.data.build.abilities;
+        const build = actor.system.build.abilities;
 
         return {
             ...(await super.getData(options)),
@@ -191,7 +191,7 @@ export class AbilityBuilderPopup extends Application {
             keyOptions: build.keyOptions,
             ancestryBoosts: this.calculateAncestryBoosts(),
             backgroundBoosts: this.calculateBackgroundBoosts(),
-            voluntaryFlaw: !!actor.ancestry?.data.data.voluntary,
+            voluntaryFlaw: !!actor.ancestry?.system.voluntary,
             levelBoosts: this.calculatedLeveledBoosts(),
         };
     }
@@ -208,7 +208,7 @@ export class AbilityBuilderPopup extends Application {
             {} as BoostFlawRow
         );
 
-        for (const flaw of Object.values(actor.ancestry.data.data.flaws)) {
+        for (const flaw of Object.values(actor.ancestry.system.flaws)) {
             if (flaw.selected) {
                 ancestryBoosts[flaw.selected].lockedFlaw = true;
             }
@@ -220,7 +220,7 @@ export class AbilityBuilderPopup extends Application {
 
         let shownBoost = false;
         let boostsRemaining = 0;
-        for (const boost of Object.values(actor.ancestry.data.data.boosts)) {
+        for (const boost of Object.values(actor.ancestry.system.boosts)) {
             if (boost.selected) {
                 ancestryBoosts[boost.selected].boosted = true;
                 ancestryBoosts[boost.selected].available = true;
@@ -283,8 +283,8 @@ export class AbilityBuilderPopup extends Application {
             boosts: ancestryBoosts,
             remaining: boostsRemaining,
             voluntaryBoostsRemaining,
-            labels: this.calculateBoostLabels(actor.ancestry.data.data.boosts),
-            flawLabels: this.calculateBoostLabels(actor.ancestry.data.data.flaws),
+            labels: this.calculateBoostLabels(actor.ancestry.system.boosts),
+            flawLabels: this.calculateBoostLabels(actor.ancestry.system.flaws),
         };
     }
 
@@ -302,7 +302,7 @@ export class AbilityBuilderPopup extends Application {
 
         let boostsRemaining = 0;
         let shownBoost = false;
-        for (const boost of Object.values(actor.background.data.data.boosts)) {
+        for (const boost of Object.values(actor.background.system.boosts)) {
             if (boost.selected) {
                 if (boost.value.length === 1) {
                     backgroundBoosts[boost.selected].lockedBoost = true;
@@ -320,9 +320,9 @@ export class AbilityBuilderPopup extends Application {
             }
         }
 
-        const labels = this.calculateBoostLabels(actor.background.data.data.boosts);
+        const labels = this.calculateBoostLabels(actor.background.system.boosts);
         const tooltip = ((): string | null => {
-            const boosts = actor.background?.data.data.boosts ?? {};
+            const boosts = actor.background?.system.boosts ?? {};
             if (
                 Object.values(boosts).length === 2 &&
                 Object.values(boosts)[0].value.length === 2 &&
@@ -351,7 +351,7 @@ export class AbilityBuilderPopup extends Application {
     }
 
     private calculatedLeveledBoosts() {
-        const build = this.actor.data.data.build.abilities;
+        const build = this.actor.system.build.abilities;
         const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
         return ([1, 5, 10, 15, 20] as const).reduce(
             (ret: Record<number, LevelBoostData>, level) => ({

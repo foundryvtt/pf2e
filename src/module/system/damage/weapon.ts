@@ -110,13 +110,12 @@ class WeaponDamagePF2e {
         if (proficiencyRank >= 0) {
             options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
         }
-        const actorData = actor.data;
 
         // Determine ability modifier
         {
             const isMelee = !!weapon.isMelee;
             options.push(isMelee ? "melee" : "ranged");
-            const strengthModValue = actorData.data.abilities.str.mod;
+            const strengthModValue = actor.abilities.str.mod;
             const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
                 ? strengthModValue
                 : weaponTraits.some((t) => t === "propulsive")

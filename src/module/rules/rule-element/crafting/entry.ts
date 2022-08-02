@@ -56,7 +56,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
     override onApplyActiveEffects(): void {
         if (!this.test()) return;
 
-        if (!this.actor.data.data.crafting.entries[this.selector]) return;
+        if (!this.actor.system.crafting.entries[this.selector]) return;
 
         const option = sluggify(this.selector);
         this.actor.rollOptions.all[`crafting:entry:${option}`] = true;

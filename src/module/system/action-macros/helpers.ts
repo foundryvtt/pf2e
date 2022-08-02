@@ -225,7 +225,7 @@ export class ActionMacroHelpers {
     }
 
     private static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
-        const itemBonus = item.data.data.runes.potency;
+        const itemBonus = item.system.runes.potency;
         const slug = "potency";
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
             return new ModifierPF2e({
@@ -250,7 +250,7 @@ export class ActionMacroHelpers {
 
     private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): Embedded<WeaponPF2e>[] {
         if (actor.isOfType("character")) {
-            return actor.data.data.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
+            return actor.system.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
         } else {
             return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
         }

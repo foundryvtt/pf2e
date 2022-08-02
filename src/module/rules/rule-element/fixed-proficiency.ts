@@ -36,7 +36,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const proficiencyBonus = Number(this.resolveValue(this.data.value)) || 0;
-        const abilityModifier = this.ability ? this.actor.data.data.abilities[this.ability].mod : 0;
+        const abilityModifier = this.ability ? this.actor.system.abilities[this.ability].mod : 0;
 
         const modifier = new ModifierPF2e({
             type: MODIFIER_TYPE.PROFICIENCY,
@@ -50,7 +50,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
 
     override afterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const systemData = this.actor.data.data;
+        const systemData = this.actor.system;
         const skillLongForms: Record<string, { shortform?: string } | undefined> = SKILL_EXPANDED;
         const proficiency = skillLongForms[selector]?.shortform ?? selector;
         const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)

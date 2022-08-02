@@ -18,8 +18,8 @@ export function arcaneSlam(options: SkillActionOptions) {
         modifiers: (roller: ActorPF2e) => {
             const modifiers = options.modifiers?.length ? [...options.modifiers] : [];
             if (roller instanceof CreaturePF2e && actor instanceof CreaturePF2e) {
-                const attackerSize = roller.data.data.traits.size;
-                const targetSize = actor.data.data.traits.size;
+                const attackerSize = roller.system.traits.size;
+                const targetSize = actor.system.traits.size;
                 const sizeDifference = attackerSize.difference(targetSize);
                 const sizeModifier = new ModifierPF2e(
                     "PF2E.Actions.ArcaneSlam.Modifier.SizeDifference",

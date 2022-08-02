@@ -27,7 +27,7 @@
                                 <a class="item-control toggle-unready-strikes" title="{{localize "PF2E.ToggleUnreadyStrikes"}}"><i class="fas fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i></a>
                             </div>
                         </li>
-                        {{#each actor.data.actions as |action ai|}}
+                        {{#each data.actions as |action ai|}}
                             <li class="item action strike expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
                                 <div class="item-name rollable">
                                     <div class="item-image variant-strike" data-action="strike-attack" data-variant-index="0" style="background-image: url({{action.imageUrl}})">
@@ -118,10 +118,10 @@
                                                 <i class="fas fa-comment-alt"></i>
                                             </div>
                                             <h4>{{action.name}}</h4>
-                                            {{#if action.data.frequency}}
+                                            {{#if action.system.frequency}}
                                                 <div class="action-tracking">
-                                                    <input type="number" value="{{action.data.frequency.value}}" data-dtype="Number"/>
-                                                    <span>/ {{action.data.frequency.max}} {{localize "PF2E.Frequency.per"}} {{localize (lookup @root.frequencies action.data.frequency.per)}}</span>
+                                                    <input type="number" value="{{action.system.frequency.value}}" data-dtype="Number"/>
+                                                    <span>/ {{action.system.frequency.max}} {{localize "PF2E.Frequency.per"}} {{localize (lookup @root.frequencies action.system.frequency.per)}}</span>
                                                 </div>
                                             {{/if}}
                                         </div>

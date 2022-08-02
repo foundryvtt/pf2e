@@ -219,17 +219,15 @@ class GrantItemRuleElement extends RuleElementPF2e {
         context: DocumentModificationContext<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
-        if (grantedItem.data.data.rules) {
-            const grantedSource = grantedItem.data._source;
-            for await (const rule of grantedItem.rules) {
-                const ruleSource = grantedSource.data.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
-                await rule.preCreate?.({
-                    ...originalArgs,
-                    itemSource: grantedSource,
-                    ruleSource,
-                    context,
-                });
-            }
+        const grantedSource = grantedItem.data._source;
+        for (const rule of grantedItem.rules) {
+            const ruleSource = grantedSource.system.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
+            await rule.preCreate?.({
+                ...originalArgs,
+                itemSource: grantedSource,
+                ruleSource,
+                context,
+            });
         }
     }
 }

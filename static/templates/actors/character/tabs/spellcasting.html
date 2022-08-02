@@ -15,7 +15,7 @@
                         <div class="item-controls">
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
                                 <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
-                                    <i class="{{#if entry.data.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
+                                    <i class="{{#if entry.system.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
                                 </a>
                             {{/if}}
                             {{#unless entry.isRitual}}
@@ -42,8 +42,8 @@
                             {{#if entry.isFocusPool}}
                                 <div class="focus-pool">
                                     <span class="pips">
-                                        {{#times @root.actor.data.resources.focus.max}}
-                                            <i class="{{#if (gt @root.actor.data.resources.focus.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
+                                        {{#times @root.data.resources.focus.max}}
+                                            <i class="{{#if (gt @root.data.resources.focus.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
                                         {{/times}}
                                     </span>
                                     <h4>{{localize "PF2E.Focus.Pool"}}</h4>
@@ -53,8 +53,8 @@
                         <li class="spell-ability">
                             <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
                             <div class="spellcasting-prof button-group skill-container">
-                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">
-                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.data.proficiency.value}}
+                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" value="{{entry.system.proficiency.value}}">
+                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.system.proficiency.value}}
                                 </select>
                             </div>
                         </li>

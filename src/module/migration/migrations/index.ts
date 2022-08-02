@@ -25,7 +25,6 @@ export { Migration624RemoveTokenEffectIconFlags } from "./624-removed-token-effe
 export { Migration625EnsurePresenceOfSaves } from "./625-ensure-presence-of-saves";
 export { Migration626UpdateSpellCategory } from "./626-update-spell-category";
 export { Migration627LowerCaseSpellSaves } from "./627-lowercase-spell-saves";
-export { Migration628UpdateIdentificationData } from "./628-update-identification-data";
 export { Migration629SetBaseItems } from "./629-set-base-items";
 export { Migration630FixTalismanSpelling } from "./630-fix-talisman-spelling";
 export { Migration631FixSenseRuleElementSelector } from "./631-fix-sense-rule-element-selector";

@@ -6,7 +6,7 @@ class ResistanceRuleElement extends IWRRuleElement {
     dictionary = CONFIG.PF2E.resistanceTypes;
 
     get property(): LabeledResistance[] {
-        return this.actor.data.data.traits.dr;
+        return this.actor.system.traits.dr;
     }
 
     getIWR(value: number): LabeledResistance | null {

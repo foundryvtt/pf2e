@@ -1,5 +1,5 @@
 import { SpellPF2e } from "@item";
-import { ItemSourcePF2e, SpellData, SpellSource } from "@item/data";
+import { ItemSourcePF2e, SpellSource } from "@item/data";
 import { sluggify } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 import { MigrationBase } from "../base";
@@ -18,18 +18,18 @@ export class Migration747FixedHeightening extends MigrationBase {
         if (sourceId && this.fixedHeightenSpells.has(sourceId)) {
             const spells = await this.loadSpells();
             const spell = spells[sourceId];
-            if (spell && spell.data.data.heightening?.type === "fixed") {
-                item.system.heightening = spell.data.data.heightening;
-                this.overwriteDamage(item, spell.data);
+            if (spell && spell.system.heightening?.type === "fixed") {
+                item.system.heightening = spell.system.heightening;
+                this.overwriteDamage(item, spell);
             }
         }
     }
 
-    protected overwriteDamage(item: SpellSource, newItem: SpellData) {
-        const newDamage = newItem.data.damage;
+    protected overwriteDamage(spell: SpellSource, newSpell: SpellPF2e) {
+        const newDamage = newSpell.system.damage;
         const newKeys = new Set(Object.keys(newDamage.value));
-        const diff = Object.keys(item.system.damage.value).filter((key) => !newKeys.has(key));
-        const damage: { value: Record<string, unknown> } = item.system.damage;
+        const diff = Object.keys(spell.system.damage.value).filter((key) => !newKeys.has(key));
+        const damage: { value: Record<string, unknown> } = spell.system.damage;
         damage.value = newDamage.value;
         for (const deleteKey of diff) {
             damage.value[`-=${deleteKey}`] = null;

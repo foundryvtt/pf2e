@@ -19,7 +19,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
             return this.failValidation("Base speed requires a positive value field");
         }
 
-        const speeds = this.actor.data.data.attributes.speed;
+        const speeds = this.actor.system.attributes.speed;
         const otherSpeeds: { value: string | number; type: string }[] = speeds.otherSpeeds;
         const existingOther = otherSpeeds.find((speed) => speed.type === speedType);
         if (speedType === "land") {

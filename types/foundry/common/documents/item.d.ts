@@ -2,6 +2,8 @@ declare module foundry {
     module documents {
         /** The Item document model. */
         class BaseItem extends abstract.Document {
+            sort: number;
+
             /** The default icon used for newly created Item documents */
             static DEFAULT_ICON: ImagePath;
 

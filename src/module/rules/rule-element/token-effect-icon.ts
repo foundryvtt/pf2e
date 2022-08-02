@@ -11,6 +11,6 @@ export class TokenEffectIconRuleElement extends RuleElementPF2e {
 
         const path =
             typeof this.data.value === "string" ? this.resolveInjectedProperties(this.data.value) : this.item.img;
-        this.actor.data.data.tokenEffects.push(new TokenEffect(path.trim()));
+        this.actor.system.tokenEffects.push(new TokenEffect(path.trim()));
     }
 }

@@ -132,7 +132,7 @@ export const ChatCards = {
                 const altUsage = message.flags.pf2e.context?.altUsage ?? null;
 
                 const strikeAction = ((): StrikeData | null => {
-                    const action = actor.data.data.actions.at(Number(strikeIndex)) ?? null;
+                    const action = actor.system.actions.at(Number(strikeIndex)) ?? null;
                     return altUsage
                         ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ??
                               null
@@ -246,7 +246,7 @@ export const ChatCards = {
             }
 
             const dc = Number($(event.currentTarget).attr("data-dc"));
-            const itemTraits = item.data.data.traits?.value ?? [];
+            const itemTraits = item.system.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const save = t.actor?.saves?.[saveType];
                 if (!save) return;
@@ -254,7 +254,7 @@ export const ChatCards = {
                 const rollOptions: string[] = [];
                 if (item instanceof SpellPF2e) {
                     rollOptions.push("magical", "spell");
-                    if (Object.keys(item.data.data.damage.value).length > 0) {
+                    if (Object.keys(item.system.damage.value).length > 0) {
                         rollOptions.push("damaging-effect");
                     }
                 }

@@ -60,7 +60,7 @@ function remove(actor: CharacterPF2e, event: JQuery.ClickEvent) {
         content: `<p>${message}</p>`,
         defaultYes: false,
         yes: () => {
-            if (key in actor.data.data.martial) {
+            if (key in actor.system.martial) {
                 actor.removeCombatProficiency(key);
             }
         },

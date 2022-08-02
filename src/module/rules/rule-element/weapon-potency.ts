@@ -17,7 +17,7 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
         const { weaponPotency } = this.actor.synthetics;
         const selector = this.resolveInjectedProperties(this.data.selector);
         const { item } = this;
-        const potencyValue = this.data.value ?? (item instanceof WeaponPF2e ? item.data.data.potencyRune.value : 0);
+        const potencyValue = this.data.value ?? (item instanceof WeaponPF2e ? item.system.potencyRune.value : 0);
         const value = this.resolveValue(potencyValue);
         if (selector && typeof value === "number") {
             const bonusType =

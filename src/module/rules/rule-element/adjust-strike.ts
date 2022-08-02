@@ -95,7 +95,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             }
 
                             const newRangeIncrement = this.getNewValue(rangeIncrement, change);
-                            weapon.data.data.range = newRangeIncrement as WeaponRangeIncrement;
+                            weapon.system.range = newRangeIncrement as WeaponRangeIncrement;
                             return;
                         },
                     };
@@ -132,7 +132,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                 return;
                             }
 
-                            const { traits } = weapon.data.data;
+                            const { traits } = weapon.system;
                             // If the weapon already has this trait, we don't need to do anything else
                             if (traits.value.includes(change)) return;
 

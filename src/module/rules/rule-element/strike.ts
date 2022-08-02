@@ -72,12 +72,12 @@ class StrikeRuleElement extends RuleElementPF2e {
         if (!this.actor.isOfType("character")) return;
 
         if (this.data.replaceAll) {
-            const systemData = this.actor.data.data;
+            const systemData = this.actor.system;
             systemData.actions = systemData.actions.filter(
                 (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group
             );
         } else if (this.data.replaceBasicUnarmed) {
-            const systemData = this.actor.data.data;
+            const systemData = this.actor.system;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
         }
     }

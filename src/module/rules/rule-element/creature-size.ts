@@ -66,14 +66,14 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
             if (this.data.maximumSize && !originalSize.isSmallerThan(this.data.maximumSize)) {
                 return;
             }
-            this.actor.data.data.traits.size.increment();
+            this.actor.system.traits.size.increment();
         } else if (value === -1) {
             if (this.data.minimumSize && !originalSize.isLargerThan(this.data.minimumSize)) {
                 return;
             }
-            this.actor.data.data.traits.size.decrement();
+            this.actor.system.traits.size.decrement();
         } else if (tupleHasValue(SIZES, size)) {
-            this.actor.data.data.traits.size = new ActorSizePF2e({ value: size });
+            this.actor.system.traits.size = new ActorSizePF2e({ value: size });
         } else {
             const validValues = Array.from(
                 new Set(Object.entries(CreatureSizeRuleElement.wordToAbbreviation).flat())
@@ -86,12 +86,12 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         }
 
         if (this.data.resizeEquipment) {
-            const sizeDifference = originalSize.difference(this.actor.data.data.traits.size);
+            const sizeDifference = originalSize.difference(this.actor.system.traits.size);
             for (const item of this.actor.inventory.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {
-                    item.data.data.size = this.incrementSize(item.size, Math.abs(sizeDifference));
+                    item.system.size = this.incrementSize(item.size, Math.abs(sizeDifference));
                 } else if (sizeDifference > 0) {
-                    item.data.data.size = this.decrementSize(item.size, Math.abs(sizeDifference));
+                    item.system.size = this.decrementSize(item.size, Math.abs(sizeDifference));
                 }
             }
         }

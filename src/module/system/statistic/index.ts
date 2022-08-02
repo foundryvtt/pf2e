@@ -166,7 +166,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
             // Special cases, traits that modify the action itself universally
             // This might change once we've better decided how derivative traits will work
-            const traits: string[] = item.data.data.traits?.value ?? [];
+            const traits: string[] = item.system.traits?.value ?? [];
             if (traits.includes("attack")) {
                 rollOptions.push("trait:attack");
             }
