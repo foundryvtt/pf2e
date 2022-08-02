@@ -43,8 +43,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
                 toChat(actor.name, recoverStamina);
                 const newSP = sp.value + Math.floor(sp.max / 2);
                 actor.update({
-                    "data.attributes.sp.value": Math.min(newSP, sp.max),
-                    "data.attributes.resolve.value": resolve.value - 1,
+                    "system.attributes.sp.value": Math.min(newSP, sp.max),
+                    "system.attributes.resolve.value": resolve.value - 1,
                 });
             } else {
                 toChat(actor.name, noStamina);

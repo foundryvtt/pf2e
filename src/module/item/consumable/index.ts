@@ -149,14 +149,14 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "data.quantity": Math.max(quantity - 1, 0),
-                    "data.charges.value": max,
+                    "system.quantity": Math.max(quantity - 1, 0),
+                    "system.charges.value": max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "data.charges.value": Math.max(value - 1, 0),
+                "system.charges.value": Math.max(value - 1, 0),
             });
         }
     }

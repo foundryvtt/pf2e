@@ -12,7 +12,7 @@ export class Migration655CreatureTokenSizes extends MigrationBase {
     }
 
     private isActorSizeAELike(rule: MaybeAELike): boolean {
-        return !!rule.key?.endsWith("ActiveEffectLike") && rule.path === "data.traits.size.value";
+        return !!rule.key?.endsWith("ActiveEffectLike") && rule.path === "system.traits.size.value";
     }
 
     private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {

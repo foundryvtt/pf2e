@@ -601,7 +601,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             modifier.ignored = !modifier.predicate.test([]);
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-            await this.update({ "data.customModifiers": customModifiers });
+            await this.update({ "system.customModifiers": customModifiers });
         }
     }
 
@@ -610,10 +610,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const customModifiers = duplicate(this.system.customModifiers ?? {});
         if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
             customModifiers[stat].splice(modifier, 1);
-            await this.update({ "data.customModifiers": customModifiers });
+            await this.update({ "system.customModifiers": customModifiers });
         } else if (typeof modifier === "string" && customModifiers[stat]) {
             customModifiers[stat] = customModifiers[stat].filter((m) => m.slug !== modifier);
-            await this.update({ "data.customModifiers": customModifiers });
+            await this.update({ "system.customModifiers": customModifiers });
         } else {
             throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
         }

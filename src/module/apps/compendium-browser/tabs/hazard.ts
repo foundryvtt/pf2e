@@ -6,7 +6,7 @@ import { HazardFilters } from "./data";
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     override filterData!: HazardFilters;
 
-    protected index = ["img", "data.details.level.value", "data.details.isComplex", "data.traits"];
+    protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "hazard");
@@ -20,7 +20,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
 
         const hazardActors: CompendiumIndexData[] = [];
         const sources: Set<string> = new Set();
-        const indexFields = [...this.index, "data.details.alignment.value", "data.details.source.value"];
+        const indexFields = [...this.index, "system.details.alignment.value", "system.details.source.value"];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",

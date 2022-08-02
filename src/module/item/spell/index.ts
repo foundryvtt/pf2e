@@ -156,7 +156,7 @@ class SpellPF2e extends ItemPF2e {
 
         // If we need to heighten it, clone it and return its roll data instead
         if (spellLevel && castLevel !== this.level) {
-            const heightenedSpell = this.clone({ "data.location.heightenedLevel": castLevel });
+            const heightenedSpell = this.clone({ "system.location.heightenedLevel": castLevel });
             return heightenedSpell.getRollData();
         }
 
@@ -240,7 +240,7 @@ class SpellPF2e extends ItemPF2e {
         const { actor } = this;
         if (actor && Object.keys(this.system.damage.value).length) {
             const domains = ["damage", "spell-damage"];
-            const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
+            const heightened = this.clone({ "system.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);

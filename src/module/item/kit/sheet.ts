@@ -62,7 +62,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
 
         let { items } = this.item.system;
-        let pathPrefix = "data.items";
+        let pathPrefix = "system.items";
 
         if (containerId !== undefined) {
             pathPrefix = `${pathPrefix}.${containerId}.items`;
@@ -95,8 +95,8 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Convert price from a string to an actual object
-        if (formData["data.price.value"]) {
-            formData["data.price.value"] = CoinsPF2e.fromString(String(formData["data.price.value"]));
+        if (formData["system.price.value"]) {
+            formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
         return super._updateObject(event, formData);

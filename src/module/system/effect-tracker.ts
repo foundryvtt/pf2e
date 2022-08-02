@@ -155,7 +155,7 @@ export class EffectTracker {
             if (expiresNow.length === 0) continue;
 
             if (autoExpireEffects) {
-                const updates = expiresNow.map((e) => ({ _id: e.id, "data.expired": true }));
+                const updates = expiresNow.map((e) => ({ _id: e.id, "system.expired": true }));
                 await actor.updateEmbeddedDocuments("Item", updates);
             } else {
                 const deletes = expiresNow.map((e) => e.id);

@@ -36,7 +36,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
 
         // Remove ancestry reference
         $html.find('a[data-action="remove-ancestry"]').on("click", () => {
-            this.item.update({ "data.ancestry": null });
+            this.item.update({ "system.ancestry": null });
         });
     }
 
@@ -54,6 +54,6 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             throw ErrorPF2e("Invalid item drop on heritage sheet");
         }
         const ancestryReference = { name: item.name, uuid: item.uuid };
-        await this.item.update({ "data.ancestry": ancestryReference });
+        await this.item.update({ "system.ancestry": ancestryReference });
     }
 }

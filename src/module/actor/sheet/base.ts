@@ -385,7 +385,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!(item instanceof PhysicalItemPF2e)) {
                 throw new Error("PF2e System | Tried to update quantity on item that does not have quantity");
             }
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.quantity": item.quantity + 1 }]);
+            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity + 1 }]);
         });
 
         // Decrease Item Quantity
@@ -397,7 +397,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 throw ErrorPF2e("Tried to update quantity on item that does not have quantity");
             }
             if (item.quantity > 0) {
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.quantity": item.quantity - 1 }]);
+                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity - 1 }]);
             }
         });
 
@@ -416,7 +416,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (this.actor instanceof CharacterPF2e) {
                 const actorFormulas = this.actor.data.toObject().data.crafting.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                this.actor.update({ "data.crafting.formulas": actorFormulas });
+                this.actor.update({ "system.crafting.formulas": actorFormulas });
             }
         });
 
@@ -428,7 +428,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             await this.actor.updateEmbeddedDocuments("Item", [
                 {
                     _id: itemId,
-                    "data.ability.value": event.target.value,
+                    "system.ability.value": event.target.value,
                 },
             ]);
         });
@@ -452,7 +452,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             await this.actor.updateEmbeddedDocuments("Item", [
                 {
                     _id: itemId ?? "",
-                    "data.showSlotlessLevels.value": bool,
+                    "system.showSlotlessLevels.value": bool,
                 },
             ]);
         });
@@ -733,7 +733,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
 
                 const dropId = $(event.target).parents(".item-container").attr("data-container-id");
-                return dropId ? [await item.update({ "data.location.value": dropId })] : [];
+                return dropId ? [await item.update({ "system.location.value": dropId })] : [];
             }
         } else if (item.isOfType("spellcastingEntry")) {
             // target and source are spellcastingEntries and need to be sorted
@@ -757,7 +757,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (target && item.isStackableWith(target)) {
                 const stackQuantity = item.quantity + target.quantity;
                 if (await item.delete({ render: false })) {
-                    await target.update({ "data.quantity": stackQuantity });
+                    await target.update({ "system.quantity": stackQuantity });
                 }
 
                 return [];
@@ -885,7 +885,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const actorFormulas = actor.data.toObject().data.crafting.formulas;
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
                 actorFormulas.push({ uuid: item.uuid });
-                await actor.update({ "data.crafting.formulas": actorFormulas });
+                await actor.update({ "system.crafting.formulas": actorFormulas });
             }
             return [item];
         }
@@ -992,7 +992,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (!item?.isOfType("backpack")) return;
 
         const isCollapsed = item.system.collapsed ?? false;
-        await item.update({ "data.collapsed": !isCollapsed });
+        await item.update({ "system.collapsed": !isCollapsed });
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
@@ -1006,10 +1006,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const newLabel = game.i18n.localize("PF2E.NewLabel");
             const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
             data.name = `${newLabel} ${actionTypeLabel}`;
-            mergeObject(data, { "data.actionType.value": data.actionType });
+            mergeObject(data, { "system.actionType.value": data.actionType });
         } else if (data.type === "melee") {
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
-            mergeObject(data, { "data.weaponType.value": data.actionType });
+            mergeObject(data, { "system.weaponType.value": data.actionType });
         } else if (data.type === "spell") {
             data.level = Number(data.level ?? 1);
             const newLabel = game.i18n.localize("PF2E.NewLabel");
@@ -1017,8 +1017,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const spellLabel = data.level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
             data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
             mergeObject(data, {
-                "data.level.value": data.level,
-                "data.location.value": data.location,
+                "system.level.value": data.level,
+                "system.location.value": data.location,
             });
         } else if (data.type === "lore") {
             data.name =

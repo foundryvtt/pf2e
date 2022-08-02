@@ -6,7 +6,7 @@ import { ActionFilters } from "./data";
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     override filterData!: ActionFilters;
 
-    protected index = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
+    protected index = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "action");
@@ -19,7 +19,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: CompendiumIndexData[] = [];
-        const indexFields = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
+        const indexFields = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(

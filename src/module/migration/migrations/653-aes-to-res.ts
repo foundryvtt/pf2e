@@ -13,9 +13,9 @@ export class Migration653AEstoREs extends MigrationBase {
         ...["unarmored", "light", "medium", "heavy"].map((category) => `data.martial.${category}.rank`),
         ...["unarmed", "simple", "martial", "advanced"].map((category) => `data.martial.${category}.rank`),
         ...["fortitude", "reflex", "will"].map((save) => `data.saves.${save}.rank`),
-        "data.details.keyability.value",
-        "data.attributes.perception.rank",
-        "data.attributes.classDC.rank",
+        "system.details.keyability.value",
+        "system.attributes.perception.rank",
+        "system.attributes.classDC.rank",
     ]);
 
     private isRemovableAE(effect: foundry.data.ActiveEffectSource): boolean {

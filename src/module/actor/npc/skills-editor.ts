@@ -121,7 +121,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             const value = Number(modifier) || 0;
             const skillItem = this.findSkillItem(key);
             if (!skillItem) return [];
-            return { _id: skillItem.id, "data.mod.value": value };
+            return { _id: skillItem.id, "system.mod.value": value };
         });
         await this.npc.updateEmbeddedDocuments("Item", updates);
     }

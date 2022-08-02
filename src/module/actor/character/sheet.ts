@@ -562,7 +562,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         $castingTab.find(".focus-pool .pips").on("click contextmenu", (event) => {
             const change = event.type === "click" ? 1 : -1;
             const points = (this.actor.system.resources.focus?.value ?? 0) + change;
-            this.actor.update({ "data.resources.focus.value": points });
+            this.actor.update({ "system.resources.focus.value": points });
         });
 
         // CRAFTING
@@ -614,7 +614,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
                     return;
                 }
-                await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+                await this.actor.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
 
                 return craftItem(formula.item, itemQuantity, this.actor, true);
             }
@@ -727,7 +727,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const change = Number($(event.target).val());
             const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
             const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
-            this.actor.update({ "data.resources.crafting.infusedReagents.value": value });
+            this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
         });
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
@@ -795,7 +795,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const newValue = ((): number | undefined => {
             if (item instanceof SpellcastingEntryPF2e) {
                 const dispatch: Record<string, () => number> = {
-                    "data.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
+                    "system.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item instanceof LorePF2e) {
@@ -828,7 +828,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (item instanceof SpellcastingEntryPF2e) {
                 const proficiencyRank = item.system.proficiency.value;
                 const dispatch: Record<string, () => number> = {
-                    "data.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
+                    "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item instanceof LorePF2e) {

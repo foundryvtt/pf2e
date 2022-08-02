@@ -36,14 +36,14 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         });
 
         $html.find("[data-action=frequency-delete]").on("click", () => {
-            this.item.update({ "data.-=frequency": null });
+            this.item.update({ "system.-=frequency": null });
         });
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // This will be here until we migrate feat prerequisites to be a list of strings
-        if (Array.isArray(formData["data.prerequisites.value"])) {
-            formData["data.prerequisites.value"] = formData["data.prerequisites.value"].map((value) => ({ value }));
+        if (Array.isArray(formData["system.prerequisites.value"])) {
+            formData["system.prerequisites.value"] = formData["system.prerequisites.value"].map((value) => ({ value }));
         }
 
         return super._updateObject(event, formData);

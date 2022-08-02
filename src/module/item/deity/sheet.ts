@@ -54,15 +54,15 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
         const html = $html.get(0)!;
         const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
 
-        tagify(getInput("data.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
-        tagify(getInput("data.alignment.follower"), { whitelist: CONFIG.PF2E.alignments, maxTags: 9 });
+        tagify(getInput("system.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
+        tagify(getInput("system.alignment.follower"), { whitelist: CONFIG.PF2E.alignments, maxTags: 9 });
 
         // Everything past this point requires a deity or pantheon
         if (this.item.category === "philosophy") return;
 
-        tagify(getInput("data.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
-        tagify(getInput("data.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
-        tagify(getInput("data.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+        tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
+        tagify(getInput("system.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+        tagify(getInput("system.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
 
         const $clericSpells = $html.find(".cleric-spells");
         // View one of the spells
@@ -136,7 +136,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Null out empty strings for some properties
-        for (const property of ["data.alignment.own", "data.skill"]) {
+        for (const property of ["system.alignment.own", "system.skill"]) {
             if (typeof formData[property] === "string") formData[property] ||= null;
         }
 

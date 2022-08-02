@@ -750,7 +750,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 return item?.isOfType("armor") ? item : null;
             })();
             await shield?.update(
-                { "data.hp.value": shield.hitPoints.value - shieldDamage },
+                { "system.hp.value": shield.hitPoints.value - shieldDamage },
                 { render: hpDamage === 0 }
             );
         }
@@ -865,7 +865,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (removeFromSource) {
             await item.delete();
         } else {
-            await item.update({ "data.quantity": newQuantity });
+            await item.update({ "system.quantity": newQuantity });
         }
 
         const newItemData = item.toObject();
@@ -887,7 +887,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const stackItem = this.findStackableItem(this, itemData);
         if (!newStack && stackItem && stackItem.type !== "backpack") {
             const stackQuantity = stackItem.quantity + itemData.data.quantity;
-            await stackItem.update({ "data.quantity": stackQuantity });
+            await stackItem.update({ "system.quantity": stackQuantity });
             return stackItem;
         }
 
@@ -932,18 +932,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (!container) {
             await item.update({
-                "data.containerId": null,
-                "data.equipped.carryType": "worn",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
+                "system.containerId": null,
+                "system.equipped.carryType": "worn",
+                "system.equipped.handsHeld": 0,
+                "system.equipped.inSlot": false,
             });
         } else if (!isCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
-                "data.containerId": container.id,
-                "data.equipped.carryType": carryType,
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
+                "system.containerId": container.id,
+                "system.equipped.carryType": carryType,
+                "system.equipped.handsHeld": 0,
+                "system.equipped.inSlot": false,
             });
         }
     }
@@ -959,7 +959,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const appliedToTemp = ((): number => {
             if (!hp.temp || delta <= 0) return 0;
             const applied = Math.min(hp.temp, delta);
-            updates["data.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
+            updates["system.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
 
             return applied;
         })();
@@ -969,7 +969,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);
-            updates["data.attributes.sp.value"] = Math.max(sp.value - applied, 0);
+            updates["system.attributes.sp.value"] = Math.max(sp.value - applied, 0);
 
             return applied;
         })();
@@ -977,7 +977,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const appliedToHP = ((): number => {
             const remaining = delta - appliedToTemp - appliedToSP;
             const applied = remaining > 0 ? Math.min(hp.value, remaining) : Math.max(hp.value - hp.max, remaining);
-            updates["data.attributes.hp.value"] = Math.max(hp.value - applied, 0);
+            updates["system.attributes.hp.value"] = Math.max(hp.value - applied, 0);
 
             return applied;
         })();

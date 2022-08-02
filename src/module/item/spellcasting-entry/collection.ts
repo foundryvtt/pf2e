@@ -35,13 +35,13 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
         const heightenedUpdate =
             isStandardSpell && (this.entry.isSpontaneous || this.entry.isInnate)
-                ? { "data.location.heightenedLevel": Math.max(spell.baseLevel, targetLevel) }
+                ? { "system.location.heightenedLevel": Math.max(spell.baseLevel, targetLevel) }
                 : {};
 
         if (spell.actor === actor) {
-            return spell.update({ "data.location.value": this.id, ...heightenedUpdate });
+            return spell.update({ "system.location.value": this.id, ...heightenedUpdate });
         } else {
-            const source = spell.clone({ "data.location.value": this.id, ...heightenedUpdate }).toObject();
+            const source = spell.clone({ "system.location.value": this.id, ...heightenedUpdate }).toObject();
             const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
 
             return created instanceof SpellPF2e ? created : null;

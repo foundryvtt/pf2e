@@ -73,7 +73,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
             const isLast = Object.values(this.item.system.activations ?? []).length === 1;
             if (isLast && id && id in (this.item.system.activations ?? {})) {
-                this.item.update({ "data.-=activations": null });
+                this.item.update({ "system.-=activations": null });
             } else {
                 this.item.update({ [`data.activations.-=${id}`]: null });
             }
@@ -105,19 +105,19 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Normalize nullable fields to actual `null`s
         const propertyPaths = [
-            "data.baseItem",
-            "data.preciousMaterial.value",
-            "data.preciousMaterialGrade.value",
-            "data.group",
-            "data.group.value",
+            "system.baseItem",
+            "system.preciousMaterial.value",
+            "system.preciousMaterialGrade.value",
+            "system.group",
+            "system.group.value",
         ];
         for (const path of propertyPaths) {
             if (formData[path] === "") formData[path] = null;
         }
 
         // Convert price from a string to an actual object
-        if (formData["data.price.value"]) {
-            formData["data.price.value"] = CoinsPF2e.fromString(String(formData["data.price.value"]));
+        if (formData["system.price.value"]) {
+            formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
         // Normalize nullable fields for embedded actions

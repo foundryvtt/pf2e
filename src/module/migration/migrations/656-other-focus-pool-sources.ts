@@ -8,7 +8,7 @@ export class Migration656OtherFocusPoolSources extends MigrationBase {
     static override version = 0.656;
 
     private needsRuleElement(rules: Array<RuleElementSource & { path?: string }>): boolean {
-        return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "data.resources.focus.max");
+        return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "system.resources.focus.max");
     }
 
     private increasesByOne = new Set([
@@ -38,7 +38,7 @@ export class Migration656OtherFocusPoolSources extends MigrationBase {
             if (slug === "druidic-order") {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 1,
                     priority: 10, // Before any adds
@@ -48,7 +48,7 @@ export class Migration656OtherFocusPoolSources extends MigrationBase {
             if (this.increasesByOne.has(slug)) {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "add",
                     value: 1,
                 };
