@@ -45,7 +45,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item. If a roll option is specified, assign that as well.
         if (selectionMade) {
-            item.data.flags.pf2e.rulesSelections[this.data.flag] = selection;
+            item.flags.pf2e.rulesSelections[this.data.flag] = selection;
             if (this.rollOption) this.setRollOption(selection.toString());
         } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
@@ -103,13 +103,13 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
             // Change the name of the parent item
             if (this.data.adjustName) {
-                const effectName = this.item.data._source.name;
+                const effectName = this.item._source.name;
                 const label = game.i18n.localize(selection.label);
-                this.item.data._source.name = `${effectName} (${label})`;
+                this.item._source.name = `${effectName} (${label})`;
             }
 
             // Set the item flag in case other preCreate REs need it
-            this.item.data.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
+            this.item.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
             // Likewise with the roll option, if requested
             if (this.rollOption) this.setRollOption(selection.value.toString());

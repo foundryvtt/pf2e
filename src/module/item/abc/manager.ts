@@ -166,7 +166,7 @@ export class AncestryBackgroundClassManager {
             for (const feature of features) {
                 const entry = entries.find((e) => e.id === feature.id);
                 if (entry && feature.featType === "classfeature") {
-                    feature.data._source.data.level.value = entry.level;
+                    feature._source.data.level.value = entry.level;
                     feature.prepareData();
                 }
             }

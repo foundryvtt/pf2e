@@ -60,10 +60,10 @@ declare global {
             {
                 id: string;
                 active: boolean;
+                flags: Record<string, Record<string, unknown>>;
+                title: string;
                 data: {
                     compatibleCoreVersion: string | undefined;
-                    flags: Record<string, Record<string, unknown>>;
-                    title: string;
                 };
             }
         >;

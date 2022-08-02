@@ -160,7 +160,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         const withSameInitiative = newOrder.filter((c) => c.initiative === dropped.initiative);
         if (withSameInitiative.length > 1) {
             for (let priority = 0; priority < withSameInitiative.length; priority++) {
-                withSameInitiative[priority].data.flags.pf2e.overridePriority[dropped.initiative] = priority;
+                withSameInitiative[priority].flags.pf2e.overridePriority[dropped.initiative] = priority;
             }
         }
     }

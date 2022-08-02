@@ -24,7 +24,7 @@ class ConditionPF2e extends ItemPF2e {
 
     /** Is the condition from the pf2e system or a module? */
     get fromSystem(): boolean {
-        return !!this.data.flags.pf2e.condition;
+        return !!this.flags.pf2e.condition;
     }
 
     /** Is the condition found in the token HUD menu? */

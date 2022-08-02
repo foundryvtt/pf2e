@@ -222,30 +222,30 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
             const { containerId, quantity } = currentSource.data;
-            mergeObject(updates, expandObject({ "data.containerId": containerId, "data.quantity": quantity }));
+            mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
         } else if (currentSource.type === "spell") {
             // Preserve spellcasting entry location
-            mergeObject(updates, expandObject({ "data.location.value": currentSource.data.location.value }));
+            mergeObject(updates, expandObject({ "system.location.value": currentSource.system.location.value }));
         } else if (currentSource.type === "feat") {
             // Preserve feat location
-            mergeObject(updates, expandObject({ "data.location": currentSource.data.location }));
+            mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
 
         // Preserve precious material and runes
         if (currentSource.type === "weapon" || currentSource.type === "armor") {
             const materialAndRunes: Record<string, unknown> = {
-                "data.preciousMaterial": currentSource.data.preciousMaterial,
-                "data.preciousMaterialGrade": currentSource.data.preciousMaterialGrade,
-                "data.potencyRune": currentSource.data.potencyRune,
-                "data.propertyRune1": currentSource.data.propertyRune1,
-                "data.propertyRune2": currentSource.data.propertyRune2,
-                "data.propertyRune3": currentSource.data.propertyRune3,
-                "data.propertyRune4": currentSource.data.propertyRune4,
+                "system.preciousMaterial": currentSource.system.preciousMaterial,
+                "system.preciousMaterialGrade": currentSource.system.preciousMaterialGrade,
+                "system.potencyRune": currentSource.system.potencyRune,
+                "system.propertyRune1": currentSource.system.propertyRune1,
+                "system.propertyRune2": currentSource.system.propertyRune2,
+                "system.propertyRune3": currentSource.system.propertyRune3,
+                "system.propertyRune4": currentSource.system.propertyRune4,
             };
             if (currentSource.type === "weapon") {
-                materialAndRunes["data.strikingRune"] = currentSource.data.strikingRune;
+                materialAndRunes["system.strikingRune"] = currentSource.system.strikingRune;
             } else {
-                materialAndRunes["data.resiliencyRune"] = currentSource.data.resiliencyRune;
+                materialAndRunes["system.resiliencyRune"] = currentSource.system.resiliencyRune;
             }
             mergeObject(updates, expandObject(materialAndRunes));
         }
@@ -452,7 +452,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
 
             for (const itemSource of [...nonKits]) {
-                if (!itemSource.data?.rules) continue;
+                if (!itemSource.system?.rules) continue;
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     delete itemSource._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
                 }
@@ -463,7 +463,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
                 const rules = item.prepareRuleElements({ suppressWarnings: true });
                 for (const rule of rules) {
-                    const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
+                    const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
                     await rule.preCreate?.({ itemSource, ruleSource, pendingItems: nonKits, context });
                 }
             }
@@ -475,15 +475,18 @@ class ItemPF2e extends Item<ActorPF2e> {
 
             // Pre-sort unnested, class features according to their sorting from the class
             if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
+                type PartialSourceWithLevel = PreCreate<InstanceType<T>["data"]["_source"]> & {
+                    system: { level: { value: number } };
+                };
                 const classFeatures = nonKits.filter(
-                    (i): i is PreCreate<InstanceType<T>["data"]["_source"]> & { data: { level: { value: number } } } =>
+                    (i): i is PartialSourceWithLevel =>
                         i.type === "feat" &&
-                        typeof i.data?.level?.value === "number" &&
-                        i.data.featType?.value === "classfeature" &&
+                        typeof i.system?.level?.value === "number" &&
+                        i.system.featType?.value === "classfeature" &&
                         !i.flags?.pf2e?.grantedBy
                 );
                 for (const feature of classFeatures) {
-                    feature.sort = classFeatures.indexOf(feature) * 100 * feature.data.level.value;
+                    feature.sort = classFeatures.indexOf(feature) * 100 * feature.system.level.value;
                 }
             }
 
@@ -531,20 +534,20 @@ class ItemPF2e extends Item<ActorPF2e> {
         user: UserPF2e
     ): Promise<void> {
         // Set default icon
-        if (this.data._source.img === ItemPF2e.DEFAULT_ICON) {
-            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        if (this._source.img === ItemPF2e.DEFAULT_ICON) {
+            this._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
         // If this item is of a certain type and is being added to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const clone = this.actor.clone({
-                items: [...this.actor.toObject().items, data],
+                items: [...this.actor.items.toObject(), data],
             });
             const hpMaxDifference = clone.hitPoints.max - this.actor.hitPoints.max;
             if (hpMaxDifference !== 0) {
                 const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
                 await this.actor.update(
-                    { "data.attributes.hp.value": newHitPoints },
+                    { "system.attributes.hp.value": newHitPoints },
                     { render: false, allowHPOverage: true }
                 );
             }
@@ -558,7 +561,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         // Remove any rule elements that request their own removal upon item creation
-        this.data._source.data.rules = this.data._source.data.rules.filter((r) => !r.removeUponCreate);
+        this._source.system.rules = this._source.system.rules.filter((r) => !r.removeUponCreate);
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
@@ -567,22 +570,22 @@ class ItemPF2e extends Item<ActorPF2e> {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        if (changed.data?.description?.value === null) {
-            changed.data.description.value = "";
+        if (changed.system?.description?.value === null) {
+            changed.system.description.value = "";
         }
 
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const actorClone = this.actor.clone();
             const item = actorClone.items.get(this.id, { strict: true });
-            item.data.update(changed, options);
+            item.updateSource(changed, options);
             actorClone.prepareData();
 
             const hpMaxDifference = actorClone.hitPoints.max - this.actor.hitPoints.max;
             if (hpMaxDifference !== 0) {
                 const newHitPoints = this.actor.hitPoints.value + hpMaxDifference;
                 await this.actor.update(
-                    { "data.attributes.hp.value": newHitPoints },
+                    { "system.attributes.hp.value": newHitPoints },
                     { render: false, allowHPOverage: true }
                 );
             }
@@ -648,7 +651,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                     const attackEffects = item.system.attackEffects.value;
                     if (attackEffects.includes(slug)) {
                         const updatedEffects = attackEffects.filter((effect) => effect !== slug);
-                        promises.push(item.update({ ["data.attackEffects.value"]: updatedEffects }));
+                        promises.push(item.update({ ["system.attackEffects.value"]: updatedEffects }));
                     }
                 }
                 if (promises.length > 0) {

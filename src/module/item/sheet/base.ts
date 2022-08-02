@@ -431,7 +431,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         super.activateEditor(
             name,
             options,
-            name === "data.description.value" ? this.item.data._source.data.description.value : initialContent
+            name === "data.description.value" ? this.item._source.data.description.value : initialContent
         );
     }
 

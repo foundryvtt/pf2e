@@ -28,9 +28,6 @@ declare module foundry {
 
             static override get metadata(): TokenMetadata;
 
-            /** A convenience reference to the name which should be displayed for the Token */
-            get name(): string;
-
             /** Is a user able to update an existing Token? */
             protected static _canUpdate(user: BaseUser, doc: BaseToken, data: data.TokenData): boolean;
         }

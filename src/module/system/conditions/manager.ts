@@ -193,7 +193,7 @@ export class ConditionManager {
     private static processConditions(actorOrToken: ActorPF2e | TokenPF2e): Promise<void>;
     private static async processConditions(actorOrToken: ActorPF2e | TokenPF2e): Promise<void> {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
-        const conditions = actor?.itemTypes.condition.map((condition) => condition.data._source) ?? [];
+        const conditions = actor?.itemTypes.condition.map((condition) => condition._source) ?? [];
 
         // Any updates to items go here.
         const updates = new Map<string, ConditionSource>();

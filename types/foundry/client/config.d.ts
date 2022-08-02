@@ -310,10 +310,6 @@ declare global {
                     group: "effects";
                     layerClass: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
                 };
-                sight: {
-                    group: "effects";
-                    layerClass: ConstructorOf<SightLayer<TTokenDocument["object"], TFogExploration>>;
-                };
                 weather: {
                     group: "effects";
                     layerClass: typeof EffectsLayer;

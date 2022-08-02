@@ -186,7 +186,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     registerModuleTags(): void {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.data.flags?.[key]?.["pf2e-homebrew"];
+            const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
             if (!isObject<Record<string, unknown>>(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
