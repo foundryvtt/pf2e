@@ -1,6 +1,382 @@
 {
     "_id": "As0M3PvmrR2055pk",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "aMonCZ2HbKmRMGa4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Cold Iron Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "74faza73688mz2wgjd4y": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zK0CLdcqjHeldCOi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "rair4x5s2a01efubrrkz": {
+                        "damage": "2d6+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ow5XxjlhLQfaOHU4",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Attack from Above",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The asanbosam is positioned above a creature</p>\n<hr />\n<p><strong>Effect</strong> The asanbosam makes a claw Strike with its reach increased to 15 feet. On a hit, the Strike deals an additional [[/r {1d6}[slashing]]]{1d6 slashing damage} and the asanbosam immediately Grabs the target and pulls it to a space adjacent to the asanbosam.</p>\n<p>This counts as two attacks for the asanbosam's multiple attack penalty.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "attack-from-above",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "attack-from-above"
+                            ]
+                        },
+                        "selector": "claw-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LGocfA4bhbnXFwea",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Drink Blood",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Restrained]{Restrained}, @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, or willing creature is within reach of the asanbosam's jaws</p>\n<hr />\n<p><strong>Effect</strong> The asanbosam sinks its teeth into the creature to drink its blood. If the victim is grabbed, this is automatic; otherwise, the asanbosam must succeed at an Athletics check against the victim's Fortitude DC. The victim becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} and the asanbosam regains 10 HP, gaining any excess Hit Points beyond its maximum as temporary Hit Points. These temporary Hit Points remain for 1 minute.</p>\n<p>Drinking Blood from a creature that's already drained increases the victim's drained value by 1 to a maximum of drained 3, but doesn't restore any HP to the asanbosam.</p>\n<p>A victim's drained condition decreases by 1 each week. A blood transfusion, which requires a successful @Check[type:medicine|dc:20|name:Drink Blood Treatment] check and a blood donor or sufficient blood, reduces the drained value by 1 after 10 minutes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "my79TeHUaRiixNX5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WWIF4JDNBcPMk2Ly",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "SHiiw7aePqmr2TlC",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "AlD9AE0SuBca7ZTw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "fu1ClTjrQgBNSOwS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "JDM7W3mx00a02Qzy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Asanbosam",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -2
@@ -111,382 +487,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "aMonCZ2HbKmRMGa4",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "74faza73688mz2wgjd4y": {
-                        "damage": "2d8+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Cold Iron Jaws",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "zK0CLdcqjHeldCOi",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 17
-                },
-                "damageRolls": {
-                    "rair4x5s2a01efubrrkz": {
-                        "damage": "2d6+5",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "Ow5XxjlhLQfaOHU4",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The asanbosam is positioned above a creature</p>\n<hr />\n<p><strong>Effect</strong> The asanbosam makes a claw Strike with its reach increased to 15 feet. On a hit, the Strike deals an additional [[/r {1d6}[slashing]]]{1d6 slashing damage} and the asanbosam immediately Grabs the target and pulls it to a space adjacent to the asanbosam.</p>\n<p>This counts as two attacks for the asanbosam's multiple attack penalty.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "attack-from-above",
-                        "toggleable": true
-                    },
-                    {
-                        "damageType": "slashing",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "attack-from-above"
-                            ]
-                        },
-                        "selector": "claw-damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Attack from Above",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "LGocfA4bhbnXFwea",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Restrained]{Restrained}, @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, or willing creature is within reach of the asanbosam's jaws</p>\n<hr />\n<p><strong>Effect</strong> The asanbosam sinks its teeth into the creature to drink its blood. If the victim is grabbed, this is automatic; otherwise, the asanbosam must succeed at an Athletics check against the victim's Fortitude DC. The victim becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} and the asanbosam regains 10 HP, gaining any excess Hit Points beyond its maximum as temporary Hit Points. These temporary Hit Points remain for 1 minute.</p>\n<p>Drinking Blood from a creature that's already drained increases the victim's drained value by 1 to a maximum of drained 3, but doesn't restore any HP to the asanbosam.</p>\n<p>A victim's drained condition decreases by 1 each week. A blood transfusion, which requires a successful @Check[type:medicine|dc:20|name:Drink Blood Treatment] check and a blood donor or sufficient blood, reduces the drained value by 1 after 10 minutes.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Drink Blood",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "my79TeHUaRiixNX5",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "WWIF4JDNBcPMk2Ly",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "type": "lore"
-        },
-        {
-            "_id": "SHiiw7aePqmr2TlC",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "type": "lore"
-        },
-        {
-            "_id": "AlD9AE0SuBca7ZTw",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "fu1ClTjrQgBNSOwS",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "JDM7W3mx00a02Qzy",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1000000,
-            "type": "lore"
-        }
-    ],
-    "name": "Asanbosam",
     "token": {
         "disposition": -1,
         "height": 2,

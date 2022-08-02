@@ -1,6 +1,8 @@
 {
     "_id": "BStw1cANwx5baL6d",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Armor Proficiency",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -28,19 +30,19 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.heavy.rank",
-                "value": "max(min(1,@actor.data.data.martial.light.rank)*min(1,@actor.data.data.martial.medium.rank))"
+                "path": "system.martial.heavy.rank",
+                "value": "max(min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.medium.rank",
-                "value": "min(1,@actor.data.data.martial.light.rank)"
+                "path": "system.martial.medium.rank",
+                "value": "min(1,@actor.system.martial.light.rank)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.light.rank",
+                "path": "system.martial.light.rank",
                 "value": 1
             }
         ],
@@ -55,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Armor Proficiency",
     "type": "feat"
 }

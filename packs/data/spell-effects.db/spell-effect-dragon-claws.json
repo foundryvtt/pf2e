@@ -1,6 +1,8 @@
 {
     "_id": "7zy4W2RXQiMEr6cp",
-    "data": {
+    "img": "systems/pf2e/icons/spells/dragon-claws.webp",
+    "name": "Spell Effect: Dragon Claws",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Dragon Claws]{Dragon Claws}</em></p>"
@@ -35,7 +37,7 @@
             },
             {
                 "critical": false,
-                "damageType": "{actor|data.custom.dragonBloodline.damageType}",
+                "damageType": "{actor|system.custom.dragonBloodline.damageType}",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Dragon Claw",
@@ -62,12 +64,12 @@
                             }
                         }
                     ],
-                    "field": "item|data.level.value"
+                    "field": "item|system.level.value"
                 }
             },
             {
                 "key": "Resistance",
-                "type": "{actor|data.custom.dragonBloodline.damageType}",
+                "type": "{actor|system.custom.dragonBloodline.damageType}",
                 "value": {
                     "brackets": [
                         {
@@ -84,7 +86,7 @@
                             "value": 15
                         }
                     ],
-                    "field": "item|data.level.value"
+                    "field": "item|system.level.value"
                 }
             }
         ],
@@ -105,7 +107,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/dragon-claws.webp",
-    "name": "Spell Effect: Dragon Claws",
     "type": "effect"
 }

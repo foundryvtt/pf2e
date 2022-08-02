@@ -1,6 +1,8 @@
 {
     "_id": "lIpfj1JeFFS7Zn6D",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vigilant Benediction",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -34,14 +36,14 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.vigilantBenedition.count",
+                "path": "system.custom.vigilantBenedition.count",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.proficiencies.traditions.divine.rank",
-                "value": "min(2,@actor.data.data.custom.vigilantBenedition.count)"
+                "path": "system.proficiencies.traditions.divine.rank",
+                "value": "min(2,@actor.system.custom.vigilantBenedition.count)"
             }
         ],
         "source": {
@@ -55,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Vigilant Benediction",
     "type": "feat"
 }

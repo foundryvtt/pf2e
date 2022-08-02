@@ -1,6 +1,8 @@
 {
     "_id": "TltRTR1e5KGly64k",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Basic Martial Magic",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -38,7 +40,7 @@
                     "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
                 },
                 "choices": {
-                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"magus\"}}"
+                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"magus\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
@@ -59,7 +61,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Basic Martial Magic",
     "type": "feat"
 }

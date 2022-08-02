@@ -29,6 +29,7 @@ import { Migration766WipeURLSources } from "@module/migration/migrations/766-wip
 import { Migration767ConvertVoluntaryFlaws } from "@module/migration/migrations/767-convert-voluntary-flaws";
 import { Migration768AddNewAuras } from "@module/migration/migrations/768-add-new-auras";
 import { Migration769NoUniversalistFocusPool } from "@module/migration/migrations/769-no-universalist-focus-pool";
+import { Migration770REDataToSystem } from "@module/migration/migrations/770-re-data-to-system";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -60,6 +61,7 @@ const migrations: MigrationBase[] = [
     new Migration767ConvertVoluntaryFlaws(),
     new Migration768AddNewAuras(),
     new Migration769NoUniversalistFocusPool(),
+    new Migration770REDataToSystem(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -92,7 +94,7 @@ global.randomID = function randomID(length = 16): string {
 
 const packsDataPath = path.resolve(process.cwd(), "packs/data");
 
-type CompendiumSource = CompendiumDocument["data"]["_source"];
+type CompendiumSource = CompendiumDocument["_source"];
 
 const actorTypes = ["character", "npc", "hazard", "loot", "familiar", "vehicle"];
 const itemTypes = [
@@ -104,6 +106,7 @@ const itemTypes = [
     "class",
     "condition",
     "consumable",
+    "deity",
     "effect",
     "equipment",
     "feat",
@@ -157,7 +160,7 @@ async function getAllFiles(): Promise<string[]> {
     const allEntries: string[] = [];
     const packs = fs.readdirSync(packsDataPath);
     for (const pack of packs) {
-        console.log(`Collecting data for '${pack}'`);
+        console.log(`Collecting data for "${pack}"`);
 
         let packFiles: string[];
         try {
@@ -206,23 +209,24 @@ async function migrate() {
                         embedded.flags ??= {};
                     }
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    delete (updatedActor.data as { schema?: unknown }).schema;
+                    delete (updatedActor.system as { schema?: unknown }).schema;
                     pruneFlags(source);
                     pruneFlags(updatedActor);
                     for (const item of source.items) {
                         pruneFlags(item);
                     }
                     for (const updatedItem of updatedActor.items) {
-                        delete (updatedItem.data as { schema?: unknown }).schema;
+                        delete (updatedItem.system as { schema?: unknown }).schema;
                         pruneFlags(updatedItem);
                     }
+
                     return updatedActor;
                 } else if (isItemData(source)) {
-                    source.data.slug = sluggify(source.name);
+                    source.system.slug = sluggify(source.name);
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
-                    delete (source.data as { slug?: unknown }).slug;
-                    delete (updatedItem.data as { schema?: unknown }).schema;
-                    delete (updatedItem.data as { slug?: unknown }).slug;
+                    delete (source.system as { slug?: unknown }).slug;
+                    delete (updatedItem.system as { schema?: unknown }).schema;
+                    delete (updatedItem.system as { slug?: unknown }).slug;
                     pruneFlags(source);
                     pruneFlags(updatedItem);
 
@@ -242,7 +246,7 @@ async function migrate() {
                     return source;
                 }
             } catch (error) {
-                if (error instanceof Error) throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
+                console.log(error);
                 throw {};
             }
         })();

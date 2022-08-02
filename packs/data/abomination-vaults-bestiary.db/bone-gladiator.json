@@ -1,6 +1,239 @@
 {
     "_id": "rketcmqDQJbFFYfq",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "3mqnU8Lr3Tl3zgd2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "ap6ctl2epa8z19yxsmma": {
+                        "damage": "2d6+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Qc5SGmGRuhj2vMYt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Loose Bones",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A critical hit jostles the skeleton's loose bones, making it @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Additional critical hits increase this value, up to @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 4}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W4yMtkEVcpKOM2tE",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Broad Swipe",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The skeleton makes two Strikes with its claw against two adjacent foes, both of whom are within its reach. The multiple attack penalty doesn't increase until after both attacks are resolved.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2rGZ3A8JPafZZZur",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Terrifying Charge",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The skeleton Strides and makes a claw Strike with a +4 circumstance bonus to damage. If the Strike hits, it attempts to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} the target.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "terrifying-charge"
+                            ]
+                        },
+                        "selector": "claw-damage",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "terrifying-charge",
+                        "toggleable": true,
+                        "value": false
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cUQNiMPWX7U27fc0",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "DS5ciE1j12IHa7qo",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Bone Gladiator",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 4
@@ -138,239 +371,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "3mqnU8Lr3Tl3zgd2",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "ap6ctl2epa8z19yxsmma": {
-                        "damage": "2d6+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "Qc5SGmGRuhj2vMYt",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A critical hit jostles the skeleton's loose bones, making it @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Additional critical hits increase this value, up to @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 4}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Loose Bones",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "W4yMtkEVcpKOM2tE",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The skeleton makes two Strikes with its claw against two adjacent foes, both of whom are within its reach. The multiple attack penalty doesn't increase until after both attacks are resolved.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Broad Swipe",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "2rGZ3A8JPafZZZur",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The skeleton Strides and makes a claw Strike with a +4 circumstance bonus to damage. If the Strike hits, it attempts to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} the target.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "terrifying-charge"
-                            ]
-                        },
-                        "selector": "claw-damage",
-                        "type": "circumstance",
-                        "value": 4
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "option": "terrifying-charge",
-                        "toggleable": true,
-                        "value": false
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Terrifying Charge",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "cUQNiMPWX7U27fc0",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "type": "lore"
-        },
-        {
-            "_id": "DS5ciE1j12IHa7qo",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 600000,
-            "type": "lore"
-        }
-    ],
-    "name": "Bone Gladiator",
     "token": {
         "disposition": -1,
         "height": 1,

@@ -1,6 +1,454 @@
 {
     "_id": "ffzfTw9KfaJopkCx",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LqIsXOTw0kTELToc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Antler",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "wy1yold13inb06yq31dv": {
+                        "damage": "1d12+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d8"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dXKhtDCdlXRIWq2O",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "7zwdybwda7dc26tht1a4": {
+                        "damage": "1d8+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "32RMKlAce7FfxW8e",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IfYa04r71kGeg0Oi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pX5HQYtc940WP4OG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Abjure the Blessings of Vitality",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Despite not being undead, this creature gains negative healing. Its Strikes deal an additional [[/r {1d6}[evil]]]{1d6 evil damage} to creatures that can cast divine or primal spells.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "Target can cast divine or primal spells",
+                        "option": "abjure-the-blessings-of-vitality",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "damageType": "evil",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "abjure-the-blessings-of-vitality"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "osi4ctAQErnOa2BZ",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Heart Ripper",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The peryton rips out the heart of an adjacent corpse with their jaws. The creature must have died in the last minute. As the peryton rips the heart free and swallows it whole, they regain [[/r {2d6} #hit points]]{2d6 HP}, and any non-peryton that witnesses this event must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (or @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "emotion",
+                        "fear",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BZfKFoVLNm5bmKHc",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mimic Shadow",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The target must be casting a shadow</p>\n<hr />\n<p><strong>Effect</strong> The peryton Flies, going no higher than 20 feet over the target creature. The target creature must succeed at a @Check[type:will|dc:21] save or the peryton's shadow changes to match that cast by the target creature. With their shadow so transformed, the peryton gains a +2 status bonus to attack and damage rolls against that creature.</p>\n<p>In addition, each time the peryton successfully Strikes that creature, the creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or increase its frightened condition by 1 if it's already frightened. This is an emotion and fear effect. The shadow remains transformed for 1 hour or until the peryton Mimics a Shadow again, whichever comes first.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mimic-shadow"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mimic-shadow"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mimic-shadow",
+                        "toggleable": true,
+                        "value": false
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "necromancy",
+                        "occult",
+                        "shadow",
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pzFnK1WJO7CUnzjL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "SQt3ydpVVOvRBQUF",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "mLG81JPpnT55XHAd",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Peryton (Heretical)",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 3
@@ -119,454 +567,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "LqIsXOTw0kTELToc",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "wy1yold13inb06yq31dv": {
-                        "damage": "1d12+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "deadly-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Antler",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "dXKhtDCdlXRIWq2O",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "7zwdybwda7dc26tht1a4": {
-                        "damage": "1d8+7",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "32RMKlAce7FfxW8e",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "IfYa04r71kGeg0Oi",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "source": {
-                    "value": "Pathfinder Bestiary 2"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "pX5HQYtc940WP4OG",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Despite not being undead, this creature gains negative healing. Its Strikes deal an additional [[/r {1d6}[evil]]]{1d6 evil damage} to creatures that can cast divine or primal spells.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "Target can cast divine or primal spells",
-                        "option": "abjure-the-blessings-of-vitality",
-                        "toggleable": true,
-                        "value": false
-                    },
-                    {
-                        "damageType": "evil",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "abjure-the-blessings-of-vitality"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Abjure the Blessings of Vitality",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "osi4ctAQErnOa2BZ",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>The peryton rips out the heart of an adjacent corpse with their jaws. The creature must have died in the last minute. As the peryton rips the heart free and swallows it whole, they regain [[/r {2d6} #hit points]]{2d6 HP}, and any non-peryton that witnesses this event must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (or @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "attack",
-                        "emotion",
-                        "fear",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Heart Ripper",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "BZfKFoVLNm5bmKHc",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The target must be casting a shadow</p>\n<hr />\n<p><strong>Effect</strong> The peryton Flies, going no higher than 20 feet over the target creature. The target creature must succeed at a @Check[type:will|dc:21] save or the peryton's shadow changes to match that cast by the target creature. With their shadow so transformed, the peryton gains a +2 status bonus to attack and damage rolls against that creature.</p>\n<p>In addition, each time the peryton successfully Strikes that creature, the creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or increase its frightened condition by 1 if it's already frightened. This is an emotion and fear effect. The shadow remains transformed for 1 hour or until the peryton Mimics a Shadow again, whichever comes first.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mimic-shadow"
-                            ]
-                        },
-                        "selector": "attack",
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mimic-shadow"
-                            ]
-                        },
-                        "selector": "strike-damage",
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "mimic-shadow",
-                        "toggleable": true,
-                        "value": false
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "necromancy",
-                        "occult",
-                        "shadow",
-                        "emotion",
-                        "fear"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Mimic Shadow",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "pzFnK1WJO7CUnzjL",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "SQt3ydpVVOvRBQUF",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "mLG81JPpnT55XHAd",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "type": "lore"
-        }
-    ],
-    "name": "Peryton (Heretical)",
     "token": {
         "disposition": -1,
         "height": 1,

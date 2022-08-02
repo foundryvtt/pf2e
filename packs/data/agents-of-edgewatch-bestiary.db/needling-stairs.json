@@ -1,6 +1,152 @@
 {
     "_id": "rAUaIxp3QFgT3bzl",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fBWMN8Yh6mm05krO",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "First Step",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its movement on one of the stairs</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature, then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jzOEMi9hAVAe1K1V",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Poisoned Needle",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "no-multiple-attack-penalty"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "jf289d8zefcrrftouekw": {
+                        "damage": "2d6+8",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success], @Localize[PF2E.PersistentDamage.Poison4d6.success]</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d6.success], @Localize[PF2E.PersistentDamage.Poison4d6.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess], @Localize[PF2E.PersistentDamage.Poison4d6.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iqSjrlDup1I8i5VX",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Bloody Feet",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves onto an active step</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Needling Stairs",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 28
@@ -75,152 +221,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "fBWMN8Yh6mm05krO",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature ends its movement on one of the stairs</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature, then rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "First Step",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "jzOEMi9hAVAe1K1V",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "no-multiple-attack-penalty"
-                    ]
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "jf289d8zefcrrftouekw": {
-                        "damage": "2d6+8",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success], @Localize[PF2E.PersistentDamage.Poison4d6.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success], @Localize[PF2E.PersistentDamage.Poison4d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess], @Localize[PF2E.PersistentDamage.Poison4d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Poisoned Needle",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "iqSjrlDup1I8i5VX",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves onto an active step</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Bloody Feet",
-            "sort": 300000,
-            "type": "action"
-        }
-    ],
-    "name": "Needling Stairs",
     "token": {
         "disposition": 0,
         "height": 1,

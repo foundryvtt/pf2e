@@ -1,6 +1,469 @@
 {
     "_id": "4QgC23j1wzfaCecR",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "8YwRYUhGMq6FFebD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Kf4eJEXnFPuAsseP"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
+            "name": "Chain Mail",
+            "sort": 100000,
+            "system": {
+                "armor": {
+                    "value": 4
+                },
+                "baseItem": "chain-mail",
+                "category": "medium",
+                "check": {
+                    "value": -2
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
+                },
+                "dex": {
+                    "value": 1
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": true,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": "2"
+                },
+                "group": "chain",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 6
+                    }
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": 1,
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "chain-mail",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": -5
+                },
+                "stackGroup": null,
+                "strength": {
+                    "value": 16
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "flexible",
+                        "noisy"
+                    ]
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "3"
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "SAILABWdBSyuuEzf",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "nonlethal"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1x1JjlN10VDIIVb3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o5oVycGSBlCtwNU9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Circumstance to Fortitude and Reflex vs. Shove or Trip",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:shove",
+                                "action:trip"
+                            ]
+                        },
+                        "selector": "fortitude",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:shove",
+                                "action:trip"
+                            ]
+                        },
+                        "selector": "reflex",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q4Nwd5vpZrD2cK4B",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Haymaker",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a @Check[type:fortitude|dc:20] save to resist the staggering force of the blow.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 5}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "haymaker",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "haymaker"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "press"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GkznkrnInAnqtWGs",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Abberton Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Jn4ooO2SFSBy3NPy",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "kpg6tOFIWhoTW1dB",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "cJacCTrgIPAz8aUM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "6z33yKjb4hHuffni",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Thievery",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Pruana Two-punch",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 1
@@ -108,469 +571,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "8YwRYUhGMq6FFebD",
-            "data": {
-                "armor": {
-                    "value": 4
-                },
-                "baseItem": "chain-mail",
-                "category": "medium",
-                "check": {
-                    "value": -2
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.</p>"
-                },
-                "dex": {
-                    "value": 1
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": true,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": "2"
-                },
-                "group": "chain",
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": {
-                        "gp": 6
-                    }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
-                },
-                "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
-                "rules": [],
-                "size": "med",
-                "slug": "chain-mail",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "speed": {
-                    "value": -5
-                },
-                "stackGroup": null,
-                "strength": {
-                    "value": 16
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "flexible",
-                        "noisy"
-                    ]
-                },
-                "usage": {
-                    "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "3"
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Kf4eJEXnFPuAsseP"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
-            "name": "Chain Mail",
-            "sort": 100000,
-            "type": "armor"
-        },
-        {
-            "_id": "SAILABWdBSyuuEzf",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+3",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "nonlethal"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "1x1JjlN10VDIIVb3",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "o5oVycGSBlCtwNU9",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
-                        "selector": "fortitude",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
-                        "selector": "reflex",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Circumstance to Fortitude and Reflex vs. Shove or Trip",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "q4Nwd5vpZrD2cK4B",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a @Check[type:fortitude|dc:20] save to resist the staggering force of the blow.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 5}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "haymaker",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "haymaker"
-                            ]
-                        },
-                        "selector": "strike-damage",
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "press"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Haymaker",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "GkznkrnInAnqtWGs",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Abberton Lore",
-            "sort": 600000,
-            "type": "lore"
-        },
-        {
-            "_id": "Jn4ooO2SFSBy3NPy",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "type": "lore"
-        },
-        {
-            "_id": "kpg6tOFIWhoTW1dB",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "cJacCTrgIPAz8aUM",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "6z33yKjb4hHuffni",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1000000,
-            "type": "lore"
-        }
-    ],
-    "name": "Pruana Two-punch",
     "token": {
         "disposition": -1,
         "height": 1,

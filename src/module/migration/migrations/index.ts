@@ -167,3 +167,4 @@ export { Migration766WipeURLSources } from "./766-wipe-url-sources";
 export { Migration767ConvertVoluntaryFlaws } from "./767-convert-voluntary-flaws";
 export { Migration768AddNewAuras } from "./768-add-new-auras";
 export { Migration769NoUniversalistFocusPool } from "./769-no-universalist-focus-pool";
+export { Migration770REDataToSystem } from "./770-re-data-to-system";

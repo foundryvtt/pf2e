@@ -1,6 +1,294 @@
 {
     "_id": "lpIV82IVlgatyQvO",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "FO6042uwC3k3rMjo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestries.mDtlRBBUWqUzYSHs"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Cat",
+            "sort": 100000,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "value": []
+                    },
+                    "1": {
+                        "value": []
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p>Animal Companion - Cat</p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 4,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": []
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "sm",
+                "slug": "empty-ancestry",
+                "source": {
+                    "value": ""
+                },
+                "speed": 35,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "H8lOHuUm9RhvAKid",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Special",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Precious deals 1d4 extra precision damage against @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rTcZ9vYlESzYBnZY",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Jaws",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "featType": {
+                    "value": "ancestry"
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": "",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "unarmed",
+                            "finesse"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "CC97GeBsxJnLngqF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Claw",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "featType": {
+                    "value": "ancestry"
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": "",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "range": null,
+                        "traits": [
+                            "unarmed",
+                            "agile",
+                            "finesse"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "yfiv6h226TAEQpOf",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Support Benefit",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Precious throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that Precious threatens make the target @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Precious",
+    "system": {
         "abilities": {
             "cha": {
                 "value": 10
@@ -237,294 +525,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "FO6042uwC3k3rMjo",
-            "data": {
-                "additionalLanguages": {
-                    "count": 0,
-                    "custom": "",
-                    "value": []
-                },
-                "boosts": {
-                    "0": {
-                        "value": []
-                    },
-                    "1": {
-                        "value": []
-                    },
-                    "2": {
-                        "value": []
-                    }
-                },
-                "description": {
-                    "value": "<p>Animal Companion - Cat</p>"
-                },
-                "flaws": {
-                    "0": {
-                        "value": []
-                    }
-                },
-                "hp": 4,
-                "items": {},
-                "languages": {
-                    "custom": "",
-                    "value": []
-                },
-                "reach": 5,
-                "rules": [],
-                "size": "sm",
-                "slug": "empty-ancestry",
-                "source": {
-                    "value": ""
-                },
-                "speed": 35,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "vision": "normal"
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.mDtlRBBUWqUzYSHs"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Cat",
-            "sort": 100000,
-            "type": "ancestry"
-        },
-        {
-            "_id": "H8lOHuUm9RhvAKid",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Precious deals 1d4 extra precision damage against @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        "selector": "strike-damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Special",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "rTcZ9vYlESzYBnZY",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "piercing",
-                                "dice": 1,
-                                "die": "d6"
-                            }
-                        },
-                        "group": "brawling",
-                        "key": "Strike",
-                        "range": null,
-                        "traits": [
-                            "unarmed",
-                            "finesse"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Jaws",
-            "sort": 400000,
-            "type": "feat"
-        },
-        {
-            "_id": "CC97GeBsxJnLngqF",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "slashing",
-                                "dice": 1,
-                                "die": "d4"
-                            }
-                        },
-                        "group": "brawling",
-                        "key": "Strike",
-                        "range": null,
-                        "traits": [
-                            "unarmed",
-                            "agile",
-                            "finesse"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Claw",
-            "sort": 500000,
-            "type": "feat"
-        },
-        {
-            "_id": "yfiv6h226TAEQpOf",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Precious throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that Precious threatens make the target @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Support Benefit",
-            "sort": 600000,
-            "type": "action"
-        }
-    ],
-    "name": "Precious",
     "token": {
         "disposition": 1,
         "height": 1,

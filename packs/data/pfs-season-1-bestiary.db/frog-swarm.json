@@ -1,6 +1,143 @@
 {
     "_id": "y14EZYMrfejrAuPI",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "EI76Khq47G0yceM1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e6gQA5jXDMbCKyDj",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Distraction",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>Any living creature within the area of a frog swarm must attempt a @Check[type:will|dc:12] save. Humanoids that fail this save are @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 2} on a critical failure). Animals are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} on a successful save, @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} on a failure, and @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and fleeing on a critical failure.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9c3g4yNI2sNlNpvD",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Jump",
+                        "predicate": {
+                            "all": [
+                                "action:jump"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "type": "untyped",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 to jump",
+                        "options": "action:jump"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Frog Swarm",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -3
@@ -128,143 +265,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "EI76Khq47G0yceM1",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "e6gQA5jXDMbCKyDj",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>Any living creature within the area of a frog swarm must attempt a @Check[type:will|dc:12] save. Humanoids that fail this save are @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 2} on a critical failure). Animals are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} on a successful save, @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} on a failure, and @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and fleeing on a critical failure.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Distraction",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "9c3g4yNI2sNlNpvD",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Jump",
-                        "predicate": {
-                            "all": [
-                                "action:jump"
-                            ]
-                        },
-                        "selector": "acrobatics",
-                        "type": "untyped",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+8 to jump",
-                        "options": "action:jump"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 300000,
-            "type": "lore"
-        }
-    ],
-    "name": "Frog Swarm",
     "token": {
         "disposition": -1,
         "height": 2,

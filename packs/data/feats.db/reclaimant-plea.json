@@ -1,6 +1,8 @@
 {
     "_id": "qmORiUubF2CVgIva",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Reclaimant Plea",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -34,14 +36,14 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.reclaimantPlea.count",
+                "path": "system.custom.reclaimantPlea.count",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.proficiencies.traditions.divine.rank",
-                "value": "min(3,@actor.data.data.custom.reclaimantPlea.count)"
+                "path": "system.proficiencies.traditions.divine.rank",
+                "value": "min(3,@actor.system.custom.reclaimantPlea.count)"
             }
         ],
         "source": {
@@ -55,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Reclaimant Plea",
     "type": "feat"
 }

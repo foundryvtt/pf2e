@@ -20,20 +20,14 @@ import { FakeActors, FakeCollection, FakeItems, FakeWorldCollection } from "test
 import { LocalizePF2e } from "@module/system/localize";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
-// Convert compendium data to use system for v10. Can be removed when all packs are converted.
-delete Object.assign(characterData, { system: characterData.data }).data;
 characterData.effects = [];
 characterData.system.schema = { version: 0, lastMigration: null };
 for (const item of characterData.items) {
     item.effects = [];
-    // Convert compendium data to use system for v10. Can be removed when all packs are converted.
-    delete Object.assign(item, { system: item.data }).data;
     item.system.schema = { version: 0, lastMigration: null };
 }
 
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
-// Convert compendium data to use system for v10. Can be removed when all packs are converted.
-delete Object.assign(armorData, { system: armorData.data }).data;
 armorData.effects = [];
 armorData.system.schema = { version: 0, lastMigration: null };
 

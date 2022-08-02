@@ -1,6 +1,160 @@
 {
     "_id": "FmiOJ9HEdCBDB89z",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wGuVhWBsG7ERdKlr",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Extending Chandeliers",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the cage door, the closet door, or any wooden stand</p>\n<hr />\n<p><strong>Effect</strong> Both double doors leading out of the room shut and lock; while the trap is active, the key doesn't work to open these doors (although their locks can be picked normally). The chandeliers drop several feet on elongated chains, allowing them to swing around the room. The closest chandelier to the triggering creature makes a swinging chandelier Strike against it. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5aBlY3dBYmIMAZwP",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "swinging chandelier",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d12+25",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed4d6.success]</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed4d6.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed4d6.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "BrOfryWmR4ITLzIV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "flame dart",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "eg95m1xhqhdx40oeknagx9": {
+                        "damage": "4d6 persistent",
+                        "damageType": "fire"
+                    },
+                    "mv4bx5ap3xafys0c84hj2": {
+                        "damage": "4d8+20",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-40"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Burning Chandelier Trap",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 36
@@ -74,160 +228,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "wGuVhWBsG7ERdKlr",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the cage door, the closet door, or any wooden stand</p>\n<hr />\n<p><strong>Effect</strong> Both double doors leading out of the room shut and lock; while the trap is active, the key doesn't work to open these doors (although their locks can be picked normally). The chandeliers drop several feet on elongated chains, allowing them to swing around the room. The closest chandelier to the triggering creature makes a swinging chandelier Strike against it. The trap then rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "occult",
-                        "transmutation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Extending Chandeliers",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "5aBlY3dBYmIMAZwP",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 35
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d12+25",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed4d6.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed4d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed4d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "swinging chandelier",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "BrOfryWmR4ITLzIV",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 32
-                },
-                "damageRolls": {
-                    "eg95m1xhqhdx40oeknagx9": {
-                        "damage": "4d6 persistent",
-                        "damageType": "fire"
-                    },
-                    "mv4bx5ap3xafys0c84hj2": {
-                        "damage": "4d8+20",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-40"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "flame dart",
-            "sort": 300000,
-            "type": "melee"
-        }
-    ],
-    "name": "Burning Chandelier Trap",
     "token": {
         "disposition": 0,
         "height": 1,

@@ -1,6 +1,8 @@
 {
     "_id": "m7KjpkAAh9PptJsY",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ancestral Paragon",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -34,7 +36,7 @@
                     "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops"
                 },
                 "choices": {
-                    "query": "{\"data.featType.value\":\"ancestry\",\"data.level.value\":1,\"$or\":[{\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.ancestry.trait}\"}},{\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.heritage.trait}\"}}],\"$not\":{\"data.traits.value\":{\"$elemMatch\":\"lineage\"}}}"
+                    "query": "{\"system.featType.value\":\"ancestry\",\"system.level.value\":1,\"$or\":[{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.ancestry.trait}\"}},{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.heritage.trait}\"}}],\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"lineage\"}}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
@@ -55,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Ancestral Paragon",
     "type": "feat"
 }

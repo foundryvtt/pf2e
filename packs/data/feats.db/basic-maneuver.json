@@ -1,6 +1,8 @@
 {
     "_id": "baD02AcIpU7xUBlD",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Basic Maneuver",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -31,7 +33,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.modifiers.fighter-dedication-count",
+                "path": "system.custom.modifiers.fighter-dedication-count",
                 "value": 1
             },
             {
@@ -44,7 +46,7 @@
                     "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
                 },
                 "choices": {
-                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"fighter\"}}"
+                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"fighter\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
@@ -65,7 +67,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Basic Maneuver",
     "type": "feat"
 }
