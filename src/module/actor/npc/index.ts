@@ -59,7 +59,7 @@ class NPCPF2e extends CreaturePF2e {
 
     /** A user can see a synthetic NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.data.token.actorLink ? super.visible : this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        return this.token?.actorLink ? super.visible : this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
     }
 
     get isLootable(): boolean {
@@ -132,7 +132,7 @@ class NPCPF2e extends CreaturePF2e {
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        const { data } = this.data;
+        const { system } = this;
 
         // Add rarity and custom traits to main trait list
         const traits = this.system.traits;
@@ -177,7 +177,7 @@ class NPCPF2e extends CreaturePF2e {
                     )
             );
         }
-        data.details.level.base = baseLevel;
+        system.details.level.base = baseLevel;
 
         // Compute 10+mod ability scores from ability modifiers
         for (const ability of Object.values(this.system.abilities)) {
@@ -187,7 +187,7 @@ class NPCPF2e extends CreaturePF2e {
 
         // Hit Points
         {
-            const base = data.attributes.hp.max;
+            const base = system.attributes.hp.max;
             const modifiers: ModifierPF2e[] = [
                 extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
                 extractModifiers(this.synthetics, ["hp-per-level"], {
@@ -198,7 +198,7 @@ class NPCPF2e extends CreaturePF2e {
                 }),
             ].flat();
 
-            const hpData = deepClone(data.attributes.hp);
+            const hpData = deepClone(system.attributes.hp);
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
             stat.base = base;
@@ -211,7 +211,7 @@ class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
             ].join(", ");
 
-            data.attributes.hp = stat;
+            system.attributes.hp = stat;
 
             // Set a roll option for HP percentage
             const percentRemaining = Math.floor((stat.value / stat.max) * 100);
@@ -220,15 +220,15 @@ class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        data.attributes.speed = this.prepareSpeed("land");
-        const { otherSpeeds } = data.attributes.speed;
+        system.attributes.speed = this.prepareSpeed("land");
+        const { otherSpeeds } = system.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
             otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
         // Armor Class
         {
-            const base = data.attributes.ac.value;
+            const base = system.attributes.ac.value;
             const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e({
@@ -242,7 +242,7 @@ class NPCPF2e extends CreaturePF2e {
             ].flat();
 
             const rollOptions = this.getRollOptions(domains);
-            const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), data.attributes.ac, {
+            const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), system.attributes.ac, {
                 overwrite: false,
             });
             stat.base = base;
@@ -259,7 +259,7 @@ class NPCPF2e extends CreaturePF2e {
                 })
                 .join(", ");
 
-            data.attributes.ac = stat;
+            system.attributes.ac = stat;
         }
 
         this.prepareSaves();
@@ -267,7 +267,7 @@ class NPCPF2e extends CreaturePF2e {
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            const base = data.attributes.perception.value;
+            const base = system.attributes.perception.value;
             const modifiers = [
                 new ModifierPF2e({
                     slug: "base",
@@ -280,7 +280,7 @@ class NPCPF2e extends CreaturePF2e {
 
             const stat = mergeObject(
                 new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
-                data.attributes.perception,
+                system.attributes.perception,
                 { overwrite: false }
             );
             stat.base = base;
@@ -316,11 +316,11 @@ class NPCPF2e extends CreaturePF2e {
                 return roll;
             };
 
-            data.attributes.perception = stat;
+            system.attributes.perception = stat;
         }
 
         // default all skills to untrained
-        data.skills = {};
+        system.skills = {};
         for (const skill of SKILL_LONG_FORMS) {
             const { ability, shortform } = SKILL_EXPANDED[skill];
             const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
@@ -328,7 +328,7 @@ class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
-                    modifier: data.abilities[ability].mod,
+                    modifier: system.abilities[ability].mod,
                     adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                 }),
                 ...extractModifiers(this.synthetics, domains),
@@ -374,7 +374,7 @@ class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            data.skills[shortform] = stat;
+            system.skills[shortform] = stat;
         }
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
@@ -411,7 +411,7 @@ class NPCPF2e extends CreaturePF2e {
 
                 const stat = mergeObject(
                     new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
-                    data.skills[shortform],
+                    system.skills[shortform],
                     { overwrite: false }
                 );
                 stat.notes = extractNotes(rollNotes, domains);
@@ -465,7 +465,7 @@ class NPCPF2e extends CreaturePF2e {
                     }
                 }
 
-                data.skills[shortform] = stat;
+                system.skills[shortform] = stat;
             } else if (item.isOfType("melee")) {
                 const { ability, traits, isMelee, isThrown } = item;
 
@@ -684,7 +684,7 @@ class NPCPF2e extends CreaturePF2e {
                 action.damage = damageRoll("success");
                 action.critical = damageRoll("criticalSuccess");
 
-                data.actions.push(action);
+                system.actions.push(action);
             }
         }
 
@@ -931,7 +931,7 @@ class NPCPF2e extends CreaturePF2e {
         const toAdd = adjustment === "normal" ? [] : [adjustment];
         const toRemove = adjustment === "weak" ? ["elite"] : adjustment === "elite" ? ["weak"] : ["elite", "weak"];
         const newTraits = this.toObject()
-            .data.traits.traits.value.filter((trait) => !toRemove.includes(trait))
+            .system.traits.traits.value.filter((trait) => !toRemove.includes(trait))
             .concat(toAdd);
 
         await this.update({
@@ -959,7 +959,7 @@ class NPCPF2e extends CreaturePF2e {
         const source = this._source;
         const changes: DeepPartial<NPCSource> = {
             name: params.name ?? this.name,
-            data: {
+            system: {
                 details: { publicNotes: params.description ?? source.data.details.publicNotes },
             },
             img: params.img?.actor ?? source.img,

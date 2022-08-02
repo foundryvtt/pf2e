@@ -6,8 +6,8 @@
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
+import { NPCPF2e } from "@actor";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { NPCSystemData } from "@actor/npc/data";
 import { Rarity } from "@module/data";
 import {
     adjustDC,
@@ -65,14 +65,14 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
 }
 
 export function identifyCreature(
-    creature: { data: NPCSystemData },
+    creature: NPCPF2e,
     { proficiencyWithoutLevel = false }: DCOptions = {}
 ): IdentifyCreatureData {
-    const rarity = creature.data.traits.rarity ?? "common";
-    const level = Number(creature.data.details.level?.value) || 0;
+    const rarity = creature.system.traits.rarity ?? "common";
+    const level = Number(creature.system.details.level?.value) || 0;
     const dc = calculateDC(level, { proficiencyWithoutLevel });
 
-    const traits = creature.data.traits.traits.value;
+    const traits = creature.system.traits.traits.value;
     const skills = new Set(traits.flatMap((trait) => identifySkills.get(trait) ?? []));
 
     return {
