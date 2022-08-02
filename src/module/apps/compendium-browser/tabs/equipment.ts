@@ -39,7 +39,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
-                if (itemData.type === "treasure" && itemData.data.stackGroup === "coins") continue;
+                if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
                     let skip = false;
                     if (itemData.type === "weapon" || itemData.type === "armor") {
@@ -59,21 +59,21 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     }
 
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
-                    const priceValue = itemData.data.price.value;
+                    const priceValue = itemData.system.price.value;
                     const priceCoins =
                         typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
                     const coinValue = priceCoins.copperValue;
 
                     // add item.type into the correct format for filtering
-                    itemData.data.itemTypes = { value: itemData.type };
-                    itemData.data.rarity = itemData.data.traits.rarity;
+                    itemData.system.itemTypes = { value: itemData.type };
+                    itemData.system.rarity = itemData.system.traits.rarity;
                     itemData.filters = {};
 
                     // Prepare source
-                    const source = itemData.data.source.value;
+                    const source = itemData.system.source.value;
                     if (source) {
                         sources.add(source);
-                        itemData.data.source.value = sluggify(source);
+                        itemData.system.source.value = sluggify(source);
                     }
 
                     inventoryItems.push({
@@ -82,14 +82,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         name: itemData.name,
                         img: itemData.img,
                         compendium: pack.collection,
-                        level: itemData.data.level?.value ?? 0,
-                        category: itemData.data.category ?? "",
-                        group: itemData.data.group ?? "",
+                        level: itemData.system.level?.value ?? 0,
+                        category: itemData.system.category ?? "",
+                        group: itemData.system.group ?? "",
                         price: priceCoins,
                         priceInCopper: coinValue,
-                        traits: itemData.data.traits.value,
-                        rarity: itemData.data.traits.rarity,
-                        source: itemData.data.source.value,
+                        traits: itemData.system.traits.value,
+                        rarity: itemData.system.traits.rarity,
+                        source: itemData.system.source.value,
                     });
                 }
             }

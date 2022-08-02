@@ -43,10 +43,10 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // Prepare source
-                    const source = actorData.data.details.source.value;
+                    const source = actorData.system.details.source.value;
                     if (source) {
                         sources.add(source);
-                        actorData.data.details.source.value = sluggify(source);
+                        actorData.system.details.source.value = sluggify(source);
                     }
 
                     bestiaryActors.push({
@@ -55,12 +55,12 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                         name: actorData.name,
                         img: actorData.img,
                         compendium: pack.collection,
-                        level: actorData.data.details.level.value,
-                        alignment: actorData.data.details.alignment.value,
-                        actorSize: actorData.data.traits.size.value,
-                        traits: actorData.data.traits.traits.value,
-                        rarity: actorData.data.traits.rarity,
-                        source: actorData.data.details.source.value,
+                        level: actorData.system.details.level.value,
+                        alignment: actorData.system.details.alignment.value,
+                        actorSize: actorData.system.traits.size.value,
+                        traits: actorData.system.traits.traits.value,
+                        rarity: actorData.system.traits.rarity,
+                        source: actorData.system.details.source.value,
                     });
                 }
             }

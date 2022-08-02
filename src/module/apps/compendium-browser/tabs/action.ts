@@ -37,13 +37,13 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // update icons for any passive actions
-                    if (actionData.data.actionType.value === "passive") actionData.img = getActionIcon("passive");
+                    if (actionData.system.actionType.value === "passive") actionData.img = getActionIcon("passive");
 
                     // Prepare source
-                    const source = actionData.data.source.value;
+                    const source = actionData.system.source.value;
                     if (source) {
                         sources.add(source);
-                        actionData.data.source.value = sluggify(source);
+                        actionData.system.source.value = sluggify(source);
                     }
                     actions.push({
                         _id: actionData._id,
@@ -51,8 +51,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         name: actionData.name,
                         img: actionData.img,
                         compendium: pack.collection,
-                        traits: actionData.data.traits.value,
-                        source: actionData.data.source.value,
+                        traits: actionData.system.traits.value,
+                        source: actionData.system.source.value,
                     });
                 }
             }
