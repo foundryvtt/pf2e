@@ -37,8 +37,8 @@ class PackLoader {
                 if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
-                    // Every result should have the "data" property otherwise the indexFields were wrong for that pack
-                    if (firstResult.data) {
+                    // Every result should have the "system" property otherwise the indexFields were wrong for that pack
+                    if (firstResult.system) {
                         this.setModuleArt(packId, index);
                         data = { pack, index };
                         this.loadedPacks[documentType][packId] = data;
