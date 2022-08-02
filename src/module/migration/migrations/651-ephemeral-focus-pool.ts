@@ -9,7 +9,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
     static override version = 0.651;
 
     private needsRuleElement(rules: Array<RuleElementSource & { path?: string }>): boolean {
-        return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "data.resources.focus.max");
+        return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "system.resources.focus.max");
     }
 
     private increasesByOne = new Set([
@@ -121,7 +121,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             if (slug === "revelation-spells") {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 2,
                     priority: 10, // Before any adds
@@ -131,7 +131,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             if (slug === "major-curse") {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 3,
                 };
@@ -143,7 +143,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             ) {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 1,
                     priority: 10, // Before any adds
@@ -153,7 +153,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             if (this.increasesByOne.has(slug) || slug.startsWith("first-revelation-")) {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "add",
                     value: 1,
                 };

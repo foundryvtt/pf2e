@@ -207,7 +207,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
             );
             if (rule) {
                 rule.value = value;
-                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "data.rules": rules }]);
+                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
                 return result.length === 1 ? value : null;
             }
         }

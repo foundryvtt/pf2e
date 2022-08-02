@@ -177,7 +177,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         const value = Number($button.attr("data-repair-value") ?? "0");
         const beforeRepair = item.system.hp.value;
         const afterRepair = Math.min(item.system.hp.max, beforeRepair + value);
-        await item.update({ "data.hp.value": afterRepair });
+        await item.update({ "system.hp.value": afterRepair });
         const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemRepaired", {
             itemName: item.name,
             repairedDamage: afterRepair - beforeRepair,
@@ -210,7 +210,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         if (damage > 0) {
             const beforeDamage = item.system.hp.value;
             const afterDamage = Math.max(0, item.system.hp.value - damage);
-            await item.update({ "data.hp.value": afterDamage });
+            await item.update({ "system.hp.value": afterDamage });
             const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemDamaged", {
                 itemName: item.name,
                 damageDealt: beforeDamage - afterDamage,

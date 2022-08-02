@@ -144,7 +144,7 @@ class CharacterFeats extends Collection<FeatCategory> {
 
         // Handle case where its actually dragging away from a location
         if (alreadyHasFeat && feat.system.location && !isFeatValidInSlot) {
-            return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "data.location": null }]);
+            return this.actor.updateEmbeddedDocuments("Item", [{ _id: feat.id, "system.location": null }]);
         }
 
         const changed: ItemPF2e[] = [];
@@ -159,11 +159,11 @@ class CharacterFeats extends Collection<FeatCategory> {
         }
 
         // Determine what feats we have to move around
-        const locationUpdates: { _id: string; "data.location": string | null }[] = category?.slotted
-            ? existing.map((x) => ({ _id: x.id, "data.location": null }))
+        const locationUpdates: { _id: string; "system.location": string | null }[] = category?.slotted
+            ? existing.map((x) => ({ _id: x.id, "system.location": null }))
             : [];
         if (alreadyHasFeat && isFeatValidInSlot) {
-            locationUpdates.push({ _id: feat.id, "data.location": location });
+            locationUpdates.push({ _id: feat.id, "system.location": location });
         }
 
         if (locationUpdates.length > 0) {

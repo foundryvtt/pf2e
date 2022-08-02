@@ -83,7 +83,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         $html.find(".toggle-signature-spell").on("click", (event) => {
             const item = this.getItemFromEvent(event);
             if (item instanceof SpellPF2e) {
-                item.update({ "data.location.signature": !item.system.location.signature });
+                item.update({ "system.location.signature": !item.system.location.signature });
             }
         });
 
@@ -95,8 +95,8 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
             const spellLabel = level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
             data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
             mergeObject(data, {
-                "data.level.value": level,
-                "data.location.value": this.item.id,
+                "system.level.value": level,
+                "system.location.value": this.item.id,
             });
 
             this.actor.createEmbeddedDocuments("Item", [data]);

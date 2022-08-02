@@ -422,7 +422,7 @@ export class ConditionManager {
                 }
 
                 // Apply new value.
-                await condition.update({ "data.value.value": value });
+                await condition.update({ "system.value.value": value });
                 console.debug(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
             }
 

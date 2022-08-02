@@ -276,7 +276,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             } else if (item instanceof SpellPF2e) {
                 const max = item.system.location.uses?.max;
                 if (!max) return;
-                item.update({ "data.location.uses.value": max });
+                item.update({ "system.location.uses.value": max });
             }
         });
 
@@ -302,7 +302,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         // We can't use form submission for these updates since duplicates force array updates.
         // We'll have to move focus points to the top of the sheet to remove this
         $html.find(".focus-pool").on("change", (event) => {
-            this.actor.update({ "data.resources.focus.max": $(event.target).val() });
+            this.actor.update({ "system.resources.focus.max": $(event.target).val() });
         });
 
         $html.find(".toggle-signature-spell").on("click", (event) => {
@@ -381,7 +381,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             return;
         }
 
-        spell.update({ "data.location.signature": !spell.system.location.signature });
+        spell.update({ "system.location.signature": !spell.system.location.signature });
     }
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
@@ -406,7 +406,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
 
         const target = event.currentTarget;
-        if (target.name === "data.attributes.hp.value") {
+        if (target.name === "system.attributes.hp.value") {
             const inputted = Number(target.value) || 0;
             target.value = Math.floor(Math.clamped(inputted, 0, this.actor.hitPoints.max)).toString();
         }
@@ -417,12 +417,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Redirect an update to shield HP to the actual item */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const heldShield = this.actor.heldShield;
-        if (heldShield && typeof formData["data.attributes.shield.hp.value"] === "number") {
+        if (heldShield && typeof formData["system.attributes.shield.hp.value"] === "number") {
             await heldShield.update({
-                "data.hp.value": formData["data.attributes.shield.hp.value"],
+                "system.hp.value": formData["system.attributes.shield.hp.value"],
             });
         }
-        delete formData["data.attributes.shield.hp.value"];
+        delete formData["system.attributes.shield.hp.value"];
 
         return super._updateObject(event, formData);
     }

@@ -36,8 +36,8 @@ class KitPF2e extends ItemPF2e {
             const entry = entries[index];
             if (clone instanceof PhysicalItemPF2e) {
                 clone.data.update({
-                    "data.quantity": entry.quantity,
-                    "data.containerId": containerId,
+                    "system.quantity": entry.quantity,
+                    "system.containerId": containerId,
                 });
             }
 

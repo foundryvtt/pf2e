@@ -13,13 +13,13 @@ export class Migration667HPSubProperties extends MigrationBase {
         const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
             (rule: Record<string, unknown>) =>
-                "path" in rule && rule["path"] === "data.attributes.hp.recoveryMultiplier"
+                "path" in rule && rule["path"] === "system.attributes.hp.recoveryMultiplier"
         );
         if (needsRuleElement) {
             const element: AELikeSource = {
                 key: "ActiveEffectLike",
                 mode: "add",
-                path: "data.attributes.hp.recoveryMultiplier",
+                path: "system.attributes.hp.recoveryMultiplier",
                 value: 1,
             };
             rules.push(element);
@@ -30,14 +30,14 @@ export class Migration667HPSubProperties extends MigrationBase {
         if (!["dhampir", "negative-healing"].includes(slug)) return;
         const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
-            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.negativeHealing"
+            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "system.attributes.hp.negativeHealing"
         );
 
         if (needsRuleElement) {
             const element: AELikeSource = {
                 key: "ActiveEffectLike",
                 mode: "override",
-                path: "data.attributes.hp.negativeHealing",
+                path: "system.attributes.hp.negativeHealing",
                 value: true,
             };
             rules.push(element);

@@ -21,14 +21,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const inventoryItems: CompendiumIndexData[] = [];
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
-        const kitFields = ["img", "data.price", "data.traits"];
-        const baseFields = [...kitFields, "data.stackGroup", "data.level.value", "data.source.value"];
-        const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
-        const consumableFields = [...baseFields, "data.consumableType.value"];
+        const kitFields = ["img", "system.price", "system.traits"];
+        const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
+        const armorAndWeaponFields = [...baseFields, "system.category", "system.group"];
+        const consumableFields = [...baseFields, "system.consumableType.value"];
         const indexFields = [
             ...new Set([...armorAndWeaponFields, ...consumableFields]),
-            "data.denomination.value",
-            "data.value.value",
+            "system.denomination.value",
+            "system.value.value",
         ];
         const sources: Set<string> = new Set();
 

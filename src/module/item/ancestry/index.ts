@@ -47,9 +47,9 @@ class AncestryPF2e extends ABCItemPF2e {
     /** Toggle between voluntary flaws being on or off */
     async toggleVoluntaryFlaw(): Promise<void> {
         if (this._source.data.voluntary) {
-            await this.update({ "data.-=voluntary": null });
+            await this.update({ "system.-=voluntary": null });
         } else {
-            await this.update({ "data.voluntary": { boost: null, flaws: [] } });
+            await this.update({ "system.voluntary": { boost: null, flaws: [] } });
         }
     }
 

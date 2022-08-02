@@ -24,13 +24,13 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
-            "data.prerequisites.value",
-            "data.actionType.value",
-            "data.actions.value",
-            "data.featType.value",
-            "data.level.value",
-            "data.traits",
-            "data.source.value",
+            "system.prerequisites.value",
+            "system.actionType.value",
+            "system.actions.value",
+            "system.featType.value",
+            "system.level.value",
+            "system.traits",
+            "system.source.value",
         ];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(

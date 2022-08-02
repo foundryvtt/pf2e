@@ -201,14 +201,14 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     /** Seal the material and runes when a weapon is marked as specific */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const weapon = this.item;
-        formData["data.potencyRune.value"] ||= 0;
+        formData["system.potencyRune.value"] ||= 0;
         // Set empty-string values and zeroes to null
         for (const slotNumber of [1, 2, 3, 4]) {
             formData[`data.propertyRune${slotNumber}.value`] ||= null;
         }
 
         // Coerce a weapon range of zero to null
-        formData["data.range"] ||= null;
+        formData["system.range"] ||= null;
 
         // Process precious-material selection
         if (typeof formData["preciousMaterial"] === "string") {
@@ -217,36 +217,36 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
                 objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
             if (isValidSelection) {
-                formData["data.preciousMaterial.value"] = typeGrade[0];
-                formData["data.preciousMaterialGrade.value"] = typeGrade[1];
+                formData["system.preciousMaterial.value"] = typeGrade[0];
+                formData["system.preciousMaterialGrade.value"] = typeGrade[1];
             } else {
-                formData["data.preciousMaterial.value"] = null;
-                formData["data.preciousMaterialGrade.value"] = null;
+                formData["system.preciousMaterial.value"] = null;
+                formData["system.preciousMaterialGrade.value"] = null;
             }
 
             delete formData["preciousMaterial"];
         }
 
         // Seal specific magic weapon data if set to true
-        const isSpecific = formData["data.specific.value"];
+        const isSpecific = formData["system.specific.value"];
         if (isSpecific !== weapon.isSpecific) {
             if (isSpecific === true) {
-                formData["data.price.value"] = this.item.price.value;
-                formData["data.specific.price"] = this.item.price.value;
-                formData["data.specific.material"] = weapon.material;
-                formData["data.specific.runes"] = {
-                    potency: formData["data.potencyRune.value"],
-                    striking: formData["data.strikingRune.value"],
+                formData["system.price.value"] = this.item.price.value;
+                formData["system.specific.price"] = this.item.price.value;
+                formData["system.specific.material"] = weapon.material;
+                formData["system.specific.runes"] = {
+                    potency: formData["system.potencyRune.value"],
+                    striking: formData["system.strikingRune.value"],
                 };
             } else if (isSpecific === false) {
-                formData["data.specific.-=material"] = null;
-                formData["data.specific.-=runes"] = null;
+                formData["system.specific.-=material"] = null;
+                formData["system.specific.-=runes"] = null;
             }
         }
 
         // Ensure melee usage is absent if not a combination weapon
         if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
-            formData["data.-=meleeUsage"] = null;
+            formData["system.-=meleeUsage"] = null;
         }
 
         return super._updateObject(event, formData);

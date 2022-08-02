@@ -341,8 +341,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.identificationStatus === status) return;
 
         await this.update({
-            "data.identification.status": status,
-            "data.identification.unidentified": this.getMystifiedData("unidentified"),
+            "system.identification.status": status,
+            "system.identification.unidentified": this.getMystifiedData("unidentified"),
         });
     }
 
@@ -387,15 +387,15 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Set some defaults
         this.data.update({
-            "data.equipped.carryType": "worn",
-            "data.equipped.-=handsHeld": null,
-            "data.equipped.-=inSlot": null,
+            "system.equipped.carryType": "worn",
+            "system.equipped.-=handsHeld": null,
+            "system.equipped.-=inSlot": null,
         });
 
         if (this.actor) {
             const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
             if (this.actor.isOfType("character", "npc") && isSlottedItem) {
-                this.data.update({ "data.equipped.inSlot": false });
+                this.data.update({ "system.equipped.inSlot": false });
             }
         }
     }

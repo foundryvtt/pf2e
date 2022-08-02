@@ -841,7 +841,7 @@ class NPCPF2e extends CreaturePF2e {
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
-                const packItem = (await compendium.getDocuments({ "data.slug": { $in: [attackEffect] } }))[0];
+                const packItem = (await compendium.getDocuments({ "system.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
                     note.text = formatNoteText(formatItemName(packItem), packItem);
                     notes.push(note);
@@ -935,8 +935,8 @@ class NPCPF2e extends CreaturePF2e {
             .concat(toAdd);
 
         await this.update({
-            "data.attributes.hp.value": Math.max(0, newHP),
-            "data.traits.traits.value": newTraits,
+            "system.attributes.hp.value": Math.max(0, newHP),
+            "system.traits.traits.value": newTraits,
         });
     }
 

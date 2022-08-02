@@ -21,7 +21,7 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
         const value = Math.abs(Number(this.resolveValue()) || 0);
         const currentHP = this.actor._source.data.attributes.hp.value;
-        actorUpdates["data.attributes.hp.value"] = Math.max(currentHP - value, 0);
+        actorUpdates["system.attributes.hp.value"] = Math.max(currentHP - value, 0);
     }
 
     override async preUpdate(changes: DeepPartial<ItemSourcePF2e>): Promise<void> {
@@ -34,7 +34,7 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         if (valueChange > 0) {
             const currentHP = this.actor._source.data.attributes.hp.value;
             await this.actor.update(
-                { "data.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
+                { "system.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
                 { render: false }
             );
         }

@@ -142,7 +142,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         if (this.isFocusPool) {
             const currentPoints = actor.system.resources.focus?.value ?? 0;
             if (currentPoints > 0) {
-                await actor.update({ "data.resources.focus.value": currentPoints - 1 });
+                await actor.update({ "system.resources.focus.value": currentPoints - 1 });
                 return true;
             } else {
                 ui.notifications.warn(game.i18n.localize("PF2E.Focus.NotEnoughFocusPointsError"));
@@ -185,7 +185,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                 ui.notifications.warn(game.i18n.format("PF2E.SpellSlotExpendedError", { name: spell.name }));
                 return false;
             }
-            await spell.update({ "data.location.uses.value": remainingUses - 1 });
+            await spell.update({ "system.location.uses.value": remainingUses - 1 });
             return true;
         }
 

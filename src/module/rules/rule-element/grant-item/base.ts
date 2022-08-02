@@ -189,7 +189,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         // Unset the grant flag for any grant that is to detach upon granter's deletion
         await this.actor.updateEmbeddedDocuments(
             "Item",
-            deletionActions.detach.map((i) => ({ _id: i.id, "data.flags.pf2e.-=grantedBy": null })),
+            deletionActions.detach.map((i) => ({ _id: i.id, "flags.pf2e.-=grantedBy": null })),
             { render: false }
         );
 

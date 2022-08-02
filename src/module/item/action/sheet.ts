@@ -33,7 +33,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
         });
 
         $html.find("[data-action=frequency-delete]").on("click", () => {
-            this.item.update({ "data.-=frequency": null });
+            this.item.update({ "system.-=frequency": null });
         });
     }
 }

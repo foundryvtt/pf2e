@@ -10,7 +10,7 @@ export class Migration769NoUniversalistFocusPool extends MigrationBase {
         if (source.type === "feat" && source.system.slug === "arcane-school") {
             const rule = source.system.rules.find(
                 (r: RuleElementSource & { path?: unknown }) =>
-                    r.key === "ActiveEffectLike" && r.path === "data.resources.focus.max"
+                    r.key === "ActiveEffectLike" && r.path === "system.resources.focus.max"
             );
             if (rule) {
                 rule.predicate = { not: ["feature:universalist"] };

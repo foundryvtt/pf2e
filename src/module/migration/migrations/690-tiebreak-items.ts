@@ -12,7 +12,7 @@ export class Migration690InitiativeTiebreakItems extends MigrationBase {
     /** Sets the tiebreak priority for the item owner from 2 (PCs) to 0 */
     private rule = {
         key: "ActiveEffectLike",
-        path: "data.attributes.initiative.tiebreakPriority",
+        path: "system.attributes.initiative.tiebreakPriority",
         mode: "override",
         value: 0,
     };

@@ -21,13 +21,13 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
-            "data.level.value",
-            "data.category.value",
-            "data.traditions.value",
-            "data.time",
-            "data.school.value",
-            "data.traits",
-            "data.source.value",
+            "system.level.value",
+            "system.category.value",
+            "system.traditions.value",
+            "system.time",
+            "system.school.value",
+            "system.traits",
+            "system.source.value",
         ];
 
         const data = this.browser.packLoader.loadPacks("Item", this.browser.loadedPacks("spell"), indexFields);

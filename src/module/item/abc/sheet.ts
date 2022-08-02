@@ -82,7 +82,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         };
 
         const items = this.item.system.items;
-        const pathPrefix = "data.items";
+        const pathPrefix = "system.items";
 
         let id: string;
         do {

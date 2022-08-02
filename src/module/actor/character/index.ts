@@ -203,7 +203,7 @@ class CharacterPF2e extends CreaturePF2e {
             ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
             return;
         } else {
-            await this.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+            await this.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
         }
 
         // Remove infused/temp items
@@ -1954,7 +1954,7 @@ class CharacterPF2e extends CreaturePF2e {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }
 
-        return !!(await item.update({ "data.equipped.invested": !item.isInvested }));
+        return !!(await item.update({ "system.equipped.invested": !item.isInvested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */
@@ -2081,7 +2081,7 @@ class CharacterPF2e extends CreaturePF2e {
                 }),
                 {}
             );
-            await this.update({ "data.abilities": baseAbilities });
+            await this.update({ "system.abilities": baseAbilities });
         } else {
             // Delete stored ability scores for boost-driven management
             const deletions = Array.from(ABILITY_ABBREVIATIONS).reduce(
@@ -2091,7 +2091,7 @@ class CharacterPF2e extends CreaturePF2e {
                 }),
                 {}
             );
-            await this.update({ "data.abilities": deletions });
+            await this.update({ "system.abilities": deletions });
         }
     }
 }

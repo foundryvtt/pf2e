@@ -85,7 +85,7 @@ export class AncestryBackgroundClassManager {
     ): Promise<AncestrySource | BackgroundSource | ClassSource | FeatSource> {
         const slug = sluggify(name);
         const pack = game.packs.get<CompendiumCollection<ABCItemPF2e>>(packName, { strict: true });
-        const docs = await pack.getDocuments({ "data.slug": { $in: [slug] } });
+        const docs = await pack.getDocuments({ "system.slug": { $in: [slug] } });
         if (docs.length === 1) {
             return docs[0].toObject();
         } else {

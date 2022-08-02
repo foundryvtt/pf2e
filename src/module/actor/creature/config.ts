@@ -47,12 +47,12 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
 
     /** Remove stored property if it's set to default; otherwise, update */
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const key = "data.details.alliance";
+        const key = "system.details.alliance";
         const alliance = formData[key];
 
         if (alliance === "default") {
             delete formData[key];
-            formData["data.details.-=alliance"] = null;
+            formData["system.details.-=alliance"] = null;
         } else if (alliance === "neutral") {
             formData[key] = null;
         } else if (!setHasElement(ALLIANCES, alliance)) {

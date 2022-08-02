@@ -63,7 +63,7 @@ export class Migration714RangeIncrementREs extends MigrationBase {
     private shootistsEdge = (() => {
         const gte: [string, number] = ["weapon:proficiency:rank", 3];
         return [
-            { key: "ActiveEffectLike", mode: "upgrade", path: "data.attributes.classDC.rank", value: 3 },
+            { key: "ActiveEffectLike", mode: "upgrade", path: "system.attributes.classDC.rank", value: 3 },
             {
                 key: "RollOption",
                 domain: "ranged-attack-roll",

@@ -79,7 +79,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         // Restore wand charges
         const items = actor.itemTypes;
         const wands = items.consumable.filter((i) => i.consumableType === "wand" && i.charges.value < i.charges.max);
-        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "data.charges.value": 1 })));
+        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": 1 })));
         const wandRecharged = itemUpdates.length > 0;
 
         // Restore reagents
@@ -93,8 +93,10 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         // Spellcasting entries and focus points
         const spellcastingRecharge = actor.spellcasting.recharge();
         itemUpdates.push(...spellcastingRecharge.itemUpdates);
-        if (spellcastingRecharge.actorUpdates?.["data.resources.focus.value"]) {
-            actorUpdates.resources.focus = { value: spellcastingRecharge.actorUpdates?.["data.resources.focus.value"] };
+        if (spellcastingRecharge.actorUpdates?.["system.resources.focus.value"]) {
+            actorUpdates.resources.focus = {
+                value: spellcastingRecharge.actorUpdates?.["system.resources.focus.value"],
+            };
         }
 
         // Action Frequencies
@@ -107,7 +109,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         );
         if (withFrequency.length) {
             statements.push(game.i18n.localize(translations.Message.Frequencies));
-            itemUpdates.push(...withFrequency.map((a) => ({ _id: a.id, "data.frequency.value": a.frequency!.max })));
+            itemUpdates.push(...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency!.max })));
         }
 
         // Stamina points

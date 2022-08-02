@@ -43,7 +43,7 @@ export class Migration687FamiliarityAEsToREs extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         for (const effect of [...itemSource.effects]) {
-            for (const change of effect.changes.filter((change) => change.key.startsWith("data.martial."))) {
+            for (const change of effect.changes.filter((change) => change.key.startsWith("system.martial."))) {
                 const linkTo = change.key.replace(/^data\.martial\.|\.familiarity$/g, "");
                 const reData = this.toRuleElement(linkTo, change.value);
                 if (reData) itemSource.system.rules.push(reData);

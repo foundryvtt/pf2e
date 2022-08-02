@@ -47,7 +47,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
             if (quantity > 0) {
                 const item = coinsByDenomination.get(denomination)?.[0];
                 if (item) {
-                    await item.update({ "data.quantity": item.quantity + quantity });
+                    await item.update({ "system.quantity": item.quantity + quantity });
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
                     const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
@@ -58,7 +58,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
                     }
                     const item = await pack.getDocument(compendiumId);
                     if (item?.data.type === "treasure") {
-                        item.data.update({ "data.quantity": quantity });
+                        item.data.update({ "system.quantity": quantity });
                         await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
                     }
                 }
@@ -149,7 +149,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
                 for (const item of coinItems) {
                     if (quantityToRemove === 0) break;
                     if (item.quantity > quantityToRemove) {
-                        itemsToUpdate.push({ _id: item.id, "data.quantity": item.quantity - quantityToRemove });
+                        itemsToUpdate.push({ _id: item.id, "system.quantity": item.quantity - quantityToRemove });
                         quantityToRemove = 0;
                         break;
                     } else {

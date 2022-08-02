@@ -92,8 +92,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         const traits = deepClone(CONFIG.PF2E.spellTraits);
         delete traits[this.item.school];
-        tagify(html.querySelector('input[name="data.traits.value"]'), { whitelist: traits });
-        tagify(html.querySelector('input[name="data.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
+        tagify(html.querySelector('input[name="system.traits.value"]'), { whitelist: traits });
+        tagify(html.querySelector('input[name="system.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
@@ -124,7 +124,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         // Event used to delete all heightening, not just a particular one
         $html.find("[data-action=heightening-delete]").on("click", () => {
-            this.item.update({ "data.-=heightening": null });
+            this.item.update({ "system.-=heightening": null });
         });
 
         $html.find("[data-action=heightening-fixed-create]").on("click", () => {
@@ -133,7 +133,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             const level = highestLevel && highestLevel < 10 ? highestLevel + 1 : available.at(0);
             if (level === undefined) return;
 
-            this.item.update({ "data.heightening": { type: "fixed", levels: { [level]: {} } } });
+            this.item.update({ "system.heightening": { type: "fixed", levels: { [level]: {} } } });
         });
 
         $html.find("[data-action=overlay-delete]").on("click", async (event) => {
@@ -144,7 +144,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (overlay.type === "heighten") {
                 const layers = this.item.getHeightenLayers();
                 if (layers.length === 1 && layers[0].level === overlay.level) {
-                    this.item.update({ "data.-=heightening": null });
+                    this.item.update({ "system.-=heightening": null });
                     return;
                 }
             }
@@ -338,7 +338,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         const id = "overlayId" in domData ? String(domData.overlayId) : null;
         const level = "level" in domData ? Number(domData.level) : null;
-        const collectionPath = overlayType === "heighten" ? "data.heightening.levels" : "data.variants";
+        const collectionPath = overlayType === "heighten" ? "system.heightening.levels" : "system.variants";
         const base = overlayType === "heighten" ? `${collectionPath}.${level}` : `${collectionPath}.${id}`;
 
         const data = (() => {

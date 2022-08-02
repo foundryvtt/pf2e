@@ -43,7 +43,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             const rechargeFocus = focus?.max && focus.value < focus.max;
             if (focus && rechargeFocus) {
                 focus.value = focus.max;
-                return { "data.resources.focus.value": focus.value };
+                return { "system.resources.focus.value": focus.value };
             }
         }
 
@@ -67,7 +67,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             if (entry.isInnate) {
                 return entry.spells.map((spell) => {
                     const value = spell.system.location.uses?.max ?? 1;
-                    return { _id: spell.id, "data.location.uses.value": value };
+                    return { _id: spell.id, "system.location.uses.value": value };
                 });
             }
 
@@ -89,7 +89,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
             }
 
             if (updated) {
-                return { _id: entry.id, "data.slots": slots };
+                return { _id: entry.id, "system.slots": slots };
             }
 
             return [];

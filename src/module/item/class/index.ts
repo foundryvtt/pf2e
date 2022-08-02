@@ -93,10 +93,10 @@ class ClassPF2e extends ABCItemPF2e {
         attributes.classhp = this.hpPerLevel;
 
         attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
-        this.logAutoChange("data.attributes.perception.rank", this.perception);
+        this.logAutoChange("system.attributes.perception.rank", this.perception);
 
         attributes.classDC.rank = Math.max(attributes.classDC.rank, this.classDC) as ZeroToFour;
-        this.logAutoChange("data.attributes.classDC.rank", this.classDC);
+        this.logAutoChange("system.attributes.classDC.rank", this.classDC);
 
         for (const category of ARMOR_CATEGORIES) {
             martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;

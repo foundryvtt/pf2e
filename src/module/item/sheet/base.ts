@@ -308,7 +308,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
             const rulesData = this.item.toObject().data.rules;
             const key = this.selectedRuleElementType ?? "NewRuleElement";
-            this.item.update({ "data.rules": rulesData.concat({ key }) });
+            this.item.update({ "system.rules": rulesData.concat({ key }) });
         });
 
         $html.find(".edit-rule-element").on("click", async (event) => {
@@ -326,7 +326,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN");
             if (rules && Number.isInteger(index) && rules.length > index) {
                 rules.splice(index, 1);
-                this.item.update({ "data.rules": rules });
+                this.item.update({ "system.rules": rules });
             }
         });
 
@@ -352,7 +352,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
-        const $prerequisites = $html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
+        const $prerequisites = $html.find<HTMLInputElement>('input[name="system.prerequisites.value"]');
         if ($prerequisites[0]) {
             new Tagify($prerequisites[0], {
                 editTags: 1,
@@ -396,7 +396,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     const rules = this.item.toObject().data.rules;
                     rules[this.editingRuleElementIndex] = JSON.parse(value as string);
                     this.editingRuleElementIndex = null;
-                    this.item.update({ "data.rules": rules });
+                    this.item.update({ "system.rules": rules });
                 } catch (error) {
                     if (error instanceof Error) {
                         ui.notifications.error(
@@ -431,7 +431,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         super.activateEditor(
             name,
             options,
-            name === "data.description.value" ? this.item._source.data.description.value : initialContent
+            name === "system.description.value" ? this.item._source.data.description.value : initialContent
         );
     }
 
@@ -496,8 +496,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Avoid setting a baseItem of an empty string
-        if (formData["data.baseItem"] === "") {
-            formData["data.baseItem"] = null;
+        if (formData["system.baseItem"] === "") {
+            formData["system.baseItem"] = null;
         }
 
         const rulesVisible = !!this.form.querySelector(".rules");

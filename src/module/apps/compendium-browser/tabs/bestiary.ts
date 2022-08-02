@@ -6,10 +6,10 @@ import { BestiaryFilters } from "./data";
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     protected index = [
         "img",
-        "data.details.level.value",
-        "data.details.alignment.value",
-        "data.details.source.value",
-        "data.traits",
+        "system.details.level.value",
+        "system.details.alignment.value",
+        "system.details.source.value",
+        "system.traits",
     ];
 
     override filterData!: BestiaryFilters;
@@ -26,7 +26,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
         const bestiaryActors: CompendiumIndexData[] = [];
         const sources: Set<string> = new Set();
-        const indexFields = [...this.index, "data.details.isComplex"];
+        const indexFields = [...this.index, "system.details.isComplex"];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
