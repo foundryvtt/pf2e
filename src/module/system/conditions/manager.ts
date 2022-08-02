@@ -1,6 +1,5 @@
-import { ModifierPF2e } from "@actor/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { ConditionData, ConditionSlug, ConditionSource } from "@item/condition/data";
+import { ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
@@ -8,7 +7,7 @@ import { ConditionReference, FlattenedCondition } from "./types";
 import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CONDITION_SLUGS } from "@actor/values";
 
-/** A helper class to manage PF2e Conditions. */
+/** A helper class to manage PF2e Conditions */
 export class ConditionManager {
     static #initialized = false;
 
@@ -248,13 +247,11 @@ export class ConditionManager {
                     appliedConditions.delete(overriddenBase);
 
                     // Ensure all copies of overridden base are updated.
-                    conditions
-                        .filter((c) => c.system.base === overriddenBase)
-                        .forEach((conditionData) => {
-                            // List of conditions that have been overridden.
-                            const overridden = updates.get(conditionData._id) ?? conditionData;
-                            this.processOverride(overridden, overrider, updates);
-                        });
+                    for (const source of conditions.filter((c) => c.system.base === overriddenBase)) {
+                        // List of conditions that have been overridden.
+                        const overridden = updates.get(source._id) ?? source;
+                        this.processOverride(overridden, overrider, updates);
+                    }
                 }
             });
         }
@@ -266,38 +263,8 @@ export class ConditionManager {
 
         // Update token effects from applied conditions.
         const hudElement = canvas.tokens.hud?.element;
-        const tokens = actor?.getActiveTokens().filter((token) => token.hasActiveHUD) ?? [];
+        const tokens = actor?.getActiveTokens().filter((t) => t.hasActiveHUD) ?? [];
         if (actor && hudElement && tokens.length > 0) await StatusEffects.updateHUD(hudElement, actor);
-    }
-
-    /**
-     * Gets a map of modifiers from a collection of conditions.
-     *
-     * @param conditions A collection of conditions to retrieve modifiers from.
-     * @return A map of PF2Modifiers from the conditions collection.
-     */
-    static getConditionModifiers(conditions: Iterable<ConditionData>): Map<string, Array<ModifierPF2e>> {
-        const conditionModifiers: Map<string, ModifierPF2e[]> = new Map();
-
-        for (const condition of conditions) {
-            for (const modifier of condition.system.modifiers) {
-                if (!conditionModifiers.has(modifier.group)) {
-                    conditionModifiers.set(modifier.group, []);
-                }
-
-                if (condition.system.value.isValued) {
-                    conditionModifiers
-                        .get(modifier.group)
-                        ?.push(new ModifierPF2e(condition.name, -condition.system.value.value, modifier.type));
-                } else {
-                    conditionModifiers
-                        .get(modifier.group)
-                        ?.push(new ModifierPF2e(condition.name, modifier.value ?? 0, modifier.type));
-                }
-            }
-        }
-
-        return conditionModifiers;
     }
 
     /**
@@ -466,7 +433,7 @@ export class ConditionManager {
     static getFlattenedConditions(items: ConditionPF2e[]): FlattenedCondition[] {
         const conditions: Map<string, FlattenedCondition> = new Map();
 
-        items.sort(this.sortCondition).forEach((condition) => {
+        for (const condition of items.sort(this.sortCondition)) {
             // Sorted list of conditions.
             // First by active, then by base (lexicographically), then by value (descending).
 
@@ -489,13 +456,13 @@ export class ConditionManager {
             conditions.set(name, flattened);
 
             // Update any references
-            const conditionData = condition.system;
-            if (conditionData.references.parent) {
-                const refCondition = items.find((other) => other.id === conditionData.references.parent?.id);
+            const systemData = condition.system;
+            if (systemData.references.parent) {
+                const refCondition = items.find((other) => other.id === systemData.references.parent?.id);
 
                 if (refCondition) {
                     const ref: ConditionReference = {
-                        id: conditionData.references.parent,
+                        id: systemData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -514,12 +481,12 @@ export class ConditionManager {
                 }
             }
 
-            conditionData.references.children.forEach((item) => {
-                const refCondition = items.find((other) => other.id === item.id);
+            for (const childRef of systemData.references.children) {
+                const refCondition = items.find((other) => other.id === childRef.id);
 
                 if (refCondition) {
                     const ref: ConditionReference = {
-                        id: conditionData.references.parent,
+                        id: systemData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -535,14 +502,14 @@ export class ConditionManager {
                     flattened.references = true;
                     flattened.children.push(ref);
                 }
-            });
+            }
 
-            conditionData.references.overrides.forEach((item) => {
-                const refCondition = items.find((other) => other.id === item.id);
+            for (const overriddenByRef of systemData.references.overrides) {
+                const refCondition = items.find((other) => other.id === overriddenByRef.id);
 
                 if (refCondition) {
                     const ref = {
-                        id: conditionData.references.parent,
+                        id: systemData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -558,14 +525,14 @@ export class ConditionManager {
                     flattened.references = true;
                     flattened.overrides.push(ref);
                 }
-            });
+            }
 
-            conditionData.references.overriddenBy.forEach((item) => {
-                const refCondition = items.find((other) => other.id === item.id);
+            for (const overriderRef of systemData.references.overriddenBy) {
+                const refCondition = items.find((other) => other.id === overriderRef.id);
 
                 if (refCondition) {
                     const ref = {
-                        id: conditionData.references.parent,
+                        id: systemData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -581,14 +548,14 @@ export class ConditionManager {
                     flattened.references = true;
                     flattened.overriddenBy.push(ref);
                 }
-            });
+            }
 
-            conditionData.references.immunityFrom.forEach((item) => {
-                const refCondition = items.find((other) => other.id === item.id);
+            for (const immuneToRef of systemData.references.immunityFrom) {
+                const refCondition = items.find((other) => other.id === immuneToRef.id);
 
                 if (refCondition) {
                     const ref = {
-                        id: conditionData.references.parent,
+                        id: systemData.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
                         text: "",
@@ -604,8 +571,8 @@ export class ConditionManager {
                     flattened.references = true;
                     flattened.immunityFrom.push(ref);
                 }
-            });
-        });
+            }
+        }
 
         return Array.from(conditions.values());
     }
