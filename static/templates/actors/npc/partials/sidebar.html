@@ -8,7 +8,7 @@
                 <h4>{{localize "PF2E.ArmorClassShortLabel"}}</h4>
             </div>
             <div class="armor-base labelled-field">
-                <input class="armor-value adjustable{{#if ac.adjustedHigher}} adjusted-higher{{else if ac.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="data.attributes.ac.value" value="{{ac.value}}" data-dtype="Number" placeholder="0"/>
+                <input class="armor-value adjustable{{#if ac.adjustedHigher}} adjusted-higher{{else if ac.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="system.attributes.ac.value" value="{{ac.value}}" data-dtype="Number" placeholder="0"/>
             </div>
         </div>
         <div class="side-bar-section-content">
@@ -19,7 +19,7 @@
         {{#if hasHardness}}
             <div class="armor-base labelled-field">
                 <label>{{localize "PF2E.HardnessLabel"}}</label>
-                <input type="number" data-property="data.attributes.hardness.value" value="{{data.attributes.hardness.value}}" placeholder="0" />
+                <input type="number" data-property="system.attributes.hardness.value" value="{{data.attributes.hardness.value}}" placeholder="0" />
             </div>
         {{/if}}
     </div>

@@ -17,26 +17,26 @@
         <div class="title">
             <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}"/>
             <label>{{localize "ACTOR.TypeHazard"}}</label>
-            <input class="level" name="data.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number" placeholder="1" />
+            <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number" placeholder="1" />
         </div>
 
         {{#if editing}}
             <template class="traits-extra">
-                <select class="tag" name="data.traits.rarity" value="{{data.traits.rarity}}" data-dtype="String">
+                <select class="tag" name="system.traits.rarity" value="{{data.traits.rarity}}" data-dtype="String">
                     {{#select data.traits.rarity}}
                         {{#each rarity as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
-                <select class="tag" name="data.details.isComplex" data-dtype="Boolean">
+                <select class="tag" name="system.details.isComplex" data-dtype="Boolean">
                     {{#select data.details.isComplex}}
                         <option value="false">Simple</option>
                         <option value="true">Complex</option>
                     {{/select}}
                 </select>
             </template>
-            <input class="tags paizo-style" name="data.traits.traits.value" value="{{json data.traits.traits.value}}" data-dtype="JSON" />
+            <input class="tags paizo-style" name="system.traits.traits.value" value="{{json data.traits.traits.value}}" data-dtype="JSON" />
         {{else}}
         <div class="tags paizo-style">
             {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}

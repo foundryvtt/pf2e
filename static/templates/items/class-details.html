@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="data.traits.rarity" data-dtype="String">
+    <select name="system.traits.rarity" data-dtype="String">
         {{#select data.traits.rarity}}
             {{#each rarities as |rarity slug|}}
                 <option value="{{slug}}">{{rarity.label}}</option>
@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.HitPointsHeader"}}</label>
-    <input type="number" name="data.hp" min="6" max="12" data-dtype="Number" value="{{data.hp}}">
+    <input type="number" name="system.hp" min="6" max="12" data-dtype="Number" value="{{data.hp}}">
 </div>
 
 
@@ -30,7 +30,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ClassDCLabel"}}</label>
-    <select name="data.classDC" data-dtype="Number">
+    <select name="system.classDC" data-dtype="Number">
         {{#select data.classDC}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -41,7 +41,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.PerceptionLabel"}}</label>
-    <select name="data.perception" data-dtype="Number">
+    <select name="system.perception" data-dtype="Number">
         {{#select data.perception}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -52,7 +52,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SavesFortitude"}}</label>
-    <select name="data.savingThrows.fortitude" data-dtype="Number">
+    <select name="system.savingThrows.fortitude" data-dtype="Number">
         {{#select data.savingThrows.fortitude}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -63,7 +63,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SavesReflex"}}</label>
-    <select name="data.savingThrows.reflex" data-dtype="Number">
+    <select name="system.savingThrows.reflex" data-dtype="Number">
         {{#select data.savingThrows.reflex}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -74,7 +74,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SavesWill"}}</label>
-    <select name="data.savingThrows.will" data-dtype="Number">
+    <select name="system.savingThrows.will" data-dtype="Number">
         {{#select data.savingThrows.will}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -85,7 +85,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeSimple"}}</label>
-    <select name="data.attacks.simple" data-dtype="Number">
+    <select name="system.attacks.simple" data-dtype="Number">
         {{#select data.attacks.simple}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -96,7 +96,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeMartial"}}</label>
-    <select name="data.attacks.martial" data-dtype="Number">
+    <select name="system.attacks.martial" data-dtype="Number">
         {{#select data.attacks.martial}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -107,7 +107,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeAdvanced"}}</label>
-    <select name="data.attacks.advanced" data-dtype="Number">
+    <select name="system.attacks.advanced" data-dtype="Number">
         {{#select data.attacks.advanced}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -118,7 +118,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeUnarmed"}}</label>
-    <select name="data.attacks.unarmed" data-dtype="Number">
+    <select name="system.attacks.unarmed" data-dtype="Number">
         {{#select data.attacks.unarmed}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -129,8 +129,8 @@
 
 <div class="form-group other-weapons">
     <label>{{localize "PF2E.WeaponTypeSpecial"}}</label>
-    <input type="text" name="data.attacks.other.name" data-dtype="String" value="{{data.attacks.other.name}}">
-    <select name="data.attacks.other.rank" data-dtype="Number">
+    <input type="text" name="system.attacks.other.name" data-dtype="String" value="{{data.attacks.other.name}}">
+    <select name="system.attacks.other.rank" data-dtype="Number">
         {{#select data.attacks.other.rank}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -141,7 +141,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeUnarmored"}}</label>
-    <select name="data.defenses.unarmored" data-dtype="Number">
+    <select name="system.defenses.unarmored" data-dtype="Number">
         {{#select data.defenses.unarmored}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -152,7 +152,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeLight"}}</label>
-    <select name="data.defenses.light" data-dtype="Number">
+    <select name="system.defenses.light" data-dtype="Number">
         {{#select data.defenses.light}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -163,7 +163,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeMedium"}}</label>
-    <select name="data.defenses.medium" data-dtype="Number">
+    <select name="system.defenses.medium" data-dtype="Number">
         {{#select data.defenses.medium}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -175,7 +175,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeHeavy"}}</label>
-    <select name="data.defenses.heavy" data-dtype="Number">
+    <select name="system.defenses.heavy" data-dtype="Number">
         {{#select data.defenses.heavy}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -201,7 +201,7 @@
 
 <div class="form-group additional-language">
     <label>{{localize "PF2E.AdditionalSkills"}}</label>
-    <input type="number" name="data.trainedSkills.additional" data-dtype="Number" value="{{data.trainedSkills.additional}}">
+    <input type="number" name="system.trainedSkills.additional" data-dtype="Number" value="{{data.trainedSkills.additional}}">
     <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
 </div>
 
@@ -279,10 +279,10 @@
         <div class="name">
             {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
         </div>
-        <input type="number" class="level" value="{{item.level}}" name="data.items.{{i}}.level" />
-        <input value="{{item.name}}" name="data.items.{{i}}.name" type="hidden" data-dtype="String" />
-        <input value="{{item.pack}}" name="data.items.{{i}}.pack" type="hidden" data-dtype="String" />
-        <input value="{{item.id}}" name="data.items.{{i}}.id" type="hidden" data-dtype="String" />
+        <input type="number" class="level" value="{{item.level}}" name="system.items.{{i}}.level" />
+        <input value="{{item.name}}" name="system.items.{{i}}.name" type="hidden" data-dtype="String" />
+        <input value="{{item.pack}}" name="system.items.{{i}}.pack" type="hidden" data-dtype="String" />
+        <input value="{{item.id}}" name="system.items.{{i}}.id" type="hidden" data-dtype="String" />
         <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}

@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.ConsumableTypeLabel"}}</label>
-    <select name="data.consumableType.value" data-dtype="String">
+    <select name="system.consumableType.value" data-dtype="String">
         {{#select data.consumableType.value}}
             {{#each consumableTypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
@@ -11,17 +11,17 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ConsumableConsumeLabel"}}</label>
-    <input type="text" name="data.consume.value" value="{{data.consume.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+    <input type="text" name="system.consume.value" value="{{data.consume.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.ConsumableAutoUseLabel"}}</label>
-    <input type="checkbox" name="data.autoUse.value" data-dtype="Boolean" {{checked data.autoUse.value}}/>
+    <input type="checkbox" name="system.autoUse.value" data-dtype="Boolean" {{checked data.autoUse.value}}/>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.ConsumableAutoDestroyLabel"}}</label>
-    <input type="checkbox" name="data.autoDestroy.value" data-dtype="Boolean" {{checked data.autoDestroy.value}}/>
+    <input type="checkbox" name="system.autoDestroy.value" data-dtype="Boolean" {{checked data.autoDestroy.value}}/>
 </div>
 
 <div class="form-group-stacked">

@@ -3,7 +3,7 @@
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity">
+        <select name="system.traits.rarity">
             {{#select data.traits.rarity}}
                 {{#each rarity as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
@@ -14,7 +14,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="data.weight.value">
+        <select name="system.weight.value">
             {{#select data.weight.value}}
                 <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
                 {{#each bulkTypes as |name type|}}
@@ -26,7 +26,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
-        <select name="data.equippedBulk.value" {{disabled bulkDisabled}}>
+        <select name="system.equippedBulk.value" {{disabled bulkDisabled}}>
             {{#select data.equippedBulk.value}}
                 <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
                 <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
@@ -39,6 +39,6 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{priceString}}" />
+        <input type="text" name="system.price.value" value="{{priceString}}" />
     </div>
 </div>
