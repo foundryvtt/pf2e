@@ -91,6 +91,7 @@ declare global {
         tokens: TToken["layer"];
         walls: WallsLayer;
 
+        interface: InterfaceCanvasGroup;
         /**
          * Initialize the Canvas by creating the HTML element and PIXI application.
          * This step should only ever be performed once per client session.

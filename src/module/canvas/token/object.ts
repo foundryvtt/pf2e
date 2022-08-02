@@ -1,6 +1,6 @@
 import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene";
-import { measureDistanceRect, TokenLayerPF2e } from "..";
+import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
@@ -199,7 +199,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Emit floaty text from this tokens */
     async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
-        const scrollingTextArgs = ((): Parameters<ObjectHUD<TokenPF2e>["createScrollingText"]> | null => {
+        const scrollingTextArgs = ((): Parameters<CanvasPF2e["interface"]["createScrollingText"]> | null => {
             if (typeof params === "number") {
                 const quantity = params;
                 const maxHP = this.actor?.hitPoints?.max;
@@ -211,14 +211,17 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     healing: 65280, // greenish
                 };
                 return [
+                    this.center,
                     params.signedString(),
                     {
                         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
                         jitter: 0.25,
-                        fill: textColors[quantity < 0 ? "damage" : "healing"],
-                        fontSize: 16 + 32 * percent, // Range between [16, 48]
-                        stroke: 0x000000,
-                        strokeThickness: 4,
+                        textStyle: {
+                            fill: textColors[quantity < 0 ? "damage" : "healing"],
+                            fontSize: 16 + 32 * percent, // Range between [16, 48]
+                            stroke: 0x000000,
+                            strokeThickness: 4,
+                        },
                     },
                 ];
             } else {
@@ -229,15 +232,18 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const content = `${sign}${details.name}${appendedNumber}`;
 
                 return [
+                    this.center,
                     content,
                     {
                         anchor: change === "create" ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
                         direction: isAdded ? 2 : 1,
                         jitter: 0.25,
-                        fill: "white",
-                        fontSize: 28,
-                        stroke: 0x000000,
-                        strokeThickness: 4,
+                        textStyle: {
+                            fill: "white",
+                            fontSize: 28,
+                            stroke: 0x000000,
+                            strokeThickness: 4,
+                        },
                     },
                 ];
             }
@@ -245,7 +251,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!scrollingTextArgs) return;
 
         await this.drawLock;
-        await this.hud?.createScrollingText(...scrollingTextArgs);
+        await canvas.interface?.createScrollingText(...scrollingTextArgs);
     }
 
     /**
@@ -334,11 +340,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         userId: string
     ): void {
         if (!this.document.isLinked) {
-            const { width, height, scale, img } = this.data;
+            const source = this.document.toObject();
+            const { width, height, scale, img } = source;
             this.document.prepareData();
             // If any of the following changed, a full redraw should be performed
-            const { data } = this;
-            const postChange = { width: data.width, height: data.height, scale: data.scale, img: data.img };
+            const postChange = { width: source.width, height: source.height, scale: source.scale, img: source.img };
             mergeObject(changed, diffObject({ width, height, scale, img }, postChange));
 
             // If an aura is newly present or removed, redraw effects

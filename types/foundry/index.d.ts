@@ -84,6 +84,7 @@ import "./client/pixi/helpers/point-source";
 import "./client/pixi/helpers/point-source-polygon";
 import "./client/pixi/mask-filter/base";
 import "./client/pixi/mask-filter/inverse-occlusion-mask-filter";
+import "./client/pixi/interface-canvas-group";
 import "./client/pixi/mouse-interaction-manager";
 import "./client/pixi/perception-manager";
 import "./client/pixi/placeable-object/ambient-light";

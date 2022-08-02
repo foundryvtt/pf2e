@@ -293,7 +293,7 @@ export class StatusEffects {
                 }
             } else {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
-                newCondition.data.sources.hud = true;
+                newCondition.system.sources.hud = true;
                 await game.pf2e.ConditionManager.addConditionToToken(newCondition, this);
             }
         }
@@ -338,7 +338,7 @@ export class StatusEffects {
         } else if (event.type === "click") {
             if (!condition && slug) {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
-                newCondition.data.sources.hud = true;
+                newCondition.system.sources.hud = true;
                 this.statusEffectChanged = true;
 
                 await game.pf2e.ConditionManager.addConditionToToken(newCondition, this);
