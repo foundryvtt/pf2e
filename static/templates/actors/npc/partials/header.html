@@ -3,7 +3,7 @@
         <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" spellcheck="false" />
         <label class="level-label">{{localize "PF2E.NPC.Creature"}}</label>
         {{#with data.details.level as |level|}}
-            <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="data.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
+            <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="system.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
         {{/with}}
     </div>
     <div class="flexrow" style="justify-content: space-between; width: 100%;">

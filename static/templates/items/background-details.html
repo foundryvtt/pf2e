@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="data.traits.rarity" data-dtype="String">
+    <select name="system.traits.rarity" data-dtype="String">
         {{#select data.traits.rarity}}
             {{#each rarities}}
                 <option value="{{@key}}">{{localize this.label}}</option>
@@ -41,7 +41,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.Lore"}}</label>
-    <input type="text" name="data.trainedLore" value="{{data.trainedLore}}" data-dtype="String" />
+    <input type="text" name="system.trainedLore" value="{{data.trainedLore}}" data-dtype="String" />
 </div>
 
 {{~#*inline "abcItems"~}}

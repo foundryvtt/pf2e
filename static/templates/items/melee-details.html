@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.NPCWeaponAttackLabel"}}</label>
-    <input type="number" name="data.bonus.value" value="{{data.bonus.value}}" data-dtype="Number"/>
+    <input type="number" name="system.bonus.value" value="{{data.bonus.value}}" data-dtype="Number"/>
 </div>
 
 <ol class="form-list">
@@ -9,11 +9,11 @@
             <li class="damage-part flexrow" data-damage-part="{{did}}">
                 <div class="form-group">
                     <label>{{localize "PF2E.DamageLabel"}}</label>
-                    <input type="text" name="data.damageRolls.{{did}}.damage" value="{{lookup this "damage"}}" data-dtype="String" style="margin-right:5px"/>
+                    <input type="text" name="system.damageRolls.{{did}}.damage" value="{{lookup this "damage"}}" data-dtype="String" style="margin-right:5px"/>
                 </div>
                 <div class="form-group">
                     <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
-                    <select name="data.damageRolls.{{did}}.damageType" data-dtype="String">
+                    <select name="system.damageRolls.{{did}}.damageType" data-dtype="String">
                         {{#select (lookup this "damageType")}}
                             {{#each @root.damageTypes as |label type|}}
                                 <option value="{{type}}">{{localize label}}</option>

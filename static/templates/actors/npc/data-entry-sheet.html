@@ -13,11 +13,11 @@
     </div>
     <div class="form-group">
         <label for="{{app.id}}-level">Level</label>
-        <input id="{{app.id}}-level" name="data.details.level.value" type="number" data-dtype="Number" value="{{actor.data.details.level.value}}" tabindex="2">
+        <input id="{{app.id}}-level" name="system.details.level.value" type="number" data-dtype="Number" value="{{actor.data.details.level.value}}" tabindex="2">
     </div>
     <div class="form-group">
         <label for="{{app.id}}-rarity">Rarity</label>
-        <select id="{{app.id}}-rarity" name="data.traits.rarity" data-dtype="String" tabindex="3">
+        <select id="{{app.id}}-rarity" name="system.traits.rarity" data-dtype="String" tabindex="3">
             {{#select data.traits.rarity}}
             {{#each dataset.rarity as |label rarity|}}
             <option value="{{rarity}}">{{label}}</option>
@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
         <label for="{{app.id}}-alignment">Alignment</label>
-        <select id="{{app.id}}-alignment" name="data.details.alignment.value" data-dtype="String" tabindex="4">
+        <select id="{{app.id}}-alignment" name="system.details.alignment.value" data-dtype="String" tabindex="4">
             {{#select data.details.alignment.value}}
             {{#each dataset.alignment as |label alignment|}}
             <option value="{{alignment}}">{{label}}</option>
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
         <label for="{{app.id}}-size">Size</label>
-        <select id="{{app.id}}-size" name="data.traits.size.value" data-dtype="String" tabindex="5">
+        <select id="{{app.id}}-size" name="system.traits.size.value" data-dtype="String" tabindex="5">
             {{#select data.traits.size.value}}
             {{#each dataset.size as |label size|}}
             <option value="{{size}}">{{label}}</option>
@@ -62,6 +62,6 @@
     {{/if}}
     <div class="form-group">
         <label for="{{app.id}}-perception">Perception</label>
-        <input id="{{app.id}}-perception" name="data.attributes.perception.value" type="number" data-dtype="Number" value="{{actor.data.attributes.perception.value}}" tabindex="7">
+        <input id="{{app.id}}-perception" name="system.attributes.perception.value" type="number" data-dtype="Number" value="{{actor.data.attributes.perception.value}}" tabindex="7">
     </div>
 </form>

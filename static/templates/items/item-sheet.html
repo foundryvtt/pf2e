@@ -10,7 +10,7 @@
             <span class="level">
                 {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                 <span>{{itemType}}</span>
-                <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if isPhysical}}data-property="data.level.value"{{else}}name="data.level.value"{{/if}} value="{{data.level.value}}" />
+                <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if isPhysical}}data-property="system.level.value"{{else}}name="system.level.value"{{/if}} value="{{data.level.value}}" />
             </span>
         {{/if}}
     </header>
@@ -53,7 +53,7 @@
             <!-- Item Description -->
             <div class="tab item-description" data-tab="description">
                 {{#if (not isVariant)}}
-                    {{editor content=(enrichHTML data.description.value item=document) target="data.description.value" button=true owner=owner editable=editable}}
+                    {{editor content=(enrichHTML data.description.value item=document) target="system.description.value" button=true owner=owner editable=editable}}
                 {{else}}
                     {{{enrichHTML data.description.value}}}
                 {{/if}}
@@ -65,7 +65,7 @@
                     {{> (detailsTemplate)}}
                     <div class="form-group">
                         <label>{{localize "PF2E.Source.Label"}}</label>
-                        <input type="text" name="data.source.value" value="{{data.source.value}}" />
+                        <input type="text" name="system.source.value" value="{{data.source.value}}" />
                     </div>
                 </div>
             {{/if}}

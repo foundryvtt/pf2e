@@ -9,14 +9,14 @@
                 <div class="section-header">
                     <h3>
                         {{localize "PF2E.Check.DC.Specific.stealth"}}
-                        <input type="text" value="{{stealthDC}}" data-value="{{stealthDC}}" data-property="data.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                        <input type="text" value="{{stealthDC}}" data-value="{{stealthDC}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
                     </h3>
                     <div class="controls">
                         <a data-action="edit-section"><i class="fas fa-edit"></i></a>
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor content=(enrichHTML data.attributes.stealth.details) target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
+                    {{editor (enrichHTML data.attributes.stealth.details) target="system.attributes.stealth.details" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor content=(enrichHTML data.details.description) target="data.details.description" button=true owner=owner editable=editable}}
+                    {{editor (enrichHTML data.details.description) target="system.details.description" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor content=(enrichHTML data.details.disable) target="data.details.disable" button=true owner=owner editable=editable}}
+                    {{editor (enrichHTML data.details.disable) target="system.details.disable" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor content=(enrichHTML data.details.routine) target="data.details.routine" button=true owner=owner editable=editable}}
+                    {{editor (enrichHTML data.details.routine) target="system.details.routine" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor content=(enrichHTML data.details.reset) target="data.details.reset" button=true owner=owner editable=editable}}
+                    {{editor (enrichHTML data.details.reset) target="system.details.reset" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -174,9 +174,9 @@
             <div class="source section-container headerless">
                 <div class="section-body flexrow">
                     <label>{{localize "PF2E.Source.Label"}}:</label>
-                    <input class="source-input" name="data.source.value" type="text" value="{{data.source.value}}" placeholder="{{localize "PF2E.Source.SourcePlaceholder"}}" />
+                    <input class="source-input" name="system.source.value" type="text" value="{{data.source.value}}" placeholder="{{localize "PF2E.Source.SourcePlaceholder"}}" />
                     <label>{{localize "PF2E.Source.AuthorLabel"}}:</label>
-                    <input name="data.source.author"  type="text" value="{{data.source.author}}" placeholder="{{localize "PF2E.Source.AuthorPlaceholder"}}" />
+                    <input name="system.source.author"  type="text" value="{{data.source.author}}" placeholder="{{localize "PF2E.Source.AuthorPlaceholder"}}" />
                 </div>
             </div>
         </section>

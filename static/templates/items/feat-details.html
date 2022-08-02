@@ -1,14 +1,14 @@
 <div class="form-group">
     <label>{{localize "PF2E.ActionActionsLabel"}}</label>
     <div class="details-container-flex-row">
-        <select name="data.actionType.value" data-dtype="String">
+        <select name="system.actionType.value" data-dtype="String">
             {{#select data.actionType.value}}
                 {{#each actionTypes as |name type|}}
                     <option value="{{type}}">{{localize name}}</option>
                 {{/each}}
             {{/select}}
         </select>
-        <select name="data.actions.value" data-dtype="Number">
+        <select name="system.actions.value" data-dtype="Number">
             {{#select data.actions.value}}
                 <option value=""></option>
                 {{#each actionsNumber as |name type|}}
@@ -23,9 +23,9 @@
     <label>{{localize "PF2E.Frequency.Label"}}</label>
     {{#if data.frequency}}
         <div class="frequency">
-            <input type="number" name="data.frequency.max" value="{{data.frequency.max}}" />
+            <input type="number" name="system.frequency.max" value="{{data.frequency.max}}" />
             <span>{{localize "PF2E.Frequency.per"}}</span>
-            <select name="data.frequency.per">
+            <select name="system.frequency.per">
                 {{#select data.frequency.per}}
                     {{#each @root.frequencies as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
@@ -44,7 +44,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
-    <select name="data.actionCategory.value">
+    <select name="system.actionCategory.value">
         {{#select data.actionCategory.value}}
             <option value=""></option>
             {{#each categories as |name type|}}
@@ -57,7 +57,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
         <div class="details-container-flex-row">
-            <select name="data.maxTakable" data-dtype="Number" {{disabled mandatoryTakeOnce}}>
+            <select name="system.maxTakable" data-dtype="Number" {{disabled mandatoryTakeOnce}}>
                 {{#select data.maxTakable}}
                     <option value="1">{{localize "No"}}</option>
                     <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
@@ -67,17 +67,17 @@
                     <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
                 {{/select}}
             </select>
-            {{#if mandatoryTakeOnce}}<input type="hidden" name="data.maxTakable" value="1" data-dtype="Number" />{{/if}}
+            {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
         </div>
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
-        <input type="checkbox" name="data.onlyLevel1" {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}} />
+        <input type="checkbox" name="system.onlyLevel1" {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}} />
     </div>
 {{/if}}
 <div class="form-group-stacked tags">
     <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
-    <input class="item-tagify" type="text" name="data.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
+    <input class="item-tagify" type="text" name="system.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
 </div>
 <div class="form-group-stacked">
     <label>

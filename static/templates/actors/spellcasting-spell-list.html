@@ -15,22 +15,22 @@
                         {{else if (and entry.isFocusPool (not (eq @root.actor.type "character"))) }}
                             <div class="focus-pool-input">
                                 <span class="spell-slots-input">
-                                    <input type="number" name="data.resources.focus.value" value="{{@root.data.resources.focus.value}}" title="{{localize "PF2E.Focus.pointTitle"}}" placeholder="0" />
+                                    <input type="number" name="system.resources.focus.value" value="{{@root.data.resources.focus.value}}" title="{{localize "PF2E.Focus.pointTitle"}}" placeholder="0" />
                                 </span>
                                 <span class="slash"> / </span>
                                 <span class="spell-max-input">
-                                    <input type="number" name="data.resources.focus.max" value="{{@root.data.resources.focus.max}}" title="{{localize "PF2E.Focus.poolTitle"}}" placeholder="0" />
+                                    <input type="number" name="system.resources.focus.max" value="{{@root.data.resources.focus.max}}" title="{{localize "PF2E.Focus.poolTitle"}}" placeholder="0" />
                                 </span>
                             </div>
                         {{else if (and section.uses (not entry.isFocusPool))}}
                             {{#if section.uses.value includeZero=true}}
                                 <span class="spell-slots-input">
-                                    <input type="number" data-item-id="{{entry.id}}" data-item-property="data.slots.slot{{section.level}}.value" value="{{section.uses.value}}" placeholder="0" />
+                                    <input type="number" data-item-id="{{entry.id}}" data-item-property="system.slots.slot{{section.level}}.value" value="{{section.uses.value}}" placeholder="0" />
                                 </span>
                                 <span class="slash"> / </span>
                             {{/if}}
                             <span class="spell-max-input">
-                                <input type="number" data-item-id="{{entry.id}}" data-item-property="data.slots.slot{{section.level}}.max" value="{{section.uses.max}}" placeholder="0" />
+                                <input type="number" data-item-id="{{entry.id}}" data-item-property="system.slots.slot{{section.level}}.max" value="{{section.uses.max}}" placeholder="0" />
                             </span>
                             {{#if section.uses.value includeZero=true}}
                                 {{#if @root.options.editable}}
@@ -89,11 +89,11 @@
                                 {{else if uses}}
                                     <div class="uses">
                                         <span class="spell-slots-input">
-                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.value" value="{{uses.value}}" placeholder="0" />
+                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="system.location.uses.value" value="{{uses.value}}" placeholder="0" />
                                         </span>
                                         <span class="slash"> / </span>
                                         <span class="spell-max-input">
-                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.max" value="{{uses.max}}" placeholder="0" />
+                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="system.location.uses.max" value="{{uses.max}}" placeholder="0" />
                                         </span>
                                         <a class="spell-slots-increment-reset" data-item-id="{{spell.id}}"><i class="fas fa-redo"></i></a>
                                     </div>

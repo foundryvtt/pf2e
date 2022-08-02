@@ -47,7 +47,7 @@
                     {{#each data.abilities as |ability id|}}
                         <div class="labelled-field" data-attribute="{{id}}">
                             <label class="rollable"><a>{{ ability.localizedCode }}</a></label>
-                            <input class="modifier" type="text" data-property="data.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
+                            <input class="modifier" type="text" data-property="system.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
                         </div>
                     {{/each}}
                 </div>
@@ -62,11 +62,11 @@
                 <div class="perception labelled-field" data-attribute="perception">
                     <label class="attribute-label rollable"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
                     {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
+                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="system.attributes.perception.value" data-dtype="Number" placeholder="0" />
                     {{/with}}
                 </div>
                 {{# if options.editable}}
-                    <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize "PF2E.SpecialSensesLabel"}}" />
+                    <input name="system.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize "PF2E.SpecialSensesLabel"}}" />
                 {{else}}
                     <span>{{data.traits.senses.value}}</span>
                 {{/if}}
