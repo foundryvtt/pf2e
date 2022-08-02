@@ -59,7 +59,7 @@ class EffectPF2e extends ItemPF2e {
 
     /** Does this effect originate from an aura? */
     get fromAura(): boolean {
-        return !!this.data.flags.pf2e.aura;
+        return !!this.flags.pf2e.aura;
     }
 
     override prepareBaseData(): void {

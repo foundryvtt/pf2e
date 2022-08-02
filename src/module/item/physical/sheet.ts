@@ -18,7 +18,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
-            basePriceString: new CoinsPF2e(this.item.data._source.data.price.value).toString(),
+            basePriceString: new CoinsPF2e(this.item._source.data.price.value).toString(),
             priceString: this.item.price.value.toString(),
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
@@ -43,7 +43,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             if (value !== undefined && !Array.isArray(value)) {
                 $input.attr("data-value", value);
             }
-            const baseValue = $input.attr("data-value-base") ?? getProperty(this.item.data._source, propertyPath);
+            const baseValue = $input.attr("data-value-base") ?? getProperty(this.item._source, propertyPath);
             $input.val(baseValue).attr({ name: propertyPath });
         });
 

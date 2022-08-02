@@ -20,7 +20,7 @@ import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
-import { NPCData, NPCSource, NPCStrike } from "./data";
+import { NPCData, NPCFlags, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { StrikeAttackTraits } from "./strike-attack-traits";
 import { VariantCloneParams } from "./types";
@@ -64,7 +64,7 @@ class NPCPF2e extends CreaturePF2e {
 
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return this.isDead && (npcsAreLootable || this.data.flags.pf2e.lootable);
+        return this.isDead && (npcsAreLootable || this.flags.pf2e.lootable);
     }
 
     /** Grant all users at least limited permission on dead NPCs */
@@ -956,7 +956,7 @@ class NPCPF2e extends CreaturePF2e {
     variantClone(params: VariantCloneParams & { save: true }): Promise<this>;
     variantClone(params: VariantCloneParams): this | Promise<this>;
     variantClone(params: VariantCloneParams): this | Promise<this> {
-        const source = this.data._source;
+        const source = this._source;
         const changes: DeepPartial<NPCSource> = {
             name: params.name ?? this.name,
             data: {
@@ -972,6 +972,8 @@ class NPCPF2e extends CreaturePF2e {
 
 interface NPCPF2e {
     readonly data: NPCData;
+
+    flags: NPCFlags;
 
     _sheet: NPCSheetPF2e<this> | null;
 

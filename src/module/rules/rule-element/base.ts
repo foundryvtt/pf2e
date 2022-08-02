@@ -5,7 +5,7 @@ import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
 import { BracketedValue, RuleElementSource, RuleElementData, RuleValue } from "./data";
-import { isObject, sluggify } from "@util";
+import { isObject, sluggify, tupleHasValue } from "@util";
 import { CheckRoll } from "@system/check/roll";
 import { ItemSourcePF2e } from "@item/data";
 
@@ -42,8 +42,7 @@ abstract class RuleElementPF2e {
         this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
         this.suppressWarnings = options.suppressWarnings ?? false;
 
-        const validActorType = this.constructor.validActorTypes.includes(item.actor.data.type);
-
+        const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
         if (!validActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
@@ -178,14 +177,14 @@ abstract class RuleElementPF2e {
 
             return source;
         } else if (typeof source === "string") {
-            const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
-                actor: this.actor,
-                item: this.item,
-                rule: this,
-            };
-
             return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-                const value = getProperty(objects[key]?.data ?? this.item.data, prop);
+                const data =
+                    key === "rule"
+                        ? this.data
+                        : key === "actor" || key === "item"
+                        ? { ...this[key], data: this[key].system }
+                        : { ...this.item, data: this.item.system };
+                const value = getProperty(data, prop);
                 if (value === undefined) {
                     this.failValidation("Failed to resolve injected property");
                 }
@@ -228,18 +227,22 @@ abstract class RuleElementPF2e {
                 const field = String(valueData.field);
                 const separator = field.indexOf("|");
                 const source = field.substring(0, separator);
+                const { actor, item } = this;
+
                 switch (source) {
                     case "actor": {
-                        return Number(getProperty(this.actor.data, field.substring(separator + 1))) || 0;
+                        return (
+                            Number(getProperty({ ...actor, data: actor.system }, field.substring(separator + 1))) || 0
+                        );
                     }
                     case "item": {
-                        return Number(getProperty(this.item.data, field.substring(separator + 1))) || 0;
+                        return Number(getProperty({ ...item, data: item.system }, field.substring(separator + 1))) || 0;
                     }
                     case "rule": {
                         return Number(getProperty(this.data, field.substring(separator + 1))) || 0;
                     }
                     default:
-                        return Number(getProperty(this.actor.data, field.substring(0))) || 0;
+                        return Number(getProperty({ ...actor, data: actor.system }, field.substring(0))) || 0;
                 }
             })();
             const brackets = valueData?.brackets ?? [];

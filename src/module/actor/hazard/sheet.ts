@@ -162,7 +162,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue: number = getProperty(this.actor.data._source, propertyPath);
+            const baseValue: number = getProperty(this.actor._source, propertyPath);
             $input.val(baseValue).attr({ name: propertyPath });
         });
 

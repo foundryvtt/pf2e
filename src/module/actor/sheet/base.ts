@@ -67,11 +67,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // The Actor and its Items
         const actorData = this.actor.toObject(false) as RawObject<ActorDataPF2e>;
 
-        const items = deepClone(
-            this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0))
-        );
-        (actorData as { items: unknown }).items = items;
-
         // Calculate financial and total wealth
         const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
@@ -111,7 +106,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             actor: actorData,
             data: actorData.system,
             effects: [],
-            items: items,
+            items: actorData.items,
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             immunities,

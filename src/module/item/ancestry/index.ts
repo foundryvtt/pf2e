@@ -46,7 +46,7 @@ class AncestryPF2e extends ABCItemPF2e {
 
     /** Toggle between voluntary flaws being on or off */
     async toggleVoluntaryFlaw(): Promise<void> {
-        if (this.data._source.data.voluntary) {
+        if (this._source.data.voluntary) {
             await this.update({ "data.-=voluntary": null });
         } else {
             await this.update({ "data.voluntary": { boost: null, flaws: [] } });
@@ -78,19 +78,17 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         actor.ancestry = this;
-        const actorData = actor.data;
-        const systemData = actorData.data;
 
-        systemData.attributes.ancestryhp = this.hitPoints;
-        this.logAutoChange("data.attributes.ancestryhp", this.hitPoints);
+        actor.system.attributes.ancestryhp = this.hitPoints;
+        this.logAutoChange("system.attributes.ancestryhp", this.hitPoints);
 
-        systemData.traits.size.value = this.size;
-        this.logAutoChange("data.traits.size.value", this.size);
+        actor.system.traits.size.value = this.size;
+        this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];
-        systemData.attributes.reach = { general: reach, manipulate: reach };
+        actor.system.attributes.reach = { general: reach, manipulate: reach };
 
-        systemData.attributes.speed.value = String(this.speed);
+        actor.system.attributes.speed.value = String(this.speed);
 
         // Add ability boosts and flaws
         const { build } = actor.system;
@@ -112,13 +110,13 @@ class AncestryPF2e extends ABCItemPF2e {
         // Add languages
         const innateLanguages = this.system.languages.value;
         for (const language of innateLanguages) {
-            if (!systemData.traits.languages.value.includes(language)) {
-                systemData.traits.languages.value.push(language);
+            if (!actor.system.traits.languages.value.includes(language)) {
+                actor.system.traits.languages.value.push(language);
             }
         }
 
         // Add low-light vision or darkvision if the ancestry includes it
-        const { senses } = systemData.traits;
+        const { senses } = actor.system.traits;
         const { vision } = this.system;
         if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
             senses.push(new CreatureSensePF2e({ type: vision, value: "", source: this.name }));
@@ -127,10 +125,10 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         // Add traits from this item
-        systemData.traits.traits.value.push(...this.traits);
+        actor.system.traits.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
-        systemData.details.ancestry = { name: this.name, trait: slug };
+        actor.system.details.ancestry = { name: this.name, trait: slug };
 
         // Set self: roll option for this ancestry and its associated traits
         actor.rollOptions.all[`self:ancestry:${slug}`] = true;

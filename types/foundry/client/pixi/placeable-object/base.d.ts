@@ -130,13 +130,13 @@ declare global {
         override destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
         /** Draw the placeable object into its parent container */
-        abstract draw(): Promise<this>;
+        draw(): Promise<this>;
 
         /**
          * Refresh the current display state of the Placeable Object
          * @return The refreshed object
          */
-        abstract refresh(): this;
+        refresh(): this;
 
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
         _onCreate(

@@ -232,6 +232,7 @@ export {
     NPCAttributes,
     NPCAttributesSource,
     NPCData,
+    NPCFlags,
     NPCHitPoints,
     NPCPerception,
     NPCSaveData,

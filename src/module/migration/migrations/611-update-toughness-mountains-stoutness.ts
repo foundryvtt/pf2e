@@ -34,7 +34,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
             if (!(newFeat instanceof FeatPF2e)) {
                 throw Error("PF2E System | Expected item not found in Compendium");
             }
-            newFeat.data._source.system.location = oldFeatData.system.location;
+            newFeat._source.system.location = oldFeatData.system.location;
             const oldFeatIndex = actorData.items.indexOf(oldFeatData);
             actorData.items.splice(oldFeatIndex, 1, newFeat.toObject());
         }

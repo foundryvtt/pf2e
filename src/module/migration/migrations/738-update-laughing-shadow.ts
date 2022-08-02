@@ -23,12 +23,12 @@ export class Migration738UpdateLaughingShadow extends MigrationBase {
         if (source.type === "feat" && source.system.slug === "laughing-shadow") {
             const laughingShadow = await this.#shadowPromise;
             if (!(laughingShadow instanceof ItemPF2e)) return;
-            source.system.rules = deepClone(laughingShadow.data._source.system.rules);
+            source.system.rules = deepClone(laughingShadow._source.system.rules);
         } else if (source.type === "effect" && source.system.slug === "stance-arcane-cascade") {
             const arcaneCascade = await this.#cascadePromise;
             if (!(arcaneCascade instanceof ItemPF2e)) return;
 
-            const newRules = deepClone(arcaneCascade.data._source.system.rules);
+            const newRules = deepClone(arcaneCascade._source.system.rules);
 
             // Retrieve the ChoiceSet selection if one has been made
             const withSelection = source.system.rules.find(

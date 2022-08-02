@@ -355,7 +355,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const translations = LocalizePF2e.translations.PF2E;
         const baseWeapons = translations.Weapon.Base;
 
-        const storedName = this.data._source.name;
+        const storedName = this._source.name;
         if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.data.name;
 
         const systemData = this.system;
@@ -405,7 +405,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     override getMystifiedData(status: IdentificationStatus, { source = false } = {}): MystifiedData {
         const mystifiedData = super.getMystifiedData(status);
-        if (source) mystifiedData.name = this.data._source.name;
+        if (source) mystifiedData.name = this._source.name;
         return mystifiedData;
     }
 
@@ -461,7 +461,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
     private toMeleeUsage(): this | null {
         const { meleeUsage } = this.system;
-        if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
+        if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
 
         const overlay: DeepPartial<WeaponSource> = {
             data: {
@@ -573,7 +573,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         };
 
         const source: PreCreate<MeleeSource> = {
-            name: this.data._source.name,
+            name: this._source.name,
             type: "melee",
             data: {
                 weaponType: { value: this.isMelee ? "melee" : "ranged" },
@@ -590,7 +590,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 traits: {
                     value: toAttackTraits(this.system.traits.value),
                 },
-                rules: deepClone(this.data._source.data.rules),
+                rules: deepClone(this._source.data.rules),
             },
             flags: { pf2e: { linkedWeapon: this.id } },
         };

@@ -28,7 +28,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     const speaker = ChatMessagePF2e.getSpeaker({ actor: actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        const existingEffect = actor.itemTypes.effect.find((e) => e.data.flags.core?.sourceId === ITEM_UUID);
+        const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
         if (existingEffect) {
             await existingEffect.delete();
             return false;

@@ -54,12 +54,6 @@ declare global {
          */
         get hidden(): boolean;
 
-        /**
-         * The displayed name for the Combatant is based off its own configured data, or the data of its represented
-         * Token.
-         */
-        get name(): string;
-
         /** A reference to the Actor document which this Combatant represents, if any */
         get actor(): TActor;
 

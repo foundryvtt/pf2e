@@ -84,7 +84,7 @@ const source = (await fromUuid(ITEM_UUID)).toObject();
 source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
 
 for (const actor of actors) {
-    const existing = actor.itemTypes.effect.find((e) => e.data.flags.core?.sourceId === ITEM_UUID);
+    const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
         await existing.delete();
     } else {

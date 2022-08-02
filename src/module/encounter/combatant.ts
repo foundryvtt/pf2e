@@ -16,7 +16,7 @@ class CombatantPF2e<
 
     /** The round this combatant last had a turn */
     get roundOfLastTurn(): number | null {
-        return this.data.flags.pf2e.roundOfLastTurn;
+        return this.flags.pf2e.roundOfLastTurn;
     }
 
     /** Can the user see this combatant's name? */
@@ -25,7 +25,7 @@ class CombatantPF2e<
     }
 
     overridePriority(initiative: number): number | null {
-        return this.data.flags.pf2e.overridePriority[initiative] ?? null;
+        return this.flags.pf2e.overridePriority[initiative] ?? null;
     }
 
     hasHigherInitiative(
@@ -42,8 +42,8 @@ class CombatantPF2e<
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { overridePriority: {} });
-        this.data.flags.pf2e.roundOfLastTurn ??= null;
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
+        this.flags.pf2e.roundOfLastTurn ??= null;
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
@@ -133,16 +133,15 @@ interface CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TActor extends ActorPF2e | null = ActorPF2e | null
 > extends Combatant<TParent, TActor> {
-    readonly data: CombatantDataPF2e<this>;
+    flags: CombatantFlags;
 }
 
-type CombatantDataPF2e<T extends CombatantPF2e> = foundry.data.CombatantData<T> & {
-    flags: {
-        pf2e: {
-            roundOfLastTurn: number | null;
-            overridePriority: Record<number, number | undefined>;
-        };
+type CombatantFlags = {
+    pf2e: {
+        roundOfLastTurn: number | null;
+        overridePriority: Record<number, number | undefined>;
     };
+    [key: string]: unknown;
 };
 
 type RolledCombatant<TEncounter extends EncounterPF2e> = CombatantPF2e<TEncounter> & { get initiative(): number };
