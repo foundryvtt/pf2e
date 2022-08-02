@@ -4,7 +4,7 @@ import { TagSelectorBase } from "./base";
 import { SelectableTagField } from ".";
 
 export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "data.traits.dv";
+    override objectProperty = "system.traits.dv";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {

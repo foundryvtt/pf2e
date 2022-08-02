@@ -47,7 +47,7 @@
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.AbilityBoost"}}
-            <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="data.boosts.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
+            <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="system.boosts.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
         </label>
 
         <ul class="abc-traits-list">
@@ -62,7 +62,7 @@
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.AbilityFlaw"}}
-            <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityFlaw" data-config-types="abilities" data-property="data.flaws.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
+            <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityFlaw" data-config-types="abilities" data-property="system.flaws.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
         </label>
 
         {{lookup selectedFlaws @idx}}
@@ -77,7 +77,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.Languages"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.languages"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.languages"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -94,7 +94,7 @@
 <div class="form-group additional-language">
     <label class="pf-title">
         {{localize "PF2E.LanguagesAdditional"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.LanguagesAdditional" data-config-types="languages" data-property="data.additionalLanguages"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.LanguagesAdditional" data-config-types="languages" data-property="system.additionalLanguages"><i class="fas fa-edit"></i></a>
     </label>
 
     <input type="number" name="data.additionalLanguages.count" value="{{data.additionalLanguages.count}}" data-dtype="Number" />
@@ -115,7 +115,7 @@
 <div class="form-group form-group-trait">
     <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="creatureTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="creatureTraits" data-property="system.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="abc-traits-list">
         {{#each traits}}

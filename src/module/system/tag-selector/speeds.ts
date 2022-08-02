@@ -4,7 +4,7 @@ import { SelectableTagField, TagSelectorOptions } from ".";
 import { TagSelectorBase } from "./base";
 
 export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "data.attributes.speed.otherSpeeds";
+    override objectProperty = "system.attributes.speed.otherSpeeds";
 
     static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
@@ -25,7 +25,7 @@ export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
         }
 
         const choices: Record<string, { selected: boolean; label: string; value: string }> = {};
-        const speeds: LabeledString[] = getProperty(this.object.data, this.objectProperty);
+        const speeds: LabeledString[] = getProperty(this.object, this.objectProperty);
         const speedLabels: Record<string, string> = CONFIG.PF2E.speedTypes;
         for (const [type] of Object.entries(this.choices)) {
             const speed = speeds.find((res) => res.type === type);
