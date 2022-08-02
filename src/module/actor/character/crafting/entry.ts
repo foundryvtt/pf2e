@@ -1,5 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { PhysicalItemTrait } from "@item/physical/data";
+import { ConsumableType } from "@item/consumable/data";
 import { groupBy } from "@util";
 import { CraftingFormula } from "./formula";
 
@@ -17,6 +18,7 @@ export class CraftingEntry implements CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
+    batchSizeOverrides?: BatchSizeOverride[];
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
@@ -30,15 +32,16 @@ export class CraftingEntry implements CraftingEntryData {
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
+        this.batchSizeOverrides = data.batchSizeOverrides;
 
         this.requiredTraits = data.requiredTraits ?? [[]];
         if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
 
         this.preparedFormulas = this.actorPreparedFormulas
-            .map((prepData): PreparedFormula | null => {
-                const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
+        .map((prepData): PreparedFormula | null => {
+            const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
                 if (formula) {
-                    return Object.assign(new CraftingFormula(formula.item), {
+                    return Object.assign(new CraftingFormula(formula.item, {dc: formula.dc, batchSize: formula.batchSize, deletable: formula.deletable }), {
                         quantity: prepData.quantity,
                         expended: prepData.expended,
                         isSignatureItem: prepData.isSignatureItem,
@@ -69,21 +72,26 @@ export class CraftingEntry implements CraftingEntryData {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
-        const fieldDiscoveryQuantity = this.preparedFormulas
-            .filter((f) => f.item.traits.has(this.fieldDiscovery!) || f.isSignatureItem)
-            .reduce((sum, current) => sum + (current.quantity || 1), 0);
-
-        const otherQuantity = this.preparedFormulas
-            .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
-            .reduce((sum, current) => sum + (current.quantity || 1), 0);
-
         const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
-        const batchSize = this.batchSize || 2;
+        return this.preparedFormulas
+            .reduce((sum: number, formula: PreparedFormula) => {
+                const fieldDiscoveryQuantity = (formula.item.traits.has(this.fieldDiscovery!) || formula.isSignatureItem) ? formula.quantity || 1 : 0;
+                const otherQuantity = (!formula.item.traits.has(this.fieldDiscovery!) && !formula.isSignatureItem) ? formula.quantity || 1 : 0;
+                console.log("preparedFormulas", formula);
 
-        return (
-            Math.floor(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) +
-            Math.ceil(((fieldDiscoveryQuantity % fieldDiscoveryBatchSize) + otherQuantity) / batchSize)
-        );
+                const consumableType = formula.item.isOfType("consumable") ? formula.item.consumableType : undefined;
+
+                const batchSizeOverride = this.batchSizeOverrides?.find(batch => 
+                    (batch.traits?.some(traits => traits.every(t => formula.item.traits.has(t))) ?? true)
+                    && (batch.maxItemLevel ?? 99) >= formula.item.level
+                    && consumableType
+                    && (batch.consumableTypes === undefined || batch.consumableTypes.indexOf(consumableType) > -1)
+                ) 
+                
+               const batchSize = batchSizeOverride?.value || this.batchSize || 2;
+
+                return sum + Math.floor(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) + Math.ceil(((fieldDiscoveryQuantity % fieldDiscoveryBatchSize) + otherQuantity) / batchSize);
+            }, 0);
     }
 
     static isValid(data?: Partial<CraftingEntry>): data is CraftingEntry {
@@ -216,6 +224,13 @@ interface ActorPreparedFormula {
     isSignatureItem?: boolean;
 }
 
+export interface BatchSizeOverride {
+    traits?: PhysicalItemTrait[][];
+    consumableTypes?: ConsumableType[];
+    value: number;
+    maxItemLevel?: number
+}
+
 export interface CraftingEntryData {
     actorPreparedFormulas: ActorPreparedFormula[];
     selector: string;
@@ -229,4 +244,5 @@ export interface CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
+    batchSizeOverrides?: BatchSizeOverride[]
 }
