@@ -62,7 +62,7 @@ export class CraftingFormula implements CraftingFormulaData {
     }
 
     get minimumBatchSize(): number {
-        return stackDefinitions[this.item.data.data.stackGroup ?? ""]?.size ?? 1;
+        return stackDefinitions[this.item.system.stackGroup ?? ""]?.size ?? 1;
     }
 
     get defaultBatchSize(): number {

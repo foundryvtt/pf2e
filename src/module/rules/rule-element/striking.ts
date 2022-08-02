@@ -13,7 +13,7 @@ export class StrikingRuleElement extends RuleElementPF2e {
             "value" in this.data
                 ? this.data.value
                 : this.item instanceof WeaponPF2e
-                ? getStrikingDice(this.item.data.data)
+                ? getStrikingDice(this.item.system)
                 : 0;
         const value = this.resolveValue(strikingValue);
         if (selector && typeof value === "number") {

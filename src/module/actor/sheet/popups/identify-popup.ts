@@ -42,9 +42,9 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         // add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
         $form.find<HTMLButtonElement>("button.post-skill-checks").on("click", async () => {
             const item = this.item;
-            const itemImg = item.data.data.identification.unidentified.img;
-            const itemName = item.data.data.identification.unidentified.name;
-            const identifiedName = item.data.data.identification.identified.name;
+            const itemImg = item.system.identification.unidentified.img;
+            const itemName = item.system.identification.unidentified.name;
+            const identifiedName = item.system.identification.identified.name;
             const skills = $("div#identify-item")
                 .find("tr")
                 .toArray()

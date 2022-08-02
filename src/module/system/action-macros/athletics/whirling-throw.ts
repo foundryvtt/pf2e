@@ -22,8 +22,8 @@ export function whirlingThrow(options: SkillActionOptions) {
     options.modifiers ||= [];
 
     if (target instanceof CreaturePF2e && actor instanceof CreaturePF2e) {
-        const actorSize = actor.data.data.traits.size;
-        const targetSize = target.data.data.traits.size;
+        const actorSize = actor.system.traits.size;
+        const targetSize = target.system.traits.size;
         const sizeModifier = new ModifierPF2e(
             "Size Modifier",
             determineSizeBonus(actorSize, targetSize),

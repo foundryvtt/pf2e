@@ -51,7 +51,7 @@ function calculateCosts(
     const lostMaterials = new CoinsPF2e();
     const reductionPerDay = new CoinsPF2e();
 
-    const proficiency = skillRankToProficiency(actor.data.data.skills.cra.rank);
+    const proficiency = skillRankToProficiency(actor.system.skills.cra.rank);
     if (!proficiency) return null;
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {

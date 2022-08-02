@@ -149,7 +149,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                         if (!this.disabledValue) delete domainRecord[option];
                     }
                 }
-                this.actor.data.data.toggles.push(toggle);
+                this.actor.system.toggles.push(toggle);
             }
         }
     }

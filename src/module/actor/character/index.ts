@@ -213,18 +213,20 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const entry of entries) {
             for (const prepData of entry.preparedFormulas) {
-                const item: PhysicalItemSource = prepData.item.toObject();
-                item.data.quantity = prepData.quantity || 1;
-                item.data.temporary = true;
-                item.data.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
+                const itemSource: PhysicalItemSource = prepData.item.toObject();
+                itemSource.system.quantity = prepData.quantity || 1;
+                itemSource.system.temporary = true;
+                itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 
                 if (
                     entry.isAlchemical &&
-                    (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
+                    (itemSource.type === "consumable" ||
+                        itemSource.type === "weapon" ||
+                        itemSource.type === "equipment")
                 ) {
-                    item.data.traits.value.push("infused");
+                    itemSource.system.traits.value.push("infused");
                 }
-                await this.addToInventory(item);
+                await this.addToInventory(itemSource);
             }
         }
     }
@@ -720,7 +722,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         systemData.actions.sort((l, r) => {
             if (l.ready !== r.ready) return (l.ready ? 0 : 1) - (r.ready ? 0 : 1);
-            return (l.weapon?.data.sort ?? 0) - (r.weapon?.data.sort ?? 0);
+            return (l.item.sort ?? 0) - (r.item.sort ?? 0);
         });
 
         // Spellcasting Entries
@@ -1093,11 +1095,10 @@ class CharacterPF2e extends CreaturePF2e {
         }, {} as Record<SkillAbbreviation, CharacterSkillData>);
 
         // Lore skills
-        for (const item of this.itemTypes.lore) {
-            const skill = item.data;
+        for (const loreItem of this.itemTypes.lore) {
             // normalize skill name to lower-case and dash-separated words
-            const shortForm = sluggify(skill.name) as SkillAbbreviation;
-            const rank = skill.data.proficient.value;
+            const shortForm = sluggify(loreItem.name) as SkillAbbreviation;
+            const rank = loreItem.system.proficient.value;
 
             const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
@@ -1119,13 +1120,13 @@ class CharacterPF2e extends CreaturePF2e {
                 loreSkill,
                 { overwrite: false }
             );
-            stat.label = skill.name;
+            stat.label = loreItem.name;
             stat.ability = "int";
-            stat.itemID = skill._id;
+            stat.itemID = loreItem.id;
             stat.notes = extractNotes(synthetics.rollNotes, domains);
             stat.rank = rank ?? 0;
             stat.shortform = shortForm;
-            stat.expanded = skill;
+            stat.expanded = loreItem;
             stat.value = stat.totalModifier;
             stat.lore = true;
             stat.breakdown = stat.modifiers
@@ -1136,7 +1137,7 @@ class CharacterPF2e extends CreaturePF2e {
                 console.warn(
                     `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
                 );
-                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
+                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: loreItem.name });
                 const rollOptions = args.options ?? [];
                 ensureProficiencyOption(rollOptions, rank);
 
@@ -1215,7 +1216,7 @@ class CharacterPF2e extends CreaturePF2e {
         // These are not handled by character feats
         const feats = this.itemTypes.feat
             .filter((f) => ["pfsboon", "deityboon", "curse"].includes(f.featType))
-            .sort((f1, f2) => f1.data.sort - f2.data.sort);
+            .sort((f1, f2) => f1.sort - f2.sort);
         for (const feat of feats) {
             if (feat.featType === "pfsboon") {
                 this.pfsBoons.push(feat);
@@ -1304,7 +1305,7 @@ class CharacterPF2e extends CreaturePF2e {
         );
         const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
             const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
-                handwraps?.data._source.data ?? {};
+                handwraps?._source.system ?? {};
             return handwraps?.isInvested
                 ? deepClone({
                       potencyRune,
@@ -1357,7 +1358,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                 // Prevent synthetic strikes from being renamed by runes
                 const clone = synthetics.strikes.get(slug)!;
-                clone.data.name = clone.data._source.name;
+                clone.name = clone._source.name;
             }
         }
 
@@ -1384,7 +1385,6 @@ class CharacterPF2e extends CreaturePF2e {
             defaultAbility?: AbilityString;
         }
     ): CharacterStrike {
-        const itemData = weapon.data;
         const { synthetics } = this;
         const { rollNotes, statisticsModifiers, strikeAdjustments } = synthetics;
         const modifiers: ModifierPF2e[] = [];
@@ -1495,7 +1495,7 @@ class CharacterPF2e extends CreaturePF2e {
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
         if (weapon.group === "bomb" && !ABP.isEnabled) {
-            const attackBonus = Number(itemData.data.bonus?.value) || 0;
+            const attackBonus = Number(weapon.system.bonus?.value) || 0;
             if (attackBonus !== 0) {
                 modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
             }
@@ -1507,10 +1507,10 @@ class CharacterPF2e extends CreaturePF2e {
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => PredicatePF2e.test(wp.predicate, baseOptions));
             ABP.applyPropertyRunes(potency, weapon);
-            const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
+            const potencyRune = weapon.system.runes.potency;
 
             if (potencyRune) {
-                const property = getPropertyRunes(itemData, getPropertySlots(itemData)).filter(
+                const property = getPropertyRunes(weapon, getPropertySlots(weapon)).filter(
                     (r): r is WeaponPropertyRuneType => setHasElement(WEAPON_PROPERTY_RUNE_TYPES, r)
                 );
                 potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, type: "item", property });
@@ -1607,11 +1607,11 @@ class CharacterPF2e extends CreaturePF2e {
             item: weapon,
             type: "strike" as const,
             ...flavor,
-            options: itemData.data.options?.value ?? [],
+            options: weapon.system.options?.value ?? [],
             traits: [],
             weaponTraits: Array.from(weaponTraits).map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
             variants: [],
-            selectedAmmoId: itemData.data.selectedAmmoId,
+            selectedAmmoId: weapon.system.selectedAmmoId,
             altUsages,
             auxiliaryActions,
         });
@@ -1999,8 +1999,8 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData = this.system;
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        if (changed.data?.details?.level || changed.data?.build?.abilities) {
-            const level = changed.data?.details?.level;
+        if (changed.system?.details?.level || changed.system?.build?.abilities) {
+            const level = changed.system?.details?.level;
             if (typeof level?.value === "number") {
                 level.value = Math.clamped(Number(level.value) || 0, 0, 30) || 0;
             }
@@ -2015,25 +2015,25 @@ class CharacterPF2e extends CreaturePF2e {
                     currentHP + hpMaxDifference,
                     currentHP === 0 ? 0 : 1 // Refrain from killing the character merely by lowering level
                 );
-                changed.data = mergeObject(changed.data ?? {}, { attributes: { hp: { value: newHP } } });
+                changed.system = mergeObject(changed.system ?? {}, { attributes: { hp: { value: newHP } } });
             }
         }
 
         // Clamp Stamina and Resolve
         if (game.settings.get("pf2e", "staminaVariant")) {
             // Do not allow stamina to go over max
-            if (changed.data?.attributes?.sp) {
-                changed.data.attributes.sp.value = Math.clamped(
-                    changed.data?.attributes?.sp?.value || 0,
+            if (changed.system?.attributes?.sp) {
+                changed.system.attributes.sp.value = Math.clamped(
+                    changed.system?.attributes?.sp?.value || 0,
                     0,
                     systemData.attributes.sp.max
                 );
             }
 
             // Do not allow resolve to go over max
-            if (changed.data?.attributes?.resolve) {
-                changed.data.attributes.resolve.value = Math.clamped(
-                    changed.data?.attributes?.resolve?.value || 0,
+            if (changed.system?.attributes?.resolve) {
+                changed.system.attributes.resolve.value = Math.clamped(
+                    changed.system?.attributes?.resolve?.value || 0,
                     0,
                     systemData.attributes.resolve.max
                 );
@@ -2041,18 +2041,18 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Add or remove class features as necessary
-        const newLevel = changed.data?.details?.level?.value ?? this.level;
+        const newLevel = changed.system?.details?.level?.value ?? this.level;
         if (newLevel !== this.level) {
             await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
         }
 
         // Constrain PFS player and character numbers
         for (const property of ["playerNumber", "characterNumber"] as const) {
-            if (typeof changed.data?.pfs?.[property] === "number") {
+            if (typeof changed.system?.pfs?.[property] === "number") {
                 const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
-                changed.data.pfs[property] = Math.clamped(changed.data.pfs[property] || 0, min, max);
-            } else if (changed.data?.pfs && changed.data.pfs[property] !== null) {
-                changed.data.pfs[property] = this.system.pfs[property] ?? null;
+                changed.system.pfs[property] = Math.clamped(changed.system.pfs[property] || 0, min, max);
+            } else if (changed.system?.pfs && changed.system.pfs[property] !== null) {
+                changed.system.pfs[property] = this.system.pfs[property] ?? null;
             }
         }
 
@@ -2072,7 +2072,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     /** Toggle between boost-driven and manual management of ability scores */
     async toggleAbilityManagement(): Promise<void> {
-        if (Object.keys(this.data._source.data.abilities).length === 0) {
+        if (Object.keys(this._source.system.abilities).length === 0) {
             // Add stored ability scores for manual management
             const baseAbilities = Array.from(ABILITY_ABBREVIATIONS).reduce(
                 (accumulated: Record<string, { value: 10 }>, abbrev) => ({

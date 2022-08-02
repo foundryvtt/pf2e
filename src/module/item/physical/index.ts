@@ -246,7 +246,9 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
-        mergeObject(this.data, mystifiedData, { insertKeys: false, insertValues: false });
+        this.name = mystifiedData.name;
+        this.img = mystifiedData.img;
+        this.system.description.value = mystifiedData.data.description.value;
 
         // Fill gaps in unidentified data with defaults
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
@@ -274,8 +276,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
         if (!preCheck) return false;
 
-        const thisData = this.toObject().data;
-        const otherData = item.toObject().data;
+        const thisData = this.toObject().system;
+        const otherData = item.toObject().system;
         thisData.quantity = otherData.quantity;
         thisData.equipped = otherData.equipped;
         thisData.containerId = otherData.containerId;
@@ -290,7 +292,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         const mystifiedData: MystifiedData = this.system.identification[status];
 
         const name = mystifiedData.name || this.generateUnidentifiedName();
-        const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
+        const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this);
 
         const description =
             mystifiedData.data.description.value ||
@@ -345,7 +347,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
-        const itemType = game.i18n.localize(`ITEM.Type${this.data.type.capitalize()}`);
+        const itemType = game.i18n.localize(`ITEM.Type${this.type.capitalize()}`);
         if (typeOnly) return itemType;
 
         const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
@@ -404,25 +406,25 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points to between zero and max
-        if (typeof changed.data?.hp?.value === "number") {
-            changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.system.hp.max);
+        if (typeof changed.system?.hp?.value === "number") {
+            changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, this.system.hp.max);
         }
 
         if (!changed.data) return super._preUpdate(changed, options, user);
 
         // Ensure an empty-string `stackGroup` property is null
-        if (typeof changed.data?.stackGroup === "string") {
-            changed.data.stackGroup ||= null;
+        if (typeof changed.system?.stackGroup === "string") {
+            changed.system.stackGroup ||= null;
         }
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
-        const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
+        const equipped: Record<string, unknown> = mergeObject(changed, { system: { equipped: {} } }).system.equipped;
         const newCarryType = String(equipped.carryType ?? this.system.equipped.carryType);
         if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
 
         // Clear 0 price denominations and per fields with values 0 or 1
-        if (isObject<Record<string, unknown>>(changed.data?.price)) {
-            const price: Record<string, unknown> = changed.data.price;
+        if (isObject<Record<string, unknown>>(changed.system?.price)) {
+            const price: Record<string, unknown> = changed.system!.price;
             if (isObject<Record<string, number | null>>(price.value)) {
                 const coins = price.value;
                 for (const denomination of DENOMINATIONS) {
@@ -437,7 +439,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             }
         }
 
-        const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.system.usage.value));
+        const newUsage = getUsageDetails(String(changed.system?.usage?.value ?? this.system.usage.value));
         const hasSlot = newUsage.type === "worn" && newUsage.where;
         const isSlotted = Boolean(equipped.inSlot ?? this.system.equipped.inSlot);
 

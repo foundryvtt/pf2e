@@ -19,8 +19,8 @@ export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
             if (match === "@item.level.value") return "@item.level";
             if (/^@item\.[a-z]+$/.test(match)) return match;
             return match
-                .replace(/@item\.(?!data\b)/, "@item.data.data.")
-                .replace(/@(?!(?:item|actor|[A-Z]\w+))/, "@actor.data.data.");
+                .replace(/@item\.(?!data\b)/, "@item.system.")
+                .replace(/@(?!(?:item|actor|[A-Z]\w+))/, "@actor.system.");
         });
     }
 

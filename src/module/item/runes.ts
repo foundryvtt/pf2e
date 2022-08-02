@@ -1,4 +1,5 @@
 import { DiceModifierPF2e } from "@actor/modifiers";
+import { ArmorPF2e, WeaponPF2e } from "@item";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DamageType } from "@system/damage";
 import { DamageDieSize } from "@system/damage/damage";
@@ -6,18 +7,17 @@ import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 import type { ResilientRuneType } from "./armor/data";
-import type { ArmorData, WeaponData } from "./data";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "./weapon/types";
 
-export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
+export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     let slots = 0;
-    if (itemData.data.preciousMaterial?.value === "orichalcum") {
+    if (item.system.preciousMaterial?.value === "orichalcum") {
         slots += 1;
     }
-    let potencyRune = itemData.data.potencyRune?.value;
+    let potencyRune = item.system.potencyRune?.value;
     if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
         potencyRune = 0;
-        slots += getPropertyRunes(itemData, 4).length;
+        slots += getPropertyRunes(item, 4).length;
         slots += 1;
     }
     if (potencyRune) {
@@ -26,11 +26,11 @@ export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
     return slots as ZeroToFour;
 }
 
-export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): string[] {
+export function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[] {
     const runes: string[] = [];
     type RuneIndex = "propertyRune1" | "propertyRune2" | "propertyRune3" | "propertyRune4";
     for (let i = 1; i <= slots; i += 1) {
-        const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value;
+        const rune = item.system[`propertyRune${i}` as RuneIndex]?.value;
         if (!isBlank(rune)) {
             runes.push(rune);
         }

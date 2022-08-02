@@ -6,7 +6,7 @@ class WeaknessRuleElement extends IWRRuleElement {
     dictionary = CONFIG.PF2E.weaknessTypes;
 
     get property(): LabeledWeakness[] {
-        return this.actor.data.data.traits.dv;
+        return this.actor.system.traits.dv;
     }
 
     getIWR(value: number): LabeledWeakness | null {

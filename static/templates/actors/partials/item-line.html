@@ -5,7 +5,7 @@
             <h4>
                 {{item.name}}
                 {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
-                {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.data.data.identification.identified.name}})</span>{{/if}}
+                {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.system.identification.identified.name}})</span>{{/if}}
             </h4>
             {{#if item.charges.max}}
                 <span class="item-charges">({{item.charges.value}}/{{item.charges.max}})</span>

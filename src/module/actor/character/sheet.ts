@@ -196,9 +196,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Show hints for some things being modified
         const baseData = this.actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =
-            this.actor.attributes.bonusEncumbranceBulk !== baseData.data.attributes.bonusEncumbranceBulk;
+            this.actor.attributes.bonusEncumbranceBulk !== baseData.system.attributes.bonusEncumbranceBulk;
         sheetData.adjustedBonusLimitBulk =
-            this.actor.attributes.bonusLimitBulk !== baseData.data.attributes.bonusLimitBulk;
+            this.actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
 
         sheetData.tabVisibility = deepClone(this.actor.flags.pf2e.sheetTabs);
 
@@ -250,12 +250,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Feats
             else if (itemData.type === "feat") {
-                const actionType = itemData.data.actionType.value || "passive";
+                const actionType = itemData.system.actionType.value || "passive";
                 if (Object.keys(actions).includes(actionType)) {
                     itemData.feat = true;
                     itemData.img = CharacterPF2e.getActionGraphics(
                         actionType,
-                        parseInt((itemData.data.actions || {}).value, 10) || 1
+                        parseInt((itemData.system.actions || {}).value, 10) || 1
                     ).imageUrl;
                     actions[actionType].actions.push(itemData);
                 }
@@ -263,31 +263,31 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Lore Skills
             else if (itemData.type === "lore") {
-                itemData.data.icon = this.getProficiencyIcon((itemData.data.proficient || {}).value);
-                itemData.data.hover = CONFIG.PF2E.proficiencyLevels[(itemData.data.proficient || {}).value];
+                itemData.system.icon = this.getProficiencyIcon((itemData.system.proficient || {}).value);
+                itemData.system.hover = CONFIG.PF2E.proficiencyLevels[(itemData.system.proficient || {}).value];
 
-                const rank = itemData.data.proficient?.value || 0;
+                const rank = itemData.system.proficient?.value || 0;
                 const proficiency = ProficiencyModifier.fromLevelAndRank(
-                    actorData.data.details.level.value,
+                    actorData.system.details.level.value,
                     rank
                 ).modifier;
-                const modifier = actorData.data.abilities.int.mod;
-                const itemBonus = Number((itemData.data.item || {}).value || 0);
-                itemData.data.itemBonus = itemBonus;
-                itemData.data.value = modifier + proficiency + itemBonus;
-                itemData.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
+                const modifier = actorData.system.abilities.int.mod;
+                const itemBonus = Number((itemData.system.item || {}).value || 0);
+                itemData.system.itemBonus = itemBonus;
+                itemData.system.value = modifier + proficiency + itemBonus;
+                itemData.system.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
 
                 lores.push(itemData);
             }
 
             // Actions
             else if (itemData.type === "action") {
-                const actionType = ["free", "reaction", "passive"].includes(itemData.data.actionType.value)
+                const actionType = ["free", "reaction", "passive"].includes(itemData.system.actionType.value)
                     ? itemData.data.actionType.value
                     : "action";
                 itemData.img = CharacterPF2e.getActionGraphics(
                     actionType,
-                    parseInt((itemData.data.actions || {}).value, 10) || 1
+                    parseInt((itemData.system.actions || {}).value, 10) || 1
                 ).imageUrl;
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
@@ -298,8 +298,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         Object.values(actions)
             .flatMap((section) => section.actions)
             .forEach((action: any) => {
-                action.downtime = action.data.traits.value.includes("downtime");
-                action.exploration = action.data.traits.value.includes("exploration");
+                action.downtime = action.system.traits.value.includes("downtime");
+                action.exploration = action.system.traits.value.includes("exploration");
                 action.encounter = !(action.downtime || action.exploration);
             });
 

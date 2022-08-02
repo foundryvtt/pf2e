@@ -30,6 +30,9 @@ declare global {
          */
         view: string;
 
+        // Undocumented
+        _documentsReady?: boolean;
+
         /** The object of world data passed from the server */
         data: {
             actors: TActor["data"]["_source"][];

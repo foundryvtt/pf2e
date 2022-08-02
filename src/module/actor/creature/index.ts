@@ -113,7 +113,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
         const baseReach = this.attributes.reach.general;
 
-        if (action === "interact" || this.data.type === "familiar") {
+        if (action === "interact" || this.type === "familiar") {
             return baseReach;
         } else {
             const attacks: Pick<StrikeData, "item" | "ready">[] = weapon
@@ -889,7 +889,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points
-        const hitPoints = changed.data?.attributes?.hp;
+        const hitPoints = changed.system?.attributes?.hp;
         if (typeof hitPoints?.value === "number") {
             hitPoints.value = options.allowHPOverage
                 ? Math.max(0, hitPoints.value)
@@ -897,7 +897,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Clamp focus points
-        const focusUpdate = changed.data?.resources?.focus;
+        const focusUpdate = changed.system?.resources?.focus;
         if (focusUpdate && this.system.resources) {
             if (typeof focusUpdate.max === "number") {
                 focusUpdate.max = Math.clamped(focusUpdate.max, 0, 3);

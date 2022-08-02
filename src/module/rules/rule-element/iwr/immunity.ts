@@ -6,7 +6,7 @@ class ImmunityRuleElement extends IWRRuleElement {
     dictionary = CONFIG.PF2E.immunityTypes;
 
     get property(): ImmunityType[] {
-        return this.actor.data.data.traits.di.value;
+        return this.actor.system.traits.di.value;
     }
 
     override validate(): boolean {

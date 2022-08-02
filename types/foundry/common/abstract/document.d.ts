@@ -16,6 +16,8 @@ declare global {
                 /** The base data object for this Document which persists both the original source and any derived data. */
                 readonly data: DocumentData<Document>;
 
+                _source: this["data"]["_source"];
+
                 /**
                  * A collection of Application instances which should be re-rendered whenever this Document experiences an update to
                  * its data. The keys of this object are the application ids and the values are Application instances. Each
@@ -68,7 +70,7 @@ declare global {
                 get isEmbedded(): boolean;
 
                 /** The name of this Document, if it has one assigned */
-                get name(): string;
+                name: string;
 
                 /* ---------------------------------------- */
                 /*  Methods                                 */
@@ -80,6 +82,21 @@ declare global {
                  * @return Does the User have a sufficient role to create?
                  */
                 static canUserCreate(user: documents.BaseUser): boolean;
+
+                /**
+                 * Update the DataModel locally by applying an object of changes to its source data.
+                 * The provided changes are cleaned, validated, and stored to the source data object for this model.
+                 * The source data is then re-initialized to apply those changes to the prepared data.
+                 * The method returns an object of differential changes which modified the original data.
+                 *
+                 * @param changes      New values which should be applied to the data model
+                 * @param [options={}] Options which determine how the new data is merged
+                 * @returns An object containing the changed keys and values
+                 */
+                updateSource(
+                    data?: DocumentUpdateData,
+                    options?: DocumentModificationContext
+                ): DeepPartial<this["data"]["_source"]>;
 
                 /**
                  * Clone a document, creating a new document by combining current data with provided overrides.

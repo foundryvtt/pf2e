@@ -49,7 +49,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             if (this.rollOption) this.setRollOption(selection.toString());
         } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
-            for (const ruleData of this.item.data.data.rules) {
+            for (const ruleData of this.item.system.rules) {
                 ruleData.ignored = true;
             }
         }
@@ -223,7 +223,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     private choicesFromUnarmedAttacks(predicate = new PredicatePF2e()): PickableThing<string>[] {
         if (!this.actor.isOfType("character")) return [];
 
-        return this.actor.data.data.actions
+        return this.actor.system.actions
             .filter(
                 (a): a is CharacterStrike =>
                     a.item.isOfType("weapon") &&

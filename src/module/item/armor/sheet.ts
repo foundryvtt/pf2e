@@ -9,7 +9,7 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         const sheetData = await super.getData(options);
 
         // Armor property runes
-        const totalSlots = getPropertySlots(sheetData.item);
+        const totalSlots = getPropertySlots(this.item);
         const propertyRuneSlots: Record<`propertyRuneSlots${number}`, boolean> = {};
         for (const slot of [1, 2, 3, 4]) {
             if (totalSlots >= slot) {

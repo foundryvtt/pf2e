@@ -1,4 +1,5 @@
 import { CharacterPF2e, CreaturePF2e, type ActorPF2e } from "@actor";
+import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
@@ -64,7 +65,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         // The Actor and its Items
-        const actorData = this.actor.data.toObject(false);
+        const actorData = this.actor.toObject(false) as RawObject<ActorDataPF2e>;
 
         const items = deepClone(
             this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0))
@@ -80,11 +81,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
 
         // IWR
-        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.data.traits.di);
-        for (const weakness of actorData.data.traits.dv) {
+        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.system.traits.di);
+        for (const weakness of actorData.system.traits.dv) {
             weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
         }
-        for (const resistance of actorData.data.traits.dr) {
+        for (const resistance of actorData.system.traits.dr) {
             resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
         }
 
@@ -108,11 +109,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             owner: this.actor.isOwner,
             title: this.title,
             actor: actorData,
-            data: actorData.data,
-            effects: actorData.effects,
+            data: actorData.system,
+            effects: [],
             items: items,
             user: { isGM: game.user.isGM },
-            traits: createSheetTags(traitsMap, actorData.data.traits.traits),
+            traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             immunities,
             hasImmunities: Object.keys(immunities).length > 0,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
@@ -955,7 +956,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const container = $(event.target).parents('[data-item-is-container="true"]');
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
-        const stackable = !!targetActor.findStackableItem(targetActor, item.data._source);
+        const stackable = !!targetActor.findStackableItem(targetActor, item._source);
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(

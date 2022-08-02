@@ -177,11 +177,11 @@ class AELikeRuleElement extends RuleElementPF2e {
         value;
         const level =
             item instanceof FeatPF2e
-                ? Number(/-(\d+)$/.exec(item.data.data.location ?? "")?.[1]) || item.level
+                ? Number(/-(\d+)$/.exec(item.system.location ?? "")?.[1]) || item.level
                 : "level" in item && typeof item["level"] === "number"
                 ? item["level"]
                 : null;
-        const { autoChanges } = this.actor.data.data;
+        const { autoChanges } = this.actor.system;
         const entries = (autoChanges[this.path] ??= []);
         entries.push({ mode, level, value, source: this.item.name });
     }

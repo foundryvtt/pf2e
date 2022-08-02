@@ -102,7 +102,7 @@ export const Ready = {
             }
 
             // Prepare familiars now that all actors are initialized
-            for (const familiar of game.actors.filter((a) => a.data.type === "familiar")) {
+            for (const familiar of game.actors.filter((a) => a.type === "familiar")) {
                 familiar.prepareData();
             }
 
