@@ -43,8 +43,7 @@ class AELikeRuleElement extends RuleElementPF2e {
         const pathIsValid =
             typeof this.path === "string" &&
             [this.path, this.path.replace(/\.\w+$/, ""), this.path.replace(/\.?\w+\.\w+$/, "")].some(
-                // Create a spread object resembling old <V10 actor data until a migration is written
-                (path) => typeof getProperty({ ...actor, data: actor.system }, path) !== undefined
+                (path) => typeof getProperty(actor, path) !== undefined
             );
         if (!pathIsValid) return this.warn("path");
 
@@ -99,7 +98,7 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (/\bundefined\b/.test(this.path)) return;
 
         const { actor } = this;
-        const current: unknown = getProperty({ ...actor, data: actor.system }, this.path);
+        const current: unknown = getProperty(actor, this.path);
         const change: unknown = this.resolveValue(this.data.value);
         const newValue = this.getNewValue(current, change);
         if (this.ignored) return;
@@ -107,7 +106,7 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (this.mode === "add" && Array.isArray(current)) {
             current.push(newValue);
         } else {
-            setProperty({ ...actor, data: actor.system }, this.path, newValue);
+            setProperty(actor, this.path, newValue);
             this.logChange(change);
         }
     }
