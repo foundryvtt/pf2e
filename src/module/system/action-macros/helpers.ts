@@ -29,14 +29,14 @@ export class ActionMacroHelpers {
             case "perception":
                 return {
                     checkType: "perception-check",
-                    property: "data.data.attributes.perception",
+                    property: "system.attributes.perception",
                     stat,
                     subtitle: "PF2E.ActionsCheck.perception",
                 };
             default: {
                 const slug = sluggify(stat);
                 const shortForm = setHasElement(SKILL_LONG_FORMS, slug) ? SKILL_EXPANDED[slug].shortform : slug;
-                const property = `data.data.skills.${shortForm}`;
+                const property = `system.skills.${shortForm}`;
 
                 return {
                     checkType: "skill-check",
