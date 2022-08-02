@@ -1,6 +1,366 @@
 {
     "_id": "9KZRWATLOGP7QGyM",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "o9bdzGDtUTzmMtAv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tendril",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1.success]</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire1.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "dzHyKmRIrVao4ke0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HTapFz8e3dL6LNJc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The fire wisp ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ptpsl6OafcvwkgOx",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Accord Essence",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The wisp detonates itself in a small elemental explosion that gives temporary Hit Points equal to half the wisp's current Hit Points to allies within @Template[type:emanation|distance:30]{30 feet} that have benefited from the wisp's resonance in the last hour. These temporary Hit Points last 1 hour.</p>\n<p>A wisp that uses this reaction is permanently destroyed, and it can be restored only by a <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> spell or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vpPweRPkFLYzku6Q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Resonance",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait.</p>\n<p>A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the fire trait; a creature with the elemental and fire traits gains this bonus to all attack and damage rolls.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Resonance]{Effect: Resonance}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9Pg0o9SqvEh925xr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "In Concert",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When a fire wisp rolls a critical failure on a check to @Compendium[pf2e.actionspf2e.Aid]{Aid}, they get a failure instead, and when they roll a success, they get a critical success instead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UIPkXjxUub552359",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "4o2YdJckFmrO6XVf",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Plane of Fire Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "BYFD2vgAShG3EoI7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Fire Wisp",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 0
@@ -130,366 +490,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "o9bdzGDtUTzmMtAv",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d4",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire1.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire1.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tendril",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "dzHyKmRIrVao4ke0",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "HTapFz8e3dL6LNJc",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The fire wisp ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "ptpsl6OafcvwkgOx",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack</p>\n<hr />\n<p><strong>Effect</strong> The wisp detonates itself in a small elemental explosion that gives temporary Hit Points equal to half the wisp's current Hit Points to allies within @Template[type:emanation|distance:30]{30 feet} that have benefited from the wisp's resonance in the last hour. These temporary Hit Points last 1 hour.</p>\n<p>A wisp that uses this reaction is permanently destroyed, and it can be restored only by a <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> spell or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Accord Essence",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "vpPweRPkFLYzku6Q",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait.</p>\n<p>A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the fire trait; a creature with the elemental and fire traits gains this bonus to all attack and damage rolls.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Resonance]{Effect: Resonance}</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Resonance",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "9Pg0o9SqvEh925xr",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When a fire wisp rolls a critical failure on a check to @Compendium[pf2e.actionspf2e.Aid]{Aid}, they get a failure instead, and when they roll a success, they get a critical success instead.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "In Concert",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "UIPkXjxUub552359",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "type": "lore"
-        },
-        {
-            "_id": "4o2YdJckFmrO6XVf",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Plane of Fire Lore",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "BYFD2vgAShG3EoI7",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "type": "lore"
-        }
-    ],
-    "name": "Fire Wisp",
     "token": {
         "disposition": -1,
         "height": 0.5,

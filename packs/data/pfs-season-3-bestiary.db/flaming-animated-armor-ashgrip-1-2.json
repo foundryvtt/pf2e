@@ -1,6 +1,202 @@
 {
     "_id": "9RI0biNpRaZBU1de",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "jAZY8WC1BtImPyEF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Gauntlet",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "lhflr40jwajii990myjj": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    },
+                    "nodz91aqdxgcfjql5myh": {
+                        "damage": "1d4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "free-hand",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FMmsMdd150OLekUM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GhnXpFtWM1vyvu8V",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 6)",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Like normal objects, a flaming animated armor has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once a flaming animated armor is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 15.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "slug": "construct-armor-critical",
+                        "value": -4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "construct-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "slug": "construct-armor-health",
+                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "g7G10snbyko1lpX5",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Flaming Animated Armor (Ashgrip) (1-2)",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -5
@@ -134,202 +330,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "jAZY8WC1BtImPyEF",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "lhflr40jwajii990myjj": {
-                        "damage": "1d6+3",
-                        "damageType": "bludgeoning"
-                    },
-                    "nodz91aqdxgcfjql5myh": {
-                        "damage": "1d4",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "free-hand",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Gauntlet",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "FMmsMdd150OLekUM",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "GhnXpFtWM1vyvu8V",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Like normal objects, a flaming animated armor has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once a flaming animated armor is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 15.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "domain": "ac",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
-                        "option": "construct-armor",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "construct-armor"
-                            ]
-                        },
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "construct-armor"
-                            ]
-                        },
-                        "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.data.data.attributes.hp.max),1)-1)"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor (Hardness 6)",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "g7G10snbyko1lpX5",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 400000,
-            "type": "lore"
-        }
-    ],
-    "name": "Flaming Animated Armor (Ashgrip) (1-2)",
     "token": {
         "disposition": -1,
         "height": 1,

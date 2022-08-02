@@ -1,6 +1,358 @@
 {
     "_id": "Q8FAcsuta4p6d8KS",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MsksF4NK5nEBIyq6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "ourjb56y8chf6fljsww2": {
+                        "damage": "2d8+11",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire2d8.success]</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire2d8.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Fire2d8.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FFjYHtFi991MRIlJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fire Mote",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "hwh1ar01q4v8f5norw2j": {
+                        "damage": "2d8+6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-60"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WCpWLcuShftaYr4k",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e5zu7QFkUzeeeoVM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The firewyrm ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hQNxvkHklgW9fvpf",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosion",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When the firewyrm dies, it explodes, dealing [[/r {6d6}[fire]]]{6d6 fire damage} to each creature in a @Template[type:emanation|distance:10|traits:fire,damaging-effect] (@Check[type:reflex|dc:28|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RDAI0FQdtpHFrFa5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Intense Heat",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {4d6}[fire]]]{4d6 fire damage} @Check[type:reflex|dc:25|basic:true]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5k5qe7LZeapjusIM",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The firewyrm breathes a @Template[type:cone|distance:30] of fire dealing [[/r {7d6}[fire]]]{7d6 fire damage} and [[/r {2d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to every creature within the cone (@Check[type:reflex|dc:28|basic:true] save).</p>\n<p>The firewyrm can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "fire",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xz8cb0SM6wHXe9eL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Firewyrm",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 0
@@ -118,358 +470,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "MsksF4NK5nEBIyq6",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "ourjb56y8chf6fljsww2": {
-                        "damage": "2d8+11",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire2d8.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire2d8.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Fire2d8.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "FFjYHtFi991MRIlJ",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "hwh1ar01q4v8f5norw2j": {
-                        "damage": "2d8+6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "range-increment-60"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fire Mote",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "WCpWLcuShftaYr4k",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "e5zu7QFkUzeeeoVM",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The firewyrm ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "hQNxvkHklgW9fvpf",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When the firewyrm dies, it explodes, dealing [[/r {6d6}[fire]]]{6d6 fire damage} to each creature in a @Template[type:emanation|distance:10|traits:fire,damaging-effect] (@Check[type:reflex|dc:28|basic:true] save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosion",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "RDAI0FQdtpHFrFa5",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {4d6}[fire]]]{4d6 fire damage} @Check[type:reflex|dc:25|basic:true]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Intense Heat",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "5k5qe7LZeapjusIM",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The firewyrm breathes a @Template[type:cone|distance:30] of fire dealing [[/r {7d6}[fire]]]{7d6 fire damage} and [[/r {2d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to every creature within the cone (@Check[type:reflex|dc:28|basic:true] save).</p>\n<p>The firewyrm can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "evocation",
-                        "fire",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "xz8cb0SM6wHXe9eL",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "type": "lore"
-        }
-    ],
-    "name": "Firewyrm",
     "token": {
         "disposition": -1,
         "height": 3,

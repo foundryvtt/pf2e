@@ -1,6 +1,411 @@
 {
     "_id": "mpBOeFrbtx1wMrNn",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "zcW44MHFdHDFSbQ5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Cold2d6.success]</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Cold2d6.success",
+                        "visibility": "gm"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Cold2d6.criticalSuccess",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9bMQUXIt8V0ivYCg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MPJFQqOrPfQloQLr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Throes",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r {10d8}[cold]]]{10d8 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "evocation",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jISdvlh9f3wIBxZ8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Freezing Blood",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r {7d6}[cold]]]{7d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "cold"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GFW3IASGrcBSyETb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Worm Chill",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>5 feet.</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "cold",
+                        "evocation",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BdPJLN1AK4im8nIu",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r {13d6}[cold]]]{13d6 cold damage} to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "evocation",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KtIqgI2Oe8cbrguF",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Worm Trill",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a @Check[type:will|dc:32] save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected.</p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm.</p>\n<p><strong>Critical Failure</strong> As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "concentrate",
+                        "enchantment",
+                        "mental",
+                        "primal"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UHBwT9OkIzBLCG1V",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "0DWjvOoTNOT0cP4O",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "In Ice and Snow",
+                        "predicate": {
+                            "any": [
+                                "terrain:icy",
+                                "terrain:snow"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 in ice and snow",
+                        "options": "terrain:icy,terrain:snow"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Frost Worm",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 0
@@ -121,411 +526,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "zcW44MHFdHDFSbQ5",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 25
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d8+10",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Cold2d6.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Cold2d6.success",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Cold2d6.criticalSuccess",
-                        "visibility": "gm"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "9bMQUXIt8V0ivYCg",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "MPJFQqOrPfQloQLr",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r {10d8}[cold]]]{10d8 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "evocation",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death Throes",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "jISdvlh9f3wIBxZ8",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r {7d6}[cold]]]{7d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Freezing Blood",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "GFW3IASGrcBSyETb",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>5 feet.</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "cold",
-                        "evocation",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Worm Chill",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "BdPJLN1AK4im8nIu",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r {13d6}[cold]]]{13d6 cold damage} to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "evocation",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "KtIqgI2Oe8cbrguF",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a @Check[type:will|dc:32] save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected.</p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm.</p>\n<p><strong>Critical Failure</strong> As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "concentrate",
-                        "enchantment",
-                        "mental",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Worm Trill",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "UHBwT9OkIzBLCG1V",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "0DWjvOoTNOT0cP4O",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Ice and Snow",
-                        "predicate": {
-                            "any": [
-                                "terrain:icy",
-                                "terrain:snow"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+24 in ice and snow",
-                        "options": "terrain:icy,terrain:snow"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "type": "lore"
-        }
-    ],
-    "name": "Frost Worm",
     "token": {
         "disposition": -1,
         "height": 3,

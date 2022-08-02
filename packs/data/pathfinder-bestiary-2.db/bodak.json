@@ -1,6 +1,488 @@
 {
     "_id": "jCJUvzs1FaL6PAkq",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "PGeuRIZhMLp88mYc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "wcghqptu0cixr0caaupl": {
+                        "damage": "2d6+6",
+                        "damageType": "bludgeoning"
+                    },
+                    "bsihdlqsnwo6e6j69tji": {
+                        "damage": "1d6",
+                        "damageType": "negative"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "swAWlgrj8JoJq6xB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HL1pjayMZJpK1JID",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 60 feet",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "o4uNCohL2RA2ShrG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KswFDiMoMctr0zFY",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Draining Glance",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet that the bodak can perceive with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} starts its turn</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:fortitude|dc:23] save. If it fails, the bodak regains 5 Hit Points and the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "death",
+                        "necromancy",
+                        "occult",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mS3DC54HONPgp9Pg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunlight Vulnerability",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>If exposed to direct sunlight, the bodak can't use actions with the death trait and it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. The slowed value increases by 1 each time the bodak ends its turn in sunlight. If the bodak loses all its actions this way, it is destroyed.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "death"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z3NGGrVV1V5tnFUX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bodak Spawn",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Any humanoid who dies while @Compendium[pf2e.conditionitems.Drained]{Drained} or @Compendium[pf2e.conditionitems.Doomed]{Doomed} by a bodak rises as an autonomous bodak 24 hours after its death.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Sg3CFomZepZdIWcH",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Death Gaze",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The bodak stares at a living creature within 30 feet that it can sense with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense}. That creature must attempt a @Check[type:fortitude|dc:26] save. If the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained}, the bodak gains a number of temporary Hit Points equal to 5 times the value of the drained condition the target gained.</p>\n<p>Multiple exposures to this ability can increase a creature's drained condition to a maximum of 4. If the bodak is destroyed, any @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition a creature has gained from Death Gaze are removed.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> The creature is doomed 1 and @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "necromancy",
+                        "occult",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e76HWovtPRHOVF6v",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "WBkrC7dY8oFt2xG6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ZLSIDPctSGiWpdEL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "GPMWVB4Qlq7V3v4E",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Bodak",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 5
@@ -121,488 +603,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "PGeuRIZhMLp88mYc",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "wcghqptu0cixr0caaupl": {
-                        "damage": "2d6+6",
-                        "damageType": "bludgeoning"
-                    },
-                    "bsihdlqsnwo6e6j69tji": {
-                        "damage": "1d6",
-                        "damageType": "negative"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "swAWlgrj8JoJq6xB",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "HL1pjayMZJpK1JID",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "lifesense",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense 60 feet",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "o4uNCohL2RA2ShrG",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "source": {
-                    "value": "Pathfinder Bestiary 2"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "KswFDiMoMctr0zFY",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet that the bodak can perceive with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} starts its turn</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:fortitude|dc:23] save. If it fails, the bodak regains 5 Hit Points and the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "death",
-                        "necromancy",
-                        "occult",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Draining Glance",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "mS3DC54HONPgp9Pg",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>If exposed to direct sunlight, the bodak can't use actions with the death trait and it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. The slowed value increases by 1 each time the bodak ends its turn in sunlight. If the bodak loses all its actions this way, it is destroyed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "death"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sunlight Vulnerability",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "z3NGGrVV1V5tnFUX",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Any humanoid who dies while @Compendium[pf2e.conditionitems.Drained]{Drained} or @Compendium[pf2e.conditionitems.Doomed]{Doomed} by a bodak rises as an autonomous bodak 24 hours after its death.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "necromancy",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bodak Spawn",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "Sg3CFomZepZdIWcH",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The bodak stares at a living creature within 30 feet that it can sense with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense}. That creature must attempt a @Check[type:fortitude|dc:26] save. If the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained}, the bodak gains a number of temporary Hit Points equal to 5 times the value of the drained condition the target gained.</p>\n<p>Multiple exposures to this ability can increase a creature's drained condition to a maximum of 4. If the bodak is destroyed, any @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition a creature has gained from Death Gaze are removed.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> The creature is doomed 1 and @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "necromancy",
-                        "occult",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Death Gaze",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "e76HWovtPRHOVF6v",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "WBkrC7dY8oFt2xG6",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "ZLSIDPctSGiWpdEL",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1100000,
-            "type": "lore"
-        },
-        {
-            "_id": "GPMWVB4Qlq7V3v4E",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1200000,
-            "type": "lore"
-        }
-    ],
-    "name": "Bodak",
     "token": {
         "disposition": -1,
         "height": 1,

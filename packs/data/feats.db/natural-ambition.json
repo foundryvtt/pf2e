@@ -1,6 +1,8 @@
 {
     "_id": "PodajLVxqYSAqVox",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Natural Ambition",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -49,7 +51,7 @@
                             "item:wild-shape"
                         ]
                     },
-                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}"
+                    "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
@@ -70,7 +72,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Natural Ambition",
     "type": "feat"
 }

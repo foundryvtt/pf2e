@@ -1,6 +1,277 @@
 {
     "_id": "9rugdliEg2udjROC",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "XlCJ1ZHQ8EGtKrFn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "pufferfish-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fhIh70SWeQm18cfv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AkvUF9WUqlp4ytHG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Toxic Body",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Anyone who hits a pufferfish with a melee unarmed attack or a non-reach melee weapon must succeed at a @Check[type:reflex|dc:13|traits:damaging-effect] save or be pierced by a spine, taking [[/r {1}[piercing]]]{1 piercing damage} and being exposed to pufferfish venom.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nJj3OATPJmrNMM3y",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Inflating Rush",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The pufferfish Swims up to its Speed and then inflates. Each creature within @Template[type:emanation|distance:5]{5 feet} of its space at the end of its movement must succeed at a @Check[type:reflex|dc:13|traits:damaging-effect] save or take [[/r {1}[piercing]]]{1 piercing damage} and be exposed to pufferfish venom.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gGpB7QLHdHm3LW5f",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pufferfish Venom",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 24 hours</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>\n<p><strong>Stage 4</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and paralyzed for [[/br 2d10 #Duration Paralyzed]]{2d10 hours} (1 round)</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ljtTQc6aYYzBmeSu",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 2
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "sBc5PfDzFHs6qHse",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Pufferfish",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -2
@@ -110,277 +381,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "XlCJ1ZHQ8EGtKrFn",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "pufferfish-venom"
-                    ]
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "fhIh70SWeQm18cfv",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "AkvUF9WUqlp4ytHG",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Anyone who hits a pufferfish with a melee unarmed attack or a non-reach melee weapon must succeed at a @Check[type:reflex|dc:13|traits:damaging-effect] save or be pierced by a spine, taking [[/r {1}[piercing]]]{1 piercing damage} and being exposed to pufferfish venom.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Toxic Body",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "nJj3OATPJmrNMM3y",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The pufferfish Swims up to its Speed and then inflates. Each creature within @Template[type:emanation|distance:5]{5 feet} of its space at the end of its movement must succeed at a @Check[type:reflex|dc:13|traits:damaging-effect] save or take [[/r {1}[piercing]]]{1 piercing damage} and be exposed to pufferfish venom.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Inflating Rush",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "gGpB7QLHdHm3LW5f",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 24 hours</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>\n<p><strong>Stage 4</strong> [[/r {1d4}[poison]]]{1d4 poison damage} and paralyzed for [[/br 2d10 #Duration Paralyzed]]{2d10 hours} (1 round)</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pufferfish Venom",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "ljtTQc6aYYzBmeSu",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "type": "lore"
-        },
-        {
-            "_id": "sBc5PfDzFHs6qHse",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "type": "lore"
-        }
-    ],
-    "name": "Pufferfish",
     "token": {
         "disposition": -1,
         "height": 0.5,

@@ -1,6 +1,474 @@
 {
     "_id": "x2XcPDPLeCAXITlZ",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "nSWM6vrnzV4iaYnK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tusk",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "qaibeodk541ue84m9iho": {
+                        "damage": "3d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "buuATh1VmZvUaYAM",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Trunk",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "grabbing-trunk"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZgYetoNRvvpabxnK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Foot",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "color-splash"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "ei0klwwfgvai54w39qzb": {
+                        "damage": "2d10+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "03fiR3RK6Jw9Wv9p",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qFVgtcLTXV4LIYQu",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Glowing Bones",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>An iridescent animal emits phosphorescent bright light in a @Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}. The animal can suppress this display until the end of its next turn as a single action, which has the concentrate trait. The color of the light is determined by the iridescent animal's creator.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Elephant is Supressing it's Glow",
+                        "option": "glowing-bones",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "glowing-bones"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 2,
+                                "speed": 2,
+                                "type": "fairy"
+                            },
+                            "bright": 15,
+                            "color": "#cd4242",
+                            "luminosity": 0.2
+                        }
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gg4EGIEKIMWM6Lln",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Color Splash",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When the iridescent elephant stomps its foot, a bright, disorienting burst of light pulses through its leg. Each creatures adjacent to the iridescent elephant when it makes a foot Strike (regardless of whether or not it hit) must succeed at a @Check[type:will|dc:24] save or be @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of the elephant's next turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KdGsDBgPGKlQjwFc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "description": {
+                    "value": "<p>Large or smaller, foot, @Check[type:reflex|dc:22|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "trample",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "An5Bh0snG4EiSy6u",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Trunk Beam",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The iridescent elephant blasts a beam of light from its trunk in a @Template[type:line|distance:30]. Each creature in the area must attempt a @Check[type:fortitude|dc:22] save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is blinded permanently.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "visual",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vkLS4esGKnpycmG3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Grabbing Trunk",
+            "sort": 900000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A Medium or smaller creature hit by the elephant's trunk is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. If the elephant moves, it can bring the grabbed creature along with it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3cTsGMl3SARoe6xY",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "XLOD1F82OmGT6j3a",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Iridescent Elephant",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": 0
@@ -104,474 +572,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "nSWM6vrnzV4iaYnK",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "qaibeodk541ue84m9iho": {
-                        "damage": "3d8+7",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tusk",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "buuATh1VmZvUaYAM",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "grabbing-trunk"
-                    ]
-                },
-                "bonus": {
-                    "value": 16
-                },
-                "damageRolls": {},
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "reach-15"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Trunk",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "ZgYetoNRvvpabxnK",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "color-splash"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "ei0klwwfgvai54w39qzb": {
-                        "damage": "2d10+7",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "reach-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Foot",
-            "sort": 300000,
-            "type": "melee"
-        },
-        {
-            "_id": "03fiR3RK6Jw9Wv9p",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "scent",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 30 feet",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "qFVgtcLTXV4LIYQu",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>An iridescent animal emits phosphorescent bright light in a @Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}. The animal can suppress this display until the end of its next turn as a single action, which has the concentrate trait. The color of the light is determined by the iridescent animal's creator.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Elephant is Supressing it's Glow",
-                        "option": "glowing-bones",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "glowing-bones"
-                            ]
-                        },
-                        "value": {
-                            "animation": {
-                                "intensity": 2,
-                                "speed": 2,
-                                "type": "fairy"
-                            },
-                            "bright": 15,
-                            "color": "#cd4242",
-                            "luminosity": 0.2
-                        }
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "concentrate"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Glowing Bones",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "Gg4EGIEKIMWM6Lln",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When the iridescent elephant stomps its foot, a bright, disorienting burst of light pulses through its leg. Each creatures adjacent to the iridescent elephant when it makes a foot Strike (regardless of whether or not it hit) must succeed at a @Check[type:will|dc:24] save or be @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of the elephant's next turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Color Splash",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "KdGsDBgPGKlQjwFc",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "description": {
-                    "value": "<p>Large or smaller, foot, @Check[type:reflex|dc:22|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "trample",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "An5Bh0snG4EiSy6u",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The iridescent elephant blasts a beam of light from its trunk in a @Template[type:line|distance:30]. Each creature in the area must attempt a @Check[type:fortitude|dc:22] save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is blinded permanently.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "visual",
-                        "light"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Trunk Beam",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "vkLS4esGKnpycmG3",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A Medium or smaller creature hit by the elephant's trunk is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. If the elephant moves, it can bring the grabbed creature along with it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Grabbing Trunk",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "3cTsGMl3SARoe6xY",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "XLOD1F82OmGT6j3a",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1100000,
-            "type": "lore"
-        }
-    ],
-    "name": "Iridescent Elephant",
     "token": {
         "disposition": -1,
         "height": 3,

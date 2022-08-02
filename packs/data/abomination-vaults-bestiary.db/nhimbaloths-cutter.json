@@ -1,6 +1,415 @@
 {
     "_id": "eoQgRltsgJWa4aeC",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "0QCPtkVtKzuuVVaK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bladed Limb",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "gw4croypzbtly3in04b3": {
+                        "damage": "2d6+8",
+                        "damageType": "slashing"
+                    },
+                    "xszipx0iib5qlifyexk1": {
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.PersistentDamage.Bleed1d6.success"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cNnj1mdRc6n47fUX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kcRvfKLlgq9sdmsj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>harmed by sonic ([[/r 6d6]], [[/r 2d6]] from areas or persistent damage); healed by fire (area [[/r 2d6]] HP); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. If an entry lists multiple types (such as “cold and water”), either type of spell can affect the golem.</p>\n<p><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</p>\n<p><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</p>\n<p><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/r 2d6]] rounds instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round.</p>\n<p><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LwBTFYgYLRf8gXzt",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spell Reflection",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The glass golem is targeted by a spell</p>\n<hr />\n<p><strong>Effect</strong> The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an Acrobatics check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "arcane"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4cuSJxJLUg7icXmj",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Shatter",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A glass golem is affected by the <em>@Compendium[pf2e.spells-srd.Shatter]{Shatter}</em> spell as though the golem were an unattended object.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lQZGx8hWnzcG2R6l",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dazzling Brilliance",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The glass golem creates waves of scintillating luminosity that cast bright light in a @Template[type:emanation|distance:60] (and dim light for the next 60 feet). The light lasts until the start of the glass golem's next turn, after which the glass golem can't use Dazzling Brilliance for [[/br 1d4 #rounds]]{1d4 rounds}. A creature within the bright light or that enters the bright light must attempt a @Check[type:will|dc:23] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and then dazzled for an additional 4 rounds.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "light",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M7VqYd1K43RsOInY",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Grim Glimmering",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The golem creates waves of baleful light that cast dim light in a @Template[type:emanation|distance:60]. The light lasts until the start of the golem's next turn, after which the golem can't use Grim Glimmering for [[/br 1d4 #rounds]]{1d4 rounds}. A creature within the light or that enters the light must attempt a @Check[type:will|dc:23|name:Grim Glitter|traits:damaging-effect] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "evocation",
+                        "light",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SP5pBAml6exvLDd7",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "WkbHtRK0i5RC5iDW",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "dP30PsYs11dAxPFk",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Nhimbaloth's Cutter",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -5
@@ -130,415 +539,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "0QCPtkVtKzuuVVaK",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 20
-                },
-                "damageRolls": {
-                    "gw4croypzbtly3in04b3": {
-                        "damage": "2d6+8",
-                        "damageType": "slashing"
-                    },
-                    "xszipx0iib5qlifyexk1": {
-                        "damage": "1d6",
-                        "damageType": "bleed"
-                    }
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.PersistentDamage.Bleed1d6.success"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "magical",
-                        "versatile-p"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bladed Limb",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "cNnj1mdRc6n47fUX",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "kcRvfKLlgq9sdmsj",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>harmed by sonic ([[/r 6d6]], [[/r 2d6]] from areas or persistent damage); healed by fire (area [[/r 2d6]] HP); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. If an entry lists multiple types (such as “cold and water”), either type of spell can affect the golem.</p>\n<p><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</p>\n<p><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</p>\n<p><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/r 2d6]] rounds instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round.</p>\n<p><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "LwBTFYgYLRf8gXzt",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The glass golem is targeted by a spell</p>\n<hr />\n<p><strong>Effect</strong> The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an Acrobatics check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "abjuration",
-                        "arcane"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spell Reflection",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "4cuSJxJLUg7icXmj",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A glass golem is affected by the <em>@Compendium[pf2e.spells-srd.Shatter]{Shatter}</em> spell as though the golem were an unattended object.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Shatter",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "lQZGx8hWnzcG2R6l",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The glass golem creates waves of scintillating luminosity that cast bright light in a @Template[type:emanation|distance:60] (and dim light for the next 60 feet). The light lasts until the start of the glass golem's next turn, after which the glass golem can't use Dazzling Brilliance for [[/br 1d4 #rounds]]{1d4 rounds}. A creature within the bright light or that enters the bright light must attempt a @Check[type:will|dc:23] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and then dazzled for an additional 4 rounds.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "evocation",
-                        "light",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dazzling Brilliance",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "M7VqYd1K43RsOInY",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The golem creates waves of baleful light that cast dim light in a @Template[type:emanation|distance:60]. The light lasts until the start of the golem's next turn, after which the golem can't use Grim Glimmering for [[/br 1d4 #rounds]]{1d4 rounds}. A creature within the light or that enters the light must attempt a @Check[type:will|dc:23|name:Grim Glitter|traits:damaging-effect] save.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "evocation",
-                        "light",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Grim Glimmering",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "SP5pBAml6exvLDd7",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "WkbHtRK0i5RC5iDW",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "dP30PsYs11dAxPFk",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "type": "lore"
-        }
-    ],
-    "name": "Nhimbaloth's Cutter",
     "token": {
         "disposition": -1,
         "height": 1,

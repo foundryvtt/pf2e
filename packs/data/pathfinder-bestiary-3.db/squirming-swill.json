@@ -1,6 +1,430 @@
 {
     "_id": "EP8xhzy46zPWvhQL",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "UOOf6xLzb7FqQtsU",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Offal",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "slippery-grease"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d10-1",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p>[[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "N2Qsn1VaKlDp82Ga",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scalding Oil",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "magical",
+                        "range-increment-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "baOID7dh8Ikettqn",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Magical Broth",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The squirming swill retains some residue from the magical broth it was stewed in. A creature can salvage the portion of a destroyed squirming swill that contains the greatest amount of this liquid by squeezing its remains. This liquid can be used as an oil or potion of the swill's level or lower, typically a @Compendium[pf2e.equipment-srd.Healing Potion (Minor)]{Healing Potion (Minor)},@Compendium[pf2e.equipment-srd.Nectar of Purification]{Nectar of Purification}, or @Compendium[pf2e.equipment-srd.Oil of Potency]{Oil of Potency}. This consumable follows the normal rules for Activating an oil or potion.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zpYoiV9dZOr8GH5F",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Squirming swill can sense nearby creatures through vibration and air or water movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TnKoM2xO55NqfEqC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status Bonus on Saves vs. Curses",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "curse"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "elcu7DQCtC0dX7Q4",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5wlVfCVGmDq3fRKw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Malodorous Smoke",
+            "sort": 700000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The squirming swill reeks of food that is simultaneously burned and spoiled. A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:17] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>When a creature succeeds at a Fortitude save to recover from this sickness, it regurgitates a chunk of food that immediately slithers away to join the swill, restoring [[/r 3]] Hit Points to the swill.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "conjuration",
+                        "curse",
+                        "magical",
+                        "olfactory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mr3JOEATvs2okn6i",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slippery Grease",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The first time on its turn that the squirming swill hits a creature with its Offal Strike, hot grease from its body splatters the ground in the target's space. The target must succeed at a @Check[type:reflex|dc:17] save or Acrobatics check, falling @Compendium[pf2e.conditionitems.Prone]{Prone} on a failure.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6mm4pHATbcA0iNJq",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "BkrSDs8E50eOjhgw",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Squirming Swill",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -4
@@ -126,430 +550,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "UOOf6xLzb7FqQtsU",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "slippery-grease"
-                    ]
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d10-1",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": "<p>[[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Offal",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "N2Qsn1VaKlDp82Ga",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "magical",
-                        "range-increment-30"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Scalding Oil",
-            "sort": 200000,
-            "type": "melee"
-        },
-        {
-            "_id": "baOID7dh8Ikettqn",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The squirming swill retains some residue from the magical broth it was stewed in. A creature can salvage the portion of a destroyed squirming swill that contains the greatest amount of this liquid by squeezing its remains. This liquid can be used as an oil or potion of the swill's level or lower, typically a @Compendium[pf2e.equipment-srd.Healing Potion (Minor)]{Healing Potion (Minor)},@Compendium[pf2e.equipment-srd.Nectar of Purification]{Nectar of Purification}, or @Compendium[pf2e.equipment-srd.Oil of Potency]{Oil of Potency}. This consumable follows the normal rules for Activating an oil or potion.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Magical Broth",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "zpYoiV9dZOr8GH5F",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Squirming swill can sense nearby creatures through vibration and air or water movement.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Motion Sense 60 feet",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "TnKoM2xO55NqfEqC",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "curse"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status Bonus on Saves vs. Curses",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "elcu7DQCtC0dX7Q4",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "source": {
-                    "value": "Pathfinder Bestiary 2"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "5wlVfCVGmDq3fRKw",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The squirming swill reeks of food that is simultaneously burned and spoiled. A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:17] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>When a creature succeeds at a Fortitude save to recover from this sickness, it regurgitates a chunk of food that immediately slithers away to join the swill, restoring [[/r 3]] Hit Points to the swill.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "aura",
-                        "conjuration",
-                        "curse",
-                        "magical",
-                        "olfactory"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Malodorous Smoke",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "mr3JOEATvs2okn6i",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The first time on its turn that the squirming swill hits a creature with its Offal Strike, hot grease from its body splatters the ground in the target's space. The target must succeed at a @Check[type:reflex|dc:17] save or Acrobatics check, falling @Compendium[pf2e.conditionitems.Prone]{Prone} on a failure.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Slippery Grease",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "6mm4pHATbcA0iNJq",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "BkrSDs8E50eOjhgw",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "type": "lore"
-        }
-    ],
-    "name": "Squirming Swill",
     "token": {
         "disposition": -1,
         "height": 1,

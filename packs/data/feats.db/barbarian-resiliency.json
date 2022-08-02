@@ -1,6 +1,8 @@
 {
     "_id": "HpT1GlcnkCBnDnVF",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Barbarian Resiliency",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -34,13 +36,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.modifiers.barbarian-dedication-count",
+                "path": "system.custom.modifiers.barbarian-dedication-count",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
                 "selector": "hp",
-                "value": "3 * @actor.data.data.custom.modifiers.barbarian-dedication-count"
+                "value": "3 * @actor.system.custom.modifiers.barbarian-dedication-count"
             }
         ],
         "source": {
@@ -54,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Barbarian Resiliency",
     "type": "feat"
 }

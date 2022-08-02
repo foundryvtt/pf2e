@@ -1,6 +1,8 @@
 {
     "_id": "Ht6b8H9DpA9lWzAg",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Advanced General Training",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -35,7 +37,7 @@
                     "label": "PF2E.SpecificRule.AdvancedGeneralTraining.AllowedDrops"
                 },
                 "choices": {
-                    "query": "{\"data.level.value\":{\"$lte\":7},\"data.traits.value\":{\"$elemMatch\":\"general\"}}"
+                    "query": "{\"system.level.value\":{\"$lte\":7},\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.AdvancedGeneralTraining.Prompt"
@@ -56,7 +58,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Advanced General Training",
     "type": "feat"
 }

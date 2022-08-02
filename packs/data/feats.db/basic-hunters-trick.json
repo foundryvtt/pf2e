@@ -1,6 +1,8 @@
 {
     "_id": "mV911W6MTGMvHPbE",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Basic Hunter's Trick",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -31,7 +33,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.modifiers.ranger-dedication-count",
+                "path": "system.custom.modifiers.ranger-dedication-count",
                 "value": 1
             },
             {
@@ -44,7 +46,7 @@
                     "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
                 },
                 "choices": {
-                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"ranger\"}}"
+                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"ranger\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
@@ -65,7 +67,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Basic Hunter's Trick",
     "type": "feat"
 }

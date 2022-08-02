@@ -1,6 +1,181 @@
 {
     "_id": "Hkq9ZS2J2iKnT7vT",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "YXsM6AcguDWAwVIt",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "t7q0iqdlzzd1y5zle9p2": {
+                        "damage": "1d6+1",
+                        "damageType": "bludgeoning"
+                    },
+                    "wozsa0yc2wmz8e7vfsgg": {
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VwrlDdZczBGO5Ps4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A sewer ooze can sense nearby motion through vibration and air movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mdqK7RuSjtezVyS8",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Filth Wave",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The sewer ooze unleashes a wave of filth, covering all creatures within a @Template[type:emanation|distance:20]. Each creature in the area must succeed at a @Check[type:reflex|dc:17|traits:damaging-effect] save or take [[/r {1d4}[acid]]]{1d4 acid damage} and take a -10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls @Compendium[pf2e.conditionitems.Prone]{Prone}).</p>\n<p>A creature can spend an Interact action to clean someone off, decreasing the Speed penalty by 5 feet with each action.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Filth Wave]{Effect: Filth Wave}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iUzYuqnjkPvxjVq6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 1
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Sewers",
+                        "predicate": {
+                            "all": [
+                                "terrain:sewer"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+4 in sewers",
+                        "options": "terrain:sewer"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Sewer Ooze",
+    "system": {
         "abilities": {
             "cha": {
                 "mod": -5
@@ -112,181 +287,6 @@
             }
         }
     },
-    "img": "systems/pf2e/icons/default-icons/npc.svg",
-    "items": [
-        {
-            "_id": "YXsM6AcguDWAwVIt",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 9
-                },
-                "damageRolls": {
-                    "t7q0iqdlzzd1y5zle9p2": {
-                        "damage": "1d6+1",
-                        "damageType": "bludgeoning"
-                    },
-                    "wozsa0yc2wmz8e7vfsgg": {
-                        "damage": "1d4",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Pseudopod",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "VwrlDdZczBGO5Ps4",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A sewer ooze can sense nearby motion through vibration and air movement.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Motion Sense 60 feet",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "mdqK7RuSjtezVyS8",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The sewer ooze unleashes a wave of filth, covering all creatures within a @Template[type:emanation|distance:20]. Each creature in the area must succeed at a @Check[type:reflex|dc:17|traits:damaging-effect] save or take [[/r {1d4}[acid]]]{1d4 acid damage} and take a -10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls @Compendium[pf2e.conditionitems.Prone]{Prone}).</p>\n<p>A creature can spend an Interact action to clean someone off, decreasing the Speed penalty by 5 feet with each action.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Filth Wave]{Effect: Filth Wave}</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Filth Wave",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "iUzYuqnjkPvxjVq6",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 1
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Sewers",
-                        "predicate": {
-                            "all": [
-                                "terrain:sewer"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+4 in sewers",
-                        "options": "terrain:sewer"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "type": "lore"
-        }
-    ],
-    "name": "Sewer Ooze",
     "token": {
         "disposition": -1,
         "height": 1,
