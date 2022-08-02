@@ -1031,6 +1031,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return Array.from(toReturn).sort();
     }
 
+    /** This allows @actor.level and such to work for roll macros */
+    override getRollData(): Record<string, unknown> {
+        return { ...duplicate(super.getRollData()), actor: this };
+    }
+
     /* -------------------------------------------- */
     /* Conditions                                   */
     /* -------------------------------------------- */
