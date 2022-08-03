@@ -21,7 +21,7 @@ export abstract class CompendiumBrowserTab {
     /** The name of this tab */
     tabName: Exclude<TabName, "settings">;
     /** The path to the result list template of this tab */
-    templatePath = "";
+    abstract templatePath: string;
 
     constructor(browser: CompendiumBrowser, tabName: Exclude<TabName, "settings">) {
         this.browser = browser;
