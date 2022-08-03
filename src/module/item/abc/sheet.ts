@@ -9,7 +9,7 @@ import { ABCSheetData } from "../sheet/data-types";
 type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
 
 export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
             scrollY: [".item-details"],
@@ -21,7 +21,8 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         const itemType = this.item.type;
 
         const sheetData = this.getBaseData(options);
-        sheetData.data.items = this.item.toObject().data.items; // Exclude any added during data preparation
+        // Exclude any added during data preparation
+        sheetData.data.items = this.item.toObject().system.items;
 
         return {
             ...sheetData,
@@ -76,7 +77,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         const entry: ABCFeatureEntryData = {
             pack: dropData.pack || undefined,
             id: dropData.id,
-            img: item.data.img,
+            img: item.img,
             name: item.name,
             level: item.level,
         };
@@ -94,7 +95,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         });
     }
 
-    private removeItem(event: JQuery.ClickEvent) {
+    private removeItem(event: JQuery.ClickEvent): void {
         event.preventDefault();
         const target = $(event.target).parents("li");
         const containerId = target.parents("[data-container-id]").data("containerId");

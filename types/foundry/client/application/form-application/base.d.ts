@@ -142,13 +142,14 @@ declare global {
     class FormDataExtended extends FormData {
         constructor(form: HTMLElement, options?: { editors?: Record<string, TinyMCEEditorData>; dtypes?: string[] });
 
+        /** The object representation of the form data, available once processed. */
+        readonly object: Record<string, unknown>;
+
         /**
          * Process the HTML form element to populate the FormData instance.
          * @param form The HTML form
          */
         process(form: HTMLFormElement): void;
-
-        toObject(): Record<string, unknown>;
     }
 
     interface FormApplicationData<O extends {} = {}> {

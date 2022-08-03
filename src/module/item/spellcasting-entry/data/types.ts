@@ -29,7 +29,7 @@ type SlotKey = `slot${ZeroToEleven}`;
 
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemData>;
 
-type SpellcastingEntryData = Omit<SpellcastingEntrySource, "effects" | "flags"> &
+type SpellcastingEntryData = Omit<SpellcastingEntrySource, "data" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySystemData, SpellcastingEntrySource>;
 
 interface SpellAttackRollModifier {

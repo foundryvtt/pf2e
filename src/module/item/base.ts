@@ -11,6 +11,7 @@ import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
 import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
+import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import type { PhysicalItemPF2e } from "./physical";
@@ -84,12 +85,13 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
-        const traits = this.system.traits?.value.map((t) => `trait:${t}`) ?? [];
+        const traits: ItemTrait[] = this.system.traits?.value ?? [];
+        const traitOptions = traits.map((t) => `trait:${t}`);
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
             `${delimitedPrefix}id:${this.id}`,
             `${delimitedPrefix}${slug}`,
-            ...traits.map((t) => `${delimitedPrefix}${t}`),
+            ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
         ];
 
         if ("level" in this.system) options.push(`${delimitedPrefix}level:${this.system.level.value}`);

@@ -1,5 +1,5 @@
 import { ItemPF2e, LorePF2e } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
 import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -19,7 +19,7 @@ import { ItemSheetDataPF2e } from "./data-types";
 import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): DocumentSheetOptions {
         const options = super.defaultOptions;
         options.width = 650;
         options.height = 460;
@@ -52,7 +52,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     get editingRuleElement() {
         if (this.editingRuleElementIndex === null) return null;
-        return this.item.toObject().data.rules[this.editingRuleElementIndex] ?? null;
+        return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>) {
@@ -60,7 +60,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         sheetData.abilities = CONFIG.PF2E.abilities;
         sheetData.saves = CONFIG.PF2E.saves;
 
-        const itemData: ItemDataPF2e = sheetData.item;
+        const itemData: TItem["data"] = sheetData.item;
 
         mergeObject(sheetData, {
             hasSidebar: true,
@@ -100,7 +100,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "consumable") {
             sheetData.consumableTypes = CONFIG.PF2E.consumableTypes;
-            sheetData.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.data.traits);
+            sheetData.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.system.traits);
             sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
             sheetData.stackGroups = CONFIG.PF2E.stackGroups;
             sheetData.consumableTraits = CONFIG.PF2E.consumableTraits;
@@ -112,21 +112,21 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sheetData.damageTypes = CONFIG.PF2E.damageTypes;
 
             sheetData.attackEffects = createSheetOptions(this.getAttackEffectOptions(), sheetData.data.attackEffects);
-            sheetData.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, sheetData.data.traits);
+            sheetData.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, sheetData.system.traits);
         } else if (itemData.type === "condition") {
             // Condition types
 
             sheetData.conditions = [];
         } else if (itemData.type === "equipment") {
             // Equipment data
-            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
+            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.system.traits);
             sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
             sheetData.stackGroups = CONFIG.PF2E.stackGroups;
             sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "backpack") {
             // Backpack data
-            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
+            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.system.traits);
             sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
             sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             sheetData.sizes = CONFIG.PF2E.actorSizes;
@@ -136,7 +136,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-        sheetData.ruleLabels = itemData.data.rules.map((ruleData: RuleElementSource) => {
+        sheetData.ruleLabels = itemData.system.rules.map((ruleData: RuleElementSource) => {
             const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
             const label = translations[key] ?? translations.Unrecognized;
             const recognized = label !== translations.Unrecognized;
@@ -154,22 +154,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
-        const itemData = this.item.clone({}, { keepId: true }).data;
-        const rules = itemData.toObject().data.rules;
-        itemData.data.rules = rules;
-
-        const isEditable = this.isEditable;
+        const item = this.item.clone({}, { keepId: true });
+        const itemData = item.toObject(false) as unknown as TItem["data"];
+        const rules = this.item.toObject().system.rules;
 
         return {
             itemType: null,
             hasSidebar: false,
             hasDetails: true,
-            cssClass: isEditable ? "editable" : "locked",
-            editable: isEditable,
+            cssClass: this.isEditable ? "editable" : "locked",
+            editable: this.isEditable,
             document: this.item,
             item: itemData,
             isPhysical: false,
-            data: itemData.data,
+            data: item.system,
             limited: this.item.limited,
             options: this.options,
             owner: this.item.isOwner,
@@ -306,7 +304,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rulesData = this.item.toObject().data.rules;
+            const rulesData = this.item.toObject().system.rules;
             const key = this.selectedRuleElementType ?? "NewRuleElement";
             this.item.update({ "system.rules": rulesData.concat({ key }) });
         });
@@ -322,7 +320,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rules = this.item.toObject().data.rules;
+            const rules = this.item.toObject().system.rules;
             const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN");
             if (rules && Number.isInteger(index) && rules.length > index) {
                 rules.splice(index, 1);
@@ -393,7 +391,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 }
 
                 try {
-                    const rules = this.item.toObject().data.rules;
+                    const rules = this.item.toObject().system.rules;
                     rules[this.editingRuleElementIndex] = JSON.parse(value as string);
                     this.editingRuleElementIndex = null;
                     this.item.update({ "system.rules": rules });
@@ -431,16 +429,16 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         super.activateEditor(
             name,
             options,
-            name === "system.description.value" ? this.item._source.data.description.value : initialContent
+            name === "system.description.value" ? this.item._source.system.description.value : initialContent
         );
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
-            ? mergeObject(fd.toObject(), updateData)
-            : expandObject(fd.toObject());
+        const data: Record<string, unknown> & { system?: { rules?: string[] } } = updateData
+            ? mergeObject(fd.object, updateData)
+            : expandObject(fd.object);
 
         const flattenedData = flattenObject(data);
 
@@ -448,7 +446,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
         for (const inputEl of Array.from(tagifyInputElements)) {
             const path = inputEl.name;
-            const selections = flattenedData[path];
+            const inputValue = flattenedData[path];
+            const selections = typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
             if (Array.isArray(selections)) {
                 flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
             }
@@ -503,11 +502,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const rulesVisible = !!this.form.querySelector(".rules");
         const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
-        if (rulesVisible && expanded.data?.rules) {
+        if (rulesVisible && expanded.system?.rules) {
             const itemData = this.item.toObject();
-            const rules = itemData.data.rules ?? [];
+            const rules = itemData.system.rules ?? [];
 
-            for (const [key, value] of Object.entries(expanded.data.rules)) {
+            for (const [key, value] of Object.entries(expanded.system.rules)) {
                 const idx = Number(key);
 
                 // If the entire thing is a string, this is a regular JSON textarea
@@ -552,7 +551,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 }
             }
 
-            expanded.data.rules = rules;
+            expanded.system.rules = rules;
         }
 
         return super._updateObject(event, flattenObject(expanded));

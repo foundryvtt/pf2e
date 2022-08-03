@@ -22,7 +22,6 @@ import type { TreasureData, TreasureSource } from "@item/treasure/data";
 import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemTraits } from "../physical/data";
-import { ItemTraits } from "./base";
 
 export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
 
@@ -57,7 +56,7 @@ export type PhysicalItemData = { data: { traits: PhysicalItemTraits } } & (
 export type MagicItemData = Exclude<PhysicalItemData, ConsumableData | TreasureData>;
 export type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
 
-export type ItemDataPF2e = (
+export type ItemDataPF2e =
     | PhysicalItemData
     | ActionItemData
     | AncestryData
@@ -72,8 +71,7 @@ export type ItemDataPF2e = (
     | LoreData
     | MeleeData
     | SpellcastingEntryData
-    | SpellData
-) & { data: { traits?: ItemTraits } };
+    | SpellData;
 
 export type PhysicalItemSource = PhysicalItemData["_source"];
 export type ItemSourcePF2e = ItemDataPF2e["_source"];
