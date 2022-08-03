@@ -119,11 +119,6 @@ class CompendiumBrowser extends Application {
         });
     }
 
-    override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        await super._render(force, options);
-        this.activateResultListeners();
-    }
-
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
         this.initialFilter = [];
@@ -326,299 +321,342 @@ class CompendiumBrowser extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
         const activeTabName = this.activeTab;
-        const html = $html.get(0)!;
 
         // Settings Tab
         if (activeTabName === "settings") {
-            $html.find<HTMLButtonElement>("button.save-settings").on("click", async () => {
-                const formData = new FormData($html.find<HTMLFormElement>(".compendium-browser-settings form")[0]);
-                for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
-                    for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                        pack.load = formData.has(`${t}-${key}`);
+            const form = html.querySelector<HTMLFormElement>(".compendium-browser-settings form");
+            if (form) {
+                form.querySelector("button.save-settings")?.addEventListener("click", async () => {
+                    const formData = new FormData(form);
+                    for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
+                        for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
+                            pack.load = formData.has(`${t}-${key}`);
+                        }
                     }
-                }
-                await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
-                this.loadSettings();
-                this.initCompendiumList();
-                for (const tab of Object.values(this.tabs)) {
-                    if (tab.isInitialized) {
-                        await tab.init();
-                        this.render(true);
+                    await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
+                    this.loadSettings();
+                    this.initCompendiumList();
+                    for (const tab of Object.values(this.tabs)) {
+                        if (tab.isInitialized) {
+                            await tab.init();
+                            tab.scrollLimit = 100;
+                        }
                     }
-                }
-            });
+                    this.render(true);
+                });
+            }
             return;
         }
+
         // Other tabs
         const currentTab = this.tabs[activeTabName];
-        const $controlArea = $html.find(".control-area");
-
-        $controlArea.find("button.clear-filters").on("click", () => {
-            this.resetFilters();
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        $controlArea.find("button[data-action=clear-filter]").on("click", (event) => {
-            event.stopImmediatePropagation();
-            const filterType = event.currentTarget.parentElement?.parentElement?.dataset.filterType;
-            const filterName = event.currentTarget.parentElement?.parentElement?.dataset.filterName ?? "";
-            switch (filterType) {
-                case "checkboxes": {
-                    const checkboxes = currentTab.filterData.checkboxes;
-                    if (objectHasKey(checkboxes, filterName)) {
-                        for (const option of Object.values(checkboxes[filterName].options)) {
-                            option.selected = false;
-                        }
-                        checkboxes[filterName].selected = [];
-                        this.render(true);
-                    }
-                    break;
-                }
-                case "ranges": {
-                    const ranges = currentTab.filterData.ranges!;
-                    if (objectHasKey(ranges, filterName)) {
-                        ranges[filterName].values = currentTab.defaultFilterData.ranges![filterName].values;
-                        ranges[filterName].changed = false;
-                        this.render(true);
-                    }
-                }
-            }
-        });
-
-        // Toggle visibility of filter containers
-        $controlArea.find(".filtercontainer div.title").on("click", (event) => {
-            const filterType = event.currentTarget.parentElement?.dataset.filterType;
-            const filterName = event.currentTarget.parentElement?.dataset.filterName ?? "";
-            if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
-                const filters = currentTab.filterData[filterType];
-                if (filters && objectHasKey(filters, filterName)) {
-                    // This needs a type assertion because it resolves to never for some reason
-                    const filter = filters[filterName] as CheckboxData | RangesData;
-                    filter.isExpanded = !filter.isExpanded;
-                    this.render(true);
-                }
-            }
-        });
-
-        // Sort item list
-        const $sortContainer = $controlArea.find(".sortcontainer");
-        const $orderSelects = $sortContainer.find<HTMLSelectElement>("select.order");
-        const $directionButtons = $sortContainer.find("a.direction");
-        $orderSelects.on("change", (event) => {
-            const $order = $(event.target);
-            const orderBy = $order.val()?.toString() ?? "name";
-            currentTab.filterData.order.by = orderBy;
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        $directionButtons.on("click", (event) => {
-            const direction = ($(event.currentTarget).data("direction") as SortDirection) ?? "asc";
-            currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
-            this.clearScrollLimit();
-            this.render(true);
-        });
+        const controlArea = html.querySelector<HTMLDivElement>("div.control-area");
+        if (!controlArea) return;
 
         // Search field
-        $controlArea.find<HTMLInputElement>("input[name=textFilter]").on("change paste", (event) => {
-            currentTab.filterData.search.text = event.target.value;
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        // TODO: Support any generated select element
-        $controlArea.find<HTMLSelectElement>(".timefilter select").on("change", (event) => {
-            if (!currentTab.filterData?.selects?.timefilter) return;
-            currentTab.filterData.selects.timefilter.selected = event.target.value;
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        // Activate or deactivate filters
-        $controlArea.find<HTMLInputElement>("input[type=checkbox]").on("click", (event) => {
-            const checkboxName = event.target.closest("div")?.dataset?.filterName;
-            const optionName = event.target.name;
-            if (!checkboxName || !optionName) return;
-            if (objectHasKey(currentTab.filterData.checkboxes, checkboxName)) {
-                const checkbox = currentTab.filterData.checkboxes[checkboxName];
-                const option = checkbox.options[optionName];
-                option.selected = !option.selected;
-                option.selected
-                    ? checkbox.selected.push(optionName)
-                    : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
-                this.clearScrollLimit();
-                this.render(true);
-            }
-        });
-
-        // Filter for ranges
-        $controlArea.find<HTMLInputElement>("input[name*=Bound]").on("keyup", (event) => {
-            if (event.key !== "Enter") return;
-            const $parent = $(event.target).closest("div");
-            const name = ($parent.closest("div .filtercontainer").data("filterName") as string) ?? "";
-            const ranges = currentTab.filterData.ranges;
-            if (ranges && objectHasKey(ranges, name)) {
-                const range = ranges[name];
-                const lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]")?.val() ?? "";
-                const upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]")?.val() ?? "";
-                if (!(typeof lowerBound === "string") || !(typeof upperBound === "string")) return;
-                const values = currentTab.parseRangeFilterInput(name, lowerBound, upperBound);
-                range.values = values;
-                range.changed = true;
-                this.clearScrollLimit();
-                this.render(true);
-            }
-        });
-
-        if (!currentTab) return;
-
-        // Multiselects using tagify
-        for (const [key, data] of Object.entries(currentTab.filterData.multiselects ?? {})) {
-            const multiselect = html.querySelector<HTMLInputElement>(`input[name=${key}][data-tagify-select]`);
-            if (!multiselect) continue;
-
-            new Tagify(multiselect, {
-                enforceWhitelist: true,
-                keepInvalidTags: false,
-                editTags: false,
-                tagTextProp: "label",
-                dropdown: {
-                    closeOnSelect: false,
-                    enabled: 0,
-                    fuzzySearch: false,
-                    mapValueTo: "label",
-                    maxItems: data.options.length,
-                    searchKeys: ["label"],
-                },
-                whitelist: data.options,
-            });
-
-            multiselect.addEventListener("change", () => {
-                const selections: unknown = JSON.parse(multiselect.value || "[]");
-                const isValid =
-                    Array.isArray(selections) &&
-                    selections.every(
-                        (s: unknown): s is { value: string; label: string } =>
-                            isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
-                    );
-
-                if (isValid) {
-                    data.selected = selections;
-                    this.render();
-                }
+        const search = controlArea.querySelector<HTMLInputElement>("input[name=textFilter]");
+        if (search) {
+            search.addEventListener("search", () => {
+                currentTab.filterData.search.text = search.value;
+                this.clearScrollLimit(true);
             });
         }
 
-        // Slider filters
-        for (const [name, data] of Object.entries(currentTab.filterData.sliders ?? {})) {
-            const $slider = $html.find(`div.slider-${name}`);
-            if (!$slider) continue;
+        // Sort item list
+        const sortContainer = controlArea.querySelector<HTMLDivElement>("div.sortcontainer");
+        if (sortContainer) {
+            const order = sortContainer.querySelector<HTMLSelectElement>("select.order");
+            if (order) {
+                order.addEventListener("change", () => {
+                    const orderBy = order.value ?? "name";
+                    currentTab.filterData.order.by = orderBy;
+                    this.clearScrollLimit(true);
+                });
+            }
+            const directionAnchor = sortContainer.querySelector<HTMLAnchorElement>("a.direction");
+            if (directionAnchor) {
+                directionAnchor.addEventListener("click", () => {
+                    const direction = (directionAnchor.dataset.direction as SortDirection) ?? "asc";
+                    currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
+                    this.clearScrollLimit(true);
+                });
+            }
+        }
 
-            const slider = noUiSlider.create($slider[0], {
-                range: {
-                    min: data.values.lowerLimit,
-                    max: data.values.upperLimit,
-                },
-                start: [data.values.min, data.values.max],
-                tooltips: {
-                    to(value: number) {
-                        return Math.floor(value).toString();
-                    },
-                },
-                connect: [false, true, false],
-                behaviour: "snap",
-                step: data.values.step,
+        if (activeTabName === "spell") {
+            const timeFilter = controlArea.querySelector<HTMLSelectElement>("select[name=timefilter]");
+            if (timeFilter) {
+                timeFilter.addEventListener("change", () => {
+                    if (!currentTab.filterData?.selects?.timefilter) return;
+                    currentTab.filterData.selects.timefilter.selected = timeFilter.value;
+                    this.clearScrollLimit(true);
+                });
+            }
+        }
+
+        // Clear all filters button
+        controlArea.querySelector<HTMLButtonElement>("button.clear-filters")?.addEventListener("click", () => {
+            this.resetFilters();
+            this.clearScrollLimit(true);
+        });
+
+        // Filters
+        const filterContainers = controlArea.querySelectorAll<HTMLDivElement>("div.filtercontainer");
+        for (const container of Array.from(filterContainers)) {
+            const { filterType, filterName } = container.dataset;
+            // Clear this filter button
+            container
+                .querySelector<HTMLButtonElement>("button[data-action=clear-filter]")
+                ?.addEventListener("click", (event) => {
+                    event.stopImmediatePropagation();
+                    switch (filterType) {
+                        case "checkboxes": {
+                            const checkboxes = currentTab.filterData.checkboxes;
+                            if (objectHasKey(checkboxes, filterName)) {
+                                for (const option of Object.values(checkboxes[filterName].options)) {
+                                    option.selected = false;
+                                }
+                                checkboxes[filterName].selected = [];
+                                this.render(true);
+                            }
+                            break;
+                        }
+                        case "ranges": {
+                            const ranges = currentTab.filterData.ranges!;
+                            if (objectHasKey(ranges, filterName)) {
+                                ranges[filterName].values = currentTab.defaultFilterData.ranges![filterName].values;
+                                ranges[filterName].changed = false;
+                                this.render(true);
+                            }
+                        }
+                    }
+                });
+
+            // Toggle visibility of filter container
+            container.querySelector<HTMLDivElement>("div.title")?.addEventListener("click", () => {
+                if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
+                    const filters = currentTab.filterData[filterType];
+                    if (filters && objectHasKey(filters, filterName)) {
+                        // This needs a type assertion because it resolves to never for some reason
+                        const filter = filters[filterName] as CheckboxData | RangesData;
+                        filter.isExpanded = !filter.isExpanded;
+                        const dlElement = container.querySelector("dl");
+                        if (dlElement) {
+                            filter.isExpanded ? (dlElement.style.display = "") : (dlElement.style.display = "none");
+                        }
+                    }
+                }
             });
 
-            slider.on("change", (values) => {
-                const [min, max] = values.map((value) => Number(value));
-                data.values.min = min;
-                data.values.max = max;
+            if (filterType === "checkboxes") {
+                container.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((checkboxElement) => {
+                    checkboxElement.addEventListener("click", () => {
+                        if (objectHasKey(currentTab.filterData.checkboxes, filterName)) {
+                            const optionName = checkboxElement.name;
+                            const checkbox = currentTab.filterData.checkboxes[filterName];
+                            const option = checkbox.options[optionName];
+                            option.selected = !option.selected;
+                            option.selected
+                                ? checkbox.selected.push(optionName)
+                                : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+                            this.clearScrollLimit(true);
+                        }
+                    });
+                });
+            }
 
-                const $minLabel = $html.find(`label.${name}-min-label`);
-                const $maxLabel = $html.find(`label.${name}-max-label`);
-                $minLabel.text(min);
-                $maxLabel.text(max);
+            if (filterType === "ranges") {
+                container.querySelectorAll<HTMLInputElement>("input[name*=Bound]").forEach((range) => {
+                    range.addEventListener("keyup", (event) => {
+                        if (event.key !== "Enter") return;
+                        const ranges = currentTab.filterData.ranges;
+                        if (ranges && objectHasKey(ranges, filterName)) {
+                            const range = ranges[filterName];
+                            const lowerBound =
+                                container.querySelector<HTMLInputElement>("input[name*=lowerBound]")?.value ?? "";
+                            const upperBound =
+                                container.querySelector<HTMLInputElement>("input[name*=upperBound]")?.value ?? "";
+                            const values = currentTab.parseRangeFilterInput(filterName, lowerBound, upperBound);
+                            range.values = values;
+                            range.changed = true;
+                            this.clearScrollLimit(true);
+                        }
+                    });
+                });
+            }
 
-                this.clearScrollLimit();
-                this.render();
-            });
+            if (filterType === "multiselects") {
+                // Multiselects using tagify
+                const multiselects = currentTab.filterData.multiselects;
+                if (!multiselects) continue;
+                if (objectHasKey(multiselects, filterName)) {
+                    const multiselect = container.querySelector<HTMLInputElement>(
+                        `input[name=${filterName}][data-tagify-select]`
+                    );
+                    if (!multiselect) continue;
+                    const data = multiselects[filterName];
 
-            // Set styling
-            $slider.find(".noUi-handle").each((_index, handle) => {
-                const $handle = $(handle);
-                $handle.addClass("handle");
-            });
+                    new Tagify(multiselect, {
+                        enforceWhitelist: true,
+                        keepInvalidTags: false,
+                        editTags: false,
+                        tagTextProp: "label",
+                        dropdown: {
+                            closeOnSelect: false,
+                            enabled: 0,
+                            fuzzySearch: false,
+                            mapValueTo: "label",
+                            maxItems: data.options.length,
+                            searchKeys: ["label"],
+                        },
+                        whitelist: data.options,
+                    });
 
-            $slider.find(".noUi-connect").each((_index, connect) => {
-                $(connect).addClass("range_selected");
-            });
+                    multiselect.addEventListener("change", () => {
+                        const selections: unknown = JSON.parse(multiselect.value || "[]");
+                        const isValid =
+                            Array.isArray(selections) &&
+                            selections.every(
+                                (s: unknown): s is { value: string; label: string } =>
+                                    isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
+                            );
+
+                        if (isValid) {
+                            data.selected = selections;
+                            this.render();
+                        }
+                    });
+                }
+            }
+
+            if (filterType === "sliders") {
+                // Slider filters
+                const sliders = currentTab.filterData.sliders;
+                if (!sliders) continue;
+
+                if (objectHasKey(sliders, filterName)) {
+                    const sliderElement = container.querySelector<HTMLDivElement>(`div.slider-${filterName}`);
+                    if (!sliderElement) continue;
+                    const data = sliders[filterName];
+
+                    const slider = noUiSlider.create(sliderElement, {
+                        range: {
+                            min: data.values.lowerLimit,
+                            max: data.values.upperLimit,
+                        },
+                        start: [data.values.min, data.values.max],
+                        tooltips: {
+                            to(value: number) {
+                                return Math.floor(value).toString();
+                            },
+                        },
+                        connect: [false, true, false],
+                        behaviour: "snap",
+                        step: data.values.step,
+                    });
+
+                    slider.on("change", (values) => {
+                        const [min, max] = values.map((value) => Number(value));
+                        data.values.min = min;
+                        data.values.max = max;
+
+                        const $minLabel = $html.find(`label.${name}-min-label`);
+                        const $maxLabel = $html.find(`label.${name}-max-label`);
+                        $minLabel.text(min);
+                        $maxLabel.text(max);
+
+                        this.clearScrollLimit(true);
+                    });
+
+                    // Set styling
+                    sliderElement.querySelectorAll<HTMLDivElement>(".noUi-handle").forEach((element) => {
+                        element.classList.add("handle");
+                    });
+                    sliderElement.querySelectorAll<HTMLDivElement>(".noUi-connect").forEach((element) => {
+                        element.classList.add("range_selected");
+                    });
+                }
+            }
+        }
+
+        const list = html.querySelector<HTMLUListElement>(".tab.active ul.item-list");
+        if (!list) return;
+        list.addEventListener("scroll", () => {
+            if (list.scrollTop + list.clientHeight >= list.scrollHeight - 5) {
+                const currentValue = currentTab.scrollLimit;
+                const maxValue = currentTab.totalItemCount ?? 0;
+                if (currentValue < maxValue) {
+                    currentTab.scrollLimit = Math.clamped(currentValue + 100, 100, maxValue);
+                    this.renderResultList(html, list, currentValue);
+                }
+            }
+        });
+
+        // Initial result list render
+        this.renderResultList(html, list);
+    }
+
+    /**
+     * Append new results to the result list
+     * @param html The Compendium Browser app HTML
+     * @param list The result list HTML element
+     * @param start The index position to start from
+     */
+    private async renderResultList(html: HTMLElement, list: HTMLUListElement, start = 0): Promise<void> {
+        const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
+        if (!currentTab) return;
+
+        // Get new results from index
+        const newResults = await currentTab.renderResults(start);
+        // Add listeners to new results only
+        this.activateResultListeners(newResults);
+        // Add the results to the DOM
+        const fragment = document.createDocumentFragment();
+        fragment.append(...newResults);
+        list.append(fragment);
+        // Re-apply drag drop handler
+        for (const dragDropHandler of this._dragDrop) {
+            dragDropHandler.bind(html);
         }
     }
 
     /** Activate click listeners on loaded actors and items */
-    private activateResultListeners(): void {
-        const $list = this.element.find(".tab.active ul.item-list");
-        if ($list.length === 0) return;
+    private activateResultListeners(liElements: HTMLLIElement[] = []): void {
+        for (const liElement of liElements) {
+            const { entryUuid } = liElement.dataset;
+            if (!entryUuid) continue;
 
-        const $items = $list.children("li");
-        if ($list.data("listeners-active")) {
-            $items.children("a").off("click");
-        }
-
-        $items
-            .children(".name")
-            .children("a.item-link, a.actor-link")
-            .on("click", (event) => {
-                const entry = $(event.currentTarget).closest(".item")[0].dataset;
-                const compendiumId = entry.entryCompendium ?? "";
-                const docId = entry.entryId ?? "";
-                game.packs
-                    .get(compendiumId)
-                    ?.getDocument(docId)
-                    .then((document) => {
-                        document?.sheet?.render(true);
-                    });
-            });
-
-        // Add an item to selected tokens' actors' inventories
-        $items.find("a[data-action=take-item]").on("click", async (event) => {
-            const $li = $(event.currentTarget).closest("li");
-            const { entryCompendium, entryId } = $li.data();
-            this.takePhysicalItem(entryCompendium, entryId);
-        });
-
-        // Attempt to buy an item with the selected tokens' actors'
-        $items.find("a[data-action=buy-item]").on("click", (event) => {
-            const $li = $(event.currentTarget).closest("li");
-            const { entryCompendium, entryId } = $li.data();
-            this.buyPhysicalItem(entryCompendium, entryId);
-        });
-
-        // Lazy load list when scrollbar reaches bottom
-        $list.on("scroll", (event) => {
-            const target = event.currentTarget;
-            if (target.scrollTop + target.clientHeight === target.scrollHeight) {
-                const tab = this.activeTab;
-                if (tab === "settings") return;
-                const currentValue = this.tabs[tab].scrollLimit;
-                const maxValue = this.tabs[tab].totalItemCount ?? 0;
-                if (currentValue < maxValue) {
-                    const newValue = Math.clamped(currentValue + 100, 100, maxValue);
-                    this.tabs[tab].scrollLimit = newValue;
-                    this.render(true);
-                }
+            const nameAnchor = liElement.querySelector<HTMLAnchorElement>("div.name > a");
+            if (nameAnchor) {
+                nameAnchor.addEventListener("click", async () => {
+                    const document = await fromUuid(entryUuid);
+                    if (document?.sheet) {
+                        document.sheet.render(true);
+                    }
+                });
             }
-        });
 
-        $list.data("listeners-active", true);
+            if (this.activeTab === "equipment") {
+                // Add an item to selected tokens' actors' inventories
+                liElement
+                    .querySelector<HTMLAnchorElement>("a[data-action=take-item]")
+                    ?.addEventListener("click", () => {
+                        this.takePhysicalItem(entryUuid);
+                    });
+
+                // Attempt to buy an item with the selected tokens' actors'
+                liElement.querySelector<HTMLAnchorElement>("a[data-action=buy-item]")?.addEventListener("click", () => {
+                    this.buyPhysicalItem(entryUuid);
+                });
+            }
+        }
     }
 
-    private async takePhysicalItem(compendiumId: string, itemId: string): Promise<void> {
+    private async takePhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(compendiumId, itemId);
+        const item = await this.getPhysicalItem(uuid);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -641,9 +679,9 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    private async buyPhysicalItem(compendiumId: string, itemId: string): Promise<void> {
+    private async buyPhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(compendiumId, itemId);
+        const item = await this.getPhysicalItem(uuid);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -692,8 +730,8 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    private async getPhysicalItem(compendiumId: string, itemId: string): Promise<PhysicalItemPF2e | KitPF2e> {
-        const item = await game.packs.get(compendiumId)?.getDocument(itemId);
+    private async getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
+        const item = await fromUuid(uuid);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
         }
@@ -777,7 +815,6 @@ class CompendiumBrowser extends Application {
                 user: game.user,
                 [activeTab]: {
                     filterData: tab.filterData,
-                    indexData: tab.getIndexData(),
                 },
                 scrollLimit: tab.scrollLimit,
             };
@@ -795,13 +832,18 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    private clearScrollLimit() {
+    private clearScrollLimit(render = true) {
         const tab = this.activeTab;
         if (tab === "settings") return;
 
-        const $list = this.element.find(".tab.active ul.item-list");
-        $list.scrollTop(0);
+        const list = this.element[0].querySelector<HTMLUListElement>(".tab.active ul.item-list");
+        if (!list) return;
+        list.scrollTop = 0;
         this.tabs[tab].scrollLimit = 100;
+
+        if (render) {
+            this.render();
+        }
     }
 }
 

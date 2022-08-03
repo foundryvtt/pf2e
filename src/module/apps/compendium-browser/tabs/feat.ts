@@ -5,6 +5,7 @@ import { FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override filterData!: FeatFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.html";
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "feat");
