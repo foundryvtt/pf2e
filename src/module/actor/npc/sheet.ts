@@ -369,7 +369,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             const traits = chatData.traits;
 
             // Create trait with the type of action
-            const systemData = itemData.data;
+            const systemData = itemData.system;
             const hasType = systemData.actionType && systemData.actionType.value;
 
             if (hasType) {

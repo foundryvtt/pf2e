@@ -381,16 +381,15 @@ class NPCPF2e extends CreaturePF2e {
         const generatedMelee = Array.from(strikes.values()).flatMap((w) => w.toNPCAttacks());
         const items = this.items.contents.concat(generatedMelee);
         for (const item of items) {
-            const itemData = item.data;
-            if (itemData.type === "lore") {
+            if (item.isOfType("lore")) {
                 // override untrained skills if defined in the NPC data
-                const skill = sluggify(itemData.name); // normalize skill name to lower-case and dash-separated words
+                const skill = sluggify(item.name); // normalize skill name to lower-case and dash-separated words
                 // assume lore, if skill cannot be looked up
                 const { ability, shortform } = objectHasKey(SKILL_EXPANDED, skill)
                     ? SKILL_EXPANDED[skill]
                     : { ability: "int" as const, shortform: skill };
 
-                const base = itemData.data.mod.value;
+                const base = item.system.mod.value;
                 const domains = [
                     skill,
                     `${ability}-based`,
@@ -415,10 +414,10 @@ class NPCPF2e extends CreaturePF2e {
                     { overwrite: false }
                 );
                 stat.notes = extractNotes(rollNotes, domains);
-                stat.itemID = itemData._id;
+                stat.itemID = item.id;
                 stat.base = base;
                 stat.expanded = skill;
-                stat.label = itemData.name;
+                stat.label = item.name;
                 stat.lore = !objectHasKey(SKILL_EXPANDED, skill);
                 stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
@@ -431,7 +430,7 @@ class NPCPF2e extends CreaturePF2e {
                     console.warn(
                         `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
                     );
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
+                    const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: item.name });
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
                     const context: CheckRollContext = {
@@ -457,7 +456,7 @@ class NPCPF2e extends CreaturePF2e {
                     return roll;
                 };
 
-                const variants = itemData.data.variants;
+                const variants = item.system.variants;
                 if (variants && Object.keys(variants).length) {
                     stat.variants = [];
                     for (const [, variant] of Object.entries(variants)) {
