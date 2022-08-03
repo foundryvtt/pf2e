@@ -54,10 +54,10 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         const entry = {
             pack: dragItem.pack,
             id: dragItem.id,
-            img: item.data.img,
+            img: item.img,
             quantity: 1,
             name: item.name,
-            isContainer: item.data.type === "backpack" && !containerId,
+            isContainer: item.type === "backpack" && !containerId,
             items: {},
         };
 
@@ -85,7 +85,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             path = `${containerId}.items.${path}`;
         }
 
-        return this.item.update({ [`data.items.${path}`]: null });
+        return this.item.update({ [`system.items.${path}`]: null });
     }
 
     override activateListeners($html: JQuery): void {
