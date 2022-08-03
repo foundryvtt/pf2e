@@ -30,11 +30,13 @@ export interface REMaybeWithUUIDs extends RuleElementSource {
 
 type CompendiumSource = CompendiumDocument["data"]["_source"];
 export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
-    return "data" in docSource && isObject(docSource.data) && "items" in docSource && Array.isArray(docSource.items);
+    return (
+        "system" in docSource && isObject(docSource.system) && "items" in docSource && Array.isArray(docSource.items)
+    );
 }
 
 export function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
-    return "data" in docSource && isObject(docSource.data) && !isActorSource(docSource);
+    return "system" in docSource && isObject(docSource.system) && !isActorSource(docSource);
 }
 
 export class CompendiumPack {
@@ -168,20 +170,20 @@ export class CompendiumPack {
         docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
             this.assertSizeValid(docSource);
-            docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
-                item.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+                item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             }
         }
 
         if (isItemSource(docSource)) {
-            docSource.data.slug = sluggify(docSource.name);
-            docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            docSource.system.slug = sluggify(docSource.name);
+            docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
 
             if (isPhysicalData(docSource)) {
-                docSource.data.equipped = { carryType: "worn" };
+                docSource.system.equipped = { carryType: "worn" };
             } else if (docSource.type === "feat") {
-                const featType = docSource.data.featType.value;
+                const featType = docSource.system.featType.value;
                 if (!setHasElement(FEAT_TYPES, featType)) {
                     throw PackError(`${docSource.name} has an unrecognized feat type: ${featType}`);
                 }
@@ -251,7 +253,8 @@ export class CompendiumPack {
         };
 
         const convert = to === "ids" ? toIDRef : toNameRef;
-        const rules: REMaybeWithUUIDs[] = source.data.rules;
+        const rules: REMaybeWithUUIDs[] = source.system.rules;
+
         for (const rule of rules) {
             if (rule.key === "Aura" && Array.isArray(rule.effects)) {
                 for (const effect of rule.effects) {
@@ -312,8 +315,8 @@ export class CompendiumPack {
     }
 
     private assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
-        if ("items" in source && "traits" in source.data && source.type !== "character") {
-            if (!tupleHasValue(SIZES, source.data.traits.size.value)) {
+        if (source.type === "npc" || source.type === "vehicle") {
+            if (!tupleHasValue(SIZES, source.system.traits.size.value)) {
                 throw PackError(`Actor size on ${source.name} (${source._id}) is invalid.`);
             }
         }
