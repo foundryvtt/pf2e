@@ -6,14 +6,14 @@ import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { setHasElement, sluggify } from "@util";
-import { ClassData, ClassTrait } from "./data";
+import { ClassAttackProficiencies, ClassData, ClassDefenseProficiencies, ClassTrait } from "./data";
 
 class ClassPF2e extends ABCItemPF2e {
-    get attacks() {
+    get attacks(): ClassAttackProficiencies {
         return this.system.attacks;
     }
 
-    get defenses() {
+    get defenses(): ClassDefenseProficiencies {
         return this.system.defenses;
     }
 
@@ -33,7 +33,7 @@ class ClassPF2e extends ABCItemPF2e {
         return this.system.savingThrows;
     }
 
-    get grantedFeatSlots() {
+    get grantedFeatSlots(): { ancestry: FeatSlotLevel[]; class: number[]; skill: number[]; general: number[] } {
         const actorLevel = this.actor?.level ?? 0;
         const filterLevels = (levels: number[]) => levels.filter((level) => actorLevel >= level) ?? [];
         const system = this.system;

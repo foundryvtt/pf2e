@@ -1,8 +1,6 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
-import { PhysicalItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
@@ -45,35 +43,29 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         };
 
         for (const itemData of actorData.items) {
-            const physicalData: ItemDataPF2e = itemData;
             const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
-                itemData.showEdit = sheetData.user.isGM || physicalData.data.identification.status === "identified";
+            if (item.isOfType("physical")) {
+                const systemData = item.system;
+                itemData.showEdit = sheetData.user.isGM || systemData.identification.status === "identified";
                 itemData.isInvestable = false;
-                itemData.isIdentified = physicalData.data.identification.status === "identified";
+                itemData.isIdentified = systemData.identification.status === "identified";
                 itemData.assetValue = item.assetValue;
+                itemData.showEdit = true;
             }
 
             // Actions
             if (itemData.type === "action") {
                 const actionTypes = ["free", "reaction", "passive"] as const;
-                const fromItem: string = itemData.data.actionType.value;
+                const fromItem: string = itemData.system.actionType.value;
                 const actionType = tupleHasValue(actionTypes, fromItem) ? fromItem : "action";
                 itemData.img = VehiclePF2e.getActionGraphics(
                     actionType,
-                    parseInt((itemData.data.actions || {}).value, 10) || 1
+                    parseInt((itemData.system.actions || {}).value, 10) || 1
                 ).imageUrl;
                 if (actionType === "passive") {
                     actions.free.actions.push(itemData);
                 } else {
                     actions[actionType].actions.push(itemData);
-                }
-            }
-
-            for (const itemData of sheetData.items) {
-                const physicalData: ItemDataPF2e = itemData;
-                if (isPhysicalData(physicalData)) {
-                    itemData.showEdit = true;
                 }
             }
         }

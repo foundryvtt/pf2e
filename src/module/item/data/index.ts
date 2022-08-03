@@ -44,7 +44,7 @@ export type NonPhysicalItemType =
 export type ItemType = NonPhysicalItemType | PhysicalItemType;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
-export type PhysicalItemData = { data: { traits: PhysicalItemTraits } } & (
+export type PhysicalItemData = { system: { traits: PhysicalItemTraits } } & (
     | ArmorData
     | BookData
     | ConsumableData

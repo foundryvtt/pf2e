@@ -1,11 +1,10 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { FeatPF2e, ItemPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { FeatPF2e, ItemPF2e, LorePF2e, SpellcastingEntryPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { ItemDataPF2e, ItemSourcePF2e, LoreData } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
@@ -223,9 +222,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const lores: LoreData[] = [];
 
         for (const itemData of sheetData.items) {
-            const physicalData: ItemDataPF2e = itemData;
             const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
+            if (item.isOfType("physical")) {
                 const { isEquipped, isIdentified, isInvested, isTemporary } = item;
                 itemData.isEquipped = isEquipped;
                 itemData.isIdentified = isIdentified;
@@ -237,12 +235,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
 
                 // Read-Only Equipment
-                if (
-                    physicalData.type === "armor" ||
-                    physicalData.type === "equipment" ||
-                    physicalData.type === "consumable" ||
-                    physicalData.type === "backpack"
-                ) {
+                if (item.isOfType("armor", "consumable", "equipment", "backpack")) {
                     readonlyEquipment.push(itemData);
                     actorData.hasEquipment = true;
                 }
@@ -281,13 +274,13 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             // Actions
-            else if (itemData.type === "action") {
-                const actionType = ["free", "reaction", "passive"].includes(itemData.system.actionType.value)
-                    ? itemData.data.actionType.value
+            else if (item.isOfType("action")) {
+                const actionType = ["free", "reaction", "passive"].includes(item.system.actionType.value)
+                    ? item.system.actionType.value
                     : "action";
                 itemData.img = CharacterPF2e.getActionGraphics(
                     actionType,
-                    parseInt((itemData.system.actions || {}).value, 10) || 1
+                    Number(item.system.actions.value) || 1
                 ).imageUrl;
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
@@ -952,11 +945,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    /**
-     * Handle a drop event for an existing Owned Item to sort that item
-     * @param event
-     * @param itemData
-     */
+    /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const item = this.actor.items.get(itemData._id);
         if (item instanceof FeatPF2e) {

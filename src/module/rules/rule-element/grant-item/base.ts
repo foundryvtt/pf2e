@@ -81,14 +81,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
         // The grant may have come from a non-system compendium, so make sure it's fully migrated
-        const migrations = MigrationList.constructFromVersion(grantedSource.data.schema.version ?? 0);
+        const migrations = MigrationList.constructFromVersion(grantedSource.system.schema.version ?? 0);
         if (migrations.length > 0) {
             const actorWithNewItem = this.actor.toObject();
             actorWithNewItem.items.push(grantedSource);
             for (const migration of migrations) {
                 await migration.updateItem?.(grantedSource, actorWithNewItem);
             }
-            grantedSource.data.schema.version = MigrationRunner.LATEST_SCHEMA_VERSION;
+            grantedSource.system.schema.version = MigrationRunner.LATEST_SCHEMA_VERSION;
         }
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
@@ -204,7 +204,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.data.flag === flag
             );
             if (rule) {
-                const ruleSource = source.data.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
+                const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
                 const resolvedSelection =
                     typeof selection === "string" ? this.resolveInjectedProperties(selection) : selection;
                 rule.data.selection = ruleSource.selection = resolvedSelection;

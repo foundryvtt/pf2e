@@ -19,11 +19,12 @@ export class TrickMagicItemPopup {
     private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
     constructor(item: Embedded<ConsumablePF2e>) {
-        this.item = item;
-        if (item.data.type !== "consumable") {
+        if (!item.isOfType("consumable")) {
             throw ErrorPF2e("Unexpected item used for Trick Magic Item");
         }
-        this.checkDC = calculateTrickMagicItemCheckDC(item.data);
+
+        this.item = item;
+        this.checkDC = calculateTrickMagicItemCheckDC(item);
 
         if (!(item.actor instanceof CharacterPF2e)) {
             ui.notifications.warn(this.translations.InvalidActor);

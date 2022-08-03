@@ -187,9 +187,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         }
 
         // Ensure infused items are always temporary
-        if (systemData.traits.value.includes("infused")) {
-            systemData.temporary = true;
-        }
+        const traits: PhysicalItemTrait[] = systemData.traits.value;
+        if (traits.includes("infused")) systemData.temporary = true;
 
         // Normalize and fill price data
         systemData.price.value = new CoinsPF2e(systemData.temporary ? {} : systemData.price.value);

@@ -15,7 +15,7 @@ const TrickMagicTradition = {
     rel: "divine",
 } as const;
 
-export const TraditionSkills = {
+export const traditionSkills = {
     arcane: "arc",
     divine: "rel",
     occult: "occ",

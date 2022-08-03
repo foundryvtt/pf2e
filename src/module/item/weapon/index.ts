@@ -287,7 +287,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // https://2e.aonprd.com/Rules.aspx?ID=731
         // https://2e.aonprd.com/Equipment.aspx?ID=380
         const materialPrice = materialData?.price ?? 0;
-        const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this.data).bulk.normal), 1);
+        const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this).bulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
         const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
