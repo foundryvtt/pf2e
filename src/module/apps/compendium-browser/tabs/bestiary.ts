@@ -13,6 +13,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     ];
 
     override filterData!: BestiaryFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.html";
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "bestiary");

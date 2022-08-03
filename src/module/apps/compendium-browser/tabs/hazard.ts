@@ -5,6 +5,7 @@ import { HazardFilters } from "./data";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     override filterData!: HazardFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.html";
 
     protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
 

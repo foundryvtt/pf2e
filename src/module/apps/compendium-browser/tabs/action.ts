@@ -5,6 +5,7 @@ import { ActionFilters } from "./data";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     override filterData!: ActionFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.html";
 
     protected index = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
 

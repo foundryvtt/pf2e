@@ -5,6 +5,7 @@ import { SpellFilters } from "./data";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     override filterData!: SpellFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.html";
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "spell");

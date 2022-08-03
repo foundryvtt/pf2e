@@ -133,12 +133,6 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.html",
 
         // Compendium Browser Partials
-        "systems/pf2e/templates/compendium-browser/action-browser.html",
-        "systems/pf2e/templates/compendium-browser/bestiary-browser.html",
-        "systems/pf2e/templates/compendium-browser/inventory-browser.html",
-        "systems/pf2e/templates/compendium-browser/feat-browser.html",
-        "systems/pf2e/templates/compendium-browser/hazard-browser.html",
-        "systems/pf2e/templates/compendium-browser/spell-browser.html",
         "systems/pf2e/templates/compendium-browser/browser-settings.html",
         "systems/pf2e/templates/compendium-browser/filters.html",
 

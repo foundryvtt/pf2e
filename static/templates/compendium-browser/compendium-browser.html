@@ -22,41 +22,59 @@
 
         {{#with action}}
             <div class="tab browser" data-group="primary" data-tab="action">
-                {{> systems/pf2e/templates/compendium-browser/action-browser.html }}
+                <div class="spell-browser">
+                    {{> systems/pf2e/templates/compendium-browser/filters.html }}
+                    <ul class="item-list result-list"></ul>
+                </div>
             </div>
         {{/with}}
 
         {{#if user.isGM}}
             {{#with bestiary}}
                 <div class="tab browser" data-group="primary" data-tab="bestiary">
-                    {{> systems/pf2e/templates/compendium-browser/bestiary-browser.html }}
+                    <div class="spell-browser">
+                        {{> systems/pf2e/templates/compendium-browser/filters.html }}
+                        <ul class="item-list result-list"></ul>
+                    </div>
                 </div>
             {{/with}}
         {{/if}}
 
         {{#with equipment}}
             <div class="tab browser" data-group="primary" data-tab="equipment">
-                {{> systems/pf2e/templates/compendium-browser/inventory-browser.html }}
+                <div class="spell-browser">
+                    {{> systems/pf2e/templates/compendium-browser/filters.html }}
+                    <ul class="item-list result-list"></ul>
+                </div>
             </div>
         {{/with}}
 
         {{#with feat}}
             <div class="tab browser" data-group="primary" data-tab="feat">
-                {{> systems/pf2e/templates/compendium-browser/feat-browser.html }}
+                <div class="spell-browser">
+                    {{> systems/pf2e/templates/compendium-browser/filters.html }}
+                    <ul class="item-list result-list"></ul>
+                </div>
             </div>
         {{/with}}
 
         {{#if user.isGM}}
             {{#with hazard}}
                 <div class="tab browser" data-group="primary" data-tab="hazard">
-                    {{> systems/pf2e/templates/compendium-browser/hazard-browser.html }}
+                    <div class="spell-browser">
+                        {{> systems/pf2e/templates/compendium-browser/filters.html }}
+                        <ul class="item-list result-list"></ul>
+                    </div>
                 </div>
             {{/with}}
         {{/if}}
 
         {{#with spell}}
             <div class="tab browser" data-group="primary" data-tab="spell">
-                {{> systems/pf2e/templates/compendium-browser/spell-browser.html }}
+                <div class="spell-browser">
+                    {{> systems/pf2e/templates/compendium-browser/filters.html }}
+                    <ul class="item-list result-list"></ul>
+                </div>
             </div>
         {{/with}}
 

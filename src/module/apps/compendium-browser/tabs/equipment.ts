@@ -7,6 +7,7 @@ import { EquipmentFilters, RangesData } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     override filterData!: EquipmentFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.html";
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "equipment");

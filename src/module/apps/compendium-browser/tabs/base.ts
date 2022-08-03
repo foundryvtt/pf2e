@@ -1,6 +1,6 @@
 import { CompendiumBrowser } from "..";
 import { BaseFilterData, CheckboxOptions, RangesData } from "./data";
-import { sluggify } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import { TabName } from "../data";
 
 export abstract class CompendiumBrowserTab {
@@ -20,6 +20,8 @@ export abstract class CompendiumBrowserTab {
     scrollLimit = 100;
     /** The name of this tab */
     tabName: Exclude<TabName, "settings">;
+    /** The path to the result list template of this tab */
+    templatePath = "";
 
     constructor(browser: CompendiumBrowser, tabName: Exclude<TabName, "settings">) {
         this.browser = browser;
@@ -37,10 +39,10 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Filter indexData and return slice based on current scrollLimit */
-    getIndexData(): CompendiumIndexData[] {
+    getIndexData(start: number): CompendiumIndexData[] {
         const currentIndex = this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
         this.totalItemCount = currentIndex.length;
-        return currentIndex.slice(0, this.scrollLimit);
+        return currentIndex.slice(start, this.scrollLimit);
     }
 
     /** Reset all filters */
@@ -58,6 +60,24 @@ export abstract class CompendiumBrowserTab {
     /** Filter indexData */
     protected filterIndexData(_entry: CompendiumIndexData): boolean {
         return true;
+    }
+
+    async renderResults(start: number): Promise<HTMLLIElement[]> {
+        if (!this.templatePath) {
+            throw ErrorPF2e(`Tab "${this.tabName}" has no valid template path.`);
+        }
+        const indexData = this.getIndexData(start);
+        const domParser = new DOMParser();
+        const liElements: HTMLLIElement[] = [];
+        for (const entry of indexData) {
+            const htmlString = await renderTemplate(this.templatePath, {
+                entry,
+                filterData: this.filterData,
+            });
+            const html = domParser.parseFromString(htmlString, "text/html");
+            liElements.push(html.body.firstElementChild as HTMLLIElement);
+        }
+        return liElements;
     }
 
     /** Sort result array by name, level or price */
