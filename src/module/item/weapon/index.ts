@@ -449,13 +449,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const newTraits = deepClone(traits);
         newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
         const overlay: DeepPartial<WeaponSource> = {
-            data: {
+            system: {
                 range,
                 traits: { value: newTraits },
             },
         };
-
-        return this.clone(overlay, { keepId: true });
+        const item = this.clone(overlay, { keepId: true });
+        item.prepareData();
+        return item;
     }
 
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
@@ -464,7 +465,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
 
         const overlay: DeepPartial<WeaponSource> = {
-            data: {
+            system: {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
@@ -478,8 +479,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 },
             },
         };
-
-        return this.clone(overlay, { keepId: true });
+        const item = this.clone(overlay, { keepId: true });
+        item.prepareData();
+        return item;
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
@@ -575,7 +577,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const source: PreCreate<MeleeSource> = {
             name: this._source.name,
             type: "melee",
-            data: {
+            system: {
                 weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
                     // Give an attack bonus approximating a high-threat NPC
