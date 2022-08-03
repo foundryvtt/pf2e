@@ -63,11 +63,11 @@ class KitPF2e extends ItemPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        if (!changed.data) return await super._preUpdate(changed, options, user);
+        if (!changed.system) return await super._preUpdate(changed, options, user);
 
         // Clear 0 price denominations
-        if (isObject<Record<string, unknown>>(changed.data?.price)) {
-            const price: Record<string, unknown> = changed.data.price;
+        if (isObject<Record<string, unknown>>(changed.system?.price)) {
+            const price: Record<string, unknown> = changed.system.price;
             for (const denomination of DENOMINATIONS) {
                 if (price[denomination] === 0) {
                     price[`-=denomination`] = null;

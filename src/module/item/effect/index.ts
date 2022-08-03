@@ -118,7 +118,7 @@ class EffectPF2e extends ItemPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const duration = changed.data?.duration;
+        const duration = changed.system?.duration;
         if (duration?.unit === "unlimited") {
             duration.expiry = null;
         } else if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
