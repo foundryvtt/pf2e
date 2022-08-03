@@ -157,27 +157,27 @@ class FeatPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         // Ensure an empty-string `location` property is null
-        if (typeof changed.data?.location === "string") {
-            changed.data.location ||= null;
+        if (typeof changed.system?.location === "string") {
+            changed.system.location ||= null;
         }
 
         // Normalize action counts
-        const actionCount = changed.data?.actions;
+        const actionCount = changed.system?.actions;
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
         }
 
         // Ensure onlyLevel1 and takeMultiple are consistent
-        const traits = changed.data?.traits?.value;
+        const traits = changed.system?.traits?.value;
 
-        if (this.isFeature && changed.data) {
-            changed.data.onlyLevel1 = false;
-            changed.data.maxTakable = 1;
+        if (this.isFeature && changed.system) {
+            changed.system.onlyLevel1 = false;
+            changed.system.maxTakable = 1;
 
             if (this.featType !== "ancestry" && Array.isArray(traits)) {
                 traits.findSplice((t) => t === "lineage");
             }
-        } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.data?.onlyLevel1) {
+        } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.system?.onlyLevel1) {
             mergeObject(changed, { data: { maxTakable: 1 } });
         }
 

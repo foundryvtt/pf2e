@@ -99,8 +99,8 @@ export class VehiclePF2e extends ActorPF2e {
         if (this.data.prototypeToken.flags?.pf2e?.linkToActorSize) {
             const { space } = this.system.details;
             const spaceUpdates = {
-                width: changed.data?.details?.space?.wide ?? space.wide,
-                length: changed.data?.details?.space?.long ?? space.long,
+                width: changed.system?.details?.space?.wide ?? space.wide,
+                length: changed.system?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
             mergeObject(changed, { token: tokenDimensions });

@@ -108,7 +108,7 @@ export class LootPF2e extends ActorPF2e {
         options: DocumentUpdateContext<this>,
         userId: string
     ): void {
-        if (changed.data?.hiddenWhenEmpty !== undefined) {
+        if (changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
         }
         super._onUpdate(changed, options, userId);

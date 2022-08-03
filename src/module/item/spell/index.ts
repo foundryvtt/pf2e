@@ -729,7 +729,7 @@ class SpellPF2e extends ItemPF2e {
         await super._preUpdate(changed, options, user);
         const diff = (options.diff ??= true);
 
-        const uses = changed.data?.location?.uses;
+        const uses = changed.system?.location?.uses;
         if (uses) {
             const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
             const currentMax = uses.max ?? this.system.location.uses?.max;
@@ -737,11 +737,11 @@ class SpellPF2e extends ItemPF2e {
         }
 
         // If dragged to outside an actor, location properties should be cleaned up
-        const newLocation = changed.data?.location?.value;
+        const newLocation = changed.system?.location?.value;
         const locationChanged = typeof newLocation === "string" && newLocation !== this.system.location.value;
         if (diff && (!this.actor || locationChanged)) {
             type SystemSourceWithDeletions = typeof changed["data"] & { location?: Record<`-=${string}`, null> };
-            const data: SystemSourceWithDeletions = (changed.data ??= {});
+            const data: SystemSourceWithDeletions = (changed.system ??= {});
             const locationUpdates = (data.location = this.actor ? data.location ?? {} : { value: "" });
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them

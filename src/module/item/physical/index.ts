@@ -410,7 +410,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             changed.system.hp.value = Math.clamped(changed.system.hp.value, 0, this.system.hp.max);
         }
 
-        if (!changed.data) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Ensure an empty-string `stackGroup` property is null
         if (typeof changed.system?.stackGroup === "string") {

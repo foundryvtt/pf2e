@@ -401,10 +401,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         user: UserPF2e
     ): Promise<void> {
         // Clamp slot updates
-        if (changed.data?.slots) {
+        if (changed.system?.slots) {
             for (const key of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const) {
                 const slotKey = `slot${key}` as const;
-                const slotData = changed.data.slots[slotKey];
+                const slotData = changed.system.slots[slotKey];
                 if (!slotData) continue;
 
                 if ("max" in slotData) {
