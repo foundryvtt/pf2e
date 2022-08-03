@@ -1,6 +1,6 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { isObject, objectHasKey } from "@util";
+import { isObject, objectHasKey, tupleHasValue } from "@util";
 import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
 
 /**
@@ -8,40 +8,51 @@ import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions
  * @category RuleElement
  */
 class AELikeRuleElement extends RuleElementPF2e {
-    static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
+    mode: AELikeChangeMode;
+
+    path: string;
+
+    phase: AELikeDataPrepPhase;
+
+    static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"] as const;
+
+    static PHASES = ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"] as const;
 
     /**
-     * Pattern to match data.skills.${longForm} paths for replacement
+     * Pattern to match system.skills.${longForm} paths for replacement
      * Temporary solution until skill data is represented in long form
      */
     static SKILL_LONG_FORM_PATH = ((): RegExp => {
         const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
-        return new RegExp(String.raw`^data\.skills\.(${skillLongForms})\b`);
+        return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
     })();
 
     constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data = deepClone(data);
-        data.priority ??=
-            typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
-                ? AELikeRuleElement.CHANGE_MODES.indexOf(data.mode) * 10 + 10
-                : NaN;
+        data.priority ??= tupleHasValue(AELikeRuleElement.CHANGE_MODES, data.mode)
+            ? AELikeRuleElement.CHANGE_MODES.indexOf(data.mode) * 10 + 10
+            : NaN;
         data.phase ??= "applyAEs";
 
         super(data, item, options);
+
+        this.mode = tupleHasValue(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : "override";
+        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
+        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
     }
 
     protected validateData(): void {
-        if (!AELikeRuleElement.CHANGE_MODES.includes(this.data.mode)) {
+        if (!tupleHasValue(AELikeRuleElement.CHANGE_MODES, this.data.mode)) {
             return this.warn("mode");
         }
 
-        if (Number.isNaN(this.priority)) {
+        if (Number.isNaN(this.data.priority)) {
             return this.warn("priority");
         }
 
         const actor = this.item.actor;
         const pathIsValid =
             typeof this.path === "string" &&
+            this.path.length > 0 &&
             [this.path, this.path.replace(/\.\w+$/, ""), this.path.replace(/\.?\w+\.\w+$/, "")].some(
                 (path) => typeof getProperty(actor, path) !== undefined
             );
@@ -51,36 +62,28 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (!valueIsValid) this.warn("value");
     }
 
-    get path(): string {
-        return this.data.path;
-    }
-
-    get mode(): AELikeChangeMode {
-        return this.data.mode;
-    }
-
     get value(): RuleValue {
         return this.data.value;
     }
 
     /** Apply the modifications immediately after proper ActiveEffects are applied */
     override onApplyActiveEffects(): void {
-        if (!this.ignored && this.data.phase === "applyAEs") this.applyAELike();
+        if (!this.ignored && this.phase === "applyAEs") this.applyAELike();
     }
 
     /** Apply the modifications near the beginning of the actor's derived-data preparation */
     override beforePrepareData(): void {
-        if (!this.ignored && this.data.phase === "beforeDerived") this.applyAELike();
+        if (!this.ignored && this.phase === "beforeDerived") this.applyAELike();
     }
 
     /** Apply the modifications at the conclusion of the actor's derived-data preparation */
     override afterPrepareData(): void {
-        if (!this.ignored && this.data.phase === "afterDerived") this.applyAELike();
+        if (!this.ignored && this.phase === "afterDerived") this.applyAELike();
     }
 
     /** Apply the modifications prior to a Check (roll) */
     override beforeRoll(_domains: string[], rollOptions: string[]): void {
-        if (!this.ignored && this.data.phase === "beforeRoll") this.applyAELike(rollOptions);
+        if (!this.ignored && this.phase === "beforeRoll") this.applyAELike(rollOptions);
     }
 
     protected applyAELike(rollOptions = this.actor.getRollOptions()): void {
@@ -88,18 +91,18 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (!this.test(rollOptions)) return;
 
         // Convert long-form skill slugs in paths to short forms
-        this.data.path = this.resolveInjectedProperties(this.data.path).replace(
+        const path = this.resolveInjectedProperties(this.path).replace(
             AELikeRuleElement.SKILL_LONG_FORM_PATH,
             (match, group) =>
-                objectHasKey(SKILL_EXPANDED, group) ? `data.skills.${SKILL_EXPANDED[group].shortform}` : match
+                objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortform}` : match
         );
 
         // Do not proceed if injected-property resolution failed
-        if (/\bundefined\b/.test(this.path)) return;
+        if (/\bundefined\b/.test(path)) return;
 
         const { actor } = this;
-        const current: unknown = getProperty(actor, this.path);
-        const change: unknown = this.resolveValue(this.data.value);
+        const current: unknown = getProperty(actor, path);
+        const change: unknown = this.resolveValue(this.value);
         const newValue = this.getNewValue(current, change);
         if (this.ignored) return;
 
@@ -163,6 +166,8 @@ class AELikeRuleElement extends RuleElementPF2e {
                 }
                 return change;
             }
+            default:
+                return null;
         }
     }
 
@@ -192,7 +197,7 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface AutoChangeEntry {
+interface AutoChangeEntry {
     source: string;
     level: number | null;
     value: number | string;
@@ -204,19 +209,20 @@ interface AELikeRuleElement extends RuleElementPF2e {
 }
 
 type AELikeChangeMode = "add" | "multiply" | "upgrade" | "downgrade" | "override";
+type AELikeDataPrepPhase = "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
 
-export interface AELikeData extends RuleElementData {
+interface AELikeData extends RuleElementData {
     path: string;
     value: RuleValue;
     mode: AELikeChangeMode;
     priority: number;
-    phase: "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
+    phase: AELikeDataPrepPhase;
 }
 
-export interface AELikeSource extends RuleElementSource {
+interface AELikeSource extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
     phase?: unknown;
 }
 
-export { AELikeRuleElement };
+export { AELikeData, AELikeRuleElement, AELikeSource, AutoChangeEntry };
