@@ -4,7 +4,7 @@ import { ActionTrait } from "@item/action/data";
 import { WeaponMaterialEffect, WeaponRangeIncrement } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { StrikeAdjustment } from "../synthetics";
 import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
@@ -32,7 +32,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
             property: setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, this.property),
             predicate: this.predicate.isValid,
             definition: this.definition.isValid,
-            mode: AELikeRuleElement.CHANGE_MODES.includes(String(this.mode)),
+            mode: tupleHasValue(AELikeRuleElement.CHANGE_MODES, this.data.mode),
             value: ["string", "number"].includes(typeof this.value),
         };
 
