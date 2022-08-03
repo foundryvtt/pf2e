@@ -4,7 +4,7 @@ import type { HeritagePF2e } from "./document";
 
 type HeritageSource = BaseItemSourcePF2e<"heritage", HeritageSystemSource>;
 
-type HeritageData = Omit<HeritageSource, "heritages" | "flags"> &
+type HeritageData = Omit<HeritageSource, "data" | "flags"> &
     BaseItemDataPF2e<HeritagePF2e, "heritage", HeritageSystemData, HeritageSource>;
 
 interface HeritageSystemSource extends ItemSystemData {

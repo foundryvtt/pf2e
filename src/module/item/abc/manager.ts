@@ -28,7 +28,7 @@ export class AncestryBackgroundClassManager {
                 await actor.class?.delete({ render: false });
 
                 /** Add class self roll option in case it is needed by any features' rule elements */
-                const slug = source.data.slug ?? sluggify(source.name);
+                const slug = source.system.slug ?? sluggify(source.name);
                 actor.rollOptions.all[`class:${slug}`] = true;
 
                 source._id = randomID(16);
@@ -65,9 +65,9 @@ export class AncestryBackgroundClassManager {
     }
 
     static sortClassFeaturesByLevelAndChoiceSet(features: FeatSource[]) {
-        const hasChoiceSet = (f: FeatSource) => f.data.rules.some((re) => re.key === "ChoiceSet");
+        const hasChoiceSet = (f: FeatSource) => f.system.rules.some((re) => re.key === "ChoiceSet");
         return features.sort((a, b) => {
-            const [aLevel, bLevel] = [a.data.level.value, b.data.level.value];
+            const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
             if (aLevel !== bLevel) return aLevel - bLevel;
             const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
             if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
@@ -105,7 +105,7 @@ export class AncestryBackgroundClassManager {
 
         const classSource = item instanceof ClassPF2e ? item.toObject() : item;
         const itemId = classSource._id;
-        const featureEntries = classSource.data.items;
+        const featureEntries = classSource.system.items;
         const featuresToAdd = Object.values(featureEntries).filter(
             (entryData) => actorLevel >= entryData.level && entryData.level > minLevel
         );
@@ -125,7 +125,7 @@ export class AncestryBackgroundClassManager {
                         if (feat instanceof FeatPF2e) {
                             const featSource = feat.toObject();
                             featSource._id = randomID(16);
-                            featSource.data.location = locationId;
+                            featSource.system.location = locationId;
                             return featSource;
                         } else {
                             throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
@@ -139,9 +139,9 @@ export class AncestryBackgroundClassManager {
                 ...gameEntries.map((entry) => {
                     const item = game.items.get(entry.id);
                     if (item instanceof FeatPF2e) {
-                        const itemData = item.toObject();
-                        itemData._id = randomID(16);
-                        return itemData;
+                        const source = item.toObject();
+                        source._id = randomID(16);
+                        return source;
                     } else {
                         throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
                     }
@@ -166,7 +166,7 @@ export class AncestryBackgroundClassManager {
             for (const feature of features) {
                 const entry = entries.find((e) => e.id === feature.id);
                 if (entry && feature.featType === "classfeature") {
-                    feature._source.data.level.value = entry.level;
+                    feature._source.system.level.value = entry.level;
                     feature.prepareData();
                 }
             }
@@ -187,17 +187,17 @@ export class AncestryBackgroundClassManager {
             itemSource._id = randomID(16);
             itemsToCreate.push(itemSource);
         }
-        const entriesData = Object.values(itemSource.data.items);
+        const entriesData = Object.values(itemSource.system.items);
         itemsToCreate.push(...(await this.getFeatures(entriesData, itemSource._id)));
 
         if (options?.assurance) {
             for (const skill of options.assurance) {
-                const index = itemsToCreate.findIndex((item) => item.data.slug === "assurance");
+                const index = itemsToCreate.findIndex((item) => item.system.slug === "assurance");
                 if (index > -1) {
-                    const location = (itemsToCreate[index] as FeatSource).data.location;
+                    const location = (itemsToCreate[index] as FeatSource).system.location;
                     itemsToCreate[index] = await this.getItemSource("pf2e.feats-srd", `Assurance (${skill})`);
                     itemsToCreate[index]._id = randomID(16);
-                    (itemsToCreate[index] as FeatSource).data.location = location;
+                    (itemsToCreate[index] as FeatSource).system.location = location;
                 }
             }
         }

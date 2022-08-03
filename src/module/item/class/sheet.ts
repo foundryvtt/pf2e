@@ -15,17 +15,17 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
         return {
             ...data,
             items,
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity] }),
+            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.system.traits.rarity] }),
             skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
-            selectedKeyAbility: this.getLocalizedAbilities(itemData.data.keyAbility),
-            ancestryTraits: createSheetTags(CONFIG.PF2E.ancestryItemTraits, itemData.data.traits),
-            trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.data.trainedSkills),
-            ancestryFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.ancestryFeatLevels),
-            classFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.classFeatLevels),
-            generalFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.generalFeatLevels),
-            skillFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.skillFeatLevels),
-            skillIncreaseLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.skillIncreaseLevels),
+            selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),
+            ancestryTraits: createSheetTags(CONFIG.PF2E.ancestryItemTraits, itemData.system.traits),
+            trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.system.trainedSkills),
+            ancestryFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.ancestryFeatLevels),
+            classFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.classFeatLevels),
+            generalFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.generalFeatLevels),
+            skillFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.skillFeatLevels),
+            skillIncreaseLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.skillIncreaseLevels),
         };
     }
 }

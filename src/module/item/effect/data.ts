@@ -6,7 +6,7 @@ type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
 
-type EffectData = Omit<EffectSource, "effects" | "flags"> &
+type EffectData = Omit<EffectSource, "data" | "effects" | "flags"> &
     BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
         flags: EffectFlags;
     };

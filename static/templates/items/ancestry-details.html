@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="system.traits.rarity" data-dtype="String">
+    <select name="system.traits.rarity">
         {{#select data.traits.rarity}}
             {{#each rarities}}
                 <option value="{{@key}}">{{localize this.label}}</option>
@@ -11,12 +11,12 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.HitPointsHeader"}}</label>
-    <input type="number" name="system.hp" value="{{data.hp}}" data-dtype="Number" />
+    <input type="number" name="system.hp" value="{{data.hp}}" />
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SizeLabel"}}</label>
-    <select name="system.size" data-dtype="String">
+    <select name="system.size">
         {{#select data.size}}
             {{#each sizes}}
                 <option value="{{@key}}">{{localize this.label}}</option>
@@ -27,11 +27,11 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.Reach"}}</label>
-    <input type="number" name="system.reach" value="{{data.reach}}" data-dtype="Number" />
+    <input type="number" name="system.reach" value="{{data.reach}}" />
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpeedFeet"}}</label>
-    <input type="number" name="system.speed" value="{{data.speed}}" data-dtype="Number" />
+    <input type="number" name="system.speed" value="{{data.speed}}" />
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.Item.Ancestry.Vision.Label"}}</label>
@@ -97,7 +97,7 @@
         <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.LanguagesAdditional" data-config-types="languages" data-property="system.additionalLanguages"><i class="fas fa-edit"></i></a>
     </label>
 
-    <input type="number" name="system.additionalLanguages.count" value="{{data.additionalLanguages.count}}" data-dtype="Number" />
+    <input type="number" name="system.additionalLanguages.count" value="{{data.additionalLanguages.count}}" />
     <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
 </div>
 <div class="form-group form-group-trait">
