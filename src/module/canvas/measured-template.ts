@@ -4,7 +4,7 @@ import { highlightGrid } from "./helpers";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
     get type(): MeasuredTemplateType {
-        return this.data.t;
+        return this.document.t;
     }
 
     /** The highlight layer for this template */
@@ -20,7 +20,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
         highlightGrid({
             type: this.type === "circle" ? "burst" : "cone",
             object: this,
-            data: this.data,
+            document: this.document,
             colors: { border: this.borderColor, fill: this.fillColor },
         });
     }

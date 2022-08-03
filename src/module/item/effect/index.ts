@@ -97,7 +97,7 @@ class EffectPF2e extends ItemPF2e {
 
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
+        data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -114,7 +114,7 @@ class EffectPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -131,7 +131,7 @@ class EffectPF2e extends ItemPF2e {
 
     /** Show floaty text when this effect is created on an actor */
     protected override _onCreate(
-        data: this["data"]["_source"],
+        data: this["_source"],
         options: DocumentModificationContext<this>,
         userId: string
     ): void {

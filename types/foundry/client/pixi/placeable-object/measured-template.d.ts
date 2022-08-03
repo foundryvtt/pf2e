@@ -112,7 +112,7 @@ declare class MeasuredTemplate<
     /* -------------------------------------------- */
 
     override _onUpdate(
-        changed: DeepPartial<TDocument["data"]["_source"]>,
+        changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument>,
         userId: string
     ): void;

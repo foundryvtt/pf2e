@@ -49,7 +49,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         migrations: MigrationBase[]
     ): Promise<void> {
         const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
-        const updateGroup: TDocument["data"]["_source"][] = [];
+        const updateGroup: TDocument["_source"][] = [];
         // Have familiars go last so that their data migration and re-preparation happen after their master's
         for (const document of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1))) {
             if (updateGroup.length === 50) {
@@ -161,7 +161,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Delete embedded ActiveEffects on embedded Items
         for (const updated of updatedItems) {
-            const original = baseActor.items.find((item) => item._id === updated._id);
+            const original = baseActor.items.find((i) => i._id === updated._id);
             if (!original) continue;
             const itemAEDiff = this.diffCollection(original.effects, updated.effects);
             if (itemAEDiff.deleted.length > 0) {

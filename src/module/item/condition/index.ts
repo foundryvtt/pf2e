@@ -53,7 +53,7 @@ class ConditionPF2e extends ItemPF2e {
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -62,7 +62,7 @@ class ConditionPF2e extends ItemPF2e {
     }
 
     protected override _onCreate(
-        data: this["data"]["_source"],
+        data: this["_source"],
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
@@ -79,7 +79,7 @@ class ConditionPF2e extends ItemPF2e {
     }
 
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<this>,
         userId: string
     ): void {

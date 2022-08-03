@@ -426,7 +426,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
         this: T,
-        data: PreCreate<InstanceType<T>["data"]["_source"]>[] = [],
+        data: PreCreate<InstanceType<T>["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<T>> = {}
     ): Promise<InstanceType<T>[]> {
         if (context.parent) {
@@ -477,7 +477,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
             // Pre-sort unnested, class features according to their sorting from the class
             if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
-                type PartialSourceWithLevel = PreCreate<InstanceType<T>["data"]["_source"]> & {
+                type PartialSourceWithLevel = PreCreate<InstanceType<T>["_source"]> & {
                     system: { level: { value: number } };
                 };
                 const classFeatures = nonKits.filter(
@@ -531,7 +531,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
+        data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -568,7 +568,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {

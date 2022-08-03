@@ -43,7 +43,7 @@ declare global {
         /** Configuration for the Actor document */
         Actor: {
             documentClass: {
-                new (data: PreCreate<TActor["data"]["_source"]>, context?: DocumentConstructionContext<TActor>): TActor;
+                new (data: PreCreate<TActor["_source"]>, context?: DocumentConstructionContext<TActor>): TActor;
             };
             collection: ConstructorOf<Actors<TActor>>;
             sheetClasses: Record<
@@ -72,7 +72,7 @@ declare global {
         FogExploration: {
             documentClass: {
                 new (
-                    data: PreCreate<TFogExploration["data"]["_source"]>,
+                    data: PreCreate<TFogExploration["_source"]>,
                     context?: DocumentConstructionContext<TFogExploration>
                 ): TFogExploration;
             };
@@ -82,10 +82,7 @@ declare global {
         /** Configuration for the Folder document */
         Folder: {
             documentClass: {
-                new (
-                    data: PreCreate<TFolder["data"]["_source"]>,
-                    context?: DocumentConstructionContext<TFolder>
-                ): TFolder;
+                new (data: PreCreate<TFolder["_source"]>, context?: DocumentConstructionContext<TFolder>): TFolder;
             };
             collection: typeof Folders;
         };
@@ -96,7 +93,7 @@ declare global {
             collection: typeof Messages;
             documentClass: {
                 new (
-                    data: PreCreate<TChatMessage["data"]["_source"]>,
+                    data: PreCreate<TChatMessage["_source"]>,
                     context?: DocumentConstructionContext<TChatMessage>
                 ): TChatMessage;
             };
@@ -107,7 +104,7 @@ declare global {
         /** Configuration for Item document */
         Item: {
             documentClass: {
-                new (data: PreCreate<TItem["data"]["_source"]>, context?: DocumentConstructionContext<TItem>): TItem;
+                new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem>): TItem;
             };
             collection: typeof Items;
             sheetClasses: Record<
@@ -127,10 +124,7 @@ declare global {
         /** Configuration for the Combat document */
         Combat: {
             documentClass: {
-                new (
-                    data: PreCreate<TCombat["data"]["_source"]>,
-                    context?: DocumentConstructionContext<TCombat>
-                ): TCombat;
+                new (data: PreCreate<TCombat["_source"]>, context?: DocumentConstructionContext<TCombat>): TCombat;
             };
             collection: typeof CombatEncounters;
             defeatedStatusId: string;
@@ -200,7 +194,7 @@ declare global {
         ActiveEffect: {
             documentClass: {
                 new (
-                    data: PreCreate<TActiveEffect["data"]["_source"]>,
+                    data: PreCreate<TActiveEffect["_source"]>,
                     context?: DocumentConstructionContext<TActiveEffect>
                 ): TActiveEffect;
             };
@@ -209,7 +203,7 @@ declare global {
         /** Configuration for the Combatant document */
         Combatant: {
             documentClass: new (
-                data: PreCreate<TCombatant["data"]["_source"]>,
+                data: PreCreate<TCombatant["_source"]>,
                 context?: DocumentConstructionContext<TCombatant>
             ) => TCombatant;
         };

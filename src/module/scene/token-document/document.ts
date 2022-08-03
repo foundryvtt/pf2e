@@ -107,20 +107,14 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         };
     }
 
-    /** Refresh this token's properties if it's controlled and the request came from its actor */
-    override prepareData({ fromActor = false } = {}): void {
-        this.auras.clear();
-        super.prepareData();
-        if (fromActor && this.initialized && this.rendered) {
-            canvas.lighting.setPerceivedLightLevel();
-        }
-    }
-
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.auras.clear();
+
         if (!this.actor || !this.isEmbedded) return;
+
         for (const [key, data] of this.actor.auras.entries()) {
             this.auras.set(
                 key,
@@ -275,7 +269,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (!this.isLinked) return; // Handled by upstream
 
         const currentData = this.toObject(false);
-        this.prepareData({ fromActor: true });
+        this.prepareData();
         const newData = this.toObject(false);
         const changed = diffObject<DeepPartial<foundry.data.TokenSource>>(currentData, newData);
 
@@ -290,7 +284,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
-        data: this["data"]["_source"],
+        data: this["_source"],
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
@@ -300,7 +294,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Refresh the effects panel and encounter tracker */
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         userId: string
     ): void {

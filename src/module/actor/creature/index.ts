@@ -884,7 +884,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {

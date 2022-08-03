@@ -67,7 +67,7 @@ declare module foundry {
             y: number;
             elevation: number;
             lockRotation: boolean;
-            effects: string[];
+            effects: VideoPath[];
             overlayEffect: string | null;
             vision: boolean;
             dimSight: number;

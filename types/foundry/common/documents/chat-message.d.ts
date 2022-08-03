@@ -36,7 +36,7 @@ declare module foundry {
 
             static createDocuments<T extends ConstructorOf<BaseChatMessage>>(
                 this: T,
-                data?: PreCreate<InstanceType<T>["data"]["_source"]>[],
+                data?: PreCreate<InstanceType<T>["_source"]>[],
                 context?: ChatMessageModificationContext
             ): Promise<InstanceType<T>[]>;
         }

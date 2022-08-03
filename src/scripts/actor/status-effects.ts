@@ -37,15 +37,15 @@ export class StatusEffects {
             iconTypes: {
                 default: {
                     effectsIconFolder: "systems/pf2e/icons/conditions/",
-                    effectsIconFileType: "webp",
+                    effectsIconFileType: "webp" as const,
                 },
                 blackWhite: {
                     effectsIconFolder: "systems/pf2e/icons/conditions-2/",
-                    effectsIconFileType: "webp",
+                    effectsIconFileType: "webp" as const,
                 },
                 legacy: {
                     effectsIconFolder: "systems/pf2e/icons/conditions-3/",
-                    effectsIconFileType: "webp",
+                    effectsIconFileType: "webp" as const,
                 },
             },
         };
@@ -80,7 +80,7 @@ export class StatusEffects {
                     token.id !== lastTokenId &&
                     combat?.started &&
                     typeof combatant?.initiative === "number" &&
-                    !combatant.data.defeated
+                    !combatant.defeated
                 ) {
                     lastTokenId = token.id;
                     this._createChatMessage(token.object, combatant.hidden);
@@ -110,10 +110,9 @@ export class StatusEffects {
         CONFIG.statusEffects = Array.from(game.pf2e.ConditionManager.conditions.values())
             .filter((c) => !["attitudes", "detection"].includes(c.system.group))
             .sort((conditionA, conditionB) => conditionA.name.localeCompare(conditionB.name))
-            .map((condition) => {
+            .map((condition): VideoPath => {
                 const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
-                const extension = CONFIG.PF2E.statusEffects.effectsIconFileType;
-                return `${folder}${condition.slug}.${extension}`;
+                return `${folder}${condition.slug}.webp`;
             });
         CONFIG.statusEffects.push(CONFIG.controlIcons.defeated);
     }
@@ -280,7 +279,7 @@ export class StatusEffects {
             } else if (condition?.value) {
                 this.statusEffectChanged = true;
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, condition.value - 1);
-                if (this.data.actorLink) {
+                if (this.document.actorLink) {
                     StatusEffects.updateHUD($icon.parent().parent(), actor);
                 }
             }
@@ -288,7 +287,7 @@ export class StatusEffects {
             this.statusEffectChanged = true;
             if (typeof condition?.value === "number") {
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, condition.value + 1);
-                if (this.data.actorLink) {
+                if (this.document.actorLink) {
                     StatusEffects.updateHUD($icon.parent().parent(), actor);
                 }
             } else {
@@ -332,7 +331,7 @@ export class StatusEffects {
             if (conditionIds.length > 0) {
                 this.statusEffectChanged = true;
                 await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, this);
-            } else if (this.data.effects.includes(src)) {
+            } else if (this.document.effects.includes(src)) {
                 await this.toggleEffect(src);
             }
         } else if (event.type === "click") {
@@ -355,8 +354,8 @@ export class StatusEffects {
 
         // Do nothing if left-clicking an active overlay or right-clicking an inactive one
         if (
-            (event.type === "click" && token.data.overlayEffect === iconPath) ||
-            (event.type === "contextmenu" && token.data.overlayEffect !== iconPath)
+            (event.type === "click" && token.document.overlayEffect === iconPath) ||
+            (event.type === "contextmenu" && token.document.overlayEffect !== iconPath)
         ) {
             return;
         }
@@ -384,12 +383,11 @@ export class StatusEffects {
             token.actor?.itemTypes.condition.filter((condition) => condition.fromSystem && condition.system.active) ??
             [];
         const iconFolder = CONFIG.PF2E.statusEffects.effectsIconFolder;
-        const fileType = CONFIG.PF2E.statusEffects.effectsIconFileType;
         for (const condition of conditions) {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = "summary" in conditionInfo ? conditionInfo.summary : "";
             const conditionValue = condition.system.value.isValued ? condition.value : "";
-            const iconPath = `${iconFolder}${condition.system.hud.statusName}.${fileType}`;
+            const iconPath = `${iconFolder}${condition.system.hud.statusName}.webp`;
             statusEffectList += `
                 <li><img src="${iconPath}" title="${summary}">
                     <span class="statuseffect-li">
@@ -441,15 +439,14 @@ export class StatusEffects {
         for (const scene of game.scenes) {
             const tokenUpdates: any[] = [];
 
-            for (const token of scene.data.tokens) {
-                const tokenData = token.data;
-                const update = tokenData.toObject(false);
-                for (const url of tokenData.effects) {
+            for (const token of scene.tokens) {
+                const update = token.toObject(false);
+                for (const url of token.effects) {
                     if (url.includes(lastIconType.effectsIconFolder)) {
                         const statusName = this.getSlugFromImg(url);
-                        const newUrl = `${iconType.effectsIconFolder}${statusName}.${iconType.effectsIconFileType}`;
+                        const newUrl = `${iconType.effectsIconFolder}${statusName}.webp` as const;
                         console.log(
-                            `PF2e System | Migrating effect ${statusName} of Token ${tokenData.name} on scene ${scene.data.name} | '${url}' to '${newUrl}'`
+                            `PF2e System | Migrating effect ${statusName} of Token ${token.name} on scene ${scene.data.name} | "${url}" to "${newUrl}"`
                         );
                         const index = update.effects.indexOf(url);
                         if (index > -1) {

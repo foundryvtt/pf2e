@@ -396,7 +396,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {

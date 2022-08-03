@@ -104,7 +104,7 @@ export class LootPF2e extends ActorPF2e {
     }
 
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<this>,
         userId: string
     ): void {

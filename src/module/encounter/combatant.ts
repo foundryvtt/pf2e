@@ -10,10 +10,6 @@ class CombatantPF2e<
         return this.parent;
     }
 
-    get defeated(): boolean {
-        return this.data.defeated;
-    }
-
     /** The round this combatant last had a turn */
     get roundOfLastTurn(): number | null {
         return this.flags.pf2e.roundOfLastTurn;
@@ -113,7 +109,7 @@ class CombatantPF2e<
 
     /** Send out a message with information on an automatic effect that occurs upon an actor's death */
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<this>,
         userId: string
     ): void {

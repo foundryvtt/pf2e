@@ -10,9 +10,9 @@ declare global {
             class EmbeddedCollection<TDocument extends Document> extends utils.Collection<Embedded<TDocument>> {
                 /** @override */
                 constructor(
-                    sourceArray: TDocument["data"]["_source"][],
+                    sourceArray: TDocument["_source"][],
                     documentClass: {
-                        new (data: TDocument["data"]["_source"], context?: DocumentConstructionContext): TDocument;
+                        new (data: TDocument["_source"], context?: DocumentConstructionContext): TDocument;
                     }
                 );
 
@@ -20,11 +20,9 @@ declare global {
 
                 override delete(key: string, { modifySource }?: { modifySource?: boolean }): boolean;
 
-                toObject<T extends true>(source?: T): TDocument["data"]["_source"][];
+                toObject<T extends true>(source?: T): TDocument["_source"][];
                 toObject<T extends false>(source: T): RawObject<TDocument["data"]>[];
-                toObject<T extends boolean>(
-                    source?: T
-                ): TDocument["data"]["_source"][] | RawObject<TDocument["data"]>[];
+                toObject<T extends boolean>(source?: T): TDocument["_source"][] | RawObject<TDocument["data"]>[];
             }
         }
     }
