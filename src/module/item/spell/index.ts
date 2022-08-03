@@ -282,8 +282,8 @@ class SpellPF2e extends ItemPF2e {
                     switch (overlayData.overlayType) {
                         case "override": {
                             // Sanitize data
-                            delete source.data.overlays;
-                            source.data.rules = [];
+                            delete source.system.overlays;
+                            source.system.rules = [];
 
                             source = mergeObject(source, overlayData, { overwrite: true });
                             break;
@@ -294,7 +294,7 @@ class SpellPF2e extends ItemPF2e {
             }
 
             for (const overlay of heightenEntries) {
-                mergeObject(source.data, overlay.data);
+                mergeObject(source.system, overlay.data);
             }
 
             return source;

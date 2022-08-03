@@ -1,9 +1,10 @@
-import { ConsumableData, ConsumableSource } from "@item/data";
-import { ConsumablePF2e } from "@item/index";
-import { SpellPF2e } from "@item/spell";
-import { TraditionSkills } from "@item/spellcasting-entry/trick";
+import { ConsumablePF2e, SpellPF2e } from "@item";
+import { ConsumableSource } from "@item/data";
+import { MagicTradition } from "@item/spell/types";
+import { MAGIC_TRADITIONS } from "@item/spell/values";
+import { traditionSkills } from "@item/spellcasting-entry/trick";
 import { calculateDC, DCOptions } from "@module/dc";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, setHasElement } from "@util";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
@@ -44,11 +45,11 @@ function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, h
     }
 }
 
-export function isSpellConsumable(itemId: string): boolean {
+function isSpellConsumable(itemId: string): boolean {
     return Object.values(scrollCompendiumIds).includes(itemId) || Object.values(wandCompendiumIds).includes(itemId);
 }
 
-export async function createConsumableFromSpell(
+async function createConsumableFromSpell(
     type: "scroll" | "wand",
     spell: SpellPF2e,
     heightenedLevel?: number
@@ -74,24 +75,25 @@ export async function createConsumableFromSpell(
     return consumableData;
 }
 
-export interface TrickMagicItemDifficultyData {
+interface TrickMagicItemDifficultyData {
     arc?: number;
     rel?: number;
     occ?: number;
     nat?: number;
 }
 
-export function calculateTrickMagicItemCheckDC(
-    itemData: ConsumableData,
+function calculateTrickMagicItemCheckDC(
+    item: ConsumablePF2e,
     options: DCOptions = { proficiencyWithoutLevel: false }
 ): TrickMagicItemDifficultyData {
-    const level = Number(itemData.data.level.value);
+    const level = Number(item.level);
     const saveDC = calculateDC(level, options);
 
-    type RealTraditionKey = keyof ConfigPF2e["PF2E"]["magicTraditions"];
-    const skills: [string, number][] = itemData.data.traits.value
-        .filter((trait): trait is RealTraditionKey => trait in CONFIG.PF2E.magicTraditions)
-        .map((tradition) => [TraditionSkills[tradition], saveDC]);
+    const skills: [string, number][] = item.system.traits.value
+        .filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t))
+        .map((tradition) => [traditionSkills[tradition], saveDC]);
 
     return Object.fromEntries(skills);
 }
+
+export { calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumable, TrickMagicItemDifficultyData };

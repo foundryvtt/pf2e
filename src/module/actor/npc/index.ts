@@ -959,7 +959,7 @@ class NPCPF2e extends CreaturePF2e {
         const changes: DeepPartial<NPCSource> = {
             name: params.name ?? this.name,
             system: {
-                details: { publicNotes: params.description ?? source.data.details.publicNotes },
+                details: { publicNotes: params.description ?? source.system.details.publicNotes },
             },
             img: params.img?.actor ?? source.img,
             prototypeToken: { img: params.img?.token ?? source.prototypeToken.img },

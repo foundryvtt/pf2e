@@ -5,8 +5,6 @@ import { ItemType } from "@item/data";
 
 interface ChoiceSetData extends RuleElementData {
     key: "ChoiceSet";
-    /** A custom prompt to present in the ChoiceSet application window */
-    prompt?: string;
     /**
      * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
      * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
@@ -24,16 +22,8 @@ interface ChoiceSetData extends RuleElementData {
     flag: string;
     /** The user's selection from among the options in `choices` */
     selection?: string | number;
-    /** Should the parent item's name be adjusted to reflect the choice made? */
-    adjustName: boolean;
     /** Does this choice set contain UUIDs? Set by the rules element itself */
     containsUUIDs: boolean;
-    /** If the choice set contains UUIDs, the item slug can be recorded instead of the selected UUID */
-    recordSlug: boolean;
-    /** A predicate to validation dropped item selections */
-    allowedDrops: PredicatePF2e;
-    /** Allow no selection to be made */
-    allowNoSelection?: unknown;
 }
 
 interface ChoiceSetSource extends RuleElementSource {

@@ -18,7 +18,8 @@ import { Rarity } from "@module/data";
  * @param itemData
  */
 function getMagicTraditions(item: PhysicalItemPF2e): Set<MagicTradition> {
-    return new Set(item.system.traits.value.filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t)));
+    const traits: string[] = item.system.traits.value;
+    return new Set(traits.filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t)));
 }
 
 /** All cursed items are incredibly hard to identify */

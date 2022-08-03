@@ -10,7 +10,7 @@ import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
@@ -111,7 +111,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const { tradition } = this.flags.pf2e?.casting ?? {};
         const isCharacter = item.actor.isOfType("character");
         if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
-            const trick = new TrickMagicItemEntry(item.actor, TraditionSkills[tradition]);
+            const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
             item.trickMagicEntry = trick;
         }
 

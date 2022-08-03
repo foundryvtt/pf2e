@@ -10,105 +10,105 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewRecord, deletions: str
     const Migration = class extends MigrationBase {
         static override version = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
 
-        override async updateActor(actorData: ActorSourcePF2e) {
-            if (!(actorData.type === "character" || actorData.type === "npc")) {
+        override async updateActor(source: ActorSourcePF2e) {
+            if (!(source.type === "character" || source.type === "npc")) {
                 return;
             }
 
             switch (listKey) {
                 case "creatureTraits": {
-                    const traits = actorData.data.traits.traits;
-                    traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    const traits = source.system.traits.traits;
+                    traits.value = traits.value.filter((t) => !deletions.includes(t));
                     break;
                 }
                 case "languages": {
-                    const languages = actorData.data.traits.languages;
-                    languages.value = languages.value.filter((language) => !deletions.includes(language));
+                    const languages = source.system.traits.languages;
+                    languages.value = languages.value.filter((l) => !deletions.includes(l));
                     break;
                 }
                 case "weaponCategories": {
-                    if (actorData.type === "character") {
+                    if (source.type === "character") {
                         for (const key of deletions) {
-                            if (objectHasKey(actorData.data.martial, key)) {
-                                delete actorData.data.martial[key];
-                                (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            if (objectHasKey(source.system.martial, key)) {
+                                delete source.system.martial[key];
+                                (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                             }
                         }
                     }
                     break;
                 }
                 case "weaponGroups": {
-                    if (actorData.type === "character") {
+                    if (source.type === "character") {
                         const proficiencyKeys = deletions.map(
                             (deletion) => `weapon-group-${deletion}`
                         ) as WeaponGroupProficiencyKey[];
                         for (const key of proficiencyKeys) {
-                            delete actorData.data.martial[key];
-                            (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete source.system.martial[key];
+                            (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
                 }
                 case "baseWeapons": {
-                    if (actorData.type === "character") {
+                    if (source.type === "character") {
                         const proficiencyKeys = deletions.map(
                             (deletion) => `weapon-base-${deletion}`
                         ) as BaseWeaponProficiencyKey[];
                         for (const key of proficiencyKeys) {
-                            delete actorData.data.martial[key];
-                            (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
+                            delete source.system.martial[key];
+                            (source.system.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
                 }
                 case "weaponTraits": {
-                    const weaponsAndAttacks = actorData.items.filter((item): item is MeleeSource | WeaponSource =>
-                        ["melee", "weapon"].includes(item.type)
+                    const weaponsAndAttacks = source.items.filter((i): i is MeleeSource | WeaponSource =>
+                        ["melee", "weapon"].includes(i.type)
                     );
                     for (const itemSource of weaponsAndAttacks) {
-                        const traits: string[] = itemSource.data.traits.value;
+                        const traits: string[] = itemSource.system.traits.value;
                         for (const deleted of deletions) {
-                            traits.findSplice((trait) => trait === deleted);
+                            traits.findSplice((t) => t === deleted);
                         }
                     }
                 }
             }
         }
 
-        override async updateItem(itemData: ItemSourcePF2e) {
+        override async updateItem(source: ItemSourcePF2e) {
             switch (listKey) {
                 // Creature traits can be on many item
                 case "creatureTraits": {
-                    if (itemData.data.traits) {
-                        const traits = itemData.data.traits;
-                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    if (source.system.traits) {
+                        const traits = source.system.traits;
+                        traits.value = traits.value.filter((t) => !deletions.includes(t));
                     }
                     break;
                 }
                 case "featTraits": {
-                    if (itemData.type === "feat") {
-                        const traits = itemData.data.traits;
-                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    if (source.type === "feat") {
+                        const traits = source.system.traits;
+                        traits.value = traits.value.filter((t) => !deletions.includes(t));
                     }
                     break;
                 }
                 case "magicSchools": {
-                    if (itemData.type === "spell") {
-                        const school = itemData.data.school;
+                    if (source.type === "spell") {
+                        const school = source.system.school;
                         school.value = deletions.includes(school.value ?? "") ? "evocation" : school.value;
                     }
                     break;
                 }
                 case "spellTraits": {
-                    if (itemData.type === "spell") {
-                        const traits = itemData.data.traits;
-                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    if (source.type === "spell") {
+                        const traits = source.system.traits;
+                        traits.value = traits.value.filter((t) => !deletions.includes(t));
                     }
                     break;
                 }
                 case "weaponCategories": {
-                    if (itemData.type === "weapon") {
-                        const systemData: { category: string } = itemData.data;
+                    if (source.type === "weapon") {
+                        const systemData: { category: string } = source.system;
                         systemData.category = deletions.includes(systemData.category ?? "")
                             ? "simple"
                             : systemData.category;
@@ -116,16 +116,16 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewRecord, deletions: str
                     break;
                 }
                 case "weaponGroups": {
-                    if (itemData.type === "weapon") {
-                        const systemData: { group: string | null } = itemData.data;
+                    if (source.type === "weapon") {
+                        const systemData: { group: string | null } = source.system;
                         systemData.group = deletions.includes(systemData.group ?? "") ? null : systemData.group;
                     }
                     break;
                 }
                 case "baseWeapons": {
-                    if (itemData.type === "weapon") {
-                        const base = itemData.data.baseItem;
-                        itemData.data.baseItem = deletions.includes(base ?? "") ? null : base;
+                    if (source.type === "weapon") {
+                        const base = source.system.baseItem;
+                        source.system.baseItem = deletions.includes(base ?? "") ? null : base;
                     }
                     break;
                 }

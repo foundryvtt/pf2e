@@ -22,7 +22,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
 
     constructor(data: ChoiceSetPromptData) {
         super(data);
-        this.prompt = data.prompt ?? "PF2E.UI.RuleElements.ChoiceSet.Prompt";
+        this.prompt = data.prompt;
         this.choices = data.choices ?? [];
         this.allowedDrops = data.allowedDrops;
         this.containsUUIDs = data.containsUUIDs;
@@ -143,7 +143,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
 }
 
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
-    prompt?: string;
+    prompt: string;
     choices?: PickableThing[];
     containsUUIDs: boolean;
     allowedDrops: PredicatePF2e;

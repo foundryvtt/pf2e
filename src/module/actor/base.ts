@@ -304,7 +304,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 };
 
                 const source = mergeObject(effect.toObject(), { flags });
-                source.system.level.value = data.level ?? source.data.level.value;
+                source.system.level.value = data.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
                 toCreate.push(source);
@@ -886,7 +886,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
         if (!newStack && stackItem && stackItem.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + itemData.data.quantity;
+            const stackQuantity = stackItem.quantity + itemData.system.quantity;
             await stackItem.update({ "system.quantity": stackQuantity });
             return stackItem;
         }

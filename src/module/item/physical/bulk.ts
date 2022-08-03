@@ -1,6 +1,6 @@
 import { Size, SIZES } from "@module/data";
 import { applyNTimes, Optional } from "@util";
-import { PhysicalItemData } from "../data";
+import { PhysicalItemPF2e } from ".";
 import { isEquipped } from "./usage";
 
 interface StackDefinition {
@@ -341,20 +341,19 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
 }
 
 // Used by weapon, slated for chopping block
-export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] = []): BulkItem {
-    const id = itemData._id;
-    const weight = itemData.data?.weight?.value;
-    const quantity = itemData.data?.quantity ?? 0;
-    const equippedBulk = itemData.data?.equippedBulk?.value;
-    const unequippedBulk = itemData.data?.unequippedBulk?.value;
-    const stackGroup = itemData.data.stackGroup;
-    const negateBulk = itemData.data.negateBulk?.value;
-    const traits: string[] = itemData.data.traits.value;
+export function toBulkItem(item: PhysicalItemPF2e, nestedItems: BulkItem[] = []): BulkItem {
+    const weight = item.system.weight?.value;
+    const quantity = item.system.quantity ?? 0;
+    const equippedBulk = item.system.equippedBulk?.value;
+    const unequippedBulk = item.system.unequippedBulk?.value;
+    const stackGroup = item.system.stackGroup;
+    const negateBulk = item.system.negateBulk?.value;
+    const traits: string[] = item.system.traits.value;
     const extraDimensionalContainer = traits.includes("extradimensional");
-    const size = itemData.data.size || "med";
+    const size = item.system.size;
 
     return new BulkItem({
-        id,
+        id: item.id,
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
         negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
         // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
@@ -362,7 +361,7 @@ export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] =
         equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
         holdsItems: nestedItems,
         stackGroup,
-        isEquipped: isEquipped(itemData.data.usage, itemData.data.equipped),
+        isEquipped: isEquipped(item.system.usage, item.system.equipped),
         quantity,
         extraDimensionalContainer,
         size,
