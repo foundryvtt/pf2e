@@ -378,7 +378,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
+        data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -400,7 +400,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {

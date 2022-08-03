@@ -7,7 +7,7 @@ declare module foundry {
             static override get metadata(): CombatMetadata;
 
             /** A reference to the Collection of Combatant instances in the Combat document, indexed by id. */
-            get combatants(): this["data"]["combatants"];
+            readonly combatants: this["data"]["combatants"];
 
             /** Is a user able to update an existing Combat? */
             protected static _canUpdate(user: documents.BaseUser, doc: BaseCombat, data: data.CombatData): boolean;

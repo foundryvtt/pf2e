@@ -102,7 +102,7 @@ declare global {
         /** Handle dropping of Actor data onto the Scene canvas */
         protected _onDropActorData(
             event: ElementDragEvent,
-            data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["data"]["_source"]>
+            data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["_source"]>
         ): Promise<TToken["actor"]>;
 
         protected override _onClickLeft(event: PIXI.InteractionEvent): void;

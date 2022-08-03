@@ -34,9 +34,6 @@ declare global {
          */
         get img(): VideoPath;
 
-        /** A convenience reference to the current initiative score of this Combatant */
-        get initiative(): number | null;
-
         /**
          * This is treated as a non-player combatant if it has no associated actor and no player users who can control
          * it
@@ -47,12 +44,6 @@ declare global {
 
         /** Is this Combatant entry currently visible in the Combat Tracker? */
         get isVisible(): boolean;
-
-        /**
-         * Is this Combatant "hidden", either because they are explicitly marked as hidden or because their token is
-         * hidden
-         */
-        get hidden(): boolean;
 
         /** A reference to the Actor document which this Combatant represents, if any */
         get actor(): TActor;

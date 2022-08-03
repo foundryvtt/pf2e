@@ -96,7 +96,7 @@ declare global {
                 updateSource(
                     data?: DocumentUpdateData,
                     options?: DocumentModificationContext
-                ): DeepPartial<this["data"]["_source"]>;
+                ): DeepPartial<this["_source"]>;
 
                 /**
                  * Clone a document, creating a new document by combining current data with provided overrides.
@@ -179,7 +179,7 @@ declare global {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 static createDocuments<T extends ConstructorOf<any>>(
                     this: T,
-                    data?: PreCreate<InstanceType<T>["data"]["_source"]>[],
+                    data?: PreCreate<InstanceType<T>["_source"]>[],
                     context?: DocumentModificationContext
                 ): Promise<InstanceType<T>[]>;
 
@@ -270,17 +270,17 @@ declare global {
                  */
                 static create<T extends Document>(
                     this: ConstructorOf<T>,
-                    data: PreCreate<T["data"]["_source"]>,
+                    data: PreCreate<T["_source"]>,
                     context?: DocumentModificationContext
                 ): Promise<T | undefined>;
                 static create<T extends Document>(
                     this: ConstructorOf<T>,
-                    data: PreCreate<T["data"]["_source"]>[],
+                    data: PreCreate<T["_source"]>[],
                     context?: DocumentModificationContext
                 ): Promise<T[]>;
                 static create<T extends Document>(
                     this: ConstructorOf<T>,
-                    data: PreCreate<T["data"]["_source"]> | PreCreate<T["data"]["_source"]>[],
+                    data: PreCreate<T["_source"]> | PreCreate<T["_source"]>[],
                     context?: DocumentModificationContext
                 ): Promise<T[] | T | undefined>;
 
@@ -445,7 +445,7 @@ declare global {
                  * @param user    The User requesting the document creation
                  */
                 protected _preCreate(
-                    data: PreDocumentId<this["data"]["_source"]>,
+                    data: PreDocumentId<this["_source"]>,
                     options: DocumentModificationContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
@@ -458,7 +458,7 @@ declare global {
                  * @param user    The User requesting the document update
                  */
                 protected _preUpdate(
-                    changed: DeepPartial<this["data"]["_source"]>,
+                    changed: DeepPartial<this["_source"]>,
                     options: DocumentUpdateContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
@@ -481,7 +481,7 @@ declare global {
                  * @param options Additional options which modify the creation request
                  */
                 protected _onCreate(
-                    data: this["data"]["_source"],
+                    data: this["_source"],
                     options: DocumentModificationContext<this>,
                     userId: string
                 ): void;
@@ -494,7 +494,7 @@ declare global {
                  * @param userId  The ID of the User requesting the document update
                  */
                 protected _onUpdate(
-                    changed: DeepPartial<this["data"]["_source"]>,
+                    changed: DeepPartial<this["_source"]>,
                     options: DocumentUpdateContext<this>,
                     userId: string
                 ): void;
@@ -627,7 +627,7 @@ declare global {
     type PreDocumentId<T extends foundry.abstract.DocumentSource> = Omit<T, "_id"> & { _id: null };
 
     type DocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> =
-        | Partial<T["data"]["_source"]>
+        | Partial<T["_source"]>
         | Record<string, unknown>;
 
     type EmbeddedDocumentUpdateData<T extends foundry.abstract.Document> = DocumentUpdateData<T> & { _id: string };

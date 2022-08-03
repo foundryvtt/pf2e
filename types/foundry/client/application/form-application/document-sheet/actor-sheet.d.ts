@@ -124,13 +124,13 @@ declare global {
          * This method is factored out to allow downstream classes the opportunity to override item creation behavior.
          * @param itemData The item data requested for creation
          */
-        protected _onDropItemCreate(itemData: TItem["data"]["_source"] | TItem["data"]["_source"][]): Promise<TItem[]>;
+        protected _onDropItemCreate(itemData: TItem["_source"] | TItem["_source"][]): Promise<TItem[]>;
 
         /**
          * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings
          * @param  event
          * @param itemData
          */
-        protected _onSortItem(event: ElementDragEvent, itemData: TItem["data"]["_source"]): Promise<TItem[]>;
+        protected _onSortItem(event: ElementDragEvent, itemData: TItem["_source"]): Promise<TItem[]>;
     }
 }

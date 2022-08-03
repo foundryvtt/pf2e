@@ -35,7 +35,7 @@ export class TemplateLayerPF2e<
             y: pos.y,
             distance: canvas.dimensions.distance,
             direction: 0,
-            fillColor: game.user.data.color || "#FF0000",
+            fillColor: game.user.color || "#FF0000",
         };
 
         if (tool === "cone") {
@@ -80,16 +80,17 @@ export class TemplateLayerPF2e<
             const ratio = canvas.dimensions.size / canvas.dimensions.distance;
 
             // Update the shape data
-            if (["cone", "circle"].includes(template.data.t)) {
+            if (["cone", "circle"].includes(template.type)) {
                 const direction = ray.angle;
-                template.data.direction = Math.toDegrees(
+                template.document.direction = Math.toDegrees(
                     Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25)
                 );
                 const distance = Math.max(ray.distance / ratio, canvas.dimensions.distance);
-                template.data.distance = Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;
+                template.document.distance =
+                    Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;
             } else {
-                template.data.direction = Math.toDegrees(ray.angle);
-                template.data.distance = ray.distance / ratio;
+                template.document.direction = Math.toDegrees(ray.angle);
+                template.document.distance = ray.distance / ratio;
             }
 
             // Draw the pending shape
@@ -106,6 +107,6 @@ export class TemplateLayerPF2e<
         // Determine the incremental angle of rotation from event data
         const snap = template.type === "cone" ? (event.shiftKey ? 45 : 15) : event.shiftKey ? 15 : 5;
         const delta = snap * Math.sign(event.deltaY);
-        return template.rotate(template.data.direction + delta, snap);
+        return template.rotate(template.document.direction + delta, snap);
     }
 }

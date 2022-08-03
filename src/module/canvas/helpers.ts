@@ -97,7 +97,7 @@ function measureDistanceOnGrid(
 }
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
-function highlightGrid({ type, object, colors, data, collisionType = "move" }: HighlightGridParams): void {
+function highlightGrid({ type, object, colors, document, collisionType = "move" }: HighlightGridParams): void {
     // Only highlight for objects that are non-previews (have IDs)
     if (!object.id) return;
 
@@ -105,14 +105,14 @@ function highlightGrid({ type, object, colors, data, collisionType = "move" }: H
     if (!(grid && dimensions)) return;
 
     // Set data defaults
-    const angle = data.angle ?? 0;
-    const direction = data.direction ?? 45;
+    const angle = document.angle ?? 0;
+    const direction = document.direction ?? 45;
 
     // Clear existing highlight
     const highlightLayer = grid.getHighlightLayer(object.highlightId)?.clear();
     if (!highlightLayer) return;
 
-    const [cx, cy] = grid.getCenter(data.x, data.y);
+    const [cx, cy] = grid.getCenter(document.x, document.y);
     const [col0, row0] = grid.grid.getGridPositionFromPixels(cx, cy);
     const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
@@ -134,20 +134,20 @@ function highlightGrid({ type, object, colors, data, collisionType = "move" }: H
         const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
         // If we're not on a border for X, offset by 0.5 or -0.5 to the border of the cell in the direction we're looking on X axis
         const xOffset =
-            data.x % dimensions.size !== 0
+            document.x % dimensions.size !== 0
                 ? Math.sign((1 * Math.round(Math.cos(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
         // Same for Y, but cos Y goes down on screens, we invert
         const yOffset =
-            data.y % dimensions.size !== 0
+            document.y % dimensions.size !== 0
                 ? -Math.sign((1 * Math.round(Math.sin(Math.toRadians(dir)) * 100)) / 100) / 2
                 : 0;
         return { x: xOffset * dimensions.size, y: yOffset * dimensions.size };
     })();
 
     // Point we are measuring distances from
-    const padding = Math.clamped(object.data.width, 1.5, 2);
-    const padded = (data.distance * padding) / dimensions.distance;
+    const padding = Math.clamped(document.width, 1.5, 2);
+    const padded = (document.distance * padding) / dimensions.distance;
     const rowCount = Math.ceil(padded / (dimensions.size / grid.h));
     const columnCount = Math.ceil(padded / (dimensions.size / grid.w));
 
@@ -184,8 +184,8 @@ function highlightGrid({ type, object, colors, data, collisionType = "move" }: H
             // Determine point of origin
             const emanationOriginOffset = offsetEmanationOrigin(destination);
             const origin = {
-                x: data.x + coneOriginOffset.x + emanationOriginOffset.x,
-                y: data.y + coneOriginOffset.y + emanationOriginOffset.y,
+                x: document.x + coneOriginOffset.x + emanationOriginOffset.x,
+                y: document.y + coneOriginOffset.y + emanationOriginOffset.y,
             };
             const ray = new Ray(origin, destination);
 
@@ -198,7 +198,7 @@ function highlightGrid({ type, object, colors, data, collisionType = "move" }: H
 
             // Determine grid-square point to which we're measuring the distance
             const distance = measureDistance(destination, origin);
-            if (distance > data.distance) continue;
+            if (distance > document.distance) continue;
 
             const hasCollision = canvas.ready && canvas.walls.checkCollision(ray, { type: collisionType });
 
@@ -232,12 +232,13 @@ interface HighlightGridParams {
     /** Border and fill colors in hexadecimal */
     colors: { border: number; fill: number };
     /** Shape data for the effect area: satisfied by MeasuredTemplateData */
-    data: Readonly<{
+    document: Readonly<{
         x: number;
         y: number;
         distance: number;
         angle?: number;
         direction?: number;
+        width: number;
     }>;
     collisionType?: WallRestrictionType;
 }

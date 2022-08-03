@@ -157,13 +157,13 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _onCreate(
-            data: this["data"]["_source"],
+            data: this["_source"],
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<this>,
             userId: string
         ): void;
@@ -173,7 +173,7 @@ declare global {
         protected override _onCreateEmbeddedDocuments(
             type: "Combatant",
             documents: Combatant[],
-            result: Combatant["data"]["_source"][],
+            result: Combatant["_source"][],
             options: DocumentModificationContext<Combatant>,
             userId: string
         ): void;
@@ -181,7 +181,7 @@ declare global {
         protected override _onUpdateEmbeddedDocuments(
             embeddedName: "Combatant",
             documents: Combatant[],
-            result: Combatant["data"]["_source"][],
+            result: Combatant["_source"][],
             options: DocumentModificationContext<Combatant>,
             userId: string
         ): void;
@@ -189,7 +189,7 @@ declare global {
         protected override _onDeleteEmbeddedDocuments(
             embeddedName: "Combatant",
             documents: Combatant[],
-            result: Combatant["data"]["_source"][],
+            result: Combatant["_source"][],
             options: DocumentModificationContext<Combatant>,
             userId: string
         ): void;
@@ -205,7 +205,7 @@ declare global {
 
         createEmbeddedDocuments(
             embeddedName: "Combatant",
-            data: PreCreate<Combatant["data"]["_source"]>[],
+            data: PreCreate<Combatant["_source"]>[],
             context?: DocumentModificationContext<Combatant>
         ): Promise<Combatant<this>[]>;
     }

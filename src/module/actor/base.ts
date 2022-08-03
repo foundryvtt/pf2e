@@ -78,7 +78,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
             super(data, context);
         } else {
-            mergeObject(context, { pf2e: { ready: true } });
+            context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
             return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
         }
@@ -370,11 +370,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static override async createDocuments<A extends ConstructorOf<ActorPF2e>>(
-        this: A,
-        data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
-        context: DocumentModificationContext<InstanceType<A>> = {}
-    ): Promise<InstanceType<A>[]> {
+    static override async createDocuments<A extends ActorPF2e>(
+        this: ConstructorOf<A>,
+        data: PreCreate<A["data"]["_source"]>[] = [],
+        context: DocumentModificationContext<A> = {}
+    ): Promise<A[]> {
         // Set additional defaults, some according to actor type
         for (const datum of data) {
             const { linkToActorSize } = datum.prototypeToken?.flags?.pf2e ?? {};
@@ -411,7 +411,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
         }
 
-        return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
+        return super.createDocuments(data, context) as Promise<A[]>;
     }
 
     protected override _initialize(): void {
@@ -1147,7 +1147,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /* -------------------------------------------- */
 
     protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
+        data: PreDocumentId<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -1169,7 +1169,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: ActorUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
@@ -1197,7 +1197,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: ActorUpdateContext<this>,
         userId: string
     ): void {

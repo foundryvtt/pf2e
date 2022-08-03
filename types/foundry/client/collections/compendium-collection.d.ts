@@ -143,21 +143,21 @@ declare global {
 
         protected override _onCreateDocuments(
             documents: TDocument[],
-            result: TDocument["data"]["_source"][],
+            result: TDocument["_source"][],
             options: DocumentModificationContext,
             userId: string
         ): void;
 
         protected override _onUpdateDocuments(
             documents: TDocument[],
-            result: TDocument["data"]["_source"][],
+            result: TDocument["_source"][],
             options: DocumentModificationContext,
             userId: string
         ): void;
 
         protected override _onDeleteDocuments(
             documents: TDocument[],
-            result: TDocument["data"]["_source"][],
+            result: TDocument["_source"][],
             options: DocumentModificationContext,
             userId: string
         ): void;

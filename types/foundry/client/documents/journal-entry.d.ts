@@ -52,7 +52,7 @@ declare global {
         /* -------------------------------------------- */
 
         override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;

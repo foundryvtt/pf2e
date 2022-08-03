@@ -24,6 +24,16 @@ declare module foundry {
             readonly data: data.MeasuredTemplateData<this>;
 
             readonly parent: BaseScene | null;
+
+            readonly author: documents.BaseUser | undefined;
+
+            readonly t: MeasuredTemplateType;
+
+            width: number;
+
+            distance: number;
+
+            direction: number;
         }
 
         interface MeasuredTemplateMetadata extends abstract.DocumentMetadata {

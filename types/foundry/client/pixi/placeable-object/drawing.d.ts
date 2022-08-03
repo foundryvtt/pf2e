@@ -17,9 +17,6 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
     /** The Graphics outer frame and handles */
     frame: PIXI.Container;
 
-    /** Internal flag for the permanent points of the polygon */
-    protected _fixedPoints: this["data"]["points"];
-
     static override embeddedName: "Drawing";
 
     /** The rate at which points are sampled (in milliseconds) during a freehand drawing workflow */

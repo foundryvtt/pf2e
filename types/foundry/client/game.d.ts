@@ -35,8 +35,8 @@ declare global {
 
         /** The object of world data passed from the server */
         data: {
-            actors: TActor["data"]["_source"][];
-            items: TItem["data"]["_source"][];
+            actors: TActor["_source"][];
+            items: TItem["_source"][];
             macros: foundry.data.MacroSource[];
             messages: foundry.data.ChatMessageSource[];
             packs: CompendiumMetadata[];

@@ -31,14 +31,14 @@ export class GhostTemplate extends MeasuredTemplate {
             const delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
             const snap = event.shiftKey ? delta : 5;
             this.document._source.direction += snap * Math.sign(event.deltaY);
-            this.data.direction += snap * Math.sign(event.deltaY);
+            this.document.direction += snap * Math.sign(event.deltaY);
             this.refresh();
         } else if (event.shiftKey) {
             event.preventDefault();
             event.stopPropagation();
             const snap = 45;
             this.document._source.direction += snap * Math.sign(event.deltaY);
-            this.data.direction += snap * Math.sign(event.deltaY);
+            this.document.direction += snap * Math.sign(event.deltaY);
             this.refresh();
         }
     };

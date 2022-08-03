@@ -166,7 +166,7 @@ declare global {
         ): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
@@ -180,17 +180,17 @@ declare global {
     namespace ChatMessage {
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["data"]["_source"]>[],
+            data: PreCreate<T["_source"]>[],
             context?: ChatMessageModificationContext
         ): Promise<T[]>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["data"]["_source"]>,
+            data: PreCreate<T["_source"]>,
             context?: ChatMessageModificationContext
         ): Promise<T | undefined>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["data"]["_source"]>[] | PreCreate<T["data"]["_source"]>,
+            data: PreCreate<T["_source"]>[] | PreCreate<T["_source"]>,
             context?: ChatMessageModificationContext
         ): Promise<T[] | T | undefined>;
     }

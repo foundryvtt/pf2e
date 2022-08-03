@@ -24,6 +24,10 @@ declare module foundry {
 
             light: foundry.data.LightData<this>;
 
+            elevation: number;
+
+            effects: VideoPath[];
+
             static override get schema(): typeof data.TokenData;
 
             static override get metadata(): TokenMetadata;

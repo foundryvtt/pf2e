@@ -145,14 +145,14 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             return super.updateSource({ defer, deleted, skipUpdateFog });
         }
 
-        const original = { dim: this.data.light.dim, bright: this.data.light.bright };
-        this.data.light.bright = Math.max(original.dim, original.bright);
-        this.data.light.dim = 0;
+        const original = { dim: this.document.light.dim, bright: this.document.light.bright };
+        this.document.light.bright = Math.max(original.dim, original.bright);
+        this.document.light.dim = 0;
 
         super.updateSource({ defer, deleted, skipUpdateFog });
 
-        this.data.light.bright = original.bright;
-        this.data.light.dim = original.dim;
+        this.document.light.bright = original.bright;
+        this.document.light.dim = original.dim;
     }
 
     /** Make the drawing promise accessible to `#redraw` */
@@ -189,9 +189,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     override clone(): this {
         const clone = super.clone();
         if (!clone.id) {
-            clone.data.height = this.data.height;
-            clone.data.width = this.data.width;
-            clone.data.img = this.data.img;
+            clone.document.height = this.document.height;
+            clone.document.width = this.document.width;
+            clone.document.img = this.document.img;
         }
 
         return clone;
@@ -273,8 +273,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             vertical: 0,
         };
 
-        const selfElevation = this.data.elevation;
-        const targetElevation = target.data.elevation;
+        const selfElevation = this.document.elevation;
+        const targetElevation = target.document.elevation;
         if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.horizontal;
 
         const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
@@ -285,13 +285,13 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         const vertical = {
             self: new NormalizedRectangle(
                 this.bounds.x,
-                (this.data.elevation / gridDistance) * gridSize,
+                (selfElevation / gridDistance) * gridSize,
                 this.bounds.width,
                 (selfDimensions.height / gridDistance) * gridSize
             ),
             target: new NormalizedRectangle(
                 target.bounds.x,
-                (target.data.elevation / gridDistance) * gridSize,
+                (targetElevation / gridDistance) * gridSize,
                 target.bounds.width,
                 (targetDimensions.height / gridDistance) * gridSize
             ),
@@ -318,24 +318,20 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
         if (!this.kimsNaughtyModule) this.auras.refresh();
-        canvas.lighting.setPerceivedLightLevel(this);
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
 
-        const hasLowLightVision = canvas.effects.visionSources.some(
-            (s) => s.object !== this && s.object.hasLowLightVision
-        );
-        canvas.lighting.setPerceivedLightLevel({ hasLowLightVision });
         super._onRelease(options);
+
         if (!this.kimsNaughtyModule) this.auras.refresh();
     }
 
     /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
     override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["document"]["_source"]>,
         options: DocumentModificationContext<this["document"]>,
         userId: string
     ): void {

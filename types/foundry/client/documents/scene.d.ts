@@ -88,7 +88,7 @@ declare global {
         ): Promise<void>;
 
         protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
@@ -135,14 +135,14 @@ declare global {
         protected override _onUpdateEmbeddedDocuments(
             embeddedName: "Token",
             documents: TTokenDocument[],
-            result: TTokenDocument["data"]["_source"][],
+            result: TTokenDocument["_source"][],
             options: SceneEmbeddedModificationContext,
             userId: string
         ): void;
 
         protected override _preDeleteEmbeddedDocuments(
             embeddedName: "Token",
-            result: TTokenDocument["data"]["_source"][],
+            result: TTokenDocument["_source"][],
             options: SceneEmbeddedModificationContext,
             userId: string
         ): void;
@@ -162,7 +162,7 @@ declare global {
             userId: string
         ): void;
 
-        override toCompendium(pack: CompendiumCollection<this>): this["data"]["_source"];
+        override toCompendium(pack: CompendiumCollection<this>): this["_source"];
 
         /**
          * Create a 300px by 100px thumbnail image for this scene background
