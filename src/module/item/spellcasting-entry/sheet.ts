@@ -119,7 +119,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         const sources = Array.isArray(itemSource) ? itemSource : [itemSource];
         const spellSources = sources.filter((source): source is SpellSource => source.type === "spell");
         for (const spellSource of spellSources) {
-            spellSource.data.location.value = this.item.id;
+            spellSource.system.location.value = this.item.id;
         }
 
         return super._onDropItemCreate(spellSources);
@@ -130,7 +130,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         if (itemData.type !== "spell") return [];
 
         const spell = this.actor.items.get(itemData._id);
-        if (itemData.data.location.value !== this.item.id && spell instanceof SpellPF2e) {
+        if (itemData.system.location.value !== this.item.id && spell?.isOfType("spell")) {
             const addedSpell = await this.item.spells.addSpell(spell);
             return [addedSpell ?? []].flat();
         }

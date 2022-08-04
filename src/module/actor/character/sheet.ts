@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { FeatPF2e, ItemPF2e, LorePF2e, SpellcastingEntryPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, LoreData } from "@item/data";
@@ -21,6 +21,7 @@ import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } f
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -786,12 +787,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Retrieve and validate the updated value
         const newValue = ((): number | undefined => {
-            if (item instanceof SpellcastingEntryPF2e) {
+            if (item.isOfType("spellcastingEntry")) {
                 const dispatch: Record<string, () => number> = {
                     "system.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
-            } else if (item instanceof LorePF2e) {
+            } else if (item.isOfType("lore")) {
                 return Math.clamped(selectedValue, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
@@ -801,7 +802,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
         }
-        if (newValue !== getProperty(item.data, propertyKey)) {
+        if (newValue !== getProperty(item, propertyKey)) {
             ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
         }
     }
@@ -818,13 +819,13 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Retrieve and validate the updated value
         const newValue = ((): number | undefined => {
-            if (item instanceof SpellcastingEntryPF2e) {
+            if (item.isOfType("spellcastingEntry")) {
                 const proficiencyRank = item.system.proficiency.value;
                 const dispatch: Record<string, () => number> = {
                     "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
-            } else if (item instanceof LorePF2e) {
+            } else if (item.isOfType("lore")) {
                 const currentRank = item.system.proficient.value;
                 return Math.clamped(currentRank + change, 0, 4);
             } else {
@@ -894,18 +895,18 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return typeof categoryId === "string" ? { slotId, categoryId: categoryId } : null;
     }
 
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasData<"Item", ItemPF2e>
-    ): Promise<ItemPF2e[]> {
-        const actor = this.actor;
-        const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
-        if (isSameActor) return super._onDropItem(event, data);
-
+    protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
+        const actor = this.actor;
+        const sourceActor = item?.parent;
+        if (sourceActor) {
+            const isSameActor =
+                sourceActor.id === actor.id || (actor.isToken && sourceActor?.token?.id === actor.token?.id);
+            if (isSameActor) return super._onDropItem(event, data);
+        }
 
-        if (item instanceof FeatPF2e) {
+        if (item.isOfType("feat")) {
             const featSlot = this.getNearestFeatSlotId(event) ?? { categoryId: "" };
             return await this.actor.feats.insertFeat(item, featSlot);
         }
@@ -948,7 +949,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const item = this.actor.items.get(itemData._id);
-        if (item instanceof FeatPF2e) {
+        if (item?.isOfType("feat")) {
             const featSlot = this.getNearestFeatSlotId(event);
             if (!featSlot) return [];
 

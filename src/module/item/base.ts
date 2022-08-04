@@ -1,5 +1,4 @@
-import { ActorPF2e, NPCPF2e } from "@actor";
-import { isCreatureData } from "@actor/data/helpers";
+import { ActorPF2e } from "@actor";
 import { HazardSystemData } from "@actor/hazard/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
@@ -453,7 +452,8 @@ class ItemPF2e extends Item<ActorPF2e> {
                 await context.parent.preCreateDelete(nonKits);
             }
 
-            for (const itemSource of [...nonKits]) {
+            for (const source of [...nonKits]) {
+                const itemSource = deepClone(source);
                 if (!itemSource.system?.rules) continue;
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     delete itemSource._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
@@ -624,12 +624,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         super._onDelete(options, userId);
         if (!(this.actor && game.user.id === userId)) return;
 
-        if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
+        if (!(this.actor.isOfType("creature") && this.canUserModify(game.user, "update"))) return;
         const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
         for (const rule of this.rules) rule.onDelete?.(actorUpdates);
 
         // Remove attack effect from melee items if this deleted item was the source
-        if (this.actor instanceof NPCPF2e && ["action", "consumable"].includes(this.type)) {
+        if (this.actor.isOfType("npc") && ["action", "consumable"].includes(this.type)) {
             const slug = this.slug ?? sluggify(this.name);
             if (!this.actor.isToken) {
                 const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];

@@ -161,10 +161,10 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const rollData = super.getRollData();
-        if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
+        if (this.actor?.isOfType("character", "npc")) {
             const spellcasting = this.spellcasting;
             const { abilities } = this.actor.system;
-            if (!spellcasting?.data && this.trickMagicEntry) {
+            if (!spellcasting?.system && this.trickMagicEntry) {
                 rollData["mod"] = abilities[this.trickMagicEntry.ability].mod;
             } else {
                 rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
@@ -467,7 +467,7 @@ class SpellPF2e extends ItemPF2e {
                     actions,
                     name: variant.name,
                     overlayIds,
-                    sort: variant.data.sort,
+                    sort: variant.sort,
                 };
             })
             .sort((a, b) => a.sort - b.sort);

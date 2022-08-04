@@ -2,7 +2,7 @@
     <ol class="directory-list spell-list" data-casting-type="{{castingType}}">
         {{!-- Add section for each level --}}
         {{#each entry.levels as |section|}}
-            {{#if (or (gt section.active.length 0) entry.data.showSlotlessLevels.value)}}
+            {{#if (or (gt section.active.length 0) entry.system.showSlotlessLevels.value)}}
                 <li class="spell-level-header spellbook-header item" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
                     <div class="item-name flexrow">
                         <h3>{{localize section.label}}</h3>
@@ -79,13 +79,13 @@
                                 <div class="item-image">
                                     <img class="item-icon" src="{{spell.img}}" alt="{{spell.name}}">
                                 </div>
-                                <h4>{{spell.name}}{{{actionGlyph spell.data.data.time.value}}}</h4>
+                                <h4>{{spell.name}}{{{actionGlyph spell.system.time.value}}}</h4>
                             </div>
 
                             <div class="spell-range">
                                 {{!-- Innate spells replace range for uses --}}
                                 {{#unless entry.isInnate}}
-                                    {{spell.data.data.range.value}}
+                                    {{spell.system.range.value}}
                                 {{else if uses}}
                                     <div class="uses">
                                         <span class="spell-slots-input">
@@ -103,16 +103,16 @@
                             </div>
 
                             <div class="spell-components tags">
-                                {{#if spell.data.data.components.focus}}
+                                {{#if spell.system.components.focus}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortF"}}</span>
                                 {{/if}}
-                                {{#if spell.data.data.components.material}}
+                                {{#if spell.system.components.material}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortM"}}</span>
                                 {{/if}}
-                                {{#if spell.data.data.components.somatic}}
+                                {{#if spell.system.components.somatic}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortS"}}</span>
                                 {{/if}}
-                                {{#if spell.data.data.components.verbal}}
+                                {{#if spell.system.components.verbal}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortV"}}</span>
                                 {{/if}}
                             </div>
@@ -127,7 +127,7 @@
                                             {{/unless}}
                                             <a class="item-control item-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                         {{else}}
-                                            {{#if (and (eq entry.data.prepared.value "spontaneous") (not section.isCantrip))}}
+                                            {{#if (and (eq entry.system.prepared.value "spontaneous") (not section.isCantrip))}}
                                                 <a class="item-control toggle-signature-spell" title="{{localize "PF2E.ToggleSignatureSpellTitle"}}">
                                                     {{#if signature}}<i class="fas fa-fw fa-star"></i>{{else}}<i class="far fa-fw fa-star"></i>{{/if}}
                                                 </a>

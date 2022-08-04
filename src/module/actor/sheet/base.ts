@@ -1,4 +1,4 @@
-import { CharacterPF2e, CreaturePF2e, type ActorPF2e } from "@actor";
+import { CharacterPF2e, type ActorPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
@@ -157,7 +157,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             };
         };
 
-        for (const item of this.actor.inventory.contents.sort((a, b) => (a.data.sort || 0) - (b.data.sort || 0))) {
+        for (const item of this.actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
             if (!objectHasKey(sections, item.type) || item.isInContainer) continue;
             const category = item.isOfType("book") ? sections.equipment : sections[item.type];
             category.items.push(createInventoryItem(item));
@@ -444,10 +444,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             event.preventDefault();
 
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const itemToEdit = this.actor.items.get(itemId)?.data;
-            if (itemToEdit?.type !== "spellcastingEntry")
+            const itemToEdit = this.actor.items.get(itemId);
+            if (!itemToEdit?.isOfType("spellcastingEntry"))
                 throw new Error("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
-            const bool = !(itemToEdit.data.showSlotlessLevels || {}).value;
+            const bool = !(itemToEdit.system.showSlotlessLevels || {}).value;
 
             await this.actor.updateEmbeddedDocuments("Item", [
                 {
@@ -614,7 +614,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const item = this.actor.items.get(itemId ?? "");
         if (item) {
             baseDragData.type = "Item";
-            baseDragData.data = item.data;
+            baseDragData.uuid = item.uuid;
         }
 
         // Dragging ...
@@ -798,15 +798,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const itemSource = item.toObject();
 
         const actor = this.actor;
-        const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
+        const sourceActorId = item.parent?.id ?? "";
+        const sourceTokenId = item.parent?.token?.id ?? "";
+        const isSameActor = sourceActorId === actor.id || (item.parent?.isToken && sourceTokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemSource);
 
-        const sourceItemId = data.data?._id;
-        if (data.actorId && isPhysicalData(itemSource) && typeof sourceItemId === "string") {
+        const sourceItemId = itemSource._id;
+        if (sourceActorId && item.isOfType("physical")) {
             await this.moveItemBetweenActors(
                 event,
-                data.actorId,
-                data.tokenId ?? "",
+                sourceActorId,
+                sourceTokenId,
                 actor.id,
                 actor.token?.id ?? "",
                 sourceItemId
@@ -815,8 +817,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         // mystify the item if the alt key was pressed
-        if (event.altKey && isPhysicalData(itemSource)) {
-            itemSource.data.identification.unidentified = (item as PhysicalItemPF2e).getMystifiedData("unidentified");
+        if (event.altKey && item.isOfType("physical") && isPhysicalData(itemSource)) {
+            itemSource.data.identification.unidentified = item.getMystifiedData("unidentified");
             itemSource.data.identification.status = "unidentified";
         }
 
@@ -837,7 +839,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
                 this.openSpellPreparationSheet(collection.id);
                 return [(await collection.addSpell(item, level)) ?? []].flat();
-            } else if (dropContainerType === "actorInventory" && itemSource.data.level.value > 0) {
+            } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new ScrollWandPopup(
                     this.actor,
                     {},
@@ -858,8 +860,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return [];
         } else if (itemSource.type === "condition") {
             const value = data.value;
-            if (typeof value === "number" && itemSource.data.value.isValued) {
-                itemSource.data.value.value = value;
+            if (typeof value === "number" && itemSource.system.value.isValued) {
+                itemSource.system.value.value = value;
             }
             const token = actor.token?.object
                 ? actor.token.object
@@ -873,16 +875,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const condition = await game.pf2e.ConditionManager.addConditionToToken(itemSource, token);
                 return condition ? [condition] : [];
             } else {
-                await actor.increaseCondition(itemSource.data.slug, { min: itemSource.data.value.value });
+                await actor.increaseCondition(itemSource.system.slug, { min: itemSource.system.value.value });
                 return [item];
             }
         } else if (itemSource.type === "effect" && data && "level" in data) {
             const level = data.level;
             if (typeof level === "number" && level >= 0) {
-                itemSource.data.level.value = level;
+                itemSource.system.level.value = level;
             }
-        } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
-            const actorFormulas = actor.data.toObject().data.crafting.formulas;
+        } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
+            const actorFormulas = deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
                 actorFormulas.push({ uuid: item.uuid });
                 await actor.update({ "system.crafting.formulas": actorFormulas });
@@ -895,18 +897,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 $(event.target).closest('[data-item-is-container="true"]').attr("data-item-id")?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
-                itemSource.data.containerId = containerId;
-                itemSource.data.equipped.carryType = "stowed";
+                itemSource.system.containerId = containerId;
+                itemSource.system.equipped.carryType = "stowed";
             } else {
-                itemSource.data.equipped.carryType = "worn";
+                itemSource.system.equipped.carryType = "worn";
             }
             // If the item is from a compendium, adjust the size to be appropriate to the creature's
             const resizeItem =
-                data.pack &&
+                data?.uuid?.startsWith("Compendium") &&
                 itemSource.type !== "treasure" &&
                 !["med", "sm"].includes(actor.size) &&
-                actor instanceof CreaturePF2e;
-            if (resizeItem) itemSource.data.size = actor.size;
+                actor.isOfType("creature");
+            if (resizeItem) itemSource.system.size = actor.size;
         }
         return this._onDropItemCreate(itemSource);
     }
