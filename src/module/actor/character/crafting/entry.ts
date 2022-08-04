@@ -51,7 +51,8 @@ export class CraftingEntry implements CraftingEntryData {
                             quantity: prepData.quantity,
                             expended: prepData.expended,
                             isSignatureItem: prepData.isSignatureItem,
-                    });
+                        }
+                    );
                 }
                 return null;
             })
