@@ -232,7 +232,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
 
         const results: SpellcastingSlotLevel[] = [];
-        const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
+        const spells = this.spells.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
         const signatureSpells = spells.filter((s) => s.system.location.signature);
 
         if (this.isPrepared) {

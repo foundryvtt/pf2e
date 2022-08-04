@@ -227,21 +227,21 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const $strikesList = $html.find("ol.strikes-list");
 
         $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
-            if (!["character", "npc"].includes(this.actor.data.type)) {
+            if (!this.actor.isOfType("character", "npc")) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
             await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
         });
 
         $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
-            if (!["character", "npc"].includes(this.actor.data.type)) {
+            if (!this.actor.isOfType("character", "npc")) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
             await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
         $html.find(".spell-attack").on("click", async (event) => {
-            if (!["character"].includes(this.actor.data.type)) {
+            if (!this.actor.isOfType("character")) {
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
@@ -267,13 +267,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const itemLevel = target.data().level;
             const actor = this.actor;
             const item = actor.items.get(itemId);
-            if (item instanceof SpellcastingEntryPF2e) {
-                const data = item.data.toObject();
-                if (!data.data.slots) return;
+            if (item?.isOfType("spellcastingEntry")) {
+                const { system } = item.toObject();
+                if (!system.slots) return;
                 const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-                data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
-                item.update(data);
-            } else if (item instanceof SpellPF2e) {
+                system.slots[slotLevel].value = system.slots[slotLevel].max;
+                item.update({ system });
+            } else if (item?.isOfType("spell")) {
                 const max = item.system.location.uses?.max;
                 if (!max) return;
                 item.update({ "system.location.uses.value": max });

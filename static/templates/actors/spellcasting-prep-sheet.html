@@ -65,22 +65,22 @@
                                 <div class="item-image">
                                     <img class="item-icon" src="{{spell.img}}" alt="{{spell.name}}">
                                 </div>
-                                <h4>{{spell.name}}{{{actionGlyph spell.data.data.time.value}}}</h4>
+                                <h4>{{spell.name}}{{{actionGlyph spell.system.time.value}}}</h4>
                             </div>
 
-                            <div class="spell-range">{{spell.data.data.range.value}}</div>
+                            <div class="spell-range">{{spell.system.range.value}}</div>
 
                             <div class="spell-components tags">
-                                {{#if spell.data.data.components.focus}}
+                                {{#if spell.system.components.focus}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortF"}}</span>
                                 {{/if}}
-                                {{#if spell.data.data.components.material}}
+                                {{#if spell.system.components.material}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortM"}}</span>
                                 {{/if}}
-                                {{#if spell.data.data.components.somatic}}
+                                {{#if spell.system.components.somatic}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortS"}}</span>
                                 {{/if}}
-                                {{#if spell.data.data.components.verbal}}
+                                {{#if spell.system.components.verbal}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortV"}}</span>
                                 {{/if}}
                             </div>
