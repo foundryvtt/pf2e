@@ -41,20 +41,20 @@ export class HazardPF2e extends ActorPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const { data } = this.data;
+        const { system } = this;
 
         this.prepareSynthetics();
 
         // Armor Class
         {
-            const base = data.attributes.ac.value;
+            const base = system.attributes.ac.value;
             const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
                 ...extractModifiers(this.synthetics, domains, { test: this.getRollOptions(domains) }),
             ];
 
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
+            const stat = mergeObject(new StatisticModifier("ac", modifiers), system.attributes.ac, {
                 overwrite: false,
             });
             stat.base = base;
@@ -64,19 +64,19 @@ export class HazardPF2e extends ActorPF2e {
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
 
-            data.attributes.ac = stat;
+            system.attributes.ac = stat;
         }
 
         this.saves = this.prepareSaves();
     }
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
-        const data = this.system;
+        const { system } = this;
         const { rollNotes } = this.synthetics;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
-            const save = data.saves[saveType];
+            const save = system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
