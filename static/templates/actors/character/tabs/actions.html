@@ -120,7 +120,7 @@
                                             <h4>{{action.name}}</h4>
                                             {{#if action.system.frequency}}
                                                 <div class="action-tracking">
-                                                    <input type="number" value="{{action.system.frequency.value}}" data-dtype="Number"/>
+                                                    <input type="number" value="{{action.data.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
                                                     <span>/ {{action.system.frequency.max}} {{localize "PF2E.Frequency.per"}} {{localize (lookup @root.frequencies action.system.frequency.per)}}</span>
                                                 </div>
                                             {{/if}}
