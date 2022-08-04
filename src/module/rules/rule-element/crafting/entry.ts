@@ -3,7 +3,7 @@ import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { PhysicalItemTrait } from "@item/physical/data";
-import { CraftingEntryData, BatchSizeOverride } from "@actor/character/crafting/entry";
+import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { sluggify } from "@util";
 
 /**
@@ -48,7 +48,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
             batchSize: this.data.batchSize,
-            batchSizeOverrides: this.data.batchSizeOverrides,
+            infusionRules: [],
         };
 
         actorUpdates[`system.crafting.entries.${selector}`] = data;
@@ -83,7 +83,6 @@ interface CraftingEntryRuleData extends RuleElementData {
     maxItemLevel?: number;
     maxSlots?: number;
     batchSize?: number;
-    batchSizeOverrides?: BatchSizeOverride[];
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -95,7 +94,6 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     maxItemLevel?: unknown;
     maxSlots?: unknown;
     batchSize?: unknown;
-    batchSizeOverrides?: unknown;
 }
 
 export { CraftingEntryRuleElement };
