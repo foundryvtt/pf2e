@@ -316,7 +316,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
 
         // Set the name according to the precious material and runes
-        this.data.name = this.generateMagicName();
+        this.name = this.generateMagicName();
     }
 
     getRunesData(): RuneValuationData[] {
@@ -356,7 +356,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const baseWeapons = translations.Weapon.Base;
 
         const storedName = this._source.name;
-        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.data.name;
+        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.name;
 
         const systemData = this.system;
 

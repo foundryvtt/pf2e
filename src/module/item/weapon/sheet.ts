@@ -48,17 +48,17 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Weapons have derived level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
-        sheetData.data.traits.rarity = baseData.data.traits.rarity;
+        sheetData.data.traits.rarity = baseData.system.traits.rarity;
         const hintText = LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
         const adjustedLevelHint =
-            this.item.level !== baseData.data.level.value
+            this.item.level !== baseData.system.level.value
                 ? game.i18n.format(hintText, {
                       property: game.i18n.localize("PF2E.LevelLabel"),
                       value: this.item.level,
                   })
                 : null;
         const adjustedPriceHint = (() => {
-            const basePrice = new CoinsPF2e(baseData.data.price.value).scale(baseData.data.quantity).copperValue;
+            const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
             const derivedPrice = this.item.assetValue.copperValue;
             return basePrice !== derivedPrice
                 ? game.i18n.format(hintText, {
@@ -157,9 +157,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             adjustedLevelHint,
             adjustedPriceHint,
             abpEnabled,
-            baseLevel: baseData.data.level.value,
-            baseRarity: baseData.data.traits.rarity,
-            basePrice: new CoinsPF2e(baseData.data.price.value),
+            baseLevel: baseData.system.level.value,
+            baseRarity: baseData.system.traits.rarity,
+            basePrice: new CoinsPF2e(baseData.system.price.value),
             categories: CONFIG.PF2E.weaponCategories,
             groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
