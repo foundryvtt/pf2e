@@ -454,9 +454,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 traits: { value: newTraits },
             },
         };
-        const item = this.clone(overlay, { keepId: true });
-        item.prepareData();
-        return item;
+        return this.clone(overlay, { keepId: true });
     }
 
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
@@ -479,9 +477,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 },
             },
         };
-        const item = this.clone(overlay, { keepId: true });
-        item.prepareData();
-        return item;
+        return this.clone(overlay, { keepId: true });
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
