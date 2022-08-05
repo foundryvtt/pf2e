@@ -62,7 +62,7 @@ export class LootPF2e extends ActorPF2e {
         if (!(this.isOwner && targetActor.isOwner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
         }
-        if (this.isMerchant && item instanceof PhysicalItemPF2e) {
+        if (this.isMerchant && item.isOfType("physical")) {
             const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
             if (await targetActor.inventory.removeCoins(itemValue)) {
                 await item.actor.inventory.addCoins(itemValue);
