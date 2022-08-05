@@ -165,9 +165,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 // default scaling object, or the most recent value among all overlays and base spell.
                 const value = (() => {
                     const scaling = this.item.getHeightenLayers().reverse();
-                    for (const entry of [...scaling, { data: this.item.system }]) {
-                        if (objectHasKey(entry.data, property)) {
-                            return entry.data[property];
+                    for (const entry of [...scaling, { system: this.item.system }]) {
+                        if (objectHasKey(entry.system, property)) {
+                            return entry.system[property];
                         }
                     }
 
@@ -207,7 +207,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             const existingData = this.item.getHeightenLayers().find((layer) => layer.level === currentLevel);
             this.item.update({
                 [`${overlay.collectionPath}.-=${currentLevel}`]: null,
-                [`${overlay.collectionPath}.${newLevel}`]: existingData?.data ?? {},
+                [`${overlay.collectionPath}.${newLevel}`]: existingData?.system ?? {},
             });
         });
 
@@ -360,11 +360,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const layers = spell.getHeightenLayers();
 
         return layers.map((layer) => {
-            const { level, data } = layer;
+            const { level, system } = layer;
             const base = `data.heightening.levels.${layer.level}`;
             const missing: SpellSheetOverlayData["missing"] = [];
             for (const [key, label] of Object.entries(spellOverridable)) {
-                if (key in layer.data) continue;
+                if (key in layer.system) continue;
                 missing.push({ key: key as keyof SpellSystemData, label });
             }
 
@@ -372,7 +372,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenLevels.push(level);
             heightenLevels.sort((a, b) => a - b);
 
-            return { id: null, level, base, dataPath: base, type: "heighten", data, missing, heightenLevels };
+            return { id: null, level, base, dataPath: base, type: "heighten", system, missing, heightenLevels };
         });
     }
 }
@@ -410,7 +410,7 @@ interface SpellSheetOverlayData {
     /** Base path to the spell override data, dot delimited. Currently this is the same as base */
     dataPath: string;
     level: number;
-    data: Partial<SpellSystemData>;
+    system: Partial<SpellSystemData>;
     type: "heighten";
     heightenLevels: number[];
     missing: { key: keyof SpellSystemData; label: string }[];

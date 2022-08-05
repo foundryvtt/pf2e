@@ -36,19 +36,19 @@
         {{/each}}
     </div>
 
-    {{#if data.time}}
+    {{#if system.time}}
     <div class="form-group">
         <label>
             <a data-action="overlay-remove-property" data-property="time"><i class="fa fa-times" ></i></a>
             {{localize "PF2E.SpellTimeLabel"}}
         </label>
         <div>
-            <input type="text" name="{{dataPath}}.time.value" value="{{data.time.value}}" data-dtype="String"/>
+            <input type="text" name="{{dataPath}}.time.value" value="{{system.time.value}}" />
         </div>
     </div>
     {{/if}}
 
-    {{#if data.components}}
+    {{#if system.components}}
     <div class="form-group">
         <label>
             <a data-action="overlay-remove-property" data-property="components"><i class="fa fa-times" ></i></a>
@@ -56,38 +56,38 @@
         </label>
         <div class="details-container-flex-row spell-components">
             <label>
-                <input type="checkbox" name="{{dataPath}}.components.focus" {{checked data.components.focus}} data-dtype="Boolean"/>
+                <input type="checkbox" name="{{dataPath}}.components.focus" {{checked system.components.focus}} />
                 <span>{{localize "PF2E.SpellComponentShortF"}}</span>
             </label>
             <label>
-                <input type="checkbox" name="{{dataPath}}.components.material" {{checked data.components.material}} data-dtype="Boolean"/>
+                <input type="checkbox" name="{{dataPath}}.components.material" {{checked system.components.material}} />
                 <span>{{localize "PF2E.SpellComponentShortM"}}</span>
             </label>
             <label>
-                <input type="checkbox" name="{{dataPath}}.components.somatic" {{checked data.components.somatic}} data-dtype="Boolean"/>
+                <input type="checkbox" name="{{dataPath}}.components.somatic" {{checked system.components.somatic}} "/>
                 <span>{{localize "PF2E.SpellComponentShortS"}}</span>
             </label>
             <label>
-                <input type="checkbox" name="{{dataPath}}.components.verbal" {{checked data.components.verbal}} data-dtype="Boolean"/>
+                <input type="checkbox" name="{{dataPath}}.components.verbal" {{checked system.components.verbal}} />
                 <span>{{localize "PF2E.SpellComponentShortV"}}</span>
             </label>
         </div>
     </div>
     {{/if}}
 
-    {{#if data.target}}
+    {{#if system.target}}
     <div class="form-group">
         <label>
             <a data-action="overlay-remove-property" data-property="target"><i class="fa fa-times" ></i></a>
             {{localize "PF2E.SpellTargetLabel"}}
         </label>
         <div>
-            <input type="text" name="{{dataPath}}.target.value" value="{{data.target.value}}" data-dtype="String"/>
+            <input type="text" name="{{dataPath}}.target.value" value="{{system.target.value}}" data-dtype="String"/>
         </div>
     </div>
     {{/if}}
 
-    {{#if data.area}}
+    {{#if system.area}}
     <div class="form-group">
         <label>
             <a data-action="overlay-remove-property" data-property="area"><i class="fa fa-times" ></i></a>
@@ -96,7 +96,7 @@
         <div class="details-container-two-columns">
             <select name="{{dataPath}}.area.value" data-dtype="String">
                 <option value=""></option>
-                {{#select data.area.value}}
+                {{#select system.area.value}}
                 {{#each @root.areaSizes as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
@@ -104,7 +104,7 @@
             </select>
             <select name="{{dataPath}}.area.areaType" data-dtype="String">
                 <option value=""></option>
-                {{#select data.area.areaType}}
+                {{#select system.area.areaType}}
                 {{#each @root.areaTypes as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
@@ -114,19 +114,19 @@
     </div>
     {{/if}}
 
-    {{#if data.range}}
+    {{#if system.range}}
     <div class="form-group">
         <label>
             <a data-action="overlay-remove-property" data-property="range"><i class="fa fa-times" ></i></a>
             {{localize "PF2E.SpellRangeLabel"}}
         </label>
         <div>
-            <input type="text" name="{{dataPath}}.range.value" value="{{data.range.value}}" data-dtype="String"/>
+            <input type="text" name="{{dataPath}}.range.value" value="{{system.range.value}}" />
         </div>
     </div>
     {{/if}}
 
-    {{#if data.damage}}
+    {{#if system.damage}}
         <div class="damage-formulas">
             <h3>
                 <a data-action="overlay-remove-property" data-property="damage"><i class="fa fa-times" ></i></a>
@@ -136,10 +136,10 @@
                 </div>
             </h3>
 
-            {{#each data.damage.value as |damage id|}}
+            {{#each system.damage.value as |damage id|}}
                 <div class="formula-section">
                     <div class="details-container-flex-row">
-                        <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                        <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <label>
                             <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
                             <input type="checkbox" name="{{../dataPath}}.damage.value.{{id}}.applyMod" {{checked damage.applyMod}} data-dtype="Boolean" }/>

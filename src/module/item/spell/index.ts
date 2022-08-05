@@ -294,7 +294,7 @@ class SpellPF2e extends ItemPF2e {
             }
 
             for (const overlay of heightenEntries) {
-                mergeObject(source.system, overlay.data);
+                mergeObject(source.system, overlay.system);
             }
 
             return source;
@@ -312,8 +312,8 @@ class SpellPF2e extends ItemPF2e {
         if (heightening?.type !== "fixed") return [];
 
         return Object.entries(heightening.levels)
-            .map(([level, data]) => ({ level: Number(level), data }))
-            .filter((data) => !level || level >= data.level)
+            .map(([level, system]) => ({ level: Number(level), system }))
+            .filter((system) => !level || level >= system.level)
             .sort((first, second) => first.level - second.level);
     }
 

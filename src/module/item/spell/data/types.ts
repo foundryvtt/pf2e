@@ -45,7 +45,7 @@ export interface SpellHeighteningFixed {
 
 export interface SpellHeightenLayer {
     level: number;
-    data: Partial<SpellSystemData>;
+    system: Partial<SpellSystemData>;
 }
 
 interface SpellOverlayOverride {
