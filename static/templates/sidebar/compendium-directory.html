@@ -1,4 +1,4 @@
-<section class="tab sidebar-tab directory flexcol" id="compendium" data-tab="compendium">
+<section class="tab sidebar-tab directory flexcol compendium-sidebar" id="compendium" data-tab="compendium">
     <header class="directory-header">
         <div class="header-actions action-buttons flexrow">
             {{#if user.isGM}}
@@ -16,20 +16,20 @@
     <ol class="directory-list">
         {{#each packs as |pack label|}}
             <li class="compendium-type">
-                <h3>{{label}}</h3>
+                <h3 class="noborder">{{label}}</h3>
                 <ol class="compendium-list">
-                    {{#each pack.packs}}
-                        <li class="compendium-pack directory-item" data-pack="{{this.collection}}" data-open="0">
+                    {{#each pack.packs as |pack|}}
+                        <li class="compendium-pack directory-item" data-collection="{{pack.collection}}" data-pack="{{pack.collection}}" data-open="0">
                             <h4 class="pack-title">
-                                <a><i class="folder fas fa-folder"></i> {{this.metadata.label}}</a>
+                                <a><i class="folder fas fa-folder"></i> {{pack.metadata.label}}</a>
                                 <div class="status-icons">
-                                    {{#if this.private}}<i class="fas fa-eye-slash"></i>{{/if}}
-                                    {{#if this.locked}}<i class="fas fa-lock"></i>{{/if}}
+                                    {{#if pack.private}}<i class="fas fa-eye-slash"></i>{{/if}}
+                                    {{#if pack.locked}}<i class="fas fa-lock"></i>{{/if}}
                                 </div>
                             </h4>
                             <footer class="compendium-footer">
-                                <span class="entity-type">{{localize this.documentName}}</span>
-                                <span> ({{this.metadata.package}})</span>
+                                <span class="document-type">{{localize pack.documentName}}</span>
+                                <span> ({{pack.metadata.packageName}})</span>
                             </footer>
                         </li>
                     {{/each}}

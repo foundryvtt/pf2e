@@ -84,10 +84,7 @@ export const Ready = {
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
 
-            // Compile compendium search index
-            registerModuleArt().then(() => {
-                ui.compendium.onReady();
-            });
+            registerModuleArt();
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
