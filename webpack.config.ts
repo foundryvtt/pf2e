@@ -45,11 +45,12 @@ const [outDir, foundryUri] = ((): [string, string] => {
     return [outDir, foundryUri];
 })();
 
-/** Create an empty vendor.bundle.js when in dev mode to keep the Foundry server happy */
-class EmptyVendorBundleJsPlugin {
+/** Create an empty static files when in dev mode to keep the Foundry server happy */
+class EmptyStaticFilesPlugin {
     apply(compiler: webpack.Compiler): void {
-        compiler.hooks.afterEmit.tap("EmptyVendorBundleJsPlugin", (): void => {
+        compiler.hooks.afterEmit.tap("EmptyStaticFilesPlugin", (): void => {
             if (!isProductionBuild) {
+                fs.closeSync(fs.openSync(path.resolve(outDir, "styles/tinymce.css"), "w"));
                 fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.bundle.js"), "w"));
             }
         });
@@ -205,7 +206,7 @@ const config: Configuration = {
         }),
         new MiniCssExtractPlugin({ filename: "styles/[name].css" }),
         new SimpleProgressWebpackPlugin({ format: "compact" }),
-        new EmptyVendorBundleJsPlugin(),
+        new EmptyStaticFilesPlugin(),
     ],
     resolve: {
         alias: {
