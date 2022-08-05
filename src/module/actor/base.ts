@@ -372,14 +372,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      */
     static override async createDocuments<A extends ActorPF2e>(
         this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[] = [],
+        data: PreCreate<A["_source"]>[] = [],
         context: DocumentModificationContext<A> = {}
     ): Promise<A[]> {
         // Set additional defaults, some according to actor type
         for (const datum of data) {
             const { linkToActorSize } = datum.prototypeToken?.flags?.pf2e ?? {};
             const merged = mergeObject(datum, {
-                permission: datum.permission ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
+                ownership: datum.ownership ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
                         // Sync token dimensions with actor size?
@@ -398,7 +398,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             switch (merged.type) {
                 case "character":
                 case "familiar":
-                    merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+                    merged.ownership.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.prototypeToken.actorLink = true;
                     merged.prototypeToken.vision = true;
@@ -406,7 +406,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 case "loot":
                     // Make loot actors linked and interactable
                     merged.prototypeToken.actorLink = true;
-                    merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+                    merged.ownership.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     break;
             }
         }

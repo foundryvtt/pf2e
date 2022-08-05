@@ -207,7 +207,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     }
                 }
                 if (docSource.type !== "script") {
-                    delete (docSource as Partial<PackEntry>).permission;
+                    delete (docSource as Partial<PackEntry>).ownership;
                 }
                 if (docSource.type === "npc") {
                     for (const key of Object.keys(docSource.system)) {
@@ -234,7 +234,7 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
     }
 
     if (!isEmbedded) {
-        docSource.permission = { default: docSource.permission?.default ?? 0 };
+        docSource.ownership = { default: docSource.ownership?.default ?? 0 };
         delete (docSource as Partial<typeof docSource>).sort;
 
         if (isItemSource(docSource)) {

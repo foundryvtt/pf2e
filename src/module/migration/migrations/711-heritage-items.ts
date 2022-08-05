@@ -185,7 +185,7 @@ export class Migration711HeritageItems extends MigrationBase {
             folder: feature.folder,
             flags: feature.flags,
             sort: feature.sort,
-            permission: feature.permission,
+            ownership: feature.ownership,
             system: {
                 description: feature.system.description,
                 rules: feature.system.rules,
