@@ -12,13 +12,16 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         // Set the source item data for editing
         const identifiedData = this.item.getMystifiedData("identified", { source: true });
-        mergeObject(sheetData.item, identifiedData, { insertKeys: false, insertValues: false });
+        sheetData.item.name = identifiedData.name;
+        sheetData.item.img = identifiedData.img;
+        sheetData.item.system.description.value = identifiedData.data.description.value;
+
         const { actionTraits } = CONFIG.PF2E;
 
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
-            basePriceString: new CoinsPF2e(this.item._source.data.price.value).toString(),
+            basePriceString: new CoinsPF2e(this.item._source.system.price.value).toString(),
             priceString: this.item.price.value.toString(),
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
@@ -51,7 +54,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = $input.attr("data-value") ?? getProperty(this.item.data, propertyPath);
+            const preparedValue = $input.attr("data-value") ?? getProperty(this.item, propertyPath);
             $input.val(preparedValue);
         });
 
@@ -122,7 +125,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         // Normalize nullable fields for embedded actions
         const expanded = expandObject(formData) as DeepPartial<BasePhysicalItemSource>;
-        for (const action of Object.values(expanded.data?.activations ?? [])) {
+        for (const action of Object.values(expanded.system?.activations ?? [])) {
             // Ensure activation time is in a proper format
             const actionCost = action.actionCost;
             if (actionCost) {

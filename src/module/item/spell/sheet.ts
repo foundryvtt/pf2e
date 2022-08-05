@@ -40,7 +40,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             .map((variant) => ({
                 name: variant.name,
                 id: variant.id,
-                sort: variant.data.sort,
+                sort: variant.sort,
                 actions: getActionGlyph(variant.system.time.value),
             }))
             .sort((variantA, variantB) => variantA.sort - variantB.sort);
@@ -165,7 +165,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 // default scaling object, or the most recent value among all overlays and base spell.
                 const value = (() => {
                     const scaling = this.item.getHeightenLayers().reverse();
-                    for (const entry of [...scaling, this.item.data]) {
+                    for (const entry of [...scaling, { data: this.item.system }]) {
                         if (objectHasKey(entry.data, property)) {
                             return entry.data[property];
                         }
