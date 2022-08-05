@@ -8,7 +8,7 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
         const sheetData = await super.getData(options);
         return {
             ...sheetData,
-            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.item.data.traits.otherTags),
+            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
         };
     }
 }

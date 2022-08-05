@@ -1,4 +1,5 @@
-import { CharacterPF2e, type ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
+import { CharacterSystemData } from "@actor/character/data";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
@@ -139,7 +140,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const createInventoryItem = (item: PhysicalItemPF2e): InventoryItem => {
             const editable = game.user.isGM || item.isIdentified;
             const heldItems = item.isOfType("backpack") ? item.contents.map((i) => createInventoryItem(i)) : undefined;
-            heldItems?.sort((a, b) => (a.item.data.sort || 0) - (b.item.data.sort || 0));
+            heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
 
             return {
                 item: item,
@@ -413,8 +414,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const itemUuid = $(event.currentTarget).parents(".item").attr("data-item-id");
             if (!itemUuid) return;
 
-            if (this.actor instanceof CharacterPF2e) {
-                const actorFormulas = this.actor.data.toObject().data.crafting.formulas ?? [];
+            if (this.actor.isOfType("character")) {
+                const actorFormulas = (this.actor.toObject().system as CharacterSystemData).crafting.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === itemUuid);
                 this.actor.update({ "system.crafting.formulas": actorFormulas });
             }
@@ -818,8 +819,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // mystify the item if the alt key was pressed
         if (event.altKey && item.isOfType("physical") && isPhysicalData(itemSource)) {
-            itemSource.data.identification.unidentified = item.getMystifiedData("unidentified");
-            itemSource.data.identification.status = "unidentified";
+            itemSource.system.identification.unidentified = item.getMystifiedData("unidentified");
+            itemSource.system.identification.status = "unidentified";
         }
 
         // get the item type of the drop target
@@ -1200,7 +1201,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const strValue = el.value.trim();
                 const value = Number(strValue);
                 if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
-                    data[el.name] = getProperty(this.actor.data, el.name) + value;
+                    data[el.name] = getProperty(this.actor, el.name) + value;
             }
         }
 

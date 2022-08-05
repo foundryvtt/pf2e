@@ -136,7 +136,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const otherTags = ((): SheetOptions => {
             const otherWeaponTags: Record<string, string> = deepClone(CONFIG.PF2E.otherWeaponTags);
             if (this.item.hands !== "1") delete otherWeaponTags.implement;
-            return createSheetTags(otherWeaponTags, sheetData.item.data.traits.otherTags);
+            return createSheetTags(otherWeaponTags, sheetData.data.traits.otherTags);
         })();
 
         const meleeUsage = sheetData.data.meleeUsage ?? {
@@ -152,7 +152,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
-            traits: createSheetTags(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits),
+            traits: createSheetTags(CONFIG.PF2E.weaponTraits, sheetData.data.traits),
             otherTags,
             adjustedLevelHint,
             adjustedPriceHint,

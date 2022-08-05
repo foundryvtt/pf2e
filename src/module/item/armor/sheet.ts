@@ -30,8 +30,8 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             preciousMaterialGrades: CONFIG.PF2E.preciousMaterialGrades,
             ...propertyRuneSlots,
             sizes: CONFIG.PF2E.actorSizes,
-            traits: createSheetTags(CONFIG.PF2E.armorTraits, sheetData.item.data.traits),
-            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.item.data.traits.otherTags),
+            traits: createSheetTags(CONFIG.PF2E.armorTraits, sheetData.data.traits),
+            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
         };
     }
 }
