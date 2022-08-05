@@ -13,8 +13,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             idField: "_id",
             processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
             searchOptions: { combineWith: "AND", prefix: true },
-            storeFields: ["img", "name", "pack", "type"],
+            storeFields: ["img", "name", "collection", "type"],
         });
+        this.#compileSearchIndex();
     }
 
     /** Whether this application is in search mode */
@@ -104,19 +105,24 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 name: "COMPENDIUM.ImportEntry",
                 icon: fontAwesomeIcon("download").outerHTML,
                 condition: ($li) => {
-                    const { packId } = $li.get(0)?.dataset ?? {};
-                    const collection = game.packs.get(packId ?? "", { strict: true });
+                    const { dataset } = $li.get(0) ?? {};
+                    const collection = game.packs.get(dataset?.collection ?? "", { strict: true });
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
 
                     return documentClass.canUserCreate(game.user);
                 },
                 callback: ($li) => {
-                    const { packId, documentId } = $li.get(0)?.dataset ?? {};
-                    if (!(packId && documentId)) return;
-                    const packCollection = game.packs.get(packId, { strict: true });
+                    const { dataset } = $li.get(0) ?? {};
+                    if (!(dataset?.collection && dataset.documentId)) return;
+                    const packCollection = game.packs.get(dataset.collection, { strict: true });
                     const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
 
-                    return worldCollection.importFromCompendium(packCollection, documentId, {}, { renderSheet: true });
+                    return worldCollection.importFromCompendium(
+                        packCollection,
+                        dataset.documentId,
+                        {},
+                        { renderSheet: true }
+                    );
                 },
             },
         ]);
@@ -127,14 +133,13 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const { searchMode } = this;
         // Match documents within each compendium by name
         const docMatches = searchMode && query.length > 0 ? this.searchEngine.search(query) : [];
-        const packsFromDocMatches = new Set<string>(docMatches.map((m: SearchResult) => m.pack));
+        const packsFromDocMatches = new Set<string>(docMatches.map((m: SearchResult) => m.collection));
 
         // Match compendiums by name
         const regexp = new RegExp(RegExp.escape(query), "i");
 
         const matchesQuery = (pack: CompendiumCollection): boolean => {
-            const packId = `${pack.metadata.package}.${pack.metadata.name}`;
-            return searchMode ? packsFromDocMatches.has(packId) : regexp.test(pack.title);
+            return searchMode ? packsFromDocMatches.has(pack.collection) : regexp.test(pack.title);
         };
         const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
         const packRows = Array.from(
@@ -143,26 +148,25 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         // Display matching compendium rows along with any document matches within each compendium
         for (const pack of filteredPacks) {
-            const packId = `${pack.metadata.package}.${pack.metadata.name}`;
-            const packRow = packRows.find((r) => r.dataset.pack === packId);
+            const packRow = packRows.find((r) => r.dataset.collection === pack.collection);
             packRow?.querySelector("ul.doc-matches")?.remove();
             if (!packRow || (pack.private && !game.user.isGM)) {
                 continue;
             }
             packRow.style.display = "list-item";
 
-            const packDocMatches = docMatches.filter((m) => m.pack === packRow.dataset.pack);
+            const packDocMatches = docMatches.filter((m) => m.collection === packRow.dataset.collection);
             if (packDocMatches.length === 0) continue;
 
             // Create a list of matches
             const matchList = document.createElement("ul");
             matchList.className = "doc-matches";
-            for (const match of docMatches.filter((m) => m.pack === packRow.dataset.pack)) {
+            for (const match of packDocMatches) {
                 const matchRow = ((): HTMLLIElement => {
                     const li = document.createElement("li");
-                    li.dataset.packId = match.pack;
+                    li.dataset.collection = match.collection;
                     li.dataset.documentId = match.id;
-                    const matchUUID = `Compendium.${match.pack}.${match.id}` as const;
+                    const matchUUID = `Compendium.${match.collection}.${match.id}` as const;
                     li.dataset.matchUuid = matchUUID;
 
                     const anchor = document.createElement("a");
@@ -199,7 +203,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         // Hide the rest
         const rowsToHide =
             query.length > 0
-                ? packRows.filter((r) => !filteredPacks.includes(game.packs.get(r.dataset.pack ?? "")!))
+                ? packRows.filter((r) => !filteredPacks.includes(game.packs.get(r.dataset.collection ?? "")!))
                 : [];
         for (const row of rowsToHide) {
             row.style.display = "none";
@@ -215,10 +219,10 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
     protected override _onDragStart(event: ElementDragEvent): void {
         const dragElement = event.currentTarget;
-        const { packId, documentId } = dragElement.dataset;
-        if (!(packId && documentId)) return;
+        const { collection, documentId } = dragElement.dataset;
+        if (!(collection && documentId)) return;
 
-        const pack = game.packs.get(packId, { strict: true });
+        const pack = game.packs.get(collection, { strict: true });
         const indexEntry = pack?.index.get(documentId, { strict: true });
 
         // Clean up old drag preview
@@ -237,40 +241,25 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             "text/plain",
             JSON.stringify({
                 type: pack.documentName,
-                pack: pack.collection,
-                id: documentId,
+                uuid: `Compendium.${pack.collection}.${documentId}`,
             })
         );
     }
 
-    /** Reindex compendiums to include image path (workaround of V9 bug) and compile search index */
-    async onReady(): Promise<void> {
-        console.debug("PF2e System | Reindexing compendiums and compiling search index");
+    #compileSearchIndex(): void {
+        console.debug("PF2e System | compiling search index");
         const packs = game.packs.filter(
             (p) => p.index.size > 0 && p.documentName !== "JournalEntry" && (game.user.isGM || !p.private)
         );
 
         for (const pack of packs) {
-            // Due to *another* indexing bug, this is prone to butting heads with the BB/AV modules, which are also
-            // working around the aforementioned bug
-            try {
-                if (!pack.indexed) {
-                    await pack.getIndex();
-                }
-            } catch {
-                console.debug(
-                    "File-system permission error encountered while attempting to reindex",
-                    `${pack.metadata.package}.${pack.metadata.name}`
-                );
-            }
-
             const contents = pack.index.map((i) => ({
                 ...i,
-                pack: `${pack.metadata.package}.${pack.metadata.name}`,
+                collection: pack.collection,
             }));
             this.searchEngine.addAll(contents);
         }
-        console.debug("PF2e System | Finished reindexing compendiums and compiling search index");
+        console.debug("PF2e System | Finished compiling search index");
     }
 }
 
