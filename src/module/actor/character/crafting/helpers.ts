@@ -1,6 +1,3 @@
-/**
- * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
- */
 import { CoinsPF2e } from "@item/physical/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
@@ -10,6 +7,8 @@ import { ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { CheckRoll } from "@system/check/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
+
+/** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
 interface Costs {
     reductionPerDay: CoinsPF2e;
@@ -165,7 +164,7 @@ export async function renderCraftingInline(
     quantity: number,
     actor: ActorPF2e
 ): Promise<string | null> {
-    if (!(actor instanceof CharacterPF2e)) return null;
+    if (!actor.isOfType("character")) return null;
 
     const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);

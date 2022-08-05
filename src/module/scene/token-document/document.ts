@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e, LootPF2e, VehiclePF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { TokenDataPF2e } from "./data";
@@ -67,12 +67,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
-        return !!this.scene?.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+        return !!(this.scene?.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasLowLightVision);
     }
 
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
-        return !!this.scene?.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
+        return !!(this.scene?.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasDarkvision);
     }
 
     /** Is this token's dimensions linked to its actor's size category? */
@@ -205,7 +205,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             huge: 3,
             grg: Math.max(token.width, 4),
         }[actor.size];
-        if (actor instanceof VehiclePF2e) {
+        if (actor.isOfType("vehicle")) {
             // Vehicles can have unequal dimensions
             const { width, height } = actor.getTokenDimensions();
             token.width = width;
@@ -289,7 +289,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         userId: string
     ): void {
         super._onCreate(data, options, userId);
-        if (this.actor instanceof LootPF2e) this.actor.toggleTokenHiding();
+        if (this.actor?.isOfType("loot")) this.actor.toggleTokenHiding();
     }
 
     /** Refresh the effects panel and encounter tracker */

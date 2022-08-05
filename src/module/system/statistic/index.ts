@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { calculateMAPs } from "@actor/helpers";
 import {
     AbilityModifier,
@@ -100,7 +100,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             this.proficient = data.proficient === undefined ? true : !!data.proficient;
         }
 
-        if (actor instanceof CharacterPF2e && this.ability) {
+        if (actor.isOfType("character") && this.ability) {
             this.abilityModifier = AbilityModifier.fromScore(this.ability, actor.abilities[this.ability].value);
             this.abilityModifier.adjustments = extractModifierAdjustments(
                 actor.synthetics.modifierAdjustments,
@@ -301,7 +301,7 @@ class StatisticCheck {
 
         // This is required to determine the AC for attack dialogs
         const rollContext = (() => {
-            const isCreature = actor instanceof CreaturePF2e;
+            const isCreature = actor.isOfType("creature");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
             if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(data.check.type)) {
                 return actor.getAttackRollContext({ domains, item });
@@ -319,8 +319,8 @@ class StatisticCheck {
             args.target ??
             rollContext?.target?.actor ??
             Array.from(game.user.targets)
-                .filter((t) => t.actor instanceof CreaturePF2e)
-                .shift()?.document?.actor;
+                .flatMap((t) => t.actor ?? [])
+                .find((a) => a.isOfType("creature"));
 
         const extraModifiers = [...(args?.modifiers ?? [])];
         const options = this.createRollOptions({ ...args, target });

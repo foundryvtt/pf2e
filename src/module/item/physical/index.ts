@@ -1,4 +1,3 @@
-import { LootPF2e } from "@actor";
 import { type ContainerPF2e, ItemPF2e } from "@item";
 import { PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
@@ -203,7 +202,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         if (usage.type === "worn" && usage.where) equipped.inSlot ??= false;
 
         // Unequip items on loot actors
-        if (this.actor instanceof LootPF2e) {
+        if (this.actor?.isOfType("loot")) {
             equipped.carryType = "worn";
             equipped.inSlot = false;
         }

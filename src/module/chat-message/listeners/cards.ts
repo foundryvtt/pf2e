@@ -1,8 +1,7 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -58,11 +57,11 @@ export const ChatCards = {
                     if (strike && rollOptions) {
                         strike.critical?.({ event: event, options: rollOptions });
                     }
-                } else if (action === "npcAttack" && item instanceof MeleePF2e) item.rollNPCAttack(event);
-                else if (action === "npcAttack2" && item instanceof MeleePF2e) item.rollNPCAttack(event, 2);
-                else if (action === "npcAttack3" && item instanceof MeleePF2e) item.rollNPCAttack(event, 3);
-                else if (action === "npcDamage" && item instanceof MeleePF2e) item.rollNPCDamage(event);
-                else if (action === "npcDamageCritical" && item instanceof MeleePF2e) item.rollNPCDamage(event, true);
+                } else if (action === "npcAttack" && item.isOfType("melee")) item.rollNPCAttack(event);
+                else if (action === "npcAttack2" && item.isOfType("melee")) item.rollNPCAttack(event, 2);
+                else if (action === "npcAttack3" && item.isOfType("melee")) item.rollNPCAttack(event, 3);
+                else if (action === "npcDamage" && item.isOfType("melee")) item.rollNPCDamage(event);
+                else if (action === "npcDamageCritical" && item.isOfType("melee")) item.rollNPCDamage(event, true);
                 // Spell actions
                 else if (action === "spellAttack") spell?.rollAttack(event);
                 else if (action === "spellAttack2") spell?.rollAttack(event, 2);
@@ -101,12 +100,12 @@ export const ChatCards = {
                 }
                 // Consumable usage
                 else if (action === "consume") {
-                    if (item instanceof ConsumablePF2e) {
+                    if (item.isOfType("consumable")) {
                         item.consume();
-                    } else if (item instanceof MeleePF2e) {
+                    } else if (item.isOfType("melee")) {
                         // Button is from an NPC attack effect
                         const consumable = actor.items.get($button.attr("data-item") ?? "");
-                        if (consumable instanceof ConsumablePF2e) {
+                        if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
                             const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
                             await consumable.consume();
@@ -126,7 +125,7 @@ export const ChatCards = {
                 } else if (action === "save") {
                     ChatCards.rollActorSaves(event, item);
                 }
-            } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
+            } else if (actor.isOfType("character", "npc")) {
                 const strikeIndex = $card.attr("data-strike-index");
                 const strikeName = $card.attr("data-strike-name");
                 const altUsage = message.flags.pf2e.context?.altUsage ?? null;
@@ -209,7 +208,7 @@ export const ChatCards = {
                 } else if (action === "lose-materials") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
-                    if (item === null || !(item instanceof PhysicalItemPF2e)) return;
+                    if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
                     const materialCosts = craftingCost.scale(0.5);
@@ -252,7 +251,7 @@ export const ChatCards = {
                 if (!save) return;
 
                 const rollOptions: string[] = [];
-                if (item instanceof SpellPF2e) {
+                if (item.isOfType("spell")) {
                     rollOptions.push("magical", "spell");
                     if (Object.keys(item.system.damage.value).length > 0) {
                         rollOptions.push("damaging-effect");

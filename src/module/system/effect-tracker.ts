@@ -1,5 +1,4 @@
 import type { ActorPF2e } from "@actor/base";
-import { CreaturePF2e } from "@actor/creature";
 import type { EffectPF2e } from "@item/index";
 import { EncounterPF2e } from "@module/encounter";
 
@@ -102,7 +101,7 @@ export class EffectTracker {
         for (const actor of updatedActors) {
             actor.prepareData();
             actor.sheet.render(false);
-            if (actor instanceof CreaturePF2e) {
+            if (actor.isOfType("creature")) {
                 for (const token of actor.getActiveTokens()) {
                     await token.drawEffects();
                 }
