@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e } from "@util";
 
 export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
     /** All available spell lists on this actor */
@@ -25,11 +25,8 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
-        const spellData = item.system.spell?.data?.data;
-        return (
-            !!spellData &&
-            this.spellcastingFeatures.some((entry) => tupleHasValue(spellData.traditions.value, entry.tradition))
-        );
+        const spell = item.embeddedSpell;
+        return !!spell && this.spellcastingFeatures.some((entry) => entry.canCastSpell(spell));
     }
 
     refocus(options: { all?: boolean } = {}) {

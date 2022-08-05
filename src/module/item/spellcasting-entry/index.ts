@@ -114,6 +114,15 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
     }
 
+    /** Returns if the spell is valid to cast by this spellcasting entry */
+    canCastSpell(spell: SpellPF2e): boolean {
+        if (spell.traditions.has(this.tradition)) {
+            return true;
+        }
+
+        return this.collection.some((s) => s.slug === spell.slug);
+    }
+
     /** Casts the given spell as if it was part of this spellcasting entry */
     async cast(
         spell: Embedded<SpellPF2e>,

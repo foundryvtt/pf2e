@@ -36,7 +36,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
         const heightenedLevel = this.system.spell.heightenedLevel;
         if (typeof heightenedLevel === "number") {
-            spellData.data.location.heightenedLevel = heightenedLevel;
+            spellData.system.location.heightenedLevel = heightenedLevel;
         }
 
         return new SpellPF2e(spellData, {
@@ -171,7 +171,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             if (trickMagicItemData) return trickMagicItemData;
 
             const spellcastingEntries = actor.spellcasting.spellcastingFeatures.filter((entry) =>
-                spell.traditions.has(entry.tradition)
+                entry.canCastSpell(spell)
             );
 
             let maxBonus = 0;
