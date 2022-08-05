@@ -30,6 +30,7 @@ import { Migration767ConvertVoluntaryFlaws } from "@module/migration/migrations/
 import { Migration768AddNewAuras } from "@module/migration/migrations/768-add-new-auras";
 import { Migration769NoUniversalistFocusPool } from "@module/migration/migrations/769-no-universalist-focus-pool";
 import { Migration770REDataToSystem } from "@module/migration/migrations/770-re-data-to-system";
+import { Migration771SpellVariantsToSystem } from "@module/migration/migrations/771-spell-variants-to-system";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -62,6 +63,7 @@ const migrations: MigrationBase[] = [
     new Migration768AddNewAuras(),
     new Migration769NoUniversalistFocusPool(),
     new Migration770REDataToSystem(),
+    new Migration771SpellVariantsToSystem(),
 ];
 
 global.deepClone = <T>(original: T): T => {
