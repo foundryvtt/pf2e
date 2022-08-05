@@ -163,10 +163,12 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     (docSource.prototypeToken as Partial<foundry.data.PrototypeTokenSource>) = {
                         disposition: docSource.prototypeToken.disposition,
                         height: docSource.prototypeToken.height,
-                        img: docSource.prototypeToken.img.replace(
-                            "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                            "systems/pf2e/"
-                        ) as VideoPath,
+                        texture: mergeObject(deepClone(docSource.prototypeToken.texture), {
+                            src: docSource.prototypeToken.texture.src.replace(
+                                "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
+                                "systems/pf2e/"
+                            ) as VideoPath,
+                        }),
                         name: docSource.prototypeToken.name,
                         width: docSource.prototypeToken.width,
                     };

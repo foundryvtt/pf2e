@@ -57,7 +57,8 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
                 const source = this.token._source;
                 $sizeInputs.filter("[name=width]").val(source.width);
                 $sizeInputs.filter("[name=height]").val(source.height);
-                $sizeInputs.filter("[name=scale]").val(source.scale);
+                $sizeInputs.filter("[name=texture.scaleX]").val(source.texture.scaleX);
+                $sizeInputs.filter("[name=texture.scaleY]").val(source.texture.scaleY);
                 this.enableScale($html);
             }
         });
@@ -111,7 +112,7 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
         $scale.addClass("children-disabled");
 
         const constrainedScale = this.actor?.size === "sm" ? 0.8 : 1;
-        $scale.find('input[type="range"]').prop({ disabled: true }).val(constrainedScale);
+        $scale.find("input[type=range]").prop({ disabled: true }).val(constrainedScale);
         $scale.find(".range-value").text(constrainedScale);
     }
 
@@ -119,9 +120,9 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
     private enableScale($html: JQuery): void {
         const $scale = $html.find(".form-group.scale");
         $scale.removeClass("children-disabled");
-        $scale.find('input[type="range"]').prop({ disabled: false });
+        $scale.find("input[type=range]").prop({ disabled: false });
 
-        const $range = $scale.find<HTMLInputElement>('input[type="range"]');
+        const $range = $scale.find<HTMLInputElement>("input[type=range]");
         $scale.find(".range-value").text(String($range.val()));
     }
 

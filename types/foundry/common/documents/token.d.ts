@@ -8,8 +8,6 @@ declare module foundry {
         class BaseToken extends abstract.Document {
             readonly actorLink: boolean;
 
-            img: VideoPath;
-
             displayName: TokenDisplayMode;
 
             disposition: TokenDisposition;
@@ -20,7 +18,15 @@ declare module foundry {
 
             sightAngle: number;
 
-            scale: number;
+            texture: {
+                src: VideoPath;
+                scaleX: number;
+                scaleY: number;
+                offsetX: number;
+                offsetY: number;
+                rotation: number | null;
+                tint: `#${string}`;
+            };
 
             light: foundry.data.LightData<this>;
 
