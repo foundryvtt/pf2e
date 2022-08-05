@@ -1,4 +1,5 @@
 import { TokenDocumentPF2e } from "@module/scene";
+import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
@@ -190,7 +191,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!clone.id) {
             clone.document.height = this.document.height;
             clone.document.width = this.document.width;
-            clone.document.img = this.document.img;
+            clone.document.texture.src = this.document.texture.src;
         }
 
         return clone;
@@ -336,11 +337,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     ): void {
         if (!this.document.isLinked) {
             const source = this.document.toObject();
-            const { width, height, scale, img } = source;
+            const { width, height, texture } = source;
             this.document.prepareData();
             // If any of the following changed, a full redraw should be performed
-            const postChange = { width: source.width, height: source.height, scale: source.scale, img: source.img };
-            mergeObject(changed, diffObject({ width, height, scale, img }, postChange));
+            const postChange = pick(this.document, ["width", "height", "texture"]);
+            mergeObject(changed, diffObject({ width, height, texture }, postChange));
 
             // If an aura is newly present or removed, redraw effects
             if (

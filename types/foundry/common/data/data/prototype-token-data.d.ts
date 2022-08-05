@@ -25,7 +25,7 @@ declare namespace foundry {
             bar2: TokenBarData<TDocument>;
         }
 
-        interface PrototypeTokenData extends Omit<PrototypeTokenSource, "lightAnimation" | "bar1" | "bar2"> {
+        interface PrototypeTokenData extends Omit<PrototypeTokenSource, "bar1" | "bar2"> {
             readonly _source: PrototypeTokenSource;
         }
     }

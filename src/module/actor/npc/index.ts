@@ -962,7 +962,11 @@ class NPCPF2e extends CreaturePF2e {
                 details: { publicNotes: params.description ?? source.system.details.publicNotes },
             },
             img: params.img?.actor ?? source.img,
-            prototypeToken: { img: params.img?.token ?? source.prototypeToken.img },
+            prototypeToken: {
+                texture: {
+                    src: params.img?.token ?? source.prototypeToken.texture.src,
+                },
+            },
         };
 
         return this.clone(changes, { save: params.save, keepId: params.keepId });

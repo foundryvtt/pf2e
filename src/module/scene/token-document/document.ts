@@ -150,15 +150,15 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         // Nath mode
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
-        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.img)) {
-            this.img = ((): VideoPath => {
+        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.texture.src)) {
+            this.texture.src = ((): VideoPath => {
                 switch (this.actor.alliance) {
                     case "party":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
                     case "opposition":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
                     default:
-                        return this.img;
+                        return this.texture.src;
                 }
             })();
         }
@@ -215,7 +215,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             token.height = size;
 
             if (game.settings.get("pf2e", "tokens.autoscale") && token.flags.pf2e.autoscale !== false) {
-                token.scale = actor.size === "sm" ? 0.8 : 1;
+                token.texture.scaleX = token.texture.scaleY = actor.size === "sm" ? 0.8 : 1;
             }
         }
     }

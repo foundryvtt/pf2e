@@ -555,8 +555,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const tokenImgIsDefault = [
             ActorPF2e.DEFAULT_ICON,
             `systems/pf2e/icons/default-icons/${this.type}.svg`,
-        ].includes(this.prototypeToken.img);
-        const tokenImgIsActorImg = this.prototypeToken.img === this.img;
+        ].includes(this.prototypeToken.texture.src);
+        const tokenImgIsActorImg = this.prototypeToken.texture.src === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.prototypeToken.update({ img: this.img });
         }
@@ -1154,9 +1154,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Set default portrait and token images
         if (this._source.img === ActorPF2e.DEFAULT_ICON) {
             this._source.img =
-                this._source.prototypeToken.img =
+                this._source.prototypeToken.texture.src =
                 data.img =
-                data.prototypeToken.img =
+                data.prototypeToken.texture.src =
                     `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
