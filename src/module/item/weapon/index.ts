@@ -588,7 +588,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 traits: {
                     value: toAttackTraits(this.system.traits.value),
                 },
-                rules: deepClone(this._source.data.rules),
+                rules: deepClone(this._source.system.rules),
             },
             flags: { pf2e: { linkedWeapon: this.id } },
         };

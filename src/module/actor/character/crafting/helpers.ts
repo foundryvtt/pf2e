@@ -91,12 +91,12 @@ export async function craftItem(
     infused?: boolean
 ): Promise<void> {
     const itemSource = item.toObject();
-    itemSource.data.quantity = itemQuantity;
+    itemSource.system.quantity = itemQuantity;
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
-        const sourceTraits: string[] = itemSource.data.traits.value;
+        const sourceTraits: string[] = itemSource.system.traits.value;
         sourceTraits.push("infused");
-        itemSource.data.temporary = true;
+        itemSource.system.temporary = true;
     }
     const result = await actor.addToInventory(itemSource);
     if (!result) {

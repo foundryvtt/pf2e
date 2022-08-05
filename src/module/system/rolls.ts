@@ -461,7 +461,7 @@ class CheckPF2e {
             return;
         }
 
-        const actor = game.actors.get(message.data.speaker.actor ?? "");
+        const actor = game.actors.get(message.speaker.actor ?? "");
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
@@ -517,7 +517,7 @@ class CheckPF2e {
         rerollIcon.setAttribute("title", rerollFlavor);
 
         const dc = message.flags.pf2e.context?.dc ?? null;
-        const oldFlavor = message.data.flavor ?? "";
+        const oldFlavor = message.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
         const createNewFlavor = keptRoll === newRoll && !!degree;
 
@@ -543,7 +543,7 @@ class CheckPF2e {
             {
                 content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
-                speaker: message.data.speaker,
+                speaker: message.speaker,
                 flags: {
                     core: { initiativeRoll },
                     pf2e: systemFlags,

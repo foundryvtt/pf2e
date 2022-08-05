@@ -5,15 +5,15 @@ import { ClassSheetData } from "./types";
 
 export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ClassSheetData> {
-        const data = await super.getData(options);
-        const itemData = data.item;
+        const sheetData = await super.getData(options);
+        const itemData = sheetData.item;
 
-        const items = Object.entries(data.data.items)
+        const items = Object.entries(itemData.system.items)
             .map(([key, item]) => ({ key, item }))
             .sort((first, second) => first.item.level - second.item.level);
 
         return {
-            ...data,
+            ...sheetData,
             items,
             rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.system.traits.rarity] }),
             skills: CONFIG.PF2E.skills,

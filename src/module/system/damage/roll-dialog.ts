@@ -2,6 +2,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { DamageRollFlag } from "@module/chat-message/data";
 import { ModifierPF2e } from "@actor/modifiers";
 import { DamageRollContext, DamageTemplate } from ".";
+import { ItemType } from "@item/data";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
@@ -229,7 +230,7 @@ export class DamageRollModifiersDialog extends Application {
 
         const { self, target } = context;
         const item = self?.item ?? null;
-        const origin = item ? { uuid: item.uuid, type: item.data.type } : null;
+        const origin = item ? { uuid: item.uuid, type: item.type as ItemType } : null;
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         await ChatMessagePF2e.create(
