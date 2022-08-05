@@ -50,7 +50,7 @@ export interface SpellHeightenLayer {
 
 interface SpellOverlayOverride {
     _id: string;
-    data: Partial<SpellSystemSource>;
+    system: Partial<SpellSystemSource>;
     name?: string;
     overlayType: "override";
     sort: number;
@@ -140,4 +140,12 @@ interface SpellSystemData extends SpellSystemSource, ItemSystemData {
     traits: SpellTraits;
 }
 
-export { SpellData, SpellSource, SpellSystemData, SpellSystemSource, SpellOverlay, SpellOverlayType };
+export {
+    SpellData,
+    SpellSource,
+    SpellSystemData,
+    SpellSystemSource,
+    SpellOverlay,
+    SpellOverlayOverride,
+    SpellOverlayType,
+};
