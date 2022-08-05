@@ -139,7 +139,7 @@
             {{#each system.damage.value as |damage id|}}
                 <div class="formula-section">
                     <div class="details-container-flex-row">
-                        <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                        <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                         <label>
                             <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
                             <input type="checkbox" name="{{../dataPath}}.damage.value.{{id}}.applyMod" {{checked damage.applyMod}} data-dtype="Boolean" }/>
