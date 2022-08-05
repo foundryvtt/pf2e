@@ -14,7 +14,7 @@ declare module foundry {
          * @property [data]       The system data object which is defined by the system template.json model
          * @property folder       The _id of a Folder which contains this Item
          * @property [sort]       The numeric sort value which orders this Item relative to its siblings
-         * @property [permission] An object which configures user permissions to this Item
+         * @property [ownership] An object which configures user permissions to this Item
          * @property [flags={}]   An object of optional key/value flags
          */
         interface ItemSource<TType extends string = string, TSystemSource extends object = object> {
@@ -27,7 +27,7 @@ declare module foundry {
             effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;
-            permission: Record<string, PermissionLevel>;
+            ownership: Record<string, PermissionLevel>;
             flags: ItemFlags;
         }
 

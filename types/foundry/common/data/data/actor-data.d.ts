@@ -17,7 +17,7 @@ declare module foundry {
          * @property effects      A Collection of ActiveEffect embedded Documents
          * @property folder       The _id of a Folder which contains this Actor
          * @property [sort]       The numeric sort value which orders this Actor relative to its siblings
-         * @property [permission] An object which configures user permissions to this Actor
+         * @property [ownership] An object which configures user permissions to this Actor
          * @property [flags={}]   An object of optional key/value flags
          */
         interface ActorSource<
@@ -36,7 +36,7 @@ declare module foundry {
             effects: ActiveEffectSource[];
             folder: string | null;
             sort: number;
-            permission: Record<string, PermissionLevel>;
+            ownership: Record<string, PermissionLevel>;
             flags: ActorFlags;
         }
 
