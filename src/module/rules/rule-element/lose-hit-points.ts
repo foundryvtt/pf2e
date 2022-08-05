@@ -1,4 +1,5 @@
 import { CreaturePF2e } from "@actor";
+import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e, RuleElementSource } from "./";
@@ -6,14 +7,18 @@ import { RuleElementOptions } from "./base";
 
 /** Reduce current hit points without applying damage */
 export class LoseHitPointsRuleElement extends RuleElementPF2e {
-    /** Lost hitpoints should reevaluate on item update, with the parent actor losing the difference in HP between the new and old values */
-    protected reevaluateOnUpdate: boolean;
+    static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
+
+    /**
+     * Lost hitpoints should reevaluate on item update, with the parent actor losing the difference in HP between the
+     * new and old values.
+     */
+    private reevaluateOnUpdate: boolean;
 
     constructor(data: LoseHitPointsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
-        const actorIsCreature = this.actor instanceof CreaturePF2e;
         const valueIsValid = typeof data.value === "number" || typeof data.value === "string";
-        if (!(actorIsCreature && valueIsValid)) this.ignored = true;
+        if (!valueIsValid) this.ignored = true;
         this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
     }
 

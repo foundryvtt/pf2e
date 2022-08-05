@@ -1,4 +1,3 @@
-import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
@@ -82,9 +81,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         // Only PCs and NPCs can flank
-        if (!["character", "npc"].includes(this.actor.type)) return false;
+        if (!this.actor.isOfType("character", "npc")) return false;
         // Only creatures can be flanked
-        if (!(flankee.actor instanceof CreaturePF2e)) return false;
+        if (!flankee.actor.isOfType("creature")) return false;
 
         // Allies don't flank each other
         if (this.actor.isAllyOf(flankee.actor)) return false;

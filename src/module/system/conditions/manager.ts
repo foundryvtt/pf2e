@@ -1,7 +1,7 @@
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
 import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -374,10 +374,10 @@ export class ConditionManager {
         itemId: string | string[],
         actorOrToken: ActorPF2e | TokenPF2e
     ): Promise<void> {
-        itemId = itemId instanceof Array ? itemId : [itemId];
+        const itemIds = Array.isArray(itemId) ? itemId : [itemId];
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
         if (actor) {
-            const deleted = await this.deleteConditions(itemId, actor);
+            const deleted = await this.deleteConditions(itemIds, actor);
             if (deleted.length > 0) this.processConditions(actor);
         }
     }
@@ -394,7 +394,7 @@ export class ConditionManager {
             const id = stack.pop() ?? "";
             const condition = actor.items.get(id);
 
-            if (condition instanceof ConditionPF2e) {
+            if (condition?.isOfType("condition")) {
                 list.push(id);
                 condition.system.references.children.forEach((child) => stack.push(child.id));
             }
@@ -410,14 +410,14 @@ export class ConditionManager {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
         const condition = actor?.items.get(itemId);
 
-        if (condition instanceof ConditionPF2e && actor) {
+        if (condition?.isOfType("condition") && actor) {
             if (value === 0) {
                 // Value is zero, remove the status.
                 await this.deleteConditions([itemId], actor);
             } else {
                 // Cap the value if its a capped condition
                 const cappedConditions = ["dying", "wounded", "doomed"] as const;
-                if (actor instanceof CreaturePF2e && tupleHasValue(cappedConditions, condition.slug)) {
+                if (actor.isOfType("creature") && tupleHasValue(cappedConditions, condition.slug)) {
                     value = Math.min(value, actor.attributes[condition.slug].max);
                 }
 
