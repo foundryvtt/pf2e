@@ -70,9 +70,10 @@ async function repair(options: RepairActionOptions) {
         callback: async (result) => {
             // react to check result by posting a chat message with appropriate follow-up options
             if (item && result.message instanceof ChatMessagePF2e) {
-                const messageData = result.message.data;
+                const messageSource = result.message.toObject();
                 const flavor = await (async () => {
-                    const proficiencyRank = result.actor instanceof CharacterPF2e ? result.actor.skills.cra.rank : 0;
+                    const proficiencyRank =
+                        result.actor instanceof CharacterPF2e ? result.actor.skills.crafting.rank : 0;
                     if ("criticalSuccess" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RestoreItemHitPoints";
                         const restored = String(10 + proficiencyRank * 10);
@@ -89,9 +90,9 @@ async function repair(options: RepairActionOptions) {
                     return "";
                 })();
                 if (flavor) {
-                    messageData.update({ flavor: messageData.flavor + flavor });
+                    messageSource.flavor += flavor;
                 }
-                await ChatMessage.create(messageData);
+                await ChatMessage.create(messageSource);
             }
         },
     });

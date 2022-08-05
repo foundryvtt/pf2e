@@ -1,9 +1,8 @@
-import { ActorPF2e } from "@actor";
-import { CharacterSystemData } from "@actor/character/data";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
@@ -342,7 +341,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         $html.find(".item-sell-treasure").on("click", async (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const item = this.actor.inventory.get(itemId);
-            if (item instanceof TreasurePF2e && !item.isCoinage) {
+            if (item?.isOfType("treasure") && !item.isCoinage) {
                 await item.delete();
                 await this.actor.inventory.addCoins(item.assetValue);
             }
@@ -364,13 +363,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const identified = f.hasClass("identified");
             if (identified) {
                 const item = this.actor.items.get(itemId);
-                if (!(item instanceof PhysicalItemPF2e)) {
+                if (!item?.isOfType("physical")) {
                     throw ErrorPF2e(`${itemId} is not a physical item.`);
                 }
                 item.setIdentificationStatus("unidentified");
             } else {
                 const item = this.actor.items.get(itemId);
-                if (item instanceof PhysicalItemPF2e) {
+                if (item?.isOfType("physical")) {
                     new IdentifyItemPopup(item).render(true);
                 }
             }
@@ -383,7 +382,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         $html.find(".item-increase-quantity").on("click", (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId);
-            if (!(item instanceof PhysicalItemPF2e)) {
+            if (!item?.isOfType("physical")) {
                 throw new Error("PF2e System | Tried to update quantity on item that does not have quantity");
             }
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "system.quantity": item.quantity + 1 }]);
@@ -394,7 +393,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const li = $(event.currentTarget).parents(".item");
             const itemId = li.attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId);
-            if (!(item instanceof PhysicalItemPF2e)) {
+            if (!item?.isOfType("physical")) {
                 throw ErrorPF2e("Tried to update quantity on item that does not have quantity");
             }
             if (item.quantity > 0) {
@@ -415,7 +414,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!itemUuid) return;
 
             if (this.actor.isOfType("character")) {
-                const actorFormulas = (this.actor.toObject().system as CharacterSystemData).crafting.formulas ?? [];
+                const actorFormulas = (this.actor.toObject().system as CharacterPF2e["system"]).crafting.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === itemUuid);
                 this.actor.update({ "system.crafting.formulas": actorFormulas });
             }
@@ -475,7 +474,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /** Opens the spell preparation sheet, but only if its a prepared entry */
     openSpellPreparationSheet(entryId: string) {
         const entry = this.actor.items.get(entryId);
-        if (entry instanceof SpellcastingEntryPF2e && entry.isPrepared) {
+        if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
             const offset = $book.offset() ?? { left: 0, top: 0 };
             const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
@@ -520,7 +519,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 },
                 default: "Yes",
             }).render(true);
-        } else if (item instanceof ItemPF2e) {
+        } else if (item) {
             const deleteItem = async (): Promise<void> => {
                 await item.delete();
                 if (item.type === "lore") {
@@ -750,7 +749,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     return [target];
                 }
             }
-        } else if (item instanceof PhysicalItemPF2e) {
+        } else if (item.isOfType("physical")) {
             const $target = $(event.target).closest("[data-item-id]");
             const targetId = $target.attr("data-item-id") ?? "";
             const target = this.actor.inventory.get(targetId);
@@ -947,7 +946,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (!sourceActor || !targetActor) {
             throw ErrorPF2e("Unexpected missing actor(s)");
         }
-        if (!(item instanceof PhysicalItemPF2e)) {
+        if (!item?.isOfType("physical")) {
             throw ErrorPF2e("Missing or invalid item");
         }
 
@@ -975,7 +974,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private async onClickItemToChat(event: JQuery.ClickEvent) {
         const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "", { strict: true });
-        if (item instanceof PhysicalItemPF2e && !item.isIdentified) return;
+        if (item.isOfType("physical") && !item.isIdentified) return;
         await item.toChat(event);
     }
 

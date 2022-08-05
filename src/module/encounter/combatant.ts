@@ -66,18 +66,14 @@ class CombatantPF2e<
     override _getInitiativeFormula(): string {
         const { actor } = this;
         if (!actor) return "1d20";
-        const actorData = actor.data;
         let bonus = 0;
 
-        if (actorData.type === "hazard") {
-            bonus = actorData.data.attributes.stealth.value ?? 0;
-        } else if (
-            "initiative" in actorData.data.attributes &&
-            "totalModifier" in actorData.data.attributes.initiative
-        ) {
-            bonus = actorData.data.attributes.initiative.totalModifier;
-        } else if ("perception" in actorData.data.attributes) {
-            bonus = actorData.data.attributes.perception.value;
+        if (actor.isOfType("hazard")) {
+            bonus = actor.attributes.stealth.value ?? 0;
+        } else if ("initiative" in actor.attributes && "totalModifier" in actor.attributes.initiative) {
+            bonus = actor.attributes.initiative.totalModifier;
+        } else if ("perception" in actor.attributes) {
+            bonus = actor.attributes.perception.value;
         }
 
         const parts = ["1d20", bonus || 0];
@@ -89,7 +85,7 @@ class CombatantPF2e<
     async toggleNameVisibility(): Promise<void> {
         if (!this.token) return;
 
-        const currentVisibility = this.token.data.displayName;
+        const currentVisibility = this.token.displayName;
 
         const visibilityToggles = {
             [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: CONST.TOKEN_DISPLAY_MODES.OWNER,

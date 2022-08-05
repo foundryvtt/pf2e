@@ -103,7 +103,7 @@ class EffectPF2e extends ItemPF2e {
     ): Promise<void> {
         if (this.isOwned && user.id === game.userId) {
             const initiative = game.combat?.turns[game.combat.turn]?.initiative ?? null;
-            this.data.update({
+            this.updateSource({
                 "system.start": {
                     value: game.time.worldTime,
                     initiative: game.combat && game.combat.turns.length > game.combat.turn ? initiative : null,

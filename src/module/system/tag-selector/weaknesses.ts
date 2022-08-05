@@ -32,7 +32,7 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
         }
 
         const choices: Record<string, { label: string; selected: boolean; value: number | undefined }> = {};
-        const weaknesses = actorSource.data.traits.dv;
+        const weaknesses = actorSource.system.traits.dv;
         Object.entries(this.choices).forEach(([type, label]) => {
             const current = weaknesses.find((weakness) => weakness.type === type);
             choices[type] = {

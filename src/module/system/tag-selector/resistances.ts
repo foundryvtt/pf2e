@@ -42,7 +42,7 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
             string,
             { label: string; selected: boolean; value: number | undefined; exceptions: string }
         > = {};
-        const resistances = actorSource.data.traits.dr;
+        const resistances = actorSource.system.traits.dr;
         Object.entries(this.choices).forEach(([type, label]) => {
             const resistance = resistances.find((resistance) => resistance.type === type);
             choices[type] = {

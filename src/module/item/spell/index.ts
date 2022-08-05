@@ -415,30 +415,30 @@ class SpellPF2e extends ItemPF2e {
         const message = await super.toMessage(event, { create: false, data });
         if (!message) return undefined;
 
-        const chatData = message.toObject(false);
+        const messageSource = message.toObject();
         const entry = this.trickMagicEntry ?? this.spellcasting;
         if (entry) {
-            chatData.flags.pf2e.casting = {
+            messageSource.flags.pf2e.casting = {
                 id: entry.id,
                 level: data.castLevel ?? this.level,
                 tradition: entry.tradition,
             };
         }
 
-        chatData.flags.pf2e.isFromConsumable = this.isFromConsumable;
+        messageSource.flags.pf2e.isFromConsumable = this.isFromConsumable;
 
         if (this.isVariant) {
-            chatData.flags.pf2e.spellVariant = {
+            messageSource.flags.pf2e.spellVariant = {
                 overlayIds: [...this.appliedOverlays!.values()],
             };
         }
 
         if (!create) {
-            message.data.update(chatData);
+            message.updateSource(messageSource);
             return message;
         }
 
-        return ChatMessagePF2e.create(chatData, { renderSheet: false });
+        return ChatMessagePF2e.create(messageSource, { renderSheet: false });
     }
 
     override getChatData(

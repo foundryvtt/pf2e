@@ -142,9 +142,9 @@ class FeatPF2e extends ItemPF2e {
     ): Promise<void> {
         // In case this was copied from an actor, clear the location if there's no parent.
         if (!this.parent) {
-            this._source.data.location = null;
-            if (this._source.data.frequency) {
-                delete this._source.data.frequency.value;
+            this.updateSource({ "system.location": null });
+            if (this._source.system.frequency) {
+                this.updateSource({ "system.frequency.-=value": null });
             }
         }
 

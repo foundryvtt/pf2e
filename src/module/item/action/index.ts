@@ -44,8 +44,8 @@ class ActionItemPF2e extends ItemPF2e {
     ): Promise<void> {
         // In case this was copied from an actor, clear any active frequency value
         if (!this.parent) {
-            if (this._source.data.frequency) {
-                delete this._source.data.frequency.value;
+            if (this._source.system.frequency) {
+                this.updateSource({ "system.frequency.-=value": null });
             }
         }
 
