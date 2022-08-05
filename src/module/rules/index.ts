@@ -11,7 +11,6 @@ import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
 import { CraftingEntryRuleElement } from "./rule-element/crafting/entry";
 import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula";
-import { CraftingInfusionRuleElement } from "./rule-element/crafting/infusion";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size";
 import { CritSpecRuleElement } from "./rule-element/crit-spec";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice";
@@ -57,7 +56,6 @@ class RuleElements {
         ChoiceSet: ChoiceSetRuleElement,
         CraftingEntry: CraftingEntryRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
-        CraftingInfusion: CraftingInfusionRuleElement,
         CreatureSize: CreatureSizeRuleElement,
         CriticalSpecialization: CritSpecRuleElement,
         DamageDice: DamageDiceRuleElement,

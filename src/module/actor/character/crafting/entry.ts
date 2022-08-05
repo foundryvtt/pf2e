@@ -1,8 +1,8 @@
 import { CharacterPF2e } from "@actor";
+import { ConsumableType } from "@item/consumable/data";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { groupBy } from "@util";
 import { CraftingFormula } from "./formula";
-import { CraftingInfusionRuleElement } from "@module/rules/rule-element/crafting/infusion";
 
 export class CraftingEntry implements CraftingEntryData {
     actorPreparedFormulas: ActorPreparedFormula[];
@@ -14,11 +14,10 @@ export class CraftingEntry implements CraftingEntryData {
     isPrepared: boolean;
     requiredTraits: PhysicalItemTrait[][];
     maxSlots: number;
-    fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
+    fieldDiscovery?: PhysicalItemTrait | ConsumableType;
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
-    infusionRules: CraftingInfusionRuleElement[];
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
@@ -32,7 +31,6 @@ export class CraftingEntry implements CraftingEntryData {
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
-        this.infusionRules = data.infusionRules || [];
 
         this.requiredTraits = data.requiredTraits ?? [[]];
         if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
@@ -41,18 +39,11 @@ export class CraftingEntry implements CraftingEntryData {
             .map((prepData): PreparedFormula | null => {
                 const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
                 if (formula) {
-                    return Object.assign(
-                        new CraftingFormula(formula.item, {
-                            dc: formula.dc,
-                            batchSize: formula.batchSize,
-                            deletable: formula.deletable,
-                        }),
-                        {
-                            quantity: prepData.quantity,
-                            expended: prepData.expended,
-                            isSignatureItem: prepData.isSignatureItem,
-                        }
-                    );
+                    return Object.assign(new CraftingFormula(formula.item), {
+                        quantity: prepData.quantity,
+                        expended: prepData.expended,
+                        isSignatureItem: prepData.isSignatureItem,
+                    });
                 }
                 return null;
             })
@@ -80,22 +71,21 @@ export class CraftingEntry implements CraftingEntryData {
         if (!this.isAlchemical) return 0;
 
         const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
+        const batchSize = this.batchSize || 2;
+
         return this.preparedFormulas.reduce((sum: number, formula: PreparedFormula) => {
+            const options = new Set<PhysicalItemTrait | ConsumableType>(formula.item.traits);
+            if (formula.item.isOfType("consumable")) {
+                options.add(formula.item.consumableType);
+            }
+
             const fieldDiscoveryQuantity =
-                formula.item.traits.has(this.fieldDiscovery!) || formula.isSignatureItem ? formula.quantity || 1 : 0;
+                options.has(this.fieldDiscovery!) || formula.isSignatureItem ? formula.quantity || 1 : 0;
             const otherQuantity =
-                !formula.item.traits.has(this.fieldDiscovery!) && !formula.isSignatureItem ? formula.quantity || 1 : 0;
-
-            const batchSizeOverride = this.infusionRules
-                .map((rule) => rule.getBatchSize(formula.item))
-                .filter((b) => b)[0];
-
-            const batchSize = batchSizeOverride || this.batchSize || 2;
+                !options.has(this.fieldDiscovery!) && !formula.isSignatureItem ? formula.quantity || 1 : 0;
 
             return (
-                sum +
-                Math.floor(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) +
-                Math.ceil(((fieldDiscoveryQuantity % fieldDiscoveryBatchSize) + otherQuantity) / batchSize)
+                sum + Math.ceil(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) + Math.ceil(otherQuantity / batchSize)
             );
         }, 0);
     }
@@ -239,9 +229,8 @@ export interface CraftingEntryData {
     isPrepared?: boolean;
     maxSlots?: number;
     requiredTraits?: PhysicalItemTrait[][];
-    fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
+    fieldDiscovery?: PhysicalItemTrait | ConsumableType;
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
-    infusionRules: CraftingInfusionRuleElement[];
 }

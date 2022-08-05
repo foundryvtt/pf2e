@@ -53,16 +53,16 @@
                 "uuid": "Compendium.pf2e.feats-srd.Alchemical Crafting"
             },
             {
-                "batchSize": 10,
-                "key": "CraftingInfusion",
-                "predicate": {
-                    "all": [
-                        "consumable:trait:alchemical",
-                        "consumable:type:ammo",
-                        "consumable:level:0"
-                    ]
-                },
-                "selector": "munitionsCrafter"
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.crafting.entries.munitionsCrafter.fieldDiscovery",
+                "value": "ammo"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.crafting.entries.munitionsCrafter.fieldDiscoveryBatchSize",
+                "value": 10
             }
         ],
         "source": {

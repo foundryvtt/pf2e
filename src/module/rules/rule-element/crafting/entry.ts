@@ -47,8 +47,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             requiredTraits: this.data.requiredTraits,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
-            batchSize: this.data.batchSize,
-            infusionRules: [],
         };
 
         actorUpdates[`system.crafting.entries.${selector}`] = data;
@@ -82,7 +80,6 @@ interface CraftingEntryRuleData extends RuleElementData {
     requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: number;
     maxSlots?: number;
-    batchSize?: number;
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -93,7 +90,6 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: unknown;
     maxSlots?: unknown;
-    batchSize?: unknown;
 }
 
 export { CraftingEntryRuleElement };
