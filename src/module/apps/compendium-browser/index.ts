@@ -5,11 +5,23 @@ import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { BrowserTab } from "./tabs";
 import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
-import { CheckboxData, RangesData } from "./tabs/data";
+import {
+    BaseFilterData,
+    CheckboxData,
+    InitialActionFilters,
+    InitialBestiaryFilters,
+    InitialEquipmentFilters,
+    InitialFeatFilters,
+    InitialFilters,
+    InitialHazardFilters,
+    InitialSpellFilters,
+    RangesData,
+} from "./tabs/data";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import noUiSlider from "nouislider";
 import { SpellcastingEntryPF2e } from "@item";
 import Tagify from "@yaireo/tagify";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 class PackLoader {
     loadedPacks: {
@@ -74,8 +86,7 @@ class CompendiumBrowser extends Application {
     navigationTab!: Tabs;
 
     /** An initial filter to be applied upon loading a tab */
-    private initialFilter: string[] = [];
-    private initialMaxLevel = 0;
+    private initialFilter: InitialFilters = {};
 
     constructor(options = {}) {
         super(options);
@@ -121,8 +132,7 @@ class CompendiumBrowser extends Application {
 
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.initialFilter = [];
-        this.initialMaxLevel = 0;
+        this.initialFilter = {};
         await super.close(options);
     }
 
@@ -220,41 +230,55 @@ class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string[] = [], maxLevel = 0): Promise<void> {
+    openTab(tab: "action", filter?: InitialActionFilters): Promise<void>;
+    openTab(tab: "bestiary", filter?: InitialBestiaryFilters): Promise<void>;
+    openTab(tab: "equipment", filter?: InitialEquipmentFilters): Promise<void>;
+    openTab(tab: "feat", filter?: InitialFeatFilters): Promise<void>;
+    openTab(tab: "hazard", filter?: InitialHazardFilters): Promise<void>;
+    openTab(tab: "spell", filter?: InitialSpellFilters): Promise<void>;
+    openTab(tab: "settings"): Promise<void>;
+
+    async openTab(tab: TabName, filter: InitialFilters = {}): Promise<void> {
         this.initialFilter = filter;
-        this.initialMaxLevel = maxLevel;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
-        this.initialMaxLevel = maxLevel;
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
     async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null): Promise<void> {
-        const filter: string[] = [];
+        const filter = {
+            category: [] as string[],
+            level: [] as string[],
+            traditions: [] as string[],
+        };
 
         if (entry.isRitual || entry.isFocusPool) {
-            filter.push("category-".concat(entry.system.prepared.value));
+            filter.category.push(entry.system.prepared.value);
         }
 
         if (level || level === 0) {
-            filter.push(level ? `level-${level}` : "category-cantrip");
+            if (level === 0) {
+                filter.category.push("cantrip");
+            } else {
+                filter.level.push(`level-${level}`);
+            }
 
             if (level > 0) {
                 if (!entry.isPrepared) {
                     while (level > 1) {
                         level -= 1;
-                        filter.push("level-".concat(level.toString()));
+                        filter.level.push(level.toString());
                     }
                 }
 
                 if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                    filter.push("category-spell");
+                    filter.category.push("spell");
                 }
             }
         }
 
         if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.push("traditions-".concat(entry.system.tradition.value));
+            filter.traditions.push(entry.system.tradition.value);
         }
 
         this.openTab("spell", filter);
@@ -272,44 +296,210 @@ class CompendiumBrowser extends Application {
             throw ErrorPF2e(`Unknown tab "${tab}"`);
         }
 
+        const currentTab = this.tabs[tab];
+
         // Initialize Tab if it is not already initialzed
-        if (!this.tabs[tab]?.isInitialized) {
-            await this.tabs[tab].init();
+        if (!currentTab?.isInitialized) {
+            await currentTab?.init();
         }
 
-        // Set filterData for this tab if intitial values were given
-        if (this.initialFilter.length || this.initialMaxLevel) {
-            const currentTab = this.tabs[tab];
+        this.processInitialFilters(currentTab);
+
+        this.render(true);
+    }
+
+    private processInitialFilters(currentTab: TabType): void {
+        // Reset filters if new filters were provided
+        if (this.initialFilter && Object.keys(this.initialFilter).length > 0) {
             currentTab.resetFilters();
-            for (const filter of this.initialFilter) {
-                const [filterType, value] = filter.split("-");
-                if (objectHasKey(currentTab.filterData.checkboxes, filterType)) {
-                    const checkbox = currentTab.filterData.checkboxes[filterType];
+        }
+
+        // Search text filter
+        if (this.initialFilter.searchText) {
+            currentTab.filterData.search.text = this.initialFilter.searchText;
+        }
+
+        // Sorting
+        if (this.initialFilter.orderBy) {
+            currentTab.filterData.order.by = this.initialFilter.orderBy;
+            currentTab.filterData.order.direction = this.initialFilter.orderDirection ?? "asc";
+        }
+
+        for (const [filterType, filterValue] of Object.entries(this.initialFilter)) {
+            const mappedFilterType = (() => {
+                if (filterType === "levelRange") {
+                    return "level";
+                } else if (filterType === "priceRange") {
+                    return "price";
+                }
+                return filterType;
+            })();
+
+            // Checkboxes
+            if (
+                currentTab.filterData.checkboxes !== undefined &&
+                objectHasKey(currentTab.filterData.checkboxes, mappedFilterType) &&
+                Array.isArray(filterValue)
+            ) {
+                const checkbox = currentTab.filterData.checkboxes[mappedFilterType];
+                for (const value of filterValue) {
                     const option = checkbox.options[value];
                     if (option) {
                         checkbox.isExpanded = true;
                         checkbox.selected.push(value);
                         option.selected = true;
                     } else {
-                        console.warn(`Tab '${tab}' filter '${filterType}' has no option: '${value}'`);
+                        console.warn(
+                            `Tab '${currentTab.tabName}' checkboxes filter '${mappedFilterType}' has no option: '${value}'`
+                        );
                     }
+                }
+            }
+            // Selects
+            else if (
+                currentTab.filterData.selects !== undefined &&
+                objectHasKey(currentTab.filterData.selects, mappedFilterType) &&
+                typeof filterValue === "string"
+            ) {
+                const select = currentTab.filterData.selects[mappedFilterType];
+                const option = select.options[filterValue];
+                if (option) {
+                    select.selected = filterValue;
                 } else {
-                    console.warn(`Tab '${tab}' has no filter '${filterType}'`);
+                    console.warn(
+                        `Tab '${currentTab.tabName}' select filter '${mappedFilterType}' has no option: '${filterValue}'`
+                    );
                 }
             }
-            if (this.initialMaxLevel) {
-                if (currentTab.filterData.sliders) {
-                    const level = currentTab.filterData.sliders.level;
-                    if (level) {
-                        level.values.max = this.initialMaxLevel;
+            // Multiselects
+            else if (
+                currentTab.filterData.multiselects !== undefined &&
+                objectHasKey(currentTab.filterData.multiselects, mappedFilterType) &&
+                Array.isArray(filterValue)
+            ) {
+                // A convoluted cast is necessary here to not get an infered type of MultiSelectData<PhysicalItem> since MultiSelectData is not exported
+                const multiselects = (currentTab.filterData.multiselects as BaseFilterData["multiselects"])!;
+                const multiselect = multiselects[mappedFilterType];
+                for (const value of filterValue) {
+                    const option = multiselect.options.find((opt) => opt.value === value);
+                    if (option) {
+                        multiselect.selected.push(option);
+                    } else {
+                        console.warn(
+                            `Tab '${currentTab.tabName}' multiselect filter '${mappedFilterType}' has no option: '${value}'`
+                        );
                     }
                 }
             }
-            this.initialFilter = [];
-            this.initialMaxLevel = 0;
+            // Ranges (e.g. price)
+            else if (
+                currentTab.filterData.ranges !== undefined &&
+                objectHasKey(currentTab.filterData.ranges, mappedFilterType) &&
+                this.isRange(filterValue)
+            ) {
+                if (
+                    (filterValue.min !== undefined && filterValue.min !== null) ||
+                    (filterValue.max !== undefined && filterValue.max !== null)
+                ) {
+                    const range = currentTab.filterData.ranges[mappedFilterType];
+                    if (filterType === "priceRange") {
+                        if (filterValue.min !== null && filterValue.min !== undefined) {
+                            if (typeof filterValue.min === "number") {
+                                // Number values are handled as a price in gold pieces
+                                range.values.min = new CoinsPF2e({ gp: filterValue.min }).copperValue;
+                                range.values.inputMin = filterValue.min + "gp";
+                            } else if (typeof filterValue.min === "string") {
+                                range.values.min = CoinsPF2e.fromString(filterValue.min).copperValue;
+                                range.values.inputMin = filterValue.min;
+                            }
+                        }
+                        if (filterValue.max !== null && filterValue.max !== undefined) {
+                            if (typeof filterValue.max === "number") {
+                                // Number values are handled as a price in gold pieces
+                                range.values.max = new CoinsPF2e({ gp: filterValue.max }).copperValue;
+                                range.values.inputMax = filterValue.max + "gp";
+                            } else if (typeof filterValue.max === "string") {
+                                range.values.max = CoinsPF2e.fromString(filterValue.max).copperValue;
+                                range.values.inputMax = filterValue.max;
+                            }
+                        }
+                    } else {
+                        // If there is ever another range filter, it should be handled here
+                        console.error("Initital filtering for ranges other than price aren't implemented yet.");
+                        continue;
+                    }
+
+                    // Set max value to min value if min value is higher
+                    if (range.values.min > range.values.max) {
+                        range.values.max = range.values.min;
+                        range.values.inputMax = range.values.inputMin;
+                    }
+
+                    range.isExpanded = true;
+                }
+            }
+            // Sliders (e.g. level)
+            else if (
+                currentTab.filterData.sliders !== undefined &&
+                objectHasKey(currentTab.filterData.sliders, mappedFilterType) &&
+                this.isRange(filterValue)
+            ) {
+                if (
+                    (filterValue.min !== undefined && filterValue.min !== null) ||
+                    (filterValue.max !== undefined && filterValue.max !== null)
+                ) {
+                    const slider = currentTab.filterData.sliders[mappedFilterType];
+
+                    let minValue = typeof filterValue.min === "string" ? parseInt(filterValue.min) : filterValue.min;
+                    let maxValue = typeof filterValue.max === "string" ? parseInt(filterValue.max) : filterValue.max;
+                    if ((minValue && isNaN(minValue)) || (maxValue && isNaN(maxValue))) {
+                        console.error(`Invalid filter value for '${filterType}', it needs to be a valid number.`);
+                        continue;
+                    }
+
+                    minValue =
+                        minValue !== undefined && minValue !== null
+                            ? Math.clamped(minValue, slider.values.lowerLimit, slider.values.upperLimit)
+                            : slider.values.lowerLimit;
+                    maxValue =
+                        maxValue !== undefined && maxValue !== null
+                            ? Math.clamped(maxValue, slider.values.lowerLimit, slider.values.upperLimit)
+                            : slider.values.upperLimit;
+
+                    // Set max value to min value if min value is higher
+                    if (minValue > maxValue) {
+                        maxValue = minValue;
+                    }
+
+                    slider.values.min = minValue;
+                    slider.values.max = maxValue;
+                    slider.isExpanded = true;
+                }
+            }
+            // Filter name did not match a filter on the tab
+            else {
+                console.warn(`'${filterType}' is not a valid filter for tab '${currentTab.tabName}'.`);
+            }
         }
 
-        this.render(true);
+        this.initialFilter = {};
+    }
+
+    private isRange(value: unknown): value is { min: number | string | undefined; max: number | string | undefined } {
+        if (typeof value === "object" && value !== null && "min" in value && "max" in value) {
+            const range = value as { min: unknown; max: unknown };
+            return (
+                (range.min === undefined ||
+                    range.min === null ||
+                    typeof range.min === "number" ||
+                    typeof range.min === "string") &&
+                (range.max === undefined ||
+                    range.max === null ||
+                    typeof range.max === "number" ||
+                    typeof range.max === "string")
+            );
+        }
+        return false;
     }
 
     loadedPacks(tab: TabName): string[] {

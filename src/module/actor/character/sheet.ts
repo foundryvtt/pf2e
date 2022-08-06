@@ -736,10 +736,27 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     private async onClickBrowseFeatCompendia(event: JQuery.ClickEvent): Promise<void> {
         const maxLevel = Number($(event.currentTarget).attr("data-level")) || this.actor.level;
         const button: HTMLElement = event.currentTarget;
-        const filter = button.dataset.filter?.split(",").filter((f) => !!f) ?? [];
-        if (filter.includes("feattype-general")) filter.push("feattype-skill");
+        const checkboxesFilterCodes = button.dataset.filter?.split(",").filter((f) => !!f) ?? [];
+        if (checkboxesFilterCodes.includes("feattype-general")) checkboxesFilterCodes.push("feattype-skill");
 
-        await game.pf2e.compendiumBrowser.openTab("feat", filter, maxLevel);
+        const filter: Record<string, string[]> = {};
+        for (const filterCode of checkboxesFilterCodes) {
+            const splitValues = filterCode.split("-");
+            if (splitValues.length !== 2) {
+                console.error(
+                    `Invalid filter value for opening the compendium browser:\n'${JSON.stringify(
+                        checkboxesFilterCodes
+                    )}'`
+                );
+                return;
+            }
+
+            const [filterType, value] = splitValues;
+            const filterCategory = filter[filterType] ?? (filter[filterType] = []);
+            filterCategory.push(value);
+        }
+
+        await game.pf2e.compendiumBrowser.openTab("feat", Object.assign(filter, { levelRange: { max: maxLevel } }));
     }
 
     /** Handle changing of proficiency-rank via dropdown */
