@@ -19,6 +19,7 @@ export class CraftingEntry implements CraftingEntryData {
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
     maxFieldDiscoveryItemLevel?: number;
+    fieldDiscoveryRequiresMundane?: boolean;
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
@@ -33,6 +34,7 @@ export class CraftingEntry implements CraftingEntryData {
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
         this.maxFieldDiscoveryItemLevel = data.maxFieldDiscoveryItemLevel;
+        this.fieldDiscoveryRequiresMundane = data.fieldDiscoveryRequiresMundane;
 
         this.requiredTraits = data.requiredTraits ?? [[]];
         if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
@@ -207,6 +209,7 @@ export class CraftingEntry implements CraftingEntryData {
         }
 
         return (this.maxFieldDiscoveryItemLevel === undefined || this.maxFieldDiscoveryItemLevel >= formula.level) &&
+            (!this.fieldDiscoveryRequiresMundane || !formula.item.isMagical) &&
             (options.has(this.fieldDiscovery!) || formula.isSignatureItem)
             ? fieldDiscoveryBatchSize
             : batchSize;
@@ -240,4 +243,5 @@ export interface CraftingEntryData {
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
     maxFieldDiscoveryItemLevel?: number;
+    fieldDiscoveryRequiresMundane?: boolean;
 }
