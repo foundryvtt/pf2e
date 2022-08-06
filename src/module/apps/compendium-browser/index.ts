@@ -358,7 +358,7 @@ class CompendiumBrowser extends Application {
         // Search field
         const search = controlArea.querySelector<HTMLInputElement>("input[name=textFilter]");
         if (search) {
-            search.addEventListener("search", () => {
+            search.addEventListener("change", () => {
                 currentTab.filterData.search.text = search.value;
                 this.clearScrollLimit(true);
             });
