@@ -72,24 +72,12 @@ export class CraftingEntry implements CraftingEntryData {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
-        const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
-        const batchSize = this.batchSize || 2;
-
         return this.preparedFormulas.reduce((sum: number, formula: PreparedFormula) => {
-            const options = new Set<PhysicalItemTrait | ConsumableType>(formula.item.traits);
-            if (formula.item.isOfType("consumable")) {
-                options.add(formula.item.consumableType);
-            }
-
-            const formulaBatchSize =
-                (this.maxFieldDiscoveryItemLevel === undefined || this.maxFieldDiscoveryItemLevel >= formula.level) &&
-                (options.has(this.fieldDiscovery!) || formula.isSignatureItem)
-                    ? fieldDiscoveryBatchSize
-                    : batchSize;
+            const batchSize = this.getDefaultBatchSize(formula);
 
             const quantity = formula.quantity || 1;
 
-            return sum + Math.ceil(quantity / formulaBatchSize);
+            return sum + Math.ceil(quantity / batchSize);
         }, 0);
     }
 
@@ -106,7 +94,7 @@ export class CraftingEntry implements CraftingEntryData {
             this.preparedFormulas[index].quantity = quantity + 1;
         } else {
             const prepData: PreparedFormula = formula;
-            if (this.isAlchemical) prepData.quantity = 1;
+            if (this.isAlchemical) prepData.quantity = this.getDefaultBatchSize(prepData);
             this.preparedFormulas.push(prepData);
         }
 
@@ -207,6 +195,21 @@ export class CraftingEntry implements CraftingEntryData {
         await this.parentActor.update({
             [`system.crafting.entries.${this.selector}.actorPreparedFormulas`]: actorPreparedFormulas,
         });
+    }
+
+    getDefaultBatchSize(formula: PreparedFormula): number {
+        const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
+        const batchSize = this.batchSize || 2;
+        const options = new Set<PhysicalItemTrait | ConsumableType>(formula.item.traits);
+
+        if (formula.item.isOfType("consumable")) {
+            options.add(formula.item.consumableType);
+        }
+
+        return (this.maxFieldDiscoveryItemLevel === undefined || this.maxFieldDiscoveryItemLevel >= formula.level) &&
+            (options.has(this.fieldDiscovery!) || formula.isSignatureItem)
+            ? fieldDiscoveryBatchSize
+            : batchSize;
     }
 }
 
