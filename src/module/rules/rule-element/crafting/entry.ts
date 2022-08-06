@@ -5,6 +5,7 @@ import { ItemPF2e } from "@item";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { sluggify } from "@util";
+import { ConsumableType } from "@item/consumable/data";
 
 /**
  * @category RuleElement
@@ -47,6 +48,11 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             requiredTraits: this.data.requiredTraits,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
+            batchSize: this.data.batchSize,
+            fieldDiscovery: this.data.fieldDiscovery,
+            fieldDiscoveryBatchSize: this.data.fieldDiscoveryBatchSize,
+            fieldDiscoveryRequiresMundane: this.data.fieldDiscoveryRequiresMundane,
+            maxFieldDiscoveryItemLevel: this.data.maxFieldDiscoveryItemLevel,
         };
 
         actorUpdates[`system.crafting.entries.${selector}`] = data;
@@ -80,6 +86,11 @@ interface CraftingEntryRuleData extends RuleElementData {
     requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: number;
     maxSlots?: number;
+    batchSize?: number;
+    fieldDiscovery?: PhysicalItemTrait | ConsumableType;
+    fieldDiscoveryBatchSize?: number;
+    fieldDiscoveryRequiresMundane?: boolean;
+    maxFieldDiscoveryItemLevel?: number;
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -90,6 +101,11 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: unknown;
     maxSlots?: unknown;
+    batchSize?: unknown;
+    fieldDiscovery?: unknown;
+    fieldDiscoveryBatchSize?: unknown;
+    fieldDiscoveryRequiresMundane?: unknown;
+    maxFieldDiscoveryItemLevel?: unknown;
 }
 
 export { CraftingEntryRuleElement };
