@@ -77,7 +77,7 @@ declare global {
          */
         static getUniqueEndpoints(
             walls: Wall[] | Set<Wall>,
-            { bounds, type }?: { bounds?: NormalizedRectangle; type?: WallType }
+            { bounds, type }?: { bounds?: PIXI.Rectangle; type?: WallType }
         ): PointArray[];
 
         /**

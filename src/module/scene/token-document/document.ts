@@ -92,10 +92,10 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /** The pixel-coordinate definition of this token's space */
-    get bounds(): NormalizedRectangle {
+    get bounds(): PIXI.Rectangle {
         const gridSize = this.scene?.grid.size ?? 100;
         // Use source values since coordinates are changed in real time over the course of movement animation
-        return new NormalizedRectangle(this._source.x, this._source.y, this.width * gridSize, this.height * gridSize);
+        return new PIXI.Rectangle(this._source.x, this._source.y, this.width * gridSize, this.height * gridSize);
     }
 
     /** The pixel-coordinate pair constituting this token's center */

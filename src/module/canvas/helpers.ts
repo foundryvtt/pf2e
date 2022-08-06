@@ -8,8 +8,8 @@ import { TokenPF2e } from "./token";
  * @param [reach] If this is a reach measurement, the origin actor's reach
  */
 function measureDistanceRect(
-    r0: NormalizedRectangle,
-    r1: NormalizedRectangle,
+    r0: PIXI.Rectangle,
+    r1: PIXI.Rectangle,
     { reach = null }: { reach?: number | null } = {}
 ): number {
     if (!canvas.dimensions) return NaN;
@@ -28,10 +28,7 @@ function measureDistanceRect(
     if (rectanglesOverlap) return 0;
 
     // Snap the dimensions and position of the rectangle to grid square units
-    const snapBounds = (
-        rectangle: NormalizedRectangle,
-        { toward }: { toward: NormalizedRectangle }
-    ): NormalizedRectangle => {
+    const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
         const roundLeft = rectangle.left < toward.left ? Math.ceil : Math.floor;
         const roundTop = rectangle.top < toward.top ? Math.ceil : Math.floor;
 
@@ -40,7 +37,7 @@ function measureDistanceRect(
         const width = Math.ceil(rectangle.width / gridWidth) * gridWidth;
         const height = Math.ceil(rectangle.height / gridWidth) * gridWidth;
 
-        return new NormalizedRectangle(left, top, width, height);
+        return new PIXI.Rectangle(left, top, width, height);
     };
 
     // Find the minimum distance between the rectangles for each dimension

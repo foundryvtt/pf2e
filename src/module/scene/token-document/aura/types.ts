@@ -10,7 +10,7 @@ interface TokenAuraData {
     token: TokenPF2e | TokenDocumentPF2e;
 
     /** The rectangle defining this aura's space */
-    bounds: NormalizedRectangle;
+    bounds: PIXI.Rectangle;
 
     /** The pixel-coordinate pair of this aura's (and token's) center */
     get center(): Point;

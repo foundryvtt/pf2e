@@ -71,7 +71,7 @@ declare global {
         effects?: PIXI.Container;
         target?: PIXI.Graphics;
 
-        override get bounds(): NormalizedRectangle;
+        override get bounds(): PIXI.Rectangle;
 
         /** Translate the token's grid width into a pixel width based on the canvas size */
         get w(): number;
