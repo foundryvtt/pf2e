@@ -425,7 +425,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** Ensure the source description is edited rather than a prepared one */
-    override activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, initialContent?: string): void {
+    override activateEditor(name: string, options?: Partial<TinyMCE.EditorOptions>, initialContent?: string): void {
         super.activateEditor(
             name,
             options,

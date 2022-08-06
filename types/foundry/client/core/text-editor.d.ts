@@ -9,7 +9,7 @@ declare global {
          * @param content   Initial HTML or text content to populate the editor with
          * @return          The editor instance.
          */
-        static create(options?: Partial<TinyMCE.EditorSettings>, content?: string): Promise<TinyMCE.Editor>;
+        static create(options?: Partial<TinyMCE.EditorOptions>, content?: string): Promise<TinyMCE.Editor>;
 
         /** A list of elements that are retained when truncating HTML. */
         protected static _PARAGRAPH_ELEMENTS: Set<string>;
