@@ -22,7 +22,6 @@ declare module foundry {
             name: string;
             type: TType;
             img: ImagePath;
-            data: TSystemSource;
             system: TSystemSource;
             effects: ActiveEffectSource[];
             folder?: string | null;

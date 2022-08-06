@@ -339,12 +339,12 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             const entryItem = this.actor.items.get(entry.id);
             if (!entryItem?.isOfType("spellcastingEntry")) continue;
             entry.adjustedHigher = {
-                dc: entry.statistic.dc.value > entryItem._source.data.spelldc.dc,
-                mod: entry.statistic.check.mod > entryItem._source.data.spelldc.value,
+                dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
+                mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
             };
             entry.adjustedLower = {
-                dc: entry.statistic.dc.value < entryItem._source.data.spelldc.dc,
-                mod: entry.statistic.check.mod < entryItem._source.data.spelldc.value,
+                dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
+                mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
             };
         }
 

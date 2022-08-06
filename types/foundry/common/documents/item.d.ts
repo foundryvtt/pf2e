@@ -39,14 +39,14 @@ declare module foundry {
                 insertKeys?: boolean;
                 insertValues?: boolean;
                 enforceTypes?: boolean;
-            }): this["data"]["data"];
+            }): this["data"]["system"];
         }
 
         interface BaseItem {
             readonly data: data.ItemData<BaseItem, BaseActiveEffect>;
 
             /** Shim for V10 preparation */
-            readonly system: this["data"]["data"];
+            readonly system: this["data"]["system"];
 
             readonly parent: BaseActor | null;
 

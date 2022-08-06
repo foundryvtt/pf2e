@@ -24,12 +24,16 @@ export class FakeItem {
         return this._data.name;
     }
 
+    get system() {
+        return this._data.system;
+    }
+
     get level(): number | null {
-        return "level" in this.data.data! ? this.data.data.level.value : null;
+        return "level" in this.system! ? this.system.level.value : null;
     }
 
     get traits(): Set<string> {
-        return new Set(this.data.data.traits?.value ?? []);
+        return new Set(this.system.traits?.value ?? []);
     }
 
     get isMagical(): boolean {

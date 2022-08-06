@@ -25,7 +25,7 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
     override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored) return;
         const value = Math.abs(Number(this.resolveValue()) || 0);
-        const currentHP = this.actor._source.data.attributes.hp.value;
+        const currentHP = this.actor._source.system.attributes.hp.value;
         actorUpdates["system.attributes.hp.value"] = Math.max(currentHP - value, 0);
     }
 
@@ -37,7 +37,7 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         const newValue = Math.abs(Number(this.resolveValue(rule?.value, 0, { resolvables: { item: newItem } })));
         const valueChange = newValue - previousValue;
         if (valueChange > 0) {
-            const currentHP = this.actor._source.data.attributes.hp.value;
+            const currentHP = this.actor._source.system.attributes.hp.value;
             await this.actor.update(
                 { "system.attributes.hp.value": Math.max(currentHP - valueChange, 0) },
                 { render: false }

@@ -1,4 +1,5 @@
-import type { ItemSourcePF2e, SpellData } from "@item/data";
+import type { ItemSourcePF2e } from "@item/data";
+import { SpellSystemSource } from "@item/spell/data";
 import { ValuesList } from "@module/data";
 import { MigrationBase } from "../base";
 
@@ -9,16 +10,16 @@ import { MigrationBase } from "../base";
 export class Migration626UpdateSpellCategory extends MigrationBase {
     static override version = 0.626;
 
-    override async updateItem(itemData: ItemSourcePF2e) {
-        if (itemData.type === "spell") {
-            interface MaybeCategorie extends Partial<SpellData["data"]> {
+    override async updateItem(source: ItemSourcePF2e) {
+        if (source.type === "spell") {
+            interface MaybeCategorie extends Partial<SpellSystemSource> {
                 traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
                 spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
                 spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
                 "-=spellCategorie"?: unknown;
                 "-=spellCategory"?: unknown;
             }
-            const systemData: MaybeCategorie = itemData.system;
+            const systemData: MaybeCategorie = source.system;
             const traditions: ValuesList = systemData.traditions;
             const isFocus = traditions.value.includes("focus");
             const isRitual = traditions.value.includes("ritual");
@@ -31,7 +32,7 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
 
             if (systemData.spellCategorie || systemData.spellCategory) {
                 const currentCategory = systemData.spellCategorie?.value ?? systemData.spellCategory?.value ?? "";
-                itemData.system.category = {
+                source.system.category = {
                     value: isFocus ? "focus" : isRitual ? "ritual" : currentCategory === "" ? "spell" : currentCategory,
                 };
 
@@ -44,14 +45,14 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
                 }
             }
 
-            if (["focus", "ritual"].includes(itemData.system.spellType.value)) {
-                itemData.system.spellType.value = "utility";
+            if (["focus", "ritual"].includes(source.system.spellType.value)) {
+                source.system.spellType.value = "utility";
             }
             traditions.value = traditions.value.filter((tradition) => !["focus", "ritual"].includes(tradition));
-        } else if (itemData.type === "consumable") {
+        } else if (source.type === "consumable") {
             // Also update any nested consumable spell data
-            if (itemData.system.spell?.data) {
-                await this.updateItem(itemData.system.spell.data);
+            if (source.system.spell?.data) {
+                await this.updateItem(source.system.spell.data);
             }
         }
     }

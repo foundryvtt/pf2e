@@ -95,7 +95,7 @@ class StrikeRuleElement extends RuleElementPF2e {
             name: this.label,
             type: "weapon",
             img: this.data.img ?? this.item.img,
-            data: {
+            system: {
                 slug: this.slug,
                 description: { value: "" },
                 category: this.category,

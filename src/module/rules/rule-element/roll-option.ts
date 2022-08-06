@@ -195,7 +195,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         } else if (itemId) {
             // Directly update the rule element on the item
             const item = actor.items.get(itemId, { strict: true });
-            const rules = item.toObject().data.rules;
+            const rules = item.toObject().system.rules;
             const rule = rules.find(
                 (r: RollOptionSource) =>
                     r.key === "RollOption" &&

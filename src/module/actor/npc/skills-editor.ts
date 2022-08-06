@@ -92,11 +92,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const data: PreCreate<LoreSource> = {
             name: loreName,
             type: "lore",
-            data: {
-                mod: {
-                    value: 0,
-                },
-            },
+            system: { mod: { value: 0 } },
         };
         await this.npc.createEmbeddedDocuments("Item", [data]);
 
