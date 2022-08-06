@@ -114,7 +114,7 @@ declare global {
          * @param options        TinyMCE initialization options passed to TextEditor.create
          * @param initialContent Initial text content for the editor area.
          */
-        activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, initialContent?: string): void;
+        activateEditor(name: string, options?: Partial<TinyMCE.EditorOptions>, initialContent?: string): void;
 
         /**
          * Handle saving the content of a specific editor by name
@@ -198,7 +198,7 @@ declare global {
         hasButton: boolean;
         initial: string;
         mce: TinyMCE.Editor | null;
-        options: Partial<TinyMCE.EditorSettings>;
+        options: Partial<TinyMCE.EditorOptions>;
         target: string;
     }
 }

@@ -15,7 +15,7 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
         InlineRollLinks.listen($html);
     }
 
-    override activateEditor(name: string, options: Partial<TinyMCE.EditorSettings> = {}, initialContent = ""): void {
+    override activateEditor(name: string, options: Partial<TinyMCE.EditorOptions> = {}, initialContent = ""): void {
         const editor = this.editors[name];
         if (!editor) throw ErrorPF2e(`${name} is not a registered editor name!`);
 
