@@ -1623,15 +1623,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
-            const compatible = ammos.filter((ammo) => ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
-            const incompatible = ammos.filter((ammo) => !ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
-
+            const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
+            const incompatible = ammos.filter((a) => !a.isAmmoFor(weapon));
             const ammo = weapon.ammo;
-            const selected = ammo && {
-                id: ammo.id,
-                compatible: ammo.isAmmoFor(weapon),
-            };
-            action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
+            const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
+
+            action.ammunition = { compatible, incompatible, selected };
         }
 
         const actionTraits: ActionTrait[] = [
