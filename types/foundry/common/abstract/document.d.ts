@@ -84,6 +84,13 @@ declare global {
                 static canUserCreate(user: documents.BaseUser): boolean;
 
                 /**
+                 * Migrate candidate source data for this DataModel which may require initial cleaning or transformations.
+                 * @param source           The candidate source data from which the model will be constructed
+                 * @returns                Migrated source data, if necessary
+                 */
+                static migrateData<TSource extends DocumentSource>(source: TSource): TSource;
+
+                /**
                  * Update the DataModel locally by applying an object of changes to its source data.
                  * The provided changes are cleaned, validated, and stored to the source data object for this model.
                  * The source data is then re-initialized to apply those changes to the prepared data.

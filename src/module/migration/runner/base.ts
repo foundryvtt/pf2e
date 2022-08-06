@@ -14,6 +14,8 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
+    lastPreMigrateSource?: ItemSourcePF2e;
+
     static LATEST_SCHEMA_VERSION = 0.771;
 
     static MINIMUM_SAFE_VERSION = 0.618;
@@ -78,6 +80,7 @@ export class MigrationRunnerBase {
             await migration.updateItem?.(current);
             // Handle embedded spells
             if (current.type === "consumable" && current.system.spell.data) {
+                this.preMigrateEmbeddedSource(current.system.spell.data);
                 await migration.updateItem?.(current.system.spell.data);
             }
         }
@@ -95,6 +98,7 @@ export class MigrationRunnerBase {
                 await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
                 if (currentItem.type === "consumable" && currentItem.system.spell.data) {
+                    this.preMigrateEmbeddedSource(currentItem.system.spell.data);
                     await migration.updateItem?.(currentItem.system.spell.data, currentActor);
                 }
             }
@@ -112,6 +116,15 @@ export class MigrationRunnerBase {
         }
 
         return currentActor;
+    }
+
+    /** Perform core data migration on embedded item sources */
+    private preMigrateEmbeddedSource(source: ItemSourcePF2e) {
+        // Prevent this from running for each migration
+        if (this.lastPreMigrateSource !== source) {
+            source = Item.migrateData(source);
+            this.lastPreMigrateSource = source;
+        }
     }
 
     private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
