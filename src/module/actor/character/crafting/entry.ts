@@ -18,6 +18,7 @@ export class CraftingEntry implements CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
+    maxFieldDiscoveryItemLevel?: number;
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
@@ -31,6 +32,7 @@ export class CraftingEntry implements CraftingEntryData {
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
+        this.maxFieldDiscoveryItemLevel = data.maxFieldDiscoveryItemLevel;
 
         this.requiredTraits = data.requiredTraits ?? [[]];
         if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
@@ -79,14 +81,15 @@ export class CraftingEntry implements CraftingEntryData {
                 options.add(formula.item.consumableType);
             }
 
-            const fieldDiscoveryQuantity =
-                options.has(this.fieldDiscovery!) || formula.isSignatureItem ? formula.quantity || 1 : 0;
-            const otherQuantity =
-                !options.has(this.fieldDiscovery!) && !formula.isSignatureItem ? formula.quantity || 1 : 0;
+            const formulaBatchSize =
+                (this.maxFieldDiscoveryItemLevel === undefined || this.maxFieldDiscoveryItemLevel >= formula.level) &&
+                (options.has(this.fieldDiscovery!) || formula.isSignatureItem)
+                    ? fieldDiscoveryBatchSize
+                    : batchSize;
 
-            return (
-                sum + Math.ceil(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) + Math.ceil(otherQuantity / batchSize)
-            );
+            const quantity = formula.quantity || 1;
+
+            return sum + Math.ceil(quantity / formulaBatchSize);
         }, 0);
     }
 
@@ -233,4 +236,5 @@ export interface CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
+    maxFieldDiscoveryItemLevel?: number;
 }
