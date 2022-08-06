@@ -566,7 +566,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.prototypeToken[property] = this.prototypeToken._source[property] = 0;
             }
-            this.prototypeToken.sightAngle = this.prototypeToken._source.sightAngle = 360;
+            this.prototypeToken.sight.angle = this.prototypeToken._source.sight.angle = 360;
         }*/
 
         this.prototypeToken.flags = mergeObject(
