@@ -8,7 +8,7 @@ $header-height: 89px;   /* Adjust height of the header */
 @import "character/ability-builder";
 
 .actor.sheet {
-    @import "reset";
+    @import "../reset";
     @import "inventory";
 
     &.character .crb-style {
@@ -95,27 +95,21 @@ $header-height: 89px;   /* Adjust height of the header */
 
                     .action-header {
                         align-items: center;
+                        background: var(--primary);
                         border: none;
+                        border-radius: 0.25em;
+                        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
                         display: flex;
+                        flex-basis: 100%;
                         flex-wrap: nowrap;
                         height: 32px;
                         justify-content: space-between;
                         margin-left: 0;
                         margin-top: 8px;
-                        padding-bottom: 2px;
-                        padding: 0;
+                        padding: 0 0.5em;
                         position: relative;
-
-                        h3 {
-                            color: white;
-                            flex: 1 1 100%;
-                        }
-
-                        .item-controls {
-                            color: var(--primary);
-                            font-size: var(--font-size-12);
-                            flex: 1 0 auto;
-                        }
+                        width: 100%;
+                        z-index: 2;
 
                         &:first-child {
                             margin-top: 0;
@@ -123,6 +117,43 @@ $header-height: 89px;   /* Adjust height of the header */
 
                         & + li {
                             border-top: none;
+                        }
+
+                        .drag-handle {
+                            cursor: move;
+                        }
+
+                        & > a {
+                            .fas, > .fa {
+                                flex-basis: 0;
+                                color: white;
+                                margin-right: 0.25em;
+                                padding-top: 0.25em;
+                            }
+                        }
+
+                        .item-controls {
+                            color: white;
+                            flex: 1 0 auto;
+                            font: 0.85em var(--sans-serif);
+                            letter-spacing: 0.05em;
+                            margin-left: auto;
+                            max-width: fit-content;
+                            text-transform: uppercase;
+                            font-size: var(--font-size-12);
+                        }
+
+                        h3 {
+                            color: white;
+                            flex: 1 1 100%;
+                            margin-bottom: 0;
+                            font-size: var(--font-size-16);
+
+                            input.item-name-input {
+                                color: white;
+                                max-width: 100%;
+                                font-weight: 500;
+                            }
                         }
                     }
                 }
@@ -183,6 +214,7 @@ $header-height: 89px;   /* Adjust height of the header */
 
 // Spellcasting Preparation Sheet Styling
 .spellcasting-entry.sheet {
+    @import "../reset";
     @import "spell-list";
 
     form {
