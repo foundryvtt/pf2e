@@ -40,7 +40,7 @@ declare class MeasuredTemplate<
     /*  Properties                                  */
     /* -------------------------------------------- */
 
-    override get bounds(): NormalizedRectangle;
+    override get bounds(): PIXI.Rectangle;
 
     /** A convenience accessor for the border color as a numeric hex code */
     get borderColor(): number;

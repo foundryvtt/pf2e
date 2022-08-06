@@ -26,7 +26,7 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
     /*  Properties                                  */
     /* -------------------------------------------- */
 
-    override get bounds(): NormalizedRectangle;
+    override get bounds(): PIXI.Rectangle;
 
     /** A Boolean flag for whether or not the Drawing utilizes a tiled texture background */
     get isTiled(): boolean;

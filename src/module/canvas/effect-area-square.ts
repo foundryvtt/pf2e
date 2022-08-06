@@ -1,7 +1,7 @@
 import { TokenAuraColors } from "./token/aura";
 
 /** A square (`PIXI.Rectangle`) with additional information about an effect area it's part of */
-export class EffectAreaSquare extends NormalizedRectangle {
+export class EffectAreaSquare extends PIXI.Rectangle {
     /** Whether this square is an active part of the aura or blocked (typically by a wall) */
     active: boolean;
 

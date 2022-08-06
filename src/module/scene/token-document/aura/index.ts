@@ -46,12 +46,12 @@ class TokenAura implements TokenAuraData {
         return this.token.scene;
     }
 
-    get bounds(): NormalizedRectangle {
+    get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
         const tokenWidth = token.data.width * this.scene.grid.size;
         const tokenBounds = token.bounds;
 
-        return new NormalizedRectangle(
+        return new PIXI.Rectangle(
             tokenBounds.x - (radiusPixels - tokenWidth / 2),
             tokenBounds.y - (radiusPixels - tokenWidth / 2),
             radiusPixels * 2,

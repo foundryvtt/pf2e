@@ -50,7 +50,7 @@ declare global {
         /** Get the native aspect ratio of the base texture for the Tile sprite */
         get aspectRatio(): number;
 
-        override get bounds(): NormalizedRectangle;
+        override get bounds(): PIXI.Rectangle;
 
         /** The HTML source element for the primary Tile texture */
         get sourceElement(): HTMLImageElement | HTMLVideoElement;
@@ -78,10 +78,10 @@ declare global {
         override refresh({ refreshPerception }?: { refreshPerception?: boolean }): this;
 
         /** Refresh the display of the Tile border */
-        protected _refreshBorder(b: NormalizedRectangle): void;
+        protected _refreshBorder(b: PIXI.Rectangle): void;
 
         /** Refresh the display of the Tile resizing handle */
-        protected _refreshHandle(b: NormalizedRectangle): void;
+        protected _refreshHandle(b: PIXI.Rectangle): void;
 
         /* -------------------------------------------- */
         /*  Event Handlers                              */

@@ -283,13 +283,13 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         const gridSize = canvas.dimensions.size;
         const gridDistance = canvas.dimensions.distance;
         const vertical = {
-            self: new NormalizedRectangle(
+            self: new PIXI.Rectangle(
                 this.bounds.x,
                 (selfElevation / gridDistance) * gridSize,
                 this.bounds.width,
                 (selfDimensions.height / gridDistance) * gridSize
             ),
-            target: new NormalizedRectangle(
+            target: new PIXI.Rectangle(
                 target.bounds.x,
                 (targetElevation / gridDistance) * gridSize,
                 target.bounds.width,

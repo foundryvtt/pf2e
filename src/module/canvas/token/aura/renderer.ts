@@ -37,10 +37,10 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.draw();
     }
 
-    get bounds(): NormalizedRectangle {
+    get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
 
-        return new NormalizedRectangle(
+        return new PIXI.Rectangle(
             token.bounds.x - (radiusPixels - token.bounds.width / 2),
             token.bounds.y - (radiusPixels - token.bounds.width / 2),
             radiusPixels * 2,

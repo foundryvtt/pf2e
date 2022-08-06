@@ -21,7 +21,7 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
     /** A convenience reference to the coordinates Array for the Wall endpoints, [x0,y0,x1,y1]. */
     get coords(): number[];
 
-    get bounds(): NormalizedRectangle;
+    get bounds(): PIXI.Rectangle;
 
     /** Return the coordinates [x,y] at the midpoint of the wall segment */
     get midpoint(): number[];

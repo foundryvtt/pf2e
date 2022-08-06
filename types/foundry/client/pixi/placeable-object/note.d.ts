@@ -6,7 +6,7 @@
 declare class Note<TDocument extends NoteDocument = NoteDocument> extends PlaceableObject<TDocument> {
     static override embeddedName: "Note";
 
-    override get bounds(): NormalizedRectangle;
+    override get bounds(): PIXI.Rectangle;
 
     /** The associated JournalEntry which is referenced by this Note */
     get entry(): JournalEntry;
