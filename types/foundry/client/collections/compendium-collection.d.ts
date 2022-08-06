@@ -173,6 +173,8 @@ declare global {
     function fromUuid<T extends CompendiumDocument = CompendiumDocument>(uuid: CompendiumUUID): Promise<T | null>;
     function fromUuid<T extends ClientDocument = ClientDocument>(uuid: string): Promise<T | null>;
 
+    function fromUuidSync<T extends ClientDocument = ClientDocument>(uuid: string): T | null;
+
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
         readonly type: T["documentName"];
         name: string;

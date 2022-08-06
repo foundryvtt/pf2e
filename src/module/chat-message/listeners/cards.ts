@@ -1,7 +1,7 @@
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -88,7 +88,15 @@ export const ChatCards = {
                             }
                         }
                     } else if (originalId) {
-                        const originalSpell = actor.items.get(originalId, { strict: true });
+                        if (spell?.isFromConsumable) {
+                            const consumableItem = fromUuidSync<Embedded<ConsumablePF2e>>(spell.isFromConsumable);
+                            if (consumableItem?.embeddedSpell) {
+                                await message.delete();
+                                consumableItem.castEmbeddedSpell();
+                                return;
+                            }
+                        }
+                        const originalSpell = actor.items.get<Embedded<SpellPF2e>>(originalId, { strict: true });
                         const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
                             data: { spellLvl: castLevel },

@@ -41,7 +41,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
         return new SpellPF2e(spellData, {
             parent: this.actor,
-            fromConsumable: true,
+            fromConsumable: this.uuid,
         }) as Embedded<SpellPF2e>;
     }
 

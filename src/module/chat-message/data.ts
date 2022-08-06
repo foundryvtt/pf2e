@@ -23,7 +23,7 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         modifierName?: string;
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";
-        isFromConsumable?: boolean;
+        isFromConsumable?: ItemUUID;
         journalEntry?: DocumentUUID;
         spellVariant?: { overlayIds: string[] };
         [key: string]: unknown;

@@ -116,7 +116,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
 
         const spellVariant = this.flags.pf2e.spellVariant;
-        if (spellVariant && item?.isOfType("spell")) {
+        if (spellVariant && item?.isOfType("spell") && !item.isFromConsumable) {
             return item.loadVariant({
                 overlayIds: spellVariant.overlayIds,
             });

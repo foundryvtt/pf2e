@@ -28,11 +28,11 @@ import { SpellOverlayCollection } from "./overlay";
 import { ActionTrait } from "@item/action/data";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
-    fromConsumable?: boolean;
+    fromConsumable?: ItemUUID;
 }
 
 class SpellPF2e extends ItemPF2e {
-    readonly isFromConsumable: boolean;
+    readonly isFromConsumable?: ItemUUID;
 
     /** The original spell. Only exists if this is a variant */
     original?: SpellPF2e;
@@ -139,7 +139,7 @@ class SpellPF2e extends ItemPF2e {
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
         super(data, mergeObject(context, { pf2e: { ready: true } }));
-        this.isFromConsumable = context.fromConsumable ?? false;
+        this.isFromConsumable = context.fromConsumable;
     }
 
     private computeCastLevel(castLevel?: number): number {
@@ -301,7 +301,10 @@ class SpellPF2e extends ItemPF2e {
         })();
         if (!override) return null;
 
-        const variantSpell = new SpellPF2e(override, { parent: this.actor }) as Embedded<SpellPF2e>;
+        const variantSpell = new SpellPF2e(override, {
+            parent: this.actor,
+            fromConsumable: this.isFromConsumable,
+        }) as Embedded<SpellPF2e>;
         variantSpell.original = this;
         variantSpell.appliedOverlays = appliedOverlays;
         return variantSpell;
@@ -555,7 +558,8 @@ class SpellPF2e extends ItemPF2e {
 
         // Embedded item string for consumable fetching.
         // This needs to be refactored in the future so that injecting DOM strings isn't necessary
-        const item = this.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
+        const item =
+            this.isFromConsumable || this.original?.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
 
         return {
             ...systemData,
