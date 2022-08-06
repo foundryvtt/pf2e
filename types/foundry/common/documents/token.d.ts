@@ -16,8 +16,6 @@ declare module foundry {
 
             height: number;
 
-            sightAngle: number;
-
             texture: {
                 src: VideoPath;
                 scaleX: number;
@@ -25,10 +23,22 @@ declare module foundry {
                 offsetX: number;
                 offsetY: number;
                 rotation: number | null;
-                tint: `#${string}`;
+                tint: HexColorString;
             };
 
             light: foundry.data.LightData<this>;
+
+            sight: {
+                enabled: boolean;
+                range: number;
+                angle: number;
+                color: HexColorString;
+                attenuation: number;
+                brightness: number;
+                saturation: number;
+                contrast: number;
+                visionMode: object;
+            };
 
             elevation: number;
 

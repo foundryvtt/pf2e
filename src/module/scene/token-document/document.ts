@@ -145,7 +145,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data[property] = this._source[property] = 0;
             }
-            this.sightAngle = this._source.sightAngle = 360;
+            this.sight.angle = this._source.sight.angle = 360;
         }*/
 
         // Nath mode
