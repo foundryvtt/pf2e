@@ -562,11 +562,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 // see if they have another set of armor equipped
                 const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
                 for (const armor of wornArmors) {
-                    updates.push({ _id: armor.id, data: { equipped: { inSlot: false } } });
+                    updates.push({ _id: armor.id, system: { equipped: { inSlot: false } } });
                 }
             }
 
-            updates.push({ _id: item.id, data: { containerId: null, equipped: equipped } });
+            updates.push({ _id: item.id, system: { containerId: null, equipped: equipped } });
 
             await this.updateEmbeddedDocuments("Item", updates);
         }

@@ -127,7 +127,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** Shortcut to system-data attributes */
-    get attributes(): this["data"]["data"]["attributes"] {
+    get attributes(): this["system"]["attributes"] {
         return this.system.attributes;
     }
 
@@ -1152,6 +1152,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         user: UserPF2e
     ): Promise<void> {
         // Set default portrait and token images
+        this._source.prototypeToken = mergeObject(this._source.prototypeToken ?? {}, { texture: {} });
         if (this._source.img === ActorPF2e.DEFAULT_ICON) {
             this._source.img =
                 this._source.prototypeToken.texture.src =

@@ -120,7 +120,7 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
         description?: string;
     }[];
     chatData?: unknown;
-    data: {
+    system: {
         bonus?: {
             value: number;
             total?: number;

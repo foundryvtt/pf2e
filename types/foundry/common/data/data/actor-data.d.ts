@@ -29,7 +29,6 @@ declare module foundry {
             name: string;
             type: TType;
             img: ImagePath;
-            data: TSystemSource;
             system: TSystemSource;
             prototypeToken: PrototypeTokenSource;
             items: TItemSource[];

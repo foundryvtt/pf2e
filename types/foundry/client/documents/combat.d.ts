@@ -201,8 +201,6 @@ declare global {
         // V10 shim
         readonly flags: this["data"]["flags"];
 
-        get combatants(): foundry.abstract.EmbeddedCollection<Combatant<this>>;
-
         createEmbeddedDocuments(
             embeddedName: "Combatant",
             data: PreCreate<Combatant["_source"]>[],

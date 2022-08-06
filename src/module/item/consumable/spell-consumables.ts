@@ -62,17 +62,17 @@ async function createConsumableFromSpell(
         throw ErrorPF2e("Failed to retrieve consumable item");
     }
 
-    const consumableData = consumable.toObject();
-    spell.traditions.forEach((value) => consumableData.data.traits.value.push(value));
-    consumableData.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
-    const description = consumableData.data.description.value;
-    consumableData.data.description.value =
+    const consumableSource = consumable.toObject();
+    spell.traditions.forEach((value) => consumableSource.system.traits.value.push(value));
+    consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
+    const description = consumableSource.system.description.value;
+    consumableSource.system.description.value =
         (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr/>${description}`;
-    consumableData.data.spell = {
+    consumableSource.system.spell = {
         data: spell.toObject(),
         heightenedLevel: heightenedLevel,
     };
-    return consumableData;
+    return consumableSource;
 }
 
 interface TrickMagicItemDifficultyData {

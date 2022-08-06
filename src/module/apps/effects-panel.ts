@@ -1,12 +1,11 @@
 import { ActorPF2e } from "@actor/base";
-import { EffectData } from "@item/data";
 import { ConditionPF2e, EffectPF2e } from "@item";
 import { ConditionReference, FlattenedCondition } from "../system/conditions";
 import { EffectExpiryType } from "@item/effect/data";
 
 interface EffectsPanelData {
     conditions: FlattenedCondition[];
-    effects: EffectData[];
+    effects: EffectPF2e[];
     actor: ActorPF2e | null;
 }
 
@@ -41,29 +40,28 @@ export class EffectsPanel extends Application {
 
         data.effects = itemTypes.effect.map((effect) => {
             const duration = effect.totalDuration;
-            const effectData = effect.clone({}, { keepId: true }).data;
+            const systemData = effect.system;
             if (duration === Infinity) {
-                const systemData = effectData.data;
                 if (systemData.duration.unit === "encounter") {
-                    effectData.data.remaining = effectData.data.expired
+                    systemData.remaining = systemData.expired
                         ? game.i18n.localize("PF2E.EffectPanel.Expired")
                         : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
                 } else {
-                    effectData.data.expired = false;
-                    effectData.data.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
+                    systemData.expired = false;
+                    systemData.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
                 }
             } else {
                 const duration = effect.remainingDuration;
-                effectData.data.expired = duration.expired;
-                effectData.data.remaining = effectData.data.expired
+                systemData.expired = duration.expired;
+                systemData.remaining = systemData.expired
                     ? game.i18n.localize("PF2E.EffectPanel.Expired")
                     : EffectsPanel.getRemainingDurationLabel(
                           duration.remaining,
-                          effectData.data.start.initiative ?? 0,
-                          effectData.data.duration.expiry
+                          systemData.start.initiative ?? 0,
+                          systemData.duration.expiry
                       );
             }
-            return effectData;
+            return effect;
         });
 
         data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(itemTypes.condition).map((condition) => {

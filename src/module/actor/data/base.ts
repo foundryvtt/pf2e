@@ -29,7 +29,6 @@ interface BaseActorDataPF2e<
 > extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken">,
         foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
     readonly type: TType;
-    readonly data: TSystemData;
     readonly system: TSystemData;
     token: PrototypeTokenDataPF2e;
 

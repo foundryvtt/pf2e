@@ -320,7 +320,7 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             .trim();
     };
 
-    if ("data" in docSource && "description" in docSource.system) {
+    if ("system" in docSource && "description" in docSource.system) {
         const description = docSource.system.description;
         description.value = cleanDescription(description.value);
     } else if ("content" in docSource) {

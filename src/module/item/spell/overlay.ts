@@ -63,7 +63,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         if (Object.keys(difference).length === 0) return variantSpell;
 
         // Always remove the spell description if it makes it this far
-        delete difference.data?.description;
+        delete difference.system?.description;
         // Restore overlayType
         difference.overlayType = "override";
 

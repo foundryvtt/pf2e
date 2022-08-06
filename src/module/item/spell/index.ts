@@ -22,7 +22,15 @@ import { CheckPF2e } from "@system/rolls";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
-import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource, SpellSystemData } from "./data";
+import {
+    SpellData,
+    SpellHeightenLayer,
+    SpellOverlay,
+    SpellOverlayType,
+    SpellSource,
+    SpellSystemData,
+    SpellSystemSource,
+} from "./data";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 import { SpellOverlayCollection } from "./overlay";
 import { ActionTrait } from "@item/action/data";
@@ -740,9 +748,11 @@ class SpellPF2e extends ItemPF2e {
         const newLocation = changed.system?.location?.value;
         const locationChanged = typeof newLocation === "string" && newLocation !== this.system.location.value;
         if (diff && (!this.actor || locationChanged)) {
-            type SystemSourceWithDeletions = typeof changed["data"] & { location?: Record<`-=${string}`, null> };
-            const data: SystemSourceWithDeletions = (changed.system ??= {});
-            const locationUpdates = (data.location = this.actor ? data.location ?? {} : { value: "" });
+            type SystemSourceWithDeletions = DeepPartial<SpellSystemSource> & {
+                location?: Record<`-=${string}`, null>;
+            };
+            const system: SystemSourceWithDeletions = (changed.system ??= {});
+            const locationUpdates = (system.location = this.actor ? system.location ?? {} : { value: "" });
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
             const keys = Object.keys(this.system.location).filter((k) => k !== "value" && !(k in locationUpdates));

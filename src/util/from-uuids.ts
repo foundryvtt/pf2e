@@ -49,22 +49,22 @@ export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ClientDocument[]
 
     if (lookups.actor.length > 0) {
         actors.push(
-            ...(await Promise.all(lookups.actor.map((uuid) => fromUuid(uuid)))).filter(
-                (document): document is ActorPF2e => document instanceof ActorPF2e
+            ...(await Promise.all(lookups.actor.map((u) => fromUuid(u)))).filter(
+                (d): d is ActorPF2e => d instanceof ActorPF2e
             )
         );
     } else if (lookups.item.length > 0) {
         items.push(
-            ...(await Promise.all(lookups.item.map((uuid) => fromUuid(uuid)))).filter(
-                (document): document is ItemPF2e => document instanceof ItemPF2e
+            ...(await Promise.all(lookups.item.map((u) => fromUuid(u)))).filter(
+                (d): d is ItemPF2e => d instanceof ItemPF2e
             )
         );
     }
     if (lookups.scene.length > 0) {
         actors.push(
             ...(await Promise.all(lookups.scene.map((uuid) => fromUuid(uuid))))
-                .filter((document): document is TokenDocumentPF2e => document instanceof TokenDocumentPF2e)
-                .flatMap((tokenDoc) => tokenDoc.actor ?? [])
+                .filter((d): d is TokenDocumentPF2e => d instanceof TokenDocumentPF2e)
+                .flatMap((t) => t.actor ?? [])
         );
     }
     if (Object.keys(lookups.pack).length > 0) {

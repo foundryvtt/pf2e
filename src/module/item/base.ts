@@ -124,7 +124,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const template = `systems/pf2e/templates/chat/${this.type}-card.html`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
-        const contextualData = !isObjectEmpty(data) ? data : nearestItem.dataset || {};
+        const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
@@ -218,11 +218,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
-        const updates: DocumentUpdateData<this> = { img: updatedImage, data: latestSource.data };
+        const updates: DocumentUpdateData<this> = { img: updatedImage, system: latestSource.system };
 
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
-            const { containerId, quantity } = currentSource.data;
+            const { containerId, quantity } = currentSource.system;
             mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
         } else if (currentSource.type === "spell") {
             // Preserve spellcasting entry location
@@ -362,7 +362,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         // Get item and actor data and format it for the damage roll
         const systemData = this.system;
-        const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).data;
+        const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).system;
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 

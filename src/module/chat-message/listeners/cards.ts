@@ -187,7 +187,7 @@ export const ChatCards = {
                     }
 
                     const itemObject = item.toObject();
-                    itemObject.data.quantity = quantity;
+                    itemObject.system.quantity = quantity;
 
                     const result = await actor.addToInventory(itemObject, undefined);
                     if (!result) {

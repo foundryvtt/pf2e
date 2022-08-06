@@ -26,7 +26,6 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
 
             const skill = this.skillAbbreviationFromString(selector);
             const saveType = tupleHasValue(SAVE_TYPES, selector) ? selector : undefined;
-            const actorData = this.actor.data;
             if (selector === "saving-throw") {
                 SAVE_TYPES.forEach((saveType) => {
                     const save = this.actor.saves[saveType];
@@ -39,20 +38,20 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
                 adjustments.push(completeAdjustment);
             } else if (selector === "skill-check" || skill !== undefined) {
                 if (selector === "skill-check") {
-                    Object.keys(actorData.data.skills).forEach((key) => {
+                    Object.keys(this.actor.system.skills).forEach((key) => {
                         const skill = key as SkillAbbreviation;
-                        const adjustments = (actorData.data.skills[skill].adjustments ??= []);
+                        const adjustments = (this.actor.system.skills[skill].adjustments ??= []);
                         adjustments.push(completeAdjustment);
                     });
                 } else if (skill) {
-                    const adjustments = (actorData.data.skills[skill].adjustments ??= []);
+                    const adjustments = (this.actor.system.skills[skill].adjustments ??= []);
                     adjustments.push(completeAdjustment);
                 }
             } else if (selector === "perception-check") {
-                actorData.data.attributes.perception.adjustments ??= [];
-                actorData.data.attributes.perception.adjustments.push(completeAdjustment);
+                this.actor.system.attributes.perception.adjustments ??= [];
+                this.actor.system.attributes.perception.adjustments.push(completeAdjustment);
             } else if (selector === "attack-roll") {
-                actorData.data.actions.forEach((action) => {
+                this.actor.system.actions.forEach((action) => {
                     action.adjustments ??= [];
                     action.adjustments.push(completeAdjustment);
                 });

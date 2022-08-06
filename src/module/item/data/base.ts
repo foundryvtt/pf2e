@@ -23,7 +23,7 @@ interface BaseItemDataPF2e<
 > extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "data" | "system" | "effects">,
         foundry.data.ItemData<TItem, ActiveEffectPF2e> {
     readonly type: TType;
-    readonly data: TSystemData;
+    readonly system: TSystemData;
     flags: ItemFlagsPF2e;
 
     readonly _source: TSource;

@@ -227,7 +227,7 @@ interface EncounterPF2e {
 
     get combatant(): CombatantPF2e<this>;
 
-    get combatants(): foundry.abstract.EmbeddedCollection<CombatantPF2e<this>>;
+    readonly combatants: foundry.abstract.EmbeddedCollection<CombatantPF2e<this>>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }
