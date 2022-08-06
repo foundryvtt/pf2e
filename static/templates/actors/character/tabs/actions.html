@@ -242,7 +242,7 @@
                 {{#select ammunition.selected.id}}
                     <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
                     {{#each ammunition.compatible as |ammo|}}
-                        <option value="{{ammo._id}}" data-compatible="true">{{ammo.name}} ({{ammo.data.quantity}})</option>
+                        <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
                     {{/each}}
                 {{/select}}
             </select>

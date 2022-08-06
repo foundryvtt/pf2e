@@ -467,7 +467,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        const auxiliaryActionSelector = 'button[data-action="auxiliary-action"]';
+        const auxiliaryActionSelector = "button[data-action=auxiliary-action]";
         $strikesList.find(auxiliaryActionSelector).on("click", (event) => {
             const auxiliaryActionIndex = $(event.currentTarget)
                 .closest("[data-auxiliary-action-index]")
@@ -483,7 +483,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             theme: "crb-hover",
         });
 
-        $strikesList.find('select[name="ammo-used"]').on("change", (event) => {
+        $strikesList.find("select[name=ammo-used]").on("change", (event) => {
             event.stopPropagation();
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");

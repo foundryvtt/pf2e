@@ -4,9 +4,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance } from "@actor/types";
 import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values";
-import { MeleePF2e, WeaponPF2e } from "@item";
-import type { ItemPF2e } from "@item/base";
-import { ConsumableData } from "@item/consumable/data";
+import { ConsumablePF2e, ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, LabeledNumber, Rarity, Size, ValueAndMaybeMax, ValuesList } from "@module/data";
@@ -245,12 +243,12 @@ interface StrikeData extends StatisticModifier {
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {
-        compatible: RawObject<ConsumableData>[];
-        incompatible: RawObject<ConsumableData>[];
-        selected?: {
+        compatible: ConsumablePF2e[];
+        incompatible: ConsumablePF2e[];
+        selected: {
             id: string;
             compatible: boolean;
-        };
+        } | null;
     };
 
     /** The item that generated this strike */
