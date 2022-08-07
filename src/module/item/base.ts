@@ -453,20 +453,19 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
 
             for (const source of [...nonKits]) {
-                const itemSource = deepClone(source);
-                if (!itemSource.system?.rules) continue;
+                if (!source.system?.rules?.length) continue;
                 if (!(context.keepId || context.keepEmbeddedIds)) {
-                    delete itemSource._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
+                    delete source._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
                 }
 
-                const item = new ItemPF2e(itemSource, { parent: context.parent }) as Embedded<ItemPF2e>;
+                const item = new ItemPF2e(source, { parent: context.parent }) as Embedded<ItemPF2e>;
                 // Pre-load this item's self: roll options for predication by preCreate rule elements
                 item.prepareActorData?.();
 
                 const rules = item.prepareRuleElements({ suppressWarnings: true });
                 for (const rule of rules) {
-                    const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
-                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: nonKits, context });
+                    const ruleSource = source.system.rules[rules.indexOf(rule)] as RuleElementSource;
+                    await rule.preCreate?.({ itemSource: source, ruleSource, pendingItems: nonKits, context });
                 }
             }
 

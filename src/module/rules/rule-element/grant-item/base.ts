@@ -124,8 +124,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         flags.pf2e.itemGrants.push({ id: grantedSource._id });
 
         // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
-        const grantedFlags = mergeObject(grantedSource.flags ?? {}, { pf2e: {} });
-        grantedFlags.pf2e.grantedBy = { id: itemSource._id };
+        grantedSource.flags = mergeObject(grantedSource.flags ?? {}, { pf2e: { grantedBy: { id: itemSource._id } } });
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
