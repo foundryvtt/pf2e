@@ -1,7 +1,6 @@
 <div class="tab proficiencies" data-group="primary" data-tab="proficiencies">
+    <h3 class="header">{{localize "PF2E.CoreSkillsHeader"}}</h3>
     <ol class="overflow-list proficiencies-pane stroke-header">
-        {{> systems/pf2e/templates/actors/partials/images/header_stroke_large.html}}
-        <h3 class="item-name core-title">{{localize "PF2E.CoreSkillsHeader"}}</h3>
         <ol class="skills-list">
             <!-- Core Skills -->
             {{#each data.skills as |skill key|}}
@@ -26,18 +25,15 @@
         </ol>
 
         <!-- Lore Header -->
-        <ol class="lore-header directory-list">
-            <li class="item action-header stroke-header">
-                {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                <h3 class="item-name">{{localize "PF2E.LoreSkillsHeader"}}</h3>
-                <!-- editable: {{editable}} -->
-                {{#if editable}}
-                    <div class="item-controls">
-                        <a class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore"><i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
-                    </div>
-                {{/if}}
-            </li>
-        </ol>
+        <h3 class="header">
+            {{localize "PF2E.LoreSkillsHeader"}}
+            <div class="controls">
+                <button type="button" class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore">
+                    <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
+                </button>
+            </div>
+        </h3>
+
         <ol class="lores-list">
             <!-- Lore Skills -->
             {{#each data.skills as |skill idx|}}
@@ -61,18 +57,18 @@
                 {{/if}}
             {{/each}}
         </ol>
+
         <!-- Combat Proficiencies Header -->
-        <ol class="lore-header directory-list combat-proficiencies">
-            <li class="action-header stroke-header">
-                {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                <h3 class="item-name">{{localize "PF2E.MartialSkillsHeader"}}</h3>
-                {{#if editable}}
-                    <div class="item-controls">
-                        <a class="item-control add" title="{{localize "PF2E.AddCombatProficiency.Title"}}"><i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
-                    </div>
-                {{/if}}
-            </li>
-        </ol>
+        <h3 class="header">
+            {{localize "PF2E.MartialSkillsHeader"}}
+            {{#if editable}}
+                <div class="controls">
+                    <button type="button" class="item-control add" title="{{localize "PF2E.AddCombatProficiency.Title"}}">
+                        <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
+                    </button>
+                </div>
+            {{/if}}
+        </h3>
         <ol class="combat-list">
             <!-- Combat Proficiencies -->
             {{#each data.martial as |proficiency key|}}
