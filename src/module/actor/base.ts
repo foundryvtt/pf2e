@@ -213,12 +213,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return this.system.details.alliance;
     }
 
-    /** @deprecated */
-    get physicalItems() {
-        console.warn("ActorPF2e#physicalItems is deprecated: use ActorPF2e#inventory instead");
-        return this.inventory;
-    }
-
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (condition: ConditionPF2e): ImagePath => {
