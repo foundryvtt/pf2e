@@ -552,7 +552,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         ].includes(this.prototypeToken.texture.src);
         const tokenImgIsActorImg = this.prototypeToken.texture.src === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
-            this.prototypeToken.update({ img: this.img });
+            this.prototypeToken.texture.src = this.img;
         }
 
         // Disable manually-configured vision settings on the prototype token
@@ -1149,10 +1149,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this._source.prototypeToken = mergeObject(this._source.prototypeToken ?? {}, { texture: {} });
         if (this._source.img === ActorPF2e.DEFAULT_ICON) {
             this._source.img =
-                this._source.prototypeToken.texture.src =
-                data.img =
-                data.prototypeToken.texture.src =
-                    `systems/pf2e/icons/default-icons/${data.type}.svg`;
+                this._source.prototypeToken.texture.src = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
         await super._preCreate(data, options, user);
