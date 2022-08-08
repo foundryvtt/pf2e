@@ -1227,7 +1227,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             await this.token?.object?.drawEffects();
             // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
             for (const tokenDoc of this.getActiveTokens(true, true)) {
-                tokenDoc.onActorItemChange();
+                tokenDoc._onUpdateBaseActor();
             }
         });
 

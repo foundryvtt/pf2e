@@ -147,7 +147,7 @@ declare global {
         ): void;
 
         /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
-        protected _onUpdateBaseActor(update?: Record<string, unknown>): void;
+        _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<Actor>): void;
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the post-update process. */
         protected _onUpdateTokenActor(
