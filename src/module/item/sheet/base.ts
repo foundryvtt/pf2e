@@ -66,7 +66,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
-                "action",
                 "armor",
                 "backpack",
                 "book",
@@ -74,10 +73,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 "consumable",
                 "deity",
                 "equipment",
-                "feat",
                 "lore",
                 "melee",
-                "spell",
                 "weapon",
             ].includes(itemData.type),
             detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
@@ -190,6 +187,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 index,
                 rule,
             })),
+            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.html`,
+            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.html`,
         };
     }
 
