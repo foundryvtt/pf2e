@@ -14,7 +14,7 @@ import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "../type
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
-type SpellData = Omit<SpellSource, "data" | "effects" | "flags"> &
+type SpellData = Omit<SpellSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
 export type SpellTraits = ItemTraits<SpellTrait>;

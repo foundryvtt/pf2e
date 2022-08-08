@@ -13,7 +13,7 @@ import { OtherArmorTag } from "./types";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 
-type ArmorData = Omit<ArmorSource, "data" | "effects" | "flags"> &
+type ArmorData = Omit<ArmorSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<ArmorPF2e, "armor", ArmorSystemData, ArmorSource>;
 
 interface ArmorSystemSource extends Investable<PhysicalSystemSource> {

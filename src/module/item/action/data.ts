@@ -13,7 +13,7 @@ import { OneToThree } from "@module/data";
 
 type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 
-type ActionItemData = Omit<ActionItemSource, "data" | "effects" | "flags"> &
+type ActionItemData = Omit<ActionItemSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ActionItemPF2e, "action", ActionSystemData, ActionItemSource>;
 
 type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];

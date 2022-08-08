@@ -14,7 +14,7 @@ import { FEAT_TYPES } from "./values";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 
-type FeatData = Omit<FeatSource, "data" | "effects" | "flags"> &
+type FeatData = Omit<FeatSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<FeatPF2e, "feat", FeatSystemData, FeatSource>;
 
 export type FeatTrait = keyof ConfigPF2e["PF2E"]["featTraits"];

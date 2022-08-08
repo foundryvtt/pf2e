@@ -11,7 +11,7 @@ import { EquipmentTrait, OtherEquipmentTag } from "./types";
 
 type EquipmentSource = BasePhysicalItemSource<"equipment", EquipmentSystemSource>;
 
-type EquipmentData = Omit<EquipmentSource, "data" | "effects" | "flags"> &
+type EquipmentData = Omit<EquipmentSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<EquipmentPF2e, "equipment", EquipmentSystemData, EquipmentSource>;
 
 interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
