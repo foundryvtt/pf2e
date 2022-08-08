@@ -6,7 +6,7 @@
     --space-2xl: 2em;
     --radius: 3px;
 
-    .window-content {
+    .journal-entry-content {
         padding: var(--space-s) var(--space-m);
         font-size: var(--font-size-13);
         overflow-y: hidden;
@@ -18,46 +18,22 @@
 
         @import "header";
 
-        > * + * {
-            margin-top: var(--space-m);
-        }
-
-        .editor-content {
-            --p-space: var(--space-l);
-            --max-width: 570px;
-            display: flex;
-            flex-direction: column;
-            font-size: 1.2em;
-            line-height: 1.5;
-            color: var(--body);
-            padding-bottom: 2em;
-
-            @include journal-entries-pf2e;
-            @include tinymce-system-specific;
-        }
-
-        button[type="submit"] {
-            border: none;
-            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.4);
-            background-color: var(--alt);
-            color: white;
-            max-width: 350px;
-            font-family: var(--serif);
-            font-size: 1.2em;
-            margin: auto;
-            cursor: pointer;
-            text-shadow: 0 0 2px black;
-            line-height: 1;
-            padding: var(--space-m) 0;
-
-            &:hover {
-                text-shadow: 0 0 4px var(--primary);
-                background-color: lighten($alt-color, 10);
-            }
-        }
-
         input[name="name"]:disabled:hover {
             border-bottom: 2px solid transparent;
         }
+    }
+
+    .journal-entry-page section {
+        --p-space: var(--space-l);
+        --max-width: 570px;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2em;
+        line-height: 1.5;
+        color: var(--body);
+        padding-bottom: 2em;
+
+        @include journal-entries-pf2e;
+        @include tinymce-system-specific;
     }
 }
