@@ -6,13 +6,14 @@ import { ItemSheetPF2e } from "../sheet/base";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ActionSheetData> {
-        const data: ItemSheetDataPF2e<ActionItemPF2e> = await super.getData(options);
+        const data = super.getBaseData(options);
 
         // Update icon based on the action cost
         data.item.img = getActionIcon(this.item.actionCost);
 
         return {
             ...data,
+            hasSidebar: true,
             categories: CONFIG.PF2E.actionCategories,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,

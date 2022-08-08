@@ -1,16 +1,17 @@
 import { FeatPF2e } from "@item/feat";
-import { FeatSheetData, ItemSheetDataPF2e } from "../sheet/data-types";
+import { FeatSheetData } from "../sheet/data-types";
 import { ItemSheetPF2e } from "../sheet/base";
 import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<FeatSheetData> {
-        const sheetData: ItemSheetDataPF2e<FeatPF2e> = await super.getData(options);
+        const sheetData = super.getBaseData(options);
 
         const hasLineageTrait = this.item.traits.has("lineage");
 
         return {
             ...sheetData,
+            hasSidebar: true,
             itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "ITEM.TypeFeat"),
             featTypes: CONFIG.PF2E.featTypes,
             actionTypes: CONFIG.PF2E.actionTypes,
