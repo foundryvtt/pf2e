@@ -20,6 +20,10 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     ruleEditing: boolean;
+    ruleLabels: {
+        label: string;
+        recognized: boolean;
+    }[];
     ruleSelection: {
         selected: string | null;
         types: Record<string, string>;

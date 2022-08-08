@@ -135,17 +135,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sheetData.proficiencies = CONFIG.PF2E.proficiencyLevels;
         }
 
-        const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-        sheetData.ruleLabels = itemData.system.rules.map((ruleData: RuleElementSource) => {
-            const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
-            const label = translations[key] ?? translations.Unrecognized;
-            const recognized = label !== translations.Unrecognized;
-            return {
-                label: recognized ? label : game.i18n.localize("PF2E.RuleElement.Unrecognized"),
-                recognized,
-            };
-        });
-
         return sheetData;
     }
 
@@ -175,6 +164,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
+            ruleLabels: rules.map((ruleData: RuleElementSource) => {
+                const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
+                const label = translations[key] ?? translations.Unrecognized;
+                const recognized = label !== translations.Unrecognized;
+                return { label, recognized };
+            }),
             ruleSelection: {
                 selected: this.selectedRuleElementType,
                 types: sortStringRecord(
