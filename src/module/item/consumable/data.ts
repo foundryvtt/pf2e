@@ -11,7 +11,7 @@ import type { ConsumablePF2e } from ".";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
-type ConsumableData = Omit<ConsumableSource, "data" | "effects" | "flags"> &
+type ConsumableData = Omit<ConsumableSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<ConsumablePF2e, "consumable", ConsumableSystemData, ConsumableSource>;
 
 type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];

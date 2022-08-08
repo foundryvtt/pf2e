@@ -7,7 +7,7 @@ import type { AncestryPF2e } from ".";
 
 type AncestrySource = BaseItemSourcePF2e<"ancestry", AncestrySystemSource>;
 
-type AncestryData = Omit<AncestrySource, "data" | "effects" | "flags"> &
+type AncestryData = Omit<AncestrySource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<AncestryPF2e, "ancestry", AncestrySystemData, AncestrySource>;
 
 export type CreatureTraits = ItemTraits<CreatureTrait>;

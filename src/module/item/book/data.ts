@@ -4,7 +4,7 @@ import type { BookPF2e } from "./document";
 
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 
-type BookData = Omit<BookSource, "data" | "effects" | "flags"> &
+type BookData = Omit<BookSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<BookPF2e, "book", BookSystemData, BookSource>;
 
 type BookSystemSource = EquipmentSystemSource & {

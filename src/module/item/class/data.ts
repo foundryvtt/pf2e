@@ -7,7 +7,7 @@ import { CLASS_TRAITS } from "./values";
 
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 
-type ClassData = Omit<ClassSource, "data" | "effects" | "flags"> &
+type ClassData = Omit<ClassSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ClassPF2e, "class", ClassSystemData, ClassSource>;
 
 interface ClassSystemSource extends ABCSystemData {

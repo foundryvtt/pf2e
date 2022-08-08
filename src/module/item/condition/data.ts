@@ -4,7 +4,7 @@ import { ConditionPF2e } from ".";
 
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 
-type ConditionData = Omit<ConditionSource, "data" | "effects" | "flags"> &
+type ConditionData = Omit<ConditionSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSystemData, ConditionSource>;
 
 interface ConditionSystemSource extends ItemSystemSource {

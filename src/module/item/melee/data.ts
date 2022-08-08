@@ -15,7 +15,7 @@ type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
     flags: DeepPartial<MeleeFlags>;
 };
 
-type MeleeData = Omit<MeleeSource, "data" | "effects" | "flags"> &
+type MeleeData = Omit<MeleeSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource> & {
         flags: MeleeFlags;
     };

@@ -6,7 +6,7 @@ import { BackgroundPF2e } from ".";
 
 type BackgroundSource = BaseItemSourcePF2e<"background", BackgroundSystemSource>;
 
-type BackgroundData = Omit<BackgroundSource, "data" | "effects" | "flags"> &
+type BackgroundData = Omit<BackgroundSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<BackgroundPF2e, "background", BackgroundSystemData, BackgroundSource>;
 
 interface BackgroundSystemSource extends ABCSystemData {
