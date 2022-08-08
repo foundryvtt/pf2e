@@ -1,4 +1,11 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemFlagsPF2e, ItemLevelData, ItemSystemData } from "@item/data/base";
+import {
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    ItemFlagsPF2e,
+    ItemLevelData,
+    ItemSystemData,
+    ItemSystemSource,
+} from "@item/data/base";
 import { OneToFour } from "@module/data";
 import { EffectPF2e } from ".";
 
@@ -6,7 +13,7 @@ type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
 
-type EffectData = Omit<EffectSource, "data" | "effects" | "flags"> &
+type EffectData = Omit<EffectSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
         flags: EffectFlags;
     };
@@ -17,7 +24,7 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends ItemSystemData, ItemLevelData {
+interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     start: {
         value: number;
         initiative: number | null;
@@ -36,7 +43,7 @@ interface EffectSystemSource extends ItemSystemData, ItemLevelData {
     badge: EffectBadge | null;
 }
 
-interface EffectSystemData extends ItemSystemData, EffectSystemSource {
+interface EffectSystemData extends EffectSystemSource, ItemSystemData {
     expired: boolean;
     remaining: string;
 }
