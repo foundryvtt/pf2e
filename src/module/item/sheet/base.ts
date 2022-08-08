@@ -67,7 +67,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
                 "armor",
-                "backpack",
                 "book",
                 "condition",
                 "consumable",
@@ -119,12 +118,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.system.traits);
             sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
             sheetData.stackGroups = CONFIG.PF2E.stackGroups;
-            sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-            sheetData.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === "backpack") {
-            // Backpack data
-            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.system.traits);
-            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
             sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "lore") {

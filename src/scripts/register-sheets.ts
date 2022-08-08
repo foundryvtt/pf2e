@@ -25,6 +25,7 @@ import { JournalSheetPF2e, JournalSheetStyledPF2e } from "@module/journal-entry/
 import { SceneConfigPF2e } from "@scene/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { EquipmentSheetPF2e } from "@item/equipment/sheet";
+import { ContainerSheetPF2e } from "@item/container/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -109,6 +110,7 @@ export function registerSheets() {
         ["ancestry", AncestrySheetPF2e],
         ["armor", ArmorSheetPF2e],
         ["background", BackgroundSheetPF2e],
+        ["backpack", ContainerSheetPF2e],
         ["book", BookSheetPF2e],
         ["class", ClassSheetPF2e],
         ["deity", DeitySheetPF2e],
