@@ -29,24 +29,26 @@
             </div>
         </div>
     {{/each}}
+
     {{#if (and conditions.length effects.length)}}<hr />{{/if}}
-    {{#each effects}}
+
+    {{#each effects as |effect|}}
         <div class="effect-item spell">
             <div class="effect-info">
-                <h1>{{this.name}}</h1>
+                <h1>{{effect.name}}</h1>
                 <div class="tags">
-                    {{#if (and this.data.duration.sustained (eq this.data.expired false))}}
+                    {{#if (and effect.system.duration.sustained (not effect.system.expired))}}
                         <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Sustained"}}</div>
                     {{/if}}
-                    <div class="tag tag_secondary">{{this.data.remaining}}</div>
+                    <div class="tag tag_secondary">{{effect.system.remaining}}</div>
                 </div>
                 <div class="instructions">
                     <p>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</p>
                 </div>
             </div>
-            <div class="icon" data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
-                {{#if this.data.expired}}
-                    <span class="expired">expired</span>
+            <div class="icon" data-item-id="{{effect.id}}" style="background-image: url({{effect.img}})">
+                {{#if effect.system.expired}}
+                    <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
                 {{/if}}
                 <i class="fas fa-comment-alt"></i>
             </div>

@@ -28,49 +28,49 @@ export class EffectsPanel extends Application {
         });
     }
 
-    override getData(options?: ApplicationOptions): EffectsPanelData {
-        const data: EffectsPanelData = {
-            ...super.getData(options),
-            actor: this.actor,
-            effects: [],
-            conditions: [],
-        };
-
-        const { itemTypes } = data.actor ?? { itemTypes: { condition: [], effect: [] } };
-
-        data.effects = itemTypes.effect.map((effect) => {
-            const duration = effect.totalDuration;
-            const systemData = effect.system;
-            if (duration === Infinity) {
-                if (systemData.duration.unit === "encounter") {
-                    systemData.remaining = systemData.expired
-                        ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                        : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
+    override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
+        const { actor } = this;
+        const effects =
+            actor?.itemTypes.effect.map((effect) => {
+                const duration = effect.totalDuration;
+                const { system } = effect;
+                if (duration === Infinity) {
+                    if (system.duration.unit === "encounter") {
+                        system.remaining = system.expired
+                            ? game.i18n.localize("PF2E.EffectPanel.Expired")
+                            : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
+                    } else {
+                        system.expired = false;
+                        system.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
+                    }
                 } else {
-                    systemData.expired = false;
-                    systemData.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
+                    const duration = effect.remainingDuration;
+                    system.expired = duration.expired;
+                    system.remaining = system.expired
+                        ? game.i18n.localize("PF2E.EffectPanel.Expired")
+                        : EffectsPanel.getRemainingDurationLabel(
+                              duration.remaining,
+                              system.start.initiative ?? 0,
+                              system.duration.expiry
+                          );
                 }
-            } else {
-                const duration = effect.remainingDuration;
-                systemData.expired = duration.expired;
-                systemData.remaining = systemData.expired
-                    ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                    : EffectsPanel.getRemainingDurationLabel(
-                          duration.remaining,
-                          systemData.start.initiative ?? 0,
-                          systemData.duration.expiry
-                      );
+                return effect;
+            }) ?? [];
+
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor?.itemTypes.condition ?? []).map(
+            (condition) => {
+                condition.locked = condition.parents.length > 0;
+                condition.breakdown = EffectsPanel.getParentConditionsBreakdown(condition.parents);
+                return condition;
             }
-            return effect;
-        });
+        );
 
-        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(itemTypes.condition).map((condition) => {
-            condition.locked = condition.parents.length > 0;
-            condition.breakdown = EffectsPanel.getParentConditionsBreakdown(condition.parents);
-            return condition;
-        });
-
-        return data;
+        return {
+            ...(await super.getData(options)),
+            actor,
+            effects,
+            conditions,
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -108,14 +108,14 @@ export class EffectsPanel extends Application {
     }
 
     private static getParentConditionsBreakdown(conditions: ConditionReference[]): string {
-        let breakdown = "";
-        if ((conditions ?? []).length > 0) {
-            const list = Array.from(new Set(conditions.map((p) => p.name)))
+        if (conditions.length > 0) {
+            const list = Array.from(new Set(conditions.map((c) => c.name)))
                 .sort()
                 .join(", ");
-            breakdown = `${game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list })}`;
+            return game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list });
         }
-        return breakdown;
+
+        return "";
     }
 
     private static getRemainingDurationLabel(
