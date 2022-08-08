@@ -5,11 +5,6 @@ import type * as TinyMCE from "tinymce";
 import "../../styles/tinymce.scss";
 
 class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
-    override get template(): string {
-        if (this._sheetMode === "image") return ImagePopout.defaultOptions.template;
-        return "systems/pf2e/templates/journal/sheet.html";
-    }
-
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         InlineRollLinks.listen($html);
