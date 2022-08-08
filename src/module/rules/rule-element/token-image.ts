@@ -6,11 +6,11 @@ import { RuleElementPF2e } from "./";
  */
 export class TokenImageRuleElement extends RuleElementPF2e {
     override afterPrepareData(): void {
-        const img = this.resolveValue();
-        if (typeof img !== "string") return this.failValidation("Missing value field");
+        const src = this.resolveValue();
+        if (typeof src !== "string") return this.failValidation("Missing value field");
 
         if (!this.test()) return;
 
-        mergeObject(this.actor.overrides, { token: { img } });
+        this.actor.overrides = mergeObject(this.actor.overrides, { prototypeToken: { texture: { src } } });
     }
 }

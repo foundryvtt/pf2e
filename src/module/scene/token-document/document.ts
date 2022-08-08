@@ -6,6 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenDataPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
+import { ActorSourcePF2e } from "@actor/data";
 
 class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -265,8 +266,11 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /* -------------------------------------------- */
 
     /** Rerun token data preparation and possibly redraw token when the actor's embedded items change */
-    onActorItemChange(): void {
-        if (!this.isLinked) return; // Handled by upstream
+    override _onUpdateBaseActor(
+        updates?: DeepPartial<ActorSourcePF2e>,
+        options?: DocumentModificationContext<ActorPF2e>
+    ): void {
+        if (!this.isLinked) return super._onUpdateBaseActor(updates, options);
 
         const currentData = this.toObject(false);
         this.prepareData();
@@ -280,6 +284,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             if (!canvas.tokens.kimsNaughtyModule) this.object.auras.draw();
             this.scene.checkAuras();
         }
+
+        super._onUpdateBaseActor(updates, options);
     }
 
     /** Toggle token hiding if this token's actor is a loot actor */
