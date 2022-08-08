@@ -486,14 +486,15 @@ class CharacterPF2e extends CreaturePF2e {
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
 
-                const conLevelBonus = systemData.abilities.con.mod * this.level;
+                // Facilitate level-zero variant play by always adding the constitution modifier at at least level 1
+                const conHP = systemData.abilities.con.mod * Math.max(this.level, 1);
                 modifiers.push(
                     new ModifierPF2e({
                         slug: "hp-con",
                         label: "PF2E.AbilityCon",
                         ability: "con",
                         type: MODIFIER_TYPE.ABILITY,
-                        modifier: conLevelBonus,
+                        modifier: conHP,
                         adjustments: extractModifierAdjustments(
                             synthetics.modifierAdjustments,
                             ["con-based"],
