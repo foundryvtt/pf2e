@@ -96,13 +96,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
+        const origin = this.flags.pf2e?.origin ?? null;
         const item = (() => {
-            const domItem = this.getItemFromDOM();
-            if (domItem) return domItem;
-
-            const origin = this.flags.pf2e?.origin ?? null;
-            const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-            return this.actor?.items.get(match?.[1] ?? "") ?? null;
+            if (origin?.uuid) {
+                return fromUuidSync<Embedded<ItemPF2e>>(origin.uuid);
+            }
+            return null;
         })();
         if (!item) return null;
 
@@ -122,24 +121,6 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
 
         return item;
-    }
-
-    /** Get stringified item source from the DOM-rendering of this chat message */
-    getItemFromDOM(): Embedded<ItemPF2e> | null {
-        const $domMessage = $("ol#chat-log").children(`li[data-message-id="${this.id}"]`);
-        const sourceString = $domMessage.find("div.pf2e.item-card").attr("data-embedded-item") ?? "null";
-        try {
-            const itemSource = JSON.parse(sourceString);
-            const item = itemSource
-                ? new ItemPF2e(itemSource, {
-                      parent: this.actor,
-                      fromConsumable: this.flags?.pf2e?.isFromConsumable,
-                  })
-                : null;
-            return item as Embedded<ItemPF2e> | null;
-        } catch (_error) {
-            return null;
-        }
     }
 
     async showDetails() {

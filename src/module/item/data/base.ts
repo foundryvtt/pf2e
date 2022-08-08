@@ -47,6 +47,12 @@ interface ItemFlagsPF2e extends foundry.data.ItemFlags {
         rulesSelections: Record<string, string | number | object>;
         itemGrants: ItemGrantData[];
         grantedBy: ItemGrantData | null;
+        consumableData?: {
+            uuid: ItemUUID;
+            spellUuid: ItemUUID;
+            type: "scroll" | "wand";
+            fromData?: boolean;
+        };
         [key: string]: unknown;
     };
 }

@@ -4,6 +4,7 @@ import { RawModifier } from "@actor/modifiers";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { CheckRollContextFlag } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
+import { TrickMagicItemSkill } from "@item/spellcasting-entry/trick";
 
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
     extends foundry.data.ChatMessageData<TChatMessage> {
@@ -24,6 +25,15 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";
         isFromConsumable?: boolean;
+        consumableData?: {
+            originalOwner?: string;
+            consumableUuid?: ItemUUID;
+            consumableType?: "wand" | "scroll";
+            spellUuid?: ItemUUID;
+            data?: string | null;
+            castLevel: number;
+            trickMagicItemSkill?: TrickMagicItemSkill;
+        };
         journalEntry?: DocumentUUID;
         spellVariant?: { overlayIds: string[] };
         [key: string]: unknown;

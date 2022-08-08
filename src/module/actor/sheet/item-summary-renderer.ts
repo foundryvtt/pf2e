@@ -1,5 +1,5 @@
-import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
-import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -198,7 +198,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                     buttons.append(`<span>${save.label}</span>`);
                 }
 
-                if (actor instanceof CharacterPF2e) {
+                if (actor.isOfType("character")) {
                     if (Array.isArray(chatData.variants) && chatData.variants.length) {
                         const label = game.i18n.localize("PF2E.Item.Spell.Variants.SelectVariantLabel");
                         buttons.append(
@@ -221,7 +221,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
 
                 break;
             case "consumable":
-                if (item instanceof ConsumablePF2e && item.uses.max > 0 && item.isIdentified) {
+                if (item.isOfType("consumable") && item.uses.max > 0 && item.isIdentified) {
                     const label = game.i18n.localize("PF2E.ConsumableUseLabel");
                     buttons.append(
                         `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
@@ -233,11 +233,11 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
 
         $div.append(buttons);
 
-        buttons.find("button").on("click", (event) => {
+        buttons.find("button").on("click", async (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
+            const spell = item.isOfType("spell") ? item : null;
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
@@ -248,7 +248,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                     spell?.rollDamage(event);
                     break;
                 case "consume":
-                    if (item instanceof ConsumablePF2e) item.consume();
+                    if (item.isOfType("consumable")) item.consume();
                     break;
                 case "selectVariant":
                     spell?.toMessage();

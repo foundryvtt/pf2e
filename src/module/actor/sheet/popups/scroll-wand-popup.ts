@@ -31,10 +31,15 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     }
 
     override async getData(): Promise<FormApplicationData<ActorPF2e>> {
-        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = await super.getData();
+        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[]; fromWorldItem?: boolean } =
+            await super.getData();
 
         if (!this.spell) {
             throw ErrorPF2e("ScrollWandPopup | Could not read spelldata");
+        }
+
+        if (!this.spell.uuid.startsWith("Compendium.")) {
+            ui.notifications.warn(game.i18n.localize("PF2E.ScrollWandPopup.warning"));
         }
 
         const minimumLevel = this.spell.baseLevel;

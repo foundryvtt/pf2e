@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection";
 import { ErrorPF2e } from "@util";
 
@@ -24,8 +24,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
         return this.regular.filter((entry) => entry.isPrepared || entry.isSpontaneous);
     }
 
-    canCastConsumable(item: ConsumablePF2e): boolean {
-        const spell = item.embeddedSpell;
+    canCastConsumable(spell?: SpellPF2e): boolean {
         return !!spell && this.spellcastingFeatures.some((entry) => entry.canCastSpell(spell));
     }
 

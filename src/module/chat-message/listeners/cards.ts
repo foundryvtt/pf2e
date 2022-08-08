@@ -1,7 +1,7 @@
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -24,7 +24,7 @@ export const ChatCards = {
             const action = $button.attr("data-action");
 
             // Get the actor and item from the chat message
-            const item = message.item;
+            const item = message.item ? message.item : await ConsumablePF2e.spellFromChatMessage(message);
             const actor = item?.actor ?? message.actor;
             if (!actor) return;
 
@@ -32,7 +32,7 @@ export const ChatCards = {
             if (!game.user.isGM && !actor.isOwner && action !== "save") return;
 
             if (item && !action?.startsWith("strike-")) {
-                const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
+                const spell = item.isOfType("spell") ? item : null;
                 const strikes: StrikeData[] = actor.isOfType("character", "npc") ? actor.system.actions : [];
                 const strike = strikes.find((a) => a.item.id === item.id && a.item.slug === item.slug) ?? null;
                 const rollOptions = actor.getRollOptions(["all", "attack-roll"]);
@@ -70,8 +70,7 @@ export const ChatCards = {
                 else if (action === "spellCounteract") spell?.rollCounteract(event);
                 else if (action === "spellTemplate") spell?.placeTemplate();
                 else if (action === "selectVariant") {
-                    const castLevel =
-                        Number($html[0].querySelector<HTMLElement>("div.chat-card")?.dataset.castLevel) || 1;
+                    const castLevel = Number($card[0].dataset.castLevel) || 1;
                     const overlayIdString = $button.attr("data-overlay-ids");
                     const originalId = $button.attr("data-original-id") ?? "";
                     if (overlayIdString) {
@@ -87,8 +86,15 @@ export const ChatCards = {
                                 await message.update(messageSource);
                             }
                         }
-                    } else if (originalId) {
-                        const originalSpell = actor.items.get(originalId, { strict: true });
+                    } else if (originalId || spell?.isFromConsumable) {
+                        const originalSpell = await (async () => {
+                            if (spell?.isFromConsumable) {
+                                return ConsumablePF2e.spellFromChatMessage(message, true);
+                            }
+                            return actor.items.get(originalId, { strict: true });
+                        })();
+                        if (!originalSpell) return;
+
                         const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
                             data: { castLevel },

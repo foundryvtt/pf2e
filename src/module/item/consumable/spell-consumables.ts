@@ -65,10 +65,11 @@ async function createConsumableFromSpell(
     consumableSource.system.traits.value.push(...spell.traditions);
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
-    consumableSource.system.description.value =
-        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr />${description}`;
-    consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
-
+    consumableSource.system.description.value = `@UUID[${spell.uuid}]` + `\n<hr/>${description}`;
+    consumableSource.system.spell = {
+        uuid: spell.uuid,
+        heightenedLevel,
+    };
     return consumableSource;
 }
 

@@ -35,13 +35,7 @@ import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types
 import { SpellOverlayCollection } from "./overlay";
 import { ActionTrait } from "@item/action/data";
 
-interface SpellConstructionContext extends ItemConstructionContextPF2e {
-    fromConsumable?: boolean;
-}
-
 class SpellPF2e extends ItemPF2e {
-    readonly isFromConsumable: boolean;
-
     /** The original spell. Only exists if this is a variant */
     original?: SpellPF2e;
     /** The overlays that were applied to create this variant */
@@ -145,9 +139,12 @@ class SpellPF2e extends ItemPF2e {
         return this.isVariant ? this.original!.uuid : super.uuid;
     }
 
-    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
+    get isFromConsumable(): boolean {
+        return !!this.flags.pf2e.consumableData;
+    }
+
+    constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         super(data, mergeObject(context, { pf2e: { ready: true } }));
-        this.isFromConsumable = context.fromConsumable ?? false;
     }
 
     private computeCastLevel(castLevel?: number): number {
@@ -307,6 +304,11 @@ class SpellPF2e extends ItemPF2e {
                 mergeObject(source.system, overlay.system);
             }
 
+            if (this.isFromConsumable) {
+                // This is not persisted so it has to be set manually
+                source.system.location.value = this.system.location.value;
+            }
+
             return source;
         })();
         if (!override) return null;
@@ -314,6 +316,8 @@ class SpellPF2e extends ItemPF2e {
         const variantSpell = new SpellPF2e(override, { parent: this.actor }) as Embedded<SpellPF2e>;
         variantSpell.original = this;
         variantSpell.appliedOverlays = appliedOverlays;
+        variantSpell.trickMagicEntry = this.trickMagicEntry;
+
         return variantSpell;
     }
 
@@ -436,6 +440,23 @@ class SpellPF2e extends ItemPF2e {
         }
 
         messageSource.flags.pf2e.isFromConsumable = this.isFromConsumable;
+        if (this.isFromConsumable) {
+            const { uuid, type, spellUuid, fromData } = this.flags.pf2e.consumableData ?? {};
+            messageSource.flags.pf2e.consumableData = {
+                originalOwner: this.actor?.id,
+                consumableUuid: uuid,
+                consumableType: type,
+                spellUuid: spellUuid,
+                castLevel: this.level,
+                trickMagicItemSkill: this.trickMagicEntry?.skill,
+                // This is only set for spells from old consumables with embedded data
+                data: fromData
+                    ? this.isVariant
+                        ? JSON.stringify(this.original!.toObject())
+                        : JSON.stringify(this.toObject())
+                    : null,
+            };
+        }
 
         if (this.isVariant) {
             messageSource.flags.pf2e.spellVariant = {
@@ -563,10 +584,6 @@ class SpellPF2e extends ItemPF2e {
             ...CONFIG.PF2E.magicTraditions,
         });
 
-        // Embedded item string for consumable fetching.
-        // This needs to be refactored in the future so that injecting DOM strings isn't necessary
-        const item = this.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
-
         return {
             ...systemData,
             description: { value: description },
@@ -590,7 +607,6 @@ class SpellPF2e extends ItemPF2e {
             areaSize,
             areaType,
             areaUnit,
-            item,
             variants,
         };
     }

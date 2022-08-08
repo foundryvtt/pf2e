@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "@actor/sheet/base";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
-import { ConsumablePF2e, SpellPF2e } from "@item";
+import { ConsumablePF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
 import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, tagify } from "@util";
@@ -211,7 +211,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         });
 
         // NPC Weapon Rolling
-        $html.find("button").on("click", (event) => {
+        $html.find("button").on("click", async (event) => {
             event.preventDefault();
             event.stopPropagation();
 
@@ -220,7 +220,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             if (!item) {
                 throw ErrorPF2e(`Item ${itemId} not found`);
             }
-            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
+            const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? await item.embeddedSpell : null;
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
