@@ -5,6 +5,20 @@ import type * as TinyMCE from "tinymce";
 import "../../styles/tinymce.scss";
 
 class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
+    static get theme(): string | null {
+        return null;
+    }
+
+    /** Use the system-themed styling only if the setting is enabled (on by default) */
+    static override get defaultOptions(): DocumentSheetOptions {
+        const options = super.defaultOptions;
+        const { theme } = this;
+        if (theme) {
+            options.classes.push(theme);
+        }
+        return options;
+    }
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         InlineRollLinks.listen($html);
@@ -16,11 +30,10 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
 
         options = foundry.utils.mergeObject(editor.options, options);
         options.height = options.target?.offsetHeight;
-
-        const defaults = (this.constructor as typeof JournalSheetPF2e).defaultOptions.classes;
         TextEditorPF2e.create(options, initialContent || editor.initial).then((mce) => {
-            if (defaults.includes("pf2e")) {
-                mce.getBody().classList.add("pf2e");
+            const theme = (this.constructor as typeof JournalSheetPF2e).theme;
+            if (theme) {
+                mce.getBody().classList.add(theme);
             }
 
             editor.mce = mce;
@@ -33,11 +46,8 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
 }
 
 class JournalSheetStyledPF2e extends JournalSheetPF2e {
-    /** Use the system-themed styling only if the setting is enabled (on by default) */
-    static override get defaultOptions(): DocumentSheetOptions {
-        const options = super.defaultOptions;
-        options.classes.push("pf2e");
-        return options;
+    static override get theme() {
+        return "pf2e";
     }
 }
 

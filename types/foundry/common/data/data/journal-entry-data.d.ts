@@ -28,9 +28,12 @@ declare module foundry {
         }
 
         class JournalEntryData<
-            TDocument extends documents.BaseJournalEntry = documents.BaseJournalEntry
+            TDocument extends documents.BaseJournalEntry = documents.BaseJournalEntry,
+            TPage extends documents.BaseJournalEntryPage = documents.BaseJournalEntryPage
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
+
+            pages: abstract.EmbeddedCollection<TPage>;
         }
 
         interface JournalEntryData extends JournalEntrySource {

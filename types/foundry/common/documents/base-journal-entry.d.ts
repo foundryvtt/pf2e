@@ -5,6 +5,8 @@ declare module foundry {
             static override get schema(): typeof data.JournalEntryData;
 
             static override get metadata(): JournalEntryMetadata;
+
+            get pages(): this["data"]["pages"];
         }
 
         interface BaseJournalEntry {
@@ -19,7 +21,13 @@ declare module foundry {
     interface JournalEntryMetadata extends abstract.DocumentMetadata {
         name: "JournalEntry";
         collection: "journal";
+        indexed: true;
+        compendiumIndexFields: ["_id", "name", "sort"];
+        embedded: {
+            JournalEntryPage: typeof documents.BaseJournalEntryPage;
+        };
         label: "DOCUMENT.JournalEntry";
+        labelPlural: "DOCUMENT.JournalEntries";
         isPrimary: true;
         permissions: Omit<abstract.DocumentMetadata["permissions"], "create"> & {
             create: "JOURNAL_CREATE";

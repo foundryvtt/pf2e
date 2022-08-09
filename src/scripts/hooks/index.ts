@@ -15,6 +15,7 @@ import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
 import { RenderDialog } from "./render-dialog";
 import { RenderSceneControls } from "./render-scene-controls";
 import { RenderSettings } from "./render-settings";
+import { RenderJournalPageSheet } from "./render-journal-page-sheet";
 import { Setup } from "./setup";
 import { UpdateWorldTime } from "./update-world-time";
 
@@ -38,6 +39,7 @@ export const HooksPF2e = {
             RenderDialog,
             RenderSceneControls,
             RenderSettings,
+            RenderJournalPageSheet,
             Setup,
             UpdateWorldTime,
         ];
