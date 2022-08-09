@@ -1406,8 +1406,10 @@ class CharacterPF2e extends CreaturePF2e {
         const score = systemData.abilities[defaultAbility].value;
         modifiers.push(AbilityModifier.fromScore(defaultAbility, score));
         if (weapon.isMelee && weaponTraits.has("finesse")) {
-            const dexScore = systemData.abilities.dex.value;
-            modifiers.push(AbilityModifier.fromScore("dex", dexScore));
+            modifiers.push(AbilityModifier.fromScore("dex", systemData.abilities.dex.value));
+        }
+        if (weapon.isRanged && weaponTraits.has("brutal")) {
+            modifiers.push(AbilityModifier.fromScore("str", systemData.abilities.str.value));
         }
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet

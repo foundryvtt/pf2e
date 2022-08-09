@@ -549,6 +549,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         !(t.startsWith("thrown") && !this.isThrown) &&
                         // Finesse trait on thrown attacks with thrown melee weapons
                         !(t === "finesse" && this.isRanged) &&
+                        // Brutal trait on melee attacks
+                        !(t === "brutal" && this.isMelee) &&
                         // Combination trait on melee or thrown attacks with combination weapons
                         !(t === "combination" && (this.isMelee || this.isThrown)) &&
                         // Critical fusion trait on thrown attacks with melee usage of combination weapons
