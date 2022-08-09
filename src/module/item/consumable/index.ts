@@ -10,6 +10,9 @@ import { createConsumableFromSpell } from "./spell-consumables";
 import { SpellSource } from "@item/data";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
+    /** The cached spell embedded in this item */
+    #spell?: Embedded<SpellPF2e>;
+
     get consumableType(): ConsumableType {
         return this.system.consumableType.value;
     }
@@ -31,9 +34,12 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     get embeddedSpell(): Promise<Embedded<SpellPF2e> | null> {
-        if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
-        const type = this.system.consumableType.value;
         return (async () => {
+            if (this.#spell) {
+                return this.#spell;
+            }
+            if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
+            const type = this.system.consumableType.value;
             if (!(type === "scroll" || type === "wand")) return null;
 
             // Get spell for old items with embedded data
@@ -58,6 +64,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                     if (entry) {
                         embeddedSpell.system.location.value = entry.id;
                     }
+                    this.#spell = embeddedSpell;
                     return embeddedSpell;
                 }
                 throw ErrorPF2e(`Could not find Spell with UUID "${uuid}"!`);
@@ -87,6 +94,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         if (entry) {
             spell.system.location.value = entry.id;
         }
+        this.#spell = spell;
         return spell;
     }
 
@@ -151,9 +159,9 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         const { value, max } = this.uses;
         const spell = await this.embeddedSpell;
 
-        if (["scroll", "wand"].includes(this.system.consumableType.value) && this.system.spell) {
-            if (this.actor.spellcasting.canCastConsumable(this)) {
-                this.castEmbeddedSpell();
+        if (["scroll", "wand"].includes(this.system.consumableType.value) && spell) {
+            if (await this.actor.spellcasting.canCastConsumable(this)) {
+                this.castEmbeddedSpell(spell);
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this, spell);
             } else {
@@ -211,28 +219,21 @@ class ConsumablePF2e extends PhysicalItemPF2e {
      * @param chatMessage The chat message where the consumable item was referenced.
      * @param original Return the original spell instead of a variant. Defaults to `false`.
      */
-    static async spellFromChatMessage(message: ChatMessagePF2e, original = false): Promise<Embedded<SpellPF2e> | null> {
-        const { consumableUuid, consumableType, spellUuid, data, castLevel, originalOwner, trickMagicItemSkill } =
+    static async spellFromChatMessage(message: ChatMessagePF2e): Promise<Embedded<SpellPF2e> | null> {
+        const { consumableUuid, consumableType, spellUuid, data, castLevel, originalOwner } =
             message.flags.pf2e.consumableData ?? {};
-        const overlayIds = message.flags.pf2e.spellVariant?.overlayIds;
 
         const spellFromTempConsumable = async (spell: SpellPF2e, spellSource?: SpellSource) => {
             if (originalOwner && consumableType) {
                 const parent = game.actors.get(originalOwner);
                 if (parent) {
-                    const source = await createConsumableFromSpell(consumableType, spell, castLevel);
+                    const consumableSource = await createConsumableFromSpell(consumableType, spell, castLevel);
+                    // Set embedded data if the spell source data was provided from an old consumable item
                     if (data) {
-                        source.system.spell.data = spellSource;
+                        consumableSource.system.spell.data = spellSource;
                     }
-                    const tempConsumable = new ConsumablePF2e(source, { parent });
-                    const embeddedSpell = await tempConsumable.embeddedSpell;
-                    if (trickMagicItemSkill && embeddedSpell && parent.isOfType("character")) {
-                        embeddedSpell.trickMagicEntry = new TrickMagicItemEntry(parent, trickMagicItemSkill);
-                    }
-                    if (!original && embeddedSpell && overlayIds) {
-                        return embeddedSpell.loadVariant({ overlayIds, castLevel });
-                    }
-                    return embeddedSpell;
+                    const tempConsumable = new ConsumablePF2e(consumableSource, { parent });
+                    return tempConsumable.embeddedSpell;
                 }
             }
             return null;
@@ -244,19 +245,11 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             return spellFromTempConsumable(new SpellPF2e(source), source);
         }
 
-        // New item with a consumableUuid
+        // New item with a consumable Uuid
         if (consumableUuid) {
             const consumable = fromUuidSync<Embedded<ConsumablePF2e>>(consumableUuid);
             if (consumable) {
-                const spell = await consumable.embeddedSpell;
-                if (trickMagicItemSkill && spell?.actor.isOfType("character")) {
-                    spell.trickMagicEntry = new TrickMagicItemEntry(spell.actor, trickMagicItemSkill);
-                }
-                if (!original && spell && overlayIds) {
-                    const castLevel = spell.system.location.heightenedLevel ?? 1;
-                    return spell.loadVariant({ overlayIds, castLevel });
-                }
-                return spell;
+                return consumable.embeddedSpell;
             }
 
             // The consumable item no longer exists. Try creating a temporary one
@@ -266,7 +259,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                 if (spell) {
                     return spellFromTempConsumable(spell);
                 }
-                console.warn(`The spell with UUID [${spellUuid}] could not be retrieved. Maybe it was deleted?`);
+                console.error(`The spell with UUID [${spellUuid}] could not be retrieved. Maybe it was deleted?`);
             }
         }
         return null;

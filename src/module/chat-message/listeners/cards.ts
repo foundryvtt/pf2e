@@ -24,7 +24,7 @@ export const ChatCards = {
             const action = $button.attr("data-action");
 
             // Get the actor and item from the chat message
-            const item = message.item ? message.item : await ConsumablePF2e.spellFromChatMessage(message);
+            const item = await message.item;
             const actor = item?.actor ?? message.actor;
             if (!actor) return;
 
@@ -89,18 +89,20 @@ export const ChatCards = {
                     } else if (originalId || spell?.isFromConsumable) {
                         const originalSpell = await (async () => {
                             if (spell?.isFromConsumable) {
-                                return ConsumablePF2e.spellFromChatMessage(message, true);
+                                return ConsumablePF2e.spellFromChatMessage(message);
                             }
                             return actor.items.get(originalId, { strict: true });
                         })();
                         if (!originalSpell) return;
 
-                        const originalMessage = await originalSpell.toMessage(undefined, {
-                            create: false,
-                            data: { castLevel },
-                        });
-                        if (originalMessage) {
-                            await message.update(originalMessage.toObject());
+                        const content = (
+                            await originalSpell.toMessage(undefined, {
+                                create: false,
+                                data: { castLevel },
+                            })
+                        )?.content;
+                        if (content) {
+                            await message.update({ content });
                         }
                     }
                 }

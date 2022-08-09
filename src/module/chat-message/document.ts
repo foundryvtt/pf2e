@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e } from "@item";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
@@ -95,32 +95,41 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the owned item associated with this chat message */
-    get item(): Embedded<ItemPF2e> | null {
-        const origin = this.flags.pf2e?.origin ?? null;
-        const item = (() => {
-            if (origin?.uuid) {
-                return fromUuidSync<Embedded<ItemPF2e>>(origin.uuid);
+    get item(): Promise<Embedded<ItemPF2e> | null> {
+        return (async () => {
+            const item = await (async () => {
+                if (this.flags.pf2e.consumableData) {
+                    return ConsumablePF2e.spellFromChatMessage(this);
+                }
+
+                const origin = this.flags.pf2e?.origin ?? null;
+                if (origin?.uuid) {
+                    return fromUuidSync<Embedded<ItemPF2e>>(origin.uuid);
+                }
+                return null;
+            })();
+            if (!item) return null;
+
+            if (item.isOfType("spell")) {
+                // Assign spellcasting entry, currently only used for trick magic item
+                const { tradition } = this.flags.pf2e?.casting ?? {};
+                const isCharacter = item.actor.isOfType("character");
+                if (tradition && !item.spellcasting && isCharacter) {
+                    const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
+                    item.trickMagicEntry = trick;
+                }
+
+                // Load a variant of this spell based on overlay ids
+                const spellVariant = this.flags.pf2e.spellVariant;
+                if (spellVariant) {
+                    return item.loadVariant({
+                        overlayIds: spellVariant.overlayIds,
+                    });
+                }
             }
-            return null;
+
+            return item;
         })();
-        if (!item) return null;
-
-        // Assign spellcasting entry, currently only used for trick magic item
-        const { tradition } = this.flags.pf2e?.casting ?? {};
-        const isCharacter = item.actor.isOfType("character");
-        if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
-            const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
-            item.trickMagicEntry = trick;
-        }
-
-        const spellVariant = this.flags.pf2e.spellVariant;
-        if (spellVariant && item?.isOfType("spell")) {
-            return item.loadVariant({
-                overlayIds: spellVariant.overlayIds,
-            });
-        }
-
-        return item;
     }
 
     async showDetails() {
@@ -144,7 +153,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     override async getHTML(): Promise<JQuery> {
         // Determine some metadata
         const data = this.toObject(false) as RawObject<ChatMessageDataPF2e>;
-        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
+        const item = await this.item;
+        const rollData = { ...this.actor?.getRollData(), ...(item?.getRollData() ?? { actor: this.actor }) };
         data.content = await TextEditorPF2e.enrichHTML(this.content, { rollData, async: true });
         const isWhisper = this.whisper.length;
 
@@ -187,7 +197,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (this._rollExpanded) $html.find(".dice-tooltip").addClass("expanded");
 
         // Remove spell card owner buttons if the user is not the owner of the spell
-        if (this.item?.isOfType("spell") && !this.item.isOwner) {
+        if (item?.isOfType("spell") && !item.isOwner) {
             $html.find("section.owner-buttons").remove();
         }
 

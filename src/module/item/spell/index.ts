@@ -448,7 +448,6 @@ class SpellPF2e extends ItemPF2e {
                 consumableType: type,
                 spellUuid: spellUuid,
                 castLevel: this.level,
-                trickMagicItemSkill: this.trickMagicEntry?.skill,
                 // This is only set for spells from old consumables with embedded data
                 data: fromData
                     ? this.isVariant
