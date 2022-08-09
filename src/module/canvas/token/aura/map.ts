@@ -44,7 +44,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         this.clearHighlights();
         if (this.token.isMoving) return;
 
-        if (this.token.isHovered) {
+        if (this.token.hover) {
             const { highlightId } = this;
             const highlight = canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
             highlight.clear();

@@ -243,7 +243,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     private onHoverIn(): void {
         if (!canvas.ready) return;
         const token = this.token?.object;
-        if (token?.isVisible && !token.isControlled) {
+        if (token?.isVisible && !token.controlled) {
             token.emitHoverIn();
         }
     }
@@ -256,7 +256,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         event.preventDefault();
         const token = this.token?.object;
         if (token?.isVisible) {
-            token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
         }
     }
 

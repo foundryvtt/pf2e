@@ -26,12 +26,6 @@ declare global {
         /** A mouse interaction manager instance which handles mouse workflows related to this object. */
         mouseInteractionManager: MouseInteractionManager;
 
-        /** An indicator for whether the object is currently controlled */
-        protected _controlled: boolean;
-
-        /** An indicator for whether the object is currently a hover target */
-        protected _hover: boolean;
-
         /** Identify the official EmbeddedEntity name for this PlaceableObject class */
         static embeddedName: string;
 
@@ -65,6 +59,12 @@ declare global {
          * it represents.
          */
         get sheet(): TDocument["sheet"];
+
+        /** An indicator for whether the object is currently controlled */
+        get controlled(): boolean;
+
+        /** An indicator for whether the object is currently a hover target */
+        get hover(): boolean;
 
         /* -------------------------------------------- */
         /*  Permission Controls                         */
