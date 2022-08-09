@@ -151,6 +151,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         return {
             ...sheetData,
+            hasDetails: true,
             preciousMaterials,
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
@@ -177,7 +178,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponReload: CONFIG.PF2E.weaponReload,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             bulkTypes: CONFIG.PF2E.bulkTypes,
-            sizes: CONFIG.PF2E.actorSizes,
             isBomb: this.item.group === "bomb",
             isComboWeapon,
             meleeGroups: CONFIG.PF2E.meleeWeaponGroups,

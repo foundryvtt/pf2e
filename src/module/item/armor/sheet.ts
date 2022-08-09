@@ -19,6 +19,7 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
         return {
             ...sheetData,
+            hasDetails: true,
             armorPotencyRunes: CONFIG.PF2E.armorPotencyRunes,
             armorResiliencyRunes: CONFIG.PF2E.armorResiliencyRunes,
             armorPropertyRunes: CONFIG.PF2E.armorPropertyRunes,
@@ -29,7 +30,6 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             preciousMaterials: CONFIG.PF2E.preciousMaterials,
             preciousMaterialGrades: CONFIG.PF2E.preciousMaterialGrades,
             ...propertyRuneSlots,
-            sizes: CONFIG.PF2E.actorSizes,
             traits: createSheetTags(CONFIG.PF2E.armorTraits, sheetData.data.traits),
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
         };

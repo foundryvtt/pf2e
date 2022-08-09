@@ -26,6 +26,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
+            sizes: CONFIG.PF2E.actorSizes,
             isPhysical: true,
             activations: this.item.activations.map((action) => ({
                 action,
