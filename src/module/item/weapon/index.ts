@@ -178,7 +178,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.category ||= "simple";
         systemData.group ||= null;
         systemData.baseItem ||= null;
+        systemData.bonusDamage.value ||= 0;
         systemData.potencyRune.value ||= null;
+        systemData.splashDamage.value ||= 0;
         systemData.strikingRune.value ||= null;
         systemData.propertyRune1.value ||= null;
         systemData.propertyRune2.value ||= null;

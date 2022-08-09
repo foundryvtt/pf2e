@@ -23,6 +23,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
         } = await super.getData(options);
 
+        // Show source damage in case of modification during data preparation
+        sheetData.data.damage = deepClone(this.item._source.system.damage);
+
         const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const potencyRuneValue = ABPVariant === "ABPFundamentalPotency" ? 4 : sheetData.data.potencyRune.value ?? 0;
@@ -201,10 +204,13 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     /** Seal the material and runes when a weapon is marked as specific */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const weapon = this.item;
+
+        formData["system.bonusDamage.value"] ||= 0;
+        formData["system.splashDamage.value"] ||= 0;
         formData["system.potencyRune.value"] ||= 0;
         // Set empty-string values and zeroes to null
         for (const slotNumber of [1, 2, 3, 4]) {
-            formData[`data.propertyRune${slotNumber}.value`] ||= null;
+            formData[`system.propertyRune${slotNumber}.value`] ||= null;
         }
 
         // Coerce a weapon range of zero to null
