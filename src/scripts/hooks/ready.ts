@@ -90,7 +90,7 @@ export const Ready = {
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
             const fightyActors = new Set(participants.flatMap((c) => c.actor ?? []));
             for (const actor of fightyActors) {
-                actor.prepareData();
+                actor.reset();
             }
 
             // Final pass to ensure effects on actors properly consider the initiative of any active combat
@@ -100,7 +100,7 @@ export const Ready = {
 
             // Prepare familiars now that all actors are initialized
             for (const familiar of game.actors.filter((a) => a.type === "familiar")) {
-                familiar.prepareData();
+                familiar.reset();
             }
 
             // Announce the system is ready in case any module needs access to an application not available until now
