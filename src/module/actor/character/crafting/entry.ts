@@ -1,5 +1,5 @@
 import { CharacterPF2e } from "@actor";
-import { PhysicalItemTrait } from "@item/physical/data";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { groupBy } from "@util";
 import { CraftingFormula } from "./formula";
 
@@ -11,7 +11,7 @@ export class CraftingEntry implements CraftingEntryData {
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
-    requiredTraits: PhysicalItemTrait[][];
+    craftableItems: PredicatePF2e;
     maxSlots: number;
     fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
     batchSize?: number;
@@ -22,18 +22,15 @@ export class CraftingEntry implements CraftingEntryData {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
         this.selector = data.selector;
         this.name = data.name;
-        this.isAlchemical = data.isAlchemical ?? false;
-        this.isDailyPrep = data.isDailyPrep ?? false;
-        this.isPrepared = data.isPrepared ?? false;
+        this.isAlchemical = !!data.isAlchemical;
+        this.isDailyPrep = !!data.isDailyPrep;
+        this.isPrepared = !!data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
         this.maxItemLevel = data.maxItemLevel || parentActor.level;
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
-
-        this.requiredTraits = data.requiredTraits ?? [[]];
-        if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
-
+        this.craftableItems = new PredicatePF2e(data.craftableItems ?? {});
         this.preparedFormulas = this.actorPreparedFormulas
             .map((prepData): PreparedFormula | null => {
                 const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
@@ -86,7 +83,7 @@ export class CraftingEntry implements CraftingEntryData {
         );
     }
 
-    static isValid(data?: Partial<CraftingEntry>): data is CraftingEntry {
+    static isValid(data?: Partial<CraftingEntryData>): data is CraftingEntry {
         return !!data && !!data.name && !!data.selector && !!data.actorPreparedFormulas;
     }
 
@@ -117,11 +114,13 @@ export class CraftingEntry implements CraftingEntryData {
             return false;
         }
 
-        if (!this.requiredTraits.some((traits) => traits.every((t) => formula.item.traits.has(t)))) {
+        const predicate = new PredicatePF2e(this.craftableItems ?? {});
+
+        if (!predicate.test(formula.item.getRollOptions("item"))) {
             if (warn) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CraftingTab.Alerts.ItemMissingTraits", {
-                        traits: JSON.stringify(this.requiredTraits),
+                        traits: JSON.stringify(this.craftableItems),
                     })
                 );
             }
@@ -224,7 +223,7 @@ export interface CraftingEntryData {
     isDailyPrep?: boolean;
     isPrepared?: boolean;
     maxSlots?: number;
-    requiredTraits?: PhysicalItemTrait[][];
+    craftableItems?: RawPredicate;
     fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
