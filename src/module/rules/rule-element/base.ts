@@ -79,7 +79,7 @@ abstract class RuleElementPF2e {
         if (actor.token) return actor.token;
 
         const tokens = actor.getActiveTokens();
-        const controlled = tokens.find((token) => token.isControlled);
+        const controlled = tokens.find((token) => token.controlled);
         return controlled?.document ?? tokens.shift()?.document ?? null;
     }
 

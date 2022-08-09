@@ -20,16 +20,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The promise returned by the last call to `Token#draw()` */
     private drawLock?: Promise<this>;
 
-    /** Is the user currently controlling this token? */
-    get isControlled(): boolean {
-        return this._controlled;
-    }
-
-    /** Is the user currently mouse-hovering this token? */
-    get isHovered(): boolean {
-        return this._hover;
-    }
-
     /** Is this token currently moving? */
     get isMoving(): boolean {
         return !!this._movement;
