@@ -746,7 +746,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     private async onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $select = $(event.delegateTarget);
         const propertyKey = $select.attr("data-property") ?? "";
-        const currentValue = getProperty(this.actor.data, propertyKey);
+        const currentValue = getProperty(this.actor, propertyKey);
         const selectedValue = Number($select.val());
 
         if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
@@ -754,7 +754,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const newValue = Math.clamped(selectedValue, 0, 4);
 
         await this.actor.update({ [propertyKey]: newValue });
-        if (newValue !== getProperty(this.actor.data, propertyKey)) {
+        if (newValue !== getProperty(this.actor, propertyKey)) {
             ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
         }
     }
@@ -763,7 +763,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     private async onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $button = $(event.delegateTarget);
         const propertyKey = $button.attr("data-property") ?? "";
-        const currentValue = getProperty(this.actor.data, propertyKey);
+        const currentValue = getProperty(this.actor, propertyKey);
 
         if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
 

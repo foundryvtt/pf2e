@@ -211,7 +211,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             damageType: "",
         };
         return this.item.update({
-            [`data.damageRolls.${newKey}`]: newDamageRoll,
+            [`system.damageRolls.${newKey}`]: newDamageRoll,
         });
     }
 
@@ -222,7 +222,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
         const targetKey = $(event.target).parents(".damage-part").attr("data-damage-part");
         return this.item.update({
-            [`data.damageRolls.-=${targetKey}`]: null,
+            [`system.damageRolls.-=${targetKey}`]: null,
         });
     }
 
@@ -296,13 +296,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             const variants = this.item.system.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
-                [`data.variants.${index}`]: { label: "+X in terrain", options: "" },
+                [`system.variants.${index}`]: { label: "+X in terrain", options: "" },
             });
         });
 
         $html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
-            this.item.update({ [`data.variants.-=${index}`]: null });
+            this.item.update({ [`system.variants.-=${index}`]: null });
         });
 
         $html.find("[data-clipboard]").on("click", (event) => {

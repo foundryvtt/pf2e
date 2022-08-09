@@ -56,7 +56,7 @@ export async function craft(options: CraftActionOptions) {
         callback: async (result) => {
             // react to check result, creating the item in the actor's inventory on a success
             if (result.message instanceof ChatMessagePF2e) {
-                const messageData = result.message.data;
+                const message = result.message;
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
                         return await renderCraftingInline(item, result.roll, quantity, result.actor);
@@ -64,9 +64,9 @@ export async function craft(options: CraftActionOptions) {
                     return "";
                 })();
                 if (flavor) {
-                    messageData.update({ flavor: messageData.flavor + flavor });
+                    message.updateSource({ flavor: message.flavor + flavor });
                 }
-                ChatMessage.create(messageData);
+                ChatMessage.create(message.toObject());
             } else {
                 console.error("PF2E | Unable to amend chat message with craft result.", result.message);
             }

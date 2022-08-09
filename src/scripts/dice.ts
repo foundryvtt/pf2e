@@ -282,7 +282,7 @@ class DicePF2e {
             );
 
             // Return the Roll object
-            return message.roll;
+            return message.rolls[0];
         };
 
         // Modify the roll and handle fast-forwarding

@@ -61,7 +61,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             );
         }
 
-        const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}`;
+        const key = `system.slots.slot${slotLevel}.prepared.${spellSlot}`;
         const updates: Record<string, unknown> = { [key]: { id: spell.id } };
 
         const slot = this.entry.system.slots[`slot${slotLevel}` as SlotKey].prepared[spellSlot];
@@ -85,7 +85,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
             );
         }
 
-        const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}`;
+        const key = `system.slots.slot${slotLevel}.prepared.${spellSlot}`;
         return this.entry.update({
             [key]: {
                 name: game.i18n.localize("PF2E.SpellSlotEmpty"),
@@ -98,7 +98,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
     setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
-        const key = `data.slots.slot${slotLevel}.prepared.${spellSlot}.expended`;
+        const key = `system.slots.slot${slotLevel}.prepared.${spellSlot}.expended`;
         return this.entry.update({ [key]: isExpended });
     }
 }

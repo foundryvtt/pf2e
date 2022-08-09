@@ -13,7 +13,7 @@ declare module foundry {
 
             speaker: foundry.data.ChatSpeakerSource;
 
-            rolls: Roll[];
+            rolls: Rolled<Roll>[];
 
             flags: foundry.data.ChatMessageFlags;
 
