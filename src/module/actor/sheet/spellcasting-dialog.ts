@@ -103,8 +103,8 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
             const actualEntry = this.actor.spellcasting.get(this.object.id);
-            const data = pick(updateData.system, ["prepared", "tradition", "ability", "autoHeightenLevel"]);
-            await actualEntry?.update({ data });
+            const system = pick(updateData.system, ["prepared", "tradition", "ability", "autoHeightenLevel"]);
+            await actualEntry?.update({ system });
         }
 
         this.close();

@@ -16,7 +16,7 @@
                         <input type="number"
                             class="dc-input modifier adjustable{{#if entry.adjustedHigher.dc}} adjusted-higher{{/if}}{{#if entry.adjustedLower.dc}} adjusted-lower{{/if}}"
                             data-display-value="{{entry.statistic.dc.value}}"
-                            data-base-property="data.items.{{eid}}.data.spelldc.dc"
+                            data-base-property="data.items.{{eid}}.system.spelldc.dc"
                             value="{{entry.statistic.dc.value}}"
                             placeholder="0"
                         />
@@ -26,14 +26,14 @@
                         <input type="number"
                             class="attack-input modifier adjustable{{#if entry.adjustedHigher.mod}} adjusted-higher{{/if}}{{#if entry.adjustedLower.mod}} adjusted-lower{{/if}}"
                             data-display-value="{{entry.statistic.check.mod}}"
-                            data-base-property="data.items.{{eid}}.data.spelldc.value"
+                            data-base-property="data.items.{{eid}}.system.spelldc.value"
                             value="{{numberFormat entry.statistic.check.mod decimals=0}}"
                             placeholder="0"
                         />
                     </div>
                     <div class="ability-score inline-field">
-                        <select data-base-property="data.items.{{eid}}.data.ability.value">
-                            {{#select entry.data.ability.value}}
+                        <select data-base-property="data.items.{{eid}}.system.ability.value">
+                            {{#select entry.system.ability.value}}
                                 <option value="str">{{localize "PF2E.AbilityId.str"}}</option>
                                 <option value="dex">{{localize "PF2E.AbilityId.dex"}}</option>
                                 <option value="con">{{localize "PF2E.AbilityId.con"}}</option>
@@ -48,7 +48,7 @@
                         <div class="item-controls">
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
                                 <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
-                                    <i class="{{#if entry.data.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
+                                    <i class="{{#if entry.system.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
                                 </a>
                             {{/if}}
                             {{#unless entry.isRitual}}<a class="item-control" data-action="spellcasting-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>{{/unless}}
