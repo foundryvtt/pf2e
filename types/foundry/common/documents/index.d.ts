@@ -11,6 +11,7 @@ import "./base-fog-exploration";
 import "./base-folder";
 import "./item";
 import "./base-journal-entry";
+import "./base-journal-entry-page";
 import "./base-macro";
 import "./measured-template";
 import "./base-note";

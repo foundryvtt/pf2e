@@ -59,4 +59,8 @@ declare global {
 
         override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
+
+    interface JournalEntry {
+        get sheet(): JournalSheet<this>;
+    }
 }

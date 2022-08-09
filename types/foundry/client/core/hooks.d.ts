@@ -81,6 +81,7 @@ declare global {
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
+        static on(...args: HookParamsRender<JournalPageSheet, "JournalPageSheet">): number;
         static on(...args: HookParamsUpdate<Combat, "Combat">): number;
         static on(...args: HookParamsUpdate<Scene, "Scene">): number;
         static on(...args: HookParamsUpdateWorldTime): number;
