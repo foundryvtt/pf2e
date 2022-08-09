@@ -1323,12 +1323,12 @@ class CharacterPF2e extends CreaturePF2e {
         // Add a basic unarmed strike
         const basicUnarmed = includeBasicUnarmed
             ? ((): Embedded<WeaponPF2e> => {
-                  const source: PreCreate<WeaponSource> & { data: { damage?: Partial<WeaponDamage> } } = {
+                  const source: PreCreate<WeaponSource> & { system: { damage?: Partial<WeaponDamage> } } = {
                       _id: "xxPF2ExUNARMEDxx",
                       name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                       type: "weapon",
                       img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
-                      data: {
+                      system: {
                           slug: "basic-unarmed",
                           category: "unarmed",
                           baseItem: null,
@@ -1355,7 +1355,7 @@ class CharacterPF2e extends CreaturePF2e {
         if (unarmedRunes) {
             for (const [slug, weapon] of synthetics.strikes.entries()) {
                 if (weapon.category === "unarmed") {
-                    synthetics.strikes.set(slug, weapon.clone({ data: unarmedRunes }, { keepId: true }));
+                    synthetics.strikes.set(slug, weapon.clone({ system: unarmedRunes }, { keepId: true }));
                 }
 
                 // Prevent synthetic strikes from being renamed by runes

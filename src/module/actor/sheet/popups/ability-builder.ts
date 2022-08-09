@@ -88,14 +88,14 @@ export class AbilityBuilderPopup extends Application {
             // If removing, it must exist and there shouldn't be a boost selected
             if (removing && alreadyHasFlaw && !boost) {
                 flaws.splice(flaws.indexOf(ability), 1);
-                await ancestry.update({ data: { voluntary: { flaws } } });
+                await ancestry.update({ system: { voluntary: { flaws } } });
             }
 
             // If adding, we need to be under 2 flaws, it must be new or be a locked ancestry boost (to double flaw)
             const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
             if (!removing && flaws.length < 2 && (!alreadyHasFlaw || boostedByAncestry)) {
                 flaws.push(ability);
-                await ancestry.update({ data: { voluntary: { flaws } } });
+                await ancestry.update({ system: { voluntary: { flaws } } });
             }
         });
 
@@ -107,7 +107,7 @@ export class AbilityBuilderPopup extends Application {
             if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
 
             const boost = removing ? null : ability;
-            await ancestry.update({ data: { voluntary: { boost } } });
+            await ancestry.update({ system: { voluntary: { boost } } });
         });
 
         $html.find("button[data-action=background-boost]").on("click", async (event) => {

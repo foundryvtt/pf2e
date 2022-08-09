@@ -366,7 +366,7 @@ class CheckPF2e {
         // Consume one unit of the weapon if it has the consumable trait
         const isConsumableWeapon = item instanceof WeaponPF2e && item.traits.has("consumable");
         if (isConsumableWeapon && item.actor.items.has(item.id) && item.quantity > 0) {
-            await item.update({ data: { quantity: item.quantity - 1 } });
+            await item.update({ system: { quantity: item.quantity - 1 } });
         }
 
         return roll;

@@ -30,7 +30,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
 
         $html.find("[data-action=frequency-add]").on("click", () => {
             const per = CONFIG.PF2E.frequencies.day;
-            this.item.update({ data: { frequency: { max: 1, per } } });
+            this.item.update({ system: { frequency: { max: 1, per } } });
         });
 
         $html.find("[data-action=frequency-delete]").on("click", () => {
