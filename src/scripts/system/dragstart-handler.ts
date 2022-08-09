@@ -5,7 +5,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
  * such as condition value and spell level.
  */
 export function extendDragData() {
-    $("body").on("dragstart", "a.entity-link", (event: JQuery.DragStartEvent) => {
+    $("body").on("dragstart", "a.content-link", (event: JQuery.DragStartEvent) => {
         const dataTransfer = event?.originalEvent?.dataTransfer;
         if (!dataTransfer) return;
 

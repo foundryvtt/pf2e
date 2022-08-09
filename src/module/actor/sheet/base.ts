@@ -591,8 +591,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Add support for dropping actions and toggles */
     protected override _onDragStart(event: ElementDragEvent): void {
-        // Avoid intercepting entity-link drag targets
-        if (event.target !== event.currentTarget && event.target.classList.contains("entity-link")) {
+        // Avoid intercepting content-link drag targets
+        if (event.target !== event.currentTarget && event.target.classList.contains("content-link")) {
             return;
         }
 
