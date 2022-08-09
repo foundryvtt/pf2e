@@ -63,6 +63,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
+            // Prevent upstream from introducing destructive side effects
+            data = deepClone(data);
+
             // Set module art if available
             if (context.pack && data._id) {
                 const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);

@@ -33,11 +33,13 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
-            super(data, context);
+            // Prevent upstream from introducing destructive side effects
+            super(deepClone(data), context);
+
             this.rules = [];
             this.initialized = true;
         } else {
-            mergeObject(context, { pf2e: { ready: true } });
+            context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
             const ItemConstructor = CONFIG.PF2E.Item.documentClasses[data.type];
             return ItemConstructor ? new ItemConstructor(data, context) : new ItemPF2e(data, context);
         }
