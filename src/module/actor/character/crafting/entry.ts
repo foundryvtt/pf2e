@@ -18,8 +18,6 @@ export class CraftingEntry implements CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
-    maxFieldDiscoveryItemLevel?: number;
-    fieldDiscoveryRequiresMundane?: boolean;
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
@@ -33,8 +31,6 @@ export class CraftingEntry implements CraftingEntryData {
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
-        this.maxFieldDiscoveryItemLevel = data.maxFieldDiscoveryItemLevel;
-        this.fieldDiscoveryRequiresMundane = data.fieldDiscoveryRequiresMundane;
 
         this.requiredTraits = data.requiredTraits ?? [[]];
         if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
@@ -208,11 +204,17 @@ export class CraftingEntry implements CraftingEntryData {
             options.add(formula.item.consumableType);
         }
 
-        return (this.maxFieldDiscoveryItemLevel === undefined || this.maxFieldDiscoveryItemLevel >= formula.level) &&
-            (!this.fieldDiscoveryRequiresMundane || !formula.item.isMagical) &&
-            (options.has(this.fieldDiscovery!) || formula.isSignatureItem)
-            ? fieldDiscoveryBatchSize
-            : batchSize;
+        if (
+            this.selector === "munitionsCrafter" &&
+            formula.item.isOfType("consumable") &&
+            formula.item.consumableType === "ammo" &&
+            formula.item.level === 0 &&
+            !formula.item.isMagical
+        ) {
+            return 10;
+        }
+
+        return options.has(this.fieldDiscovery!) || formula.isSignatureItem ? fieldDiscoveryBatchSize : batchSize;
     }
 }
 
@@ -242,6 +244,4 @@ export interface CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
-    maxFieldDiscoveryItemLevel?: number;
-    fieldDiscoveryRequiresMundane?: boolean;
 }

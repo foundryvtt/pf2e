@@ -51,8 +51,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             batchSize: this.data.batchSize,
             fieldDiscovery: this.data.fieldDiscovery,
             fieldDiscoveryBatchSize: this.data.fieldDiscoveryBatchSize,
-            fieldDiscoveryRequiresMundane: this.data.fieldDiscoveryRequiresMundane,
-            maxFieldDiscoveryItemLevel: this.data.maxFieldDiscoveryItemLevel,
         };
 
         actorUpdates[`system.crafting.entries.${selector}`] = data;
@@ -89,8 +87,6 @@ interface CraftingEntryRuleData extends RuleElementData {
     batchSize?: number;
     fieldDiscovery?: PhysicalItemTrait | ConsumableType;
     fieldDiscoveryBatchSize?: number;
-    fieldDiscoveryRequiresMundane?: boolean;
-    maxFieldDiscoveryItemLevel?: number;
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -104,8 +100,6 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     batchSize?: unknown;
     fieldDiscovery?: unknown;
     fieldDiscoveryBatchSize?: unknown;
-    fieldDiscoveryRequiresMundane?: unknown;
-    maxFieldDiscoveryItemLevel?: unknown;
 }
 
 export { CraftingEntryRuleElement };
