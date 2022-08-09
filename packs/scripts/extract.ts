@@ -293,7 +293,7 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
         }
 
         // Sometimes Foundry's conversion of document links to anchor tags makes it into an export: convert them back
-        const $anchors = $description.find("a.entity-link");
+        const $anchors = $description.find("a.content-link");
         $anchors.each((_i, anchor) => {
             const $anchor = $(anchor);
             const label = $anchor.text().trim();
