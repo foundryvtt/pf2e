@@ -28,6 +28,11 @@ declare global {
                 /** Perform one-time initialization tasks which only occur when the Document is first constructed. */
                 protected _initialize(): void;
 
+                /**
+                 * Reset the state of this data instance back to mirror the contained source data, erasing any changes.
+                 */
+                reset(): void;
+
                 /* -------------------------------------------- */
                 /*  Configuration                               */
                 /* -------------------------------------------- */
