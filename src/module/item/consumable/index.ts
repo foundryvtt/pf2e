@@ -84,6 +84,13 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    override getRollOptions(prefix = this.type): string[] {
+        const options = super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        options.push(`${delimitedPrefix}subtype:${this.consumableType}`);
+        return options;
+    }
+
     isAmmoFor(weapon: ItemPF2e): boolean {
         if (!(weapon instanceof WeaponPF2e)) {
             console.warn("Cannot load a consumable into a non-weapon");

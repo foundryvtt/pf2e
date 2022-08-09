@@ -97,10 +97,6 @@ class ItemPF2e extends Item<ActorPF2e> {
             options.unshift(`${delimitedPrefix}type:${itemType}`);
         }
 
-        if (this.isOfType("consumable")) {
-            options.push(`${delimitedPrefix}type:${this.consumableType}`);
-        }
-
         return options;
     }
 
