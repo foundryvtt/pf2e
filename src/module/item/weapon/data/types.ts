@@ -88,11 +88,11 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
         value: number;
     };
     damage: WeaponDamage;
-    bonusDamage?: {
-        value: string;
+    bonusDamage: {
+        value: number;
     };
-    splashDamage?: {
-        value: string;
+    splashDamage: {
+        value: number;
     };
     range: WeaponRangeIncrement | null;
     maxRange?: number | null;
