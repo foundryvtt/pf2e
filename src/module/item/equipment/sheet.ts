@@ -5,14 +5,22 @@ import { EquipmentPF2e } from ".";
 
 export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<EquipmentSheetData> {
+        const item = this.item;
         const sheetData = await super.getData(options);
         return {
             ...sheetData,
-            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
+            hasDetails: true,
+            bulkTypes: CONFIG.PF2E.bulkTypes,
+            stackGroups: CONFIG.PF2E.stackGroups,
+            traits: createSheetTags(CONFIG.PF2E.equipmentTraits, item.system.traits),
+            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, item.system.traits.otherTags),
         };
     }
 }
 
 interface EquipmentSheetData extends PhysicalItemSheetData<EquipmentPF2e> {
+    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
+    stackGroups: ConfigPF2e["PF2E"]["stackGroups"];
+    traits: SheetOptions;
     otherTags: SheetOptions;
 }

@@ -26,6 +26,7 @@ import { SceneConfigPF2e } from "@scene/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { EquipmentSheetPF2e } from "@item/equipment/sheet";
 import { ContainerSheetPF2e } from "@item/container/sheet";
+import { MeleeSheetPF2e } from "@item/melee/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -96,7 +97,7 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet("core", ItemSheet);
 
-    const itemTypes = ["condition", "lore", "melee", "spellcastingEntry"];
+    const itemTypes = ["condition", "lore", "spellcastingEntry"];
     for (const itemType of itemTypes) {
         Items.registerSheet("pf2e", ItemSheetPF2e, {
             types: [itemType],
@@ -119,6 +120,7 @@ export function registerSheets() {
         ["feat", FeatSheetPF2e],
         ["heritage", HeritageSheetPF2e],
         ["kit", KitSheetPF2e],
+        ["melee", MeleeSheetPF2e],
         ["spell", SpellSheetPF2e],
         ["weapon", WeaponSheetPF2e],
     ] as const;

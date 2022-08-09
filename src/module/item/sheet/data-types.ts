@@ -42,6 +42,7 @@ export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends I
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
+    sizes: ConfigPF2e["PF2E"]["actorSizes"];
     activations: { action: ItemActivation; id: string; base: string }[];
 }
 

@@ -1,7 +1,7 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -65,17 +65,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         mergeObject(sheetData, {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
-            hasDetails: [
-                "armor",
-                "book",
-                "condition",
-                "consumable",
-                "deity",
-                "equipment",
-                "lore",
-                "melee",
-                "weapon",
-            ].includes(itemData.type),
+            hasDetails: ["book", "condition", "consumable", "deity", "lore"].includes(itemData.type),
             detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
         }); // Damage types
 
@@ -101,25 +91,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             sheetData.stackGroups = CONFIG.PF2E.stackGroups;
             sheetData.consumableTraits = CONFIG.PF2E.consumableTraits;
             sheetData.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === "melee") {
-            // Melee Data
-            sheetData.hasSidebar = false;
-            sheetData.detailsActive = true;
-            sheetData.damageTypes = CONFIG.PF2E.damageTypes;
-
-            sheetData.attackEffects = createSheetOptions(this.getAttackEffectOptions(), sheetData.data.attackEffects);
-            sheetData.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, sheetData.system.traits);
         } else if (itemData.type === "condition") {
             // Condition types
 
             sheetData.conditions = [];
-        } else if (itemData.type === "equipment") {
-            // Equipment data
-            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.system.traits);
-            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
-            sheetData.stackGroups = CONFIG.PF2E.stackGroups;
-            sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "lore") {
             // Lore-specific data
             sheetData.proficiencies = CONFIG.PF2E.proficiencyLevels;
