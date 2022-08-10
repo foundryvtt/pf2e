@@ -137,7 +137,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Updated actor with the sweet fruits of rest
         if (hasActorUpdates) {
-            await actor.update({ data: actorUpdates }, { render: false });
+            await actor.update({ system: actorUpdates }, { render: false });
         }
 
         if (hasItemUpdates) {

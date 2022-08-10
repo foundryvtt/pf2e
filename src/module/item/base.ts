@@ -640,7 +640,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                         const updatedEffects = attackEffects.filter((effect) => effect !== slug);
                         itemUpdates.push({
                             _id: attack.id,
-                            data: { attackEffects: { value: updatedEffects } },
+                            system: { attackEffects: { value: updatedEffects } },
                         });
                     }
                 }

@@ -178,7 +178,7 @@ class FeatPF2e extends ItemPF2e {
                 traits.findSplice((t) => t === "lineage");
             }
         } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.system?.onlyLevel1) {
-            mergeObject(changed, { data: { maxTakable: 1 } });
+            mergeObject(changed, { system: { maxTakable: 1 } });
         }
 
         await super._preUpdate(changed, options, user);

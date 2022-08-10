@@ -491,7 +491,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const weapon = this.actor.items.get(action.item?.id ?? "");
             const ammo = this.actor.items.get($(event.currentTarget).val() as string);
 
-            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
+            if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
         });
 
         $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
