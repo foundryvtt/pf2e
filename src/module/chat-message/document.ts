@@ -104,7 +104,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
                 const origin = this.flags.pf2e?.origin ?? null;
                 if (origin?.uuid) {
-                    return fromUuidSync<Embedded<ItemPF2e>>(origin.uuid);
+                    return fromUuidSync(origin.uuid) as Embedded<ItemPF2e> | null;
                 }
                 return null;
             })();

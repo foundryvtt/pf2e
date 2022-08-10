@@ -64,7 +64,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                     if (entry) {
                         embeddedSpell.system.location.value = entry.id;
                     }
-                    this.#spell = embeddedSpell;
+                    if (uuid.startsWith("Compendium")) {
+                        // Cache the spell if it came from a compendium
+                        this.#spell = embeddedSpell;
+                    }
                     return embeddedSpell;
                 }
                 throw ErrorPF2e(`Could not find Spell with UUID "${uuid}"!`);
@@ -247,7 +250,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
         // New item with a consumable Uuid
         if (consumableUuid) {
-            const consumable = fromUuidSync<Embedded<ConsumablePF2e>>(consumableUuid);
+            const consumable = fromUuidSync(consumableUuid) as Embedded<ConsumablePF2e> | null;
             if (consumable) {
                 return consumable.embeddedSpell;
             }
