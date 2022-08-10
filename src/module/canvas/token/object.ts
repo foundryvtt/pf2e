@@ -5,16 +5,15 @@ import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Visual representation and proximity-detection facilities for auras */
-    auras!: AuraRenderers;
+    readonly auras: AuraRenderers;
 
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
     constructor(document: TokenDocumentPF2e) {
         super(document);
-        if (!canvas.tokens.kimsNaughtyModule) {
-            this.auras = new AuraRenderers(this);
-        }
+        this.auras = new AuraRenderers(this);
+        Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
     /** The promise returned by the last call to `Token#draw()` */
@@ -48,10 +47,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The ID of the highlight layer for this token */
     get highlightId(): string {
         return `Token.${this.id}`;
-    }
-
-    get kimsNaughtyModule(): boolean {
-        return canvas.tokens.kimsNaughtyModule;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -129,25 +124,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
-    /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
-    override updateSource({ defer = false, deleted = false, skipUpdateFog = false } = {}): void {
-        if (this.actor?.type === "npc" || !(canvas.lighting.hasLowLightVision || canvas.lighting.hasDarkvision)) {
-            return super.updateSource({ defer, deleted, skipUpdateFog });
-        }
-
-        const original = { dim: this.document.light.dim, bright: this.document.light.bright };
-        this.document.light.bright = Math.max(original.dim, original.bright);
-        this.document.light.dim = 0;
-
-        super.updateSource({ defer, deleted, skipUpdateFog });
-
-        this.document.light.bright = original.bright;
-        this.document.light.dim = original.dim;
-    }
-
     /** Make the drawing promise accessible to `#redraw` */
     override async draw(): Promise<this> {
-        if (!this.kimsNaughtyModule) this.auras.clear();
+        this.auras.clear();
         this.drawLock = super.draw();
         await this.drawLock;
 
@@ -156,7 +135,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Draw auras along with effect icons */
     override drawEffects(): Promise<void> {
-        if (!this.kimsNaughtyModule) this.auras.draw();
+        this.auras.draw();
         return super.drawEffects();
     }
 
@@ -307,7 +286,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
     }
 
     /** Refresh vision and the `EffectsPanel` */
@@ -316,7 +295,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         super._onRelease(options);
 
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
     }
 
     /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
@@ -336,7 +315,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             // If an aura is newly present or removed, redraw effects
             if (
                 !changed.effects &&
-                !this.kimsNaughtyModule &&
                 (Array.from(this.document.auras.keys()).some((k) => !this.auras.has(k)) ||
                     Array.from(this.auras.keys()).some((k) => !this.document.auras.has(k)))
             ) {
@@ -349,7 +327,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
         super._onDragLeftStart(event);
-        if (!this.kimsNaughtyModule) this.auras.clearHighlights();
+        this.auras.clearHighlights();
     }
 
     /** If a single token (this one) was dropped, re-establish the hover status */
@@ -362,7 +340,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             this.emitHoverIn();
         }
 
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
 
         return dropped;
     }
@@ -370,7 +348,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
 
         return true;
     }
@@ -378,7 +356,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
 
         return true;
     }
@@ -386,13 +364,13 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Destroy auras before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
         super._onDelete(options, userId);
-        if (!this.kimsNaughtyModule) this.auras.clear();
+        this.auras.clear();
     }
 
     /** A callback for when a movement animation for this token finishes */
     private async onFinishMoveAnimation(): Promise<void> {
         if (this._movement) return;
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
     }
 }
 

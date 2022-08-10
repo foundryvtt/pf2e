@@ -290,7 +290,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             // TokenDocument#_onUpdate doesn't actually do anything with the user ID
             this._onUpdate(changed, {}, game.user.id);
         } else if (canvas.ready && this.scene?.active) {
-            if (!canvas.tokens.kimsNaughtyModule) this.object.auras.draw();
+            this.object.auras.draw();
             this.scene.checkAuras();
         }
 
