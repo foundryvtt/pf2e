@@ -54,11 +54,13 @@
             / 120px 130px 1fr;
         margin-top: 4px;
 
-        .frame {
+        .frame-container {
             grid-area: img;
             margin-left: 5px;
+        }
+        .frame {
+            position: relative;
             z-index: 3;
-
             .player-image {
                 object-fit: cover;
                 object-position: top;
@@ -68,6 +70,14 @@
                 width: 100%;
                 cursor: pointer;
                 @include brown-border;
+            }
+            a {
+                font-size: var(--font-size-16);
+            }
+            [data-action=show-image] {
+                position: absolute;
+                bottom: 5px;
+                right: 0;
             }
         }
 

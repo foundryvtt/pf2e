@@ -214,6 +214,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html);
 
+        $html.find("[data-action=show-image]").on("click", () => {
+            const actor = this.actor;
+            const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
+            new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+        });
+
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {
             event.preventDefault();
