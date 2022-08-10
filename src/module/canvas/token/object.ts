@@ -328,7 +328,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!this.document.isLinked) {
             const source = this.document.toObject();
             const { width, height, texture } = source;
-            this.document.prepareData();
+            this.document.reset();
             // If any of the following changed, a full redraw should be performed
             const postChange = pick(this.document, ["width", "height", "texture"]);
             mergeObject(changed, diffObject({ width, height, texture }, postChange));

@@ -158,16 +158,17 @@ export class AncestryBackgroundClassManager {
         for await (const pack of packs) {
             // Only fetch feats that are in this pack
             const entryIds = entries.filter((entry) => entry.pack === pack).map((entry) => entry.id);
-            const features = await game.packs
-                .get<CompendiumCollection<FeatPF2e>>(pack, { strict: true })
-                // Use NeDB query to fetch all needed feats in one transaction
-                .getDocuments({ _id: { $in: entryIds } });
+            const features = (
+                await game.packs
+                    .get<CompendiumCollection<FeatPF2e>>(pack, { strict: true })
+                    // Use NeDB query to fetch all needed feats in one transaction
+                    .getDocuments({ _id: { $in: entryIds } })
+            ).map((f) => f.clone({}, { keepId: true }));
             // For class features, set the level to the one prescribed in the class item
             for (const feature of features) {
                 const entry = entries.find((e) => e.id === feature.id);
                 if (entry && feature.featType === "classfeature") {
-                    feature._source.system.level.value = entry.level;
-                    feature.prepareData();
+                    feature.updateSource({ "system.level.value": entry.level });
                 }
             }
 

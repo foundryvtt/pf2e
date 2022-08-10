@@ -582,7 +582,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             const actorClone = this.actor.clone();
             const item = actorClone.items.get(this.id, { strict: true });
             item.updateSource(changed, options);
-            actorClone.prepareData();
+            actorClone.reset();
 
             const hpMaxDifference = actorClone.hitPoints.max - this.actor.hitPoints.max;
             if (hpMaxDifference !== 0) {
@@ -611,7 +611,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         super._onCreate(data, options, userId);
 
         if (this.actor && game.user.id === userId) {
-            this.actor.prepareData();
+            this.actor.reset();
             const actorUpdates: Record<string, unknown> = {};
             for (const rule of this.rules) {
                 rule.onCreate?.(actorUpdates);

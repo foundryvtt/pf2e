@@ -99,7 +99,7 @@ export class EffectTracker {
             }, []);
 
         for (const actor of updatedActors) {
-            actor.prepareData();
+            actor.reset();
             actor.sheet.render(false);
             if (actor.isOfType("creature")) {
                 for (const token of actor.getActiveTokens()) {

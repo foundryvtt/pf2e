@@ -282,7 +282,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (!this.isLinked) return super._onUpdateBaseActor(updates, options);
 
         const currentData = this.toObject(false);
-        this.prepareData();
+        this.reset();
         const newData = this.toObject(false);
         const changed = diffObject<DeepPartial<foundry.data.TokenSource>>(currentData, newData);
 

@@ -1199,7 +1199,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // If alliance has changed, reprepare token data to update the color of bounding boxes
         if (canvas.ready && changed.system?.details && "alliance" in changed.system.details) {
             for (const token of this.getActiveTokens(true, true)) {
-                token.prepareData();
+                token.reset();
             }
         }
     }
