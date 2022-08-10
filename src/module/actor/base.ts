@@ -548,16 +548,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
-        // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault = [
-            ActorPF2e.DEFAULT_ICON,
-            `systems/pf2e/icons/default-icons/${this.type}.svg`,
-        ].includes(this.prototypeToken.texture.src);
-        const tokenImgIsActorImg = this.prototypeToken.texture.src === this.img;
-        if (tokenImgIsDefault && !tokenImgIsActorImg) {
-            this.prototypeToken.texture.src = this.img;
-        }
-
         // Disable manually-configured vision settings on the prototype token
         /* if (canvas.lighting?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {

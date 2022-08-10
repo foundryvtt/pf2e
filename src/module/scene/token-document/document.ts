@@ -116,6 +116,15 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         if (!this.actor || !this.isEmbedded) return;
 
+        // Synchronize the token image with the actor image, if the token does not currently have an image
+        const tokenImgIsDefault = [
+            ActorPF2e.DEFAULT_ICON,
+            `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
+        ].includes(this.texture.src);
+        if (tokenImgIsDefault) {
+            this.texture.src = this.actor._source.img;
+        }
+
         for (const [key, data] of this.actor.auras.entries()) {
             this.auras.set(
                 key,
