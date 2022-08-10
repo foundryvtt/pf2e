@@ -9,9 +9,21 @@ import { Statistic } from "./statistic";
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string {
-        const enriched = super.enrichHTML(this.enrichString(content, options), { ...options, async: false });
-        const $html = $("<div>").html(enriched);
+    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
+    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async: true }): Promise<string>;
+    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e): string;
+    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string | Promise<string> {
+        const enriched = super.enrichHTML(this.enrichString(content, options), { ...options });
+        if (typeof enriched === "string") {
+            return this.#processUserVisibility(enriched, options);
+        }
+        return (async () => {
+            return this.#processUserVisibility(await enriched, options);
+        })();
+    }
+
+    static #processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
+        const $html = $("<div>").html(content);
         const actor = options.rollData?.actor ?? null;
         UserVisibilityPF2e.process($html, { actor });
 
