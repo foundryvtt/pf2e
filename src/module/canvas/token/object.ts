@@ -19,9 +19,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The promise returned by the last call to `Token#draw()` */
     private drawLock?: Promise<this>;
 
-    /** Is this token currently moving? */
-    get isMoving(): boolean {
-        return !!this._movement;
+    /** Is this token currently animating? */
+    get isAnimating(): boolean {
+        return !!this._animation;
     }
 
     /** Is this token emitting light with a negative value */
@@ -273,9 +273,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Add a callback for when a movement animation finishes */
-    override async animateMovement(ray: Ray): Promise<void> {
-        await super.animateMovement(ray);
-        this.onFinishMoveAnimation();
+    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
+        await super.animate(updateData, options);
+        if (!this._animation) this.onFinishAnimation();
     }
 
     /* -------------------------------------------- */
@@ -368,8 +368,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** A callback for when a movement animation for this token finishes */
-    private async onFinishMoveAnimation(): Promise<void> {
-        if (this._movement) return;
+    private async onFinishAnimation(): Promise<void> {
+        await this._animation;
         this.auras.refresh();
     }
 }

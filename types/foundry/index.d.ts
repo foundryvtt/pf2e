@@ -88,6 +88,7 @@ import "./client/pixi/mask-filter/base";
 import "./client/pixi/mask-filter/inverse-occlusion-mask-filter";
 import "./client/pixi/mouse-interaction-manager";
 import "./client/pixi/perception-manager";
+import "./client/pixi/core/interaction/canvas-animation";
 import "./client/pixi/placeable-object/ambient-light";
 import "./client/pixi/placeable-object/ambient-sound";
 import "./client/pixi/placeable-object/base";

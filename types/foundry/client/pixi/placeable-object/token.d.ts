@@ -5,8 +5,8 @@ declare global {
     class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
         constructor(document: TDocument);
 
-        /** A Ray which represents the Token's current movement path */
-        protected _movement: Ray | null;
+        /** A reference to an animation that is currently in progress for this Token, if any */
+        protected _animation: Promise<unknown> | null;
 
         /**
          * An Object which records the Token's prior velocity dx and dy
@@ -289,10 +289,13 @@ declare global {
         protected _canViewMode(mode: TokenDisplayMode): boolean;
 
         /**
-         * Animate Token movement along a certain path which is defined by a Ray object
-         * @param ray The path along which to animate Token movement
+         * Animate changes to the appearance of the Token.
+         * Animations are performed over differences between the TokenDocument and the current Token and TokenMesh appearance.
+         * @param updateData A record of the differential data which changed, for reference only
+         * @param [options] Options which configure the animation behavior
+         * @returns A promise which resolves once the animation is complete
          */
-        animateMovement(ray: Ray): Promise<void>;
+        animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void>;
 
         /** Animate the continual revealing of Token vision during a movement animation */
         protected _onMovementFrame(
@@ -509,5 +512,10 @@ declare global {
         data: PIXI.InteractionData & {
             clones?: T[];
         };
+    }
+
+    interface TokenAnimationOptions<TObject extends Token> extends CanvasAnimationOptions<TObject> {
+        /** A desired token movement speed in grid spaces per second */
+        movementSpeed?: number;
     }
 }
