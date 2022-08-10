@@ -96,6 +96,23 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         tagify(html.querySelector('input[name="system.traits.value"]'), { whitelist: traits });
         tagify(html.querySelector('input[name="system.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
 
+        $html.find(".toggle-trait").on("change", (evt) => {
+            const target = evt.target as HTMLInputElement;
+            const trait = target.dataset.trait ?? "";
+            if (!objectHasKey(CONFIG.PF2E.spellTraits, trait)) {
+                console.warn("Toggled trait is invalid");
+                return;
+            }
+
+            if (target.checked && !this.item.traits.has(trait)) {
+                const newTraits = this.item.system.traits.value.concat([trait]);
+                this.item.update({ "system.traits.value": newTraits });
+            } else if (!target.checked && this.item.traits.has(trait)) {
+                const newTraits = this.item.system.traits.value.filter((t) => t !== trait);
+                this.item.update({ "system.traits.value": newTraits });
+            }
+        });
+
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
             const baseKey = this.getOverlayFromEvent(event) ?? "data";
