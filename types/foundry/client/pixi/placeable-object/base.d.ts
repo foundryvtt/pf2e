@@ -45,6 +45,18 @@ declare global {
         /** The id of the corresponding Document which this PlaceableObject represents. */
         get id(): string;
 
+        /** A unique identifier which is used to uniquely identify elements on the canvas related to this object. */
+        get objectId(): string;
+
+        /**
+         * The named identified for the source object associated with this PlaceableObject.
+         * This differs from the objectId because the sourceId is the same for preview objects as for the original.
+         */
+        get sourceId(): string;
+
+        /** Is this placeable object a temporary preview? */
+        get isPreview(): boolean;
+
         /** The field-of-vision polygon for the object, if it has been computed */
         get fov(): PIXI.Polygon;
 

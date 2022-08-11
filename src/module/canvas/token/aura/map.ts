@@ -42,7 +42,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         if (this.size === 0) return;
 
         this.clearHighlights();
-        if (this.token.isAnimating) return;
+        if (this.token.isPreview || this.token.isAnimating) return;
 
         if (this.token.hover) {
             const { highlightId } = this;

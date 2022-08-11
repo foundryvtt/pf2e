@@ -35,7 +35,9 @@ class ScenePF2e extends Scene<
 
     /** Check for auras containing newly-placed or moved tokens */
     async checkAuras(): Promise<void> {
-        if (!this.active || this.grid.type !== CONST.GRID_TYPES.SQUARE) return;
+        if (!(canvas.ready && this.active && this.grid.type === CONST.GRID_TYPES.SQUARE)) {
+            return;
+        }
 
         // Prevent concurrent executions of this method
         await this.auraCheckLock;

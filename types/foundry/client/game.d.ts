@@ -199,6 +199,7 @@ declare global {
         get system(): {
             id: string;
             version: string;
+            gridUnits: string;
             data: {
                 authors: string[];
                 availability: number;
@@ -209,7 +210,6 @@ declare global {
                 download: string;
                 esmodules: string[];
                 gridDistance: number;
-                gridUnits: string;
                 initiative: string;
                 keywords: string[];
                 languages: {

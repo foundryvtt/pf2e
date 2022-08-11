@@ -114,8 +114,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     #convertColors(colors: AuraColors | null): TokenAuraColors {
         if (colors) {
             return {
-                border: foundry.utils.colorStringToHex(colors.border) || 1,
-                fill: foundry.utils.colorStringToHex(colors.fill) || 1,
+                border: foundry.utils.Color.fromString(colors.border).littleEndian || 0,
+                fill: foundry.utils.Color.fromString(colors.fill).littleEndian || 0,
             };
         } else {
             const user =
@@ -123,7 +123,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
                 game.users.find((u) => u.isGM && u.active) ??
                 game.user;
 
-            return { border: 1, fill: foundry.utils.colorStringToHex(user.color ?? "#0000000") || 1 };
+            return { border: 1, fill: foundry.utils.Color.fromString(user.color ?? "#0000000").littleEndian || 0 };
         }
     }
 
@@ -134,7 +134,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
         style.align = "center";
 
-        const label = [this.radius, canvas.scene?.grid.units ?? game.system.data.gridUnits].join("");
+        const gridUnits = canvas.scene?.grid.units.trim() || game.system.gridUnits;
+        const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
         text.position.set(this.center.x, this.center.y - this.radiusPixels);
 
