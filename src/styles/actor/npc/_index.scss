@@ -94,6 +94,22 @@ $light-text: #f5efe0;
         height: 100%;
         @include scrollbar;
 
+        .image-container {
+            border: 1px solid var(--color-border-dark);
+            position: relative;
+            img {
+                border: none;
+            }
+            a {
+                font-size: var(--font-size-16);
+            }
+            [data-action=show-image] {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+        }
+
         .armor-section {
             .armor-value {
                 flex: 0;
