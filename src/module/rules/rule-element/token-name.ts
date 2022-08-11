@@ -11,6 +11,6 @@ export class TokenNameRuleElement extends RuleElementPF2e {
 
         if (!this.test()) return;
 
-        mergeObject(this.actor.overrides, { token: { name } });
+        this.actor.synthetics.tokenOverrides.name = name;
     }
 }

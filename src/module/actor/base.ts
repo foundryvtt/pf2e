@@ -473,6 +473,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             strikeAdjustments: [],
             strikes: new Map(),
             striking: {},
+            tokenOverrides: {},
             weaponPotency: {},
             preparationWarnings: {
                 add: (warning: string) => preparationWarnings.add(warning),

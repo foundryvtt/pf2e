@@ -11,6 +11,6 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 
         if (!this.test()) return;
 
-        this.actor.overrides = mergeObject(this.actor.overrides, { prototypeToken: { texture: { src } } });
+        this.actor.synthetics.tokenOverrides.texture = { src } as { src: VideoPath };
     }
 }
