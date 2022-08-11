@@ -11,6 +11,7 @@ import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
@@ -80,7 +81,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
         await this.prepareActions(sheetData);
-        sheetData.attacks = this.prepareAttacks(sheetData.data);
+        sheetData.attacks = await this.prepareAttacks(sheetData.data);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
@@ -168,6 +169,13 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
 
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
+
+        // Enrich content
+        const rollData = this.actor.getRollData();
+        sheetData.enrichedContent.publicNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.publicNotes, {
+            rollData,
+            async: true,
+        });
 
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
@@ -408,23 +416,30 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.actions = actions;
     }
 
-    private prepareAttacks(sheetData: NPCSystemSheetData): NPCAttackSheetData {
+    private async prepareAttacks(sheetData: NPCSystemSheetData): Promise<NPCAttackSheetData> {
         const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-
-        return sheetData.actions.map((attack) => {
-            const traits = attack.traits
-                .map((strikeTrait) => ({
-                    label: attackTraits[strikeTrait.label] ?? strikeTrait.label,
-                    description: traitDescriptions[strikeTrait.name] ?? "",
-                }))
-                .sort((a, b) => {
-                    if (a.label < b.label) return -1;
-                    if (a.label > b.label) return 1;
-                    return 0;
+        const actorRollData = this.actor.getRollData();
+        return Promise.all(
+            sheetData.actions.map(async (attack) => {
+                const itemRollData = attack.item.getRollData();
+                attack.description = await TextEditorPF2e.enrichHTML(attack.description, {
+                    rollData: { ...actorRollData, ...itemRollData },
+                    async: true,
                 });
-            return { attack, traits };
-        });
+                const traits = attack.traits
+                    .map((strikeTrait) => ({
+                        label: attackTraits[strikeTrait.label] ?? strikeTrait.label,
+                        description: traitDescriptions[strikeTrait.name] ?? "",
+                    }))
+                    .sort((a, b) => {
+                        if (a.label < b.label) return -1;
+                        if (a.label > b.label) return 1;
+                        return 0;
+                    });
+                return { attack, traits };
+            })
+        );
     }
 
     private get isWeak(): boolean {

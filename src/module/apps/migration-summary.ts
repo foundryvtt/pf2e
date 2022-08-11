@@ -1,4 +1,6 @@
 import { MigrationRunner } from "@module/migration";
+import { LocalizePF2e } from "@system/localize";
+import { TextEditorPF2e } from "@system/text-editor";
 
 /** A summary window that opens after a system migration completes */
 export class MigrationSummary extends Application<MigrationSummaryOptions> {
@@ -34,7 +36,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         };
     }
 
-    override getData(): MigrationSummaryData {
+    override async getData(): Promise<MigrationSummaryData> {
         const latestSchemaVersion = MigrationRunner.LATEST_SCHEMA_VERSION;
         const actors = {
             successful: game.actors.filter((actor) => actor.schemaVersion === latestSchemaVersion).length,
@@ -47,6 +49,11 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         const canRemigrate =
             this.options.troubleshoot || actors.successful < actors.total || items.successful < items.total;
 
+        const helpResourcesText = await TextEditorPF2e.enrichHTML(
+            LocalizePF2e.translations.PF2E.Migrations.Summary.HelpResources,
+            { async: true }
+        );
+
         return {
             options: this.options,
             systemVersion: game.system.version,
@@ -55,6 +62,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
             items,
             canRemigrate,
             helpResources: canRemigrate && this.isRemigrating,
+            helpResourcesText,
         };
     }
 
@@ -108,4 +116,5 @@ interface MigrationSummaryData {
     items: { successful: number; total: number };
     canRemigrate: boolean;
     helpResources: boolean;
+    helpResourcesText: string;
 }

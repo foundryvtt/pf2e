@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor (enrichHTML data.attributes.stealth.details) target="system.attributes.stealth.details" button=true owner=owner editable=editable}}
+                    {{editor enrichedContent.stealthDetails target="system.attributes.stealth.details" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor (enrichHTML data.details.description) target="system.details.description" button=true owner=owner editable=editable}}
+                    {{editor enrichedContent.description target="system.details.description" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor (enrichHTML data.details.disable) target="system.details.disable" button=true owner=owner editable=editable}}
+                    {{editor enrichedContent.disable target="system.details.disable" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor (enrichHTML data.details.routine) target="system.details.routine" button=true owner=owner editable=editable}}
+                    {{editor enrichedContent.routine target="system.details.routine" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="section-body hazard-editor">
-                    {{editor (enrichHTML data.details.reset) target="system.details.reset" button=true owner=owner editable=editable}}
+                    {{editor enrichedContent.reset target="system.details.reset" button=true owner=owner editable=editable}}
                 </div>
             </div>
             {{/if}}
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="attack-detail sub-section expandable expanded">
                                         <div class="attack-description">
-                                            {{{enrichHTML action.data.description.value}}}
+                                            {{{action.data.description.value}}}
                                         </div>
                                     </div>
                                 </div>

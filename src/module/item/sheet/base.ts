@@ -56,7 +56,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>) {
-        const sheetData: any = this.getBaseData(options);
+        const sheetData: any = await this.getBaseData(options);
         sheetData.abilities = CONFIG.PF2E.abilities;
         sheetData.saves = CONFIG.PF2E.saves;
 
@@ -104,13 +104,21 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(options: Partial<DocumentSheetOptions> = {}): ItemSheetDataPF2e<TItem> {
+    protected async getBaseData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
         const item = this.item.clone({}, { keepId: true });
         const itemData = item.toObject(false) as unknown as TItem["data"];
         const rules = this.item.toObject().system.rules;
+
+        // Enrich content
+        const enrichedContent: Record<string, string> = {};
+        const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
+        enrichedContent.description = await game.pf2e.TextEditor.enrichHTML(itemData.system.description.value, {
+            rollData,
+            async: true,
+        });
 
         return {
             itemType: null,
@@ -122,6 +130,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             item: itemData,
             isPhysical: false,
             data: item.system,
+            enrichedContent,
             limited: this.item.limited,
             options: this.options,
             owner: this.item.isOwner,
