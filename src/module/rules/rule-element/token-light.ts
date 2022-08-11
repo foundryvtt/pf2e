@@ -37,7 +37,8 @@ class TokenLightRuleElement extends RuleElementPF2e {
         if (!this.test()) return;
 
         const light = new foundry.data.LightData(this.data.value).toObject(false);
-        mergeObject(this.actor.overrides, { token: { light } });
+        const { overrides } = this.actor;
+        overrides.prototypeToken = mergeObject(overrides.prototypeToken ?? {}, { light });
     }
 }
 
