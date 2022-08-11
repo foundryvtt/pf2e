@@ -13,7 +13,7 @@ class TextEditorPF2e extends TextEditor {
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async: true }): Promise<string>;
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e): string;
     static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string | Promise<string> {
-        const enriched = super.enrichHTML(this.enrichString(content, options), { ...options });
+        const enriched = super.enrichHTML(this.enrichString(content, options), { async: false, ...options });
         if (typeof enriched === "string") {
             return this.#processUserVisibility(enriched, options);
         }
