@@ -10,7 +10,7 @@ import { ActorSourcePF2e } from "@actor/data";
 
 class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
-    private initialized!: boolean;
+    private initialized?: boolean;
 
     auras!: Map<string, TokenAura>;
 
@@ -53,11 +53,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     protected override _initialize(): void {
-        this.initialized = false;
         this.auras = new Map();
-
         super._initialize();
-
         this.initialized = true;
     }
 
@@ -187,7 +184,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         super.prepareDerivedData();
         if (!(this.initialized && this.actor && this.scene)) return;
 
-        // Temporary token image
+        // Merge token overrides from REs into this
         mergeObject(this, this.actor.overrides.prototypeToken ?? {}, { insertKeys: false });
 
         // Token dimensions from actor size
