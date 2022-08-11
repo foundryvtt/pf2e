@@ -866,20 +866,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     async addToInventory(
-        itemData: PhysicalItemSource,
+        itemSource: PhysicalItemSource,
         container?: Embedded<ContainerPF2e>,
         newStack?: boolean
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
-        const stackItem = this.findStackableItem(this, itemData);
+        const stackItem = this.findStackableItem(this, itemSource);
         if (!newStack && stackItem && stackItem.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + itemData.system.quantity;
+            const stackQuantity = stackItem.quantity + itemSource.system.quantity;
             await stackItem.update({ "system.quantity": stackQuantity });
             return stackItem;
         }
 
         // Otherwise create a new item
-        const result = await ItemPF2e.create(itemData, { parent: this });
+        const result = await ItemPF2e.create(itemSource, { parent: this });
         if (!result) {
             return null;
         }
