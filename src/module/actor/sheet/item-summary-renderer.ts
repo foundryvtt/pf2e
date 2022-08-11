@@ -139,7 +139,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
-            : game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData() });
+            : game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: false });
 
         $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
     }

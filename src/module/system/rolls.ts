@@ -277,7 +277,9 @@ class CheckPF2e {
                     }
                     return false;
                 })
-                .map((n) => game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData }))
+                .map(
+                    async (n) => await game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData, async: true })
+                )
                 .join("<br />") ?? "";
 
         const item = context.item ?? null;

@@ -486,7 +486,7 @@ class SpellPF2e extends ItemPF2e {
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData: SpellSystemData = this.system;
 
-        const options = { ...htmlOptions, rollData };
+        const options = { ...htmlOptions, rollData, async: false };
         const description = game.pf2e.TextEditor.enrichHTML(this.description, options);
 
         const trickData = this.trickMagicEntry;

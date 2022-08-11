@@ -273,6 +273,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
+            htmlOptions.async = false;
             chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, htmlOptions);
 
             return chatData;

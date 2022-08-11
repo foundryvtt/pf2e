@@ -133,7 +133,7 @@ export function registerHandlebarsHelpers() {
     Handlebars.registerHelper("enrichHTML", (html, options) => {
         const item: ItemPF2e = options?.hash.item;
         const rollData = item?.getRollData();
-        return game.pf2e.TextEditor.enrichHTML(html, { rollData, secrets: game.user.isGM });
+        return game.pf2e.TextEditor.enrichHTML(html, { rollData, secrets: game.user.isGM, async: false });
     });
 
     Handlebars.registerHelper("json", (html) => {
