@@ -184,8 +184,13 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         super.prepareDerivedData();
         if (!(this.initialized && this.actor && this.scene)) return;
 
-        // Merge token overrides from REs into this
-        mergeObject(this, this.actor.overrides.prototypeToken ?? {}, { insertKeys: false });
+        // Merge token overrides from REs into this document
+        const { tokenOverrides } = this.actor.synthetics;
+        this.name = tokenOverrides.name ?? this.name;
+        this.texture.src = tokenOverrides.texture?.src ?? this.texture.src;
+        if (tokenOverrides.light) {
+            this.light = new foundry.data.LightData(tokenOverrides.light, this);
+        }
 
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this, this.actor);

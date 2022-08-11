@@ -22,6 +22,7 @@ interface RuleElementSynthetics {
     strikeAdjustments: StrikeAdjustment[];
     strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
+    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name" | "texture">>;
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
         /** Adds a new preparation warning to be printed when flushed */
