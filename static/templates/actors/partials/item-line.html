@@ -37,39 +37,39 @@
             <div class="item-controls">
                 {{#if isContainer}}
                     {{#if item.isCollapsed}}
-                        <a class="item-control item-toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fas fa-box"></i></a>
+                        <a class="item-control item-toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fas fa-box fa-1x fa-fw"></i></a>
                     {{else}}
-                        <a class="item-control item-toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fas fa-box-open"></i></a>
+                        <a class="item-control item-toggle-container" title="{{localize "PF2E.OpenItemTitle"}}"><i class="fas fa-box-open fa-1x fa-fw"></i></a>
                     {{/if}}
                 {{/if}}
 
                 {{#if (and canBeEquipped isInvestable)}}
-                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem"></i></a>
+                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-gem fa-1x fa-fw"></i></a>
                 {{/if}}
                 {{#if (or (eq @root.actor.type "character") (eq @root.actor.type "npc"))}}
                     {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=item}}
                 {{/if}}
                 {{#if item.isDamaged}}
-                    <a class="item-control item-repair" title="{{localize "PF2E.RepairItemTitle"}}"><i class="fas fa-hammer"></i></a>
+                    <a class="item-control item-repair" title="{{localize "PF2E.RepairItemTitle"}}"><i class="fas fa-hammer fa-1x fa-fw"></i></a>
                 {{/if}}
                 {{#if @root.user.isGM}}
                     {{#if item.isIdentified}}
-                        <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
+                        <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle fa-1x fa-fw"></i></a>
                     {{else}}
-                        <a class="item-control item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle"></i></a>
+                        <a class="item-control item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle fa-1x fa-fw"></i></a>
                     {{/if}}
                 {{/if}}
                 {{#if (and isSellable (ne @root.actor.type "loot"))}}
-                    <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
+                    <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins fa-1x fa-fw"></i></a>
                 {{/if}}
                 {{#if (and (eq item.type "weapon") (eq @root.actor.type "npc"))}}
-                    <a class="item-control" data-action="generate-attack" title="{{localize "PF2E.Actor.NPC.GenerateAttack.Label"}}"><i class="fas fa-bolt"></i></a>
+                    <a class="item-control" data-action="generate-attack" title="{{localize "PF2E.Actor.NPC.GenerateAttack.Label"}}"><i class="fas fa-bolt fa-1x fa-fw"></i></a>
                 {{/if}}
                 {{#if (or @root.user.isGM item.isIdentified)}}
-                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit fa-1x fa-fw"></i></a>
                 {{/if}}
                 {{#if (or owner (ne @root.actor.type "loot"))}}
-                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash fa-1x fa-fw"></i></a>
                 {{/if}}
             </div>
         {{/if}}
