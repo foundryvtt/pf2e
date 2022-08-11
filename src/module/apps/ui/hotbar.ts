@@ -17,6 +17,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
 
         if (data.type === "Item") {
             const itemId = data.id ?? (isObject<{ _id?: unknown }>(data.data) ? data.data._id : null);
+            const uuid = data.uuid;
 
             const prefix =
                 typeof data.pack === "string"
@@ -24,7 +25,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     : typeof data.actorId === "string"
                     ? `Actor.${data.actorId}.Item`
                     : "Item";
-            const item = await fromUuid(`${prefix}.${itemId}`);
+            const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
 
             if (item instanceof EffectPF2e) {
                 return createToggleEffectMacro(item, slot);
@@ -81,7 +82,6 @@ if (!actor) {
 }
 
 type HotbarDropData = Partial<DropCanvasData> & {
-    pack?: string;
     actorId?: string;
     slot?: number;
     skill?: string;
