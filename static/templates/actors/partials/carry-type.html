@@ -1,9 +1,9 @@
 <a class="carry-type-hover item-carry-type item-control{{#if item.isEquipped}} active{{/if}}" data-tooltip-content="#inventory-{{item.id}}-carryType">
-    {{~#if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 1))}}1<i class="fas fa-hand-rock"></i>
-    {{~else if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 2))}}2<i class="fas fa-hand-rock"></i>
-    {{~else if (eq item.system.equipped.carryType "stowed")}}<i class="fas fa-box"></i>
-    {{~else if (eq item.system.equipped.carryType "dropped")}}<i class="fas fa-grip-lines"></i>
-    {{~else}}<i class="fas fa-tshirt"></i>{{/if~}}
+    {{~#if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 1))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fab fa-1 fa-inverse fa-stack-1x"></i></span>
+    {{~else if (and (eq item.system.equipped.carryType "held") (eq item.system.equipped.handsHeld 2))}}<span class="fa-stack fa-fw fa-2xs"><i class="fa-solid fa-hand-back-fist fa-stack-2x"></i><i class="fab fa-2 fa-inverse fa-stack-1x"></i></span>
+    {{~else if (eq item.system.equipped.carryType "stowed")}}<i class="fas fa-box fa-fw"></i>
+    {{~else if (eq item.system.equipped.carryType "dropped")}}<i class="fas fa-grip-lines fa-fw"></i>
+    {{~else}}<i class="fas fa-tshirt fa-fw"></i>{{/if~}}
 </a>
 <div class="hover-content carry-hover-content" id="inventory-{{item.id}}-carryType" data-item-id="{{item.id}}">
     <!-- {{item.system.usage.type}} / {{item.system.usage.where}} / {{item.system.usage.hands}} / {{item.system.usage.value}} -->
