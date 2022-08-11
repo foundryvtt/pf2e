@@ -16,7 +16,7 @@ import { LocalizePF2e } from "@system/localize";
 export async function createItemMacro(item: ItemSourcePF2e, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
     const macro =
-        game.macros.find((macro) => macro.name === item.name && macro.data.command === command) ??
+        game.macros.find((macro) => macro.name === item.name && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
@@ -53,7 +53,7 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     const actionName = JSON.stringify(action.name);
     const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
     const actionMacro =
-        game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
+        game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
@@ -118,7 +118,7 @@ if (a) {
 }`;
     const macroName = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
     const skillMacro =
-        game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
+        game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
@@ -162,13 +162,13 @@ for (const actor of actors) {
 }
 `;
     const toggleMacro =
-        game.macros.contents.find((macro) => macro.name === effect.data.name && macro.data.command === command) ??
+        game.macros.contents.find((macro) => macro.name === effect.name && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
-                name: effect.data.name,
+                name: effect.name,
                 type: "script",
-                img: effect.data.img,
+                img: effect.img,
             },
             { renderSheet: false }
         ));
