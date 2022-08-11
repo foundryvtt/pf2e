@@ -189,7 +189,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         this.name = tokenOverrides.name ?? this.name;
         this.texture.src = tokenOverrides.texture?.src ?? this.texture.src;
         if (tokenOverrides.light) {
-            this.light = new foundry.data.LightData(tokenOverrides.light, this);
+            this.light = new foundry.data.LightData(tokenOverrides.light, {
+                parent: this,
+            } as unknown as this);
         }
 
         // Token dimensions from actor size
