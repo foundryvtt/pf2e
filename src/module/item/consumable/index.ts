@@ -6,6 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ValueAndMax } from "@module/data";
+import { ItemSummaryData } from "@item/data";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
     get consumableType(): ConsumableType {
@@ -45,7 +46,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         }) as Embedded<SpellPF2e>;
     }
 
-    override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<ConsumablePF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);

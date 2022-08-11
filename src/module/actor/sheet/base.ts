@@ -120,12 +120,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             inventory: this.prepareInventory(),
         };
 
-        this.prepareItems(sheetData);
+        await this.prepareItems(sheetData);
 
         return sheetData;
     }
 
-    protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): void;
+    protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
 
     protected prepareInventory(): SheetInventory {
         const sections: SheetInventory["sections"] = {

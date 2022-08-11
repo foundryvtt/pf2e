@@ -55,7 +55,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    protected prepareItems(): void {
+    protected async prepareItems(): Promise<void> {
         // no-op
     }
 

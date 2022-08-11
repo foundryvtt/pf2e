@@ -1,4 +1,5 @@
 import { ItemPF2e } from "@item/base";
+import { ItemSummaryData } from "@item/data";
 import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
@@ -147,7 +148,10 @@ export class MeleePF2e extends ItemPF2e {
         return [baseOptions, otherOptions].flat().sort();
     }
 
-    override getChatData(this: Embedded<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<MeleePF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 

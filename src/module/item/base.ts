@@ -131,7 +131,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
             item: this,
-            data: this.getChatData(undefined, contextualData),
+            data: await this.getChatData(undefined, contextualData),
         };
 
         // Basic chat message data
@@ -265,10 +265,10 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected processChatData<T extends { properties?: (string | number | null)[]; [key: string]: unknown }>(
+    protected async processChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        data: T
-    ): T {
+        data: ItemSummaryData
+    ): Promise<ItemSummaryData> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
@@ -281,7 +281,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         return data;
     }
 
-    getChatData(htmlOptions: EnrichHTMLOptionsPF2e = {}, _rollOptions: Record<string, unknown> = {}): ItemSummaryData {
+    async getChatData(
+        htmlOptions: EnrichHTMLOptionsPF2e = {},
+        _rollOptions: Record<string, unknown> = {}
+    ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
         return this.processChatData(htmlOptions, deepClone(systemData));

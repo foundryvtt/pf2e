@@ -15,6 +15,8 @@ declare global {
 
         flavor: string;
 
+        _rollExpanded: boolean;
+
         /**
          * Return the recommended String alias for this message.
          * The alias could be a Token name in the case of in-character messages or dice rolls.
@@ -153,6 +155,12 @@ declare global {
         /** Render the HTML for the ChatMessage which should be added to the log */
         getHTML(): Promise<JQuery>;
 
+        /**
+         * Render the inner HTML content for ROLL type messages.
+         * @param messageData      The chat message data used to render the message HTML
+         */
+        protected _renderRollContent: (messageData: ChatMessageRenderData) => Promise<void>;
+
         protected override _preUpdate(
             changed: DeepPartial<foundry.data.ChatMessageSource>,
             options: DocumentModificationContext<this>,
@@ -197,5 +205,17 @@ declare global {
 
     interface ChatMessageModificationContext extends DocumentModificationContext {
         rollMode?: RollMode;
+    }
+
+    interface ChatMessageRenderData {
+        message: RawObject<foundry.data.ChatMessageData>;
+        user: User;
+        author: User;
+        alias: string;
+        borderColor?: string;
+        cssClass: string;
+        isWhisper: number;
+        canDelete: boolean;
+        whisperTo: string;
     }
 }

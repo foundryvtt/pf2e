@@ -1,5 +1,5 @@
 import { type ContainerPF2e, ItemPF2e } from "@item";
-import { PhysicalItemData, TraitChatData } from "@item/data";
+import { ItemSummaryData, PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
@@ -315,7 +315,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         };
     }
 
-    override getChatData(): Record<string, unknown> {
+    override async getChatData(): Promise<ItemSummaryData> {
         const { precious } = this.material;
         const material = precious
             ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {

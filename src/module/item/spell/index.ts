@@ -8,7 +8,7 @@ import {
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ItemConstructionContextPF2e, ItemPF2e, SpellcastingEntryPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -451,10 +451,10 @@ class SpellPF2e extends ItemPF2e {
         return ChatMessagePF2e.create(messageSource, { renderSheet: false });
     }
 
-    override getChatData(
+    override async getChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { castLevel?: number | string } = {}
-    ): Record<string, unknown> {
+    ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const slotLevel = Number(rollOptions.castLevel) || this.level;
         const castLevel = this.computeCastLevel(slotLevel);
@@ -489,7 +489,7 @@ class SpellPF2e extends ItemPF2e {
         const systemData: SpellSystemData = this.system;
 
         const options = { ...htmlOptions, rollData };
-        const description = game.pf2e.TextEditor.enrichHTML(this.description, options);
+        const description = await game.pf2e.TextEditor.enrichHTML(this.description, { ...options, async: true });
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;

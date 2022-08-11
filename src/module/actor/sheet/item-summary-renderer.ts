@@ -65,7 +65,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
                 return $summary.insertAfter($element.children(".item-name, .item-controls, .action-header").last());
             })();
 
-            const chatData = item.getChatData({ secrets: actor.isOwner }, $element.data());
+            const chatData = await item.getChatData({ secrets: actor.isOwner }, $element.data());
             this.renderItemSummary($summary, item, chatData);
             if (options.instant) {
                 InlineRollLinks.listen($summary);
@@ -83,7 +83,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
      * Called when an item summary is expanded and needs to be filled out.
      * @todo Move this to templates
      */
-    renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: ItemSummaryData) {
+    async renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: ItemSummaryData): Promise<void> {
         const localize = game.i18n.localize.bind(game.i18n);
 
         const itemIsIdentifiedOrUserIsGM = item.isOfType("physical") && (item.isIdentified || game.user.isGM);
@@ -139,7 +139,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
-            : game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData() });
+            : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
         $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
     }
@@ -183,8 +183,12 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 }
 
 export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRendererPF2e<AType> {
-    override renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: Record<string, unknown>) {
-        super.renderItemSummary($div, item, chatData);
+    override async renderItemSummary(
+        $div: JQuery,
+        item: Embedded<ItemPF2e>,
+        chatData: Record<string, unknown>
+    ): Promise<void> {
+        await super.renderItemSummary($div, item, chatData);
         const actor = item.actor;
         const buttons = $('<div class="item-buttons"></div>');
         switch (item.type) {

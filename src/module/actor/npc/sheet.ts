@@ -72,19 +72,19 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
      * Prepares items in the actor for easier access during sheet rendering.
      * @param sheetData Data from the actor associated to this sheet.
      */
-    protected prepareItems(sheetData: NPCSheetData<TActor>): void {
+    protected async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
         this.prepareSkills(sheetData.data);
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
-        this.prepareActions(sheetData);
+        await this.prepareActions(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
-        sheetData.spellcastingEntries = this.prepareSpellcasting();
+        sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
 
     private getIdentifyCreatureData(): IdentifyCreatureData {
@@ -333,8 +333,8 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         }
     }
 
-    protected override prepareSpellcasting(): NPCSpellcastingSheetData[] {
-        const entries: NPCSpellcastingSheetData[] = super.prepareSpellcasting();
+    protected override async prepareSpellcasting(): Promise<NPCSpellcastingSheetData[]> {
+        const entries: NPCSpellcastingSheetData[] = await super.prepareSpellcasting();
         for (const entry of entries) {
             const entryItem = this.actor.items.get(entry.id);
             if (!entryItem?.isOfType("spellcastingEntry")) continue;
@@ -355,7 +355,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
      * Prepares the actions list to be accessible from the sheet.
      * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(sheetData: NPCSheetData<TActor>): void {
+    private async prepareActions(sheetData: NPCSheetData<TActor>): Promise<void> {
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
@@ -365,8 +365,8 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         for (const item of this.actor.itemTypes.action) {
             const itemData = item.toObject(false);
-            const chatData = item.getChatData();
-            const traits = chatData.traits;
+            const chatData = await item.getChatData();
+            const traits = chatData.traits ?? [];
 
             // Create trait with the type of action
             const systemData = itemData.system;

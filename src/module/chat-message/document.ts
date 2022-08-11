@@ -9,7 +9,6 @@ import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
@@ -161,18 +160,50 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return user.isGM;
     }
 
-    override prepareData(): void {
-        super.prepareData();
-
-        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
-        this.content = TextEditorPF2e.enrichHTML(this.content, { rollData });
-    }
-
     override async getHTML(): Promise<JQuery> {
-        const $html = await super.getHTML();
+        // Determine some metadata
+        const data = this.toObject(false) as RawObject<ChatMessageDataPF2e>;
+        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
+        data.content = await TextEditorPF2e.enrichHTML(this.content, { rollData, async: true });
+        const isWhisper = this.whisper.length;
 
-        // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibilityPF2e.process($html, { message: this });
+        // Construct message data
+        const messageData: ChatMessageRenderData = {
+            message: data,
+            user: game.user,
+            author: this.user,
+            alias: this.alias,
+            cssClass: [
+                this.type === CONST.CHAT_MESSAGE_TYPES.IC ? "ic" : null,
+                this.type === CONST.CHAT_MESSAGE_TYPES.EMOTE ? "emote" : null,
+                isWhisper ? "whisper" : null,
+                this.blind ? "blind" : null,
+            ].filterJoin(" "),
+            isWhisper: this.whisper.length,
+            canDelete: game.user.isGM, // Only GM users are allowed to have the trash-bin icon in the chat log itself
+            whisperTo: this.whisper
+                .map((u) => {
+                    const user = game.users.get(u);
+                    return user ? user.name : null;
+                })
+                .filterJoin(", "),
+        };
+
+        // Render message data specifically for ROLL type messages
+        if (this.isRoll) {
+            await this._renderRollContent(messageData);
+        }
+
+        // Define a border color
+        if (this.type === CONST.CHAT_MESSAGE_TYPES.OOC) {
+            messageData.borderColor = this.user.color;
+        }
+
+        // Render the chat message
+        const $html = $(await renderTemplate(CONFIG.ChatMessage.template, messageData));
+
+        // Flag expanded state of dice rolls
+        if (this._rollExpanded) $html.find(".dice-tooltip").addClass("expanded");
 
         // Remove spell card owner buttons if the user is not the owner of the spell
         if (this.item?.isOfType("spell") && !this.item.isOwner) {
@@ -237,6 +268,17 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         $html.on("mouseleave", () => this.onHoverOut());
         $html.find(".message-sender").on("click", this.onClick.bind(this));
 
+        /**
+         * A hook event that fires for each ChatMessage which is rendered for addition to the ChatLog.
+         * This hook allows for final customization of the message HTML before it is added to the log.
+         * @function renderChatMessage
+         * @memberof hookEvents
+         * @param {ChatMessage} message   The ChatMessage document being rendered
+         * @param {jQuery} html           The pending HTML as a jQuery object
+         * @param {object} data           The input data provided for template rendering
+         */
+        Hooks.call("renderChatMessage", this, $html, messageData);
+
         return $html;
     }
 
@@ -278,6 +320,10 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
 
     flags: ChatMessageFlagsPF2e;
+
+    blind: this["data"]["blind"];
+    type: this["data"]["type"];
+    whisper: this["data"]["whisper"];
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
 

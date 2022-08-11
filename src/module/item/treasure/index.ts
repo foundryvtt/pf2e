@@ -1,3 +1,4 @@
+import { ItemSummaryData } from "@item/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { DENOMINATIONS } from "@item/physical/values";
 import { TreasureData } from "./data";
@@ -21,7 +22,10 @@ class TreasurePF2e extends PhysicalItemPF2e {
         }
     }
 
-    override getChatData(this: Embedded<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<TreasurePF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData({});
 

@@ -103,7 +103,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return results;
     }
 
-    override prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): void {
+    override async prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): Promise<void> {
         const actorData = sheetData.actor;
         // Actions
         const attacks: ItemDataPF2e[] = [];

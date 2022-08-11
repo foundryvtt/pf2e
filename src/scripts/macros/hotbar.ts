@@ -77,7 +77,9 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     actor,
                     strike: action,
                     strikeIndex: actionIndex,
-                    strikeDescription: game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description)),
+                    strikeDescription: await game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description), {
+                        async: true,
+                    }),
                 };
 
                 const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.html", templateData);

@@ -262,23 +262,26 @@ class CheckPF2e {
         }
 
         const noteRollData = context.item?.getRollData();
-        const notes =
-            context.notes
-                ?.filter((note) => {
-                    if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
-                    if (!context.dc || note.outcome.length === 0) {
-                        // Always show the note if the check has no DC or no outcome is specified.
+        const contextNotes =
+            context.notes?.filter((note) => {
+                if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
+                if (!context.dc || note.outcome.length === 0) {
+                    // Always show the note if the check has no DC or no outcome is specified.
+                    return true;
+                } else if (context.outcome && context.unadjustedOutcome) {
+                    if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
+                        // Show the note if the specified outcome was achieved.
                         return true;
-                    } else if (context.outcome && context.unadjustedOutcome) {
-                        if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
-                            // Show the note if the specified outcome was achieved.
-                            return true;
-                        }
                     }
-                    return false;
-                })
-                .map((n) => game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData }))
-                .join("<br />") ?? "";
+                }
+                return false;
+            }) ?? [];
+        const enriched = await Promise.all(
+            contextNotes.map(
+                async (n) => await game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData, async: true })
+            )
+        );
+        const notes = enriched.join("<br />") ?? "";
 
         const item = context.item ?? null;
 

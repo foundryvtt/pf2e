@@ -234,7 +234,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
-    getSpellData(): SpellcastingEntryListData {
+    async getSpellData(): Promise<SpellcastingEntryListData> {
         const { actor } = this;
         if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
@@ -260,7 +260,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                         if (spell) {
                             active[Number(key)] = {
                                 spell,
-                                chatData: spell.getChatData(),
+                                chatData: await spell.getChatData(),
                                 expended: !!value.expended,
                             };
                         }
@@ -284,21 +284,27 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             const leveled = spells.filter((spell) => !spell.isCantrip);
 
             if (cantrips.length) {
+                const active = await Promise.all(
+                    cantrips.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
+                );
                 results.push({
                     label: "PF2E.Actor.Creature.Spellcasting.Cantrips",
                     level: 0,
                     isCantrip: true,
-                    active: cantrips.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                    active,
                 });
             }
 
             if (leveled.length) {
+                const active = await Promise.all(
+                    leveled.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
+                );
                 results.push({
                     label: actor.isOfType("character") ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
                     level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
                     isCantrip: false,
                     uses: actor.system.resources.focus ?? { value: 0, max: 0 },
-                    active: leveled.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                    active,
                 });
             }
         } else {
@@ -310,12 +316,14 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                 const spells = spellsByLevel.get(level) ?? [];
                 if (alwaysShowHeader || spells.length) {
                     const uses = this.isSpontaneous && level !== 0 ? { value: data.value, max: data.max } : undefined;
-                    const active = spells.map((spell) => ({
-                        spell,
-                        chatData: spell.getChatData(),
-                        expended: this.isInnate && !spell.system.location.uses?.value,
-                        uses: this.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
-                    }));
+                    const active = await Promise.all(
+                        spells.map(async (spell) => ({
+                            spell,
+                            chatData: await spell.getChatData(),
+                            expended: this.isInnate && !spell.system.location.uses?.value,
+                            uses: this.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
+                        }))
+                    );
 
                     // These entries hide if there are no active spells at that level, or if there are no spell slots
                     const hideForSpontaneous = this.isSpontaneous && uses?.max === 0 && active.length === 0;
@@ -344,7 +352,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        const chatData = spell.getChatData({}, { castLevel: result.level });
+                        const chatData = await spell.getChatData({}, { castLevel: result.level });
                         result.active.push({ spell, chatData, signature: true, virtual: true });
                     }
                 }
