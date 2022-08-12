@@ -261,27 +261,23 @@ class CheckPF2e {
             roll.data.degreeOfSuccess = degree.value;
         }
 
-        const noteRollData = context.item?.getRollData();
-        const contextNotes =
-            context.notes?.filter((note) => {
-                if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
-                if (!context.dc || note.outcome.length === 0) {
-                    // Always show the note if the check has no DC or no outcome is specified.
-                    return true;
-                } else if (context.outcome && context.unadjustedOutcome) {
-                    if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
-                        // Show the note if the specified outcome was achieved.
+        const notes =
+            context.notes
+                ?.filter((note) => {
+                    if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
+                    if (!context.dc || note.outcome.length === 0) {
+                        // Always show the note if the check has no DC or no outcome is specified.
                         return true;
+                    } else if (context.outcome && context.unadjustedOutcome) {
+                        if ([context.outcome, context.unadjustedOutcome].some((o) => note.outcome.includes(o))) {
+                            // Show the note if the specified outcome was achieved.
+                            return true;
+                        }
                     }
-                }
-                return false;
-            }) ?? [];
-        const enriched = await Promise.all(
-            contextNotes.map(
-                async (n) => await game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData, async: true })
-            )
-        );
-        const notes = enriched.join("<br />") ?? "";
+                    return false;
+                })
+                .map((n) => n.text)
+                .join("<br />") ?? "";
 
         const item = context.item ?? null;
 
@@ -303,11 +299,11 @@ class CheckPF2e {
             const header = document.createElement("h4");
             header.classList.add("action");
             header.innerHTML = check.name;
-
-            return [header, result ?? [], tags, notes, incapacitation]
+            const flavor = [header, result ?? [], tags, notes, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
+            return TextEditorPF2e.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
         const secret = context.secret ?? context.options?.includes("secret") ?? false;
