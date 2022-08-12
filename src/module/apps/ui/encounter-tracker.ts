@@ -148,7 +148,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         const wasDraggedDown = !!aboveDropped && !wasDraggedUp;
 
         // Set a new initiative intuitively, according to allegedly commonplace intuitions
-        dropped.data.initiative =
+        dropped.initiative =
             hasBelowAndNoAbove || (aboveIsHigherThanBelow && wasDraggedUp)
                 ? belowDropped.initiative + 1
                 : hasAboveAndNoBelow || (belowIsHigherThanAbove && wasDraggedDown)
