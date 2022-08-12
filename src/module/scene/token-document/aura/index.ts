@@ -38,7 +38,7 @@ class TokenAura implements TokenAuraData {
     get radiusPixels(): number {
         const gridSize = this.scene.grid.distance;
         const gridSizePixels = this.scene.grid.size;
-        const tokenWidth = this.token.data.width * gridSizePixels;
+        const tokenWidth = this.token.width * gridSizePixels;
         return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
 
@@ -48,7 +48,7 @@ class TokenAura implements TokenAuraData {
 
     get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
-        const tokenWidth = token.data.width * this.scene.grid.size;
+        const tokenWidth = token.width * this.scene.grid.size;
         const tokenBounds = token.bounds;
 
         return new PIXI.Rectangle(
@@ -74,7 +74,7 @@ class TokenAura implements TokenAuraData {
         if (token === this.token) return this.includesSelf;
 
         // 2. If this aura is out of range, return false early
-        if (measureDistanceRect(this.token.bounds, token.bounds) > this.radius) return false;
+        if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
         // 3. Check whether any aura square intersects the token's space
         return this.squares.some((s) => s.active && measureDistanceRect(s, token.bounds) === 0);
