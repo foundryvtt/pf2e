@@ -78,7 +78,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Restore wand charges
         const items = actor.itemTypes;
-        const wands = items.consumable.filter((i) => i.consumableType === "wand" && i.charges.value < i.charges.max);
+        const wands = items.consumable.filter((i) => i.consumableType === "wand" && i.uses.value < i.uses.max);
         itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": 1 })));
         const wandRecharged = itemUpdates.length > 0;
 
