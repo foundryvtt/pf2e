@@ -2,14 +2,16 @@ class MystifiedTraits {
     private static mystifiedTraits: Set<string> = new Set();
 
     static compile(): void {
-        this.mystifiedTraits = new Set([
-            ...Object.keys(CONFIG.PF2E.magicSchools),
-            ...Object.keys(CONFIG.PF2E.magicTraditions),
-            ...Object.keys(CONFIG.PF2E.consumableTraits).filter((trait) => trait !== "consumable"),
-            "cursed",
-            "extradimensional",
-            "invested",
-        ]);
+        this.mystifiedTraits = new Set(
+            [
+                "artifact",
+                "extradimensional",
+                "invested",
+                "shadow",
+                // Includes of magical schools, traditions, "clockwork," "cursed," "magical," etc.:
+                ...Object.keys(CONFIG.PF2E.consumableTraits).filter((t) => !["consumable", "nonlethal"].includes(t)),
+            ].sort()
+        );
     }
 
     /** Exclude any mystified traits from the provided trait list */
