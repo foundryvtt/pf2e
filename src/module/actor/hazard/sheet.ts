@@ -78,7 +78,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     private prepareActions(): HazardActionSheetData {
-        const actions = this.actor.itemTypes.action.sort((a, b) => a.data.sort - b.data.sort);
+        const actions = this.actor.itemTypes.action.sort((a, b) => a.sort - b.sort);
         return {
             reaction: actions.filter((a) => a.actionCost?.type === "reaction"),
             action: actions.filter((a) => a.actionCost?.type !== "reaction"),
