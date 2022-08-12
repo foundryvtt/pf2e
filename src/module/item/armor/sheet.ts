@@ -34,4 +34,14 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
         };
     }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        formData["system.potencyRune.value"] ||= null;
+        formData["system.resiliencyRune.value"] ||= null;
+        for (const slotNumber of [1, 2, 3, 4]) {
+            formData[`system.propertyRune${slotNumber}.value`] ||= null;
+        }
+
+        return super._updateObject(event, formData);
+    }
 }

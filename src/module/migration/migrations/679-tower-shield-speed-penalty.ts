@@ -22,7 +22,8 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
 
             systemData.armor.value = Number(systemData.armor.value) || 0;
             systemData.speed.value = Number(systemData.speed.value) || 0;
-            systemData.potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
+            const potencyRune: { value: ZeroToFour | null } = systemData.potencyRune;
+            potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
             if ("resilient" in systemData) {
                 // Aborted attempt to store rune data?
                 "game" in globalThis ? (systemData["-=resilient"] = null) : delete systemData.resilient;
