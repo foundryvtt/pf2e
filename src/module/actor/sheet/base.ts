@@ -158,7 +158,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     item.isIdentified &&
                     item.isInvested !== null,
                 isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
-                hasCharges: item.isOfType("consumable") && item.charges.max > 0,
+                hasCharges: item.isOfType("consumable") && item.uses.max > 0,
                 heldItems,
             };
         };

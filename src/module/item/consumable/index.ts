@@ -5,6 +5,7 @@ import { ErrorPF2e } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { ValueAndMax } from "@module/data";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
     get consumableType(): ConsumableType {
@@ -15,10 +16,9 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return this.consumableType === "ammo";
     }
 
-    get charges() {
+    get uses(): ValueAndMax {
         return {
             value: this.system.charges.value,
-            current: this.system.charges.value, // will be removed in v10
             max: this.system.charges.max,
         };
     }
@@ -60,11 +60,11 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             ...systemData,
             traits,
             properties:
-                this.isIdentified && this.charges.max > 0
+                this.isIdentified && this.uses.max > 0
                     ? [`${systemData.charges.value}/${systemData.charges.max} ${translations.ConsumableChargesLabel}`]
                     : [],
-            usesCharges: this.charges.max > 0,
-            hasCharges: this.charges.max > 0 && this.charges.value > 0,
+            usesCharges: this.uses.max > 0,
+            hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
             isUsable,
         });
@@ -94,13 +94,13 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             return false;
         }
 
-        const { max } = this.charges;
+        const { max } = this.uses;
         return weapon.traits.has("repeating") ? max > 1 : max <= 1;
     }
 
     /** Use a consumable item, sending the result to chat */
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
-        const { value, max } = this.charges;
+        const { value, max } = this.uses;
 
         if (["scroll", "wand"].includes(this.system.consumableType.value) && this.system.spell.data) {
             if (this.actor.spellcasting.canCastConsumable(this)) {

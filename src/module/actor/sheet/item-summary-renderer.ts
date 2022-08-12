@@ -217,7 +217,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
 
                 break;
             case "consumable":
-                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified) {
+                if (item instanceof ConsumablePF2e && item.uses.max > 0 && item.isIdentified) {
                     const label = game.i18n.localize("PF2E.ConsumableUseLabel");
                     buttons.append(
                         `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
