@@ -25,155 +25,6 @@ export class AbilityBuilderPopup extends Application {
         return `ability-builder-${this.actor.id}`;
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const { actor } = this;
-
-        $html.find("div[data-tooltip-content]").tooltipster({
-            contentAsHTML: true,
-            arrow: false,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["bottom"],
-            theme: "crb-hover",
-        });
-
-        $html.find("div.tooltip").tooltipster();
-
-        $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
-            event.currentTarget.select();
-        });
-
-        $html.find<HTMLInputElement>("input[name=toggle-manual-mode]").on("change", async (event) => {
-            if (event.originalEvent) {
-                await actor.toggleAbilityManagement();
-            }
-        });
-
-        $html.find<HTMLInputElement>("input[name=toggle-voluntary-flaw]").on("change", async (event) => {
-            if (event.originalEvent) {
-                await actor.ancestry?.toggleVoluntaryFlaw();
-            }
-        });
-
-        $html.find("button[data-action=ancestry-boost]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
-
-            const boostToRemove = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
-                ([, b]) => b.selected === ability
-            );
-            if (boostToRemove) {
-                await actor.ancestry?.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
-                return;
-            }
-
-            const freeBoost = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
-                ([, b]) => !b.selected && b.value.length > 0
-            );
-            if (freeBoost) {
-                await actor.ancestry?.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
-            }
-        });
-
-        $html.find("button[data-action=voluntary-flaw]").on("click", async (event) => {
-            const $button = $(event.currentTarget);
-            const ability = $button.attr("data-ability");
-            const removing = $button.hasClass("selected");
-            const { ancestry } = actor;
-            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
-
-            const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [], boost: null };
-            const alreadyHasFlaw = flaws.includes(ability);
-
-            // If removing, it must exist and there shouldn't be a boost selected
-            if (removing && alreadyHasFlaw && !boost) {
-                flaws.splice(flaws.indexOf(ability), 1);
-                await ancestry.update({ system: { voluntary: { flaws } } });
-            }
-
-            // If adding, we need to be under 2 flaws, it must be new or be a locked ancestry boost (to double flaw)
-            const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
-            if (!removing && flaws.length < 2 && (!alreadyHasFlaw || boostedByAncestry)) {
-                flaws.push(ability);
-                await ancestry.update({ system: { voluntary: { flaws } } });
-            }
-        });
-
-        $html.find("button[data-action=voluntary-boost]").on("click", async (event) => {
-            const $button = $(event.currentTarget);
-            const removing = $button.hasClass("selected");
-            const ability = $button.attr("data-ability");
-            const { ancestry } = actor;
-            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
-
-            const boost = removing ? null : ability;
-            await ancestry.update({ system: { voluntary: { boost } } });
-        });
-
-        $html.find("button[data-action=background-boost]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
-
-            const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
-                ([, b]) => b.selected === ability
-            );
-            if (boostToRemove) {
-                await actor.background?.update({
-                    [`system.boosts.${boostToRemove[0]}.selected`]: null,
-                });
-                return;
-            }
-
-            const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
-                ([, b]) => !b.selected && b.value.length > 0
-            );
-            if (freeBoost) {
-                await actor.background?.update({
-                    [`system.boosts.${freeBoost[0]}.selected`]: ability,
-                });
-            }
-        });
-
-        $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
-            if (actor.system.build.abilities.manual) {
-                await actor.update({ [`system.details.keyability.value`]: ability });
-            } else {
-                await actor.class?.update({ [`system.keyAbility.selected`]: ability });
-            }
-        });
-
-        $html.find("button[data-action=level]").on("click", async (event) => {
-            const ability = event.currentTarget.dataset.ability;
-            const level = event.currentTarget.dataset.level;
-            if (
-                !setHasElement(ABILITY_ABBREVIATIONS, ability) ||
-                !setHasElement(new Set(["1", "5", "10", "15", "20"] as const), level)
-            ) {
-                throw ErrorPF2e("Unexpected update requested to ability boosts and flaws");
-            }
-
-            const buildSource = mergeObject(actor.toObject().system.build ?? {}, { abilities: { boosts: {} } });
-            const boosts = (buildSource.abilities.boosts[level] ??= []);
-            if (boosts.includes(ability)) {
-                boosts.splice(boosts.indexOf(ability), 1);
-            } else {
-                boosts.push(ability);
-            }
-
-            await actor.update({ "system.build": buildSource });
-        });
-
-        $html.find<HTMLInputElement>("input[data-property]").on("blur", async (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            await actor.update({ [propertyPath]: $input.val() });
-        });
-
-        $html.find("button[data-action=close]").on("click", () => {
-            this.close();
-        });
-    }
-
     override async getData(options: Partial<FormApplicationOptions> = {}): Promise<PopupData> {
         const { actor } = this;
         const build = actor.system.build.abilities;
@@ -388,6 +239,159 @@ export class AbilityBuilderPopup extends Application {
     override async close(options: { force?: boolean } = {}): Promise<void> {
         delete this.actor.apps[this.appId];
         return super.close(options);
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        const { actor } = this;
+
+        $html.find("div[data-tooltip-content]").tooltipster({
+            contentAsHTML: true,
+            arrow: false,
+            debug: BUILD_MODE === "development",
+            interactive: true,
+            side: ["bottom"],
+            theme: "crb-hover",
+        });
+
+        $html.find("div.tooltip").tooltipster();
+
+        $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
+            event.currentTarget.select();
+        });
+
+        $html.find<HTMLInputElement>("input[name=toggle-manual-mode]").on("change", async (event) => {
+            if (event.originalEvent) {
+                await actor.toggleAbilityManagement();
+            }
+        });
+
+        $html.find<HTMLInputElement>("input[name=toggle-voluntary-flaw]").on("change", async (event) => {
+            if (event.originalEvent) {
+                await actor.ancestry?.toggleVoluntaryFlaw();
+            }
+        });
+
+        $html.find("button[data-action=ancestry-boost]").on("click", async (event) => {
+            const ability = $(event.currentTarget).attr("data-ability");
+
+            const boostToRemove = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
+                ([, b]) => b.selected === ability
+            );
+            if (boostToRemove) {
+                await actor.ancestry?.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
+                return;
+            }
+
+            const freeBoost = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
+                ([, b]) => !b.selected && b.value.length > 0
+            );
+            if (freeBoost) {
+                await actor.ancestry?.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
+            }
+        });
+
+        $html.find("button[data-action=voluntary-flaw]").on("click", async (event) => {
+            const $button = $(event.currentTarget);
+            const ability = $button.attr("data-ability");
+            const removing = $button.hasClass("selected");
+            const { ancestry } = actor;
+            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
+
+            const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [], boost: null };
+            const alreadyHasFlaw = flaws.includes(ability);
+
+            // If removing, it must exist and there shouldn't be a boost selected
+            if (removing && alreadyHasFlaw && !boost) {
+                flaws.splice(flaws.indexOf(ability), 1);
+                await ancestry.update({ system: { voluntary: { flaws } } });
+            }
+
+            // If adding, we need to be under 2 flaws, it must be new or be a locked ancestry boost (to double flaw)
+            const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
+            if (!removing && flaws.length < 2 && (!alreadyHasFlaw || boostedByAncestry)) {
+                flaws.push(ability);
+                await ancestry.update({ system: { voluntary: { flaws } } });
+            }
+        });
+
+        $html.find("button[data-action=voluntary-boost]").on("click", async (event) => {
+            const $button = $(event.currentTarget);
+            const removing = $button.hasClass("selected");
+            const ability = $button.attr("data-ability");
+            const { ancestry } = actor;
+            if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
+
+            const boost = removing ? null : ability;
+            await ancestry.update({ system: { voluntary: { boost } } });
+        });
+
+        $html.find("button[data-action=background-boost]").on("click", async (event) => {
+            const ability = $(event.currentTarget).attr("data-ability");
+
+            const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
+                ([, b]) => b.selected === ability
+            );
+            if (boostToRemove) {
+                await actor.background?.update({
+                    [`system.boosts.${boostToRemove[0]}.selected`]: null,
+                });
+                return;
+            }
+
+            const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
+                ([, b]) => !b.selected && b.value.length > 0
+            );
+            if (freeBoost) {
+                await actor.background?.update({
+                    [`system.boosts.${freeBoost[0]}.selected`]: ability,
+                });
+            }
+        });
+
+        $html.find("button[data-action=class-key-ability]").on("click", async (event) => {
+            const ability = $(event.currentTarget).attr("data-ability");
+            if (actor.system.build.abilities.manual) {
+                await actor.update({ [`system.details.keyability.value`]: ability });
+            } else {
+                await actor.class?.update({ [`system.keyAbility.selected`]: ability });
+            }
+        });
+
+        $html.find("button[data-action=level]").on("click", async (event) => {
+            const ability = event.currentTarget.dataset.ability;
+            const level = event.currentTarget.dataset.level;
+            if (
+                !setHasElement(ABILITY_ABBREVIATIONS, ability) ||
+                !setHasElement(new Set(["1", "5", "10", "15", "20"] as const), level)
+            ) {
+                throw ErrorPF2e("Unexpected update requested to ability boosts and flaws");
+            }
+
+            const buildSource = mergeObject(actor.toObject().system.build ?? {}, { abilities: { boosts: {} } });
+            const boosts = (buildSource.abilities.boosts[level] ??= []);
+            if (boosts.includes(ability)) {
+                boosts.splice(boosts.indexOf(ability), 1);
+            } else {
+                boosts.push(ability);
+            }
+
+            await actor.update({ "system.build": buildSource });
+        });
+
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", async (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            await actor.update({ [propertyPath]: $input.val() });
+        });
+
+        $html.find("button[data-action=close]").on("click", () => {
+            this.close();
+        });
     }
 }
 
