@@ -1694,7 +1694,7 @@ class CharacterPF2e extends CreaturePF2e {
             ])
             .map(([label, constructModifier]) => ({
                 label,
-                roll: async (args: StrikeRollParams): Promise<Rolled<CheckRoll> | null> => {
+                roll: async (args: StrikeRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
@@ -1779,7 +1779,7 @@ class CharacterPF2e extends CreaturePF2e {
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
-            action[method] = async (args: StrikeRollParams): Promise<string | void> => {
+            action[method] = async (args: StrikeRollParams = {}): Promise<string | void> => {
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: args.getFormula ?? false,

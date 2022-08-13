@@ -587,7 +587,7 @@ class NPCPF2e extends CreaturePF2e {
                         : `${strikeLabel} ${sign}${action.totalModifier}`;
                     return {
                         label,
-                        roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                        roll: async (args: RollParameters = {}): Promise<Rolled<CheckRoll> | null> => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
                             const context = this.getAttackRollContext({ item, viewOnly: false });
@@ -646,7 +646,7 @@ class NPCPF2e extends CreaturePF2e {
 
                 const damageRoll =
                     (outcome: "success" | "criticalSuccess"): RollFunction =>
-                    async (args: RollParameters) => {
+                    async (args: RollParameters = {}) => {
                         const context = this.getDamageRollContext({ item, viewOnly: false });
                         // always add all weapon traits as options
                         const options = [
