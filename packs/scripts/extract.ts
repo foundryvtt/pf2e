@@ -124,7 +124,7 @@ function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {
         if (oldSource._id !== newSource._id) {
             throw PackError(
                 `The ID of doc "${newSource.name}" (${newSource._id}) does not match the current ID ` +
-                    `(${oldSource._id}). Entities that are already in the system must keep their current ID.`
+                    `(${oldSource._id}). Documents that are already in the system must keep their current ID.`
             );
         }
     }
@@ -160,17 +160,14 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     delete (docSource.system as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
-                    (docSource.prototypeToken as Partial<foundry.data.PrototypeTokenSource>) = {
-                        disposition: docSource.prototypeToken.disposition,
-                        height: docSource.prototypeToken.height,
-                        texture: mergeObject(deepClone(docSource.prototypeToken.texture), {
+                    (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
+                        texture: {
                             src: docSource.prototypeToken.texture.src.replace(
                                 "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
                                 "systems/pf2e/"
-                            ) as VideoPath,
-                        }),
+                            ) as ImagePath | VideoPath,
+                        },
                         name: docSource.prototypeToken.name,
-                        width: docSource.prototypeToken.width,
                     };
 
                     if (docSource.type === "npc") {
@@ -796,7 +793,7 @@ async function extractPacks() {
                 fs.rmSync(outDirPath, { recursive: true, force: true });
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
-                console.log(`Finished extracting ${sourceCount} entities from pack ${dbFilename}`);
+                console.log(`Finished extracting ${sourceCount} documents from pack ${dbFilename}`);
                 return sourceCount;
             })
         )
