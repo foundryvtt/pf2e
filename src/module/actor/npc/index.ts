@@ -6,7 +6,7 @@ import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
-import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
+import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifierAdjustments, extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
@@ -815,15 +815,15 @@ class NPCPF2e extends CreaturePF2e {
             );
         }
         const formatItemName = (item: ItemPF2e): string => {
-            if (item instanceof ConsumablePF2e) {
+            if (item.isOfType("consumable")) {
                 return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.quantity}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
             }
             return item.name;
         };
-        const formatNoteText = (itemName: string, item: ItemPF2e) => {
-            // Call enrichString with the correct item context
+        const formatNoteText = async (itemName: string, item: ItemPF2e) => {
+            // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
-            const description = TextEditorPF2e.enrichString(item.description, { rollData });
+            const description = await TextEditorPF2e.enrichHTML(item.description, { rollData, async: true });
 
             return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
         };
@@ -835,14 +835,14 @@ class NPCPF2e extends CreaturePF2e {
             const note = new RollNotePF2e({ selector: "all", text: "" });
             if (item) {
                 // Get description from the actor item.
-                note.text = formatNoteText(formatItemName(item), item);
+                note.text = await formatNoteText(formatItemName(item), item);
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
                 const packItem = (await compendium.getDocuments({ "system.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
-                    note.text = formatNoteText(formatItemName(packItem), packItem);
+                    note.text = await formatNoteText(formatItemName(packItem), packItem);
                     notes.push(note);
                 }
             }

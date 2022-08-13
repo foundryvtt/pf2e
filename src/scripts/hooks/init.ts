@@ -131,6 +131,12 @@ export const Init = {
                 ],
             });
 
+            // Register custom enricher
+            CONFIG.TextEditor.enrichers.push({
+                pattern: new RegExp("@(Check|Localize|Template)\\[([^\\]]+)\\](?:{([^}]+)})?", "g"),
+                enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
+            });
+
             // Soft-set system-preferred core settings until they've been explicitly set by the GM
             // const schema = foundry.data.PrototypeTokenData.schema;
             // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
