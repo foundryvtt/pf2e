@@ -25,7 +25,6 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             ancestryRefBroken: !!sheetData.data.ancestry && ancestry === null,
             hasSidebar: true,
             hasDetails: false,
-            sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.html",
             rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
             traits: createSheetOptions(CONFIG.PF2E.featTraits, sheetData.data.traits),
         };

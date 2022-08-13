@@ -21,7 +21,7 @@
         <!-- ITEM SHEET SIDEBAR -->
         {{#if hasSidebar}}
             <section class="sheet-sidebar">
-                {{> (sidebarTemplate)}}
+                {{> (concat "systems/pf2e/templates/items/" item.type "-sidebar.html")}}
             </section>
         {{/if}}
 
@@ -62,7 +62,7 @@
             <!-- Item Details -->
             {{#if hasDetails}}
                 <div class="tab item-details" data-tab="details">
-                    {{> (detailsTemplate)}}
+                    {{> (concat "systems/pf2e/templates/items/" item.type "-details.html")}}
                     <div class="form-group">
                         <label>{{localize "PF2E.Source.Label"}}</label>
                         <input type="text" name="system.source.value" value="{{data.source.value}}" />
@@ -73,14 +73,14 @@
             {{#developMode}}
                 {{#if isPhysical}}
                     <div class="tab item-activations" data-tab="activations">
-                        {{> systems/pf2e/templates/items/activation-panel.html}}
+                        {{> "systems/pf2e/templates/items/activation-panel.html"}}
                     </div>
                 {{/if}}
             {{/developMode}}
 
             <!-- Mystification Details -->
             {{#if (and isPhysical user.isGM)}}
-                {{> systems/pf2e/templates/items/mystify-panel.html}}
+                {{> "systems/pf2e/templates/items/mystify-panel.html"}}
             {{/if}}
 
             <!-- Rules -->

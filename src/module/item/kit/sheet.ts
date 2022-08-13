@@ -25,9 +25,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             type: "kit",
             priceString: this.item.price.value,
             hasSidebar: true,
-            sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",
             hasDetails: true,
-            detailsTemplate: () => "systems/pf2e/templates/items/kit-details.html",
             rarity: CONFIG.PF2E.rarityTraits,
             traits,
         };

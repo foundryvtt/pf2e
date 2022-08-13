@@ -12,8 +12,6 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     itemType: string | null;
     hasSidebar: boolean;
     hasDetails: boolean;
-    sidebarTemplate?: () => string;
-    detailsTemplate?: () => string;
     item: TItem["data"];
     data: TItem["data"]["system"];
     enrichedContent: Record<string, string>;

@@ -23,8 +23,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const options = super.defaultOptions;
         options.width = 650;
         options.height = 460;
-        options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/item-sheet.html";
+        options.classes = [...options.classes, "pf2e", "item"];
+        options.template = "systems/pf2e/templates/items/sheet.html";
         options.scrollY = [".tab.active"];
         options.tabs = [
             {
@@ -64,9 +64,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         mergeObject(sheetData, {
             hasSidebar: true,
-            sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: ["book", "condition", "consumable", "deity", "lore"].includes(itemData.type),
-            detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
         }); // Damage types
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
@@ -160,8 +158,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 index,
                 rule,
             })),
-            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.html`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.html`,
         };
     }
 

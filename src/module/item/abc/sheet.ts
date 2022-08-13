@@ -27,9 +27,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         return {
             ...sheetData,
             hasSidebar: itemType === "ancestry",
-            sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.html`,
             hasDetails: true,
-            detailsTemplate: () => `systems/pf2e/templates/items/${itemType}-details.html`,
         };
     }
 
