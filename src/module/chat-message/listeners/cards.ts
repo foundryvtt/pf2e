@@ -80,7 +80,7 @@ export const ChatCards = {
                         if (variantSpell) {
                             const variantMessage = await variantSpell.toMessage(undefined, {
                                 create: false,
-                                data: { spellLvl: castLevel },
+                                data: { castLevel },
                             });
                             if (variantMessage) {
                                 const messageSource = variantMessage.toObject();
@@ -91,7 +91,7 @@ export const ChatCards = {
                         const originalSpell = actor.items.get(originalId, { strict: true });
                         const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
-                            data: { spellLvl: castLevel },
+                            data: { castLevel },
                         });
                         if (originalMessage) {
                             await message.update(originalMessage.toObject());

@@ -344,7 +344,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        const chatData = spell.getChatData({}, { spellLvl: result.level });
+                        const chatData = spell.getChatData({}, { castLevel: result.level });
                         result.active.push({ spell, chatData, signature: true, virtual: true });
                     }
                 }
