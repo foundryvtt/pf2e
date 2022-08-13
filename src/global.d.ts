@@ -185,7 +185,6 @@ declare global {
 
     interface ClientSettingsMap {
         get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & { default: string };
-        get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
     }
 
     interface RollMathProxy {
