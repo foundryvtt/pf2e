@@ -12,7 +12,7 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { RuleElementPF2e, RuleElements } from "@module/rules";
-import { StatusEffects } from "@scripts/actor/status-effects";
+import { StatusEffects } from "@module/canvas/status-effects";
 import { DicePF2e } from "@scripts/dice";
 import { earnIncome } from "@scripts/macros/earn-income";
 import { encouragingWords } from "@scripts/macros/encouraging-words";
