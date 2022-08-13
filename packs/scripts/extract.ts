@@ -154,11 +154,15 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             }
 
             if ("type" in docSource) {
-                if (isActorSource(docSource)) {
-                    lastActor = docSource;
+                if (isActorSource(docSource) || isItemSource(docSource)) {
+                    docSource.name = docSource.name.trim();
                     delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.system as { schema?: unknown }).schema;
-                    docSource.name = docSource.name.trim();
+                    delete (docSource as { _stats?: unknown })._stats;
+                }
+
+                if (isActorSource(docSource)) {
+                    lastActor = docSource;
 
                     (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
                         texture: {
@@ -176,15 +180,19 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
 
                         const { speed } = docSource.system.attributes;
                         speed.details = speed.details?.trim() || undefined;
+
+                        for (const key of Object.keys(docSource.system)) {
+                            if (!npcSystemKeys.has(key)) {
+                                delete (docSource.system as NPCSystemData & { extraneous?: unknown })[
+                                    key as "extraneous"
+                                ];
+                            }
+                        }
                     }
                 }
 
                 // Prune several common item data defaults
                 if (isItemSource(docSource)) {
-                    delete (docSource as { effects?: unknown }).effects;
-                    delete (docSource.system as { schema?: unknown }).schema;
-                    docSource.name = docSource.name.trim();
-
                     docSource.system.description = { value: docSource.system.description.value };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
@@ -205,15 +213,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         }
                     }
                 }
+
                 if (docSource.type !== "script") {
                     delete (docSource as Partial<PackEntry>).ownership;
-                }
-                if (docSource.type === "npc") {
-                    for (const key of Object.keys(docSource.system)) {
-                        if (!npcSystemKeys.has(key)) {
-                            delete (docSource.system as NPCSystemData & { extraneous?: unknown })[key as "extraneous"];
-                        }
-                    }
                 }
             }
         } else if (["_modifiers", "_sheetTab"].includes(key)) {
