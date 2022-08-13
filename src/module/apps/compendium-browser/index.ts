@@ -443,8 +443,8 @@ class CompendiumBrowser extends Application {
                         // This needs a type assertion because it resolves to never for some reason
                         const filter = filters[filterName] as CheckboxData | RangesData;
                         filter.isExpanded = !filter.isExpanded;
-                        const contentElement = title.nextElementSibling as HTMLElement | null;
-                        if (contentElement) {
+                        const contentElement = title.nextElementSibling;
+                        if (contentElement instanceof HTMLElement) {
                             filter.isExpanded
                                 ? (contentElement.style.display = "")
                                 : (contentElement.style.display = "none");
