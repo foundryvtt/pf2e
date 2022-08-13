@@ -176,7 +176,7 @@ declare global {
 
         readonly parent: TParent | null;
 
-        prototypeToken: foundry.data.PrototypeTokenData;
+        prototypeToken: foundry.data.PrototypeToken;
 
         get collection(): Actors<this>;
 

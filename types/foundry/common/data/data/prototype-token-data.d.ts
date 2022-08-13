@@ -9,7 +9,7 @@ declare namespace foundry {
             randomImg: boolean;
         }
 
-        class PrototypeTokenData<
+        class PrototypeToken<
             TDocument extends documents.BaseActor = documents.BaseActor
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
@@ -25,7 +25,7 @@ declare namespace foundry {
             bar2: TokenBarData<TDocument>;
         }
 
-        interface PrototypeTokenData extends Omit<PrototypeTokenSource, "bar1" | "bar2"> {
+        interface PrototypeToken extends Omit<PrototypeTokenSource, "bar1" | "bar2"> {
             readonly _source: PrototypeTokenSource;
         }
     }

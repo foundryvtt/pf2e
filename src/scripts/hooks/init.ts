@@ -132,7 +132,7 @@ export const Init = {
             });
 
             // Soft-set system-preferred core settings until they've been explicitly set by the GM
-            // const schema = foundry.data.PrototypeTokenData.schema;
+            // const schema = foundry.data.PrototypeToken.schema;
             // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             // Register stuff with the Foundry client

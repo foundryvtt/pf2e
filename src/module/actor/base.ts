@@ -25,7 +25,7 @@ import { ErrorPF2e, isObject, objectHasKey, tupleHasValue } from "@util";
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
-import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenDataPF2e, RollOptionFlags } from "./data/base";
+import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenPF2e, RollOptionFlags } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
@@ -1233,7 +1233,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
 
-    prototypeToken: PrototypeTokenDataPF2e;
+    prototypeToken: PrototypeTokenPF2e;
 
     flags: ActorFlagsPF2e;
 

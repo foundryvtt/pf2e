@@ -6,7 +6,7 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseActor extends abstract.Document {
-            prototypeToken: foundry.data.PrototypeTokenData;
+            prototypeToken: foundry.data.PrototypeToken;
 
             /** The default icon used for newly created Actor documents */
             static DEFAULT_ICON: ImagePath;
