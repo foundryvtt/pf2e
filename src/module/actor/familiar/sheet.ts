@@ -58,7 +58,7 @@ export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
         };
     }
 
-    protected override prepareItems(_sheetData: ActorSheetDataPF2e<FamiliarPF2e>): void {}
+    protected override async prepareItems(_sheetData: ActorSheetDataPF2e<FamiliarPF2e>): Promise<void> {}
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);

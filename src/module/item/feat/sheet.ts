@@ -5,7 +5,7 @@ import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<FeatSheetData> {
-        const sheetData = super.getBaseData(options);
+        const sheetData = await super.getBaseData(options);
 
         const hasLineageTrait = this.item.traits.has("lineage");
 

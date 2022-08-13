@@ -24,7 +24,7 @@ const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
-        const sheetData = super.getBaseData(options);
+        const sheetData = await super.getBaseData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
 
         // Create a level label to show in the summary.

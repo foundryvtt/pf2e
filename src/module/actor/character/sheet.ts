@@ -133,7 +133,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
-        sheetData.spellcastingEntries = this.prepareSpellcasting();
+        sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.feats = this.prepareFeats();
 
         const formulasByLevel = await this.prepareCraftingFormulas();
@@ -207,7 +207,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Organize and classify Items for Character sheets */
-    protected prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): void {
+    protected async prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions

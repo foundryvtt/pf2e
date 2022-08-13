@@ -5,6 +5,7 @@ import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { FeatCategory } from "@actor/character/feats";
 import { Frequency } from "@item/data/base";
+import { ItemSummaryData } from "@item/data";
 
 class FeatPF2e extends ItemPF2e {
     category!: FeatCategory | null;
@@ -110,7 +111,10 @@ class FeatPF2e extends ItemPF2e {
         this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
     }
 
-    override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<FeatPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const properties = [
             `Level ${systemData.level.value || 0}`,

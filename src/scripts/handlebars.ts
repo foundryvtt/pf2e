@@ -1,4 +1,3 @@
-import { ItemPF2e } from "@item";
 import { Coins, PartialPrice } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { getActionGlyph, ordinal } from "../util";
@@ -128,12 +127,6 @@ export function registerHandlebarsHelpers() {
     Handlebars.registerHelper("ordinal", function (value: number | string) {
         value = Number(value);
         return isNaN(value) ? null : ordinal(value);
-    });
-
-    Handlebars.registerHelper("enrichHTML", (html, options) => {
-        const item: ItemPF2e = options?.hash.item;
-        const rollData = item?.getRollData();
-        return game.pf2e.TextEditor.enrichHTML(html, { rollData, secrets: game.user.isGM });
     });
 
     Handlebars.registerHelper("json", (html) => {

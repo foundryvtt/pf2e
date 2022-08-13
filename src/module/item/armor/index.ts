@@ -1,4 +1,5 @@
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { ItemSummaryData } from "@item/data";
 import { PhysicalItemHitPoints } from "@item/physical/data";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
@@ -176,7 +177,10 @@ class ArmorPF2e extends PhysicalItemPF2e {
         }
     }
 
-    override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<ArmorPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const properties = [

@@ -21,7 +21,7 @@ function calculateDaysToNoCost(costs: Costs): number {
     return Math.ceil((costs.itemPrice.copperValue - costs.materials.copperValue) / costs.reductionPerDay.copperValue);
 }
 
-function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
+async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
     const rollData = item.getRollData();
 
     return {
@@ -35,7 +35,7 @@ function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
-        itemLink: game.pf2e.TextEditor.enrichHTML(item.link, { rollData }),
+        itemLink: await game.pf2e.TextEditor.enrichHTML(item.link, { rollData, async: true }),
     };
 }
 
@@ -174,7 +174,7 @@ export async function renderCraftingInline(
 
     return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
         daysForZeroCost: daysForZeroCost,
-        strings: prepStrings(costs, item),
+        strings: await prepStrings(costs, item),
         item,
         quantity,
         success: degreeOfSuccess > 1,

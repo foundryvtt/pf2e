@@ -1,4 +1,5 @@
 import { InventoryBulk } from "@actor/inventory";
+import { ItemSummaryData } from "@item/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { Bulk, weightToBulk } from "@item/physical/bulk";
@@ -51,7 +52,10 @@ class ContainerPF2e extends PhysicalItemPF2e {
         await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
     }
 
-    override getChatData(this: Embedded<ContainerPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<ContainerPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
 

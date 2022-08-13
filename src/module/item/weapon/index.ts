@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import { MeleeSource } from "@item/data";
+import { ItemSummaryData, MeleeSource } from "@item/data";
 import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -339,11 +339,14 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return MATERIAL_VALUATION_DATA[material.precious?.type ?? ""][material.precious?.grade ?? "low"];
     }
 
-    override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<WeaponPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
-
+        const chatData = await super.getChatData();
         return this.processChatData(htmlOptions, {
-            ...super.getChatData(),
+            ...chatData,
             traits,
             properties: [
                 CONFIG.PF2E.weaponCategories[this.category],

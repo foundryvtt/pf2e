@@ -8,6 +8,7 @@ import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
@@ -66,6 +67,44 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
         }
 
+        // Enrich condition data
+        const enrich = async (content: string, rollData: Record<string, unknown>): Promise<string> => {
+            return TextEditorPF2e.enrichHTML(content, { rollData, async: true });
+        };
+        const actorRollData = this.actor.getRollData();
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);
+        for (const condition of conditions) {
+            const item = this.actor.items.get(condition.id);
+            if (item) {
+                const rollData = { ...item.getRollData(), ...actorRollData };
+                condition.enrichedDescription = await enrich(condition.description, rollData);
+
+                if (condition.parents.length) {
+                    for (const parent of condition.parents) {
+                        parent.enrichedText = await enrich(parent.text, rollData);
+                    }
+                }
+
+                if (condition.children.length) {
+                    for (const child of condition.children) {
+                        child.enrichedText = await enrich(child.text, rollData);
+                    }
+                }
+
+                if (condition.overrides.length) {
+                    for (const override of condition.overrides) {
+                        override.enrichedText = await enrich(override.text, rollData);
+                    }
+                }
+
+                if (condition.overriddenBy.length) {
+                    for (const overridenBy of condition.overriddenBy) {
+                        overridenBy.enrichedText = await enrich(overridenBy.text, rollData);
+                    }
+                }
+            }
+        }
+
         return {
             ...sheetData,
             languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
@@ -77,7 +116,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             frequencies: CONFIG.PF2E.frequencies,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
-            conditions: game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition),
+            conditions,
             dying: {
                 maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
@@ -86,14 +125,15 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         };
     }
 
-    protected prepareSpellcasting(): SpellcastingSheetData[] {
-        return this.actor.spellcasting
-            .map((entry) => {
+    protected async prepareSpellcasting(): Promise<SpellcastingSheetData[]> {
+        const entries = await Promise.all(
+            this.actor.spellcasting.map(async (entry) => {
                 const data = entry.toObject(false);
-                const spellData = entry.getSpellData();
+                const spellData = await entry.getSpellData();
                 return mergeObject(data, spellData);
             })
-            .sort((a, b) => a.sort - b.sort);
+        );
+        return entries.sort((a, b) => a.sort - b.sort);
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */

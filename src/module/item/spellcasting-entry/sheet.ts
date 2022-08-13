@@ -53,7 +53,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         return {
             ...(await super.getData()),
             owner: this.actor.isOwner,
-            entry: this.item.getSpellData(),
+            entry: await this.item.getSpellData(),
         };
     }
 

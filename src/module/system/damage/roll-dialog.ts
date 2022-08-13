@@ -150,10 +150,15 @@ export class DamageRollModifiersDialog extends Application {
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
 
         const noteRollData = context.self?.item?.getRollData();
-        const notes = damage.notes
-            .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
-            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData }))
-            .join("<br />");
+        const damageNotes = await Promise.all(
+            damage.notes
+                .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
+                .map(
+                    async (note) =>
+                        await game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true })
+                )
+        );
+        const notes = damageNotes.join("<br />");
         flavor += `${notes}`;
 
         const formula = deepClone(damage.formula[outcome]);

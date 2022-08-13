@@ -6,8 +6,9 @@ import { MeleePF2e } from ".";
 export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
     override async getData(): Promise<MeleeSheetData> {
         const item = this.item;
+        const baseData = await super.getBaseData();
         return {
-            ...super.getBaseData(),
+            ...baseData,
             damageTypes: CONFIG.PF2E.damageTypes,
             attackEffects: createSheetOptions(this.getAttackEffectOptions(), item.system.attackEffects),
             traits: createSheetTags(CONFIG.PF2E.npcAttackTraits, item.system.traits),

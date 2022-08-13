@@ -78,6 +78,9 @@ export type ItemSourcePF2e = ItemDataPF2e["_source"];
 
 export interface ItemSummaryData {
     [key: string]: unknown;
+    description?: {
+        value: string;
+    };
     traits?: TraitChatData[];
     properties?: (string | number | null)[];
 }

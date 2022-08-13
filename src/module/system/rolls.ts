@@ -261,7 +261,6 @@ class CheckPF2e {
             roll.data.degreeOfSuccess = degree.value;
         }
 
-        const noteRollData = context.item?.getRollData();
         const notes =
             context.notes
                 ?.filter((note) => {
@@ -277,7 +276,7 @@ class CheckPF2e {
                     }
                     return false;
                 })
-                .map((n) => game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData }))
+                .map((n) => n.text)
                 .join("<br />") ?? "";
 
         const item = context.item ?? null;
@@ -300,11 +299,11 @@ class CheckPF2e {
             const header = document.createElement("h4");
             header.classList.add("action");
             header.innerHTML = check.name;
-
-            return [header, result ?? [], tags, notes, incapacitation]
+            const flavor = [header, result ?? [], tags, notes, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
+            return TextEditorPF2e.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
         const secret = context.secret ?? context.options?.includes("secret") ?? false;

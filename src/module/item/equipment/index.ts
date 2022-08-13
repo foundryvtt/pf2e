@@ -1,3 +1,4 @@
+import { ItemSummaryData } from "@item/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { objectHasKey, sluggify } from "@util";
 import { PhysicalItemPF2e } from "../physical";
@@ -25,7 +26,10 @@ class EquipmentPF2e extends PhysicalItemPF2e {
         }
     }
 
-    override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override async getChatData(
+        this: Embedded<EquipmentPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const data = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
         const properties = [this.isEquipped ? game.i18n.localize("PF2E.EquipmentEquippedLabel") : null].filter(

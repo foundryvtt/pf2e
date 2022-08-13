@@ -6,6 +6,7 @@ export interface FlattenedCondition {
     name: string;
     value: number | null;
     description: string;
+    enrichedDescription?: string;
     img: ImagePath;
     locked: boolean;
     references: boolean;
@@ -27,4 +28,5 @@ export interface ConditionReference {
     name: string;
     base: ConditionSlug;
     text: string;
+    enrichedText?: string;
 }

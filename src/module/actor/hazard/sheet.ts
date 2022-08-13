@@ -3,6 +3,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
+import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, tagify } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
@@ -51,6 +52,19 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const stealthMod = actor.system.attributes.stealth.value;
         const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
         const hasStealthDescription = !!systemData.attributes.stealth?.details;
+
+        // Enrich content
+        const rollData = this.actor.getRollData();
+        const enrich = async (content: string): Promise<string> => {
+            return TextEditorPF2e.enrichHTML(content, { rollData, async: true });
+        };
+        sheetData.enrichedContent = mergeObject(sheetData.enrichedContent, {
+            stealthDetails: await enrich(systemData.attributes.stealth.details),
+            description: await enrich(systemData.details.description),
+            disable: await enrich(systemData.details.disable),
+            routine: await enrich(systemData.details.routine),
+            reset: await enrich(systemData.details.reset),
+        });
 
         return {
             ...sheetData,
@@ -103,7 +117,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return results;
     }
 
-    override prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): void {
+    override async prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): Promise<void> {
         const actorData = sheetData.actor;
         // Actions
         const attacks: ItemDataPF2e[] = [];
@@ -128,6 +142,15 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     label: weaponTraits[trait] ?? trait.charAt(0).toUpperCase() + trait.slice(1),
                     description: traitsDescriptions[trait] ?? "",
                 }));
+
+                // Enrich description
+                const item = this.actor.items.get(itemData._id);
+                const rollData = { ...this.actor.getRollData(), ...item?.getRollData() };
+                itemData.data.description.value = await TextEditorPF2e.enrichHTML(itemData.data.description.value, {
+                    rollData,
+                    async: true,
+                });
+
                 attacks.push(itemData);
             }
         }

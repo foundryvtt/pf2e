@@ -17,7 +17,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<DeitySheetData> {
-        const sheetData = super.getBaseData(options);
+        const sheetData = await super.getBaseData(options);
 
         const spellEntries = Object.entries(sheetData.data.spells);
         const spells = (await fromUUIDs(Object.values(sheetData.data.spells)))
