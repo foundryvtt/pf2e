@@ -48,7 +48,7 @@ export class GhostTemplate extends MeasuredTemplate {
         canvas.stage.off("mousedown", this._onLeftClick);
         canvas.stage.off("rightdown", this.destroy);
         canvas.app.view.onwheel = null;
-        canvas.activateLayer("tokens");
+        canvas.tokens.activate();
         super.destroy(options);
     }
 

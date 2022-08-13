@@ -142,15 +142,15 @@
                                 <div class="attack-body">
                                     <div class="flexrow">
                                         <div class="attacks sub-section">
-                                            <button type="button" class="btn attack-button" data-action="npcAttack" >Strike (+{{action.data.bonus.total}})</button>
-                                            <button type="button" class="btn attack-button" data-action="npcAttack2" >{{#unless action.data.isAgile}}-5{{else}}-4{{/unless}}</button>
-                                            <button type="button" class="btn attack-button" data-action="npcAttack3" >{{#unless action.data.isAgile}}-10{{else}}-8{{/unless}}</button>
+                                            <button type="button" class="btn attack-button" data-action="npcAttack" >Strike (+{{action.system.bonus.total}})</button>
+                                            <button type="button" class="btn attack-button" data-action="npcAttack2" >{{#unless action.system.isAgile}}-5{{else}}-4{{/unless}}</button>
+                                            <button type="button" class="btn attack-button" data-action="npcAttack3" >{{#unless action.system.isAgile}}-10{{else}}-8{{/unless}}</button>
                                         </div>
                                         <div class="damage sub-section">
                                             <button type="button" class="damage-button" data-action="npcDamage">
                                                 {{localize "PF2E.DamageLabel"}} (
-                                                    {{#if action.data.damageRolls}}
-                                                        {{#each action.data.damageRolls as |dmg index|}}
+                                                    {{#if action.system.damageRolls}}
+                                                        {{#each action.system.damageRolls as |dmg index|}}
                                                             {{dmg.damage}} {{dmg.damageType}}
                                                         {{/each}}
                                                     {{/if}}
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="attack-detail sub-section expandable expanded">
                                         <div class="attack-description">
-                                            {{{action.data.description.value}}}
+                                            {{{action.system.description.value}}}
                                         </div>
                                     </div>
                                 </div>
