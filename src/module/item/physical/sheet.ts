@@ -4,7 +4,6 @@ import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { CoinsPF2e } from "@item/physical/helpers";
-import { TextEditorPF2e } from "@system/text-editor";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -21,9 +20,13 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         // Enrich content
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        sheetData.enrichedContent.unidentifiedDescription = await TextEditorPF2e.enrichHTML(
+        sheetData.enrichedContent.unidentifiedDescription = await game.pf2e.TextEditor.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
-            { rollData, async: true }
+            { rollData }
+        );
+        sheetData.enrichedContent.unidentifiedDescription = game.pf2e.TextEditor.processUserVisibility(
+            sheetData.enrichedContent.unidentifiedDescription,
+            { actor: this.item.actor }
         );
 
         return {

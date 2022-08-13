@@ -25,7 +25,7 @@ import {
 } from "./degree-of-success";
 import { LocalizePF2e } from "./localize";
 import { PredicatePF2e } from "./predication";
-import { TextEditorPF2e } from "./text-editor";
+import { EnrichContentPF2e } from "./enrich-content";
 
 interface RollDataPF2e extends RollData {
     rollerId?: string;
@@ -303,7 +303,7 @@ class CheckPF2e {
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
-            return TextEditorPF2e.enrichHTML(flavor, { ...item?.getRollData(), async: true });
+            return game.pf2e.TextEditor.enrichHTML(flavor, { rollData: item?.getRollData() });
         })();
 
         const secret = context.secret ?? context.options?.includes("secret") ?? false;
@@ -722,7 +722,7 @@ class CheckPF2e {
         });
 
         const html = parseHTML(rendered);
-        const { convertXMLNode } = TextEditorPF2e;
+        const { convertXMLNode } = EnrichContentPF2e;
 
         if (targetData) {
             convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });

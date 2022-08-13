@@ -3,35 +3,19 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { UserVisibility, UserVisibilityPF2e, UserVisibilityProcessOptions } from "@scripts/ui/user-visibility";
 import { objectHasKey, sluggify } from "@util";
 import { Statistic } from "./statistic";
 
 /** Censor enriched HTML according to metagame knowledge settings */
-class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
-    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async: true }): Promise<string>;
-    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e): string;
-    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string | Promise<string> {
+class EnrichContentPF2e {
+    /** Enrich HTML content by replacing or augmenting components of it */
+    static async enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): Promise<string> {
         if (content.startsWith("<p>@Localize")) {
             // Remove tags
             content = content.substring(3, content.length - 4);
         }
-        const enriched = super.enrichHTML(content, options);
-        if (typeof enriched === "string") {
-            return this.#processUserVisibility(enriched, options);
-        }
-        return (async () => {
-            return this.#processUserVisibility(await enriched, options);
-        })();
-    }
-
-    static #processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
-        const $html = $("<div>").html(content);
-        const actor = options.rollData?.actor ?? null;
-        UserVisibilityPF2e.process($html, { actor });
-
-        return $html.html();
+        return TextEditor.enrichHTML(content, { ...options, async: true });
     }
 
     static async enrichString(
@@ -52,6 +36,13 @@ class TextEditorPF2e extends TextEditor {
             default:
                 return null;
         }
+    }
+
+    /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
+    static processUserVisibility(content: string, options: UserVisibilityProcessOptions): string {
+        const $html = $("<div>").html(content);
+        UserVisibilityPF2e.process($html, options);
+        return $html.html();
     }
 
     /**
@@ -400,4 +391,4 @@ interface ConvertXMLNodeOptions {
     classes?: string[];
 }
 
-export { TextEditorPF2e, EnrichHTMLOptionsPF2e };
+export { EnrichContentPF2e, EnrichHTMLOptionsPF2e };

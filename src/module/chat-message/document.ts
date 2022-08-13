@@ -13,8 +13,8 @@ import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/t
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ChatRollDetails } from "./chat-roll-details";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -164,7 +164,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         // Determine some metadata
         const data = this.toObject(false) as RawObject<ChatMessageDataPF2e>;
         const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
-        data.content = await TextEditorPF2e.enrichHTML(this.content, { rollData, async: true });
+        data.content = await game.pf2e.TextEditor.enrichHTML(this.content, { rollData });
         const isWhisper = this.whisper.length;
 
         // Construct message data
@@ -209,6 +209,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (this.item?.isOfType("spell") && !this.item.isOwner) {
             $html.find("section.owner-buttons").remove();
         }
+
+        // Apply user visibility changes
+        UserVisibilityPF2e.process($html, { message: this });
 
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
         const targetDC = $html[0].querySelector(".target-dc");

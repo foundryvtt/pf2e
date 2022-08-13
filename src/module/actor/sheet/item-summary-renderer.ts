@@ -137,9 +137,12 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         const allTags = [$rarityTag, ...traitTags, ...properties].filter((tag): tag is JQuery => !!tag);
         const $properties = $('<div class="item-properties tags"></div>').append(...allTags);
 
-        const description = isItemSystemData(chatData)
-            ? chatData.description.value
-            : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
+        const description = await (async () => {
+            const enriched = isItemSystemData(chatData)
+                ? chatData.description.value
+                : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData() });
+            return game.pf2e.TextEditor.processUserVisibility(enriched, { actor: item.actor });
+        })();
 
         $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
     }

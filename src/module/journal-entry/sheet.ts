@@ -1,5 +1,4 @@
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e } from "@util";
 import type * as TinyMCE from "tinymce";
 import "../../styles/tinymce.scss";
@@ -30,7 +29,7 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
 
         options = foundry.utils.mergeObject(editor.options, options);
         options.height = options.target?.offsetHeight;
-        TextEditorPF2e.create(options, initialContent || editor.initial).then((mce) => {
+        TextEditor.create(options, initialContent || editor.initial).then((mce) => {
             const theme = (this.constructor as typeof JournalSheetPF2e).theme;
             if (theme) {
                 mce.getBody().classList.add(theme);

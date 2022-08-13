@@ -17,6 +17,7 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
 import { PF2ECONFIG } from "@scripts/config";
+import { EnrichContentPF2e } from "@system/enrich-content";
 
 export const Init = {
     listen: (): void => {
@@ -134,7 +135,7 @@ export const Init = {
             // Register custom enricher
             CONFIG.TextEditor.enrichers.push({
                 pattern: new RegExp("@(Check|Localize|Template)\\[([^\\]]+)\\](?:{([^}]+)})?", "g"),
-                enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
+                enricher: (match, options) => EnrichContentPF2e.enrichString(match, options),
             });
 
             // Soft-set system-preferred core settings until they've been explicitly set by the GM

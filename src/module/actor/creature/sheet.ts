@@ -8,7 +8,6 @@ import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
@@ -69,7 +68,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Enrich condition data
         const enrich = async (content: string, rollData: Record<string, unknown>): Promise<string> => {
-            return TextEditorPF2e.enrichHTML(content, { rollData, async: true });
+            return game.pf2e.TextEditor.enrichHTML(content, { rollData });
         };
         const actorRollData = this.actor.getRollData();
         const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition);

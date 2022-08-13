@@ -45,7 +45,7 @@ import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
 import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
-import { TextEditorPF2e } from "@system/text-editor";
+import { EnrichContentPF2e } from "@system/enrich-content";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
@@ -89,7 +89,7 @@ declare global {
             Check: typeof CheckPF2e;
             RuleElements: typeof RuleElements;
             RuleElement: typeof RuleElementPF2e;
-            TextEditor: typeof TextEditorPF2e;
+            TextEditor: typeof EnrichContentPF2e;
         };
     }
 

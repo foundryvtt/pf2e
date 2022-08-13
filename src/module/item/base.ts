@@ -5,7 +5,7 @@ import { preImportJSON } from "@module/doc-helpers";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { UserPF2e } from "@module/user";
 import { DicePF2e } from "@scripts/dice";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { EnrichHTMLOptionsPF2e } from "@system/enrich-content";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
 import { ContainerPF2e } from "./container";
@@ -277,7 +277,6 @@ class ItemPF2e extends Item<ActorPF2e> {
             htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
             chatData.description.value = await game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
                 ...htmlOptions,
-                async: true,
             });
 
             return chatData;

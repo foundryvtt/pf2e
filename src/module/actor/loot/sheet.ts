@@ -5,7 +5,6 @@ import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup";
 import { LootSheetDataPF2e } from "../sheet/data-types";
 import { ItemPF2e } from "@item";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { TextEditorPF2e } from "@system/text-editor";
 
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -35,9 +34,11 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.description = await TextEditorPF2e.enrichHTML(
+        sheetData.enrichedContent.description = await game.pf2e.TextEditor.enrichHTML(
             sheetData.data.details.description.value,
-            { rollData, async: true }
+            {
+                rollData,
+            }
         );
 
         return { ...sheetData, isLoot };

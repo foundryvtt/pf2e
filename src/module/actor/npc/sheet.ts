@@ -11,7 +11,6 @@ import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
@@ -172,14 +171,18 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.publicNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.publicNotes, {
-            rollData,
-            async: true,
-        });
-        sheetData.enrichedContent.privateNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.privateNotes, {
-            rollData,
-            async: true,
-        });
+        sheetData.enrichedContent.publicNotes = await game.pf2e.TextEditor.enrichHTML(
+            sheetData.data.details.publicNotes,
+            {
+                rollData,
+            }
+        );
+        sheetData.enrichedContent.privateNotes = await game.pf2e.TextEditor.enrichHTML(
+            sheetData.data.details.privateNotes,
+            {
+                rollData,
+            }
+        );
 
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
@@ -427,9 +430,8 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         return Promise.all(
             sheetData.actions.map(async (attack) => {
                 const itemRollData = attack.item.getRollData();
-                attack.description = await TextEditorPF2e.enrichHTML(attack.description, {
+                attack.description = await game.pf2e.TextEditor.enrichHTML(attack.description, {
                     rollData: { ...actorRollData, ...itemRollData },
-                    async: true,
                 });
                 const traits = attack.traits
                     .map((strikeTrait) => ({

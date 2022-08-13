@@ -29,7 +29,7 @@ import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
-import { TextEditorPF2e } from "@system/text-editor";
+import { EnrichContentPF2e } from "@system/enrich-content";
 import { sluggify } from "@util";
 import { CoinsPF2e } from "@item/physical/helpers";
 
@@ -71,7 +71,7 @@ export const SetGamePF2e = {
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
             system: { moduleArt: new Map(), remigrate, sluggify },
-            TextEditor: TextEditorPF2e,
+            TextEditor: EnrichContentPF2e,
             variantRules: { AutomaticBonusProgression },
         };
 
