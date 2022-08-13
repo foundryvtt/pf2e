@@ -466,9 +466,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
 
             const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
+            const isAbilityModifier = modifier instanceof ModifierPF2e && modifier.type === "ability";
             const isExtraDice = modifier instanceof DiceModifierPF2e;
-            const isStatusOrCircumstance =
-                isNumericBonus && ["status", "circumstance"].includes(modifier.type ?? "untyped");
+            const isStatusOrCircumstance = isNumericBonus && ["status", "circumstance"].includes(modifier.type);
             const isDamageTrait =
                 isExtraDice &&
                 /^(?:deadly|fatal)-\d?d\d{1,2}$/.test(modifier.slug) &&
@@ -479,7 +479,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 isDamageTrait
             );
 
-            if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
+            if (
+                (isNumericBonus || isAbilityModifier || isExtraDice) &&
+                !isStatusOrCircumstance &&
+                !isBattleFormModifier
+            ) {
                 modifier.enabled = false;
                 modifier.ignored = true;
                 modifier.predicate.not.push("battle-form");
