@@ -4,7 +4,7 @@ import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { PrototypeTokenDataPF2e } from "@actor/data/base";
+import { PrototypeTokenPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
 import { ActorSourcePF2e } from "@actor/data";
 
@@ -207,7 +207,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
-    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenDataPF2e, actor: ActorPF2e | null): void {
+    static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e, actor: ActorPF2e | null): void {
         if (!(actor && token.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)

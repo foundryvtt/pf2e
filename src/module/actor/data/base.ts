@@ -30,7 +30,7 @@ interface BaseActorDataPF2e<
         foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
     readonly type: TType;
     readonly system: TSystemData;
-    token: PrototypeTokenDataPF2e;
+    token: PrototypeTokenPF2e;
 
     readonly _source: TSource;
 }
@@ -273,7 +273,7 @@ interface Rollable {
 }
 
 interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
-    flags: foundry.data.PrototypeTokenData["flags"] & {
+    flags: foundry.data.PrototypeToken["flags"] & {
         pf2e?: {
             linkToActorSize?: boolean;
             autoscale?: boolean;
@@ -281,8 +281,8 @@ interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
     };
 }
 
-interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
-    flags: foundry.data.PrototypeTokenData["flags"] & {
+interface PrototypeTokenPF2e extends foundry.data.PrototypeToken {
+    flags: foundry.data.PrototypeToken["flags"] & {
         pf2e: {
             linkToActorSize: boolean;
             autoscale: boolean;
@@ -305,7 +305,7 @@ export {
     GangUpCircumstance,
     InitiativeData,
     PerceptionData,
-    PrototypeTokenDataPF2e,
+    PrototypeTokenPF2e,
     RollFunction,
     RollOptionFlags,
     RollToggle,
