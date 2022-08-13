@@ -158,8 +158,10 @@ class SpellPF2e extends ItemPF2e {
         return Math.max(this.baseLevel, castLevel ?? this.level);
     }
 
-    override getRollData(rollOptions: { spellLvl?: number | string } = {}): NonNullable<EnrichHTMLOptions["rollData"]> {
-        const spellLevel = Number(rollOptions?.spellLvl) || null;
+    override getRollData(
+        rollOptions: { castLevel?: number | string } = {}
+    ): NonNullable<EnrichHTMLOptions["rollData"]> {
+        const spellLevel = Number(rollOptions?.castLevel) || null;
         const castLevel = Math.max(this.baseLevel, spellLevel || this.level);
 
         // If we need to heighten it, clone it and return its roll data instead
@@ -451,10 +453,10 @@ class SpellPF2e extends ItemPF2e {
 
     override getChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        rollOptions: { spellLvl?: number | string } = {}
+        rollOptions: { castLevel?: number | string } = {}
     ): Record<string, unknown> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
-        const slotLevel = Number(rollOptions?.spellLvl) || this.level;
+        const slotLevel = Number(rollOptions.castLevel) || this.level;
         const castLevel = this.computeCastLevel(slotLevel);
 
         // Load the heightened version of the spell if one exists
@@ -480,7 +482,7 @@ class SpellPF2e extends ItemPF2e {
             })
             .sort((a, b) => a.sort - b.sort);
 
-        const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: castLevel });
+        const rollData = htmlOptions.rollData ?? this.getRollData({ castLevel });
         rollData.item ??= this;
 
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
@@ -618,7 +620,7 @@ class SpellPF2e extends ItemPF2e {
         const slotLevel =
             Number(event.currentTarget.closest<HTMLElement>("*[data-slot-level]")?.dataset.slotLevel) || 0;
         const castLevel = this.computeCastLevel(slotLevel);
-        const rollData = this.getRollData({ spellLvl: castLevel });
+        const rollData = this.getRollData({ castLevel });
         const formula = this.getDamageFormula(castLevel, rollData);
 
         // This title creation is temporary, will change once damage cards are finished
