@@ -14,7 +14,7 @@ export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     if (item.system.preciousMaterial?.value === "orichalcum") {
         slots += 1;
     }
-    let potencyRune = item.system.potencyRune?.value;
+    let potencyRune = item.system.potencyRune.value ?? 0;
     if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
         potencyRune = 0;
         slots += getPropertyRunes(item, 4).length;

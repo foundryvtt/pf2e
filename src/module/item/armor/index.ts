@@ -1,3 +1,4 @@
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { PhysicalItemHitPoints } from "@item/physical/data";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
@@ -99,6 +100,11 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.system.potencyRune.value ||= null;
+        this.system.resiliencyRune.value ||= null;
+        // Strip out fundamental runes if ABP is enabled
+        AutomaticBonusProgression.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;

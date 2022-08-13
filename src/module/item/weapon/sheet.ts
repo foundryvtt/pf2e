@@ -201,14 +201,15 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         });
     }
 
-    /** Seal the material and runes when a weapon is marked as specific */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const weapon = this.item;
 
         formData["system.bonusDamage.value"] ||= 0;
         formData["system.splashDamage.value"] ||= 0;
-        formData["system.potencyRune.value"] ||= 0;
-        // Set empty-string values and zeroes to null
+
+        // Set empty-string values to null
+        formData["system.potencyRune.value"] ||= null;
+        formData["system.strikingRune.value"] ||= null;
         for (const slotNumber of [1, 2, 3, 4]) {
             formData[`system.propertyRune${slotNumber}.value`] ||= null;
         }

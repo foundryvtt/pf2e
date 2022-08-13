@@ -1,5 +1,5 @@
 import { DamageDicePF2e, ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
-import { WeaponPF2e } from "@item";
+import { ArmorPF2e, WeaponPF2e } from "@item";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 import { PotencySynthetic, RuleElementSynthetics, StrikingSynthetic } from "@module/rules/synthetics";
 
@@ -115,26 +115,18 @@ export class AutomaticBonusProgression {
     }
 
     /** Remove stored runes from specific magic weapons or otherwise set prior to enabling ABP */
-    static cleanupRunes(weapon: WeaponPF2e): void {
+    static cleanupRunes(item: ArmorPF2e | WeaponPF2e): void {
         const setting = game.settings.get("pf2e", "automaticBonusVariant");
-        const systemData = weapon.system;
+        if (setting === "noABP") return;
 
-        switch (setting) {
-            case "noABP":
-                return;
-            case "ABPRulesAsWritten": {
-                systemData.potencyRune.value = null;
-                systemData.strikingRune.value = null;
-                const propertyRunes = ([1, 2, 3, 4] as const).map((n) => systemData[`propertyRune${n}` as const]);
-                for (const rune of propertyRunes) {
-                    rune.value = null;
-                }
-                return;
-            }
-            case "ABPFundamentalPotency": {
-                systemData.potencyRune.value = null;
-                systemData.strikingRune.value = null;
-                return;
+        item.system.potencyRune.value = null;
+        const otherFundamental = item.isOfType("weapon") ? item.system.strikingRune : item.system.resiliencyRune;
+        otherFundamental.value = null;
+
+        if (setting === "ABPRulesAsWritten") {
+            const propertyRunes = ([1, 2, 3, 4] as const).map((n) => item.system[`propertyRune${n}` as const]);
+            for (const rune of propertyRunes) {
+                rune.value = null;
             }
         }
     }

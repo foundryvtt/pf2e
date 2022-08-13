@@ -31,7 +31,8 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
             if (typeof value === "boolean" || value === null) {
                 const traits: string[] = source.system.traits.value;
                 const shouldBeBoolean =
-                    traits.includes("invested") || (source.type === "armor" && source.system.potencyRune.value > 0);
+                    traits.includes("invested") ||
+                    (source.type === "armor" && (source.system.potencyRune.value ?? 0) > 0);
 
                 systemSource.equipped.invested = shouldBeBoolean ? Boolean(value) : null;
             }
