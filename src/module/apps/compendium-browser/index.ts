@@ -435,16 +435,19 @@ class CompendiumBrowser extends Application {
                 });
 
             // Toggle visibility of filter container
-            container.querySelector<HTMLDivElement>("div.title")?.addEventListener("click", () => {
+            const title = container.querySelector<HTMLDivElement>("div.title");
+            title?.addEventListener("click", () => {
                 if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
                     const filters = currentTab.filterData[filterType];
                     if (filters && objectHasKey(filters, filterName)) {
                         // This needs a type assertion because it resolves to never for some reason
                         const filter = filters[filterName] as CheckboxData | RangesData;
                         filter.isExpanded = !filter.isExpanded;
-                        const dlElement = container.querySelector("dl");
-                        if (dlElement) {
-                            filter.isExpanded ? (dlElement.style.display = "") : (dlElement.style.display = "none");
+                        const contentElement = title.nextElementSibling;
+                        if (contentElement instanceof HTMLElement) {
+                            filter.isExpanded
+                                ? (contentElement.style.display = "")
+                                : (contentElement.style.display = "none");
                         }
                     }
                 }
