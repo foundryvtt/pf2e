@@ -130,12 +130,12 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
             // NPC Generic Attacks
             if (itemData.type === "melee") {
-                const weaponType: "melee" | "ranged" = itemData.data.weaponType.value || "melee";
-                const traits: string[] = itemData.data.traits.value;
+                const weaponType: "melee" | "ranged" = itemData.system.weaponType.value || "melee";
+                const traits: string[] = itemData.system.traits.value;
                 const isAgile = traits.includes("agile");
                 itemData.attackRollType = weaponType === "melee" ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged";
-                itemData.data.bonus.total = Number(itemData.data.bonus.value) || 0;
-                itemData.data.isAgile = isAgile;
+                itemData.system.bonus.total = Number(itemData.system.bonus.value) || 0;
+                itemData.system.isAgile = isAgile;
 
                 // get formated traits for read-only npc sheet
                 itemData.traits = traits.map((trait) => ({
@@ -146,7 +146,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 // Enrich description
                 const item = this.actor.items.get(itemData._id);
                 const rollData = { ...this.actor.getRollData(), ...item?.getRollData() };
-                itemData.data.description.value = await TextEditorPF2e.enrichHTML(itemData.data.description.value, {
+                itemData.system.description.value = await TextEditorPF2e.enrichHTML(itemData.system.description.value, {
                     rollData,
                     async: true,
                 });
