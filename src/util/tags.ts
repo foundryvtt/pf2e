@@ -25,10 +25,12 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
 
     const whitelistTransformed = Array.isArray(whitelist)
         ? whitelist
-        : Object.entries(whitelist).map(([key, locPath]) => ({
-              id: key,
-              value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
-          }));
+        : Object.entries(whitelist)
+              .map(([key, locPath]) => ({
+                  id: key,
+                  value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
+              }))
+              .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
 
     return new Tagify(input, {
         enforceWhitelist: true,
