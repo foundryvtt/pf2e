@@ -34,7 +34,7 @@ class PredicatePF2e implements RawPredicate {
     }
 
     /** Structurally validate the predicates */
-    static validate(raw: unknown) {
+    static validate(raw: unknown): raw is RawPredicate {
         return (
             isObject<RawPredicate>(raw) &&
             !Array.isArray(raw) &&
