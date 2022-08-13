@@ -453,6 +453,14 @@ declare global {
         /** Maximum canvas zoom scale */
         maxCanvasZoom: number;
 
+        /** Custom enrichers for TextEditor.enrichHTML */
+        TextEditor: {
+            enrichers: {
+                pattern: RegExp;
+                enricher: (match: RegExpMatchArray, options: EnrichHTMLOptions) => Promise<HTMLElement | void>;
+            }[];
+        };
+
         /* -------------------------------------------- */
         /*  Integrations                                */
         /* -------------------------------------------- */
