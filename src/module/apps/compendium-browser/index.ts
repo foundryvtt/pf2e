@@ -3,8 +3,8 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
 import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
-import { BrowserTab } from "./tabs";
-import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
+import * as browserTabs from "./tabs";
+import { TabData, PackInfo, TabName, BrowserTab, SortDirection } from "./data";
 import {
     BaseFilterData,
     CheckboxData,
@@ -80,7 +80,7 @@ class PackLoader {
 class CompendiumBrowser extends Application {
     settings!: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
-    tabs: Record<Exclude<TabName, "settings">, TabType>;
+    tabs: Record<Exclude<TabName, "settings">, BrowserTab>;
     packLoader = new PackLoader();
     activeTab!: TabName;
     navigationTab!: Tabs;
@@ -92,12 +92,12 @@ class CompendiumBrowser extends Application {
         super(options);
 
         this.tabs = {
-            action: new BrowserTab.Actions(this),
-            bestiary: new BrowserTab.Bestiary(this),
-            equipment: new BrowserTab.Equipment(this),
-            feat: new BrowserTab.Feats(this),
-            hazard: new BrowserTab.Hazards(this),
-            spell: new BrowserTab.Spells(this),
+            action: new browserTabs.Actions(this),
+            bestiary: new browserTabs.Bestiary(this),
+            equipment: new browserTabs.Equipment(this),
+            feat: new browserTabs.Feats(this),
+            hazard: new browserTabs.Hazards(this),
+            spell: new browserTabs.Spells(this),
         };
 
         this.loadSettings();
@@ -133,6 +133,10 @@ class CompendiumBrowser extends Application {
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
         this.initialFilter = {};
+        for (const tab of Object.values(this.tabs)) {
+            tab.filterData.search.text = "";
+        }
+
         await super.close(options);
     }
 
@@ -308,7 +312,7 @@ class CompendiumBrowser extends Application {
         this.render(true);
     }
 
-    private processInitialFilters(currentTab: TabType): void {
+    private processInitialFilters(currentTab: BrowserTab): void {
         // Reset filters if new filters were provided
         if (this.initialFilter && Object.keys(this.initialFilter).length > 0) {
             currentTab.resetFilters();
