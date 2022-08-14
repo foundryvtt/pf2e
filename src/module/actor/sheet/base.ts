@@ -703,7 +703,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
             if (dropSlotType === "spellLevel") {
                 const { level } = $dropItemEl.data();
-                const spell = await collection.addSpell(item, level);
+                const spell = await collection.addSpell(item, { slotLevel: Number(level) });
                 this.openSpellPreparationSheet(collection.id);
                 return [spell ?? []].flat();
             } else if ($dropItemEl.attr("data-slot-id")) {
@@ -734,7 +734,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
-                        const spell = await collection.addSpell(item, target.level);
+                        const spell = await collection.addSpell(item, { slotLevel: target.level });
                         this.openSpellPreparationSheet(collection.id);
                         return [spell ?? []].flat();
                     }
@@ -851,7 +851,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
                 const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
                 this.openSpellPreparationSheet(collection.id);
-                return [(await collection.addSpell(item, level)) ?? []].flat();
+                return [(await collection.addSpell(item, { slotLevel: level })) ?? []].flat();
             } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new ScrollWandPopup(
                     this.actor,
