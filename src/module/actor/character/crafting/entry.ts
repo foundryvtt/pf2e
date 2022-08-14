@@ -69,11 +69,17 @@ export class CraftingEntry implements CraftingEntryData {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
+        const ammunitionQuantity = this.preparedFormulas
+            .filter((f) => f.isAmmo)
+            .reduce((sum, current) => sum + (current.quantity || 1), 0);
+
         const fieldDiscoveryQuantity = this.preparedFormulas
+            .filter((f) => !f.isAmmo)
             .filter((f) => f.item.traits.has(this.fieldDiscovery!) || f.isSignatureItem)
             .reduce((sum, current) => sum + (current.quantity || 1), 0);
 
         const otherQuantity = this.preparedFormulas
+            .filter((f) => !f.isAmmo)
             .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
             .reduce((sum, current) => sum + (current.quantity || 1), 0);
 
@@ -81,6 +87,7 @@ export class CraftingEntry implements CraftingEntryData {
         const batchSize = this.batchSize || 2;
 
         return (
+            Math.ceil(ammunitionQuantity / 10) +
             Math.floor(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) +
             Math.ceil(((fieldDiscoveryQuantity % fieldDiscoveryBatchSize) + otherQuantity) / batchSize)
         );

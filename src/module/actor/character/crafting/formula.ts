@@ -61,18 +61,22 @@ export class CraftingFormula implements CraftingFormulaData {
         return CoinsPF2e.fromPrice(this.price, this.batchSize);
     }
 
+    get isAmmo(): boolean {
+        const { item } = this;
+        return item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
+    }
+
     get minimumBatchSize(): number {
         return stackDefinitions[this.item.system.stackGroup ?? ""]?.size ?? 1;
     }
 
     get defaultBatchSize(): number {
         const { item } = this;
-        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
         const isConsumable =
             (item instanceof ConsumablePF2e && item.consumableType !== "wand") ||
             (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
 
-        return Math.max(this.minimumBatchSize, isMundaneAmmo ? 10 : isConsumable ? 4 : 1);
+        return Math.max(this.minimumBatchSize, this.isAmmo ? 10 : isConsumable ? 4 : 1);
     }
 
     get description(): string {
