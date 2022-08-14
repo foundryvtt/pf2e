@@ -2,8 +2,8 @@ import { Coins, PartialPrice } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { getActionGlyph, ordinal } from "../util";
 
-export function registerHandlebarsHelpers() {
-    Handlebars.registerHelper("pad", (value, length, character) => {
+export function registerHandlebarsHelpers(): void {
+    Handlebars.registerHelper("pad", (value, length, character): string => {
         return `${value}`.padStart(length, character);
     });
 
@@ -145,13 +145,8 @@ export function registerHandlebarsHelpers() {
     });
 
     // From https://github.com/leapfrogtechnology/just-handlebars-helpers/
-    Handlebars.registerHelper("concat", function (...params) {
-        // Ignore the object appended by handlebars.
-        if (typeof params[params.length - 1] === "object") {
-            params.pop();
-        }
-
-        return params.join("");
+    Handlebars.registerHelper("concat", function (...params): string {
+        return params.slice(0, -1).join("");
     });
 
     Handlebars.registerHelper("times", function (count, block) {
