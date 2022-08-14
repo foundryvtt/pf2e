@@ -275,7 +275,7 @@ class CharacterPF2e extends CreaturePF2e {
         const boostLevels = [1, 5, 10, 15, 20] as const;
         const allowedBoosts = boostLevels.reduce((result, level) => {
             const allowed = (() => {
-                if (this.level < 1) return 0;
+                if (this.level === 0 && level === 1) return 4;
                 if (isGradual) return 4 - Math.clamped(level - this.level, 0, 4);
                 return this.level >= level ? 4 : 0;
             })();
