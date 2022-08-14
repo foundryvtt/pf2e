@@ -69,17 +69,18 @@ export class CraftingEntry implements CraftingEntryData {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
+        /** Reduce Reagant cost for Ammunition for Munitions Crafter */
         const ammunitionQuantity = this.preparedFormulas
-            .filter((f) => f.isAmmo)
+            .filter((f) => this.selector == "munitionsCrafter" && f.isAmmo)
             .reduce((sum, current) => sum + (current.quantity || 1), 0);
 
         const fieldDiscoveryQuantity = this.preparedFormulas
-            .filter((f) => !f.isAmmo)
+            .filter((f) => !(this.selector == "munitionsCrafter") || !f.isAmmo)
             .filter((f) => f.item.traits.has(this.fieldDiscovery!) || f.isSignatureItem)
             .reduce((sum, current) => sum + (current.quantity || 1), 0);
 
         const otherQuantity = this.preparedFormulas
-            .filter((f) => !f.isAmmo)
+            .filter((f) => !(this.selector == "munitionsCrafter") || !f.isAmmo)
             .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
             .reduce((sum, current) => sum + (current.quantity || 1), 0);
 
