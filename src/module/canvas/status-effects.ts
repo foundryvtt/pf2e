@@ -174,6 +174,7 @@ export class StatusEffects {
                 this.#setStatusValue(token, event);
             })
             .on("contextmenu", ".pf2e-effect-control", (event) => {
+                event.preventDefault();
                 this.#setStatusValue(token, event);
             })
             .on("mouseover mouseout", ".pf2e-effect-control", this.#showStatusLabel);
@@ -184,6 +185,7 @@ export class StatusEffects {
         effects
             .off("contextmenu", ".effect-control")
             .on("contextmenu", ".effect-control", (event) => {
+                event.preventDefault();
                 this.#toggleStatus(token, event);
             })
             .on("mouseover mouseout", ".effect-control", this.#showStatusLabel);
