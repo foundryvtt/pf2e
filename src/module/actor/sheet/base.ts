@@ -535,18 +535,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (item) {
             const deleteItem = async (): Promise<void> => {
                 await item.delete();
-                if (item.type === "lore") {
-                    // normalize skill name to lower-case and dash-separated words
-                    const skill = item.name.toLowerCase().replace(/\s+/g, "-");
-                    // remove derived skill data
-                    await this.actor.update({ [`data.skills.-=${skill}`]: null });
-                } else {
-                    // clean up any individually targeted modifiers to attack and damage
-                    await this.actor.update({
-                        [`data.customModifiers.-=${itemId}-attack`]: null,
-                        [`data.customModifiers.-=${itemId}-damage`]: null,
-                    });
-                }
                 $li.slideUp(200, () => this.render(false));
             };
             if (event.ctrlKey) {
