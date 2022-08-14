@@ -22,11 +22,16 @@
                 "choices": [
                     {
                         "label": "PF2E.OracleCurses.Label.Minor",
-                        "value": "self:curse:minor"
+                        "value": "minor"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "value": "self:curse:moderate"
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
@@ -35,7 +40,7 @@
                                 "feature:major-curse"
                             ]
                         },
-                        "value": "self:curse:major"
+                        "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
@@ -44,29 +49,18 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "self:curse:major"
+                        "value": "major"
                     }
                 ],
-                "flag": "oracleCurse",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "{item|flags.pf2e.rulesSelections.oracleCurse}"
-            },
-            {
-                "key": "FlatModifier",
                 "predicate": {
                     "any": [
-                        "action:grapple",
-                        "action:shove",
-                        "forced-movement"
+                        "class:oracle",
+                        "feat:first-revelation"
                     ]
                 },
-                "selector": "saving-throw",
-                "value": -2
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:curse"
             },
             {
                 "key": "FlatModifier",
@@ -112,7 +106,6 @@
                         }
                     ],
                     "any": [
-                        "action:grapple",
                         "action:trip"
                     ]
                 },

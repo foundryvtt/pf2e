@@ -22,27 +22,42 @@
                 "choices": [
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MinorBattle",
-                        "value": "self:curse:minor:battle"
+                        "value": "minor:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MinorSkillful",
-                        "value": "self:curse:minor:skill"
+                        "value": "minor:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MinorSpellcasting",
-                        "value": "self:curse:minor:spell"
+                        "value": "minor:spell"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ModerateBattle",
-                        "value": "self:curse:moderate:battle"
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ModerateSkillful",
-                        "value": "self:curse:moderate:skill"
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ModerateSpellcasting",
-                        "value": "self:curse:moderate:spell"
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate:spell"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MajorBattle",
@@ -51,7 +66,7 @@
                                 "feature:major-curse"
                             ]
                         },
-                        "value": "self:curse:major:battle"
+                        "value": "major:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MajorSkillful",
@@ -60,7 +75,7 @@
                                 "feature:major-curse"
                             ]
                         },
-                        "value": "self:curse:major:skill"
+                        "value": "major:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MajorSpellcasting",
@@ -69,7 +84,7 @@
                                 "feature:major-curse"
                             ]
                         },
-                        "value": "self:curse:major:spell"
+                        "value": "major:spell"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeBattle",
@@ -78,7 +93,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "self:curse:major:battle"
+                        "value": "major:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSkillful",
@@ -87,7 +102,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "self:curse:major:skill"
+                        "value": "major:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSpellcasting",
@@ -96,17 +111,18 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "self:curse:major:spell"
+                        "value": "major:spell"
                     }
                 ],
-                "flag": "oracleCurse",
+                "flag": "self:curse",
                 "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "{item|flags.pf2e.rulesSelections.oracleCurse}"
             },
             {
                 "key": "Note",
@@ -225,7 +241,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "any": [
+                    "all": [
                         "self:curse:moderate:battle"
                     ]
                 },
@@ -237,7 +253,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "any": [
+                    "all": [
                         "self:curse:major:battle"
                     ]
                 },
@@ -249,7 +265,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "any": [
+                    "all": [
                         "self:curse:moderate:skill"
                     ]
                 },
@@ -261,7 +277,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "any": [
+                    "all": [
                         "self:curse:moderate:skill"
                     ]
                 },
@@ -273,7 +289,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "any": [
+                    "all": [
                         "self:curse:major:skill"
                     ]
                 },
@@ -285,7 +301,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "any": [
+                    "all": [
                         "self:curse:major:skill"
                     ]
                 },
