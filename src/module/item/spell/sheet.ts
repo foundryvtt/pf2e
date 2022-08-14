@@ -56,6 +56,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             isVariant: this.item.isVariant,
             spellCategories: CONFIG.PF2E.spellCategories,
             spellTypes: CONFIG.PF2E.spellTypes,
+            saves: CONFIG.PF2E.saves,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
@@ -410,6 +411,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
+    saves: ConfigPF2e["PF2E"]["saves"];
     damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
     damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
     spellComponents: string[];
