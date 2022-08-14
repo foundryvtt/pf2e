@@ -69,6 +69,7 @@ import "./client/core/socket";
 import "./client/core/sorting";
 import "./client/core/text-editor";
 import "./client/core/video";
+import "./client/core/document-index";
 import "./client/documents";
 import "./client/game";
 import "./client/keyboard";
