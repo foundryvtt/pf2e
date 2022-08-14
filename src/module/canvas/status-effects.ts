@@ -37,7 +37,7 @@ export class StatusEffects {
     static init(): void {
         if (!canvas.ready) return;
 
-        console.log("PF2e System | Initializing Status Effects Module");
+        console.debug("PF2e System | Initializing Status Effects handler");
         this.#hookIntoFoundry();
         this.#updateStatusIcons();
     }
@@ -65,7 +65,7 @@ export class StatusEffects {
                     if (url.includes(lastIconType.folder)) {
                         const statusName = this.#getSlugFromImg(url);
                         const newUrl = `${iconType.folder}${statusName}.webp` as const;
-                        console.log(
+                        console.debug(
                             `PF2e System | Migrating effect ${statusName} of Token ${token.name} on scene ${scene.name} | "${url}" to "${newUrl}"`
                         );
                         const index = update.effects.indexOf(url);
