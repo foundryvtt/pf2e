@@ -142,7 +142,7 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<this>,
+            options: DocumentModificationContext,
             userId: string
         ): void;
 
@@ -152,7 +152,7 @@ declare global {
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the post-update process. */
         protected _onUpdateTokenActor(
             data: DeepPartial<this["_source"]["actorData"]>,
-            options: DocumentModificationContext<this>,
+            options: DocumentModificationContext,
             userId: string
         ): void;
 
