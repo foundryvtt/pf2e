@@ -97,6 +97,9 @@ declare global {
         /** A singleton instance of the Video Helper class */
         video: VideoHelper;
 
+        /** The global document index. */
+        documentIndex: DocumentIndex;
+
         /** Whether the Game is running in debug mode */
         debug: boolean;
 
