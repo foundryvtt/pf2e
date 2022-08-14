@@ -200,7 +200,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
         const slots = this.system.slots[slotKey];
         if (slots.value > 0) {
-            await this.update({ [`data.slots.${slotKey}.value`]: slots.value - 1 });
+            await this.update({ [`system.slots.${slotKey}.value`]: slots.value - 1 });
             return true;
         } else {
             ui.notifications.warn(

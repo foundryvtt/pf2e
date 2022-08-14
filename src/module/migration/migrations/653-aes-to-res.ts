@@ -10,9 +10,9 @@ export class Migration653AEstoREs extends MigrationBase {
 
     /** Remove the AE if the originating item is a class and is modifying any of the below property paths */
     private pathsToRemove = new Set([
-        ...["unarmored", "light", "medium", "heavy"].map((category) => `data.martial.${category}.rank`),
-        ...["unarmed", "simple", "martial", "advanced"].map((category) => `data.martial.${category}.rank`),
-        ...["fortitude", "reflex", "will"].map((save) => `data.saves.${save}.rank`),
+        ...["unarmored", "light", "medium", "heavy"].map((category) => `system.martial.${category}.rank`),
+        ...["unarmed", "simple", "martial", "advanced"].map((category) => `system.martial.${category}.rank`),
+        ...["fortitude", "reflex", "will"].map((save) => `system.saves.${save}.rank`),
         "system.details.keyability.value",
         "system.attributes.perception.rank",
         "system.attributes.classDC.rank",

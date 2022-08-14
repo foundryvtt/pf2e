@@ -49,7 +49,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             maxSlots: this.data.maxSlots,
         };
 
-        actorUpdates[`data.crafting.entries.${selector}`] = data;
+        actorUpdates[`system.crafting.entries.${selector}`] = data;
     }
 
     /** Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s */
@@ -63,7 +63,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
     }
 
     override onDelete(actorUpdates: Record<string, unknown>): void {
-        actorUpdates[`data.crafting.entries.-=${this.selector}`] = null;
+        actorUpdates[`system.crafting.entries.-=${this.selector}`] = null;
     }
 }
 

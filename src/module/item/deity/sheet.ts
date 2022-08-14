@@ -89,7 +89,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
                 return;
             }
 
-            await this.item.update({ [`data.spells.-=${levelToRemove}`]: null });
+            await this.item.update({ [`system.spells.-=${levelToRemove}`]: null });
         });
 
         // Update the level of a spell
@@ -106,7 +106,10 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
 
                 const newLevel = Math.clamped(Number(event.target.value) || 1, 1, 10);
                 if (oldLevel !== newLevel) {
-                    await this.item.update({ [`data.spells.-=${oldLevel}`]: null, [`data.spells.${newLevel}`]: uuid });
+                    await this.item.update({
+                        [`system.spells.-=${oldLevel}`]: null,
+                        [`system.spells.${newLevel}`]: uuid,
+                    });
                 }
             });
     }
@@ -130,7 +133,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             return;
         }
 
-        await this.item.update({ [`data.spells.${item.level}`]: item.uuid });
+        await this.item.update({ [`system.spells.${item.level}`]: item.uuid });
     }
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
