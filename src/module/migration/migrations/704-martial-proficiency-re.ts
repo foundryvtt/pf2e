@@ -26,7 +26,7 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
 
         if (itemSource.type === "class") {
             if (itemSource.system.slug === "gunslinger" && itemSource.system.rules.length === 0) {
-                const gunslingerRules: Array<RuleElementSource & { definition?: object }> = [
+                const gunslingerRules: (RuleElementSource & { definition?: object })[] = [
                     {
                         definition: {
                             all: ["weapon:category:simple"],

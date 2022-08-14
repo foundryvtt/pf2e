@@ -30,7 +30,7 @@ export abstract class SettingsMenuPF2e extends FormApplication {
         return (this.constructor as typeof SettingsMenuPF2e).namespace;
     }
 
-    static readonly SETTINGS: ReadonlyArray<string>;
+    static readonly SETTINGS: readonly string[];
 
     /** Settings to be registered and also later referenced during user updates */
     protected static get settings(): Record<string, PartialSettingsData> {

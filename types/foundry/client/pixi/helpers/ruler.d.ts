@@ -37,7 +37,7 @@ declare class Ruler extends PIXI.Container {
      * The first waypoint is always the origin of the route.
      * @type {Array<PIXI.Point>}
      */
-    public waypoints: Array<PIXI.Point>;
+    public waypoints: PIXI.Point[];
 
     /**
      * The current destination point at the end of the measurement

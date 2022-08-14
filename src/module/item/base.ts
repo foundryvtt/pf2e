@@ -374,7 +374,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Get item and actor data and format it for the damage roll
         const systemData = this.system;
         const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).system;
-        let parts: Array<string | number> = [];
+        let parts: (string | number)[] = [];
         const partsType: string[] = [];
 
         // If the NPC is using the updated NPC Attack data object

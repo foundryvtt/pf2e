@@ -3,11 +3,11 @@ import { PhysicalItemSource } from "@item/data";
 import { ErrorPF2e } from "@util";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
-    tokenInfo: Array<{
+    tokenInfo: {
         id: string;
         name: string;
         checked: boolean;
-    }>;
+    }[];
 }
 
 export class LootNPCsPopup extends FormApplication<ActorPF2e> {

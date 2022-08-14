@@ -7,7 +7,7 @@ import { MigrationBase } from "../base";
 export class Migration656OtherFocusPoolSources extends MigrationBase {
     static override version = 0.656;
 
-    private needsRuleElement(rules: Array<RuleElementSource & { path?: string }>): boolean {
+    private needsRuleElement(rules: (RuleElementSource & { path?: string })[]): boolean {
         return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "system.resources.focus.max");
     }
 
