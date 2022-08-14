@@ -759,8 +759,8 @@ export const PF2ECONFIG = {
 
     statusEffects: {
         lastIconType: "default" as StatusEffectIconTheme,
-        effectsIconFolder: "systems/pf2e/icons/conditions/",
-        effectsIconFileType: "webp",
+        folder: "systems/pf2e/icons/conditions/",
+        extension: "webp",
         keepFoundryStatusEffects: true,
         foundryStatusEffects: [] as string[],
     },

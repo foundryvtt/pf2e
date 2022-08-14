@@ -32,7 +32,7 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { UserPF2e } from "@module/user";
-import { StatusEffects } from "@scripts/actor/status-effects";
+import { StatusEffects } from "@module/canvas/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
