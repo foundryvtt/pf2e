@@ -201,7 +201,7 @@ declare global {
              * @param  b       The blue color value
              * @return         The HSV representation
              */
-            function rgbToHsv(r: number, g: number, b: number): Array<number>;
+            function rgbToHsv(r: number, g: number, b: number): number[];
 
             /**
              * Converts an HSV color value to RGB. Conversion formula
