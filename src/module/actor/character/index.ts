@@ -1884,7 +1884,13 @@ class CharacterPF2e extends CreaturePF2e {
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            context.self.modifiers.push(...StrikeWeaponTraits.createAttackModifiers(context.self.item));
+            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item);
+            const allAdjustments = this.synthetics.modifierAdjustments;
+            for (const modifier of fromTraits) {
+                modifier.adjustments = extractModifierAdjustments(allAdjustments, params.domains ?? [], modifier.slug);
+            }
+
+            context.self.modifiers.push(...fromTraits);
         }
 
         return context;
