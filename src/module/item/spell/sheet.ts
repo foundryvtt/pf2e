@@ -379,7 +379,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         return layers.map((layer) => {
             const { level, system } = layer;
-            const base = `data.heightening.levels.${layer.level}`;
+            const base = `system.heightening.levels.${layer.level}`;
             const missing: SpellSheetOverlayData["missing"] = [];
             for (const [key, label] of Object.entries(spellOverridable)) {
                 if (key in layer.system) continue;

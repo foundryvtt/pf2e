@@ -56,12 +56,12 @@ export class Migration758PrunePCAttributes extends MigrationBase {
     override async updateActor(source: ActorSourceWithDeletions): Promise<void> {
         if (source.type === "character") {
             for (const key of this.toDelete) {
-                source[`data.attributes.${key}`] = null;
+                source[`system.attributes.${key}`] = null;
             }
         }
     }
 }
 
 type ActorSourceWithDeletions = ActorSourcePF2e & {
-    [K in `data.attributes.${Migration758PrunePCAttributes["toDelete"][number]}`]?: null;
+    [K in `system.attributes.${Migration758PrunePCAttributes["toDelete"][number]}`]?: null;
 };
