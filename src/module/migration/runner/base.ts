@@ -14,9 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    lastPreMigrateSource?: ItemSourcePF2e;
-
-    static LATEST_SCHEMA_VERSION = 0.771;
+    static LATEST_SCHEMA_VERSION = 0.772;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -73,33 +71,26 @@ export class MigrationRunnerBase {
         return ret;
     }
 
-    async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
-        const current = deepClone(item);
-
-        for await (const migration of migrations) {
-            await migration.updateItem?.(current);
-            // Handle embedded spells
-            if (current.type === "consumable" && current.system.spell.data) {
-                this.preMigrateEmbeddedSource(current.system.spell.data);
-                await migration.updateItem?.(current.system.spell.data);
-            }
-        }
-        if (migrations.length > 0) this.updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
-
-        return current;
-    }
-
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
         const currentActor = deepClone(actor);
 
-        for await (const migration of migrations) {
+        for (const migration of migrations) {
+            for (const currentItem of currentActor.items) {
+                await migration.preUpdateItem?.(currentItem, currentActor);
+                if (currentItem.type === "consumable" && currentItem.system.spell) {
+                    await migration.preUpdateItem?.(currentItem.system.spell);
+                }
+            }
+        }
+
+        for (const migration of migrations) {
             await migration.updateActor?.(currentActor);
-            for await (const currentItem of currentActor.items) {
+
+            for (const currentItem of currentActor.items) {
                 await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
-                if (currentItem.type === "consumable" && currentItem.system.spell.data) {
-                    this.preMigrateEmbeddedSource(currentItem.system.spell.data);
-                    await migration.updateItem?.(currentItem.system.spell.data, currentActor);
+                if (currentItem.type === "consumable" && currentItem.system.spell) {
+                    await migration.updateItem?.(currentItem.system.spell, currentActor);
                 }
             }
         }
@@ -118,13 +109,27 @@ export class MigrationRunnerBase {
         return currentActor;
     }
 
-    /** Perform core data migration on embedded item sources */
-    private preMigrateEmbeddedSource(source: ItemSourcePF2e) {
-        // Prevent this from running for each migration
-        if (this.lastPreMigrateSource !== source) {
-            source = Item.migrateData(source);
-            this.lastPreMigrateSource = source;
+    async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
+        const current = deepClone(item);
+
+        for (const migration of migrations) {
+            await migration.preUpdateItem?.(current);
+            if (current.type === "consumable" && current.system.spell) {
+                await migration.preUpdateItem?.(current.system.spell);
+            }
         }
+
+        for (const migration of migrations) {
+            await migration.updateItem?.(current);
+            // Handle embedded spells
+            if (current.type === "consumable" && current.system.spell) {
+                await migration.updateItem?.(current.system.spell);
+            }
+        }
+
+        if (migrations.length > 0) this.updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
+
+        return current;
     }
 
     private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
@@ -178,7 +183,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
         const current = token.toObject();
-        for await (const migration of migrations) {
+        for (const migration of migrations) {
             await migration.updateToken?.(current, token.actor, token.scene);
         }
 

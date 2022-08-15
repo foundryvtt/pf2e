@@ -30,17 +30,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     get embeddedSpell(): Embedded<SpellPF2e> | null {
-        const spellData = deepClone(this.system.spell.data);
-
-        if (!spellData) return null;
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
+        if (!this.system.spell) return null;
 
-        const heightenedLevel = this.system.spell.heightenedLevel;
-        if (typeof heightenedLevel === "number") {
-            spellData.system.location.heightenedLevel = heightenedLevel;
-        }
-
-        return new SpellPF2e(spellData, {
+        return new SpellPF2e(deepClone(this.system.spell), {
             parent: this.actor,
             fromConsumable: true,
         }) as Embedded<SpellPF2e>;
@@ -106,7 +99,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
         const { value, max } = this.uses;
 
-        if (["scroll", "wand"].includes(this.system.consumableType.value) && this.system.spell.data) {
+        if (["scroll", "wand"].includes(this.system.consumableType.value) && this.system.spell) {
             if (this.actor.spellcasting.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {

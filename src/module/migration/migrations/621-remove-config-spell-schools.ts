@@ -32,10 +32,6 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
         if (itemData.type === "spell") {
             const school: { value: string } = itemData.system.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
-        } else if (itemData.type === "consumable" && itemData.system.spell?.data) {
-            const spell = itemData.system.spell.data;
-            const school: { value: string } = spell.system.school ?? { value: "evocation" };
-            school.value = this.reassignSchool(school.value);
         }
     }
 }

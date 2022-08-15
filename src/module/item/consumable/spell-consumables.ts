@@ -68,10 +68,8 @@ async function createConsumableFromSpell(
     const description = consumableSource.system.description.value;
     consumableSource.system.description.value =
         (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr/>${description}`;
-    consumableSource.system.spell = {
-        data: spell.toObject(),
-        heightenedLevel: heightenedLevel,
-    };
+    consumableSource.system.spell = spell.toObject();
+
     return consumableSource;
 }
 
