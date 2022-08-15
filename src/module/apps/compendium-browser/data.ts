@@ -8,5 +8,7 @@ export type TabName = "action" | "bestiary" | "equipment" | "feat" | "hazard" | 
 export type TabType = InstanceType<typeof BrowserTab[keyof typeof BrowserTab]>;
 export type TabData<T> = Record<TabName, T | null>;
 
-export type SortByOption = "name" | "level" | "price";
+export type CommonSortByOption = "name" | "level";
+
+export type SortByOption = CommonSortByOption | "price";
 export type SortDirection = "asc" | "desc";

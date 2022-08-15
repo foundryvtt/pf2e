@@ -1,5 +1,5 @@
 import { PhysicalItemTrait } from "@item/physical/data";
-import { SortDirection } from "../data";
+import { CommonSortByOption, SortByOption, SortDirection } from "../data";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {
@@ -98,6 +98,81 @@ interface SpellFilters extends BaseFilterData {
     selects: Record<"timefilter", SelectData>;
 }
 
+// Models used for initializing filters
+interface BaseInitialFilters {
+    searchText?: string;
+    orderBy?: SortByOption;
+    orderDirection?: SortDirection;
+}
+
+interface InitialActionFilters extends BaseInitialFilters {
+    traits?: string[];
+    source?: string[];
+    orderBy?: CommonSortByOption;
+}
+
+interface InitialBestiaryFilters extends BaseInitialFilters {
+    alignments?: string[];
+    rarity?: string[];
+    sizes?: string[];
+    source?: string[];
+    traits?: string[];
+    orderBy?: CommonSortByOption;
+}
+
+interface InitialEquipmentFilters extends BaseInitialFilters {
+    armorTypes?: string[];
+    weaponTypes?: string[];
+    itemtypes?: string[];
+    rarity?: string[];
+    source?: string[];
+    priceRange?: { min?: number | string; max?: number | string };
+    levelRange?: { min?: number; max?: number };
+    orderBy?: CommonSortByOption | "price";
+}
+
+interface InitialFeatFilters extends BaseInitialFilters {
+    ancestry?: string[];
+    classes?: string[];
+    feattype?: string[];
+    skills?: string[];
+    rarity?: string[];
+    source?: string[];
+    traits?: string[];
+    levelRange?: { min?: number; max?: number };
+    orderBy?: CommonSortByOption;
+}
+
+interface InitialHazardFilters extends BaseInitialFilters {
+    complexity?: string[];
+    rarity?: string[];
+    source?: string[];
+    traits?: string[];
+    levelRange?: { min?: number; max?: number };
+    orderBy?: CommonSortByOption;
+}
+
+interface InitialSpellFilters extends BaseInitialFilters {
+    timefilter?: string;
+    category?: string[];
+    classes?: string[];
+    level?: string[];
+    rarity?: string[];
+    school?: string[];
+    source?: string[];
+    traditions?: string[];
+    traits?: string[];
+    orderBy?: CommonSortByOption;
+}
+
+type InitialFilters =
+    | InitialActionFilters
+    | InitialBestiaryFilters
+    | InitialEquipmentFilters
+    | InitialFeatFilters
+    | InitialHazardFilters
+    | InitialSpellFilters;
+
 export {
     ActionFilters,
     BaseFilterData,
@@ -110,4 +185,11 @@ export {
     MultiselectData,
     RangesData,
     SpellFilters,
+    InitialFilters,
+    InitialActionFilters,
+    InitialBestiaryFilters,
+    InitialEquipmentFilters,
+    InitialFeatFilters,
+    InitialHazardFilters,
+    InitialSpellFilters,
 };

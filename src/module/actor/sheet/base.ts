@@ -566,12 +566,29 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    private onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const filter: string[] = [$(event.currentTarget).attr("data-filter")].filter(
+    private async onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>): Promise<void> {
+        const checkboxesFilterCodes: string[] = [$(event.currentTarget).attr("data-filter")].filter(
             (element): element is string => !!element
         );
-        console.debug(`Filtering on: ${filter}`);
-        game.pf2e.compendiumBrowser.openTab("equipment", filter);
+
+        const filter: Record<string, string[]> = {};
+        for (const filterCode of checkboxesFilterCodes) {
+            const splitValues = filterCode.split("-");
+            if (splitValues.length !== 2) {
+                console.error(
+                    `Invalid filter value for opening the compendium browser:\n'${JSON.stringify(
+                        checkboxesFilterCodes
+                    )}'`
+                );
+                return;
+            }
+
+            const [filterType, value] = splitValues;
+            const filterCategory = filter[filterType] ?? (filter[filterType] = []);
+            filterCategory.push(value);
+        }
+
+        await game.pf2e.compendiumBrowser.openTab("equipment", filter);
     }
 
     protected override _canDragStart(selector: string): boolean {
