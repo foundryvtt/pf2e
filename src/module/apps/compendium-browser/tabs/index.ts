@@ -1,8 +1,6 @@
-import { CompendiumBrowserActionTab as Actions } from "./action";
-import { CompendiumBrowserBestiaryTab as Bestiary } from "./bestiary";
-import { CompendiumBrowserEquipmentTab as Equipment } from "./equipment";
-import { CompendiumBrowserFeatTab as Feats } from "./feat";
-import { CompendiumBrowserHazardTab as Hazards } from "./hazard";
-import { CompendiumBrowserSpellTab as Spells } from "./spell";
-
-export const BrowserTab = { Actions, Bestiary, Equipment, Feats, Hazards, Spells };
+export { CompendiumBrowserActionTab as Actions } from "./action";
+export { CompendiumBrowserBestiaryTab as Bestiary } from "./bestiary";
+export { CompendiumBrowserEquipmentTab as Equipment } from "./equipment";
+export { CompendiumBrowserFeatTab as Feats } from "./feat";
+export { CompendiumBrowserHazardTab as Hazards } from "./hazard";
+export { CompendiumBrowserSpellTab as Spells } from "./spell";
