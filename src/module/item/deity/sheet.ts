@@ -7,7 +7,7 @@ import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { ErrorPF2e, tagify } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 
-export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemSheetPF2e<TItem> {
+export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -17,7 +17,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<DeitySheetData> {
-        const sheetData = await super.getBaseData(options);
+        const sheetData = await super.getData(options);
 
         const spellEntries = Object.entries(sheetData.data.spells);
         const spells = (await fromUUIDs(Object.values(sheetData.data.spells)))

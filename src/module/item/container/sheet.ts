@@ -9,13 +9,11 @@ export class ContainerSheetPF2e extends PhysicalItemSheetPF2e<ContainerPF2e> {
             ...(await super.getData(options)),
             hasSidebar: true,
             hasDetails: true,
-            bulkTypes: CONFIG.PF2E.bulkTypes,
             traits: createSheetTags(CONFIG.PF2E.equipmentTraits, this.item.system.traits),
         };
     }
 }
 
 interface ContainerSheetData extends PhysicalItemSheetData<ContainerPF2e> {
-    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
     traits: SheetOptions;
 }

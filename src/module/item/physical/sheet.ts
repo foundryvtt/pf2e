@@ -33,8 +33,11 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             priceString: this.item.price.value.toString(),
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
+            bulkTypes: CONFIG.PF2E.bulkTypes,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: CONFIG.PF2E.actorSizes,
+            stackGroups: CONFIG.PF2E.stackGroups,
+            usage: CONFIG.PF2E.usageTraits,
             isPhysical: true,
             activations: this.item.activations.map((action) => ({
                 action,
@@ -42,6 +45,9 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 base: `system.activations.${action.id}`,
                 traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
             })),
+
+            // Do not let user set bulk if in a stack group because the group determines bulk
+            bulkDisabled: !!sheetData.data?.stackGroup?.trim(),
         };
     }
 

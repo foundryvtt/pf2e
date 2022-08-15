@@ -4,7 +4,6 @@ import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types";
 import { sluggify } from "@util";
 import { DeityData } from "./data";
-import { DeitySheetPF2e } from "./sheet";
 
 class DeityPF2e extends ItemPF2e {
     get category(): "deity" | "pantheon" | "philosophy" {
@@ -101,8 +100,6 @@ class DeityPF2e extends ItemPF2e {
 
 interface DeityPF2e extends ItemPF2e {
     readonly data: DeityData;
-
-    readonly _sheet: DeitySheetPF2e<this>;
 }
 
 export { DeityPF2e };

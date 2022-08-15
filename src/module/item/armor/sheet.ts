@@ -20,6 +20,7 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         return {
             ...sheetData,
             hasDetails: true,
+            hasSidebar: true,
             armorPotencyRunes: CONFIG.PF2E.armorPotencyRunes,
             armorResiliencyRunes: CONFIG.PF2E.armorResiliencyRunes,
             armorPropertyRunes: CONFIG.PF2E.armorPropertyRunes,

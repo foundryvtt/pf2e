@@ -27,6 +27,8 @@ import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { EquipmentSheetPF2e } from "@item/equipment/sheet";
 import { ContainerSheetPF2e } from "@item/container/sheet";
 import { MeleeSheetPF2e } from "@item/melee/sheet";
+import { ConsumableSheetPF2e } from "@item/consumable/sheet";
+import { TreasureSheetPF2e } from "@item/treasure/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -114,6 +116,7 @@ export function registerSheets() {
         ["backpack", ContainerSheetPF2e],
         ["book", BookSheetPF2e],
         ["class", ClassSheetPF2e],
+        ["consumable", ConsumableSheetPF2e],
         ["deity", DeitySheetPF2e],
         ["effect", EffectSheetPF2e],
         ["equipment", EquipmentSheetPF2e],
@@ -122,6 +125,7 @@ export function registerSheets() {
         ["kit", KitSheetPF2e],
         ["melee", MeleeSheetPF2e],
         ["spell", SpellSheetPF2e],
+        ["treasure", TreasureSheetPF2e],
         ["weapon", WeaponSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {

@@ -20,7 +20,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ABCSheetData<TItem>> {
         const itemType = this.item.type;
 
-        const sheetData = await this.getBaseData(options);
+        const sheetData = await super.getData(options);
         // Exclude any added during data preparation
         sheetData.data.items = this.item.toObject().system.items;
 

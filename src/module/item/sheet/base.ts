@@ -1,7 +1,6 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -55,56 +54,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>) {
-        const sheetData: any = await this.getBaseData(options);
-        sheetData.abilities = CONFIG.PF2E.abilities;
-        sheetData.saves = CONFIG.PF2E.saves;
-
-        const itemData: TItem["data"] = sheetData.item;
-
-        mergeObject(sheetData, {
-            hasSidebar: true,
-            sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
-            hasDetails: ["book", "condition", "consumable", "deity", "lore"].includes(itemData.type),
-            detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
-        }); // Damage types
-
-        const dt = duplicate(CONFIG.PF2E.damageTypes);
-        if (itemData.type === "spell") mergeObject(dt, CONFIG.PF2E.healingTypes);
-        sheetData.damageTypes = dt;
-
-        // do not let user set bulk if in a stack group because the group determines bulk
-        const stackGroup = sheetData.data?.stackGroup?.value;
-        sheetData.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== "";
-        sheetData.rarity = CONFIG.PF2E.rarityTraits;
-        sheetData.usage = CONFIG.PF2E.usageTraits; // usage data
-        sheetData.stackGroups = CONFIG.PF2E.stackGroups;
-
-        if (itemData.type === "treasure") {
-            sheetData.currencies = CONFIG.PF2E.currencies;
-            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
-            sheetData.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === "consumable") {
-            sheetData.consumableTypes = CONFIG.PF2E.consumableTypes;
-            sheetData.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.system.traits);
-            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
-            sheetData.stackGroups = CONFIG.PF2E.stackGroups;
-            sheetData.consumableTraits = CONFIG.PF2E.consumableTraits;
-            sheetData.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === "condition") {
-            // Condition types
-
-            sheetData.conditions = [];
-        } else if (itemData.type === "lore") {
-            // Lore-specific data
-            sheetData.proficiencies = CONFIG.PF2E.proficiencyLevels;
-        }
-
-        return sheetData;
-    }
-
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected async getBaseData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
+    override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
@@ -122,7 +73,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         return {
             itemType: null,
-            hasSidebar: false,
+            hasSidebar: ["condition", "lore"].includes(itemData.type),
             hasDetails: true,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
@@ -136,6 +87,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             owner: this.item.isOwner,
             title: this.title,
             user: { isGM: game.user.isGM },
+            rarity: CONFIG.PF2E.rarityTraits,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             ruleLabels: rules.map((ruleData: RuleElementSource) => {
@@ -162,6 +114,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             })),
             sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.html`,
             detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.html`,
+            proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }
 
