@@ -457,7 +457,7 @@ declare global {
         TextEditor: {
             enrichers: {
                 pattern: RegExp;
-                enricher: (match: RegExpMatchArray, options: EnrichHTMLOptions) => Promise<HTMLElement | void>;
+                enricher: (match: RegExpMatchArray, options: EnrichHTMLOptions) => Promise<HTMLElement | null>;
             }[];
         };
 
