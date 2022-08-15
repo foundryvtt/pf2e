@@ -1,12 +1,12 @@
-import { SenseData } from "@actor/creature/data";
-import { ActorPF2e, NPCPF2e } from "@actor/index";
-import { TagSelectorBase } from "./base";
+import { ActorPF2e } from "@actor";
+import { BaseTagSelector } from "./base";
 import { SelectableTagField } from ".";
+import { ErrorPF2e } from "@util";
 
-export class SenseSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "system.traits.senses";
+export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
+    protected objectProperty = "system.traits.senses";
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/trait-selector/senses.html",
             title: "PF2E.Sense.Label",
@@ -17,30 +17,32 @@ export class SenseSelector extends TagSelectorBase<ActorPF2e> {
         return ["senses"] as const;
     }
 
-    override getData() {
-        const data: any = super.getData();
-
-        if (this.object instanceof NPCPF2e) {
-            data.hasExceptions = true;
+    override async getData(): Promise<SenseSelectorData<TActor>> {
+        if (!this.object.isOfType("character")) {
+            throw ErrorPF2e("The Sense selector is usable only with PCs");
         }
 
-        const choices: Record<string, Record<string, unknown>> = {};
-        const senses: SenseData[] = getProperty(this.object.data, this.objectProperty);
-        Object.entries(this.choices).forEach(([type, label]) => {
+        const senses = this.object.system.traits.senses;
+        const choices = Object.entries(this.choices).reduce((accum: Record<string, SenseChoiceData>, [type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
-            choices[type] = {
-                acuity: sense?.acuity ?? "precise",
-                disabled: sense?.source ? "disabled" : "",
-                label,
-                selected: sense !== undefined,
-                value: sense?.value ?? "",
+            return {
+                ...accum,
+                [type]: {
+                    acuity: sense?.acuity ?? "precise",
+                    disabled: sense?.source ? "disabled" : "",
+                    label,
+                    selected: !!sense,
+                    value: sense?.value ?? "",
+                },
             };
-        });
-        data.choices = choices;
+        }, {});
 
-        data.senseAcuity = CONFIG.PF2E.senseAcuity;
-
-        return data;
+        return {
+            ...(await super.getData()),
+            hasExceptions: false,
+            choices,
+            senseAcuity: CONFIG.PF2E.senseAcuity,
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -61,17 +63,10 @@ export class SenseSelector extends TagSelectorBase<ActorPF2e> {
     }
 
     protected override async _updateObject(_event: Event, formData: SenseFormData): Promise<void> {
-        const update = this.getUpdateData(formData);
-        if (update) {
-            this.object.update({ [this.objectProperty]: update });
-        }
-    }
-
-    protected getUpdateData(formData: SenseFormData): SenseUpdateData[] {
-        return Object.entries(formData)
+        const update = Object.entries(formData)
             .filter(
-                (entry): entry is [string, [true, string, string?] | true] =>
-                    entry[1] === true || (Array.isArray(entry[1]) && entry[1].length === 3)
+                (e): e is [string, [true, string, string | null] | true] =>
+                    e[1] === true || (Array.isArray(e[1]) && e[1][0])
             )
             .map(([type, values]) => {
                 if (values === true) {
@@ -85,12 +80,23 @@ export class SenseSelector extends TagSelectorBase<ActorPF2e> {
                     return { type, acuity, value: range };
                 }
             });
+
+        this.object.update({ [this.objectProperty]: update });
     }
 }
 
-type SenseFormData = Record<string, [boolean, string, string?] | boolean>;
-interface SenseUpdateData {
-    type: string;
-    acuity?: string;
-    value?: number;
+interface SenseSelectorData<TActor extends ActorPF2e> extends FormApplicationData<TActor> {
+    hasExceptions: boolean;
+    choices: Record<string, SenseChoiceData>;
+    senseAcuity: Record<string, string>;
 }
+
+interface SenseChoiceData {
+    acuity: string;
+    disabled: string;
+    label: string;
+    selected: boolean;
+    value: string;
+}
+
+type SenseFormData = Record<string, [boolean, string, string | null] | boolean>;

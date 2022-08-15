@@ -3,7 +3,7 @@ import { ActorPF2e } from "@actor/index";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemPF2e } from "@item/index";
 import { ValuesList } from "@module/data";
-import { TagSelectorBase } from "./base";
+import { BaseTagSelector } from "./base";
 import { SelectableTagField, TagSelectorOptions } from ".";
 
 /* Basic trait selector options */
@@ -20,14 +20,16 @@ function isValuesList(value: unknown): value is ValuesList {
     return !!(value && typeof value === "object" && "value" in value);
 }
 
-export class TagSelectorBasic extends TagSelectorBase {
+class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
     allowCustom: boolean;
     /** Search string for filtering */
     searchString = "";
 
     private filterTimeout: number | null = null;
 
-    constructor(object: ActorPF2e | ItemPF2e, options: BasicConstructorOptions) {
+    protected objectProperty: string;
+
+    constructor(object: TDocument, options: BasicConstructorOptions) {
         super(object, options);
         this.objectProperty = options.objectProperty;
         this.allowCustom = options.allowCustom ?? true;
@@ -42,14 +44,14 @@ export class TagSelectorBasic extends TagSelectorBase {
         return this.options.configTypes ?? [];
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/trait-selector/basic.html",
             height: 710,
         });
     }
 
-    override getData() {
+    override async getData(): Promise<TagSelectorBasicData<TDocument>> {
         const { chosen, custom, flat, disabled } = (() => {
             const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.object;
             // Compare source and prepared properties to determine which tags were automatically selected
@@ -82,7 +84,7 @@ export class TagSelectorBasic extends TagSelectorBase {
         }, {} as Record<string, { label: string; selected: boolean; disabled: boolean }>);
 
         return {
-            ...super.getData(),
+            ...(await super.getData()),
             choices,
             allowCustom: this.allowCustom && !flat,
             custom,
@@ -125,7 +127,7 @@ export class TagSelectorBasic extends TagSelectorBase {
      * @param searchString The search string to match
      */
     private search(searchString: string) {
-        const query = new RegExp((RegExp as any).escape(searchString), "i");
+        const query = new RegExp(RegExp.escape(searchString), "i");
         (this.element as JQuery).find("li.trait-item").each((_i, li) => {
             const name = li.getElementsByClassName("trait-label")[0].textContent ?? "";
             li.style.display = query.test(name) ? "flex" : "none";
@@ -148,6 +150,15 @@ export class TagSelectorBasic extends TagSelectorBase {
     }
 }
 
-export interface TagSelectorBasic {
+interface TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
     options: BasicSelectorOptions;
 }
+
+interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends FormApplicationData<TDocument> {
+    choices: Record<string, { label: string; selected: boolean; disabled: boolean }>;
+    allowCustom: boolean;
+    custom: string | null;
+    flat: boolean;
+}
+
+export { TagSelectorBasic };
