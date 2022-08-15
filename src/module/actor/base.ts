@@ -63,9 +63,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
-            // Prevent upstream from introducing destructive side effects
-            data = deepClone(data);
-
             // Set module art if available
             if (context.pack && data._id) {
                 const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
@@ -892,14 +889,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
-    findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
-        const testItem = new ItemPF2e(itemData);
+    findStackableItem(actor: ActorPF2e, itemSource: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
+        // Prevent upstream from mutating property descriptors
+        const testItem = new ItemPF2e(deepClone(itemSource));
         const stackCandidates = actor.inventory.filter(
             (stackCandidate) =>
                 !stackCandidate.isInContainer &&
                 testItem instanceof PhysicalItemPF2e &&
                 stackCandidate.isStackableWith(testItem)
         );
+
         if (stackCandidates.length === 0) {
             return null;
         } else if (stackCandidates.length > 1) {
