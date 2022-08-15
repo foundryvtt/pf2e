@@ -52,9 +52,8 @@ function isSpellConsumable(itemId: string): boolean {
 async function createConsumableFromSpell(
     type: "scroll" | "wand",
     spell: SpellPF2e,
-    heightenedLevel?: number
+    heightenedLevel = spell.baseLevel
 ): Promise<ConsumableSource> {
-    heightenedLevel = heightenedLevel ?? spell.baseLevel;
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getDocument(itemId ?? "");
@@ -63,12 +62,12 @@ async function createConsumableFromSpell(
     }
 
     const consumableSource = consumable.toObject();
-    spell.traditions.forEach((value) => consumableSource.system.traits.value.push(value));
+    consumableSource.system.traits.value.push(...spell.traditions);
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
     consumableSource.system.description.value =
-        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr/>${description}`;
-    consumableSource.system.spell = spell.toObject();
+        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr />${description}`;
+    consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
 
     return consumableSource;
 }
