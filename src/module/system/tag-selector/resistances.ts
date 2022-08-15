@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
 import { SelectableTagField } from ".";
-import { TagSelectorBase } from "./base";
+import { BaseTagSelector } from "./base";
 
-export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "system.traits.dr";
+export class ResistanceSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
+    protected objectProperty = "system.traits.dr";
 
     static override get defaultOptions(): FormApplicationOptions {
         return {
@@ -18,7 +18,7 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
         };
     }
 
-    private get actor(): ActorPF2e {
+    private get actor(): TActor {
         return this.object;
     }
 
@@ -26,35 +26,30 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
         return ["resistanceTypes"] as const;
     }
 
-    override getData() {
-        const actorSource = this.actor.toObject();
-        if (actorSource.type === "familiar") {
-            throw ErrorPF2e("Resistances cannot be saved to familiar data");
+    override async getData(): Promise<ResistanceSelectorData<TActor>> {
+        if (!this.actor.isOfType("character", "hazard", "npc", "vehicle")) {
+            throw ErrorPF2e("Resistances can only be saved to PCs, NPCs, hazards, and vehicles");
         }
 
-        const data: any = super.getData();
-
-        if (actorSource.type === "npc" || actorSource.type === "hazard") {
-            data.hasExceptions = true;
-        }
-
-        const choices: Record<
-            string,
-            { label: string; selected: boolean; value: number | undefined; exceptions: string }
-        > = {};
-        const resistances = actorSource.system.traits.dr;
-        Object.entries(this.choices).forEach(([type, label]) => {
-            const resistance = resistances.find((resistance) => resistance.type === type);
-            choices[type] = {
-                label,
-                selected: !!resistance,
-                value: resistance?.value,
-                exceptions: resistance?.exceptions ?? "",
+        const resistances = this.actor._source.system.traits.dr;
+        const choices = Object.entries(this.choices).reduce((accum: Record<string, ChoiceData>, [type, label]) => {
+            const resistance = resistances.find((r) => r.type === type);
+            return {
+                ...accum,
+                [type]: {
+                    label,
+                    selected: !!resistance,
+                    value: Number(resistance?.value) || 0,
+                    exceptions: resistance?.exceptions ?? "",
+                },
             };
-        });
-        data.choices = choices;
+        }, {});
 
-        return data;
+        return {
+            ...(await super.getData()),
+            choices,
+            hasExceptions: this.actor.isOfType("hazard", "npc"),
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -75,20 +70,28 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
     }
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>) {
-        const update = this.getUpdateData(formData);
-        if (update) this.actor.update({ [this.objectProperty]: update });
-    }
-
-    protected getUpdateData(formData: Record<string, unknown>) {
-        const choices: Record<string, unknown>[] = [];
-        for (const [k, v] of Object.entries(formData as Record<string, any>)) {
-            if (v.length > 1 && v[0]) {
-                if (Number.isInteger(Number(v[1])) && v[1] !== "") {
-                    const exceptions = v[2] ?? "";
-                    choices.push({ type: k, value: Number(v[1]), exceptions });
+        const selections = Object.entries(formData).flatMap(([type, values]): object => {
+            if (Array.isArray(values) && values.length > 1 && values[0]) {
+                const value = Number(values[1]);
+                if (Number.isInteger(value) && value > 0) {
+                    return { type, value, exceptions: String(values[2] ?? "") };
                 }
             }
-        }
-        return choices;
+            return [];
+        });
+
+        this.actor.update({ [this.objectProperty]: selections });
     }
+}
+
+interface ResistanceSelectorData<TActor extends ActorPF2e> extends FormApplicationData<TActor> {
+    choices: Record<string, ChoiceData>;
+    hasExceptions: boolean;
+}
+
+interface ChoiceData {
+    label: string;
+    selected: boolean;
+    value: number;
+    exceptions: string;
 }

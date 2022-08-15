@@ -1,10 +1,10 @@
-import { ActorPF2e, NPCPF2e } from "@actor";
-import { LabeledString } from "@module/data";
+import { ActorPF2e } from "@actor";
+import { ErrorPF2e } from "@util";
 import { SelectableTagField, TagSelectorOptions } from ".";
-import { TagSelectorBase } from "./base";
+import { BaseTagSelector } from "./base";
 
-export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "system.attributes.speed.otherSpeeds";
+export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
+    protected objectProperty = "system.attributes.speed.otherSpeeds";
 
     static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
@@ -17,27 +17,30 @@ export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
         return ["speedTypes"] as const;
     }
 
-    override getData() {
-        const data: any = super.getData();
-
-        if (this.object instanceof NPCPF2e) {
-            data.hasExceptions = true;
+    override async getData(): Promise<SpeedSelectorData<TActor>> {
+        if (!this.object.isOfType("creature")) {
+            throw ErrorPF2e("The Speed selector is usable only with creature-type actors");
         }
 
-        const choices: Record<string, { selected: boolean; label: string; value: string }> = {};
-        const speeds: LabeledString[] = getProperty(this.object, this.objectProperty);
+        const speeds = this.object.system.attributes.speed.otherSpeeds;
         const speedLabels: Record<string, string> = CONFIG.PF2E.speedTypes;
-        for (const [type] of Object.entries(this.choices)) {
-            const speed = speeds.find((res) => res.type === type);
-            choices[type] = {
-                selected: !!speed,
-                label: game.i18n.localize(speedLabels[type]),
-                value: speed?.value ?? "",
+        const choices = Object.keys(this.choices).reduce((accum: Record<string, ChoiceData>, type) => {
+            const speed = speeds.find((s) => s.type === type);
+            return {
+                ...accum,
+                [type]: {
+                    selected: !!speed,
+                    label: game.i18n.localize(speedLabels[type]),
+                    value: speed?.value ?? "",
+                },
             };
-        }
-        data.choices = choices;
+        }, {});
 
-        return data;
+        return {
+            ...(await super.getData()),
+            hasExceptions: this.object.isOfType("npc"),
+            choices,
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -57,23 +60,28 @@ export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
             });
     }
 
-    protected override async _updateObject(_event: Event, formData: Record<string, unknown>) {
-        const update = this.getUpdateData(formData);
-        if (update) {
-            this.object.update({ [this.objectProperty]: update });
-        }
-    }
+    protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+        type TagChoice = { type: string; value: number };
+        const update = Object.entries(formData).flatMap(([key, value]): TagChoice | never[] => {
+            if (!(Array.isArray(value) && value.length === 2)) return [];
+            const selected = !!value[0];
+            const distance = Number(value[1]);
+            if (!(selected && distance)) return [];
 
-    protected getUpdateData(formData: Record<string, unknown>) {
-        type TagChoice = { type: string; value: string };
-        const choices: TagChoice[] = [];
-        for (const [k, v] of Object.entries(formData as Record<string, any>)) {
-            if (v.length > 1 && Array.isArray(v) && v[0]) {
-                if (!Number.isNaN(Number(v[1])) && v[1]) {
-                    choices.push({ type: k, value: v[1] });
-                }
-            }
-        }
-        return choices;
+            return { type: key, value: distance };
+        });
+
+        this.object.update({ [this.objectProperty]: update });
     }
+}
+
+interface SpeedSelectorData<TActor extends ActorPF2e> extends FormApplicationData<TActor> {
+    hasExceptions: boolean;
+    choices: Record<string, ChoiceData>;
+}
+
+interface ChoiceData {
+    selected: boolean;
+    label: string;
+    value: string;
 }

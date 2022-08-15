@@ -1,19 +1,20 @@
 import { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
-import { TagSelectorBase } from "./base";
+import { BaseTagSelector } from "./base";
 import { SelectableTagField } from ".";
 
-export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = "system.traits.dv";
+export class WeaknessSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
+    protected objectProperty = "system.traits.dv";
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): FormApplicationOptions {
+        return {
+            ...super.defaultOptions,
             template: "systems/pf2e/templates/system/trait-selector/weaknesses.html",
             title: "PF2E.WeaknessesLabel",
-        });
+        };
     }
 
-    private get actor(): ActorPF2e {
+    private get actor(): TActor {
         return this.object;
     }
 
@@ -21,29 +22,30 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
         return ["weaknessTypes"] as const;
     }
 
-    override getData() {
-        const data: any = super.getData();
-
-        const actorSource = this.actor.toObject();
-        if (actorSource.type === "npc") {
-            data.hasExceptions = true;
-        } else if (actorSource.type === "familiar") {
-            throw ErrorPF2e("Weaknesses cannot be saved to familiar data");
+    override async getData(): Promise<WeaknessSelectorData<TActor>> {
+        if (!this.actor.isOfType("character", "hazard", "npc", "vehicle")) {
+            throw ErrorPF2e("Weaknesses can only be saved to PCs, NPCs, hazards, and vehicles");
         }
 
-        const choices: Record<string, { label: string; selected: boolean; value: number | undefined }> = {};
-        const weaknesses = actorSource.system.traits.dv;
-        Object.entries(this.choices).forEach(([type, label]) => {
-            const current = weaknesses.find((weakness) => weakness.type === type);
-            choices[type] = {
-                label,
-                selected: !!current,
-                value: current?.value,
+        const weaknesses = this.actor._source.system.traits.dv;
+        const choices = Object.entries(this.choices).reduce((accum: Record<string, ChoiceData>, [type, label]) => {
+            const weakness = weaknesses.find((w) => w.type === type);
+            return {
+                ...accum,
+                [type]: {
+                    label,
+                    selected: !!weakness,
+                    value: Number(weakness?.value) || 0,
+                    exceptions: weakness?.exceptions ?? "",
+                },
             };
-        });
-        data.choices = choices;
+        }, {});
 
-        return data;
+        return {
+            ...(await super.getData()),
+            choices,
+            hasExceptions: this.actor.isOfType("hazard", "npc"),
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -64,19 +66,28 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
     }
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
-        const update = this.getUpdateData(formData);
-        this.actor.update({ [this.objectProperty]: update });
-    }
-
-    protected getUpdateData(formData: Record<string, unknown>) {
-        const choices: Record<string, unknown>[] = [];
-        for (const [k, v] of Object.entries(formData as Record<string, any>)) {
-            if (v.length > 1 && v[0]) {
-                if (Number.isInteger(Number(v[1])) && v[1] !== "") {
-                    choices.push({ type: k, value: Number(v[1]) });
+        const selections = Object.entries(formData).flatMap(([type, values]): object => {
+            if (Array.isArray(values) && values.length > 1 && values[0]) {
+                const value = Number(values[1]);
+                if (Number.isInteger(value) && value > 0) {
+                    return { type, value, exceptions: String(values[2] ?? "") };
                 }
             }
-        }
-        return choices;
+            return [];
+        });
+
+        this.actor.update({ [this.objectProperty]: selections });
     }
+}
+
+interface WeaknessSelectorData<TActor extends ActorPF2e> extends FormApplicationData<TActor> {
+    choices: Record<string, ChoiceData>;
+    hasExceptions: boolean;
+}
+
+interface ChoiceData {
+    label: string;
+    selected: boolean;
+    value: number;
+    exceptions: string;
 }
