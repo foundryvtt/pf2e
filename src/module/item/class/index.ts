@@ -100,17 +100,17 @@ class ClassPF2e extends ABCItemPF2e {
 
         for (const category of ARMOR_CATEGORIES) {
             martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
-            this.logAutoChange(`data.martial.${category}.rank`, this.defenses[category]);
+            this.logAutoChange(`system.martial.${category}.rank`, this.defenses[category]);
         }
 
         for (const category of WEAPON_CATEGORIES) {
             martial[category].rank = Math.max(martial[category].rank, this.attacks[category]) as ZeroToFour;
-            this.logAutoChange(`data.martial.${category}.rank`, this.attacks[category]);
+            this.logAutoChange(`system.martial.${category}.rank`, this.attacks[category]);
         }
 
         for (const saveType of SAVE_TYPES) {
             saves[saveType].rank = Math.max(saves[saveType].rank, this.savingThrows[saveType]) as ZeroToFour;
-            this.logAutoChange(`data.saves.${saveType}.rank`, this.savingThrows[saveType]);
+            this.logAutoChange(`system.saves.${saveType}.rank`, this.savingThrows[saveType]);
         }
 
         for (const trainedSkill of this.system.trainedSkills.value) {

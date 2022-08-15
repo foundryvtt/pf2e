@@ -200,7 +200,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
         const slots = this.system.slots[slotKey];
         if (slots.value > 0) {
-            await this.update({ [`data.slots.${slotKey}.value`]: slots.value - 1 });
+            await this.update({ [`system.slots.${slotKey}.value`]: slots.value - 1 });
             return true;
         } else {
             ui.notifications.warn(
@@ -214,8 +214,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not.
      */
-    async addSpell(spell: SpellPF2e, targetLevel?: number): Promise<SpellPF2e | null> {
-        return this.spells.addSpell(spell, targetLevel);
+    async addSpell(spell: SpellPF2e, options?: { slotLevel?: number }): Promise<SpellPF2e | null> {
+        return this.spells.addSpell(spell, options);
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */

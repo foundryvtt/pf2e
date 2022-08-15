@@ -26,7 +26,7 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized: boolean | undefined;
+    private initialized?: true;
 
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
@@ -35,9 +35,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (context.pf2e?.ready) {
             // Prevent upstream from introducing destructive side effects
             super(deepClone(data), context);
-
-            this.rules = [];
-            this.initialized = true;
         } else {
             context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
             const ItemConstructor = CONFIG.PF2E.Item.documentClasses[data.type];
@@ -167,6 +164,12 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
     async toChat(event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
         return this.toMessage(event, { create: true });
+    }
+
+    protected override _initialize(): void {
+        this.rules = [];
+        super._initialize();
+        this.initialized = true;
     }
 
     /** Refresh the Item Directory if this item isn't owned */
@@ -371,7 +374,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Get item and actor data and format it for the damage roll
         const systemData = this.system;
         const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).system;
-        let parts: Array<string | number> = [];
+        let parts: (string | number)[] = [];
         const partsType: string[] = [];
 
         // If the NPC is using the updated NPC Attack data object

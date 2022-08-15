@@ -105,7 +105,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         }
 
         this.item.update({
-            [`data.items.${path}`]: null,
+            [`system.items.${path}`]: null,
         });
     }
 

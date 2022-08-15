@@ -44,11 +44,13 @@ class StrikeWeaponTraits {
         };
 
         return traitsAndTags.flatMap((trait) => {
-            switch (trait.replace(/-d?\d{1,3}$/, "")) {
+            const reducedTrait = trait.replace(/-d?\d{1,3}$/, "");
+            switch (reducedTrait) {
                 case "kickback": {
                     // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
                     // 14 or more Strength ignore the penalty."
                     return new ModifierPF2e({
+                        slug: reducedTrait,
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
@@ -63,6 +65,7 @@ class StrikeWeaponTraits {
 
                     const penaltyRange = Number(/-(\d+)$/.exec(trait)![1]);
                     return new ModifierPF2e({
+                        slug: reducedTrait,
                         label: getLabel(trait),
                         modifier: -2,
                         type: MODIFIER_TYPE.UNTYPED,
@@ -75,6 +78,7 @@ class StrikeWeaponTraits {
                 }
                 case "improvised": {
                     return new ModifierPF2e({
+                        slug: reducedTrait,
                         label: getLabel(trait),
                         modifier: -2,
                         type: MODIFIER_TYPE.ITEM,
@@ -83,6 +87,7 @@ class StrikeWeaponTraits {
                 }
                 case "sweep": {
                     return new ModifierPF2e({
+                        slug: reducedTrait,
                         label: getLabel(trait),
                         modifier: 1,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
@@ -91,6 +96,7 @@ class StrikeWeaponTraits {
                 }
                 case "backswing": {
                     return new ModifierPF2e({
+                        slug: reducedTrait,
                         label: getLabel(trait),
                         modifier: 1,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,

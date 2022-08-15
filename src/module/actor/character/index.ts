@@ -275,7 +275,7 @@ class CharacterPF2e extends CreaturePF2e {
         const boostLevels = [1, 5, 10, 15, 20] as const;
         const allowedBoosts = boostLevels.reduce((result, level) => {
             const allowed = (() => {
-                if (this.level < 1) return 0;
+                if (this.level === 0 && level === 1) return 4;
                 if (isGradual) return 4 - Math.clamped(level - this.level, 0, 4);
                 return this.level >= level ? 4 : 0;
             })();
@@ -1884,7 +1884,13 @@ class CharacterPF2e extends CreaturePF2e {
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            context.self.modifiers.push(...StrikeWeaponTraits.createAttackModifiers(context.self.item));
+            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item);
+            const allAdjustments = this.synthetics.modifierAdjustments;
+            for (const modifier of fromTraits) {
+                modifier.adjustments = extractModifierAdjustments(allAdjustments, params.domains ?? [], modifier.slug);
+            }
+
+            context.self.modifiers.push(...fromTraits);
         }
 
         return context;
@@ -1963,11 +1969,11 @@ class CharacterPF2e extends CreaturePF2e {
         const currentProficiencies = this.system.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
-        await this.update({ [`data.martial.${key}`]: newProficiency });
+        await this.update({ [`system.martial.${key}`]: newProficiency });
     }
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        await this.update({ [`data.martial.-=${key}`]: null });
+        await this.update({ [`system.martial.-=${key}`]: null });
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */

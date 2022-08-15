@@ -44,7 +44,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             )
             .map(([slotNumber, slot]) => ({
                 ...slot,
-                name: `data.propertyRune${slotNumber}.value`,
+                name: `system.propertyRune${slotNumber}.value`,
                 label: game.i18n.localize(`PF2E.PropertyRuneLabel${slotNumber}`),
                 number: slotNumber,
             }));

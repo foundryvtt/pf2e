@@ -1,5 +1,5 @@
 import { SpellPF2e } from "@item";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, ordinal } from "@util";
 import { SpellcastingEntryPF2e } from ".";
 import { SlotKey } from "./data";
 
@@ -18,25 +18,40 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
 
     /**
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
-     * or creating a new spell if its not.
+     * or creating a new spell if its not. If given a level, it will heighten to that level if it can be.
      */
-    async addSpell(spell: SpellPF2e, targetLevel?: number): Promise<SpellPF2e | null> {
+    async addSpell(spell: SpellPF2e, options: { slotLevel?: number } = {}): Promise<SpellPF2e | null> {
         const actor = this.actor;
         if (!actor.isOfType("creature")) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
 
-        targetLevel ??= spell.level;
+        const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
+        const canHeighten = isStandardSpell && (this.entry.isSpontaneous || this.entry.isInnate);
+
+        // Only allow a different slot level if the spell can heighten
+        const heightenLevel = canHeighten ? options.slotLevel ?? spell.level : spell.baseLevel;
+
         const spellcastingEntryId = spell.system.location.value;
-        if (spellcastingEntryId === this.id && spell.level === targetLevel) {
+        if (spellcastingEntryId === this.id && spell.level === heightenLevel) {
             return null;
         }
 
-        const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
+        // Warn if the level being dragged to is lower than spell's level
+        if (spell.baseLevel > heightenLevel && this.id === spell.system.location?.value) {
+            const targetLevelLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(heightenLevel) });
+            const baseLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(spell.baseLevel) });
+            ui.notifications.warn(
+                game.i18n.format("PF2E.Item.Spell.Warning.InvalidLevel", {
+                    name: spell.name,
+                    targetLevel: targetLevelLabel,
+                    baseLevel: baseLabel,
+                })
+            );
+        }
+
         const heightenedUpdate =
-            isStandardSpell && (this.entry.isSpontaneous || this.entry.isInnate)
-                ? { "system.location.heightenedLevel": Math.max(spell.baseLevel, targetLevel) }
-                : {};
+            canHeighten && heightenLevel >= spell.baseLevel ? { "system.location.heightenedLevel": heightenLevel } : {};
 
         if (spell.actor === actor) {
             return spell.update({ "system.location.value": this.id, ...heightenedUpdate });
@@ -51,7 +66,16 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     /** Saves the prepared spell slot data to the spellcasting entry  */
     async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
         if (spell.baseLevel > slotLevel && !(slotLevel === 0 && spell.isCantrip)) {
-            console.warn(`Attempted to add level ${spell.baseLevel} spell to level ${slotLevel} spell slot.`);
+            const targetLevelLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(slotLevel) });
+            const baseLabel = game.i18n.format("PF2E.SpellLevel", { level: ordinal(spell.baseLevel) });
+            ui.notifications.warn(
+                game.i18n.format("PF2E.Item.Spell.Warning.InvalidLevel", {
+                    name: spell.name,
+                    targetLevel: targetLevelLabel,
+                    baseLevel: baseLabel,
+                })
+            );
+
             return this.entry;
         }
 

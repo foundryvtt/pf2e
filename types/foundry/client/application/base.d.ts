@@ -247,7 +247,7 @@ declare global {
          * This function returns a Promise which resolves once the window closing animation concludes
          * @return A Promise which resolves once the application is closed
          */
-        close(options?: { force?: boolean }): Promise<void>;
+        close(options?: { force?: boolean } & Record<string, unknown>): Promise<void>;
 
         /**
          * Minimize the pop-out window, collapsing it to a small tab
@@ -346,6 +346,8 @@ declare global {
     }
 
     interface RenderOptions {
+        // Undocumented
+        action?: UserAction;
         /** The left positioning attribute */
         left?: number;
         /** The top positioning attribute */
@@ -356,8 +358,8 @@ declare global {
         height?: number;
         /** The rendered transformation scale */
         scale?: number;
-        /** Whether to display a log message that the Application was rendered */
-        log?: boolean;
+        /** Apply focus to the application, maximizing it and bringing it to the top of the vertical stack. */
+        focus?: boolean;
         /** A context-providing string which suggests what event triggered the render */
         renderContext?: string;
         /** The data change which motivated the render request */

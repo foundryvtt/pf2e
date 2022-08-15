@@ -39,7 +39,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             activations: this.item.activations.map((action) => ({
                 action,
                 id: action.id,
-                base: `data.activations.${action.id}`,
+                base: `system.activations.${action.id}`,
                 traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
             })),
         };
@@ -77,7 +77,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 description: { value: "" },
                 traits: { value: [], custom: "" },
             };
-            this.item.update({ [`data.activations.${id}`]: action });
+            this.item.update({ [`system.activations.${id}`]: action });
         });
 
         $html.find("[data-action=activation-delete]").on("click", (event) => {
@@ -87,7 +87,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             if (isLast && id && id in (this.item.system.activations ?? {})) {
                 this.item.update({ "system.-=activations": null });
             } else {
-                this.item.update({ [`data.activations.-=${id}`]: null });
+                this.item.update({ [`system.activations.-=${id}`]: null });
             }
         });
 
@@ -95,14 +95,14 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
             if (id && id in (this.item.system.activations ?? {})) {
                 const per = CONFIG.PF2E.frequencies.day;
-                this.item.update({ [`data.activations.${id}.frequency`]: { value: 1, max: 1, per } });
+                this.item.update({ [`system.activations.${id}.frequency`]: { value: 1, max: 1, per } });
             }
         });
 
         $html.find("[data-action=activation-frequency-delete]").on("click", (event) => {
             const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
             if (id && id in (this.item.system.activations ?? {})) {
-                this.item.update({ [`data.activations.${id}.-=frequency`]: null });
+                this.item.update({ [`system.activations.${id}.-=frequency`]: null });
             }
         });
 

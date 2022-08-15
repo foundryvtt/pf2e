@@ -1,4 +1,4 @@
-import { StatusEffects } from "@scripts/actor/status-effects";
+import { StatusEffects } from "@module/canvas/status-effects";
 import { ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
 import { ActorPF2e } from "@actor";

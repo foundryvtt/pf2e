@@ -129,20 +129,20 @@ declare global {
 
         protected override _preUpdate(
             data: DocumentUpdateData<this>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             user: User
         ): Promise<void>;
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process. */
         protected _preUpdateTokenActor(
             data: DocumentUpdateData<TActor>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): Promise<void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 
@@ -151,8 +151,8 @@ declare global {
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the post-update process. */
         protected _onUpdateTokenActor(
-            data: Record<string, unknown>,
-            options: DocumentModificationContext,
+            data: DeepPartial<this["_source"]["actorData"]>,
+            options: DocumentModificationContext<this>,
             userId: string
         ): void;
 

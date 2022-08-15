@@ -198,7 +198,7 @@ export class CraftingEntry implements CraftingEntryData {
         });
 
         await this.parentActor.update({
-            [`data.crafting.entries.${this.selector}.actorPreparedFormulas`]: actorPreparedFormulas,
+            [`system.crafting.entries.${this.selector}.actorPreparedFormulas`]: actorPreparedFormulas,
         });
     }
 }
