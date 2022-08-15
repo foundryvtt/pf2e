@@ -1,5 +1,4 @@
 import { TokenDocumentPF2e } from "@module/scene";
-import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
@@ -296,33 +295,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         super._onRelease(options);
 
         this.auras.refresh();
-    }
-
-    /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
-    override _onUpdate(
-        changed: DeepPartial<this["document"]["_source"]>,
-        options: DocumentModificationContext<this["document"]>,
-        userId: string
-    ): void {
-        if (!this.document.isLinked) {
-            const source = this.document.toObject();
-            const { width, height, texture } = source;
-            this.document.reset();
-            // If any of the following changed, a full redraw should be performed
-            const postChange = pick(this.document, ["width", "height", "texture"]);
-            mergeObject(changed, diffObject({ width, height, texture }, postChange));
-
-            // If an aura is newly present or removed, redraw effects
-            if (
-                !changed.effects &&
-                (Array.from(this.document.auras.keys()).some((k) => !this.auras.has(k)) ||
-                    Array.from(this.auras.keys()).some((k) => !this.document.auras.has(k)))
-            ) {
-                changed.effects = deepClone(this.document._source.effects);
-            }
-        }
-
-        super._onUpdate(changed, options, userId);
     }
 
     protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {

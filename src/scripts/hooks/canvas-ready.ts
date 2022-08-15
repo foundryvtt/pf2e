@@ -26,6 +26,8 @@ export const CanvasReady = {
                 game.pf2e.effectPanel.render(true);
             }
 
+            if (game.ready) game.scenes.active?.reset();
+
             Promise.resolve().then(async () => {
                 // Redraw tokens
                 for (const token of canvas.tokens.placeables) {

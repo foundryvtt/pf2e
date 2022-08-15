@@ -430,7 +430,7 @@ declare global {
 
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentModificationContext<TDocument>,
+            options: DocumentModificationContext,
             userId: string
         ): void;
 

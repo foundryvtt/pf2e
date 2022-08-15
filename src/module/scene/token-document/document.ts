@@ -278,27 +278,23 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Rerun token data preparation and possibly redraw token when the actor's embedded items change */
+    /**
+     * Since token properties may be changed during data preparation, rendering called by the parent method must be
+     * based on the diff between pre- and post-data-preparation.
+     */
     override _onUpdateBaseActor(
-        updates?: DeepPartial<ActorSourcePF2e>,
-        options?: DocumentModificationContext<ActorPF2e>
+        updates: DeepPartial<ActorSourcePF2e> = {},
+        options: DocumentModificationContext<ActorPF2e> = {}
     ): void {
-        if (!this.isLinked) return super._onUpdateBaseActor(updates, options);
-
-        const currentData = this.toObject(false);
-        this.reset();
-        const newData = this.toObject(false);
-        const changed = diffObject<DeepPartial<foundry.data.TokenSource>>(currentData, newData);
-
-        if (Object.keys(changed).length > 0) {
-            // TokenDocument#_onUpdate doesn't actually do anything with the user ID
-            this._onUpdate(changed, {}, game.user.id);
-        } else if (canvas.ready && this.scene?.active) {
-            this.object.auras.draw();
-            this.scene.checkAuras();
-        }
-
         super._onUpdateBaseActor(updates, options);
+
+        if (this.isLinked) {
+            const preUpdate = this.toObject(false);
+            this.reset();
+            const postUpdate = this.toObject(false);
+            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+            this._onUpdate(changed, options, game.user.id);
+        }
     }
 
     /** Toggle token hiding if this token's actor is a loot actor */
@@ -311,36 +307,51 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (this.actor?.isOfType("loot")) this.actor.toggleTokenHiding();
     }
 
-    /** Refresh the effects panel and encounter tracker */
+    /** Handle ephemeral changes received by `TokenDocumentPF2e#_onUpdateBaseActor` */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentModificationContext,
         userId: string
     ): void {
-        if (this.isLinked) {
-            // If the size of this token changed, check to see if the tokens contained by auras also changed
-            const sizeChanged = "height" in changed || "width" in changed;
-            if (sizeChanged && this.auras.size > 0 && canvas.ready && this.scene?.active) {
-                this.scene.checkAuras();
-            }
-
+        if (this.isLinked || !this.actor) {
             super._onUpdate(changed, options, userId);
-        } else {
-            // Handle updates to unlinked tokens' light data via actor overrides
-            const preUpdate = this.light.toObject(false);
-            super._onUpdate(changed, options, userId);
-            const postUpdate = this.light.toObject(false);
-            const diff = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdate, postUpdate);
-            if (canvas.ready && Object.keys(diff).length > 0) {
-                mergeObject(changed, { light: diff });
-                this.object._onUpdate(changed, options, userId);
+            if (!("x" in changed || "y" in changed) && ("height" in changed || "width" in changed)) {
+                this.scene?.reset();
             }
+            return;
         }
 
-        game.pf2e.effectPanel.refresh();
+        // Completely override the parent class's method for unlinked tokens
+        if ("actorId" in changed || "actorLink" in changed) {
+            if (this._actor) {
+                for (const app of Object.values(this._actor.apps)) {
+                    app.close({ submit: false });
+                }
+            }
+            this._actor = null;
+        }
 
-        if (ui.combat.viewed && ui.combat.viewed === this.combatant?.encounter) {
-            ui.combat.render();
+        const preUpdateLight = this.light.toObject(false);
+        // If the Actor data override changed, simulate updating the synthetic Actor
+        if (changed.actorData) {
+            this._onUpdateTokenActor(changed.actorData, options, userId);
+        }
+        const postUpdateLight = this.light.toObject(false);
+
+        // From `ClientDocumentMixin#_onUpdate`
+        // Re-render associated applications
+        if (options.render ?? true) {
+            this.render(false, { action: "update", renderData: changed });
+        }
+        // Update global index
+        if ("name" in changed) game.documentIndex.replaceDocument(this);
+
+        const lightChanges = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdateLight, postUpdateLight);
+        // From `CanvasDocumentMixin#_onUpdate`
+        if (this.rendered) {
+            const changedWithLight =
+                Object.keys(lightChanges).length > 0 ? mergeObject(changed, { light: lightChanges }) : changed;
+            this.object._onUpdate(changedWithLight, options, userId);
         }
     }
 

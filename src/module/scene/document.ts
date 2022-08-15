@@ -47,13 +47,18 @@ class ScenePF2e extends Scene<
         });
 
         // Get all tokens in the scene, excluding additional tokens linked to a common actor
-        const tokens = this.tokens.contents.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
+        const tokens = this.tokens.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
             if (token.isLinked && list.some((t) => t.actor === token.actor)) {
                 return list;
             }
             list.push(token);
             return list;
         }, []);
+
+        // Wait for any token animation to finish
+        for (const token of tokens) {
+            await token.object?._animation;
+        }
 
         const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
         for (const aura of auras) {
