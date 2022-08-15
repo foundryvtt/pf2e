@@ -11,49 +11,44 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
     static override version = 0.626;
 
     override async updateItem(source: ItemSourcePF2e) {
-        if (source.type === "spell") {
-            interface MaybeCategorie extends Partial<SpellSystemSource> {
-                traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
-                spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
-                spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
-                "-=spellCategorie"?: unknown;
-                "-=spellCategory"?: unknown;
-            }
-            const systemData: MaybeCategorie = source.system;
-            const traditions: ValuesList = systemData.traditions;
-            const isFocus = traditions.value.includes("focus");
-            const isRitual = traditions.value.includes("ritual");
+        if (source.type !== "spell") return;
 
-            // Sometimes the traditions is a string instead of an array.
-            // Convert those to an empty array.
-            if (typeof traditions.value === "string") {
-                traditions.value = [];
-            }
+        interface MaybeCategorie extends Partial<SpellSystemSource> {
+            traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
+            spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
+            spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
+            "-=spellCategorie"?: unknown;
+            "-=spellCategory"?: unknown;
+        }
+        const systemData: MaybeCategorie = source.system;
+        const traditions: ValuesList = systemData.traditions;
+        const isFocus = traditions.value.includes("focus");
+        const isRitual = traditions.value.includes("ritual");
 
-            if (systemData.spellCategorie || systemData.spellCategory) {
-                const currentCategory = systemData.spellCategorie?.value ?? systemData.spellCategory?.value ?? "";
-                source.system.category = {
-                    value: isFocus ? "focus" : isRitual ? "ritual" : currentCategory === "" ? "spell" : currentCategory,
-                };
+        // Sometimes the traditions is a string instead of an array.
+        // Convert those to an empty array.
+        if (typeof traditions.value === "string") {
+            traditions.value = [];
+        }
 
-                delete systemData["spellCategorie"];
-                delete systemData["spellCategory"];
-                // Foundry entity updates (if foundry is running)
-                if ("game" in globalThis) {
-                    systemData["-=spellCategorie"] = null;
-                    systemData["-=spellCategory"] = null;
-                }
-            }
+        if (systemData.spellCategorie || systemData.spellCategory) {
+            const currentCategory = systemData.spellCategorie?.value ?? systemData.spellCategory?.value ?? "";
+            source.system.category = {
+                value: isFocus ? "focus" : isRitual ? "ritual" : currentCategory === "" ? "spell" : currentCategory,
+            };
 
-            if (["focus", "ritual"].includes(source.system.spellType.value)) {
-                source.system.spellType.value = "utility";
-            }
-            traditions.value = traditions.value.filter((tradition) => !["focus", "ritual"].includes(tradition));
-        } else if (source.type === "consumable") {
-            // Also update any nested consumable spell data
-            if (source.system.spell?.data) {
-                await this.updateItem(source.system.spell.data);
+            delete systemData["spellCategorie"];
+            delete systemData["spellCategory"];
+            // Foundry entity updates (if foundry is running)
+            if ("game" in globalThis) {
+                systemData["-=spellCategorie"] = null;
+                systemData["-=spellCategory"] = null;
             }
         }
+
+        if (["focus", "ritual"].includes(source.system.spellType.value)) {
+            source.system.spellType.value = "utility";
+        }
+        traditions.value = traditions.value.filter((tradition) => !["focus", "ritual"].includes(tradition));
     }
 }

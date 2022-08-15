@@ -31,6 +31,7 @@ import { Migration768AddNewAuras } from "@module/migration/migrations/768-add-ne
 import { Migration769NoUniversalistFocusPool } from "@module/migration/migrations/769-no-universalist-focus-pool";
 import { Migration770REDataToSystem } from "@module/migration/migrations/770-re-data-to-system";
 import { Migration771SpellVariantsToSystem } from "@module/migration/migrations/771-spell-variants-to-system";
+import { Migration772V10EmbeddedSpellData } from "@module/migration/migrations/772-v10-embedded-spell-data";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -64,6 +65,7 @@ const migrations: MigrationBase[] = [
     new Migration769NoUniversalistFocusPool(),
     new Migration770REDataToSystem(),
     new Migration771SpellVariantsToSystem(),
+    new Migration772V10EmbeddedSpellData(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -210,6 +212,7 @@ async function migrate() {
                     for (const embedded of source.items) {
                         embedded.flags ??= {};
                     }
+
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     delete (updatedActor.system as { schema?: unknown }).schema;
                     pruneFlags(source);
@@ -217,8 +220,12 @@ async function migrate() {
                     for (const item of source.items) {
                         pruneFlags(item);
                     }
+
                     for (const updatedItem of updatedActor.items) {
                         delete (updatedItem.system as { schema?: unknown }).schema;
+                        if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
+                            delete (updatedItem.system as { spell?: unknown }).spell;
+                        }
                         pruneFlags(updatedItem);
                     }
 
@@ -229,6 +236,9 @@ async function migrate() {
                     delete (source.system as { slug?: unknown }).slug;
                     delete (updatedItem.system as { schema?: unknown }).schema;
                     delete (updatedItem.system as { slug?: unknown }).slug;
+                    if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
+                        delete (updatedItem.system as { spell?: unknown }).spell;
+                    }
                     pruneFlags(source);
                     pruneFlags(updatedItem);
 
