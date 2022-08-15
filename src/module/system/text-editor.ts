@@ -13,6 +13,10 @@ class TextEditorPF2e extends TextEditor {
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async: true }): Promise<string>;
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e): string;
     static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string | Promise<string> {
+        if (content.startsWith("<p>@Localize")) {
+            // Remove tags
+            content = content.substring(3, content.length - 4);
+        }
         const enriched = super.enrichHTML(content, options);
         if (typeof enriched === "string") {
             return this.#processUserVisibility(enriched, options);
@@ -33,9 +37,9 @@ class TextEditorPF2e extends TextEditor {
     static async enrichString(
         data: RegExpMatchArray,
         options: EnrichHTMLOptionsPF2e = {}
-    ): Promise<HTMLSpanElement | void> {
+    ): Promise<HTMLElement | null> {
+        if (data.length < 4) return null;
         const item = options.rollData?.item ?? null;
-        if (data.length < 4) return;
         const [_match, inlineType, paramString, buttonLabel] = data;
 
         switch (inlineType) {
@@ -46,7 +50,7 @@ class TextEditorPF2e extends TextEditor {
             case "Template":
                 return this.#createTemplate(paramString, buttonLabel, item?.system);
             default:
-                return;
+                return null;
         }
     }
 
@@ -80,16 +84,22 @@ class TextEditorPF2e extends TextEditor {
         return span;
     }
 
-    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e = {}): Promise<HTMLSpanElement | void> {
+    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e = {}): Promise<HTMLElement | null> {
         const content = game.i18n.localize(paramString);
-        if (content === paramString) return ui.notifications.error(`Failed to localize ${paramString}!`);
-        const result = document.createElement("span");
-        result.innerHTML = await TextEditor.enrichHTML(content, { ...options, async: true });
-        return result;
+        if (content === paramString) {
+            ui.notifications.error(`Failed to localize ${paramString}!`);
+            return null;
+        }
+        const enriched = await TextEditor.enrichHTML(content, { ...options, async: true });
+        const doc = new DOMParser().parseFromString(enriched, "text/html");
+        if (doc.body.firstElementChild instanceof HTMLElement) {
+            return doc.body.firstElementChild;
+        }
+        return null;
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | void {
+    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
         // Get parameters from data
         const rawParams = ((): Map<string, string> | string => {
             const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
@@ -109,7 +119,10 @@ class TextEditorPF2e extends TextEditor {
         })();
 
         // Check for correct syntax
-        if (typeof rawParams === "string") return ui.notifications.error(rawParams);
+        if (typeof rawParams === "string") {
+            ui.notifications.error(rawParams);
+            return null;
+        }
 
         const params = Object.fromEntries(rawParams);
 
@@ -117,19 +130,23 @@ class TextEditorPF2e extends TextEditor {
         if (!params.type) {
             ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.TypeMissing"));
         } else if (!params.distance) {
-            return ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing"));
+            ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing"));
+            return null;
         } else if (!objectHasKey(CONFIG.PF2E.areaTypes, params.type)) {
-            return ui.notifications.error(
+            ui.notifications.error(
                 game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type })
             );
+            return null;
         } else if (isNaN(+params.distance)) {
-            return ui.notifications.error(
+            ui.notifications.error(
                 game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance })
             );
+            return null;
         } else if (params.width && isNaN(+params.width)) {
-            return ui.notifications.error(
+            ui.notifications.error(
                 game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width })
             );
+            return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
             if (!params.traits) {
@@ -162,13 +179,14 @@ class TextEditorPF2e extends TextEditor {
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
             return html;
         }
+        return null;
     }
 
     static #createItemCheck(
         paramString: string,
         inlineLabel?: string,
         item: ItemPF2e | null = null
-    ): HTMLSpanElement | void {
+    ): HTMLSpanElement | null {
         // Parse the parameter string
         const parts = paramString.split("|");
         const params: { type: string; dc: string } & Record<string, string> = { type: "", dc: "" };
@@ -180,12 +198,16 @@ class TextEditorPF2e extends TextEditor {
             } else {
                 const paramParts = param.split(":");
                 if (paramParts.length !== 2) {
-                    return ui.notifications.warn(`Error. Expected "parameter:value" but got: ${param}`);
+                    ui.notifications.warn(`Error. Expected "parameter:value" but got: ${param}`);
+                    return null;
                 }
                 params[paramParts[0].trim()] = paramParts[1].trim();
             }
         }
-        if (!params.type) return ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+        if (!params.type) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+            return null;
+        }
 
         const traits: string[] = [];
 
