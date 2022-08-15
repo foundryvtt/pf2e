@@ -18,7 +18,6 @@ export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
             ),
             rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.system.traits.rarity] }),
             sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.system.size] }),
-            traits: createSheetOptions(CONFIG.PF2E.creatureTraits, itemData.system.traits),
             languages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.languages),
             additionalLanguages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.additionalLanguages),
         };

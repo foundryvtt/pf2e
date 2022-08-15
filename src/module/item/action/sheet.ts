@@ -1,6 +1,5 @@
 import { ActionItemPF2e } from "@item/action";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { getActionIcon } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
 
@@ -20,7 +19,6 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
             frequencies: CONFIG.PF2E.frequencies,
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
-            traits: createSheetTags(CONFIG.PF2E.actionTraits, data.data.traits),
         };
     }
 
@@ -46,5 +44,4 @@ interface ActionSheetData extends ItemSheetDataPF2e<ActionItemPF2e> {
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     skills: ConfigPF2e["PF2E"]["skillList"];
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
-    traits: SheetOptions;
 }

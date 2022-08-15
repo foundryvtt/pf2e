@@ -157,7 +157,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
-            traits: createSheetTags(CONFIG.PF2E.weaponTraits, sheetData.data.traits),
             otherTags,
             adjustedLevelHint,
             adjustedPriceHint,

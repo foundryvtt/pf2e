@@ -1,6 +1,7 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
+import { createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -10,7 +11,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue } from "@util";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey } from "@util";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -54,6 +55,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
     }
 
+    get validTraits(): Record<string, string> | null {
+        if (objectHasKey(CONFIG.PF2E.Item.traits, this.item.type)) {
+            return CONFIG.PF2E.Item.traits[this.item.type];
+        }
+        return null;
+    }
+
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
         options.classes?.push(this.item.type);
@@ -70,6 +78,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rollData,
             async: true,
         });
+
+        const validTraits = this.validTraits;
 
         return {
             itemType: null,
@@ -88,6 +98,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             title: this.title,
             user: { isGM: game.user.isGM },
             rarity: CONFIG.PF2E.rarityTraits,
+            traits: validTraits ? createSheetTags(validTraits, this.item.system.traits?.value ?? []) : null,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             ruleLabels: rules.map((ruleData: RuleElementSource) => {

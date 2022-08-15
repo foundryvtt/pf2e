@@ -22,6 +22,7 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     enabledRulesUI: boolean;
     ruleEditing: boolean;
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
+    traits: SheetOptions | null;
     ruleLabels: {
         label: string;
         recognized: boolean;
@@ -63,7 +64,6 @@ export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
     selectedFlaws: Record<string, Record<string, string>>;
     rarities: SheetOptions;
     sizes: SheetOptions;
-    traits: SheetOptions;
     languages: SheetOptions;
     additionalLanguages: SheetOptions;
 }
@@ -83,7 +83,6 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     categories: ConfigPF2e["PF2E"]["actionCategories"];
     prerequisites: string;
     rarities: SheetOptions;
-    traits: SheetOptions;
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
@@ -92,6 +91,5 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
     ancestry: AncestryPF2e | null;
     ancestryRefBroken: boolean;
-    traits: SheetOptions;
     rarities: SheetOptions;
 }

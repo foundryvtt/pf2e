@@ -84,6 +84,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             : super.title;
     }
 
+    override get validTraits() {
+        const traits = deepClone(CONFIG.PF2E.spellTraits);
+        delete traits[this.item.school];
+        return traits;
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -92,9 +98,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super.activateListeners($html);
         const html = $html[0]!;
 
-        const traits = deepClone(CONFIG.PF2E.spellTraits);
-        delete traits[this.item.school];
-        tagify(html.querySelector('input[name="system.traits.value"]'), { whitelist: traits });
+        tagify(html.querySelector('input[name="system.traits.value"]'), { whitelist: this.validTraits });
         tagify(html.querySelector('input[name="system.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
 
         $html.find(".toggle-trait").on("change", (evt) => {
