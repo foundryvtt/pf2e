@@ -23,7 +23,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
             // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
             const validActor =
-                message.token?.actor?.data.type === "npc" && (message.token.combatant?.initiative ?? null) === null;
+                message.token?.actor?.type === "npc" && (message.token.combatant?.initiative ?? null) === null;
             const validRollType = message.isRoll && message.isCheckRoll;
             return validActor && validRollType;
         };
