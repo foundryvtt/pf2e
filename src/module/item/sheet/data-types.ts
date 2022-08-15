@@ -21,6 +21,7 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     ruleEditing: boolean;
+    rarity: ConfigPF2e["PF2E"]["rarityTraits"];
     ruleLabels: {
         label: string;
         recognized: boolean;
@@ -34,6 +35,8 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
         index: number;
         rule: RuleElementSource;
     }[];
+    /** Lore only, will be removed later */
+    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
 }
 
 export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
@@ -42,8 +45,12 @@ export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends I
     priceString: string;
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
+    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
     sizes: ConfigPF2e["PF2E"]["actorSizes"];
+    stackGroups: ConfigPF2e["PF2E"]["stackGroups"];
+    usage: ConfigPF2e["PF2E"]["usageTraits"];
+    bulkDisabled: boolean;
     activations: { action: ItemActivation; id: string; base: string }[];
 }
 
