@@ -75,7 +75,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does this message include a check (1d20 + c) roll? */
     get isCheckRoll(): boolean {
-        return this.roll instanceof CheckRoll;
+        return this.rolls[0] instanceof CheckRoll;
     }
 
     /** Does the message include a rerolled check? */
@@ -85,7 +85,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a check that hasn't been rerolled? */
     get isRerollable(): boolean {
-        const { roll } = this;
+        const roll = this.rolls[0];
         return !!(
             this.actor?.isOwner &&
             this.canUserModify(game.user, "update") &&
