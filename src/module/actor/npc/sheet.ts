@@ -176,6 +176,10 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             rollData,
             async: true,
         });
+        sheetData.enrichedContent.privateNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.privateNotes, {
+            rollData,
+            async: true,
+        });
 
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
