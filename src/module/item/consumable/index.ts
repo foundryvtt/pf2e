@@ -1,12 +1,11 @@
-import { LocalizePF2e } from "@module/system/localize";
-import { ConsumableData, ConsumableType } from "./data";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ErrorPF2e } from "@util";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ValueAndMax } from "@module/data";
-import { ItemSummaryData } from "@item/data";
+import { LocalizePF2e } from "@module/system/localize";
+import { ErrorPF2e } from "@util";
+import { ConsumableData, ConsumableType } from "./data";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
     get consumableType(): ConsumableType {
@@ -105,13 +104,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
             } else {
-                const content = game.i18n.format("PF2E.LackCastConsumableCapability", { name: this.name });
-                await ChatMessagePF2e.create({
-                    user: game.user.id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    whisper: ChatMessage.getWhisperRecipients(this.actor.name).map((user) => user.id),
-                    content,
-                });
+                const formatParams = { actor: this.actor.name, spell: this.name };
+                const message = game.i18n.format("PF2E.LackCastConsumableCapability", formatParams);
+                ui.notifications.warn(message);
+                return;
             }
         } else {
             const exhausted = max > 1 && value === 1;

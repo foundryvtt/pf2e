@@ -3,7 +3,7 @@ import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
+import { OneToTen, ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { CheckRoll } from "@system/check/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -122,9 +122,11 @@ export async function craftSpellConsumable(
 ): Promise<void> {
     const consumableType = item.consumableType;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
-    const spellLevel = consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2);
+    const spellLevel = (
+        consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
+    ) as OneToTen;
     const validSpells = actor.itemTypes.spell
-        .filter((spell) => spell.baseLevel <= spellLevel && !spell.isCantrip && !spell.isFocusSpell && !spell.isRitual)
+        .filter((s) => s.baseLevel <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
         .reduce((result, spell) => {
             result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
