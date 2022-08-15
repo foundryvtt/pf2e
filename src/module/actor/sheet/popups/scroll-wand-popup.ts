@@ -39,7 +39,7 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         }
 
         if (!this.spell.uuid.startsWith("Compendium.")) {
-            ui.notifications.warn(game.i18n.localize("PF2E.ScrollWandPopup.warning"));
+            ui.notifications.warn("PF2E.ScrollWandPopup.warning", { localize: true, permanent: true });
         }
 
         const minimumLevel = this.spell.baseLevel;

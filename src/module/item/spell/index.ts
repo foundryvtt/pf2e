@@ -447,7 +447,7 @@ class SpellPF2e extends ItemPF2e {
                 consumableUuid: uuid,
                 consumableType: type,
                 spellUuid: spellUuid,
-                castLevel: this.level,
+                castLevel: this.level as OneToTen,
                 // This is only set for spells from old consumables with embedded data
                 data: fromData
                     ? this.isVariant

@@ -66,7 +66,7 @@ async function createConsumableFromSpell(
     consumableSource.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableSource.system.description.value;
     consumableSource.system.description.value = `@UUID[${spell.uuid}]` + `\n<hr/>${description}`;
-    consumableSource.system.spell = {
+    consumableSource.system.spellData = {
         uuid: spell.uuid,
         heightenedLevel,
     };

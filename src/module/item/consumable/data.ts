@@ -7,6 +7,7 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data";
 import { SpellSource } from "@item/spell/data";
+import { OneToTen } from "@module/data";
 import type { ConsumablePF2e } from ".";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
@@ -47,6 +48,10 @@ interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectDa
         _deprecated: boolean;
     };
     spell: SpellSource | null;
+    spellData?: {
+        uuid: ItemUUID;
+        heightenedLevel: OneToTen;
+    };
 }
 
 type ConsumableSystemData = Omit<ConsumableSystemSource, "price"> &

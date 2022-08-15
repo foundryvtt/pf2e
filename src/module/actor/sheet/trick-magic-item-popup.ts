@@ -1,5 +1,5 @@
 import { calculateTrickMagicItemCheckDC, TrickMagicItemDifficultyData } from "@item/consumable/spell-consumables";
-import type { ConsumablePF2e, SpellPF2e } from "@item";
+import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
@@ -18,13 +18,12 @@ export class TrickMagicItemPopup {
 
     private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
-    constructor(item: Embedded<ConsumablePF2e>, readonly spell: Embedded<SpellPF2e>) {
+    constructor(item: Embedded<ConsumablePF2e>) {
         if (!item.isOfType("consumable")) {
             throw ErrorPF2e("Unexpected item used for Trick Magic Item");
         }
 
         this.item = item;
-        this.spell = spell;
         this.checkDC = calculateTrickMagicItemCheckDC(item);
 
         if (!(item.actor instanceof CharacterPF2e)) {
@@ -69,6 +68,6 @@ export class TrickMagicItemPopup {
         });
 
         const trick = new TrickMagicItemEntry(this.actor, skill);
-        this.item.castEmbeddedSpell(this.spell, trick);
+        this.item.castEmbeddedSpell(trick);
     }
 }
