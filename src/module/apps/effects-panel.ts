@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor/base";
-import { ConditionPF2e, EffectPF2e } from "@item";
+import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { ConditionReference, FlattenedCondition } from "../system/conditions";
 import { EffectExpiryType } from "@item/effect/data";
 
@@ -85,10 +85,8 @@ export class EffectsPanel extends Application {
 
             const actor = this.actor;
             const effect = actor?.items.get($target.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor?.decreaseCondition(effect);
-            } else if (effect instanceof EffectPF2e) {
-                await effect.delete();
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.decrease();
             } else {
                 // Failover in case of a stale effect
                 this.refresh();
@@ -101,8 +99,8 @@ export class EffectsPanel extends Application {
 
             const actor = this.actor;
             const effect = actor?.items.get($target.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await actor?.increaseCondition(effect);
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.increase();
             }
         });
     }

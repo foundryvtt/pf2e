@@ -1,9 +1,11 @@
+import { EffectBadge } from "@item/abstract-effect/data";
 import { ConditionSlug } from "@item/condition/data";
 
 export interface FlattenedCondition {
     id: string;
     active: boolean;
     name: string;
+    badge: EffectBadge | null;
     value: number | null;
     description: string;
     enrichedDescription?: string;

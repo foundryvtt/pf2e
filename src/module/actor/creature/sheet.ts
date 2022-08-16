@@ -3,7 +3,7 @@ import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { ConditionPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
@@ -360,8 +360,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const target = $(event.currentTarget);
             const parent = target.parents(".item");
             const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await this.actor.decreaseCondition(effect);
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.decrease();
             }
         });
 
@@ -370,8 +370,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const target = $(event.currentTarget);
             const parent = target.parents(".item");
             const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof ConditionPF2e) {
-                await this.actor.increaseCondition(effect);
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.increase();
             }
         });
     }
