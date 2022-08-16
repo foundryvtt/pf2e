@@ -16,7 +16,7 @@
         {{/if}}
     </div>
     <ol class="craftingEntry-list directory-list item-list">
-        {{> systems/pf2e/templates/actors/crafting-entry-list.html craftingEntries=crafting.entries}}
+        {{> "systems/pf2e/templates/actors/crafting-entry-list.html" craftingEntries=crafting.entries}}
         <li class="known-formulas item-container" data-container-type="knownFormulas">
             <div class="action-header">
                 <h3 class="item-name hide-container-toggle title">
@@ -35,7 +35,7 @@
                         <div class="formula-cost-header">{{localize "PF2E.SpellCostLabel"}}</div>
                         <div class="formula-quantity-header">{{localize "PF2E.CraftingTab.CraftQuantityTitle"}}</div>
 
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             <div class="item-controls">
                                 <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}"
                                     data-type="equipment" data-level="{{lvl}}" data-location="{{entry._id}}"><i class="fas fa-fw fa-search"></i></a>
@@ -60,7 +60,7 @@
                                 <a class="formula-quantity-adjust" data-action="increase-quantity">+</a>
                             </div>
 
-                            {{#if @root.owner}}
+                            {{#if @root.options.editable}}
                                 <div class="item-controls">
                                     {{#if (or @root.crafting.entries.alchemical.entries.length @root.crafting.entries.other.length)}}
                                         <a class="item-control" title="{{localize "PF2E.CraftingTab.QuickAddTitle"}}" data-action="quick-add" data-item-uuid="{{craftedItem.uuid}}"><i class="fas fa-plus"></i></a>
@@ -76,7 +76,7 @@
                         </li>
                     {{/each}}
                 {{else}}
-                    {{#if @root.owner}}
+                    {{#if @root.options.editable}}
                         <li class="formula-header empty">
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
                             <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}"
