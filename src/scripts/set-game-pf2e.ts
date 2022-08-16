@@ -29,8 +29,6 @@ import { CoinsPF2e } from "@item/physical/helpers";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
-        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
-
         const actions: Record<string, Function> = {
             earnIncome,
             encouragingWords,
@@ -66,7 +64,7 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
 
-        game.pf2e = mergeObject(game.pf2e, initSafe);
+        game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);
     },
 
     onSetup: (): void => {},
