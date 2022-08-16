@@ -755,9 +755,10 @@ const equipmentTraits = {
 };
 
 const armorTraits = {
+    ...alignmentTraits,
+    ...elementalTraits,
     ...magicSchools,
     ...magicTraditions,
-    air: "PF2E.TraitAir",
     apex: "PF2E.TraitApex",
     artifact: "PF2E.TraitArtifact",
     auditory: "PF2E.TraitAuditory",
@@ -765,18 +766,15 @@ const armorTraits = {
     clockwork: "PF2E.TraitClockwork",
     comfort: "PF2E.TraitComfort",
     cursed: "PF2E.TraitCursed",
-    evil: "PF2E.TraitEvil",
     extradimensional: "PF2E.TraitExtradimensional",
     focused: "PF2E.TraitFocused",
     force: "PF2E.TraitForce",
     flexible: "PF2E.TraitFlexible",
-    good: "PF2E.TraitGood",
     intelligent: "PF2E.TraitIntelligent",
     invested: "PF2E.TraitInvested",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
     noisy: "PF2E.TraitNoisy",
-    water: "PF2E.TraitWater",
 };
 
 export {
