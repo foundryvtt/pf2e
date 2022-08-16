@@ -1,5 +1,7 @@
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
+import { extractModifierAdjustments } from "@module/rules/util";
 import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "@system/damage";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -239,24 +241,30 @@ type ModifierOrderedParams = [
     notes?: string
 ];
 
-// Ability scores
-const AbilityModifier = {
-    /**
-     * Create a modifier from a given ability type and score.
-     * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
-     * @param score The score of this ability.
-     * @returns The modifier provided by the given ability score.
-     */
-    fromScore: (ability: AbilityString, score: number) => {
-        return new ModifierPF2e({
-            slug: ability,
-            label: `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
-            modifier: Math.floor((score - 10) / 2),
-            type: MODIFIER_TYPE.ABILITY,
-            ability,
-        });
-    },
-};
+/**
+ * Create a modifier from a given ability type and score.
+ * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
+ * @param score The score of this ability.
+ * @returns The modifier provided by the given ability score.
+ */
+function createAbilityModifier({ actor, ability, domains }: CreateAbilityModifierParams): ModifierPF2e {
+    const withAbilityBased = domains.includes(`${ability}-based`) ? domains : [...domains, `${ability}-based`];
+
+    return new ModifierPF2e({
+        slug: ability,
+        label: `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
+        modifier: Math.floor((actor.abilities[ability].value - 10) / 2),
+        type: "ability",
+        ability,
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, withAbilityBased, ability),
+    });
+}
+
+interface CreateAbilityModifierParams {
+    actor: CharacterPF2e | NPCPF2e;
+    ability: AbilityString;
+    domains: string[];
+}
 
 // proficiency ranks
 const UNTRAINED = {
@@ -674,7 +682,6 @@ class DamageDicePF2e extends DiceModifierPF2e {
 }
 
 export {
-    AbilityModifier,
     BaseRawModifier,
     CheckModifier,
     DamageDiceOverride,
@@ -682,9 +689,6 @@ export {
     DeferredValue,
     DeferredValueParams,
     DiceModifierPF2e,
-    EXPERT,
-    LEGENDARY,
-    MASTER,
     MODIFIER_TYPE,
     MODIFIER_TYPES,
     ModifierAdjustment,
@@ -694,8 +698,7 @@ export {
     ProficiencyModifier,
     RawModifier,
     StatisticModifier,
-    TRAINED,
-    UNTRAINED,
     applyStackingRules,
+    createAbilityModifier,
     ensureProficiencyOption,
 };

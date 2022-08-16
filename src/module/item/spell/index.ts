@@ -1,6 +1,5 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
 import {
-    AbilityModifier,
+    createAbilityModifier,
     ensureProficiencyOption,
     ModifierPF2e,
     ProficiencyModifier,
@@ -661,7 +660,7 @@ class SpellPF2e extends ItemPF2e {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollCounteract(event: JQuery.ClickEvent) {
-        if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) return;
+        if (!this.actor?.isOfType("character", "npc")) return;
 
         const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;
         if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
@@ -670,13 +669,12 @@ class SpellPF2e extends ItemPF2e {
 
         const modifiers: ModifierPF2e[] = [];
         const ability: AbilityString = spellcastingEntry.system.ability?.value || "int";
-        const score = this.actor.abilities[ability]?.value ?? 0;
-        modifiers.push(AbilityModifier.fromScore(ability, score));
+        const domains = ["all", "counteract-check", `${ability}-based`];
+        modifiers.push(createAbilityModifier({ actor: this.actor, ability, domains }));
 
         const proficiencyRank = spellcastingEntry.rank;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.level, proficiencyRank));
 
-        const rollOptions = ["all", "counteract-check"];
         const traits = this.system.traits.value;
 
         let flavor = "<hr>";
@@ -703,7 +701,7 @@ class SpellPF2e extends ItemPF2e {
         addFlavor("CritFailure", 0);
         flavor += "</p>";
         const check = new StatisticModifier(flavor, modifiers);
-        const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
+        const finalOptions = this.actor.getRollOptions(domains).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
         const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
         const traitObjects = traits.map((trait) => ({

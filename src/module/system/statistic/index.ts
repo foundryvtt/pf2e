@@ -1,8 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { calculateMAPs } from "@actor/helpers";
 import {
-    AbilityModifier,
     CheckModifier,
+    createAbilityModifier,
     ModifierPF2e,
     ProficiencyModifier,
     PROFICIENCY_RANK_OPTION,
@@ -11,7 +11,7 @@ import {
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
-import { extractModifierAdjustments, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
@@ -101,12 +101,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         }
 
         if (actor.isOfType("character") && this.ability) {
-            this.abilityModifier = AbilityModifier.fromScore(this.ability, actor.abilities[this.ability].value);
-            this.abilityModifier.adjustments = extractModifierAdjustments(
-                actor.synthetics.modifierAdjustments,
-                data.domains ?? [],
-                this.ability
-            );
+            this.abilityModifier = createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });
             this.modifiers.unshift(this.abilityModifier);
         }
 
