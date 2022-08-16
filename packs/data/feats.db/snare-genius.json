@@ -37,16 +37,17 @@
                 "isPrepared": true,
                 "key": "CraftingEntry",
                 "name": "Snare Crafting",
-                "requiredTraits": [
-                    [
-                        "snare"
+                "craftableItems": {
+                    "all": [
+                        "item:trait:snare"
                     ]
-                ],
+                },
                 "selector": "snareCrafting"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
+                "phase":"afterDerived",
                 "path": "system.crafting.entries.snareCrafting.maxSlots",
                 "value": {
                     "brackets": [

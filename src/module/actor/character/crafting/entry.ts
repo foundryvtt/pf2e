@@ -1,17 +1,15 @@
 import { CharacterPF2e } from "@actor";
-import { PhysicalItemTrait } from "@item/physical/data";
-import { groupBy } from "@util";
-import { CraftingFormula } from "./formula";
+import { PredicatePF2e } from "@system/predication";
+import { CraftingFormula, CraftingFormulaData } from "./formula";
 
 export class CraftingEntry implements CraftingEntryData {
-    actorPreparedFormulas: ActorPreparedFormula[];
-    preparedFormulas: PreparedFormula[];
+    preparedFormulas: CraftingFormula[];
     name: string;
     selector: string;
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
-    requiredTraits: PhysicalItemTrait[][];
+    craftableItems: PredicatePF2e;
     maxSlots: number;
     fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
     batchSize?: number;
@@ -19,41 +17,38 @@ export class CraftingEntry implements CraftingEntryData {
     maxItemLevel: number;
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
-        this.actorPreparedFormulas = data.actorPreparedFormulas;
         this.selector = data.selector;
         this.name = data.name;
-        this.isAlchemical = data.isAlchemical ?? false;
-        this.isDailyPrep = data.isDailyPrep ?? false;
-        this.isPrepared = data.isPrepared ?? false;
+        this.isAlchemical = !!data.isAlchemical;
+        this.isDailyPrep = !!data.isDailyPrep;
+        this.isPrepared = !!data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
         this.maxItemLevel = data.maxItemLevel || parentActor.level;
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
-
-        this.requiredTraits = data.requiredTraits ?? [[]];
-        if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
-
-        this.preparedFormulas = this.actorPreparedFormulas
-            .map((prepData): PreparedFormula | null => {
-                const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
-                if (formula) {
-                    return Object.assign(new CraftingFormula(formula.item), {
-                        quantity: prepData.quantity,
-                        expended: prepData.expended,
-                        isSignatureItem: prepData.isSignatureItem,
-                    });
-                }
-                return null;
-            })
-            .filter((prepData): prepData is PreparedFormula => !!prepData);
+        this.craftableItems = data.craftableItems;
+        this.preparedFormulas = knownFormulas.filter((formula) => formula.preparedData[this.selector] !== undefined);
+        this.tidyUpSlotData();
     }
 
-    get formulas(): (PreparedFormula | null)[] {
-        const formulas: (PreparedFormula | null)[] = [];
-        Object.assign(formulas, this.preparedFormulas);
+    get formulas(): (PreparedFormulaSheetData | null)[] {
+        const formulas: (PreparedFormulaSheetData | null)[] = [];
+        this.preparedFormulas.map((formula) => {
+            (formula.preparedData[this.selector].slots || []).map((slot) => {
+                if (slot.slot !== undefined)
+                    formulas[slot.slot] = {
+                        uuid: formula.uuid,
+                        img: formula.img,
+                        name: formula.name,
+                        expended: slot.expended || false,
+                        quantity: slot.quantity || 1,
+                        isSignatureItem: formula.preparedData[this.selector].isSignatureItem || false,
+                    };
+            });
+        });
         if (this.maxSlots > 0) {
-            const fill = this.maxSlots - this.preparedFormulas.length;
+            const fill = this.maxSlots - formulas.length;
             if (fill > 0) {
                 const nulls = new Array(fill).fill(null);
                 return formulas.concat(nulls);
@@ -62,20 +57,32 @@ export class CraftingEntry implements CraftingEntryData {
         return formulas;
     }
 
-    get formulasByLevel(): Record<string, PreparedFormula[]> {
-        return Object.fromEntries(groupBy(this.preparedFormulas, (prepData) => prepData.level));
-    }
-
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
         const fieldDiscoveryQuantity = this.preparedFormulas
-            .filter((f) => f.item.traits.has(this.fieldDiscovery!) || f.isSignatureItem)
-            .reduce((sum, current) => sum + (current.quantity || 1), 0);
+            .filter((f) => f.item.traits.has(this.fieldDiscovery!) || f.preparedData[this.selector].isSignatureItem)
+            .reduce(
+                (sum, current) =>
+                    sum +
+                    (current.preparedData[this.selector].slots || []).reduce(
+                        (sum, slot) => sum + (slot.quantity || 1),
+                        0
+                    ),
+                0
+            );
 
         const otherQuantity = this.preparedFormulas
-            .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
-            .reduce((sum, current) => sum + (current.quantity || 1), 0);
+            .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.preparedData[this.selector].isSignatureItem)
+            .reduce(
+                (sum, current) =>
+                    sum +
+                    (current.preparedData[this.selector].slots || []).reduce(
+                        (sum, slot) => sum + (slot.quantity || 1),
+                        0
+                    ),
+                0
+            );
 
         const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
         const batchSize = this.batchSize || 2;
@@ -87,27 +94,39 @@ export class CraftingEntry implements CraftingEntryData {
     }
 
     static isValid(data?: Partial<CraftingEntry>): data is CraftingEntry {
-        return !!data && !!data.name && !!data.selector && !!data.actorPreparedFormulas;
+        return !!data && !!data.name && !!data.selector;
     }
 
     async prepareFormula(formula: CraftingFormula): Promise<void> {
         this.checkEntryRequirements(formula);
 
+        if (!formula.preparedData[this.selector])
+            formula.preparedData[this.selector] = {
+                slots: [],
+            };
+
         if (this.isAlchemical && this.preparedFormulas.some((f) => f.uuid === formula.uuid)) {
-            const index = this.preparedFormulas.findIndex((f) => f.uuid === formula.uuid);
-            const quantity = this.preparedFormulas[index].quantity || 1;
-            this.preparedFormulas[index].quantity = quantity + 1;
+            const slot = formula.preparedData[this.selector].slots?.find(Boolean);
+            if (slot) slot.quantity ? (slot.quantity += 1) : (slot.quantity = 1);
         } else {
-            const prepData: PreparedFormula = formula;
-            if (this.isAlchemical) prepData.quantity = 1;
-            this.preparedFormulas.push(prepData);
+            // Find the first available slot
+            const slot = this.formulas.indexOf(null);
+            const slotData = {
+                slot: slot < 0 ? this.formulas.length : slot,
+                quantity: this.isAlchemical ? 1 : undefined,
+            };
+            formula.preparedData[this.selector].slots?.push(slotData);
+            this.preparedFormulas.push(formula);
         }
 
         return this.updateActorEntryFormulas();
     }
 
     checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
-        if (this.maxSlots && this.preparedFormulas.length >= this.maxSlots) return false;
+        if (!!this.maxSlots && this.formulas.filter((f) => f !== null).length >= this.maxSlots) {
+            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
+            return false;
+        }
         if (this.parentActor.level < formula.level) {
             if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.CharacterLevel"));
             return false;
@@ -117,13 +136,9 @@ export class CraftingEntry implements CraftingEntryData {
             return false;
         }
 
-        if (!this.requiredTraits.some((traits) => traits.every((t) => formula.item.traits.has(t)))) {
+        if (!this.craftableItems.test(formula.item.getRollOptions("item"))) {
             if (warn) {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.CraftingTab.Alerts.ItemMissingTraits", {
-                        traits: JSON.stringify(this.requiredTraits),
-                    })
-                );
+                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
             }
             return false;
         }
@@ -132,26 +147,41 @@ export class CraftingEntry implements CraftingEntryData {
     }
 
     async unprepareFormula(index: number, itemUUID: string): Promise<void> {
-        const prepData = this.preparedFormulas[index];
-        if (!prepData || prepData.item.uuid !== itemUUID) return;
-        this.preparedFormulas.splice(index, 1);
+        const formula = this.preparedFormulas.find((f) => f.uuid === itemUUID);
+        if (!formula || !formula.preparedData?.[this.selector].slots) return;
+        const slotIndex = formula.preparedData[this.selector].slots!.findIndex((s) => s.slot === index);
+        if (slotIndex === -1) return;
+
+        formula.preparedData[this.selector].slots!.splice(slotIndex, 1);
+        if (formula.preparedData[this.selector].slots?.length === 0) delete formula.preparedData[this.selector];
 
         return this.updateActorEntryFormulas();
     }
 
     async increaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
-        const prepData = this.preparedFormulas[index];
-        if (!prepData || prepData.item.uuid !== itemUUID) return;
-        prepData.quantity ? (prepData.quantity += 1) : (prepData.quantity = 2);
+        const formula = this.preparedFormulas.find((f) => f.uuid === itemUUID);
+        if (!formula || !formula.preparedData?.[this.selector].slots) return;
+        const slotIndex = formula.preparedData[this.selector].slots!.findIndex((s) => s.slot === index);
+        if (slotIndex === -1) return;
+
+        formula.preparedData[this.selector].slots![slotIndex].quantity
+            ? (formula.preparedData[this.selector].slots![slotIndex].quantity! += 1)
+            : (formula.preparedData[this.selector].slots![slotIndex].quantity = 2);
 
         return this.updateActorEntryFormulas();
     }
 
     async decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
-        const prepData = this.preparedFormulas[index];
-        if (!prepData || prepData.item.uuid !== itemUUID) return;
-        prepData.quantity ? (prepData.quantity -= 1) : (prepData.quantity = 0);
-        if (prepData.quantity <= 0) {
+        const formula = this.preparedFormulas.find((f) => f.uuid === itemUUID);
+        if (!formula || !formula.preparedData?.[this.selector].slots) return;
+        const slotIndex = formula.preparedData[this.selector].slots!.findIndex((s) => s.slot === index);
+        if (slotIndex === -1) return;
+
+        formula.preparedData[this.selector].slots![slotIndex].quantity
+            ? (formula.preparedData[this.selector].slots![slotIndex].quantity! -= 1)
+            : (formula.preparedData[this.selector].slots![slotIndex].quantity = 0);
+
+        if (formula.preparedData[this.selector].slots![slotIndex].quantity! <= 0) {
             await this.unprepareFormula(index, itemUUID);
             return;
         }
@@ -160,73 +190,96 @@ export class CraftingEntry implements CraftingEntryData {
     }
 
     async setFormulaQuantity(index: number, itemUUID: string, quantity: number): Promise<void> {
-        const prepData = this.preparedFormulas[index];
-        if (!prepData || prepData.item.uuid !== itemUUID) return;
-        prepData.quantity = quantity;
-        if (prepData.quantity <= 0) {
+        if (quantity <= 0) {
             await this.unprepareFormula(index, itemUUID);
             return;
         }
+
+        const formula = this.preparedFormulas.find((f) => f.uuid === itemUUID);
+        if (!formula || !formula.preparedData?.[this.selector].slots) return;
+        const slotIndex = formula.preparedData[this.selector].slots!.findIndex((s) => s.slot === index);
+        if (slotIndex === -1) return;
+
+        formula.preparedData[this.selector].slots![slotIndex].quantity = quantity;
 
         return this.updateActorEntryFormulas();
     }
 
     async toggleFormulaExpended(index: number, itemUUID: string): Promise<void> {
-        const prepData = this.preparedFormulas[index];
-        if (!prepData || prepData.item.uuid !== itemUUID) return;
-        prepData.expended = !prepData.expended;
+        const formula = this.preparedFormulas.find((f) => f.uuid === itemUUID);
+        if (!formula || !formula.preparedData?.[this.selector].slots) return;
+        const slotIndex = formula.preparedData[this.selector].slots!.findIndex((s) => s.slot === index);
+        if (slotIndex === -1) return;
+
+        formula.preparedData[this.selector].slots![slotIndex].expended =
+            !formula.preparedData[this.selector].slots![slotIndex].expended;
 
         return this.updateActorEntryFormulas();
     }
 
-    async toggleSignatureItem(index: number, itemUUID: string): Promise<void> {
-        const prepData = this.preparedFormulas[index];
-        if (!prepData || prepData.item.uuid !== itemUUID) return;
-        prepData.isSignatureItem = !prepData.isSignatureItem;
+    async toggleSignatureItem(itemUUID: string): Promise<void> {
+        const formula = this.preparedFormulas.find((f) => f.uuid === itemUUID);
+        if (!formula || !formula.preparedData?.[this.selector].slots) return;
+
+        formula.preparedData[this.selector].isSignatureItem = !formula.preparedData[this.selector].isSignatureItem;
 
         return this.updateActorEntryFormulas();
     }
 
     async updateActorEntryFormulas(): Promise<void> {
-        const actorPreparedFormulas = this.preparedFormulas.map((data) => {
-            return {
-                itemUUID: data.item.uuid,
-                quantity: data.quantity,
-                expended: data.expended,
-                isSignatureItem: data.isSignatureItem,
-            };
+        const actorFormulas: CraftingFormulaData[] = this.parentActor.system.crafting.formulas.map((formula) => {
+            const prepFormula = this.preparedFormulas.find((prep) => prep.uuid === formula.uuid);
+            if (prepFormula) {
+                formula.preparedData = prepFormula.preparedData;
+                // If the formula was one granted by an RE, we will now be persisting it on the character and need to make it deletable
+                formula.deletable = true;
+            }
+            return formula;
         });
 
         await this.parentActor.update({
-            [`system.crafting.entries.${this.selector}.actorPreparedFormulas`]: actorPreparedFormulas,
+            [`system.crafting.formulas`]: actorFormulas,
         });
+    }
+
+    tidyUpSlotData() {
+        const length = this.formulas.length;
+
+        for (let i = 0; i < length; i++) {
+            if (this.formulas[i]) continue;
+            const targetIndex = this.formulas.findIndex((value, index) => value !== null && index > i);
+            if (targetIndex === -1) continue;
+            this.preparedFormulas = this.preparedFormulas.map((formula) => {
+                const slotIndex = formula.preparedData[this.selector].slots?.findIndex(
+                    (value) => value.slot === targetIndex
+                );
+                if (slotIndex === -1 || slotIndex === undefined) return formula;
+                formula.preparedData[this.selector].slots![slotIndex].slot = i;
+                return formula;
+            });
+        }
     }
 }
 
-interface PreparedFormula extends CraftingFormula {
-    quantity?: number;
-    expended?: boolean;
-    isSignatureItem?: boolean;
-}
-
-interface ActorPreparedFormula {
-    itemUUID: string;
-    quantity?: number;
-    expended?: boolean;
-    isSignatureItem?: boolean;
-}
-
 export interface CraftingEntryData {
-    actorPreparedFormulas: ActorPreparedFormula[];
     selector: string;
     name: string;
     isAlchemical?: boolean;
     isDailyPrep?: boolean;
     isPrepared?: boolean;
     maxSlots?: number;
-    requiredTraits?: PhysicalItemTrait[][];
+    craftableItems: PredicatePF2e;
     fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
+}
+
+interface PreparedFormulaSheetData {
+    uuid: string;
+    expended: boolean;
+    img: string;
+    name: string;
+    quantity: number;
+    isSignatureItem: boolean;
 }

@@ -596,11 +596,25 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const $formulas = $craftingTab.find(".craftingEntry-list");
 
         $formulas.find("a[data-action=craft-item]").on("click", async (event) => {
-            const { itemUuid } = event.currentTarget.dataset;
+            const { itemUuid, free, prepared } = event.currentTarget.dataset;
             const itemQuantity =
                 Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
             const formula = this.knownFormulas[itemUuid ?? ""];
             if (!formula) return;
+
+            if (prepared === "true") {
+                const expendedState = $(event.currentTarget).closest("li.formula-item").attr("data-expended-state");
+                if (expendedState === "true") {
+                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.FormulaExpended"));
+                    return;
+                }
+                const index = $(event.currentTarget).closest("li.formula-item").attr("data-item-index");
+                const entrySelector = $(event.currentTarget).closest("li.crafting-entry").attr("data-entry-selector");
+                if (!itemUuid || !index || !entrySelector) return;
+                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+                await craftingEntry.toggleFormulaExpended(Number(index), itemUuid);
+            }
 
             if (this.actor.flags.pf2e.quickAlchemy) {
                 const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - itemQuantity;
@@ -629,7 +643,14 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 scope: "check",
             };
 
-            craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
+            craft({
+                difficultyClass,
+                item: formula.item,
+                quantity: itemQuantity,
+                event,
+                actors: this.actor,
+                free: free === "true",
+            });
         });
 
         $formulas.find("[data-action=enter-quantity]").on("change", async (event) => {
@@ -707,14 +728,13 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         $formulas.find(".toggle-signature-item").on("click", async (event) => {
             const $target = $(event.currentTarget);
             const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
-            const index = $target.closest("li.formula-item").attr("data-item-index");
             const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
 
-            if (!itemUUID || !index || !entrySelector) return;
+            if (!itemUUID || !entrySelector) return;
 
             const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
             if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-            await craftingEntry.toggleSignatureItem(Number(index), itemUUID);
+            await craftingEntry.toggleSignatureItem(itemUUID);
         });
 
         $formulas.find(".infused-reagents").on("change", (event) => {

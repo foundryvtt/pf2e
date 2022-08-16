@@ -31,16 +31,17 @@
                 "key": "CraftingEntry",
                 "label": "PF2E.SpecificRule.Thaumaturge.TalismanEsoterica",
                 "maxSlots": 2,
-                "requiredTraits": [
-                    [
-                        "talisman"
+                "craftableItems": {
+                    "all": [
+                        "item:trait:talisman"
                     ]
-                ],
+                },
                 "selector": "talismanEsoterica"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
+                "phase":"afterDerived",
                 "path": "system.crafting.entries.talismanEsoterica.maxItemLevel",
                 "predicate": {
                     "all": [

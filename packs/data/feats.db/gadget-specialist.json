@@ -34,16 +34,17 @@
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
                 "name": "Gadget Specialist",
-                "requiredTraits": [
-                    [
-                        "gadget"
+                "craftableItems": {
+                    "all": [
+                        "item:trait:gadget"
                     ]
-                ],
+                },
                 "selector": "gadgetSpecialist"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
+                "phase":"afterDerived",
                 "path": "system.crafting.entries.gadgetSpecialist.maxSlots",
                 "priority": 41,
                 "value": {
