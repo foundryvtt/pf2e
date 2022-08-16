@@ -1,5 +1,5 @@
 import { ClassPF2e } from "@item/class";
-import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags } from "@module/sheet/helpers";
 import { ABCSheetPF2e } from "../abc/sheet";
 import { ClassSheetData } from "./types";
 
@@ -15,7 +15,6 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
         return {
             ...sheetData,
             items,
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.system.traits.rarity] }),
             skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
             selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),

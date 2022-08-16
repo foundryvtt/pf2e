@@ -16,26 +16,6 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="system.traits.rarity">
-            {{#select data.traits.rarity}}
-                {{#each rarities as |rarity|}}
-                    <option value="{{rarity.value}}">{{localize rarity.label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
-
-    <ol class="item-tags tags">
-        <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
-        {{#each traits as |trait|}}
-            {{#if trait.selected}}
-                <li class="tag tag_transparent">{{localize trait.label}}</li>
-            {{/if}}
-        {{/each}}
-    </ol>
-
     {{#unless (any (eq data.featType.value "classfeature") (eq data.featType.value "ancestryfeature") (eq data.featType.value "curse") (eq data.featType.value "dietyboon") )}}
         <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
         <ol class="item-tags tags">

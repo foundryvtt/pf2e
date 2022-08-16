@@ -5,17 +5,6 @@
         <label>{{localize "PF2E.QuantityLabel"}}</label>
         <input type="number" name="system.quantity" value="{{data.quantity}}" />
     </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="system.traits.rarity">
-            {{#select data.traits.rarity}}
-                {{#each rarity as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
     <div class="form-group">
         <label>{{localize "PF2E.Usage"}}</label>
         <select name="system.usage.value">
@@ -90,10 +79,4 @@
         <span class="flex0">/</span>
         <input type="number" name="system.charges.max" value="{{data.charges.max}}" />
     </div>
-    <!-- Traits -->
-    <ol class="item-tags tags">
-        {{#each traits as |trait|}}
-            <li class="tag tag_transparent">{{trait.label}}</li>
-        {{/each}}
-    </ol>
 </div>

@@ -1,7 +1,6 @@
 import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { HeritageSheetData } from "@item/sheet/data-types";
-import { createSheetOptions } from "@module/sheet/helpers";
 import { ErrorPF2e } from "@util";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
@@ -26,7 +25,6 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             hasSidebar: true,
             hasDetails: false,
             sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.html",
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
         };
     }
 

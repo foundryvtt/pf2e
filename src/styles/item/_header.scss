@@ -1,0 +1,63 @@
+.sheet-header {
+    display: flex;
+    flex: 0 0 70px;
+    align-items: bottom;
+    width: 100%;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--secondary-background);
+
+    img {
+        border: none;
+        flex: 0 0 64px;
+        margin-right: 6px;
+    }
+
+    .details {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+
+        input, .level {
+            font-family: var(--serif-condensed);
+            font-size: var(--font-size-36);
+            font-weight: 700;
+        }
+    }
+
+    input[type="text"], input[type="number"] {
+        border: none;
+        height: var(--font-size-34);
+        &:hover, &:focus {
+            box-shadow: none;
+        }
+    }
+
+    input[name="name"] {
+        flex: 1;
+    }
+
+    .level {
+        flex: 0;
+        white-space: nowrap;
+        margin-left: auto;
+        padding-left: 8px;
+
+        i {
+            font-size: 0.6em;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        input {
+            width: 40px;
+            text-align: center;
+        }
+    }
+
+    .paizo-style {
+        flex-basis: 100%;
+        width: 0;
+        border: none;
+        margin-top: 2px;
+    }
+}

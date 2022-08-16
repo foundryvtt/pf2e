@@ -1,14 +1,3 @@
-<div class="form-group">
-    <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="system.traits.rarity" data-dtype="String">
-        {{#select data.traits.rarity}}
-            {{#each rarities}}
-                <option value="{{@key}}">{{localize this.label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
 {{#each data.boosts as |boost idx|}}
     <div class="form-group form-group-trait">
         <label class="pf-title">

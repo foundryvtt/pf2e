@@ -79,14 +79,3 @@
     <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
     <input class="item-tagify" type="text" name="system.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
 </div>
-<div class="form-group-stacked">
-    <label>
-        {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="featTraits" data-property="system.traits"><i class="fas fa-fw fa-edit"></i></a>
-    </label>
-    <ul class="traits-list tags">
-        {{#each traits as |trait|}}
-            <li class="tag" data-trait="{{trait.value}}">{{trait.label}}</li>
-        {{/each}}
-    </ul>
-</div>

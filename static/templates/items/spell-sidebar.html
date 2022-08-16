@@ -5,7 +5,6 @@
 <span class="item-summary">{{{actionGlyph data.time.value fallback=true}}}</span>
 
 <ol class="item-tags tags">
-    <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity)}}{{localize this.label}}{{/with}}</li>
     {{#each spellComponents}}
         <li class="tag tag_transparent">{{this}}</li>
     {{/each}}
@@ -25,8 +24,3 @@
         {{/if}}
     </ol>
 {{/if}}
-<ol class="item-tags tags">
-    {{#each traits as |trait|}}
-        <li class="tag tag_transparent">{{trait.label}}</li>
-    {{/each}}
-</ol>

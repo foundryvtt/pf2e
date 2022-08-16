@@ -22,7 +22,6 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             priceString: this.item.price.value,
             hasSidebar: true,
             hasDetails: true,
-            rarity: CONFIG.PF2E.rarityTraits,
         };
     }
 
