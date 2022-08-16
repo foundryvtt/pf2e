@@ -3,7 +3,6 @@ import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
 import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, tagify, tupleHasValue } from "@util";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { OneToTen } from "@module/data";
 
 /** Set of properties that are legal for the purposes of spell overrides */
@@ -61,7 +60,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellLevels: CONFIG.PF2E.spellLevels,
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
             spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
@@ -98,7 +96,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super.activateListeners($html);
         const html = $html[0]!;
 
-        tagify(html.querySelector('input[name="system.traits.value"]'), { whitelist: this.validTraits });
         tagify(html.querySelector('input[name="system.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
 
         $html.find(".toggle-trait").on("change", (evt) => {
@@ -419,7 +416,6 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
     damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
     spellComponents: string[];
-    rarities: SheetOptions;
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
     heightenIntervals: number[];

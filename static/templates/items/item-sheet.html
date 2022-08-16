@@ -3,16 +3,32 @@
     <!-- ITEM SHEET HEADER -->
     <header class="sheet-header">
         <img src="{{item.img}}" data-edit="img" />
-        <h1>
+        <div class="details">
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
-        </h1>
-        {{#if itemType}}
-            <span class="level">
-                {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
-                <span>{{itemType}}</span>
-                <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if isPhysical}}data-property="system.level.value"{{else}}name="system.level.value"{{/if}} value="{{data.level.value}}" />
-            </span>
-        {{/if}}
+            {{#if itemType}}
+                <span class="level">
+                    {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                    <span>{{itemType}}</span>
+                    <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if isPhysical}}data-property="system.level.value"{{else}}name="system.level.value"{{/if}} value="{{data.level.value}}" />
+                </span>
+            {{/if}}
+            <template class="traits-extra">
+                {{#if rarity}}
+                    <select class="tag" name="system.traits.rarity" value="{{rarity}}">
+                        {{#select rarity}}
+                            {{#each rarities as |label key|}}
+                                <option value="{{key}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                {{/if}}
+            </template>
+            {{#if showTraits}}
+                <input class="paizo-style tags" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON" />
+            {{else}}
+                <div class="paizo-style tags"></div>
+            {{/if}}
+        </div>
     </header>
 
     <!-- ITEM SHEET CONTENT -->

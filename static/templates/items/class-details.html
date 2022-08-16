@@ -1,19 +1,7 @@
 <div class="form-group">
-    <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="system.traits.rarity" data-dtype="String">
-        {{#select data.traits.rarity}}
-            {{#each rarities as |rarity slug|}}
-                <option value="{{slug}}">{{rarity.label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
     <label>{{localize "PF2E.HitPointsHeader"}}</label>
     <input type="number" name="system.hp" min="6" max="12" data-dtype="Number" value="{{data.hp}}">
 </div>
-
 
 <div class="form-group form-group-trait">
     <label class="pf-title">

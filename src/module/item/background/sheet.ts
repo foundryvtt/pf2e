@@ -10,7 +10,6 @@ export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
 
         return {
             ...data,
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.system.traits.rarity] }),
             trainedSkills: createSheetOptions(CONFIG.PF2E.skills, itemData.system.trainedSkills),
             selectedBoosts: Object.fromEntries(
                 Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])

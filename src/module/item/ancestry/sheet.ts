@@ -16,7 +16,6 @@ export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
             selectedFlaws: Object.fromEntries(
                 Object.entries(itemData.system.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
             ),
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.system.traits.rarity] }),
             sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.system.size] }),
             languages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.languages),
             additionalLanguages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.additionalLanguages),

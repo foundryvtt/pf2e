@@ -5,16 +5,6 @@
         <input type="number" name="system.quantity" value="{{data.quantity}}" />
     </div>
     <div class="form-group">
-        <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="system.traits.rarity">
-            {{#select baseRarity}}
-                {{#each rarity as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    <div class="form-group">
         <label>{{localize "PF2E.Item.Weapon.HandsLabel"}}</label>
         <select name="system.usage.value">
             {{#select data.usage.value}}
@@ -66,11 +56,7 @@
         <input type="text" {{#if adjustedPriceHint}}class="adjusted"{{/if}} data-property="system.price.value" data-value-base="{{basePriceString}}" value="{{priceString}}" spellcheck="false" />
     </div>
     <ol class="item-tags tags">
-        {{#each traits as |trait|}}
-            <li class="tag tag_transparent">{{trait.label}}</li>
-        {{/each}}
         {{#if otherTags}}
-            <hr />
             {{#each otherTags as |tag|}}
                 <li class="tag tag_transparent">{{tag.label}}</li>
             {{/each}}

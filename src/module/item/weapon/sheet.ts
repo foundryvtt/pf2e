@@ -162,7 +162,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             adjustedPriceHint,
             abpEnabled,
             baseLevel: baseData.system.level.value,
-            baseRarity: baseData.system.traits.rarity,
+            rarity: baseData.system.traits.rarity,
             basePrice: new CoinsPF2e(baseData.system.price.value),
             categories: CONFIG.PF2E.weaponCategories,
             groups,

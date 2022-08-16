@@ -11,7 +11,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey } from "@util";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify } from "@util";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -80,10 +80,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
 
         const validTraits = this.validTraits;
+        const hasRarity = !this.item.isOfType("action", "condition", "effect", "lore", "melee");
 
         return {
             itemType: null,
-            hasSidebar: ["condition", "lore"].includes(itemData.type),
+            showTraits: this.validTraits !== null,
+            hasSidebar: this.item.isOfType("condition", "lore"),
             hasDetails: true,
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
@@ -97,7 +99,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             owner: this.item.isOwner,
             title: this.title,
             user: { isGM: game.user.isGM },
-            rarity: CONFIG.PF2E.rarityTraits,
+            rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
+            rarities: CONFIG.PF2E.rarityTraits,
             traits: validTraits ? createSheetTags(validTraits, this.item.system.traits?.value ?? []) : null,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
@@ -358,6 +361,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollLinks.listen($html);
+
+        // Set up traits selection in the header
+        const { validTraits } = this;
+        const tagElement = html.querySelector(".sheet-header .tags");
+        const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
+        if (validTraits !== null && tagElement instanceof HTMLInputElement) {
+            const tags = tagify(tagElement, { whitelist: validTraits });
+            if (traitsPrepend) {
+                tags.DOM.scope.prepend(traitsPrepend.content);
+            }
+        } else if (tagElement && traitsPrepend) {
+            // If there are no traits, we still need to show elements like rarity
+            tagElement.append(traitsPrepend.content);
+        }
     }
 
     /** Ensure the source description is edited rather than a prepared one */

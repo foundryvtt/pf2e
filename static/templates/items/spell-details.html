@@ -1,21 +1,3 @@
-{{!-- Traits --}}
-<ol class="form-list">
-    <li class="form-group">
-        <label class="short">{{localize "PF2E.Rarity"}}</label>
-        <select class="rarity" name="system.traits.rarity">
-            {{#select data.traits.rarity}}
-                {{#each rarities as |rarity|}}
-                    <option value="{{rarity.value}}">{{localize rarity.label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </li>
-    <li class="form-group">
-        <label class="short">{{localize "PF2E.TraitsLabel"}}</label>
-        <input class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON" />
-    </li>
-</ol>
-
 <ol class="form-list">
     <li class="form-group">
         <label class="short">{{localize "PF2E.SpellCategoryLabel"}}</label>
@@ -27,15 +9,8 @@
             {{/select}}
         </select>
     </li>
-    {{#unless isRitual}}
-        <li class="form-group">
-            <label>{{localize "PF2E.TraitCantrip"}}</label>
-            <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip"/>
-        </li>
-    {{/unless}}
-</ol>
 
-<ol class="form-list">
+
     <li class="form-group">
         <label class="short">{{localize "PF2E.SpellSchoolLabel"}}</label>
         <select name="system.school.value">
@@ -50,6 +25,13 @@
         <label class="short">{{localize "PF2E.SpellTraditionsLabel"}}</label>
         <input class="tags paizo-style" name="system.traditions.value" value="{{json data.traditions.value}}" data-dtype="JSON" />
     </li>
+
+    {{#unless isRitual}}
+        <li class="form-group">
+            <label>{{localize "PF2E.TraitCantrip"}}</label>
+            <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip"/>
+        </li>
+    {{/unless}}
 </ol>
 
 <ol class="form-list">

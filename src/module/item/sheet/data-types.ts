@@ -5,11 +5,13 @@ import { BackgroundPF2e } from "@item/background";
 import { FeatPF2e } from "@item/feat";
 import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
+import { Rarity } from "@module/data";
 import { RuleElementSource } from "@module/rules";
 import { SheetOptions } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     itemType: string | null;
+    showTraits: boolean;
     hasSidebar: boolean;
     hasDetails: boolean;
     sidebarTemplate?: () => string;
@@ -21,7 +23,8 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     ruleEditing: boolean;
-    rarity: ConfigPF2e["PF2E"]["rarityTraits"];
+    rarity: Rarity | null;
+    rarities: ConfigPF2e["PF2E"]["rarityTraits"];
     traits: SheetOptions | null;
     ruleLabels: {
         label: string;
@@ -62,14 +65,12 @@ export interface ABCSheetData<TItem extends ABCItemPF2e> extends ItemSheetDataPF
 export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
     selectedBoosts: Record<string, Record<string, string>>;
     selectedFlaws: Record<string, Record<string, string>>;
-    rarities: SheetOptions;
     sizes: SheetOptions;
     languages: SheetOptions;
     additionalLanguages: SheetOptions;
 }
 
 export interface BackgroundSheetData extends ABCSheetData<BackgroundPF2e> {
-    rarities: SheetOptions;
     trainedSkills: SheetOptions;
     selectedBoosts: Record<string, Record<string, string>>;
 }
@@ -82,7 +83,6 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
     categories: ConfigPF2e["PF2E"]["actionCategories"];
     prerequisites: string;
-    rarities: SheetOptions;
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
@@ -91,5 +91,4 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
     ancestry: AncestryPF2e | null;
     ancestryRefBroken: boolean;
-    rarities: SheetOptions;
 }
