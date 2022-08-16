@@ -11,7 +11,6 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
             ...sheetData,
             hasDetails: true,
             hasSidebar: true,
-            traits: createSheetTags(CONFIG.PF2E.equipmentTraits, item.system.traits),
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, item.system.traits.otherTags),
         };
     }
@@ -19,6 +18,5 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
 
 interface EquipmentSheetData extends PhysicalItemSheetData<EquipmentPF2e> {
     bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
-    traits: SheetOptions;
     otherTags: SheetOptions;
 }

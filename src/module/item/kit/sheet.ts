@@ -1,7 +1,6 @@
 import { KitPF2e } from "@item/kit";
 import { PhysicalItemPF2e } from "@item/physical";
 import { CoinsPF2e } from "@item/physical/helpers";
-import { createSheetTags } from "@module/sheet/helpers";
 import { ItemSheetPF2e } from "../sheet/base";
 
 /**
@@ -17,19 +16,13 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>) {
-        const sheetData = await super.getData(options);
-        const traits = createSheetTags(CONFIG.PF2E.classTraits, sheetData.data.traits);
-
         return {
-            ...sheetData,
+            ...(await super.getData(options)),
             type: "kit",
             priceString: this.item.price.value,
             hasSidebar: true,
-            sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",
             hasDetails: true,
-            detailsTemplate: () => "systems/pf2e/templates/items/kit-details.html",
             rarity: CONFIG.PF2E.rarityTraits,
-            traits,
         };
     }
 

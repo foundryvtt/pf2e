@@ -1,7 +1,7 @@
 import { FeatPF2e } from "@item/feat";
 import { FeatSheetData } from "../sheet/data-types";
 import { ItemSheetPF2e } from "../sheet/base";
-import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
+import { createSheetOptions } from "@module/sheet/helpers";
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<FeatSheetData> {
@@ -21,7 +21,6 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },
             prerequisites: JSON.stringify(this.item.system.prerequisites?.value ?? []),
             rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
-            traits: createSheetTags(CONFIG.PF2E.featTraits, sheetData.data.traits),
             isFeat: this.item.isFeat,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             hasLineageTrait,
