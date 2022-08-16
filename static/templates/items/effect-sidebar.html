@@ -2,13 +2,6 @@
 
 <div class="inventory-details">
     <div class="form-group">
-        <label for="effect-level">{{localize "PF2E.LevelLabel"}}</label>
-        <div class="form-fields">
-            <input type="number" name="system.level.value" value="{{data.level.value}}" />
-        </div>
-    </div>
-    <hr>
-    <div class="form-group">
         <label for="{{#if (eq data.duration.unit "unlimited")}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize "PF2E.Time.Duration"}}</label>
         <div class="form-fields">
             {{#if (or (eq data.duration.unit "unlimited") (eq data.duration.unit "encounter"))}}
@@ -53,4 +46,23 @@
             <input type="checkbox" name="system.tokenIcon.show" {{checked data.tokenIcon.show}} />
         </div>
     </div>
+    <hr/>
+    <div class="form-group">
+        {{#if data.badge}}
+            <div class="form-fields">
+                <select name="system.badge.type">
+                    {{#select data.badge.type}}
+                        <option value="counter">{{localize "PF2E.Item.Effect.BadgeType.Counter"}}</option>
+                    {{/select}}
+                </select>
+                <input type={{#if (eq data.badge.type "counter")}}"number"{{else}}"text"{{/if}} name="system.badge.value" value="{{data.badge.value}}"/>
+                <div class="item-controls">
+                    <a data-action="badge-delete"><i class="fas fa-fw fa-times"></i></a>
+                </div>
+            </div>
+        {{else}}
+            <button type="button" data-action="badge-add">{{localize "PF2E.Item.Effect.AddBadge"}}</button>
+        {{/if}}
+    </div>
+
 </div>

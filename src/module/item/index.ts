@@ -1,6 +1,7 @@
 export { ItemPF2e, ItemConstructionContextPF2e } from "./base";
 export { PhysicalItemPF2e } from "./physical";
 export { ABCItemPF2e } from "./abc";
+export { AbstractEffectPF2e } from "./abstract-effect";
 export { ActionItemPF2e } from "./action";
 export { AncestryPF2e } from "./ancestry";
 export { ArmorPF2e } from "./armor";

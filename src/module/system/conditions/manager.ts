@@ -440,6 +440,7 @@ export class ConditionManager {
             const name = condition.value ? `${condition.name} ${condition.value}` : condition.name;
             const flattened = conditions.get(name) ?? {
                 id: condition.id,
+                badge: condition.badge,
                 active: condition.isActive,
                 name,
                 value: condition.value,

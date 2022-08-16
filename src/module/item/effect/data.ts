@@ -1,3 +1,4 @@
+import { EffectBadge } from "@item/abstract-effect";
 import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
@@ -6,7 +7,6 @@ import {
     ItemSystemData,
     ItemSystemSource,
 } from "@item/data/base";
-import { OneToFour } from "@module/data";
 import { EffectPF2e } from ".";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
@@ -48,17 +48,7 @@ interface EffectSystemData extends EffectSystemSource, ItemSystemData {
     remaining: string;
 }
 
-interface EffectBadge {
-    value: number | DiceExpression;
-    tickRule: EffectTickType;
-}
-
 type EffectExpiryType = "turn-start" | "turn-end";
-
-type EffectTickType = "turn-start";
-
-type DieFaceCount = 4 | 6 | 8 | 10 | 12 | 20;
-type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
 
 interface EffectAuraData {
     slug: string;
@@ -66,13 +56,4 @@ interface EffectAuraData {
     removeOnExit: boolean;
 }
 
-export {
-    DiceExpression,
-    EffectBadge,
-    EffectData,
-    EffectExpiryType,
-    EffectFlags,
-    EffectSource,
-    EffectSystemData,
-    EffectTickType,
-};
+export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

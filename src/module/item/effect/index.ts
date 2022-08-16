@@ -1,15 +1,20 @@
+import { AbstractEffectPF2e } from "@item/abstract-effect";
+import { EffectBadge } from "@item/abstract-effect/data";
 import { UserPF2e } from "@module/user";
-import { sluggify } from "@util";
-import { ItemPF2e } from "../base";
+import { isObject, sluggify } from "@util";
 import { EffectData } from "./data";
 
-class EffectPF2e extends ItemPF2e {
+class EffectPF2e extends AbstractEffectPF2e {
     static DURATION_UNITS: Readonly<Record<string, number>> = {
         rounds: 6,
         minutes: 60,
         hours: 3600,
         days: 86400,
     };
+
+    override get badge(): EffectBadge | null {
+        return this.system.badge;
+    }
 
     get level(): number {
         return this.system.level.value;
@@ -60,6 +65,25 @@ class EffectPF2e extends ItemPF2e {
     /** Does this effect originate from an aura? */
     get fromAura(): boolean {
         return !!this.flags.pf2e.aura;
+    }
+
+    /** Increases if this is a counter effect, otherwise ignored outright */
+    async increase(): Promise<void> {
+        if (this.system.badge?.type === "counter" && !this.isExpired) {
+            const value = this.system.badge.value + 1;
+            await this.update({ system: { badge: { value } } });
+        }
+    }
+
+    /** Decreases if this is a counter effect, otherwise deletes entirely */
+    async decrease(): Promise<void> {
+        if (this.system.badge?.type !== "counter" || this.system.badge.value === 1 || this.isExpired) {
+            await this.delete();
+            return;
+        }
+
+        const value = this.system.badge.value - 1;
+        await this.update({ system: { badge: { value } } });
     }
 
     override prepareBaseData(): void {
@@ -124,6 +148,12 @@ class EffectPF2e extends ItemPF2e {
         } else if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
             duration.expiry ||= "turn-start";
             if (duration.value === -1) duration.value = 1;
+        }
+
+        // If the badge type changes, reset the value
+        const badge = changed.system?.badge;
+        if (isObject<Partial<EffectBadge>>(badge) && badge?.type && !("value" in badge)) {
+            badge.value = 1;
         }
 
         return super._preUpdate(changed, options, user);

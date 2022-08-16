@@ -1,12 +1,11 @@
+import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
-import { ItemPF2e } from "../base";
 import { ConditionData, ConditionSlug } from "./data";
 
-class ConditionPF2e extends ItemPF2e {
-    /** Forthcoming universal "effect badge" */
-    get badge(): { value: number } | null {
-        return this.system.value.value ? { value: this.system.value.value } : null;
+class ConditionPF2e extends AbstractEffectPF2e {
+    override get badge(): EffectBadge | null {
+        return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
     }
 
     get value(): number | null {
@@ -30,6 +29,18 @@ class ConditionPF2e extends ItemPF2e {
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
         return this.system.sources.hud;
+    }
+
+    override async increase() {
+        if (this.actor && this.system.removable) {
+            await this.actor.increaseCondition(this as Embedded<ConditionPF2e>);
+        }
+    }
+
+    override async decrease() {
+        if (this.actor && this.system.removable) {
+            await this.actor?.decreaseCondition(this as Embedded<ConditionPF2e>);
+        }
     }
 
     /** Ensure value.isValued and value.value are in sync */
