@@ -82,8 +82,6 @@ declare global {
             ConditionManager: typeof ConditionManager;
             ModifierType: typeof MODIFIER_TYPE;
             Modifier: typeof ModifierPF2e;
-            AbilityModifier: typeof AbilityModifier;
-            ProficiencyModifier: typeof ProficiencyModifier;
             StatisticModifier: typeof StatisticModifier;
             CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
