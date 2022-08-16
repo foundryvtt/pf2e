@@ -1,4 +1,4 @@
-<section class="tab sidebar-tab directory flexcol compendium-sidebar" id="compendium" data-tab="compendium">
+<section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}">
     <header class="directory-header">
         <div class="header-actions action-buttons flexrow">
             {{#if user.isGM}}
@@ -13,12 +13,13 @@
             </button>
         </div>
     </header>
+
     <ol class="directory-list">
-        {{#each packs as |pack label|}}
+        {{#each packs as |group label|}}
             <li class="compendium-type">
                 <h3 class="noborder">{{label}}</h3>
                 <ol class="compendium-list">
-                    {{#each pack.packs as |pack|}}
+                    {{#each group.packs as |pack|}}
                         <li class="compendium-pack directory-item" data-collection="{{pack.collection}}" data-pack="{{pack.collection}}" data-open="0">
                             <h4 class="pack-title">
                                 <a><i class="folder fas fa-folder"></i> {{pack.metadata.label}}</a>
@@ -37,6 +38,7 @@
             </li>
         {{/each}}
     </ol>
+
     <footer class="directory-footer">
         <button type="button" class="compendium-browser-btn"><i class="fas fa-fire"></i> {{localize "PF2E.CompendiumBrowser.Title"}}</button>
     </footer>

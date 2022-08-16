@@ -47,9 +47,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return preview;
     }
 
-    override getData(options?: Partial<ApplicationOptions>): CompendiumDirectoryDataPF2e {
+    override async getData(options?: Partial<ApplicationOptions>): Promise<CompendiumDirectoryDataPF2e> {
         return {
-            ...super.getData(options),
+            ...(await super.getData(options)),
             searchContents: game.user.settings.searchPackContents,
         };
     }
