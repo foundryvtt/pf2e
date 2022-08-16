@@ -3,14 +3,7 @@ import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { WorldClock } from "@module/apps/world-clock";
-import {
-    AbilityModifier,
-    CheckModifier,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    ProficiencyModifier,
-    StatisticModifier,
-} from "@actor/modifiers";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { StatusEffects } from "@module/canvas/status-effects";
 import { DicePF2e } from "@scripts/dice";
@@ -50,7 +43,6 @@ export const SetGamePF2e = {
 
         const initSafe: Partial<typeof game["pf2e"]> = {
             actions,
-            AbilityModifier: AbilityModifier,
             Check: CheckPF2e,
             CheckModifier: CheckModifier,
             ConditionManager: ConditionManager,
@@ -63,7 +55,6 @@ export const SetGamePF2e = {
             licenseViewer: new LicenseViewer(),
             Modifier: ModifierPF2e,
             ModifierType: MODIFIER_TYPE,
-            ProficiencyModifier: ProficiencyModifier,
             rollActionMacro,
             rollItemMacro,
             RuleElement: RuleElementPF2e,
@@ -75,7 +66,7 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
 
-        mergeObject(game.pf2e, initSafe);
+        game.pf2e = mergeObject(game.pf2e, initSafe);
     },
 
     onSetup: (): void => {},
