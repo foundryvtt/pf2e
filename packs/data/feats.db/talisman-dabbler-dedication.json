@@ -30,16 +30,17 @@
                 "key": "CraftingEntry",
                 "label": "PF2E.SpecificRule.DedicationCraftingEntry.TalismanDabbler",
                 "maxSlots": 2,
-                "requiredTraits": [
-                    [
-                        "talisman"
+                "craftableItems": {
+                    "all": [
+                        "item:trait:talisman"
                     ]
-                ],
+                },
                 "selector": "talismanDabbler"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
+                "phase":"afterDerived",
                 "path": "system.crafting.entries.talismanDabbler.maxItemLevel",
                 "predicate": {
                     "all": [

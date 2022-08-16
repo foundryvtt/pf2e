@@ -172,8 +172,8 @@ class CharacterPF2e extends CreaturePF2e {
         return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
-                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable });
+                const { dc, batchSize, deletable, preparedData } = formulaMap.get(item.uuid) ?? { deletable: false };
+                return new CraftingFormula(item, { dc, batchSize, deletable, preparedData });
             });
     }
 
@@ -212,9 +212,12 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         for (const entry of entries) {
-            for (const prepData of entry.preparedFormulas) {
-                const itemSource: PhysicalItemSource = prepData.item.toObject();
-                itemSource.system.quantity = prepData.quantity || 1;
+            for (const formula of entry.preparedFormulas) {
+                const itemSource: PhysicalItemSource = formula.item.toObject();
+                itemSource.system.quantity = (formula.preparedData[entry.selector].slots || []).reduce(
+                    (sum, current) => sum + (current.quantity || 1),
+                    0
+                );
                 itemSource.system.temporary = true;
                 itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 

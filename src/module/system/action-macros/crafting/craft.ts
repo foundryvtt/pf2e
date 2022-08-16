@@ -33,6 +33,9 @@ export async function craft(options: CraftActionOptions) {
         visibility: "all",
     };
 
+    // whether the player needs to pay crafting costs
+    const free = !!options.free;
+
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
@@ -59,7 +62,7 @@ export async function craft(options: CraftActionOptions) {
                 const message = result.message;
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
-                        return await renderCraftingInline(item, result.roll, quantity, result.actor);
+                        return await renderCraftingInline(item, result.roll, quantity, result.actor, free);
                     }
                     return "";
                 })();
@@ -80,6 +83,7 @@ interface CraftActionOptions extends SkillActionOptions {
     item?: PhysicalItemPF2e;
     quantity?: number;
     uuid?: string;
+    free?: boolean;
 }
 
 interface ItemDropData {

@@ -164,7 +164,8 @@ export async function renderCraftingInline(
     item: PhysicalItemPF2e,
     roll: Rolled<CheckRoll>,
     quantity: number,
-    actor: ActorPF2e
+    actor: ActorPF2e,
+    free: boolean
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 
@@ -181,5 +182,6 @@ export async function renderCraftingInline(
         quantity,
         success: degreeOfSuccess > 1,
         criticalFailure: degreeOfSuccess === 0,
+        free: free,
     });
 }

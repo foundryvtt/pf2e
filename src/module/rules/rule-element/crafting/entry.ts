@@ -2,9 +2,9 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { PhysicalItemTrait } from "@item/physical/data";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { sluggify } from "@util";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /**
  * @category RuleElement
@@ -32,24 +32,30 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onCreate(actorUpdates: Record<string, unknown>): void {
+    override beforePrepareData(): void {
         if (!this.test()) return;
 
         const selector = String(this.resolveValue(this.selector));
 
+        let craftableItems = new PredicatePF2e(this.data.craftableItems || {});
+
+        if (!craftableItems.isValid) {
+            console.warn("PF2E | Crafting Entry RE craftableItems predicate does not have the correct format.");
+            craftableItems = new PredicatePF2e({});
+        }
+
         const data: CraftingEntryData = {
-            actorPreparedFormulas: [],
             selector: selector,
             name: this.name,
             isAlchemical: this.data.isAlchemical,
             isDailyPrep: this.data.isDailyPrep,
             isPrepared: this.data.isPrepared,
-            requiredTraits: this.data.requiredTraits,
+            craftableItems: craftableItems,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
         };
 
-        actorUpdates[`system.crafting.entries.${selector}`] = data;
+        this.actor.system.crafting.entries[this.selector] = data;
     }
 
     /** Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s */
@@ -60,10 +66,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
 
         const option = sluggify(this.selector);
         this.actor.rollOptions.all[`crafting:entry:${option}`] = true;
-    }
-
-    override onDelete(actorUpdates: Record<string, unknown>): void {
-        actorUpdates[`system.crafting.entries.-=${this.selector}`] = null;
     }
 }
 
@@ -77,9 +79,9 @@ interface CraftingEntryRuleData extends RuleElementData {
     isAlchemical?: boolean;
     isDailyPrep?: boolean;
     isPrepared?: boolean;
-    requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: number;
     maxSlots?: number;
+    craftableItems?: RawPredicate;
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -87,9 +89,9 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
     isPrepared?: unknown;
-    requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: unknown;
     maxSlots?: unknown;
+    craftableItems?: unknown;
 }
 
 export { CraftingEntryRuleElement };

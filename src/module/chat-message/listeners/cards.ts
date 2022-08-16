@@ -1,4 +1,4 @@
-import { craftSpellConsumable } from "@actor/character/crafting/helpers";
+import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
@@ -225,6 +225,16 @@ export const ChatCards = {
                             speaker: { alias: actor.name },
                         });
                     }
+                } else if (action === "receieve-crafting-item") {
+                    const itemUuid = $card.attr("data-item-uuid") || "";
+                    const item = await fromUuid(itemUuid);
+                    if (!(item instanceof PhysicalItemPF2e)) return;
+                    const quantity = Number($card.attr("data-crafting-quantity")) || 1;
+
+                    isSpellConsumable(item.id) && item.isOfType("consumable")
+                        ? await craftSpellConsumable(item, quantity, actor)
+                        : await craftItem(item, quantity, actor);
+                    return;
                 }
             }
         });
