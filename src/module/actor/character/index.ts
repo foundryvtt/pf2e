@@ -12,8 +12,8 @@ import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
 import {
-    AbilityModifier,
     CheckModifier,
+    createAbilityModifier,
     ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
@@ -427,7 +427,10 @@ class CharacterPF2e extends CreaturePF2e {
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        this.setAbilityModifiers();
+        for (const ability of Object.values(this.system.abilities)) {
+            ability.mod = Math.floor((ability.value - 10) / 2);
+        }
+
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
     }
@@ -543,13 +546,13 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Perception
         {
+            const domains = ["perception", "wis-based", "all"];
             const proficiencyRank = systemData.attributes.perception.rank || 0;
             const modifiers = [
-                AbilityModifier.fromScore("wis", systemData.abilities.wis.value),
+                createAbilityModifier({ actor: this, ability: "wis", domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
             ];
 
-            const domains = ["perception", "wis-based", "all"];
             modifiers.push(...extractModifiers(synthetics, domains));
 
             const stat = mergeObject(
@@ -603,12 +606,10 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Class DC
         {
-            const domains = ["class", `${systemData.details.keyability.value}-based`, "all"];
+            const ability = systemData.details.keyability.value;
+            const domains = ["class", `${ability}-based`, "all"];
             const modifiers = [
-                AbilityModifier.fromScore(
-                    systemData.details.keyability.value,
-                    systemData.abilities[systemData.details.keyability.value].value
-                ),
+                createAbilityModifier({ actor: this, ability, domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
                 ...extractModifiers(synthetics, domains),
             ];
@@ -667,18 +668,22 @@ class CharacterPF2e extends CreaturePF2e {
             );
 
             // DEX modifier is limited by the lowest cap, usually from armor
-            const dexterity = AbilityModifier.fromScore("dex", systemData.abilities.dex.value);
+            const dexModifier = createAbilityModifier({
+                actor: this,
+                ability: "dex",
+                domains: ["all", "ac", "dex-based"],
+            });
             const dexCap = dexCapSources.reduce((lowest, candidate) =>
                 lowest.value > candidate.value ? candidate : lowest
             );
-            dexterity.modifier = Math.min(dexterity.modifier, dexCap.value);
-            modifiers.unshift(dexterity);
+            dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
+            modifiers.unshift(dexModifier);
 
             // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
             // which AC is based
             const abilityModifier = modifiers
                 .filter((m) => m.type === "ability" && !!m.ability)
-                .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
+                .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
             const acAbility = abilityModifier.ability!;
             const domains = ["all", "ac", `${acAbility}-based`];
             modifiers.push(...extractModifiers(synthetics, domains));
@@ -856,13 +861,6 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    private setAbilityModifiers(): void {
-        // Set modifiers
-        for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.floor((ability.value - 10) / 2);
-        }
-    }
-
     /** Set roll operations for ability scores, proficiency ranks, and number of hands free */
     protected setNumericRollOptions(): void {
         const rollOptionsAll = this.rollOptions.all;
@@ -908,7 +906,6 @@ class CharacterPF2e extends CreaturePF2e {
         // Some rules specify ignoring the Free Hand trait
         const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
-        // `
     }
 
     private prepareSaves(): void {
@@ -990,7 +987,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             const modifiers = [
-                AbilityModifier.fromScore(skill.ability, systemData.abilities[skill.ability].value),
+                createAbilityModifier({ actor: this, ability: skill.ability, domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             for (const modifier of modifiers) {
@@ -1104,7 +1101,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
-                AbilityModifier.fromScore("int", systemData.abilities.int.value),
+                createAbilityModifier({ actor: this, ability: "int", domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
             ];
             for (const modifier of modifiers) {
@@ -1401,17 +1398,6 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponRollOptions = weapon.getRollOptions();
         const weaponTraits = weapon.traits;
 
-        // Determine the default ability and score for this attack.
-        const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
-        const score = systemData.abilities[defaultAbility].value;
-        modifiers.push(AbilityModifier.fromScore(defaultAbility, score));
-        if (weapon.isMelee && weaponTraits.has("finesse")) {
-            modifiers.push(AbilityModifier.fromScore("dex", systemData.abilities.dex.value));
-        }
-        if (weapon.isRanged && weaponTraits.has("brutal")) {
-            modifiers.push(AbilityModifier.fromScore("str", systemData.abilities.str.value));
-        }
-
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
         const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
@@ -1467,6 +1453,16 @@ class CharacterPF2e extends CreaturePF2e {
             meleeOrRanged,
         ];
         ensureProficiencyOption(baseOptions, proficiencyRank);
+
+        // Determine the default ability and score for this attack.
+        const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
+        modifiers.push(createAbilityModifier({ actor: this, ability: defaultAbility, domains: baseSelectors }));
+        if (weapon.isMelee && weaponTraits.has("finesse")) {
+            modifiers.push(createAbilityModifier({ actor: this, ability: "dex", domains: baseSelectors }));
+        }
+        if (weapon.isRanged && weaponTraits.has("brutal")) {
+            modifiers.push(createAbilityModifier({ actor: this, ability: "str", domains: baseSelectors }));
+        }
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
