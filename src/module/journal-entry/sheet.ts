@@ -36,7 +36,6 @@ class JournalTextPageSheetPF2e extends JournalTextPageSheet {
         initialContent = ""
     ): Promise<TinyMCE.Editor> {
         const editor = await super.activateEditor(name, options, initialContent);
-        console.log(options.target);
 
         const parentSheet = this.object.parent?.sheet.constructor as { theme?: string } | undefined;
         const theme = parentSheet?.theme;
