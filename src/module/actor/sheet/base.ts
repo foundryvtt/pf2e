@@ -10,7 +10,6 @@ import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { FolderPF2e } from "@module/folder";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { createSheetTags } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -933,12 +932,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     protected override async _onDropFolder(
         _event: ElementDragEvent,
-        data: DropCanvasData<"Folder", FolderPF2e>
+        data: DropCanvasData<"Folder", Folder>
     ): Promise<ItemPF2e[]> {
         if (!(this.actor.isOwner && data.documentName === "Item")) return [];
-        const folder = (await FolderPF2e.fromDropData(data)) as FolderPF2e<ItemPF2e> | undefined;
+        const folder = (await Folder.fromDropData(data)) as Folder<ItemPF2e> | undefined;
         if (!folder) return [];
-        const itemSources = folder.flattenedContents.map((item) => item.toObject());
+        const itemSources = [folder, ...folder.getSubfolders()].flatMap((f) => f.contents).map((i) => i.toObject());
         return this._onDropItemCreate(itemSources);
     }
 
