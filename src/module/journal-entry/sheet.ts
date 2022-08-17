@@ -1,6 +1,4 @@
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { TextEditorPF2e } from "@system/text-editor";
-import { ErrorPF2e } from "@util";
 import type * as TinyMCE from "tinymce";
 import "../../styles/tinymce.scss";
 
@@ -23,26 +21,6 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
         super.activateListeners($html);
         InlineRollLinks.listen($html);
     }
-
-    override activateEditor(name: string, options: Partial<TinyMCE.EditorOptions> = {}, initialContent = ""): void {
-        const editor = this.editors[name];
-        if (!editor) throw ErrorPF2e(`${name} is not a registered editor name!`);
-
-        options = foundry.utils.mergeObject(editor.options, options);
-        options.height = options.target?.offsetHeight;
-        TextEditorPF2e.create(options, initialContent || editor.initial).then((mce) => {
-            const theme = (this.constructor as typeof JournalSheetPF2e).theme;
-            if (theme) {
-                mce.getBody().classList.add(theme);
-            }
-
-            editor.mce = mce;
-            editor.changed = false;
-            editor.active = true;
-            mce.focus();
-            mce.on("change", () => (editor.changed = true));
-        });
-    }
 }
 
 class JournalSheetStyledPF2e extends JournalSheetPF2e {
@@ -51,4 +29,23 @@ class JournalSheetStyledPF2e extends JournalSheetPF2e {
     }
 }
 
-export { JournalSheetPF2e, JournalSheetStyledPF2e };
+class JournalTextPageSheetPF2e extends JournalTextPageSheet {
+    override async activateEditor(
+        name: string,
+        options: Partial<TinyMCE.EditorOptions> = {},
+        initialContent = ""
+    ): Promise<TinyMCE.Editor> {
+        const editor = await super.activateEditor(name, options, initialContent);
+
+        const parentSheet = this.object.parent?.sheet.constructor as { theme?: string } | undefined;
+        const theme = parentSheet?.theme;
+        if (theme) {
+            editor.contentDocument.documentElement.classList.add(theme, "journal-entry-page", "text");
+            editor.contentDocument.body.classList.add("text-content");
+        }
+
+        return editor;
+    }
+}
+
+export { JournalSheetPF2e, JournalSheetStyledPF2e, JournalTextPageSheetPF2e };
