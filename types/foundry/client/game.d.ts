@@ -18,7 +18,6 @@ declare global {
         TActors extends Actors<TActor> = Actors<TActor>,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
         TCombat extends Combat = Combat,
-        TFolder extends Folder = Folder,
         TItem extends Item<TActor> = Item<TActor>,
         TMacro extends Macro = Macro,
         TScene extends Scene = Scene,
@@ -133,7 +132,7 @@ declare global {
         >;
 
         combats: CombatEncounters<TCombat>;
-        folders: Folders<TFolder>;
+        folders: Folders<Folder>;
         items: Items<TItem>;
         journal: Journal;
         macros: Macros<TMacro>;

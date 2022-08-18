@@ -97,17 +97,7 @@ declare global {
 
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<
-            ActorPF2e,
-            ActorsPF2e,
-            ChatMessagePF2e,
-            EncounterPF2e,
-            FolderPF2e,
-            ItemPF2e,
-            MacroPF2e,
-            ScenePF2e,
-            UserPF2e
-        >;
+        var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
 
         // eslint-disable-next-line no-var
         var ui: FoundryUI<ActorPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
