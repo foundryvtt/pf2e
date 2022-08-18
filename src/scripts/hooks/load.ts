@@ -5,8 +5,6 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorsPF2e } from "@module/collection/actors";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { FogExplorationPF2e } from "@module/fog-exploration";
-import { FolderPF2e } from "@module/folder";
 import { MacroPF2e } from "@module/macro";
 import { UserPF2e } from "@module/user";
 import {
@@ -29,8 +27,6 @@ export const Load = {
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
-        CONFIG.FogExploration.documentClass = FogExplorationPF2e;
-        CONFIG.Folder.documentClass = FolderPF2e;
         CONFIG.Item.documentClass = ItemPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;

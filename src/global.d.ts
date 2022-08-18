@@ -1,13 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import {
-    AbilityModifier,
-    CheckModifier,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    ProficiencyModifier,
-    StatisticModifier,
-} from "@actor/modifiers";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { ItemPF2e } from "@item/base";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -20,8 +13,6 @@ import { WorldClock } from "@module/apps/world-clock";
 import { CanvasPF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorsPF2e } from "@module/collection/actors";
-import { FogExplorationPF2e } from "@module/fog-exploration";
-import { FolderPF2e } from "@module/folder";
 import { MacroPF2e } from "@module/macro";
 import { RuleElementPF2e, RuleElements } from "@module/rules";
 import {
@@ -208,8 +199,6 @@ type ConfiguredConfig = Config<
     CombatantPF2e,
     EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
-    FogExplorationPF2e,
-    FolderPF2e,
     HotbarPF2e,
     ItemPF2e,
     MacroPF2e,

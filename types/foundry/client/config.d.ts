@@ -11,8 +11,6 @@ declare global {
         TCombatant extends Combatant<TCombat | null, TActor | null> = Combatant<TCombat | null, TActor | null>,
         TCombatTracker extends CombatTracker<TCombat | null> = CombatTracker<TCombat | null>,
         TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
-        TFogExploration extends FogExploration = FogExploration,
-        TFolder extends Folder = Folder,
         THotbar extends Hotbar = Hotbar,
         TItem extends Item = Item,
         TMacro extends Macro = Macro,
@@ -70,20 +68,13 @@ declare global {
 
         /** Configuration for the FogExploration document */
         FogExploration: {
-            documentClass: {
-                new (
-                    data: PreCreate<TFogExploration["_source"]>,
-                    context?: DocumentConstructionContext<TFogExploration>
-                ): TFogExploration;
-            };
+            documentClass: typeof FogExploration;
             collection: typeof WorldCollection;
         };
 
         /** Configuration for the Folder document */
         Folder: {
-            documentClass: {
-                new (data: PreCreate<TFolder["_source"]>, context?: DocumentConstructionContext<TFolder>): TFolder;
-            };
+            documentClass: typeof Folder;
             collection: typeof Folders;
         };
 
