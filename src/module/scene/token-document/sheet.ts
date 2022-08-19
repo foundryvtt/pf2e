@@ -4,7 +4,7 @@ import { TokenDocumentPF2e } from ".";
 
 export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends TokenConfig<TDocument> {
     override get template(): string {
-        return "systems/pf2e/templates/scene/token-config.html";
+        return "systems/pf2e/templates/scene/token/sheet.html";
     }
 
     /** Get this token's dimensions were they linked to its actor's size */
