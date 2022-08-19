@@ -237,36 +237,54 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         const distance = {
-            horizontal: measureDistanceRect(this.bounds, target.bounds, { reach }),
-            vertical: 0,
+            xy: measureDistanceRect(this.bounds, target.bounds, { reach }),
+            xz: 0,
+            yz: 0,
         };
 
         const selfElevation = this.document.elevation;
         const targetElevation = target.document.elevation;
-        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.horizontal;
+        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.xy;
 
         const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
-        if (!(selfDimensions && targetDimensions)) return distance.horizontal;
+        if (!(selfDimensions && targetDimensions)) return distance.xy;
 
         const gridSize = canvas.dimensions.size;
         const gridDistance = canvas.dimensions.distance;
-        const vertical = {
+
+        const xzPlane = {
             self: new PIXI.Rectangle(
                 this.bounds.x,
-                (selfElevation / gridDistance) * gridSize,
+                Math.floor((selfElevation / gridDistance) * gridSize),
                 this.bounds.width,
-                (selfDimensions.height / gridDistance) * gridSize
+                Math.floor((selfDimensions.height / gridDistance) * gridSize)
             ),
             target: new PIXI.Rectangle(
                 target.bounds.x,
-                (targetElevation / gridDistance) * gridSize,
+                Math.floor((targetElevation / gridDistance) * gridSize),
                 target.bounds.width,
-                (targetDimensions.height / gridDistance) * gridSize
+                Math.floor((targetDimensions.height / gridDistance) * gridSize)
             ),
         };
+        distance.xz = measureDistanceRect(xzPlane.self, xzPlane.target, { reach });
 
-        distance.vertical = measureDistanceRect(vertical.self, vertical.target, { reach });
-        const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
+        const yzPlane = {
+            self: new PIXI.Rectangle(
+                this.bounds.y,
+                Math.floor((selfElevation / gridDistance) * gridSize),
+                this.bounds.height,
+                Math.floor((selfDimensions.height / gridDistance) * gridSize)
+            ),
+            target: new PIXI.Rectangle(
+                target.bounds.y,
+                Math.floor((targetElevation / gridDistance) * gridSize),
+                target.bounds.height,
+                Math.floor((targetDimensions.height / gridDistance) * gridSize)
+            ),
+        };
+        distance.yz = measureDistanceRect(yzPlane.self, yzPlane.target, { reach });
+
+        const hypotenuse = Math.sqrt(Math.pow(distance.xy, 2) + Math.pow(Math.max(distance.xz, distance.yz), 2));
 
         return Math.floor(hypotenuse / gridDistance) * gridDistance;
     }
