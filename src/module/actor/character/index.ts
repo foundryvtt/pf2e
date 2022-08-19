@@ -422,8 +422,6 @@ class CharacterPF2e extends CreaturePF2e {
             formula.deletable = true;
         }
 
-        this.system.crafting.entries = {};
-
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
