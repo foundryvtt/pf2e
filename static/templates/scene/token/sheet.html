@@ -13,13 +13,13 @@
     <div class="tab" data-group="main" data-tab="character">
         <div class="form-group">
             <label>{{localize "TOKEN.CharNameplate"}}</label>
-            <input type="text" name="name" placeholder="{{ localize 'Name' }}" value="{{object.name}}"/>
+            <input type="text" name="name" placeholder="{{localize "Name"}}" value="{{object._source.name}}"/>
         </div>
 
         <div class="form-group">
             <label>{{localize "TOKEN.CharShowNameplate"}}</label>
             <select name="displayName" data-dtype="Number">
-                {{selectOptions displayModes selected=object.displayName }}
+                {{selectOptions displayModes selected=object.displayName}}
             </select>
         </div>
 
@@ -81,7 +81,7 @@
                 <label>{{localize "TOKEN.ImagePath"}}</label>
                 <div class="form-fields">
                     {{filePicker target="texture.src" type="imagevideo"}}
-                    <input class="image" type="text" name="texture.src" placeholder="path/image.png" value="{{object.texture.src}}" />
+                    <input class="image" type="text" name="texture.src" placeholder="path/image.png" value="{{object._source.texture.src}}" />
                 </div>
             </div>
 
@@ -94,7 +94,7 @@
                 <div class="form-group">
                     <label>{{localize "TOKEN.ImageAlts"}}</label>
                     <select class="alternate-images" name="alternateImages">
-                        {{selectOptions alternateImages selected=object.texture.src blank=""}}
+                        {{selectOptions alternateImages selected=object._source.texture.src blank=""}}
                     </select>
                 </div>
             {{/if}}
@@ -112,14 +112,14 @@
             <div class="form-group">
                 <label>{{ localize "TOKEN.TintColor" }}</label>
                 <div class="form-fields">
-                    {{ colorPicker name="texture.tint" value=object.texture.tint }}
+                    {{ colorPicker name="texture.tint" value=object._source.texture.tint }}
                 </div>
             </div>
 
             <div class="form-group">
                 <label>{{localize "TOKEN.Opacity"}}</label>
                 <div class="form-fields">
-                    {{rangePicker name="alpha" value=object.alpha min="0" max="1" step="0.05"}}
+                    {{rangePicker name="alpha" value=object._source.alpha min="0" max="1" step="0.05"}}
                 </div>
             </div>
         </fieldset>
@@ -155,7 +155,7 @@
     {{> "templates/scene/parts/token-vision.html"}}
 
     <!-- Light -->
-    {{> "templates/scene/parts/token-lighting.html"}}
+    {{> "systems/pf2e/templates/scene/token/partials/lighting.html"}}
 
     <!-- Resource Bars -->
     {{> "templates/scene/parts/token-resources.html"}}
