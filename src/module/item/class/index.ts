@@ -35,10 +35,9 @@ class ClassPF2e extends ABCItemPF2e {
 
     get grantedFeatSlots(): { ancestry: FeatSlotLevel[]; class: number[]; skill: number[]; general: number[] } {
         const actorLevel = this.actor?.level ?? 0;
-        const filterLevels = (levels: number[]) => levels.filter((level) => actorLevel >= level) ?? [];
         const system = this.system;
 
-        const ancestryLevels: FeatSlotLevel[] = filterLevels(system.ancestryFeatLevels.value);
+        const ancestryLevels: FeatSlotLevel[] = system.ancestryFeatLevels.value;
         if (game.settings.get("pf2e", "ancestryParagonVariant")) {
             ancestryLevels.unshift({ id: "ancestry-bonus", label: "1" });
             for (let level = 3; level <= actorLevel; level += 4) {
@@ -49,9 +48,9 @@ class ClassPF2e extends ABCItemPF2e {
 
         return {
             ancestry: ancestryLevels,
-            class: filterLevels(system.classFeatLevels.value),
-            skill: filterLevels(system.skillFeatLevels.value),
-            general: filterLevels(system.generalFeatLevels.value),
+            class: system.classFeatLevels.value,
+            skill: system.skillFeatLevels.value,
+            general: system.generalFeatLevels.value,
         };
     }
 

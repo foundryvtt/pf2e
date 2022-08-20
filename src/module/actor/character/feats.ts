@@ -11,7 +11,8 @@ interface FeatCategoryOptions {
     label: string;
     featFilter?: string;
     supported?: FeatType[];
-    levels?: FeatSlotLevel[];
+    slots?: FeatSlotLevel[];
+    level?: number;
 }
 
 class CharacterFeats extends Collection<FeatCategory> {
@@ -44,14 +45,14 @@ class CharacterFeats extends Collection<FeatCategory> {
             label: "PF2E.FeatAncestryHeader",
             featFilter: "ancestry-" + actor.ancestry?.slug,
             supported: ["ancestry"],
-            levels: classFeatSlots?.ancestry ?? [],
+            slots: classFeatSlots?.ancestry ?? [],
         });
         this.createCategory({
             id: "class",
             label: "PF2E.FeatClassHeader",
             featFilter: "classes-" + actor.class?.slug,
             supported: ["class"],
-            levels: classFeatSlots?.class ?? [],
+            slots: classFeatSlots?.class ?? [],
         });
 
         const evenLevels = new Array(actor.level)
@@ -65,7 +66,7 @@ class CharacterFeats extends Collection<FeatCategory> {
                 id: "dualclass",
                 label: "PF2E.FeatDualClassHeader",
                 supported: ["class"],
-                levels: [1, ...evenLevels],
+                slots: [1, ...evenLevels],
             });
         }
 
@@ -75,7 +76,7 @@ class CharacterFeats extends Collection<FeatCategory> {
                 id: "archetype",
                 label: "PF2E.FeatArchetypeHeader",
                 supported: ["class"],
-                levels: evenLevels,
+                slots: evenLevels,
             });
         }
 
@@ -83,13 +84,13 @@ class CharacterFeats extends Collection<FeatCategory> {
             id: "skill",
             label: "PF2E.FeatSkillHeader",
             supported: ["skill"],
-            levels: [...skillPrepend, ...(classFeatSlots?.skill ?? [])],
+            slots: [...skillPrepend, ...(classFeatSlots?.skill ?? [])],
         });
         this.createCategory({
             id: "general",
             label: "PF2E.FeatGeneralHeader",
             supported: ["general", "skill"],
-            levels: classFeatSlots?.general ?? [],
+            slots: classFeatSlots?.general ?? [],
         });
 
         // Add campaign feats if enabled
@@ -99,7 +100,7 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 
     createCategory(options: FeatCategoryOptions) {
-        this.set(options.id, new FeatCategory(options));
+        this.set(options.id, new FeatCategory(this.actor, options));
     }
 
     private combineGrants(feat: FeatPF2e): { feat: FeatPF2e; grants: GrantedFeat[] } {
@@ -269,14 +270,19 @@ class FeatCategory {
     /** Lookup for the slots themselves */
     slots: Record<string, SlottedFeat> = {};
 
-    constructor(options: FeatCategoryOptions) {
+    constructor(actor: CharacterPF2e, options: FeatCategoryOptions) {
+        const maxLevel = options.level ?? actor.level;
         this.id = options.id;
         this.label = options.label;
         this.supported = options.supported ?? [];
         this.featFilter = options.featFilter;
-        if (options.levels) {
+        if (options.slots) {
             this.slotted = true;
-            for (const level of options.levels) {
+            for (const level of options.slots) {
+                if (typeof level === "number" && level > maxLevel) {
+                    continue;
+                }
+
                 const { id, label } = typeof level === "object" ? level : { id: `${this.id}-${level}`, label: level };
                 const slot = { id, level: label, grants: [] };
                 this.feats.push(slot);
