@@ -4,9 +4,6 @@
             <li class="item item-container spellcasting-entry" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
                 <div class="action-header">
                     <a class="drag-handle"><i class="fas fa-bars"></i></a>
-                    {{#if entry.isPrepared}}
-                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas fa-book"></i></a>
-                    {{/if}}
 
                     <h3 class="item-name">
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}" />
@@ -39,6 +36,12 @@
                                 <h4 class="skill-name spellcasting">{{localize "PF2E.SpellSaveLabel"}}</h4>
                             </div>
 
+                            {{#if entry.isPrepared}}
+                                <button type="button" class="skill-name prepared-toggle blue-button">
+                                    <i class="fas fa-book"></i>{{localize "PF2E.ToggleSpellVisibilityTitle"}}
+                                </a>
+                            {{/if}}
+
                             {{#if entry.isFocusPool}}
                                 <div class="focus-pool">
                                     <span class="pips">
@@ -68,7 +71,7 @@
         {{#if @root.owner}}
             <li class="item spellbook-empty">
                 <div class="item-controls pf-add-item-row">
-                    <a class="item-control" data-action="spellcasting-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-level="{{lvl}}">
+                    <a class="item-control blue-button" data-action="spellcasting-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-level="{{lvl}}">
                         <i class="fas fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}
                     </a>
                 </div>
