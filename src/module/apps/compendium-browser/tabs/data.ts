@@ -1,3 +1,4 @@
+import { FeatTrait } from "@item/feat/data";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { CommonSortByOption, SortByOption, SortDirection } from "../data";
 
@@ -81,7 +82,8 @@ interface EquipmentFilters extends BaseFilterData {
 }
 
 interface FeatFilters extends BaseFilterData {
-    checkboxes: Record<"ancestry" | "classes" | "feattype" | "skills" | "rarity" | "source" | "traits", CheckboxData>;
+    checkboxes: Record<"feattype" | "skills" | "rarity" | "source", CheckboxData>;
+    multiselects: Record<"traits", MultiselectData<FeatTrait>>;
     sliders: Record<"level", SliderData>;
 }
 
@@ -139,7 +141,7 @@ interface InitialFeatFilters extends BaseInitialFilters {
     rarity?: string[];
     source?: string[];
     traits?: string[];
-    levelRange?: { min?: number; max?: number };
+    level?: { min?: number; max?: number };
     orderBy?: CommonSortByOption;
 }
 

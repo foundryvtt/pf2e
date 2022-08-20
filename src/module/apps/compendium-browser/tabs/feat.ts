@@ -14,14 +14,73 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.prepareFilterData();
     }
 
+    protected override prepareFilterData(): void {
+        this.filterData = {
+            checkboxes: {
+                feattype: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterCategory",
+                    options: {},
+                    selected: [],
+                },
+                skills: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterSkills",
+                    options: {},
+                    selected: [],
+                },
+                rarity: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterRarities",
+                    options: {},
+                    selected: [],
+                },
+                source: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterSource",
+                    options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
+                    selected: [],
+                },
+            },
+            order: {
+                by: "name",
+                direction: "asc",
+                options: {
+                    name: "PF2E.BrowserSortyByNameLabel",
+                    level: "PF2E.BrowserSortyByLevelLabel",
+                },
+            },
+            sliders: {
+                level: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterLevels",
+                    values: {
+                        lowerLimit: 0,
+                        upperLimit: 20,
+                        min: 0,
+                        max: 20,
+                        step: 1,
+                    },
+                },
+            },
+            search: {
+                text: "",
+            },
+        };
+    }
+
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
         const feats: CompendiumIndexData[] = [];
-        const classes: Set<string> = new Set();
         const skills: Set<string> = new Set();
-        const ancestries: Set<string> = new Set();
-        const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
@@ -49,30 +108,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         );
                         continue;
                     }
-                    featData.system.classes = { value: [] };
-                    featData.system.ancestry = { value: [] };
                     featData.system.skills = { value: [] };
-                    // determining attributes from traits
-                    if (featData.system.traits.value) {
-                        // determine class feats
-                        const classList = Object.keys(CONFIG.PF2E.classTraits);
-                        const classIntersection = classList.filter((x) => featData.system.traits.value.includes(x));
-                        if (classIntersection.length !== 0) {
-                            classes.add(classIntersection.join(","));
-                            featData.system.classes.value = classIntersection;
-                        }
-
-                        if (featData.system.featType.value === "ancestry") {
-                            const ancestryIntersection = ancestryList.filter((x) =>
-                                featData.system.traits.value.includes(x)
-                            );
-
-                            if (ancestryIntersection.length !== 0) {
-                                ancestries.add(ancestryIntersection.join(","));
-                                featData.system.ancestry.value = ancestryIntersection;
-                            }
-                        }
-                    }
 
                     // determine skill prerequisites
                     // Note: This code includes some feats, where the prerequisite has the name of a skill.
@@ -112,9 +148,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         compendium: pack.collection,
                         level: featData.system.level.value,
                         featType: featData.system.featType.value,
-                        classes: featData.system.classes.value,
                         skills: featData.system.skills.value,
-                        ancestry: featData.system.ancestry.value,
                         traits: featData.system.traits.value,
                         rarity: featData.system.traits.rarity,
                         source: featData.system.source.value,
@@ -123,29 +157,21 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             }
         }
 
-        // Exclude ancestry and class traits since they're separately searchable
-        const excludedTraits = new Set([...ancestries, ...classes]);
-        const featTraits = Object.fromEntries(
-            Object.entries(CONFIG.PF2E.featTraits).filter(([key]) => !excludedTraits.has(key))
-        );
-
         // Set indexData
         this.indexData = feats;
 
         // Filters
         this.filterData.checkboxes.feattype.options = this.generateCheckboxOptions(CONFIG.PF2E.featTypes);
-        this.filterData.checkboxes.classes.options = this.generateCheckboxOptions(CONFIG.PF2E.classTraits);
         this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skillList);
-        this.filterData.checkboxes.ancestry.options = this.generateCheckboxOptions(CONFIG.PF2E.ancestryTraits);
-        this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(featTraits);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions({ ...CONFIG.PF2E.featTraits });
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
     protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, search, sliders } = this.filterData;
+        const { checkboxes, multiselects, search, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
@@ -158,22 +184,16 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         if (checkboxes.feattype.selected.length) {
             if (!checkboxes.feattype.selected.includes(entry.featType)) return false;
         }
-        // Classes
-        if (checkboxes.classes.selected.length) {
-            if (!this.arrayIncludes(checkboxes.classes.selected, entry.classes)) return false;
-        }
         // Skills
         if (checkboxes.skills.selected.length) {
             if (!this.arrayIncludes(checkboxes.skills.selected, entry.skills)) return false;
         }
-        // Ancestries
-        if (checkboxes.ancestry.selected.length) {
-            if (!this.arrayIncludes(checkboxes.ancestry.selected, entry.ancestry)) return false;
-        }
         // Traits
-        if (checkboxes.traits.selected.length) {
-            if (!this.arrayIncludes(checkboxes.traits.selected, entry.traits)) return false;
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.some((t) => entry.traits.includes(t))) {
+            return false;
         }
+
         // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
@@ -183,78 +203,5 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
         return true;
-    }
-
-    protected override prepareFilterData(): void {
-        this.filterData = {
-            checkboxes: {
-                feattype: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterCategory",
-                    options: {},
-                    selected: [],
-                },
-                classes: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterClass",
-                    options: {},
-                    selected: [],
-                },
-                skills: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSkills",
-                    options: {},
-                    selected: [],
-                },
-                ancestry: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterAncestries",
-                    options: {},
-                    selected: [],
-                },
-                traits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterTraits",
-                    options: {},
-                    selected: [],
-                },
-                rarity: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterRarities",
-                    options: {},
-                    selected: [],
-                },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSource",
-                    options: {},
-                    selected: [],
-                },
-            },
-            order: {
-                by: "name",
-                direction: "asc",
-                options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
-                },
-            },
-            sliders: {
-                level: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterLevels",
-                    values: {
-                        lowerLimit: 0,
-                        upperLimit: 20,
-                        min: 0,
-                        max: 20,
-                        step: 1,
-                    },
-                },
-            },
-            search: {
-                text: "",
-            },
-        };
     }
 }
