@@ -15,6 +15,7 @@ import {
     TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@scene";
+import { monkeyPatchTextEditor } from "@scripts/🐵🩹";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -51,6 +52,9 @@ export const Load = {
 
         // Make available immediately on load for module subclassing
         window.AutomaticBonusProgression = AutomaticBonusProgression;
+
+        // Monkey-patch `TextEditor.enrichHTML`
+        monkeyPatchTextEditor();
 
         // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
         document.addEventListener("mouseup", (): void => {

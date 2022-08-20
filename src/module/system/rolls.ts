@@ -303,7 +303,7 @@ class CheckPF2e {
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
-            return TextEditorPF2e.enrichHTML(flavor, { ...item?.getRollData(), async: true });
+            return TextEditor.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
         const secret = context.secret ?? context.options?.includes("secret") ?? false;

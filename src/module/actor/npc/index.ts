@@ -18,7 +18,6 @@ import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import { NPCData, NPCFlags, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
@@ -823,7 +822,7 @@ class NPCPF2e extends CreaturePF2e {
         const formatNoteText = async (itemName: string, item: ItemPF2e) => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
-            const description = await TextEditorPF2e.enrichHTML(item.description, { rollData, async: true });
+            const description = await TextEditor.enrichHTML(item.description, { rollData, async: true });
 
             return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
         };

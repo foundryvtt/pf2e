@@ -1,19 +1,12 @@
 import { ActorPF2e } from "@actor";
 import { RollDataPF2e } from "@system/rolls";
-import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e } from "@item";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { DamageButtons } from "./listeners/damage-buttons";
-import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
-import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ChatRollDetails } from "./chat-roll-details";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
@@ -155,129 +148,14 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
-    /** As of Foundry 9.251, players are able to delete their own messages, and GMs are unable to restrict it. */
-    protected static override _canDelete(user: UserPF2e): boolean {
-        return user.isGM;
-    }
-
     override async getHTML(): Promise<JQuery> {
-        // Determine some metadata
-        const data = this.toObject(false) as RawObject<ChatMessageDataPF2e>;
         const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
-        data.content = await TextEditorPF2e.enrichHTML(this.content, { rollData, async: true });
-        const isWhisper = this.whisper.length;
+        this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
 
-        // Construct message data
-        const messageData: ChatMessageRenderData = {
-            message: data,
-            user: game.user,
-            author: this.user,
-            alias: this.alias,
-            cssClass: [
-                this.type === CONST.CHAT_MESSAGE_TYPES.IC ? "ic" : null,
-                this.type === CONST.CHAT_MESSAGE_TYPES.EMOTE ? "emote" : null,
-                isWhisper ? "whisper" : null,
-                this.blind ? "blind" : null,
-            ].filterJoin(" "),
-            isWhisper: this.whisper.length,
-            canDelete: game.user.isGM, // Only GM users are allowed to have the trash-bin icon in the chat log itself
-            whisperTo: this.whisper
-                .map((u) => {
-                    const user = game.users.get(u);
-                    return user ? user.name : null;
-                })
-                .filterJoin(", "),
-        };
-
-        // Render message data specifically for ROLL type messages
-        if (this.isRoll) {
-            await this._renderRollContent(messageData);
-        }
-
-        // Define a border color
-        if (this.type === CONST.CHAT_MESSAGE_TYPES.OOC) {
-            messageData.borderColor = this.user.color;
-        }
-
-        // Render the chat message
-        const $html = $(await renderTemplate(CONFIG.ChatMessage.template, messageData));
-
-        // Flag expanded state of dice rolls
-        if (this._rollExpanded) $html.find(".dice-tooltip").addClass("expanded");
-
-        // Remove spell card owner buttons if the user is not the owner of the spell
-        if (this.item?.isOfType("spell") && !this.item.isOwner) {
-            $html.find("section.owner-buttons").remove();
-        }
-
-        // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
-        const targetDC = $html[0].querySelector(".target-dc");
-        if (targetDC?.innerHTML.trim() === "") targetDC.remove();
-        const dcResult = $html[0].querySelector(".dc-result");
-        if (dcResult?.innerHTML.trim() === "") dcResult.remove();
-
-        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
-            await DamageButtons.append(this, $html);
-
-            // Clean up styling of old damage messages
-            $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
-        }
-
-        CriticalHitAndFumbleCards.appendButtons(this, $html);
-
-        ChatCards.listen($html);
-        InlineRollLinks.listen($html);
-        DegreeOfSuccessHighlights.listen(this, $html);
-        if (canvas.ready) SetAsInitiative.listen($html);
-
-        // Check DC adjusted by circumstance bonuses or penalties
-        try {
-            const $adjustedDC = $html.find(".adjusted-dc[data-circumstances]");
-            if ($adjustedDC.length === 1) {
-                const circumstances = JSON.parse($adjustedDC.attr("data-circumstances") ?? "");
-                if (!Array.isArray(circumstances)) throw ErrorPF2e("Malformed adjustments array");
-
-                const content = circumstances
-                    .map((a: { label: string; value: number }) => {
-                        const sign = a.value >= 0 ? "+" : "";
-                        return $("<div>").text(`${a.label}: ${sign}${a.value}`);
-                    })
-                    .reduce(($concatted, $a) => $concatted.append($a), $("<div>"))
-                    .prop("outerHTML");
-
-                $adjustedDC.tooltipster({ content, contentAsHTML: true, theme: "crb-hover" });
-            }
-        } catch (error) {
-            if (error instanceof Error) console.error(error.message);
-        }
-
-        // Trait and material tooltips
-        $html.find(".tag[data-material], .tag[data-slug], .tag[data-trait]").each((_idx, span) => {
-            const $tag = $(span);
-            const description = $tag.attr("data-description");
-            if (description) {
-                $tag.tooltipster({
-                    content: game.i18n.localize(description),
-                    maxWidth: 400,
-                    theme: "crb-hover",
-                });
-            }
-        });
-
+        const $html = await super.getHTML();
         $html.on("mouseenter", () => this.onHoverIn());
         $html.on("mouseleave", () => this.onHoverOut());
         $html.find(".message-sender").on("click", this.onClick.bind(this));
-
-        /**
-         * A hook event that fires for each ChatMessage which is rendered for addition to the ChatLog.
-         * This hook allows for final customization of the message HTML before it is added to the log.
-         * @function renderChatMessage
-         * @memberof hookEvents
-         * @param {ChatMessage} message   The ChatMessage document being rendered
-         * @param {jQuery} html           The pending HTML as a jQuery object
-         * @param {object} data           The input data provided for template rendering
-         */
-        Hooks.call("renderChatMessage", this, $html, messageData);
 
         return $html;
     }

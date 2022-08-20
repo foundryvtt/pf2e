@@ -3,7 +3,6 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ErrorPF2e, tagify } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
@@ -56,7 +55,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         // Enrich content
         const rollData = this.actor.getRollData();
         const enrich = async (content: string): Promise<string> => {
-            return TextEditorPF2e.enrichHTML(content, { rollData, async: true });
+            return TextEditor.enrichHTML(content, { rollData, async: true });
         };
         sheetData.enrichedContent = mergeObject(sheetData.enrichedContent, {
             stealthDetails: await enrich(systemData.attributes.stealth.details),
@@ -146,7 +145,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 // Enrich description
                 const item = this.actor.items.get(itemData._id);
                 const rollData = { ...this.actor.getRollData(), ...item?.getRollData() };
-                itemData.system.description.value = await TextEditorPF2e.enrichHTML(itemData.system.description.value, {
+                itemData.system.description.value = await TextEditor.enrichHTML(itemData.system.description.value, {
                     rollData,
                     async: true,
                 });
