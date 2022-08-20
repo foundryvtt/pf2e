@@ -18,6 +18,7 @@ import { RenderSettings } from "./render-settings";
 import { RenderJournalPageSheet } from "./render-journal-page-sheet";
 import { Setup } from "./setup";
 import { UpdateWorldTime } from "./update-world-time";
+import { RenderChatMessage } from "./render-chat-message";
 
 export const HooksPF2e = {
     listen(): void {
@@ -35,6 +36,7 @@ export const HooksPF2e = {
             LightingRefresh,
             Ready,
             RenderActorDirectory,
+            RenderChatMessage,
             RenderCombatTrackerConfig,
             RenderDialog,
             RenderSceneControls,
