@@ -52,7 +52,7 @@ ol.spell-list {
             border: 1px solid var(--color-border-light-2);
             border-radius: 2px;
             color: var(--body);
-            font: 700 0.6rem var(--sans-serif);
+            font: 500 var(--font-size-12) var(--sans-serif);
             letter-spacing: 0.25px;
             line-height: 1;
             padding: 0 0.5em;
@@ -60,7 +60,7 @@ ol.spell-list {
 
             h3 {
                 text-transform: capitalize;
-                font-size: 0.75rem;
+                font-size: var(--font-size-13);
                 margin-left: 0;
                 padding: 4px 0;
             }
@@ -70,6 +70,7 @@ ol.spell-list {
                 gap: 0.25em;
                 h3 {
                     @include p-reset;
+                    font-weight: 700;
                 }
             }
 
@@ -192,9 +193,11 @@ ol.spell-list {
 
             h4 {
                 @include p-reset;
-                margin-left: 8px;
-                line-height: 1;
+                font-size: var(--font-size-14);
                 letter-spacing: -0.075em;
+                line-height: 1;
+                margin-left: 8px;
+
                 &:hover {
                     color: var(--secondary);
                 }
@@ -211,7 +214,6 @@ ol.spell-list {
 
         .spell-range {
             grid-area: range;
-            font-weight: 500;
         }
 
         .spell-components {
@@ -220,7 +222,7 @@ ol.spell-list {
             padding: 0 0.5em;
 
             .tag {
-                font: 11px var(--sans-serif-condensed);
+                font: var(--font-size-12) var(--sans-serif-condensed);
             }
         }
 
