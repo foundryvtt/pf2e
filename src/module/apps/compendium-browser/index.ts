@@ -248,40 +248,27 @@ class CompendiumBrowser extends Application {
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
-    async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null): Promise<void> {
-        const filter = {
-            category: [] as string[],
-            level: [] as string[],
-            traditions: [] as string[],
+    async openSpellTab(entry: SpellcastingEntryPF2e, level = 10): Promise<void> {
+        const filter: { category: string[]; level: number[]; traditions: string[] } = {
+            category: [],
+            level: [],
+            traditions: [],
         };
 
         if (entry.isRitual || entry.isFocusPool) {
             filter.category.push(entry.system.prepared.value);
         }
 
-        if (level || level === 0) {
-            if (level === 0) {
-                filter.category.push("cantrip");
-            } else {
-                filter.level.push(`level-${level}`);
-            }
+        if (level) {
+            filter.level.push(...Array.from(Array(level).keys()).map((l) => l + 1));
 
-            if (level > 0) {
-                if (!entry.isPrepared) {
-                    while (level > 1) {
-                        level -= 1;
-                        filter.level.push(level.toString());
-                    }
-                }
-
-                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                    filter.category.push("spell");
-                }
+            if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
+                filter.category.push("spell");
             }
         }
 
         if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.traditions.push(entry.system.tradition.value);
+            filter.traditions.push(entry.tradition);
         }
 
         this.openTab("spell", filter);
