@@ -1212,7 +1212,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const data = super._getSubmitData(updateData);
 
         // Use delta values for inputs that have `data-allow-delta` if input value starts with + or -
-        for (const el of Array.from(this.form.elements)) {
+        for (const el of this.form.elements) {
             if (el instanceof HTMLInputElement && el.dataset.allowDelta !== undefined) {
                 const strValue = el.value.trim();
                 const value = Number(strValue);
@@ -1223,7 +1223,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
         const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-        for (const inputEl of Array.from(tagifyInputElements)) {
+        for (const inputEl of tagifyInputElements.values()) {
             const path = inputEl.name;
             const selections = data[path];
             if (Array.isArray(selections)) {

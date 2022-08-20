@@ -241,7 +241,6 @@ class CompendiumBrowser extends Application {
     openTab(tab: "hazard", filter?: InitialHazardFilters): Promise<void>;
     openTab(tab: "spell", filter?: InitialSpellFilters): Promise<void>;
     openTab(tab: "settings"): Promise<void>;
-
     async openTab(tab: TabName, filter: InitialFilters = {}): Promise<void> {
         this.initialFilter = filter;
         await this._render(true);
@@ -339,12 +338,12 @@ class CompendiumBrowser extends Application {
                 return filterType;
             })();
 
-            // Checkboxes
             if (
-                currentTab.filterData.checkboxes !== undefined &&
+                currentTab.filterData.checkboxes &&
                 objectHasKey(currentTab.filterData.checkboxes, mappedFilterType) &&
                 Array.isArray(filterValue)
             ) {
+                // Checkboxes
                 const checkbox = currentTab.filterData.checkboxes[mappedFilterType];
                 for (const value of filterValue) {
                     const option = checkbox.options[value];
@@ -358,13 +357,12 @@ class CompendiumBrowser extends Application {
                         );
                     }
                 }
-            }
-            // Selects
-            else if (
-                currentTab.filterData.selects !== undefined &&
+            } else if (
+                currentTab.filterData.selects &&
                 objectHasKey(currentTab.filterData.selects, mappedFilterType) &&
                 typeof filterValue === "string"
             ) {
+                // Selects
                 const select = currentTab.filterData.selects[mappedFilterType];
                 const option = select.options[filterValue];
                 if (option) {
@@ -374,13 +372,12 @@ class CompendiumBrowser extends Application {
                         `Tab '${currentTab.tabName}' select filter '${mappedFilterType}' has no option: '${filterValue}'`
                     );
                 }
-            }
-            // Multiselects
-            else if (
-                currentTab.filterData.multiselects !== undefined &&
+            } else if (
+                currentTab.filterData.multiselects &&
                 objectHasKey(currentTab.filterData.multiselects, mappedFilterType) &&
                 Array.isArray(filterValue)
             ) {
+                // Multiselects
                 // A convoluted cast is necessary here to not get an infered type of MultiSelectData<PhysicalItem> since MultiSelectData is not exported
                 const multiselects = (currentTab.filterData.multiselects as BaseFilterData["multiselects"])!;
                 const multiselect = multiselects[mappedFilterType];
@@ -394,13 +391,12 @@ class CompendiumBrowser extends Application {
                         );
                     }
                 }
-            }
-            // Ranges (e.g. price)
-            else if (
-                currentTab.filterData.ranges !== undefined &&
+            } else if (
+                currentTab.filterData.ranges &&
                 objectHasKey(currentTab.filterData.ranges, mappedFilterType) &&
-                this.isRange(filterValue)
+                this.#isRange(filterValue)
             ) {
+                // Ranges (e.g. price)
                 if (
                     (filterValue.min !== undefined && filterValue.min !== null) ||
                     (filterValue.max !== undefined && filterValue.max !== null)
@@ -441,44 +437,29 @@ class CompendiumBrowser extends Application {
 
                     range.isExpanded = true;
                 }
-            }
-            // Sliders (e.g. level)
-            else if (
-                currentTab.filterData.sliders !== undefined &&
+            } else if (
+                currentTab.filterData.sliders &&
                 objectHasKey(currentTab.filterData.sliders, mappedFilterType) &&
-                this.isRange(filterValue)
+                this.#isRange(filterValue) &&
+                (typeof filterValue.min === "number" || typeof filterValue.max === "number")
             ) {
-                if (
-                    (filterValue.min !== undefined && filterValue.min !== null) ||
-                    (filterValue.max !== undefined && filterValue.max !== null)
-                ) {
-                    const slider = currentTab.filterData.sliders[mappedFilterType];
+                // Sliders (e.g. level)
+                const slider = currentTab.filterData.sliders[mappedFilterType];
 
-                    let minValue = typeof filterValue.min === "string" ? parseInt(filterValue.min) : filterValue.min;
-                    let maxValue = typeof filterValue.max === "string" ? parseInt(filterValue.max) : filterValue.max;
-                    if ((minValue && isNaN(minValue)) || (maxValue && isNaN(maxValue))) {
-                        console.error(`Invalid filter value for '${filterType}', it needs to be a valid number.`);
-                        continue;
-                    }
+                const minValue =
+                    typeof filterValue.min === "number"
+                        ? Math.clamped(filterValue.min, slider.values.lowerLimit, slider.values.upperLimit) || 0
+                        : slider.values.lowerLimit;
+                const maxValue = Math.max(
+                    minValue,
+                    typeof filterValue.max === "number"
+                        ? Math.clamped(filterValue.max, slider.values.lowerLimit, slider.values.upperLimit) || 0
+                        : slider.values.upperLimit
+                );
 
-                    minValue =
-                        minValue !== undefined && minValue !== null
-                            ? Math.clamped(minValue, slider.values.lowerLimit, slider.values.upperLimit)
-                            : slider.values.lowerLimit;
-                    maxValue =
-                        maxValue !== undefined && maxValue !== null
-                            ? Math.clamped(maxValue, slider.values.lowerLimit, slider.values.upperLimit)
-                            : slider.values.upperLimit;
-
-                    // Set max value to min value if min value is higher
-                    if (minValue > maxValue) {
-                        maxValue = minValue;
-                    }
-
-                    slider.values.min = minValue;
-                    slider.values.max = maxValue;
-                    slider.isExpanded = true;
-                }
+                slider.values.min = minValue;
+                slider.values.max = maxValue;
+                slider.isExpanded = true;
             }
             // Filter name did not match a filter on the tab
             else {
@@ -489,21 +470,11 @@ class CompendiumBrowser extends Application {
         this.initialFilter = {};
     }
 
-    private isRange(value: unknown): value is { min: number | string | undefined; max: number | string | undefined } {
-        if (typeof value === "object" && value !== null && "min" in value && "max" in value) {
-            const range = value as { min: unknown; max: unknown };
-            return (
-                (range.min === undefined ||
-                    range.min === null ||
-                    typeof range.min === "number" ||
-                    typeof range.min === "string") &&
-                (range.max === undefined ||
-                    range.max === null ||
-                    typeof range.max === "number" ||
-                    typeof range.max === "string")
-            );
-        }
-        return false;
+    #isRange(value: unknown): value is { min?: number | string; max?: number | string } {
+        return (
+            isObject<{ min: unknown; max: unknown }>(value) &&
+            (["number", "string"].includes(typeof value.min) || ["number", "string"].includes(typeof value.max))
+        );
     }
 
     loadedPacks(tab: TabName): string[] {
