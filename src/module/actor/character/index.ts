@@ -1729,13 +1729,13 @@ class CharacterPF2e extends CreaturePF2e {
                         new Set(
                             [args.options ?? [], context.options, action.options, baseOptions, incrementOption].flat()
                         )
-                    ).sort();
+                    );
 
                     // Get just-in-time roll options from rule elements
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
                         rule.beforeRoll?.(selectors, options);
                     }
-                    const finalRollOptions = Array.from(new Set(options));
+                    const finalRollOptions = Array.from(new Set(options)).sort();
 
                     const dc = args.dc ?? context.dc;
                     if (dc && action.adjustments) {

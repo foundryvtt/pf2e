@@ -159,16 +159,14 @@ class RollOptionRuleElement extends RuleElementPF2e {
      * (re-)called here.
      */
     override beforeRoll(domains: string[], rollOptions: string[]): void {
-        if (!(this.test() && domains.includes(this.domain))) return;
+        if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
 
         const option = this.resolveOption();
-        const value = this.resolveValue();
-        if (value === true) {
+        const value = !!this.resolveValue(this.value);
+        if (value) {
             rollOptions.push(option);
-        } else if (value === false) {
-            rollOptions.findSplice((o) => o === option);
         } else {
-            this.failValidation("Unrecognized roll option value");
+            rollOptions.findSplice((o) => o === option);
         }
     }
 
