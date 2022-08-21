@@ -37,10 +37,13 @@ const allTemplates = (): string => {
 const [outDir, foundryUri] = ((): [string, string] => {
     const configPath = path.resolve(process.cwd(), "foundryconfig.json");
     const config = fs.readJSONSync(configPath, { throws: false });
-    const outDir =
+    let outDir =
         config instanceof Object
             ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
             : path.join(__dirname, "dist/");
+    if (process.env.FOUNDRY_SYSTEMS_PATH){
+        outDir = path.join(process.env.FOUNDRY_SYSTEMS_PATH, config?.systemName ?? "pf2e");
+    }
     const foundryUri = (config instanceof Object ? String(config.foundryUri) : "") ?? "http://localhost:30000";
     return [outDir, foundryUri];
 })();

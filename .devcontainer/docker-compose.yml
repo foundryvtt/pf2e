@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Update 'VARIANT' to pick an LTS version of Node.js: 18, 16, 14.
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local arm64/Apple Silicon.
+        VARIANT: 16-bullseye
+    volumes:
+      - ..:/workspace:cached
+      - foundry-data:/foundryData
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the foundry container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:foundry
+  foundry:
+    image: felddy/foundryvtt:10
+    hostname: my_foundry_host
+    init: true
+    volumes:
+      - foundry-data:/data
+    env_file: ../.env
+    ports:
+      - 30000:30000/tcp
+
+volumes:
+  foundry-data:
