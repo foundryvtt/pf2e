@@ -170,3 +170,4 @@ export { Migration769NoUniversalistFocusPool } from "./769-no-universalist-focus
 export { Migration770REDataToSystem } from "./770-re-data-to-system";
 export { Migration771SpellVariantsToSystem } from "./771-spell-variants-to-system";
 export { Migration772V10EmbeddedSpellData } from "./772-v10-embedded-spell-data";
+export { Migration773ReligiousSymbolUsage } from "./773-religious-symbol-usage";
