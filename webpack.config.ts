@@ -41,7 +41,7 @@ const [outDir, foundryUri] = ((): [string, string] => {
         config instanceof Object
             ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
             : path.join(__dirname, "dist/");
-    if (process.env.FOUNDRY_SYSTEMS_PATH){
+    if (process.env.FOUNDRY_SYSTEMS_PATH) {
         outDir = path.join(process.env.FOUNDRY_SYSTEMS_PATH, config?.systemName ?? "pf2e");
     }
     const foundryUri = (config instanceof Object ? String(config.foundryUri) : "") ?? "http://localhost:30000";
