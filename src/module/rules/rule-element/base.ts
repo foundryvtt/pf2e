@@ -115,7 +115,7 @@ abstract class RuleElementPF2e {
     }
 
     /** Test this rule element's predicate, if present */
-    test(rollOptions?: string[]): boolean {
+    test(rollOptions?: string[] | Set<string>): boolean {
         if (this.data.ignored) return false;
         if (!this.data.predicate) return true;
 
@@ -273,8 +273,7 @@ abstract class RuleElementPF2e {
 
                 return unresolved.length === 0 ? Roll.safeEval(formula) : 0;
             } catch {
-                const { item } = this;
-                this.failValidation(`Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`);
+                this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
                 return 0;
             }
         };
