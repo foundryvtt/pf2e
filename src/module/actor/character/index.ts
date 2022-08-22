@@ -1213,6 +1213,12 @@ class CharacterPF2e extends CreaturePF2e {
         this.pfsBoons = [];
         this.deityBoonsCurses = [];
         this.feats = new CharacterFeats(this);
+
+        const campaignFeatSections = game.settings.get("pf2e", "campaignFeatSections");
+        for (const section of campaignFeatSections) {
+            this.feats.createCategory(section);
+        }
+
         this.feats.assignFeats();
 
         // These are not handled by character feats

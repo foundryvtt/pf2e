@@ -326,4 +326,4 @@ class FeatCategory {
     }
 }
 
-export { CharacterFeats, FeatCategory, FeatSlotLevel };
+export { CharacterFeats, FeatCategory, FeatCategoryOptions, FeatSlotLevel };
