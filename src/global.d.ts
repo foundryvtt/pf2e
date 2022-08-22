@@ -40,6 +40,7 @@ import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
+import { FeatCategoryOptions } from "@actor/character/feats";
 
 declare global {
     interface Game {
@@ -146,6 +147,7 @@ declare global {
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
         get(module: "pf2e", setting: "campaignFeats"): boolean;
+        get(module: "pf2e", setting: "campaignFeatSections"): FeatCategoryOptions[];
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];

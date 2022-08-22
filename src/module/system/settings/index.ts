@@ -218,6 +218,15 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    // Secret for now until the user side is complete and a UI is built
+    game.settings.register("pf2e", "campaignFeatSections", {
+        name: "Campaign Feat Sections",
+        scope: "world",
+        config: false,
+        default: [],
+        type: Array,
+    });
+
     // This only exists to not break existing macros (yet). We'll keep it for a few versions
     game.settings.register("pf2e", "RAI.TreatWoundsAltSkills", {
         name: "Treat Wounds Macro Compat",

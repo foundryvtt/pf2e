@@ -33,7 +33,13 @@ declare global {
         /** Indicates if this Setting should render in the Config application */
         config: boolean;
         /** The JS Type that the Setting is storing */
-        type: NumberConstructor | StringConstructor | BooleanConstructor | ObjectConstructor | FunctionConstructor;
+        type:
+            | NumberConstructor
+            | StringConstructor
+            | BooleanConstructor
+            | ObjectConstructor
+            | ArrayConstructor
+            | FunctionConstructor;
         /** For string Types, defines the allowable values */
         choices?: Record<string, string>;
         /** For numeric Types, defines the allowable range */
