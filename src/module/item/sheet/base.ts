@@ -404,7 +404,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         for (const inputEl of Array.from(tagifyInputElements)) {
             const path = inputEl.name;
             const inputValue = flattenedData[path];
-            const selections = typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
+            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
             if (Array.isArray(selections)) {
                 flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
             }
