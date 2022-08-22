@@ -49,7 +49,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major"
+                        "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -118,7 +118,7 @@
                         "feat:first-revelation"
                     ],
                     "not": [
-                        "oracular-curse:minor"
+                        "self:curse:minor"
                     ]
                 },
                 "selector": "ac",
@@ -137,7 +137,7 @@
                         "feat:first-revelation"
                     ],
                     "not": [
-                        "oracular-curse:minor"
+                        "self:curse:minor"
                     ]
                 },
                 "selector": "saving-throw",
@@ -149,8 +149,9 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "any": [
-                        "oracular-curse:moderate",
-                        "oracular-curse:major"
+                        "self:curse:moderate",
+                        "self:curse:major",
+                        "self:curse:extreme"
                     ]
                 },
                 "selector": "strike-damage",
@@ -163,7 +164,7 @@
                 "predicate": {
                     "all": [
                         "encounter:non-trivial",
-                        "oracular-curse:moderate"
+                        "self:curse:moderate"
                     ]
                 },
                 "value": "floor(@actor.level/2)"
@@ -173,7 +174,7 @@
                 "predicate": {
                     "all": [
                         "encounter:non-trivial",
-                        "oracular-curse:major"
+                        "self:curse:major"
                     ]
                 },
                 "value": "@actor.level"
@@ -185,8 +186,9 @@
                 "option": "encounter:non-trivial",
                 "predicate": {
                     "any": [
-                        "oracular-curse:moderate",
-                        "oracular-curse:major"
+                        "self:curse:moderate",
+                        "self:curse:major",
+                        "self:curse:extreme"
                     ]
                 },
                 "toggleable": true
@@ -196,7 +198,8 @@
                 "mode": "override",
                 "predicate": {
                     "all": [
-                        "oracular-curse:major"
+                        "self:curse:major",
+                        "self:curse:extreme"
                     ]
                 },
                 "selectors": [
@@ -209,7 +212,8 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "oracular-curse:major"
+                        "self:curse:major",
+                        "self:curse:extreme"
                     ]
                 },
                 "selector": "attack",

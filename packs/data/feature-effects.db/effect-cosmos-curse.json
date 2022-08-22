@@ -49,7 +49,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major"
+                        "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -101,7 +101,8 @@
                         {
                             "or": [
                                 "self:curse:moderate",
-                                "self:curse:major"
+                                "self:curse:major",
+                                "self:curse:extreme"
                             ]
                         }
                     ],
@@ -118,7 +119,12 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "self:curse:major"
+                        {
+                            "or": [
+                                "self:curse:major",
+                                "self:curse:extreme"
+                            ]
+                        }
                     ],
                     "any": [
                         "action:grapple",
