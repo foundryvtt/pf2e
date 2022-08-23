@@ -7,7 +7,7 @@ import { RawPredicate } from "@system/predication";
 import { MigrationBase } from "../base";
 
 /** Convert crafting entry `requiredTrait` properties to be predicates */
-export class Migration774UnpersistCraftingEntriesAndAddPredicate extends MigrationBase {
+export class Migration774UnpersistCraftingEntries extends MigrationBase {
     static override version = 0.774;
 
     munitionsCrafterPredicate: RawPredicate = {
@@ -15,20 +15,17 @@ export class Migration774UnpersistCraftingEntriesAndAddPredicate extends Migrati
         any: ["item:trait:bomb", "item:subtype:ammo"],
     };
 
-    override async updateActor(actorData: ActorSourcePF2e) {
-        if (actorData.type === "character") {
-            const craftingEntries: Record<string, Partial<MaybeWithActorPreparedFormulas>> = actorData.system.crafting
-                .entries;
-            actorData.items = actorData.items.map((item) => {
-                item.system.rules = item.system.rules.map((rule) => {
-                    const ruleAE = rule as MaybeWithRequiredTraits;
-                    if (ruleAE.key !== "CraftingEntry" || ruleAE.selector === undefined) return rule;
-                    ruleAE.preparedFormulas = craftingEntries[ruleAE.selector].actorPreparedFormulas;
-                    return ruleAE;
-                });
-                return item;
-            });
-            const craftingData: MaybeWithOldEntries = actorData.system.crafting;
+    override async updateActor(source: ActorSourcePF2e) {
+        if (source.type === "character") {
+            const craftingData: MaybeWithOldEntries = source.system.crafting;
+            const craftingEntries = craftingData.entries ?? {};
+            const rules: MaybeWithRequiredTraits[] = source.items.flatMap((i) => i.system.rules);
+            for (const rule of rules) {
+                if (rule.key !== "CraftingEntry" || !rule.selector || !rule.requiredTraits) {
+                    continue;
+                }
+                rule.preparedFormulas = craftingEntries[rule.selector].actorPreparedFormulas;
+            }
             delete craftingData.entries;
             craftingData["-=entries"] = null;
         }
@@ -38,8 +35,8 @@ export class Migration774UnpersistCraftingEntriesAndAddPredicate extends Migrati
         const rules = itemSource.system.rules;
         // Change requiredTraits property to craftableItems predicate
         const craftingEntryRules = rules.filter(
-            (rule: Record<string, unknown>): rule is MaybeWithRequiredTraits =>
-                rule.key === "CraftingEntry" && Array.isArray(rule.requiredTraits)
+            (r: RuleElementSource & { requiredTraits?: unknown }): r is MaybeWithRequiredTraits =>
+                r.key === "CraftingEntry" && Array.isArray(r.requiredTraits)
         );
 
         const newCraftingEntryRules = craftingEntryRules.map((craftingEntryRule) => {
@@ -78,14 +75,14 @@ export class Migration774UnpersistCraftingEntriesAndAddPredicate extends Migrati
         if (requiredTraits.length === 1)
             return {
                 all: requiredTraits[0].map((trait) => {
-                    return "item:trait:" + trait;
+                    return `item:trait:${trait}`;
                 }),
             };
         return {
             any: requiredTraits.map((traits) => {
                 return {
                     and: traits.map((trait) => {
-                        return "item:trait:" + trait;
+                        return `item:trait:${trait}`;
                     }),
                 };
             }),
@@ -95,9 +92,11 @@ export class Migration774UnpersistCraftingEntriesAndAddPredicate extends Migrati
 
 interface MaybeWithOldEntries {
     formulas?: CraftingFormulaData[];
-    entries?: Record<string, Partial<CraftingEntryData>>;
+    entries?: MaybeOldCraftingEntries;
     "-=entries"?: null;
 }
+
+type MaybeOldCraftingEntries = Record<string, Partial<MaybeWithActorPreparedFormulas>>;
 
 interface MaybeWithActorPreparedFormulas extends CraftingEntryData {
     actorPreparedFormulas?: ActorPreparedFormula[];
@@ -110,8 +109,7 @@ interface ActorPreparedFormula {
     isSignatureItem?: boolean;
 }
 
-type MaybeWithRequiredTraits = RuleElementSource & {
-    key: "CraftingEntry";
+interface MaybeWithRequiredTraits extends RuleElementSource {
     requiredTraits?: PhysicalItemTrait[][];
     craftableItems?: RawPredicate;
     isAlchemical?: boolean;
@@ -120,7 +118,7 @@ type MaybeWithRequiredTraits = RuleElementSource & {
     maxItemLevel?: number;
     maxSlots?: number;
     preparedFormulas?: PreparedFormulaData[];
-};
+}
 
 interface PreparedFormulaData {
     itemUUID: string;
