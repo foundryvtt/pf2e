@@ -752,12 +752,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Feat Browser shortcut links
         for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
-            link.addEventListener("click", this.onClickBrowseFeatCompendia);
+            link.addEventListener("click", (event) => this.onClickBrowseFeats(event));
         }
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
-    private async onClickBrowseFeatCompendia(event: MouseEvent): Promise<void> {
+    private async onClickBrowseFeats(event: MouseEvent): Promise<void> {
         if (!(event.currentTarget instanceof HTMLElement)) return;
 
         const maxLevel = Number(event.currentTarget.dataset.level) || this.actor.level;
