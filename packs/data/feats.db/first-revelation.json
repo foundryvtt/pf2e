@@ -13,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You gain your mystery's initial revelation spell. Casting this spell progresses your @Compendium[pf2e.classfeatures.Oracular Curse]{Oracular Curse}. Use the minor curse from your mystery, but when you progress it again, instead of your mystery's moderate curse effect, you become @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} in addition to the effects of the minor curse.</p>\n<p>If you don't have one, you gain a focus pool of 1 Focus Point. You can @Compendium[pf2e.actionspf2e.Refocus]{Refocus}by reconciling the conflicting nature of your mystery, which also reduces your curse to minor.</p>"
+            "value": "<p>You gain your mystery's initial revelation spell. Casting this spell progresses your @Compendium[pf2e.classfeatures.Oracular Curse]{Oracular Curse}. Use the minor curse from your mystery, but when you progress it again, instead of your mystery's moderate curse effect, you become @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} in addition to the effects of the minor curse.</p>\n<p>If you don't have one, you gain a focus pool of 1 Focus Point. You can @Compendium[pf2e.actionspf2e.Refocus]{Refocus} by reconciling the conflicting nature of your mystery, which also reduces your curse to minor.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -21,6 +21,7 @@
         "level": {
             "value": 4
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -28,7 +29,14 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

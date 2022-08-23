@@ -26,6 +26,11 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
                         "value": "moderate"
                     },
                     {
@@ -47,21 +52,36 @@
                         "value": "major"
                     }
                 ],
-                "flag": "oracleCurse",
                 "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "oracular-curse"
+                "rollOption": "self:curse"
             },
             {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.OracleCurses.Battle.MadeAStrike",
                 "option": "battle-mystery",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
                         "battle-mystery"
                     ]
@@ -74,6 +94,10 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
                         "battle-mystery"
                     ]
@@ -89,6 +113,10 @@
                     "all": [
                         "battle-mystery"
                     ],
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
                         "oracular-curse:minor"
                     ]
@@ -103,6 +131,10 @@
                 "predicate": {
                     "all": [
                         "battle-mystery"
+                    ],
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
                     ],
                     "not": [
                         "oracular-curse:minor"

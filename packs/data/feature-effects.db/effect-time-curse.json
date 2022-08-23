@@ -1,6 +1,6 @@
 {
     "_id": "oSzUv21eN9VS9TC1",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/hasted-assault.webp",
     "name": "Effect: Time Curse",
     "system": {
         "badge": null,
@@ -22,11 +22,16 @@
                 "choices": [
                     {
                         "label": "PF2E.OracleCurses.Label.Minor",
-                        "value": "self:curse:minor"
+                        "value": "minor"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "value": "self:curse:moderate"
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
@@ -35,7 +40,7 @@
                                 "feature:major-curse"
                             ]
                         },
-                        "value": "self:curse:major"
+                        "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
@@ -44,12 +49,18 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "self:curse:major"
+                        "value": "major"
                     }
                 ],
-                "flag": "oracleCurse",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:curse"
             },
             {
                 "key": "FlatModifier",
