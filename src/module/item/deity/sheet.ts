@@ -138,6 +138,11 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Filter out null values from font that may have been inserted by Foundry's multi-checkbox handling
+        if (Array.isArray(formData["system.font"])) {
+            formData["system.font"] = formData["system.font"].filter((f) => !!f);
+        }
+
         // Null out empty strings for some properties
         for (const property of ["system.alignment.own", "system.skill"]) {
             if (typeof formData[property] === "string") formData[property] ||= null;
