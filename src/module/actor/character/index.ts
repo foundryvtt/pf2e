@@ -172,8 +172,8 @@ class CharacterPF2e extends CreaturePF2e {
         return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
-                const { dc, batchSize, deletable, preparedData } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable, preparedData });
+                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
+                return new CraftingFormula(item, { dc, batchSize, deletable });
             });
     }
 
@@ -212,12 +212,9 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         for (const entry of entries) {
-            for (const formula of entry.preparedFormulas) {
+            for (const formula of entry.preparedCraftingFormulas) {
                 const itemSource: PhysicalItemSource = formula.item.toObject();
-                itemSource.system.quantity = (formula.preparedData[entry.selector].slots || []).reduce(
-                    (sum, current) => sum + (current.quantity || 1),
-                    0
-                );
+                itemSource.system.quantity = formula.quantity;
                 itemSource.system.temporary = true;
                 itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 
@@ -421,6 +418,8 @@ class CharacterPF2e extends CreaturePF2e {
         for (const formula of this.system.crafting.formulas) {
             formula.deletable = true;
         }
+
+        this.system.crafting.entries = {};
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;

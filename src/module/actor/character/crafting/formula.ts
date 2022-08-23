@@ -15,17 +15,9 @@ export class CraftingFormula implements CraftingFormulaData {
     /** Whether or not this formula is saved directly on the actor and can be deleted */
     deletable: boolean;
 
-    /** Crafting entries that this formula is currently prepared in */
-    preparedData: CraftingFormulaEntryData;
-
     constructor(
         public item: PhysicalItemPF2e,
-        {
-            dc,
-            batchSize,
-            deletable = false,
-            preparedData = {},
-        }: { dc?: number; batchSize?: number; deletable?: boolean; preparedData?: CraftingFormulaEntryData } = {}
+        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
     ) {
         this.dc =
             dc ??
@@ -39,7 +31,6 @@ export class CraftingFormula implements CraftingFormulaData {
 
         /** Is the formula on the actor and therefore deletable? */
         this.deletable = deletable;
-        this.preparedData = preparedData;
     }
 
     get uuid(): ItemUUID {
@@ -94,18 +85,4 @@ export interface CraftingFormulaData {
     dc?: number;
     batchSize?: number;
     deletable?: boolean;
-    preparedData?: CraftingFormulaEntryData;
-}
-
-export interface CraftingFormulaEntryData {
-    [key: string]: CraftingFormulaPreparedData;
-}
-
-export interface CraftingFormulaPreparedData {
-    isSignatureItem?: boolean;
-    slots?: {
-        quantity?: number;
-        expended?: boolean;
-        slot?: number;
-    }[];
 }
