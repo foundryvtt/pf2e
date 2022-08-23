@@ -80,7 +80,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
 
         const validTraits = this.validTraits;
-        const hasRarity = !this.item.isOfType("action", "condition", "effect", "lore", "melee");
+        const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
 
         return {
             itemType: null,
@@ -404,7 +404,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         for (const inputEl of Array.from(tagifyInputElements)) {
             const path = inputEl.name;
             const inputValue = flattenedData[path];
-            const selections = typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
+            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
             if (Array.isArray(selections)) {
                 flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
             }

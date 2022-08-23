@@ -1225,7 +1225,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
         for (const inputEl of tagifyInputElements.values()) {
             const path = inputEl.name;
-            const selections = data[path];
+            const inputValue = data[path];
+            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
             if (Array.isArray(selections)) {
                 data[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
             }

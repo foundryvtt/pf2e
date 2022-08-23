@@ -38,7 +38,6 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
         skipInvalid: true,
         maxTags: maxTags ?? whitelistTransformed.length,
         dropdown: {
-            closeOnSelect: false,
             enabled: 0,
             maxItems: Object.keys(whitelist).length,
             searchKeys: ["id", "value"],
