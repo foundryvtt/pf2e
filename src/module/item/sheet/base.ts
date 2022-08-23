@@ -80,7 +80,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
 
         const validTraits = this.validTraits;
-        const hasRarity = !this.item.isOfType("action", "condition", "effect", "lore", "melee");
+        const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
 
         return {
             itemType: null,
