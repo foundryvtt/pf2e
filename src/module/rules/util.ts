@@ -37,7 +37,7 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 function extractRollTwice(
     rollTwices: Record<string, RollTwiceSynthetic[]>,
     selectors: string[],
-    options: string[]
+    options: Set<string> | string[]
 ): RollTwiceOption {
     const twices = selectors.flatMap((s) => rollTwices[s] ?? []).filter((rt) => rt.predicate?.test(options) ?? true);
     if (twices.length === 0) return false;

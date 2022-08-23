@@ -509,14 +509,14 @@ class StatisticModifier {
     }
 
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
-    calculateTotal(rollOptions: string[] = []): void {
-        if (rollOptions.length > 0) {
-            const optionSet = new Set(rollOptions);
+    calculateTotal(rollOptions: Set<string> | string[] = new Set()): void {
+        const optionSet = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
+        if (optionSet.size > 0) {
             for (const modifier of this._modifiers) {
                 modifier.test(optionSet);
             }
 
-            this.applyAdjustments(rollOptions);
+            this.applyAdjustments(optionSet);
         }
 
         applyStackingRules(this._modifiers);
@@ -524,7 +524,7 @@ class StatisticModifier {
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
     }
 
-    private applyAdjustments(rollOptions: string[]): void {
+    private applyAdjustments(rollOptions: Set<string>): void {
         for (const modifier of this._modifiers) {
             const adjustments = modifier.adjustments.filter((a) =>
                 a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
