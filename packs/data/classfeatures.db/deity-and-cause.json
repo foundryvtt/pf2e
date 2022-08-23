@@ -31,12 +31,17 @@
                 "allowedDrops": {
                     "all": [
                         "item:type:deity"
-                    ]
+                    ],
+                    "any": [
+                        "item:category:deity",
+                        "item:category:pantheon"
+                    ],
+                    "label": "PF2E.SpecificRule.AllowedDrops.DeityOrPantheon"
                 },
                 "choices": {
                     "itemType": "deity",
                     "pack": "pf2e.deities",
-                    "query": "{}"
+                    "query": "{\"$or\":[{\"system.category\":\"deity\"},{\"system.category\":\"pantheon\"}]}"
                 },
                 "flag": "deity",
                 "key": "ChoiceSet",
