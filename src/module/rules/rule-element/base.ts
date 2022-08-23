@@ -316,7 +316,7 @@ namespace RuleElementPF2e {
         roll: Rolled<CheckRoll> | null;
         selectors: string[];
         domains: string[];
-        rollOptions: string[];
+        rollOptions: Set<string> | string[];
     }
 
     export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
