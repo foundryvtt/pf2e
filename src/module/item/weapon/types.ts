@@ -2,7 +2,6 @@ import { PreciousMaterialType } from "@item/physical/types";
 import { LocalizePF2e } from "@system/localize";
 import {
     MELEE_WEAPON_GROUPS,
-    RANGED_WEAPON_GROUPS,
     WEAPON_CATEGORIES,
     WEAPON_GROUPS,
     WEAPON_PROPERTY_RUNE_TYPES,
@@ -13,7 +12,7 @@ type WeaponPropertyRuneType = SetElement<typeof WEAPON_PROPERTY_RUNE_TYPES>;
 
 type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;
 type MeleeWeaponGroup = SetElement<typeof MELEE_WEAPON_GROUPS>;
-type RangedWeaponGroup = SetElement<typeof RANGED_WEAPON_GROUPS>;
+
 type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;
 type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
@@ -36,7 +35,6 @@ export {
     BaseWeaponType,
     MeleeWeaponGroup,
     OtherWeaponTag,
-    RangedWeaponGroup,
     StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
