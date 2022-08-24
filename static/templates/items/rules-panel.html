@@ -28,23 +28,23 @@
     </div>
 
     <div>
-        {{#each ruleElements}}
+        {{#each rules.elements}}
             <div class="rule-element-header">
-                {{#with (lookup @root.ruleLabels @index)}}<h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>{{/with}}
+                {{#with (lookup @root.rules.labels @index)}}<h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>{{/with}}
                 <div class="item-controls">
                     <a class="edit-rule-element" data-rule-index="{{@index}}"><i class="fas fa-edit"></i></a>
                     <a class="remove-rule-element" data-rule-index="{{@index}}" title="{{localize "PF2E.ItemRemoveRuleElement"}}"><i class="fas fa-trash"></i></a>
                 </div>
             </div>
             <div class="rule-form" data-key="{{rule.key}}" data-idx="{{index}}">
-                {{> (lookup . "template") index=index rule=rule}}
+                {{{template}}}
             </div>
             <hr/>
         {{/each}}
         <div class="create-rule-element">
             <select data-action="select-rule-element">
-                {{#select ruleSelection.selected}}
-                    {{#each ruleSelection.types as |value key|}}
+                {{#select rules.selection.selected}}
+                    {{#each rules.selection.types as |value key|}}
                         <option value="{{key}}">{{value}}</option>
                     {{/each}}
                 {{/select}}
