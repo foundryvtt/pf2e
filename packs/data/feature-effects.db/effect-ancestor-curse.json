@@ -93,7 +93,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major:battle"
+                        "value": "extreme:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSkillful",
@@ -102,7 +102,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major:skill"
+                        "value": "extreme:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSpellcasting",
@@ -111,7 +111,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major:spell"
+                        "value": "extreme:spell"
                     }
                 ],
                 "flag": "oracular-curse:stage",
@@ -177,7 +177,10 @@
                 "predicate": {
                     "any": [
                         "oracular-curse:stage:major:skill",
-                        "oracular-curse:stage:major:spell"
+                        "oracular-curse:stage:major:spell",
+                        "oracular-curse:stage:extreme:skill",
+                        "oracular-curse:stage:extreme:spell"
+
                     ]
                 },
                 "selector": "attack",
@@ -189,7 +192,9 @@
                 "predicate": {
                     "any": [
                         "oracular-curse:stage:major:battle",
-                        "oracular-curse:stage:major:spell"
+                        "oracular-curse:stage:major:spell",
+                        "oracular-curse:stage:extreme:battle",
+                        "oracular-curse:stage:extreme:spell"
                     ]
                 },
                 "selector": "skill-check",
@@ -217,8 +222,12 @@
                     "all": [
                         "item:spell-slot",
                         "item:duration:0",
-                        "damaging-effect",
-                        "oracular-curse:stage:major:spell"
+                        "damaging-effect"
+                        
+                    ],
+                    "any": [
+                        "oracular-curse:stage:major:spell",
+                        "oracular-curse:stage:extreme:spell"
                     ]
                 },
                 "selector": "spell-damage",
@@ -231,7 +240,8 @@
                 "predicate": {
                     "any": [
                         "oracular-curse:stage:moderate:battle",
-                        "oracular-curse:stage:major:battle"
+                        "oracular-curse:stage:major:battle",
+                        "oracular-curse:stage:extreme:battle"
                     ]
                 },
                 "selector": "attack",
@@ -253,8 +263,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "all": [
-                        "oracular-curse:stage:major:battle"
+                    "any": [
+                        "oracular-curse:stage:major:battle",
+                        "oracular-curse:stage:extreme:battle"
                     ]
                 },
                 "selector": "strike-damage",
@@ -289,8 +300,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "all": [
-                        "oracular-curse:stage:major:skill"
+                    "any": [
+                        "oracular-curse:stage:major:skill",
+                        "oracular-curse:stage:extreme:skill"
                     ]
                 },
                 "selector": "skill-check",
@@ -301,8 +313,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "all": [
-                        "oracular-curse:stage:major:skill"
+                    "any": [
+                        "oracular-curse:stage:major:skill",
+                        "oracular-curse:stage:extreme:skill"
                     ]
                 },
                 "selector": "perception",
