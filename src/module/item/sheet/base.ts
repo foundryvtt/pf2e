@@ -85,7 +85,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Activate rule element sub forms
         this.ruleElementForms = {};
         for (const [idx, rule] of rules.entries()) {
-            const FormClass = RULE_ELEMENT_FORMS[rule.key ?? ""] || RuleElementForm;
+            const FormClass = RULE_ELEMENT_FORMS[rule.key ?? ""] ?? RuleElementForm;
             this.ruleElementForms[Number(idx)] = new FormClass(idx, rule);
         }
 
