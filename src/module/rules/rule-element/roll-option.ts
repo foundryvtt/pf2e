@@ -210,23 +210,22 @@ class RollOptionRuleElement extends RuleElementPF2e {
      * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
      * (re-)called here.
      */
-    override beforeRoll(domains: string[], rollOptions: string[]): void {
+    override beforeRoll(domains: string[], rollOptions: Set<string>): void {
         if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
 
         this.option = this.resolveOption();
         this.value = !!this.resolveValue(this.value);
         if (this.value) {
-            rollOptions.push(this.option);
+            rollOptions.add(this.option);
         } else {
-            rollOptions.findSplice((o) => o === this.option);
+            rollOptions.delete(this.option);
         }
     }
 
     override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
         if (this.ignored || !this.value || !this.actor.items.has(this.item.id)) return;
 
-        const options = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
-        if (this.removeAfterRoll && domains.includes(this.domain) && options.has(this.option)) {
+        if (this.removeAfterRoll && domains.includes(this.domain) && rollOptions.has(this.option)) {
             if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
                 await this.item.delete();
             } else if (game.settings.get("pf2e", "automation.effectExpiration")) {

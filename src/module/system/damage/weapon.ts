@@ -33,7 +33,7 @@ class WeaponDamagePF2e {
         modifierAdjustments: Record<string, ModifierAdjustment[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
-        options: string[] = [],
+        options: Set<string> = new Set(),
         rollNotes: Record<string, RollNotePF2e[]>,
         strikeAdjustments: StrikeAdjustment[]
     ): DamageTemplate | null {
@@ -87,7 +87,7 @@ class WeaponDamagePF2e {
         modifierAdjustments: Record<string, ModifierAdjustment[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
-        options: string[] = [],
+        options: Set<string> = new Set(),
         rollNotes: Record<string, RollNotePF2e[]>,
         weaponPotency: PotencySynthetic | null,
         striking: Record<string, StrikingSynthetic[]>,
@@ -104,17 +104,18 @@ class WeaponDamagePF2e {
         const weaponTraits = weapon.system.traits.value;
 
         // Always add all weapon traits to the options
-        options.push(...weaponTraits);
-        options.sort();
+        for (const trait of weaponTraits) {
+            options.add(trait);
+        }
 
         if (proficiencyRank >= 0) {
-            options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
+            options.add(PROFICIENCY_RANK_OPTION[proficiencyRank]);
         }
 
         // Determine ability modifier
         {
             const isMelee = !!weapon.isMelee;
-            options.push(isMelee ? "melee" : "ranged");
+            options.add(isMelee ? "melee" : "ranged");
             const strengthModValue = actor.abilities.str.mod;
             const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
                 ? strengthModValue
@@ -284,7 +285,7 @@ class WeaponDamagePF2e {
         }
 
         // Backstabber trait
-        if (weaponTraits.some((t) => t === "backstabber") && options.includes("target:condition:flat-footed")) {
+        if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 modifier: potency > 2 ? 2 : 1,
@@ -374,7 +375,7 @@ class WeaponDamagePF2e {
         }
 
         for (const option of Array.from(materials).map((m) => `weapon:material:${m}`)) {
-            options.push(option);
+            options.add(option);
         }
 
         const damage: Omit<DamageTemplate, "formula"> = {
@@ -820,7 +821,7 @@ interface ExcludeDamageParams {
     actor: ActorPF2e;
     modifiers: (DiceModifierPF2e | ModifierPF2e)[];
     weapon: WeaponPF2e | null;
-    options: string[];
+    options: Set<string>;
 }
 
 export { WeaponDamagePF2e };

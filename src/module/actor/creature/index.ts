@@ -433,10 +433,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             tiebreakPriority: systemData.attributes.initiative.tiebreakPriority,
             roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
                 if (!("initiative" in this.system.attributes)) return null;
-                const rollOptions = Array.from(
-                    new Set([...this.getRollOptions(domains), ...(args.options ?? []), proficiency])
-                );
-
+                const rollOptions = new Set([...this.getRollOptions(domains), ...(args.options ?? []), proficiency]);
                 if (this.isOfType("character")) ensureProficiencyOption(rollOptions, initStat.rank ?? -1);
 
                 // Get or create the combatant
@@ -781,11 +778,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected getDamageRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
-        const context = this.getStrikeRollContext({ ...params, domains: ["all", "strike-damage", "damage-roll"] });
-        return {
-            ...context,
-            options: Array.from(new Set(context.options)),
-        };
+        return this.getStrikeRollContext({ ...params, domains: ["all", "strike-damage", "damage-roll"] });
     }
 
     protected getStrikeRollContext<I extends AttackItem>(
@@ -846,18 +839,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-        const rollOptions = Array.from(
-            new Set([
-                ...selfOptions,
-                ...targetOptions,
-                // Backward compatibility for predication looking for an "attack" trait by its lonesome
-                "attack",
-            ])
-        );
-
+        const rollOptions = new Set([
+            ...selfOptions,
+            ...targetOptions,
+            // Backward compatibility for predication looking for an "attack" trait by its lonesome
+            "attack",
+        ]);
         // Calculate distance and set as a roll option
         const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
-        rollOptions.push(`target:distance:${distance}`);
+        rollOptions.add(`target:distance:${distance}`);
 
         const self = {
             actor: selfActor,
@@ -872,7 +862,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : null;
 
         return {
-            options: Array.from(new Set(rollOptions)),
+            options: rollOptions,
             self,
             target,
             traits,

@@ -67,7 +67,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
 
             // Only AC will be a `StatisticModifier`
             if (statistic instanceof StatisticModifier) {
-                const rollOptions = this.actor.getRollOptions(["ac", `${this.ability}-based`]);
+                const rollOptions = new Set(this.actor.getRollOptions(["ac", `${this.ability}-based`]));
                 statistic.calculateTotal(rollOptions);
                 statistic.value = 10 + statistic.totalModifier;
             }
