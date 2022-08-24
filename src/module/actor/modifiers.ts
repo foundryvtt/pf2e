@@ -15,8 +15,10 @@ const PROFICIENCY_RANK_OPTION = [
     "proficiency:legendary",
 ] as const;
 
-function ensureProficiencyOption(options: string[], rank: number): void {
-    if (rank >= 0) options.push(`skill:rank:${rank}`, PROFICIENCY_RANK_OPTION[rank]);
+function ensureProficiencyOption(options: Set<string>, rank: number): void {
+    if (rank >= 0) {
+        options.add(`skill:rank:${rank}`).add(PROFICIENCY_RANK_OPTION[rank]);
+    }
 }
 
 /**
@@ -103,7 +105,7 @@ interface DeferredValueParams {
     /** An object to merge into standard options for `RuleElementPF2e#resolveInjectedProperties` */
     injectables?: Record<string, unknown>;
     /** Roll Options to get against a predicate (if available) */
-    test?: string[];
+    test?: string[] | Set<string>;
 }
 type DeferredValue<T> = (options?: DeferredValueParams) => T;
 
@@ -185,7 +187,7 @@ class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(options: { test?: string[] } = {}): ModifierPF2e {
+    clone(options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
         const clone =
             this.modifier === this.#originalValue
                 ? new ModifierPF2e(this)
@@ -199,7 +201,7 @@ class ModifierPF2e implements RawModifier {
      * Get roll options for this modifier. The current data structure makes for occasional inability to distinguish
      * bonuses and penalties.
      */
-    getRollOptions(): string[] {
+    getRollOptions(): Set<string> {
         const isBonus =
             (this.modifier > 0 || this.type === "proficiency") && !["ability", "untyped"].includes(this.type);
         const isPenalty = this.modifier < 0 && !["ability", "proficiency"].includes(this.type);
@@ -210,7 +212,7 @@ class ModifierPF2e implements RawModifier {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        return options;
+        return new Set(options);
     }
 
     /** Sets the ignored property after testing the predicate */
@@ -454,7 +456,8 @@ class StatisticModifier {
      * @param modifiers All relevant modifiers for this statistic.
      * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions?: string[]) {
+    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions: string[] | Set<string> = new Set()) {
+        rollOptions = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
         this.name = name;
 
         // De-duplication
@@ -509,14 +512,13 @@ class StatisticModifier {
     }
 
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
-    calculateTotal(rollOptions: Set<string> | string[] = new Set()): void {
-        const optionSet = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
-        if (optionSet.size > 0) {
+    calculateTotal(rollOptions: Set<string> = new Set()): void {
+        if (rollOptions.size > 0) {
             for (const modifier of this._modifiers) {
-                modifier.test(optionSet);
+                modifier.test(rollOptions);
             }
 
-            this.applyAdjustments(optionSet);
+            this.applyAdjustments(rollOptions);
         }
 
         applyStackingRules(this._modifiers);

@@ -4,8 +4,11 @@ import { extractModifierAdjustments } from "@module/rules/util";
 import { ModifierPF2e, MODIFIER_TYPE } from "./modifiers";
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
-function calculateMAPs(item: ItemPF2e, { domains, options }: { domains: string[]; options: string[] }): MAPData {
-    const optionSet = new Set(options);
+function calculateMAPs(
+    item: ItemPF2e,
+    { domains, options }: { domains: string[]; options: Set<string> | string[] }
+): MAPData {
+    const optionSet = options instanceof Set ? options : new Set(options);
     const baseMap = calculateBaseMAP(item);
     const maps = item.actor?.synthetics.multipleAttackPenalties ?? {};
     const fromSynthetics = domains
@@ -47,7 +50,7 @@ function calculateRangePenalty(
     actor: ActorPF2e,
     increment: number | null,
     selectors: string[],
-    rollOptions: string[]
+    rollOptions: Set<string>
 ): ModifierPF2e | null {
     if (!increment || increment === 1) return null;
     const slug = "range-penalty";

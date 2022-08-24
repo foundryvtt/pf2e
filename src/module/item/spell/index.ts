@@ -251,7 +251,11 @@ class SpellPF2e extends ItemPF2e {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "system.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
-            const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
+            const rollOptions = new Set([
+                ...actor.getRollOptions(domains),
+                ...this.getRollOptions("item"),
+                ...this.traits,
+            ]);
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
         }
@@ -701,7 +705,7 @@ class SpellPF2e extends ItemPF2e {
         addFlavor("CritFailure", 0);
         flavor += "</p>";
         const check = new StatisticModifier(flavor, modifiers);
-        const finalOptions = this.actor.getRollOptions(domains).concat(traits);
+        const finalOptions = new Set(this.actor.getRollOptions(domains).concat(traits));
         ensureProficiencyOption(finalOptions, proficiencyRank);
         const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
         const traitObjects = traits.map((trait) => ({

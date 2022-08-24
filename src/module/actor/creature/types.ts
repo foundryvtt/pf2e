@@ -38,7 +38,7 @@ interface AttackTarget {
 /** Context for the attack or damage roll of a strike */
 interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
     /** Roll options */
-    options: string[];
+    options: Set<string>;
     self: StrikeSelf<A, I>;
     target: AttackTarget | null;
     traits: TraitViewData[];

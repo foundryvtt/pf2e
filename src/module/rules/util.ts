@@ -37,7 +37,7 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 function extractRollTwice(
     rollTwices: Record<string, RollTwiceSynthetic[]>,
     selectors: string[],
-    options: Set<string> | string[]
+    options: Set<string>
 ): RollTwiceOption {
     const twices = selectors.flatMap((s) => rollTwices[s] ?? []).filter((rt) => rt.predicate?.test(options) ?? true);
     if (twices.length === 0) return false;
@@ -51,7 +51,7 @@ function extractRollTwice(
 function extractRollSubstitutions(
     substitutions: Record<string, RollSubstitution[]>,
     domains: string[],
-    rollOptions: string[]
+    rollOptions: Set<string>
 ): RollSubstitution[] {
     return domains
         .flatMap((d) => deepClone(substitutions[d] ?? []))

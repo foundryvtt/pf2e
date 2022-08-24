@@ -23,14 +23,15 @@ export class CheckModifiersDialog extends Application {
     constructor(
         check: StatisticModifier,
         resolve: (value: boolean) => void,
-        context: CheckRollContext = { options: [] }
+        context: CheckRollContext = { options: new Set() }
     ) {
         super({ title: context?.title || check.name });
 
         this.check = check;
-        this.context = context;
         this.resolve = resolve;
         this.substitutions = context?.substitutions ?? [];
+        this.context = context;
+
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
@@ -81,19 +82,13 @@ export class CheckModifiersDialog extends Application {
             if (!substitution) return;
 
             substitution.ignored = !checkbox.checked;
-            const options = this.context.options;
+            const options = (this.context.options ??= new Set());
             const option = `substitute:${substitution.slug}`;
 
             if (substitution.ignored) {
-                if (options instanceof Set) {
-                    options.delete(option);
-                } else {
-                    options?.findSplice((o) => o === option);
-                }
-            } else if (options instanceof Set) {
-                options.add(option);
+                options.delete(option);
             } else {
-                options?.push(`substitute:${substitution.slug}`);
+                options.add(option);
             }
 
             this.check.calculateTotal(this.context.options);
