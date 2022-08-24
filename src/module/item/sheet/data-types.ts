@@ -26,19 +26,21 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     rarity: Rarity | null;
     rarities: ConfigPF2e["PF2E"]["rarityTraits"];
     traits: SheetOptions | null;
-    ruleLabels: {
-        label: string;
-        recognized: boolean;
-    }[];
-    ruleSelection: {
-        selected: string | null;
-        types: Record<string, string>;
+    rules: {
+        labels: {
+            label: string;
+            recognized: boolean;
+        }[];
+        selection: {
+            selected: string | null;
+            types: Record<string, string>;
+        };
+        elements: {
+            template: string;
+            index: number;
+            rule: RuleElementSource;
+        }[];
     };
-    ruleElements: {
-        template: string;
-        index: number;
-        rule: RuleElementSource;
-    }[];
     /** Lore only, will be removed later */
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
 }

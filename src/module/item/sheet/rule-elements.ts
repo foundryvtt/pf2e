@@ -1,15 +1,30 @@
+import { RuleElementSource } from "@module/rules";
+import { GrantItemSource } from "@module/rules/rule-element/grant-item/base";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { tagify } from "@util";
 
-class RuleElementForm {
-    static template = "";
+class RuleElementForm<TSource extends RuleElementSource = RuleElementSource> {
+    template = "systems/pf2e/templates/items/rules/default.html";
+    constructor(protected index: number, protected rule: TSource) {}
+    async getData(): Promise<object> {
+        return {
+            index: this.index,
+            rule: this.rule,
+        };
+    }
+
+    async render() {
+        const data = await this.getData();
+        return renderTemplate(this.template, data);
+    }
+
     activateListeners(_html: HTMLElement) {}
     _updateObject(_formData: Partial<Record<string, unknown>>) {}
 }
 
 class RollNoteForm extends RuleElementForm {
     private html: HTMLElement | null = null;
-    static override template = "systems/pf2e/templates/items/rules/note.html";
+    override template = "systems/pf2e/templates/items/rules/note.html";
     override activateListeners(html: HTMLElement) {
         this.html = html;
         const optionsEl = html.querySelector<HTMLInputElement>(".outcomes");
@@ -45,8 +60,33 @@ class RollNoteForm extends RuleElementForm {
     }
 }
 
-const RULE_ELEMENT_FORMS: Partial<Record<string, typeof RuleElementForm & { new (): RuleElementForm }>> = {
+class GrantItemForm extends RuleElementForm<GrantItemSource> {
+    override template = "systems/pf2e/templates/items/rules/grant-item.html";
+    override async getData() {
+        const data = await super.getData();
+        const uuid = this.rule.uuid ? String(this.rule.uuid) : null;
+        const granted = uuid ? await fromUuid(uuid) : null;
+        return { ...data, granted, allowDuplicate: this.rule.allowDuplicate ?? true };
+    }
+
+    override _updateObject(ruleData: DeepPartial<GrantItemSource>): void {
+        if (typeof ruleData.uuid === "string") {
+            ruleData.uuid = ruleData.uuid.trim();
+            if (ruleData.uuid === "") delete ruleData.uuid;
+        }
+
+        // Optional but defaults to false
+        if (!ruleData.replaceSelf) delete ruleData.replaceSelf;
+        if (!ruleData.reevaluateOnUpdate) delete ruleData.reevaluateOnUpdate;
+
+        // Optional but defaults to true
+        if (ruleData.allowDuplicate) delete ruleData.allowDuplicate;
+    }
+}
+
+const RULE_ELEMENT_FORMS: Partial<Record<string, ConstructorOf<RuleElementForm>>> = {
     Note: RollNoteForm,
+    GrantItem: GrantItemForm,
 };
 
 export { RuleElementForm, RULE_ELEMENT_FORMS };
