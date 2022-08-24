@@ -222,10 +222,16 @@ class RollOptionRuleElement extends RuleElementPF2e {
         }
     }
 
+    /** Remove the parent effect if configured so */
     override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
-        if (this.ignored || !this.value || !this.actor.items.has(this.item.id)) return;
-
-        if (this.removeAfterRoll && domains.includes(this.domain) && rollOptions.has(this.option)) {
+        if (
+            !this.ignored &&
+            this.removeAfterRoll &&
+            this.value &&
+            this.actor.items.has(this.item.id) &&
+            domains.includes(this.domain) &&
+            rollOptions.has(this.option)
+        ) {
             if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
                 await this.item.delete();
             } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
