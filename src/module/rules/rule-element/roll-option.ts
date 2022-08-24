@@ -32,6 +32,9 @@ class RollOptionRuleElement extends RuleElementPF2e {
     /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
     private count?: boolean;
 
+    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
+    private removeAfterRoll: boolean;
+
     constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
         data.priority ??= CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10;
@@ -47,6 +50,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 data.disabledValue === null || typeof data.disabledValue === "boolean" ? data.disabledValue : false;
         }
         this.count = !!data.count;
+        this.removeAfterRoll = this.item.isOfType("effect") && !!data.removeAfterRoll;
 
         if (!(typeof data.domain === "string" && /^[-a-z0-9]+$/.test(data.domain) && /[a-z]/.test(data.domain))) {
             this.failValidation(
@@ -131,11 +135,12 @@ class RollOptionRuleElement extends RuleElementPF2e {
             }
         } else {
             const value = (domainRecord[option] = !!this.resolveValue(this.value));
+            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
             if (this.toggleable) {
                 const toggle: RollToggle = {
                     itemId: this.item.id,
-                    label: this.label,
+                    label,
                     domain: this.domain,
                     option,
                     checked: value,
@@ -151,22 +156,6 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 }
                 this.actor.system.toggles.push(toggle);
             }
-        }
-    }
-
-    /**
-     * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
-     * (re-)called here.
-     */
-    override beforeRoll(domains: string[], rollOptions: string[]): void {
-        if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
-
-        const option = this.resolveOption();
-        const value = !!this.resolveValue(this.value);
-        if (value) {
-            rollOptions.push(option);
-        } else {
-            rollOptions.findSplice((o) => o === option);
         }
     }
 
@@ -212,6 +201,39 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
         return null;
     }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    /**
+     * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
+     * (re-)called here.
+     */
+    override beforeRoll(domains: string[], rollOptions: string[]): void {
+        if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
+
+        this.option = this.resolveOption();
+        this.value = !!this.resolveValue(this.value);
+        if (this.value) {
+            rollOptions.push(this.option);
+        } else {
+            rollOptions.findSplice((o) => o === this.option);
+        }
+    }
+
+    override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+        if (this.ignored || !this.value || !this.actor.items.has(this.item.id)) return;
+
+        const options = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
+        if (this.removeAfterRoll && domains.includes(this.domain) && options.has(this.option)) {
+            if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+                await this.item.delete();
+            } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
+                await this.item.update({ "system.duration.value": -1, "system.expired": true });
+            }
+        }
+    }
 }
 
 interface RollOptionSource extends RuleElementSource {
@@ -221,6 +243,7 @@ interface RollOptionSource extends RuleElementSource {
     disabledIf?: unknown;
     disabledValue?: unknown;
     count?: unknown;
+    removeAfterRoll?: unknown;
 }
 
 interface ToggleParameters {
