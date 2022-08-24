@@ -54,7 +54,7 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
     }
 
     override async afterRoll({ selectors, roll, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
-        if (!(this.item.isOfType("effect") && this.actor.items.has(this.item.id))) {
+        if (!this.actor.items.has(this.item.id)) {
             return;
         }
 
