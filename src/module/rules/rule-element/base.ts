@@ -316,7 +316,7 @@ namespace RuleElementPF2e {
         roll: Rolled<CheckRoll> | null;
         selectors: string[];
         domains: string[];
-        rollOptions: string[];
+        rollOptions: Set<string>;
     }
 
     export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
@@ -353,7 +353,7 @@ interface RuleElementPF2e {
      * @param domains Applicable predication domains for pending check
      * @param rollOptions Currently accumulated roll options for the pending check
      */
-    beforeRoll?(domains: string[], rollOptions: string[]): void;
+    beforeRoll?(domains: string[], rollOptions: Set<string>): void;
 
     /**
      * Run following a check roll, passing along roll options already accumulated

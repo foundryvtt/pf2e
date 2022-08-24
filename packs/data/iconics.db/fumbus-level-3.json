@@ -247,6 +247,11 @@
                 },
                 "rules": [
                     {
+                        "craftableItems": {
+                            "all": [
+                                "item:trait:alchemical"
+                            ]
+                        },
                         "isAlchemical": true,
                         "isDailyPrep": true,
                         "key": "CraftingEntry",
@@ -256,18 +261,31 @@
                                 "class:alchemist"
                             ]
                         },
-                        "requiredTraits": [
-                            [
-                                "alchemical"
-                            ]
+                        "preparedFormulas": [
+                            {
+                                "itemUUID": "Compendium.pf2e.equipment-srd.SgtqZxt26BdjUmEB",
+                                "quantity": 2
+                            },
+                            {
+                                "itemUUID": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H",
+                                "quantity": 4
+                            },
+                            {
+                                "itemUUID": "Compendium.pf2e.equipment-srd.3Klm2gPmzOw6ntVb",
+                                "quantity": 2
+                            },
+                            {
+                                "itemUUID": "Compendium.pf2e.equipment-srd.hDLbR56Id2OtU318",
+                                "quantity": 2
+                            }
                         ],
                         "selector": "alchemist"
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "phase":"afterDerived",
                         "path": "system.crafting.entries.alchemist.maxItemLevel",
+                        "phase": "afterDerived",
                         "predicate": {
                             "all": [
                                 "class:alchemist",
@@ -3480,37 +3498,6 @@
             }
         },
         "crafting": {
-            "entries": {
-                "alchemist": {
-                    "actorPreparedFormulas": [
-                        {
-                            "itemUUID": "Compendium.pf2e.equipment-srd.SgtqZxt26BdjUmEB",
-                            "quantity": 2
-                        },
-                        {
-                            "itemUUID": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H",
-                            "quantity": 4
-                        },
-                        {
-                            "itemUUID": "Compendium.pf2e.equipment-srd.3Klm2gPmzOw6ntVb",
-                            "quantity": 2
-                        },
-                        {
-                            "itemUUID": "Compendium.pf2e.equipment-srd.hDLbR56Id2OtU318",
-                            "quantity": 2
-                        }
-                    ],
-                    "isAlchemical": true,
-                    "isDailyPrep": true,
-                    "name": "Alchemist",
-                    "requiredTraits": [
-                        [
-                            "alchemical"
-                        ]
-                    ],
-                    "selector": "alchemist"
-                }
-            },
             "formulas": [
                 {
                     "uuid": "Compendium.pf2e.equipment-srd.UqinuuCWePTYGhVO"

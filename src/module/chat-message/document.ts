@@ -149,8 +149,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     override async getHTML(): Promise<JQuery> {
-        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
-        this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
+        if (this.isContentVisible) {
+            const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
+            this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
+        } else {
+            // This makes the flavor fall back to "privately rolled some dice"
+            this.flavor = "";
+        }
 
         const $html = await super.getHTML();
         $html.on("mouseenter", () => this.onHoverIn());

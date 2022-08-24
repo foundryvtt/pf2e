@@ -89,7 +89,7 @@ export class ActionMacroHelpers {
 
                 const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
                 const selfToken = actor.getActiveTokens(false, true).shift();
-                const finalOptions = [
+                const combinedOptions = [
                     actor.getRollOptions(options.rollOptions),
                     options.extraOptions,
                     options.traits,
@@ -99,7 +99,7 @@ export class ActionMacroHelpers {
                         ? "self:flanking"
                         : [],
                 ].flat();
-                const selfActor = actor.getContextualClone(finalOptions.filter((o) => o.startsWith("self:")));
+                const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
 
                 const stat = getProperty(selfActor, options.statName) as StatisticModifier;
                 const modifiers =
@@ -139,7 +139,6 @@ export class ActionMacroHelpers {
                     );
                 }
 
-                ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 const dc = ((): CheckDC | null => {
                     if (options.difficultyClass) {
                         return options.difficultyClass;
@@ -147,7 +146,7 @@ export class ActionMacroHelpers {
                         // try to resolve target's defense stat and calculate DC
                         const dcStat = options.difficultyClassStatistic?.(targetActor);
                         if (dcStat) {
-                            const extraRollOptions = finalOptions.concat(targetOptions);
+                            const extraRollOptions = combinedOptions.concat(targetOptions);
                             const { dc } = dcStat.withRollOptions({ extraRollOptions });
                             const dcData: CheckDC = {
                                 value: dc.value,
@@ -160,6 +159,10 @@ export class ActionMacroHelpers {
                     }
                     return null;
                 })();
+
+                const finalOptions = new Set(combinedOptions);
+                ensureProficiencyOption(finalOptions, stat.rank ?? -1);
+
                 const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
                 const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
                 const traitObjects = options.traits.map((trait) => ({

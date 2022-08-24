@@ -28,7 +28,7 @@ import {
     WeaponReloadTime,
     WeaponTrait,
 } from "./types";
-import { CROSSBOW_WEAPONS, RANGED_WEAPON_GROUPS, THROWN_RANGES } from "./values";
+import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
 
 class WeaponPF2e extends PhysicalItemPF2e {
     override get isEquipped(): boolean {
@@ -218,7 +218,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;
-        const mandatoryRanged = setHasElement(RANGED_WEAPON_GROUPS, systemData.group) || traitSet.has("thrown");
+        const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, systemData.group) || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.system.range ??= 10;
 

@@ -659,7 +659,6 @@ class CompendiumBrowser extends Application {
                         editTags: false,
                         tagTextProp: "label",
                         dropdown: {
-                            closeOnSelect: false,
                             enabled: 0,
                             fuzzySearch: false,
                             mapValueTo: "label",

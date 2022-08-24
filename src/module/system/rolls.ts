@@ -44,7 +44,7 @@ interface RollParameters {
     /** The triggering event */
     event?: JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
-    options?: string[];
+    options?: string[] | Set<string>;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Callback called when the roll occurs. */
@@ -77,7 +77,7 @@ type CheckType =
 
 interface BaseRollContext {
     /** Any options which should be used in the roll. */
-    options?: string[];
+    options?: Set<string>;
     /** Any notes which should be shown for the roll. */
     notes?: RollNotePF2e[];
     /** If true, this is a secret roll which should only be seen by the GM. */
@@ -129,13 +129,14 @@ interface CheckTargetFlag {
     token?: TokenDocumentUUID;
 }
 
-type ContextFlagOmission = "actor" | "token" | "item" | "target" | "altUsage" | "createMessage";
+type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "options" | "target" | "token";
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
     target: CheckTargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
+    options: string[];
 }
 
 interface RerollOptions {
@@ -161,18 +162,17 @@ class CheckPF2e {
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
         context.skipDialog ??= !game.user.settings.showRollDialogs;
+        const rollOptions = context.options ?? new Set([]);
 
-        if (context.options?.length && !context.isReroll) {
-            check.calculateTotal(context.options);
+        if (rollOptions.size > 0 && !context.isReroll) {
+            check.calculateTotal(rollOptions);
         }
 
         if (context.dc) {
             const { adjustments } = context.dc;
             if (adjustments) {
                 for (const adjustment of adjustments) {
-                    const merge = adjustment.predicate
-                        ? PredicatePF2e.test(adjustment.predicate, context.options ?? [])
-                        : true;
+                    const merge = adjustment.predicate ? PredicatePF2e.test(adjustment.predicate, rollOptions) : true;
 
                     if (merge) {
                         context.dc.modifiers ??= {};
@@ -195,34 +195,47 @@ class CheckPF2e {
         if (isReroll) context.rollTwice = false;
         const substitutions = context.substitutions ?? [];
 
-        const dice = ((): string => {
-            const substitution = substitutions.find(
-                (s) => (!s.ignored && s.predicate?.test(context.options ?? [])) ?? true
-            );
+        // Acquire the d20 roll expression and resolve fortune/misfortune effects
+        const [dice, tagsFromDice] = ((): [string, string[]] => {
+            const substitutions =
+                context.substitutions?.filter((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true) ?? [];
+            const rollTwice = context.rollTwice ?? false;
 
-            if (substitution) {
+            // Determine whether both fortune and misfortune apply to the check
+            const fortuneMisfortune = new Set(
+                substitutions
+                    .map((s) => s.effectType)
+                    .concat(rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : [])
+                    .flat()
+            );
+            for (const trait of fortuneMisfortune) {
+                rollOptions.add(trait);
+            }
+
+            const substitution = substitutions.at(-1);
+            if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
+                return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
+            } else if (substitution) {
                 const effectType = {
                     fortune: "PF2E.TraitFortune",
                     misfortune: "PF2E.TraitMisfortune",
                 }[substitution.effectType];
+                const extraTag = game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
+                    type: game.i18n.localize(effectType),
+                    substitution: game.i18n.localize(substitution.label),
+                });
 
-                extraTags.push(
-                    game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
-                        type: game.i18n.localize(effectType),
-                        substitution: game.i18n.localize(substitution.label),
-                    })
-                );
-                return substitution.value.toString();
+                return [substitution.value.toString(), [extraTag]];
             } else if (context.rollTwice === "keep-lower") {
-                extraTags.push("PF2E.TraitMisfortune");
-                return "2d20kl";
+                return ["2d20kl", ["PF2E.TraitMisfortune"]];
             } else if (context.rollTwice === "keep-higher") {
-                extraTags.push("PF2E.TraitFortune");
-                return "2d20kh";
+                return ["2d20kh", ["PF2E.TraitFortune"]];
             } else {
-                return "1d20";
+                return ["1d20", []];
             }
         })();
+
+        extraTags.push(...tagsFromDice);
 
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
@@ -264,7 +277,7 @@ class CheckPF2e {
         const notes =
             context.notes
                 ?.filter((note) => {
-                    if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
+                    if (!PredicatePF2e.test(note.predicate, rollOptions)) return false;
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;
@@ -306,7 +319,7 @@ class CheckPF2e {
             return TextEditor.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
-        const secret = context.secret ?? context.options?.includes("secret") ?? false;
+        const secret = context.secret ?? rollOptions.has("secret");
 
         const contextFlag: CheckRollContextFlag = {
             ...context,
@@ -315,8 +328,8 @@ class CheckPF2e {
             token: context.token?.id ?? null,
             domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
-            options: context.options ?? [],
-            notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
+            options: Array.from(rollOptions).sort(),
+            notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, rollOptions)),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
             rollTwice: context.rollTwice ?? false,
@@ -795,10 +808,8 @@ class DamageRollPF2e {
         damage.base.category = DamageCategorization.fromDamageType(damage.base.damageType);
 
         // Change default roll mode to blind GM roll if the "secret" option is specified
-        if (context.options && context.options?.length > 0) {
-            if (context.options.map((o: string) => o.toLowerCase()).includes("secret")) {
-                context.secret = true;
-            }
+        if (context.options.has("secret")) {
+            context.secret = true;
         }
 
         await DamageRollModifiersDialog.roll(damage, context, callback);

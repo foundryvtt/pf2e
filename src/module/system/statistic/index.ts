@@ -137,7 +137,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         });
     }
 
-    createRollOptions(domains: string[], args: RollOptionParameters = {}): string[] {
+    createRollOptions(domains: string[], args: RollOptionParameters = {}): Set<string> {
         const { item, extraRollOptions, target } = args;
 
         const rollOptions: string[] = [];
@@ -175,7 +175,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             rollOptions.push(...extraRollOptions);
         }
 
-        return [...new Set(rollOptions)];
+        return new Set(rollOptions);
     }
 
     withRollOptions(options?: RollOptionParameters): Statistic<T> {
@@ -272,7 +272,7 @@ class StatisticCheck {
         }
     }
 
-    createRollOptions(args: RollOptionParameters = {}): string[] {
+    createRollOptions(args: RollOptionParameters = {}): Set<string> {
         return this.parent.createRollOptions(this.domains, args);
     }
 
@@ -393,7 +393,7 @@ class StatisticDifficultyClass {
         this.value = (data.dc.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
     }
 
-    createRollOptions(args: RollOptionParameters = {}): string[] {
+    createRollOptions(args: RollOptionParameters = {}): Set<string> {
         return this.parent.createRollOptions(this.domains, args);
     }
 

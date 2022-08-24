@@ -84,7 +84,7 @@ interface DamageRollContext extends BaseRollContext {
     outcome?: DegreeOfSuccessString;
     self?: StrikeSelf | null;
     target?: AttackTarget | null;
-    options: string[];
+    options: Set<string>;
     secret?: boolean;
 }
 

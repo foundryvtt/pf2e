@@ -29,7 +29,7 @@
     {{#unless isRitual}}
         <li class="form-group">
             <label>{{localize "PF2E.TraitCantrip"}}</label>
-            <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip"/>
+            <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip" />
         </li>
     {{/unless}}
 </ol>
@@ -182,10 +182,10 @@
         {{#each data.damage.value as |damage id|}}
             <div class="formula-section">
                 <div class="details-container-flex-row">
-                    <input type="text" name="system.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                    <input type="text" name="system.damage.value.{{id}}.value" value="{{damage.value}}" placeholder="{{localize "PF2E.FormulaPlaceholder"}}" />
                     <label>
                         <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
-                        <input type="checkbox" name="system.damage.value.{{id}}.applyMod" value="0" {{checked damage.applyMod}}/>
+                        <input type="checkbox" name="system.damage.value.{{id}}.applyMod" {{checked damage.applyMod}} />
                     </label>
                     <select name="system.damage.value.{{id}}.type.subtype">
                         {{#select damage.type.subtype}}
@@ -249,7 +249,7 @@
         {{#each data.damage.value as |damage idx|}}
             <div class="form-group">
                 <label class="short">{{localize (lookup @root.damageTypes damage.type.value)}}</label>
-                <input type="text" name="system.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}"/>
+                <input type="text" name="system.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}" />
             </div>
         {{/each}}
     </div>
@@ -269,7 +269,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.Counteract"}}</label>
-    <input type="checkbox" name="system.hasCounteractCheck.value" value="true" {{checked data.hasCounteractCheck.value}}/>
+    <input type="checkbox" name="system.hasCounteractCheck.value" {{checked data.hasCounteractCheck.value}} />
 </div>
 {{#if (not isVariant)}}
     <div class="form-list variants" data-can-drop="true">

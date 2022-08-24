@@ -1,5 +1,6 @@
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollSubstitution } from "@module/rules/synthetics";
+import { ErrorPF2e, tupleHasValue } from "@util";
 import { LocalizePF2e } from "./localize";
 import { CheckRollContext, RollTwiceOption } from "./rolls";
 
@@ -19,20 +20,18 @@ export class CheckModifiersDialog extends Application {
     /** Has the promise been resolved? */
     isResolved = false;
 
-    constructor(check: StatisticModifier, resolve: (value: boolean) => void, context?: CheckRollContext) {
-        super({
-            title: context?.title || check.name,
-            template: "systems/pf2e/templates/chat/check-modifiers-dialog.html",
-            classes: ["dice-checks", "dialog"],
-            popOut: true,
-            width: 380,
-            height: "auto",
-        });
+    constructor(
+        check: StatisticModifier,
+        resolve: (value: boolean) => void,
+        context: CheckRollContext = { options: new Set() }
+    ) {
+        super({ title: context?.title || check.name });
 
         this.check = check;
-        this.context = context ?? {}; // might include a reference to actor, so do not do mergeObject or similar
         this.resolve = resolve;
         this.substitutions = context?.substitutions ?? [];
+        this.context = context;
+
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
@@ -40,7 +39,18 @@ export class CheckModifiersDialog extends Application {
         }
     }
 
-    override getData(): object {
+    static override get defaultOptions(): ApplicationOptions {
+        return {
+            ...super.defaultOptions,
+            template: "systems/pf2e/templates/chat/check-modifiers-dialog.html",
+            classes: ["dice-checks", "dialog"],
+            popOut: true,
+            width: 380,
+            height: "auto",
+        };
+    }
+
+    override async getData(): Promise<CheckDialogData> {
         const fortune = this.context.rollTwice === "keep-higher";
         const misfortune = this.context.rollTwice === "keep-lower";
         const none = fortune === misfortune;
@@ -72,10 +82,13 @@ export class CheckModifiersDialog extends Application {
             if (!substitution) return;
 
             substitution.ignored = !checkbox.checked;
+            const options = (this.context.options ??= new Set());
+            const option = `substitute:${substitution.slug}`;
+
             if (substitution.ignored) {
-                this.context.options?.findSplice((o) => o === `substitute:${substitution.slug}`);
+                options.delete(option);
             } else {
-                this.context.options?.push(`substitute:${substitution.slug}`);
+                options.add(option);
             }
 
             this.check.calculateTotal(this.context.options);
@@ -96,7 +109,14 @@ export class CheckModifiersDialog extends Application {
             this.context.rollTwice = (event.currentTarget.value || false) as RollTwiceOption;
         });
 
-        $html.find("[name=rollmode]").on("change", (event) => this.onChangeRollMode(event));
+        $html.find<HTMLInputElement>("[name=rollmode]").on("change", (event) => {
+            const rollMode = event.currentTarget.value;
+            if (!tupleHasValue(Object.values(CONST.DICE_ROLL_MODES), rollMode)) {
+                throw ErrorPF2e("Unexpected roll mode");
+            }
+
+            this.context.rollMode = rollMode;
+        });
 
         // Dialog settings menu
         const $settings = $html.closest(`#${this.id}`).find("a.header-button.settings");
@@ -148,10 +168,6 @@ export class CheckModifiersDialog extends Application {
         }
     }
 
-    onChangeRollMode(event: JQuery.ChangeEvent): void {
-        this.context.rollMode = ($(event.currentTarget).val() ?? "publicroll") as RollMode;
-    }
-
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const label = LocalizePF2e.translations.PF2E.SETTINGS.Settings;
@@ -163,4 +179,17 @@ export class CheckModifiersDialog extends Application {
         };
         return [settingsButton, ...buttons];
     }
+}
+
+interface CheckDialogData {
+    appId: string;
+    modifiers: ModifierPF2e[];
+    totalModifier: number;
+    rollModes: Record<RollMode, string>;
+    rollMode: RollMode | undefined;
+    showRollDialogs: boolean;
+    substitutions: RollSubstitution[];
+    fortune: boolean;
+    none: boolean;
+    misfortune: boolean;
 }
