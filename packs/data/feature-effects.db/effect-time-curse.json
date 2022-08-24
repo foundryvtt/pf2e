@@ -49,7 +49,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major"
+                        "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -60,13 +60,13 @@
                     ]
                 },
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "self:curse"
+                "rollOption": "oracular-curse:stage"
             },
             {
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "self:curse:minor"
+                        "oracular-curse:stage:minor"
                     ],
                     "any": [
                         "inflicts:fatigued",
@@ -81,7 +81,7 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "self:curse:minor"
+                        "oracular-curse:stage:minor"
                     ],
                     "any": [
                         "inflicts:fatigued",
@@ -97,7 +97,7 @@
                 "mode": "override",
                 "predicate": {
                     "all": [
-                        "self:curse:moderate"
+                        "oracular-curse:stage:moderate"
                     ]
                 },
                 "selector": "ac",
@@ -108,8 +108,9 @@
                 "key": "AdjustModifier",
                 "mode": "override",
                 "predicate": {
-                    "all": [
-                        "self:curse:major"
+                    "any": [
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "selector": "ac",
@@ -119,8 +120,9 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
-                    "all": [
-                        "self:curse:major"
+                    "any": [
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "selector": "initiative",

@@ -49,7 +49,7 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major"
+                        "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -60,14 +60,15 @@
                     ]
                 },
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "self:curse"
+                "rollOption": "oracular-curse:stage"
             },
             {
                 "key": "Resistance",
                 "predicate": {
                     "any": [
-                        "self:curse:moderate",
-                        "self:curse:major"
+                        "oracular-curse:stage:moderate",
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "type": "fire",
@@ -77,8 +78,9 @@
                 "key": "Weakness",
                 "predicate": {
                     "any": [
-                        "self:curse:moderate",
-                        "self:curse:major"
+                        "oracular-curse:stage:moderate",
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "type": "electricity",
@@ -88,7 +90,7 @@
                 "key": "Weakness",
                 "predicate": {
                     "all": [
-                        "self:curse:minor"
+                        "oracular-curse:stage:minor"
                     ]
                 },
                 "type": "electricity",
@@ -101,8 +103,9 @@
                         "ranged"
                     ],
                     "any": [
-                        "self:curse:moderate",
-                        "self:curse:major"
+                        "oracular-curse:stage:moderate",
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "selector": "attack",
