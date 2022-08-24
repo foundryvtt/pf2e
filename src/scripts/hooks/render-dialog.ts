@@ -1,19 +1,22 @@
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
+import { PC_ITEM_TYPES } from "@item/values";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 
 export const RenderDialog = {
     listen: () => {
-        Hooks.on("renderDialog", (dialog) => {
-            InlineRollLinks.listen(dialog.element);
+        Hooks.on("renderDialog", (_dialog, $html) => {
+            InlineRollLinks.listen($html);
 
             // Break up the item document dialog into option groups
             // The class we're checking for is injected by the item document's createDialog() method
-            if (dialog.element.hasClass("dialog-item-create")) {
-                const select = dialog.element.find("[name=type]").get(0);
+            const element = $html[0];
+            if (element.classList.contains("dialog-item-create")) {
+                const select = element.querySelector<HTMLSelectElement>("select[name=type]");
                 const categories = LocalizePF2e.translations.PF2E.Item.CreationDialog.Categories;
-                if (select instanceof HTMLSelectElement) {
+                if (select) {
                     select.append(extractOptGroup(select, categories.Physical, [...PHYSICAL_ITEM_TYPES, "kit"]));
+                    select.append(extractOptGroup(select, categories.Character, Array.from(PC_ITEM_TYPES)));
                     select.append(extractOptGroup(select, categories.Other));
                     select.querySelector("option")!.selected = true;
                 }
