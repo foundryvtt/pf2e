@@ -2015,7 +2015,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     protected override async _preUpdate(

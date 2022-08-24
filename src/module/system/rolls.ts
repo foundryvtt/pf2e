@@ -195,32 +195,47 @@ class CheckPF2e {
         if (isReroll) context.rollTwice = false;
         const substitutions = context.substitutions ?? [];
 
-        const dice = ((): string => {
-            const substitution = substitutions.find((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true);
+        // Acquire the d20 roll expression and resolve fortune/misfortune effects
+        const [dice, tagsFromDice] = ((): [string, string[]] => {
+            const substitutions =
+                context.substitutions?.filter((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true) ?? [];
+            const rollTwice = context.rollTwice ?? false;
 
-            if (substitution) {
+            // Determine whether both fortune and misfortune apply to the check
+            const fortuneMisfortune = new Set(
+                substitutions
+                    .map((s) => s.effectType)
+                    .concat(rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : [])
+                    .flat()
+            );
+            for (const trait of fortuneMisfortune) {
+                rollOptions.add(trait);
+            }
+
+            const substitution = substitutions.at(-1);
+            if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
+                return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
+            } else if (substitution) {
                 const effectType = {
                     fortune: "PF2E.TraitFortune",
                     misfortune: "PF2E.TraitMisfortune",
                 }[substitution.effectType];
+                const extraTag = game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
+                    type: game.i18n.localize(effectType),
+                    substitution: game.i18n.localize(substitution.label),
+                });
 
-                extraTags.push(
-                    game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
-                        type: game.i18n.localize(effectType),
-                        substitution: game.i18n.localize(substitution.label),
-                    })
-                );
-                return substitution.value.toString();
+                return [substitution.value.toString(), [extraTag]];
             } else if (context.rollTwice === "keep-lower") {
-                extraTags.push("PF2E.TraitMisfortune");
-                return "2d20kl";
+                return ["2d20kl", ["PF2E.TraitMisfortune"]];
             } else if (context.rollTwice === "keep-higher") {
-                extraTags.push("PF2E.TraitFortune");
-                return "2d20kh";
+                return ["2d20kh", ["PF2E.TraitFortune"]];
             } else {
-                return "1d20";
+                return ["1d20", []];
             }
         })();
+
+        extraTags.push(...tagsFromDice);
 
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
