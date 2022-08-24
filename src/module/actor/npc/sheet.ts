@@ -11,7 +11,7 @@ import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
 import { NPCSkillData } from "./data";
@@ -186,10 +186,17 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html.get(0)!;
 
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
             $html.find(".tab.inventory").addClass("active");
+        }
+
+        // Tagify the traits selection
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.traits.value"]');
+        if (traitsEl) {
+            tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
         }
 
         // Subscribe to roll events

@@ -130,7 +130,7 @@ tags.tags.paizo-style {
     }
 
     tag > div {
-        padding: 0 0.09rem 0 0.16rem;
+        padding: 0 0.09rem 0 0.25rem;
     }
 
     tag > div, .tag, select {
@@ -148,6 +148,12 @@ tags.tags.paizo-style {
         filter: none;
         tag > div::before {
             animation: none!important;
+        }
+
+        // There's some css specificity issues that reintroduce margins,
+        // display none makes it easier to remove
+        & > .tagify__input {
+            display: none;
         }
     }
 }
