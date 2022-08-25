@@ -5,7 +5,7 @@ import { MigrationRunner } from "@module/migration/runner";
 import { LocalizePF2e } from "@module/system/localize";
 import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import Tagify from "@yaireo/tagify";
-import { MenuTemplateData, PartialSettingsData, SettingsMenuPF2e } from "../menu";
+import { PartialSettingsData, SettingsMenuPF2e } from "../menu";
 import { prepareCleanup } from "./cleanup-migration";
 import { isHomebrewFlagCategory } from "./helpers";
 import "@yaireo/tagify/src/tagify.scss";
@@ -70,14 +70,6 @@ export class HomebrewElements extends SettingsMenuPF2e {
         );
     }
 
-    override getData(): MenuTemplateData {
-        const data = super.getData();
-        for (const setting of data.settings) {
-            setting.value = JSON.stringify(setting.value);
-        }
-        return data;
-    }
-
     override activateListeners($form: JQuery<HTMLFormElement>): void {
         super.activateListeners($form);
 
@@ -106,18 +98,19 @@ export class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 
-    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected override async _onSubmit(
-        event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
-    ): Promise<Record<string, unknown>> {
-        const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
-            if (input.value === "") {
-                input.value = "[]";
-            }
-        });
-        return super._onSubmit(event, { updateData, preventClose, preventRender });
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
+        updateData = super._getSubmitData(updateData);
+
+        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
+        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
+        for (const inputEl of Array.from(tagifyInputElements)) {
+            const path = inputEl.name;
+            const inputValue = updateData[path];
+            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
+            updateData[path] = Array.isArray(selections) ? selections : [];
+        }
+
+        return updateData;
     }
 
     protected override async _updateObject(
