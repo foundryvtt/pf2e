@@ -1,0 +1,117 @@
+import { ItemSourcePF2e } from "@item/data";
+import { RuleElementSource } from "@module/rules";
+import { RawPredicate } from "@system/predication";
+import { MigrationBase } from "../base";
+
+/** Update features that require agile, finesse or ranged weapons to reflect current melee/ranged classification */
+export class Migration775AgileFinesseRanged extends MigrationBase {
+    static override version = 0.775;
+
+    #findDamageDiceRE(source: ItemSourcePF2e): RuleElementSource | null {
+        return source.system.rules.find((r) => r.key === "DamageDice") ?? null;
+    }
+
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        switch (source.type) {
+            case "action": {
+                if (source.system.slug === "sneak-attack") {
+                    const damageDiceRE = this.#findDamageDiceRE(source);
+                    // Skip NPCs with PFS's simplified sneak attack rule
+                    if (damageDiceRE && damageDiceRE.predicate?.all?.some((s) => s instanceof Object && "or" in s)) {
+                        damageDiceRE.predicate = this.#sneakAttackPredicate;
+                    }
+                }
+                break;
+            }
+            case "feat": {
+                switch (source.system.slug) {
+                    case "athletic-strategist": {
+                        const abilityModifier = source.system.rules.find(
+                            (r): r is RuleElementSource & { force?: unknown } => r.key === "FlatModifier"
+                        );
+                        if (abilityModifier) {
+                            abilityModifier.force = true;
+                        }
+                        break;
+                    }
+                    case "devise-a-stratagem": {
+                        const index = source.system.rules.findIndex((r) => r.key === "FlatModifier");
+                        if (index !== -1) {
+                            source.system.rules[index] = this.#deviseAStratagem;
+                        }
+
+                        break;
+                    }
+                    case "ruffian": {
+                        const damageDiceRE = this.#findDamageDiceRE(source);
+                        if (damageDiceRE) {
+                            damageDiceRE.predicate = this.#ruffianPredicate;
+                        }
+                        break;
+                    }
+                    case "shadow-sneak-attack":
+                    case "sneak-attack":
+                    case "sneak-attacker": {
+                        const damageDiceRE = this.#findDamageDiceRE(source);
+                        if (damageDiceRE) {
+                            const predicate = this.#sneakAttackPredicate;
+                            if (source.system.featType.value === "classfeature") {
+                                predicate.all?.unshift("class:rogue");
+                            }
+                            damageDiceRE.predicate = predicate;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    get #deviseAStratagem(): BaseREWithOtherStuff {
+        return {
+            ability: "int",
+            force: true,
+            key: "FlatModifier",
+            predicate: {
+                all: ["class:investigator", "devise-a-stratagem"],
+                any: [
+                    "weapon:trait:agile",
+                    "weapon:trait:finesse",
+                    { and: ["weapon:ranged", { not: "weapon:thrown-melee" }] },
+                    "weapon:base:sap",
+                ],
+            },
+            selector: "attack-roll",
+            type: "ability",
+        };
+    }
+
+    get #ruffianPredicate(): RawPredicate {
+        return {
+            all: [
+                "target:condition:flat-footed",
+                "weapon:category:simple",
+                {
+                    nor: [
+                        { and: ["weapon:ranged", { not: "weapon:thrown-melee" }] },
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse",
+                    ],
+                },
+            ],
+        };
+    }
+
+    get #sneakAttackPredicate(): RawPredicate {
+        return {
+            all: ["target:condition:flat-footed"],
+            any: [
+                "weapon:trait:agile",
+                "weapon:trait:finesse",
+                { and: ["weapon:ranged", { not: "weapon:thrown-melee" }] },
+            ],
+        };
+    }
+}
+
+type BaseREWithOtherStuff = RuleElementSource & Record<string, unknown>;
