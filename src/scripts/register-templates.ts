@@ -131,6 +131,8 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/system/actions/repair/item-heading-partial.html",
 
         // TokenConfig partials
+        "systems/pf2e/templates/scene/token/partials/appearance.html",
+        "systems/pf2e/templates/scene/token/partials/identity.html",
         "systems/pf2e/templates/scene/token/partials/lighting.html",
     ];
 
