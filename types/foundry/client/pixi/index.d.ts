@@ -1,3 +1,6 @@
+import "./perception";
+import "./layers/effects/visibility";
+
 declare global {
     module PIXI {
         export {
