@@ -284,21 +284,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const materialData = this.getMaterialData();
         if (!(this.isMagical || materialData) || this.isSpecific) return;
 
-        // Adjust the weapon price according to precious material and runes
-        // Base Prices are not included in these cases
-        // https://2e.aonprd.com/Rules.aspx?ID=731
-        // https://2e.aonprd.com/Equipment.aspx?ID=380
-        const materialPrice = materialData?.price ?? 0;
-        const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this).bulk.normal), 1);
-        const materialValue = materialPrice + (bulk * materialPrice) / 10;
-        const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
-        const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
-
-        const basePrice = this.price.value;
-        const modifiedIsHigher = modifiedPrice.copperValue > basePrice.copperValue;
-        const highestPrice = modifiedIsHigher ? modifiedPrice : basePrice;
-        systemData.price.value = highestPrice;
-
         const baseLevel = this.level;
         systemData.level.value = runesData
             .map((runeData) => runeData.level)
@@ -319,6 +304,23 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         // Set the name according to the precious material and runes
         this.name = this.generateMagicName();
+    }
+
+    override computeAdjustedPrice(): CoinsPF2e | null {
+        const materialData = this.getMaterialData();
+        if (!(this.isMagical || materialData) || this.isSpecific) return null;
+
+        // Adjust the weapon price according to precious material and runes
+        // Base Prices are not included in these cases
+        // https://2e.aonprd.com/Rules.aspx?ID=731
+        // https://2e.aonprd.com/Equipment.aspx?ID=380
+        const runesData = this.getRunesData();
+        const materialPrice = materialData?.price ?? 0;
+        const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this).bulk.normal), 1);
+        const materialValue = materialPrice + (bulk * materialPrice) / 10;
+        const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
+        const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
+        return modifiedPrice;
     }
 
     getRunesData(): RuneValuationData[] {

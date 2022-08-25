@@ -242,6 +242,15 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             },
         };
 
+        // If the item has an adjusted price, replace it if higher
+        const adjustedPrice = this.computeAdjustedPrice?.();
+        if (adjustedPrice) {
+            const basePrice = this.price.value;
+            const modifiedIsHigher = adjustedPrice.copperValue > basePrice.copperValue;
+            const highestPrice = modifiedIsHigher ? adjustedPrice : basePrice;
+            systemData.price.value = highestPrice;
+        }
+
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
         this.name = mystifiedData.name;
@@ -453,6 +462,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
 interface PhysicalItemPF2e {
     readonly data: PhysicalItemData;
+
+    computeAdjustedPrice?(): CoinsPF2e | null;
 }
 
 export { PhysicalItemPF2e };
