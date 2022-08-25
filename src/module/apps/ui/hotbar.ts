@@ -42,6 +42,8 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 return createActionMacro(data.pf2e.index, data.actorId, slot);
             }
         }
+
+        return super._onDrop(event);
     }
 
     private hasRollOptionData(data: Record<string, unknown>): data is RollOptionData {
