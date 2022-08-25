@@ -96,13 +96,6 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
     }
 
-    /** Set a self roll option for this effect */
-    override prepareActorData(this: Embedded<EffectPF2e>): void {
-        const slug = this.slug ?? sluggify(this.name);
-        const reducedSlug = slug.replace(/^(?:[a-z]+-)?(?:effect|stance)-/, "");
-        this.actor.rollOptions.all[`self:effect:${reducedSlug}`] = true;
-    }
-
     /** Include a trimmed version of the "slug" roll option (e.g., effect:rage instead of effect:effect-rage) */
     override getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
