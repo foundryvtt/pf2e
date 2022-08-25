@@ -12,7 +12,9 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         if (!slot) return;
 
         const data: HotbarDropData = TextEditor.getDragEventData(event);
-        if (data.type === "Macro") return super._onDrop(event);
+        if (!["Item", "RollOption", "Skill", "Action"].includes(data.type ?? "")) {
+            return super._onDrop(event);
+        }
         if (Hooks.call("hotbarDrop", this, data, slot) === false) return;
 
         if (data.type === "Item") {
