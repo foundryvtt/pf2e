@@ -40,9 +40,16 @@
                         "target:condition:flat-footed"
                     ],
                     "any": [
-                        "finesse",
-                        "agile",
-                        "ranged"
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse",
+                        {
+                            "and": [
+                                "weapon:ranged",
+                                {
+                                    "not": "weapon:thrown-melee"
+                                }
+                            ]
+                        }
                     ]
                 },
                 "selector": "strike-damage"
