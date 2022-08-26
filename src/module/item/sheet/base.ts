@@ -146,7 +146,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected onTagSelector(event: JQuery.TriggeredEvent): void {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
-        const selectorType = $anchor.attr("data-trait-selector") ?? "";
+        const selectorType = $anchor.attr("data-tag-selector") ?? "";
         if (!(selectorType === "basic" && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
@@ -231,7 +231,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
-        $html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
+        $html.find(".tag-selector").on("click", (ev) => this.onTagSelector(ev));
 
         // Add Damage Roll
         $html.find(".add-damage").on("click", (ev) => {

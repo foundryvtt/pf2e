@@ -8,7 +8,7 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
 
     static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
-            template: "systems/pf2e/templates/system/trait-selector/senses.html",
+            template: "systems/pf2e/templates/system/tag-selector/senses.html",
             title: "PF2E.Sense.Label",
         });
     }

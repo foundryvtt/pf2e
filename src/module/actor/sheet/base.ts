@@ -311,7 +311,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Trait Selector
-        $html.find(".trait-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".tag-selector").on("click", (event) => this.onTraitSelector(event));
 
         $html.find(".add-coins-popup button").on("click", (event) => this.onAddCoinsPopup(event));
 
@@ -1147,7 +1147,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected onTraitSelector(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
-        const selectorType = $anchor.attr("data-trait-selector") ?? "";
+        const selectorType = $anchor.attr("data-tag-selector") ?? "";
         if (!tupleHasValue(TAG_SELECTOR_TYPES, selectorType)) {
             throw ErrorPF2e(`Unrecognized trait selector type "${selectorType}"`);
         }

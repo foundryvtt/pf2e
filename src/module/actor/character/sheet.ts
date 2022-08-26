@@ -423,7 +423,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        $html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".crb-tag-selector").on("click", (event) => this.onTraitSelector(event));
 
         // ACTIONS
         const $actions = $html.find(".tab.actions");
