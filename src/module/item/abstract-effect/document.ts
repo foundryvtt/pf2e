@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import { sluggify } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
@@ -21,7 +21,9 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
 
     /** Set a self roll option for this effect */
     override prepareActorData(): void {
-        const actor = this.actor!;
+        const actor = this.actor;
+        if (!actor) throw ErrorPF2e("prepareActorData called from unembedded item");
+
         actor.rollOptions.all[`self:${this.type}:${this.rollOptionSlug}`] = true;
 
         // Add the badge value to roll options but only if it is a number and the highest value

@@ -83,7 +83,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
      * Called when an item summary is expanded and needs to be filled out.
      * @todo Move this to templates
      */
-    async renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: ItemSummaryData): Promise<void> {
+    async renderItemSummary($div: JQuery, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
         const localize = game.i18n.localize.bind(game.i18n);
 
         const itemIsIdentifiedOrUserIsGM = item.isOfType("physical") && (item.isIdentified || game.user.isGM);

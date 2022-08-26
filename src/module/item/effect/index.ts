@@ -145,7 +145,7 @@ class EffectPF2e extends AbstractEffectPF2e {
 
         // If the badge type changes, reset the value
         const badge = changed.system?.badge;
-        if (isObject<Partial<EffectBadge>>(badge) && badge?.type && !("value" in badge)) {
+        if (isObject<EffectBadge>(badge) && badge?.type && !("value" in badge)) {
             badge.value = 1;
         }
 
