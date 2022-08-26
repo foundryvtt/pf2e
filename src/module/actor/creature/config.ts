@@ -27,7 +27,8 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends DocumentSheet
 
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<CreatureConfigData<TActor>> {
         const source: BaseCreatureSource = this.actor._source;
-        const alliance = source.system.details?.alliance ?? "default";
+        const alliance =
+            source.system.details?.alliance === null ? "neutral" : source.system.details?.alliance ?? "default";
         const defaultValue = game.i18n.localize(
             this.actor.hasPlayerOwner ? "PF2E.Actor.Creature.Alliance.Party" : "PF2E.Actor.Creature.Alliance.Opposition"
         );
