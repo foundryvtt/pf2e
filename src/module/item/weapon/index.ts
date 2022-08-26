@@ -31,6 +31,9 @@ import {
 import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
 
 class WeaponPF2e extends PhysicalItemPF2e {
+    /** Given this weapon is an alternative usage, whether it is melee or thrown */
+    altUsageType: "melee" | "thrown" | null = null;
+
     override get isEquipped(): boolean {
         const { category, slug, traits } = this.system;
         // Make unarmed "weapons" always equipped with the exception of handwraps
@@ -143,6 +146,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             actor?.isOfType("character") &&
             actor.deity?.favoredWeapons.includes(this.baseType)
         );
+        const thrownMelee = this.isThrown && this.altUsageType === "thrown";
 
         return [
             super.getRollOptions(prefix),
@@ -157,11 +161,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`damage:type:${damage.type}`]: true,
                 [`damage:die:faces:${damage.dieFaces}`]: true,
                 [`damage-dice:${1 + this.system.runes.striking}`]: true,
-                ["deity-favored"]: isDeityFavored,
+                "deity-favored": isDeityFavored,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 thrown: this.isThrown,
+                "thrown-melee": thrownMelee,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
@@ -446,6 +451,24 @@ class WeaponPF2e extends PhysicalItemPF2e {
         ].flat();
     }
 
+    override clone<T extends this>(
+        data: DocumentUpdateData<this> | undefined,
+        options: Omit<WeaponCloneOptions, "save"> & { save: true }
+    ): Promise<T>;
+    override clone<T extends this>(
+        data?: DocumentUpdateData<this>,
+        options?: Omit<WeaponCloneOptions, "save"> & { save?: false }
+    ): T;
+    override clone<T extends this>(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): T | Promise<T>;
+    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this> {
+        const clone = super.clone(data, options);
+        if (options?.altUsage && clone instanceof WeaponPF2e) {
+            clone.altUsageType = options.altUsage;
+        }
+
+        return clone;
+    }
+
     /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
     private toThrownUsage(): this | null {
         const traits = this.system.traits.value;
@@ -461,7 +484,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 traits: { value: newTraits },
             },
         };
-        return this.clone(overlay, { keepId: true });
+
+        return this.clone(overlay, { keepId: true, altUsage: "thrown" });
     }
 
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
@@ -484,7 +508,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 },
             },
         };
-        return this.clone(overlay, { keepId: true });
+        return this.clone(overlay, { keepId: true, altUsage: "melee" });
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
@@ -613,6 +637,13 @@ interface WeaponPF2e {
     readonly data: WeaponData;
 
     get traits(): Set<WeaponTrait>;
+}
+
+interface WeaponCloneOptions {
+    save?: boolean;
+    keepId?: boolean;
+    /** If this clone is an alternative usage, the type */
+    altUsage?: "melee" | "thrown";
 }
 
 export { WeaponPF2e };
