@@ -1,10 +1,11 @@
 {
-    "_id": "rJpkKaPRGaH0pLse",
-    "img": "systems/pf2e/icons/features/classes/fey.webp",
-    "name": "Effect: Fey Blood Magic",
+    "_id": "yfbP64r4a9e5oyli",
+    "img": "systems/pf2e/icons/features/classes/demonic.webp",
+    "name": "Effect: Demonic Blood Magic (Target)",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>Colorful fey glamours dance around you or one target, causing them to be concealed for 1 round. Such obvious concealment can't be used to Hide.</p>"
+            "value": "<p>The corruption of sin weakens a target's defenses. A target takes a -1 status penalty to AC for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,7 +16,14 @@
         "level": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": -1
+            }
+        ],
         "source": {
             "value": ""
         },

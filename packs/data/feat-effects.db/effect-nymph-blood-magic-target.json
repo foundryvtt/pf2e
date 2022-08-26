@@ -1,15 +1,16 @@
 {
-    "_id": "Q5FUu7yhWPJlcXei",
-    "img": "systems/pf2e/icons/spells/medusas-wrath.webp",
-    "name": "Effect: Hydration",
+    "_id": "ruRAfGJnik7lRavk",
+    "img": "systems/pf2e/icons/features/classes/nymph.webp",
+    "name": "Effect: Nymph Blood Magic (Target)",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.ancestryfeatures.Hydration]{Hydration} if you spend 24 hours outside of water.</p>"
+            "value": "<p>Nymph grace accentuates your movements and distracts your foes, imposing a -1 status bonus to Will saves for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "days",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
@@ -18,8 +19,7 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Dehydrated",
-                "selector": "fortitude",
+                "selector": "will",
                 "type": "status",
                 "value": -1
             }

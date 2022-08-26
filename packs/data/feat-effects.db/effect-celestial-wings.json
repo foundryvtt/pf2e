@@ -1,26 +1,26 @@
 {
-    "_id": "ruRAfGJnik7lRavk",
-    "img": "systems/pf2e/icons/features/classes/nymph.webp",
-    "name": "Effect: Nymph Blood Magic (Target)",
+    "_id": "HfXGhXc9D120gvl5",
+    "img": "systems/pf2e/icons/spells/angelic-wings.webp",
+    "name": "Effect: Celestial Wings",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>Nymph grace accentuates your movements and distracts your foes, imposing a -1 status bonus to Will saves for 1 round.</p>"
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Celestial Wings]{Celestial Wings}</p>\n<p>You gain a fly Speed equal to your Speed while you've manifested your wings.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "minutes",
+            "value": 10
         },
         "level": {
-            "value": 1
+            "value": 9
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "will",
-                "type": "status",
-                "value": -1
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
             }
         ],
         "source": {

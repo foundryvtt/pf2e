@@ -1,25 +1,27 @@
 {
-    "_id": "HfXGhXc9D120gvl5",
-    "img": "systems/pf2e/icons/spells/angelic-wings.webp",
-    "name": "Effect: Celestial Wings",
+    "_id": "3gGBZHcUFsHLJeQH",
+    "img": "systems/pf2e/icons/features/classes/elemental.webp",
+    "name": "Effect: Elemental Blood Magic (Self)",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Celestial Wings]{Celestial Wings}</p>\n<p>You gain a fly Speed equal to your Speed while you've manifested your wings.</p>"
+            "value": "<p>Elemental energy surrounds you. You gain a +1 status bonus to Intimidation checks for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
-            "value": 10
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 9
+            "value": 1
         },
         "rules": [
             {
-                "key": "BaseSpeed",
-                "selector": "fly",
-                "value": "@actor.attributes.speed.total"
+                "key": "FlatModifier",
+                "selector": "intimidation",
+                "type": "status",
+                "value": 1
             }
         ],
         "source": {

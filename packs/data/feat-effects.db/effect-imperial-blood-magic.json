@@ -1,13 +1,14 @@
 {
-    "_id": "yBTASi3FvnReAwHy",
-    "img": "systems/pf2e/icons/features/classes/debilitating-strikes.webp",
-    "name": "Effect: Debilitating Strike",
+    "_id": "vguxP8ukwVTWWWaA",
+    "img": "systems/pf2e/icons/features/classes/imperial.webp",
+    "name": "Effect: Imperial Blood Magic",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>The target has been affected by a rogue's @Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike}.</p>\n<p><em>Note: this effect only tracks the duration of the debilitation. You need to manually apply the specific penalties the rogue chose to apply.</em></p>"
+            "value": "<p>A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
             "unit": "rounds",
             "value": 1
@@ -15,7 +16,14 @@
         "level": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

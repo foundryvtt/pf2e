@@ -1,15 +1,16 @@
 {
-    "_id": "n1vhmOd7aNiuR3nk",
-    "img": "systems/pf2e/icons/features/classes/diabolic.webp",
-    "name": "Effect: Diabolic Blood Magic (Self)",
+    "_id": "Q5FUu7yhWPJlcXei",
+    "img": "systems/pf2e/icons/spells/medusas-wrath.webp",
+    "name": "Effect: Hydration",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>Hellfire fills your tongue with lies. You gain a +1 status bonus to Deception checks for 1 round.</p>"
+            "value": "<p>Granted by @Compendium[pf2e.ancestryfeatures.Hydration]{Hydration} if you spend 24 hours outside of water.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "days",
             "value": 1
         },
         "level": {
@@ -18,9 +19,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "deception",
+                "label": "Dehydrated",
+                "selector": "fortitude",
                 "type": "status",
-                "value": 1
+                "value": -1
             }
         ],
         "source": {
