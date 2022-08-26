@@ -120,7 +120,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 ? [{ item: weapon, ready: true }]
                 : this.system.actions ?? [];
             const readyAttacks = attacks.filter((a) => a.ready);
-            const traitsFromWeapons = readyAttacks.flatMap((a): Set<string> | never[] => a.item?.traits ?? []);
+            const traitsFromWeapons = readyAttacks.map((a) => a.item.traits);
             if (traitsFromWeapons.length === 0) return baseReach;
 
             const reaches = traitsFromWeapons.map((traits): number => {
