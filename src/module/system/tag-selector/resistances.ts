@@ -9,9 +9,9 @@ export class ResistanceSelector<TActor extends ActorPF2e> extends BaseTagSelecto
     static override get defaultOptions(): FormApplicationOptions {
         return {
             ...super.defaultOptions,
-            id: "trait-selector",
+            id: "tag-selector",
             classes: ["pf2e"],
-            template: "systems/pf2e/templates/system/trait-selector/resistances.html",
+            template: "systems/pf2e/templates/system/tag-selector/resistances.html",
             title: "PF2E.ResistancesLabel",
             width: "auto",
             height: 700,

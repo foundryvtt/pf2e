@@ -32,7 +32,7 @@ abstract class BaseTagSelector<
 
     static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
-            id: "trait-selector",
+            id: "tag-selector",
             classes: ["pf2e"],
             width: "auto",
             height: 700,

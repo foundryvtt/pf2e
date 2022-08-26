@@ -8,7 +8,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
 
     static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
-            template: "systems/pf2e/templates/system/trait-selector/speed-types.html",
+            template: "systems/pf2e/templates/system/tag-selector/speed-types.html",
             title: "PF2E.SpeedTypes",
         });
     }
