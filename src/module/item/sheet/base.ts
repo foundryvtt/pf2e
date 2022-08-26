@@ -190,29 +190,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return attackEffectOptions;
     }
 
-    private async addDamageRoll(event: JQuery.TriggeredEvent) {
-        event.preventDefault();
-        const newKey = randomID(20);
-        const newDamageRoll = {
-            damage: "",
-            damageType: "",
-        };
-        return this.item.update({
-            [`system.damageRolls.${newKey}`]: newDamageRoll,
-        });
-    }
-
-    private async deleteDamageRoll(event: JQuery.TriggeredEvent): Promise<ItemPF2e> {
-        event.preventDefault();
-        if (event.originalEvent) {
-            await this._onSubmit(event.originalEvent);
-        }
-        const targetKey = $(event.target).parents(".damage-part").attr("data-damage-part");
-        return this.item.update({
-            [`system.damageRolls.-=${targetKey}`]: null,
-        });
-    }
-
     override async close(options?: { force?: boolean }): Promise<void> {
         this.editingRuleElementIndex = null;
         return super.close(options);
@@ -232,16 +209,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
 
         $html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
-
-        // Add Damage Roll
-        $html.find(".add-damage").on("click", (ev) => {
-            this.addDamageRoll(ev);
-        });
-
-        // Remove Damage Roll
-        $html.find(".delete-damage").on("click", (ev) => {
-            this.deleteDamageRoll(ev);
-        });
 
         $html.find("[data-action=select-rule-element]").on("change", async (event) => {
             event.preventDefault();
