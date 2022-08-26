@@ -37,15 +37,15 @@ export function registerSheets() {
     DocumentSheetConfig.unregisterSheet(JournalEntry, "core", JournalSheet);
     DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, {
         label: game.i18n.localize("PF2E.JournalEntry.FoundryTheme"),
+        makeDefault: true,
     });
 
     DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetStyledPF2e, {
         label: game.i18n.localize("PF2E.JournalEntry.PF2ETheme"),
-        makeDefault: true,
     });
 
     // Replace the TinyMCE sheet with the version that'll let us inject themes
-    DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextPageSheet);
+    DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
     DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextPageSheetPF2e, {
         types: ["text"],
         label: game.i18n.localize("EDITOR.TinyMCE"),

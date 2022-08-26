@@ -29,7 +29,7 @@ class JournalSheetStyledPF2e extends JournalSheetPF2e {
     }
 }
 
-class JournalTextPageSheetPF2e extends JournalTextPageSheet {
+class JournalTextPageSheetPF2e extends JournalTextTinyMCESheet {
     override async activateEditor(
         name: string,
         options: Partial<TinyMCE.EditorOptions> = {},
@@ -41,7 +41,7 @@ class JournalTextPageSheetPF2e extends JournalTextPageSheet {
         const theme = parentSheet?.theme;
         if (theme) {
             editor.contentDocument.documentElement.classList.add(theme, "journal-entry-page", "text");
-            editor.contentDocument.body.classList.add("text-content");
+            editor.contentDocument.body.classList.add("journal-page-content");
         }
 
         return editor;

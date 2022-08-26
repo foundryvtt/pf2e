@@ -16,3 +16,5 @@ declare class JournalTextPageSheet extends JournalPageSheet {
     /** * Determine if any editors are dirty. */
     isEditorDirty(): boolean;
 }
+
+declare class JournalTextTinyMCESheet extends JournalPageSheet {}
