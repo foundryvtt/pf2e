@@ -27,7 +27,7 @@
     <div class="modifier-container">
         {{#each modifiers as |modifier idx|}}
             <div class="dialog-row{{#unless modifier.enabled}} disabled{{/unless}}">
-                <span class="type tag">{{localize (concat "PF2E.ModifierType."  modifier.type)}}</span>
+                <span class="type tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span>
                 <span class="mod">{{modifier.label}}</span>
                 <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                 <label class="exclude toggle">

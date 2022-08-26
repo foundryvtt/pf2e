@@ -73,7 +73,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     override activateListeners($form: JQuery<HTMLFormElement>): void {
         super.activateListeners($form);
 
-        $form.find('button[name="reset"]').on("click", () => {
+        $form.find("button[name=reset]").on("click", () => {
             this.render();
         });
 
