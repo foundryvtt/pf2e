@@ -1,6 +1,5 @@
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
 import { UserPF2e } from "@module/user";
-import { sluggify } from "@util";
 import { ConditionData, ConditionSlug } from "./data";
 
 class ConditionPF2e extends AbstractEffectPF2e {
@@ -48,15 +47,6 @@ class ConditionPF2e extends AbstractEffectPF2e {
         super.prepareBaseData();
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
-    }
-
-    /** Set a self roll option for this condition */
-    override prepareActorData(this: Embedded<ConditionPF2e>): void {
-        const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`self:condition:${slug}`] = true;
-        if (this.slug === "flat-footed") {
-            this.actor.rollOptions.all["self:flatFooted"] = true;
-        }
     }
 
     /* -------------------------------------------- */

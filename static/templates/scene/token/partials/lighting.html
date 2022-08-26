@@ -1,0 +1,128 @@
+<div class="tab" data-group="main" data-tab="light">
+    <nav class="tabs sheet-tabs light-tabs" data-group="light" aria-role="{{localize "LIGHT.NavLabel"}}">
+        <a class="item" data-tab="basic" data-group="light"><i class="fas fa-lightbulb"></i> {{localize "LIGHT.HeaderBasic"}}</a>
+        <a class="item" data-tab="animation" data-group="light"><i class="fas fa-play"></i> {{localize "LIGHT.HeaderAnimation"}}</a>
+        <a class="item" data-tab="advanced" data-group="light"><i class="fas fa-cogs"></i> {{localize "LIGHT.HeaderAdvanced"}}</a>
+    </nav>
+
+    <div class="tab" data-group="light" data-tab="basic">
+        <div class="form-group slim">
+            <label>{{localize "LIGHT.Radius"}} <span class="units">({{gridUnits}})</span></label>
+            <div class="form-fields">
+                <label>{{localize "LIGHT.Dim"}}</label>
+                <input type="number" name="light.dim" placeholder="{{gridUnits}}" value="{{object.light.dim}}" step="any"/>
+                <label>{{localize "LIGHT.Bright"}}</label>
+                <input type="number" name="light.bright" placeholder="{{gridUnits}}" value="{{object.light.bright}}" step="any"/>
+            </div>
+            <p class="hint">{{localize "LIGHT.RadiusHint"}}</p>
+        </div>
+
+        <div class="form-group slim">
+            <label>{{localize "LIGHT.Angle"}} <span class="units">({{localize "Degrees"}})</span></label>
+            <div class="form-fields">
+                <label>{{localize "Degrees"}}</label>
+                <input type="number" name="light.angle" value="{{object.light.angle}}" placeholder="{{localize "Degrees"}}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Color"}}</label>
+            <div class="form-fields">
+                {{colorPicker name="light.color" value=object.light.color}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Alpha"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.alpha" value=object.light.alpha min="0" max="1" step="0.05"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.ColorHint"}}</p>
+        </div>
+    </div>
+
+    <div class="tab" data-group="light" data-tab="animation">
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationType"}}</label>
+            <div class="form-fields">
+                <select name="light.animation.type">
+                    {{selectOptions lightAnimations selected=object.light.animation.type localize=true}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationSpeed"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.animation.speed" value=object.light.animation.speed min="0" max="10" step="1"}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationReverse"}}</label>
+            <div class="form-fields">
+                <input type="checkbox" name="light.animation.reverse" {{checked object.light.animation.reverse}}/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationIntensity"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.animation.intensity" value=object.light.animation.intensity min="1" max="10" step="1"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.AnimationHint"}}</p>
+        </div>
+    </div>
+
+    <div class="tab" data-group="light" data-tab="advanced">
+        <div class="form-group">
+            <label>{{localize "LIGHT.ColorationTechnique"}}</label>
+            <div class="form-fields">
+                <select name="light.coloration" data-dtype="Number">
+                    {{selectOptions colorationTechniques selected=object.light.coloration nameAttr="id" labelAttr="label" localize=true}}
+                </select>
+            </div>
+            <p class="hint">{{localize "LIGHT.ColorationTechniqueHint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Luminosity"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.luminosity" value=object.light.luminosity min="-1" max="1" step="0.05"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.LuminosityHint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Attenuation"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.attenuation" value=object.light.attenuation min="0" max="1" step="0.05"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.AttenuationHint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Saturation"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.saturation" value=object.light.saturation min="-1" max="1" step="0.05"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.SaturationHint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Contrast"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.contrast" value=object.light.contrast min="-1" max="1" step="0.05"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.ContrastHint"}}</p>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "LIGHT.Shadows"}}</label>
+            <div class="form-fields">
+                {{rangePicker name="light.shadows" value=object.light.shadows min="0" max="1" step="0.05"}}
+            </div>
+            <p class="hint">{{localize "LIGHT.ShadowsHint"}}</p>
+        </div>
+    </div>
+</div>

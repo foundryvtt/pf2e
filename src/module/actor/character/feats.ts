@@ -1,6 +1,7 @@
 import { FeatPF2e, ItemPF2e } from "@item";
 import { ItemGrantData } from "@item/data/base";
 import { FeatType } from "@item/feat/data";
+import { sluggify } from "@util";
 import { CharacterPF2e } from ".";
 import { BonusFeat, GrantedFeat, SlottedFeat } from "./data";
 
@@ -9,9 +10,10 @@ type FeatSlotLevel = number | { id: string; label: string };
 interface FeatCategoryOptions {
     id: string;
     label: string;
-    featFilter?: string;
+    featFilter?: string | null;
     supported?: FeatType[];
-    levels?: FeatSlotLevel[];
+    slots?: FeatSlotLevel[];
+    level?: number;
 }
 
 class CharacterFeats extends Collection<FeatCategory> {
@@ -42,16 +44,28 @@ class CharacterFeats extends Collection<FeatCategory> {
         this.createCategory({
             id: "ancestry",
             label: "PF2E.FeatAncestryHeader",
-            featFilter: "ancestry-" + actor.ancestry?.slug,
+            featFilter: actor.system.details.ancestry?.trait
+                ? `ancestry-${actor.system.details.ancestry?.trait}`
+                : null,
             supported: ["ancestry"],
-            levels: classFeatSlots?.ancestry ?? [],
+            slots: classFeatSlots?.ancestry ?? [],
         });
+
+        // Attempt to acquire the trait corresponding with actor's class, falling back to homebrew variations
+        const classSlug = actor.class ? actor.class.slug ?? sluggify(actor.class.name) : null;
+        const classTrait =
+            (classSlug ?? "") in CONFIG.PF2E.featTraits
+                ? classSlug
+                : `hb_${classSlug}` in CONFIG.PF2E.featTraits
+                ? `hb_${classSlug}`
+                : null;
+
         this.createCategory({
             id: "class",
             label: "PF2E.FeatClassHeader",
-            featFilter: "classes-" + actor.class?.slug,
+            featFilter: classTrait ? `traits-${classTrait},traits-archetype` : null,
             supported: ["class"],
-            levels: classFeatSlots?.class ?? [],
+            slots: classFeatSlots?.class ?? [],
         });
 
         const evenLevels = new Array(actor.level)
@@ -65,7 +79,7 @@ class CharacterFeats extends Collection<FeatCategory> {
                 id: "dualclass",
                 label: "PF2E.FeatDualClassHeader",
                 supported: ["class"],
-                levels: [1, ...evenLevels],
+                slots: [1, ...evenLevels],
             });
         }
 
@@ -75,7 +89,7 @@ class CharacterFeats extends Collection<FeatCategory> {
                 id: "archetype",
                 label: "PF2E.FeatArchetypeHeader",
                 supported: ["class"],
-                levels: evenLevels,
+                slots: evenLevels,
             });
         }
 
@@ -83,13 +97,13 @@ class CharacterFeats extends Collection<FeatCategory> {
             id: "skill",
             label: "PF2E.FeatSkillHeader",
             supported: ["skill"],
-            levels: [...skillPrepend, ...(classFeatSlots?.skill ?? [])],
+            slots: [...skillPrepend, ...(classFeatSlots?.skill ?? [])],
         });
         this.createCategory({
             id: "general",
             label: "PF2E.FeatGeneralHeader",
             supported: ["general", "skill"],
-            levels: classFeatSlots?.general ?? [],
+            slots: classFeatSlots?.general ?? [],
         });
 
         // Add campaign feats if enabled
@@ -99,7 +113,7 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 
     createCategory(options: FeatCategoryOptions) {
-        this.set(options.id, new FeatCategory(options));
+        this.set(options.id, new FeatCategory(this.actor, options));
     }
 
     private combineGrants(feat: FeatPF2e): { feat: FeatPF2e; grants: GrantedFeat[] } {
@@ -261,7 +275,7 @@ class FeatCategory {
     /** Whether the feats are slotted by level or free-form */
     slotted = false;
     /** Will move to sheet data later */
-    featFilter?: string;
+    featFilter: string | null;
 
     /** Feat Types that are supported */
     supported: FeatType[] = [];
@@ -269,14 +283,19 @@ class FeatCategory {
     /** Lookup for the slots themselves */
     slots: Record<string, SlottedFeat> = {};
 
-    constructor(options: FeatCategoryOptions) {
+    constructor(actor: CharacterPF2e, options: FeatCategoryOptions) {
+        const maxLevel = options.level ?? actor.level;
         this.id = options.id;
         this.label = options.label;
         this.supported = options.supported ?? [];
-        this.featFilter = options.featFilter;
-        if (options.levels) {
+        this.featFilter = options.featFilter ?? null;
+        if (options.slots) {
             this.slotted = true;
-            for (const level of options.levels) {
+            for (const level of options.slots) {
+                if (typeof level === "number" && level > maxLevel) {
+                    continue;
+                }
+
                 const { id, label } = typeof level === "object" ? level : { id: `${this.id}-${level}`, label: level };
                 const slot = { id, level: label, grants: [] };
                 this.feats.push(slot);
@@ -307,4 +326,4 @@ class FeatCategory {
     }
 }
 
-export { CharacterFeats, FeatCategory, FeatSlotLevel };
+export { CharacterFeats, FeatCategory, FeatCategoryOptions, FeatSlotLevel };

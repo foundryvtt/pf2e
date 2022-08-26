@@ -22,6 +22,7 @@ import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { InitialFeatFilters } from "@module/apps/compendium-browser/tabs/data";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -342,7 +343,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             label: "PF2E.FeatBonusHeader",
             feats: this.actor.feats.unorganized,
         };
-        return [...this.actor.feats.contents, unorganized];
+        return [...this.actor.feats, unorganized];
     }
 
     /** Disable the initiative button located on the sidebar */
@@ -364,6 +365,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
         // Initiative button
         if (game.combat) {
@@ -746,37 +748,37 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
-        PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>('a[data-action="manage-tabs"]')[0]);
+        PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>("a[data-action=manage-tabs]")[0]);
 
         // Feat Browser shortcut links
-        $html.find(".feat-browse").on("click", (event) => this.onClickBrowseFeatCompendia(event));
+        for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
+            link.addEventListener("click", (event) => this.onClickBrowseFeats(event));
+        }
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
-    private async onClickBrowseFeatCompendia(event: JQuery.ClickEvent): Promise<void> {
-        const maxLevel = Number($(event.currentTarget).attr("data-level")) || this.actor.level;
+    private async onClickBrowseFeats(event: MouseEvent): Promise<void> {
+        if (!(event.currentTarget instanceof HTMLElement)) return;
+
+        const maxLevel = Number(event.currentTarget.dataset.level) || this.actor.level;
         const button: HTMLElement = event.currentTarget;
         const checkboxesFilterCodes = button.dataset.filter?.split(",").filter((f) => !!f) ?? [];
         if (checkboxesFilterCodes.includes("feattype-general")) checkboxesFilterCodes.push("feattype-skill");
+        if (checkboxesFilterCodes.includes("feattype-class")) checkboxesFilterCodes.push("feattype-archetype");
 
-        const filter: Record<string, string[]> = {};
+        const filter: InitialFeatFilters = { level: { max: maxLevel }, traits: [] };
         for (const filterCode of checkboxesFilterCodes) {
-            const splitValues = filterCode.split("-");
-            if (splitValues.length !== 2) {
-                console.error(
-                    `Invalid filter value for opening the compendium browser:\n'${JSON.stringify(
-                        checkboxesFilterCodes
-                    )}'`
-                );
-                return;
+            const [filterType, value] = filterCode.split("-");
+            if (!(filterType && value)) {
+                const codesData = JSON.stringify(checkboxesFilterCodes);
+                throw ErrorPF2e(`Invalid filter value for opening the compendium browser:\n${codesData}`);
             }
-
-            const [filterType, value] = splitValues;
-            const filterCategory = filter[filterType] ?? (filter[filterType] = []);
-            filterCategory.push(value);
+            if (filterType === "traits") {
+                filter.traits?.push(value);
+            }
         }
 
-        await game.pf2e.compendiumBrowser.openTab("feat", Object.assign(filter, { levelRange: { max: maxLevel } }));
+        await game.pf2e.compendiumBrowser.openTab("feat", filter);
     }
 
     /** Handle changing of proficiency-rank via dropdown */

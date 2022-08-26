@@ -172,8 +172,8 @@ class CharacterPF2e extends CreaturePF2e {
         return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
-                const { dc, batchSize, deletable, preparedData } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable, preparedData });
+                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
+                return new CraftingFormula(item, { dc, batchSize, deletable });
             });
     }
 
@@ -212,12 +212,9 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         for (const entry of entries) {
-            for (const formula of entry.preparedFormulas) {
+            for (const formula of entry.preparedCraftingFormulas) {
                 const itemSource: PhysicalItemSource = formula.item.toObject();
-                itemSource.system.quantity = (formula.preparedData[entry.selector].slots || []).reduce(
-                    (sum, current) => sum + (current.quantity || 1),
-                    0
-                );
+                itemSource.system.quantity = formula.quantity;
                 itemSource.system.temporary = true;
                 itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 
@@ -422,6 +419,8 @@ class CharacterPF2e extends CreaturePF2e {
             formula.deletable = true;
         }
 
+        this.system.crafting.entries = {};
+
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
@@ -569,12 +568,12 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
-            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const rollOptions = args.options ?? [];
+                const rollOptions = new Set(params.options ?? []);
                 ensureProficiencyOption(rollOptions, proficiencyRank);
-                if (args.dc && stat.adjustments) {
-                    args.dc.adjustments = stat.adjustments;
+                if (params.dc && stat.adjustments) {
+                    params.dc.adjustments = stat.adjustments;
                 }
 
                 // Get just-in-time roll options from rule elements
@@ -587,12 +586,17 @@ class CharacterPF2e extends CreaturePF2e {
                     actor: this,
                     type: "perception-check",
                     options: rollOptions,
-                    dc: args.dc,
+                    dc: params.dc,
                     rollTwice,
                     notes: stat.notes,
                 };
 
-                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                const roll = await CheckPF2e.roll(
+                    new CheckModifier(label, stat),
+                    context,
+                    params.event,
+                    params.callback
+                );
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
@@ -1053,17 +1057,17 @@ class CharacterPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.notes = extractNotes(synthetics.rollNotes, domains);
             stat.rank = skill.rank;
-            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
                     `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${longForm}.check.roll() instead`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
-                const rollOptions = args.options ?? [];
+                const rollOptions = new Set(params.options ?? []);
                 ensureProficiencyOption(rollOptions, skill.rank);
-                if (args.dc && stat.adjustments) {
-                    args.dc.adjustments = stat.adjustments;
+                if (params.dc && stat.adjustments) {
+                    params.dc.adjustments = stat.adjustments;
                 }
 
                 // Get just-in-time roll options from rule elements
@@ -1077,13 +1081,18 @@ class CharacterPF2e extends CreaturePF2e {
                     actor: this,
                     type: "skill-check",
                     options: rollOptions,
-                    dc: args.dc,
+                    dc: params.dc,
                     rollTwice,
                     substitutions,
                     notes: stat.notes,
                 };
 
-                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                const roll = await CheckPF2e.roll(
+                    new CheckModifier(label, stat),
+                    context,
+                    params.event,
+                    params.callback
+                );
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
@@ -1135,12 +1144,12 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 console.warn(
                     `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
                 );
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: loreItem.name });
-                const rollOptions = args.options ?? [];
+                const rollOptions = new Set(params.options ?? []);
                 ensureProficiencyOption(rollOptions, rank);
 
                 // Get just-in-time roll options from rule elements
@@ -1154,13 +1163,18 @@ class CharacterPF2e extends CreaturePF2e {
                     actor: this,
                     type: "skill-check",
                     options: rollOptions,
-                    dc: args.dc,
+                    dc: params.dc,
                     rollTwice,
                     substitutions,
                     notes: stat.notes,
                 };
 
-                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                const roll = await CheckPF2e.roll(
+                    new CheckModifier(label, stat),
+                    context,
+                    params.event,
+                    params.callback
+                );
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
@@ -1213,6 +1227,12 @@ class CharacterPF2e extends CreaturePF2e {
         this.pfsBoons = [];
         this.deityBoonsCurses = [];
         this.feats = new CharacterFeats(this);
+
+        const campaignFeatSections = game.settings.get("pf2e", "campaignFeatSections");
+        for (const section of campaignFeatSections) {
+            this.feats.createCategory(section);
+        }
+
         this.feats.assignFeats();
 
         // These are not handled by character feats
@@ -1449,12 +1469,12 @@ class CharacterPF2e extends CreaturePF2e {
             "attack-roll",
             "all",
         ];
-        const baseOptions = [
+        const baseOptions = new Set([
             ...this.getRollOptions(baseSelectors),
             ...weaponTraits, // always add weapon traits as options
             ...weaponRollOptions,
             meleeOrRanged,
-        ];
+        ]);
         ensureProficiencyOption(baseOptions, proficiencyRank);
 
         // Determine the default ability and score for this attack.
@@ -1693,7 +1713,7 @@ class CharacterPF2e extends CreaturePF2e {
             ])
             .map(([label, constructModifier]) => ({
                 label,
-                roll: async (args: StrikeRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+                roll: async (params: StrikeRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
@@ -1704,7 +1724,7 @@ class CharacterPF2e extends CreaturePF2e {
                     const context = this.getAttackRollContext({
                         domains: [],
                         item: weapon,
-                        viewOnly: args.getFormula ?? false,
+                        viewOnly: params.getFormula ?? false,
                     });
 
                     // Check whether target is out of maximum range; abort early if so
@@ -1718,40 +1738,41 @@ class CharacterPF2e extends CreaturePF2e {
 
                     // Set range-increment roll option and penalty
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                    const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
+                    if (rangeIncrement) context.options.add(`target:range-increment:${rangeIncrement}`);
                     const otherModifiers = [
                         calculateRangePenalty(this, rangeIncrement, selectors, baseOptions) ?? [],
                         context.self.modifiers,
                     ].flat();
 
                     // Collect roll options from all sources
-                    const options = Array.from(
-                        new Set(
-                            [args.options ?? [], context.options, action.options, baseOptions, incrementOption].flat()
-                        )
-                    ).sort();
+                    const options = new Set([
+                        ...(params.options ?? []),
+                        ...baseOptions,
+                        ...action.options,
+                        ...context.options,
+                    ]);
 
                     // Get just-in-time roll options from rule elements
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
                         rule.beforeRoll?.(selectors, options);
                     }
-                    const finalRollOptions = Array.from(new Set(options));
+                    const finalRollOptions = new Set(options);
 
-                    const dc = args.dc ?? context.dc;
+                    const dc = params.dc ?? context.dc;
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
                     }
 
                     const item = context.self.item;
                     const rollTwice =
-                        args.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
+                        params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
                         target: context.target,
                         item,
                         type: "attack-roll",
-                        altUsage: args.altUsage ?? null,
+                        altUsage: params.altUsage ?? null,
                         options: finalRollOptions,
                         notes: attackRollNotes,
                         dc,
@@ -1759,13 +1780,13 @@ class CharacterPF2e extends CreaturePF2e {
                         rollTwice,
                     };
 
-                    if (!this.consumeAmmo(item, args)) return null;
+                    if (!this.consumeAmmo({ weapon: item, ...params })) return null;
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(otherModifiers),
                         checkContext,
-                        args.event,
-                        args.callback
+                        params.event,
+                        params.callback
                     );
 
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -1778,19 +1799,19 @@ class CharacterPF2e extends CreaturePF2e {
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
-            action[method] = async (args: StrikeRollParams = {}): Promise<string | void> => {
+            action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
                 const context = this.getDamageRollContext({
                     item: weapon,
-                    viewOnly: args.getFormula ?? false,
+                    viewOnly: params.getFormula ?? false,
                 });
 
                 // Set range-increment roll option
                 const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                 const incrementOption =
                     typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
-                args.options ??= [];
+                params.options ??= [];
                 const options = new Set(
-                    [args.options, context.options, action.options, baseOptions, incrementOption].flat().sort()
+                    [...params.options, ...context.options, action.options, ...baseOptions, incrementOption].flat()
                 );
 
                 const damage = WeaponDamagePF2e.calculate(
@@ -1801,7 +1822,7 @@ class CharacterPF2e extends CreaturePF2e {
                     synthetics.modifierAdjustments,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
-                    Array.from(options),
+                    options,
                     this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
@@ -1813,7 +1834,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                 // Find a critical specialization note
                 const critSpecs = context.self.actor.synthetics.criticalSpecalizations;
-                if (outcome === "criticalSuccess" && !args.getFormula && critSpecs.standard.length > 0) {
+                if (outcome === "criticalSuccess" && !params.getFormula && critSpecs.standard.length > 0) {
                     // If an alternate critical specialization effect is available, apply it only if there is also a
                     // qualifying non-alternate
                     const standard = critSpecs.standard
@@ -1827,14 +1848,14 @@ class CharacterPF2e extends CreaturePF2e {
                     if (note) damage.notes.push(note);
                 }
 
-                if (args.getFormula) {
+                if (params.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
                     const { self, target, options } = context;
 
                     const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
 
-                    await DamageRollPF2e.roll(damage, damageContext, args.callback);
+                    await DamageRollPF2e.roll(damage, damageContext, params.callback);
                 }
             };
         }
@@ -1895,7 +1916,7 @@ class CharacterPF2e extends CreaturePF2e {
         return context;
     }
 
-    consumeAmmo(weapon: WeaponPF2e, args: RollParameters): boolean {
+    consumeAmmo({ weapon, ...params }: { weapon: WeaponPF2e } & RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;
@@ -1903,8 +1924,8 @@ class CharacterPF2e extends CreaturePF2e {
             ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
             return false;
         } else {
-            const existingCallback = args.callback;
-            args.callback = async (roll: Rolled<Roll>) => {
+            const existingCallback = params.callback;
+            params.callback = async (roll: Rolled<Roll>) => {
                 existingCallback?.(roll);
                 await ammo.consume();
             };
@@ -1994,7 +2015,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     protected override async _preUpdate(

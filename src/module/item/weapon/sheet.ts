@@ -10,7 +10,7 @@ import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
-import { RANGED_WEAPON_GROUPS, WEAPON_RANGES } from "./values";
+import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>) {
@@ -131,7 +131,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         );
         const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
         const mandatoryRanged =
-            setHasElement(RANGED_WEAPON_GROUPS, this.item.group) ||
+            setHasElement(MANDATORY_RANGED_GROUPS, this.item.group) ||
             rangedOnlyTraits.some((trait) => traitSet.has(trait));
         const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
 

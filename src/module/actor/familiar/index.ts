@@ -204,14 +204,15 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ...extractModifiers(synthetics, selectors),
             ];
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
-                roll: async ({ event, options = [], callback }: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                    const options = new Set(params.options ?? []);
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, options);
 
                     const roll = await CheckPF2e.roll(
                         new CheckModifier("Attack Roll", stat),
                         { actor: this, type: "attack-roll", options, rollTwice },
-                        event,
-                        callback
+                        params.event,
+                        params.callback
                     );
 
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -250,16 +251,16 @@ export class FamiliarPF2e extends CreaturePF2e {
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
 
-            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+            stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const rollOptions = args.options ?? [];
+                const rollOptions = new Set(params.options ?? []);
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, rollOptions);
 
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: "perception-check", options: rollOptions, dc: args.dc, rollTwice },
-                    args.event,
-                    args.callback
+                    { actor: this, type: "perception-check", options: rollOptions, dc: params.dc, rollTwice },
+                    params.event,
+                    params.callback
                 );
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -293,18 +294,18 @@ export class FamiliarPF2e extends CreaturePF2e {
                 label,
                 ability,
                 value: 0,
-                roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", {
                         skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                     });
-                    const rollOptions = args.options ?? [];
+                    const rollOptions = new Set(params.options ?? []);
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, rollOptions);
 
                     const roll = await CheckPF2e.roll(
                         new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options: rollOptions, dc: args.dc, rollTwice },
-                        args.event,
-                        args.callback
+                        { actor: this, type: "skill-check", options: rollOptions, dc: params.dc, rollTwice },
+                        params.event,
+                        params.callback
                     );
 
                     for (const rule of this.rules.filter((r) => !r.ignored)) {

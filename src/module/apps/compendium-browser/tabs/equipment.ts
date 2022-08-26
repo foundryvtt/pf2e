@@ -157,23 +157,21 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         ) {
             return false;
         }
-        // Weapons
+
+        // Weapon categories
         if (
             checkboxes.weaponTypes.selected.length > 0 &&
             !this.arrayIncludes(checkboxes.weaponTypes.selected, [entry.category, entry.group])
         ) {
             return false;
         }
+
         // Traits
-        if (
-            multiselects.traits.selected.length > 0 &&
-            !this.arrayIncludes(
-                multiselects.traits.selected.map((s) => s.value),
-                entry.traits
-            )
-        ) {
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.some((t) => entry.traits.includes(t))) {
             return false;
         }
+
         // Source
         if (checkboxes.source.selected.length > 0 && !checkboxes.source.selected.includes(entry.source)) {
             return false;

@@ -1,6 +1,6 @@
 {
     "_id": "EslxR2sbDK9XJaAl",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/spells/haste.webp",
     "name": "Time",
     "system": {
         "actionCategory": {
@@ -34,6 +34,11 @@
             },
             {
                 "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "class:oracle"
+                    ]
+                },
                 "selector": "land-speed",
                 "slug": "time-mystery",
                 "type": "status",
@@ -70,13 +75,18 @@
                 "key": "RollOption",
                 "label": "PF2E.OracleCurses.Time.ACLabel",
                 "option": "time-curse-ac",
+                "predicate": {
+                    "all": [
+                        "class:oracle"
+                    ]
+                },
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "time-curse-ac"
+                        "class:oracle"
                     ]
                 },
                 "selector": "ac",

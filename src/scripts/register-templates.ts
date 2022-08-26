@@ -1,13 +1,7 @@
-/** Handlebars template subcomponents */
-export function registerTemplates() {
+/** Register Handlebars template partials */
+export function registerTemplates(): void {
     const templatePaths = [
-        // effect panel
-        "systems/pf2e/templates/system/effects-panel.html",
-
-        // world clock
-        "systems/pf2e/templates/system/world-clock.html",
-
-        // Actor Sheets Partials (Character Tooltip)
+        // PC Sheet Tooltips
         "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html",
         "systems/pf2e/templates/actors/character/partials/traits.html",
         "systems/pf2e/templates/actors/character/partials/background.html",
@@ -15,7 +9,7 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/character/partials/header.html",
         "systems/pf2e/templates/actors/character/partials/granted-feat.html",
 
-        // Actor Sheets Partials (CRB-Syle Sidebar)
+        // PC Sheet Sidebar
         "systems/pf2e/templates/actors/character/sidebar/armor-class.html",
         "systems/pf2e/templates/actors/character/sidebar/class-dc.html",
         "systems/pf2e/templates/actors/character/sidebar/health.html",
@@ -25,7 +19,7 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/character/sidebar/initiative.html",
         "systems/pf2e/templates/actors/character/sidebar/saves.html",
 
-        // Actor Sheets Partials (Character Main Section)
+        // PC Sheet Tabs
         "systems/pf2e/templates/actors/character/tabs/general.html",
         "systems/pf2e/templates/actors/character/tabs/actions.html",
         "systems/pf2e/templates/actors/character/tabs/biography.html",
@@ -37,11 +31,11 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/character/tabs/spellcasting.html",
         "systems/pf2e/templates/actors/character/tabs/crafting.html",
 
-        // Actor Sheets Partials (Hazards)
+        // Hazard Sheets Partials
         "systems/pf2e/templates/actors/hazard/partials/header.html",
         "systems/pf2e/templates/actors/hazard/partials/sidebar.html",
 
-        // Actor Sheet Partials (General)
+        // Shared Actor Sheet Partials
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/inventory.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
@@ -111,10 +105,6 @@ export function registerTemplates() {
         "systems/pf2e/templates/items/weapon-sidebar.html",
         "systems/pf2e/templates/items/activation-panel.html",
 
-        // Rule Element partials
-        "systems/pf2e/templates/items/rules/default.html",
-        "systems/pf2e/templates/items/rules/note.html",
-
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.html",
         "systems/pf2e/templates/actors/loot/sidebar.html",
@@ -139,6 +129,12 @@ export function registerTemplates() {
         "systems/pf2e/templates/system/actions/repair/chat-button-partial.html",
         "systems/pf2e/templates/system/actions/repair/repair-result-partial.html",
         "systems/pf2e/templates/system/actions/repair/item-heading-partial.html",
+
+        // TokenConfig partials
+        "systems/pf2e/templates/scene/token/partials/appearance.html",
+        "systems/pf2e/templates/scene/token/partials/identity.html",
+        "systems/pf2e/templates/scene/token/partials/lighting.html",
     ];
-    return loadTemplates(templatePaths);
+
+    loadTemplates(templatePaths);
 }

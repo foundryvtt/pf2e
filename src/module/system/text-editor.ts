@@ -7,26 +7,31 @@ import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility"
 import { objectHasKey, sluggify } from "@util";
 import { Statistic } from "./statistic";
 
+const superEnrichHTML = TextEditor.enrichHTML;
+
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async: true }): Promise<string>;
     static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e): string;
-    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string | Promise<string> {
+    static override enrichHTML(
+        this: typeof TextEditor,
+        content = "",
+        options: EnrichHTMLOptionsPF2e = {}
+    ): string | Promise<string> {
         if (content.startsWith("<p>@Localize")) {
             // Remove tags
             content = content.substring(3, content.length - 4);
         }
-        const enriched = super.enrichHTML(content, options);
+        const enriched = superEnrichHTML.apply(this, [content, options]);
         if (typeof enriched === "string") {
-            return this.#processUserVisibility(enriched, options);
+            return TextEditorPF2e.processUserVisibility(enriched, options);
         }
-        return (async () => {
-            return this.#processUserVisibility(await enriched, options);
-        })();
+
+        return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
     }
 
-    static #processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
+    static processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
         const $html = $("<div>").html(content);
         const actor = options.rollData?.actor ?? null;
         UserVisibilityPF2e.process($html, { actor });

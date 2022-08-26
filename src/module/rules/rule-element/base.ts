@@ -115,7 +115,7 @@ abstract class RuleElementPF2e {
     }
 
     /** Test this rule element's predicate, if present */
-    test(rollOptions?: string[]): boolean {
+    test(rollOptions?: string[] | Set<string>): boolean {
         if (this.data.ignored) return false;
         if (!this.data.predicate) return true;
 
@@ -273,8 +273,7 @@ abstract class RuleElementPF2e {
 
                 return unresolved.length === 0 ? Roll.safeEval(formula) : 0;
             } catch {
-                const { item } = this;
-                this.failValidation(`Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`);
+                this.failValidation(`Error thrown while attempting to evaluate formula, "${formula}"`);
                 return 0;
             }
         };
@@ -317,7 +316,7 @@ namespace RuleElementPF2e {
         roll: Rolled<CheckRoll> | null;
         selectors: string[];
         domains: string[];
-        rollOptions: string[];
+        rollOptions: Set<string>;
     }
 
     export type UserInput<T extends RuleElementData> = { [K in keyof T]?: unknown } & RuleElementSource;
@@ -354,7 +353,7 @@ interface RuleElementPF2e {
      * @param domains Applicable predication domains for pending check
      * @param rollOptions Currently accumulated roll options for the pending check
      */
-    beforeRoll?(domains: string[], rollOptions: string[]): void;
+    beforeRoll?(domains: string[], rollOptions: Set<string>): void;
 
     /**
      * Run following a check roll, passing along roll options already accumulated

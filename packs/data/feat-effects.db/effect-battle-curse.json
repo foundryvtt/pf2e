@@ -26,6 +26,11 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
                         "value": "moderate"
                     },
                     {
@@ -44,24 +49,39 @@
                                 "feature:extreme-curse"
                             ]
                         },
-                        "value": "major"
+                        "value": "extreme"
                     }
                 ],
-                "flag": "oracleCurse",
                 "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "oracular-curse"
+                "rollOption": "oracular-curse:stage"
             },
             {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.OracleCurses.Battle.MadeAStrike",
                 "option": "battle-mystery",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
                         "battle-mystery"
                     ]
@@ -74,6 +94,10 @@
             {
                 "key": "FlatModifier",
                 "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
                         "battle-mystery"
                     ]
@@ -89,8 +113,12 @@
                     "all": [
                         "battle-mystery"
                     ],
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
-                        "oracular-curse:minor"
+                        "oracular-curse:stage:minor"
                     ]
                 },
                 "selector": "ac",
@@ -104,8 +132,12 @@
                     "all": [
                         "battle-mystery"
                     ],
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
                     "not": [
-                        "oracular-curse:minor"
+                        "oracular-curse:stage:minor"
                     ]
                 },
                 "selector": "saving-throw",
@@ -117,8 +149,9 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "any": [
-                        "oracular-curse:moderate",
-                        "oracular-curse:major"
+                        "oracular-curse:stage:moderate",
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "selector": "strike-damage",
@@ -131,7 +164,7 @@
                 "predicate": {
                     "all": [
                         "encounter:non-trivial",
-                        "oracular-curse:moderate"
+                        "oracular-curse:stage:moderate"
                     ]
                 },
                 "value": "floor(@actor.level/2)"
@@ -141,7 +174,7 @@
                 "predicate": {
                     "all": [
                         "encounter:non-trivial",
-                        "oracular-curse:major"
+                        "oracular-curse:stage:major"
                     ]
                 },
                 "value": "@actor.level"
@@ -153,8 +186,9 @@
                 "option": "encounter:non-trivial",
                 "predicate": {
                     "any": [
-                        "oracular-curse:moderate",
-                        "oracular-curse:major"
+                        "oracular-curse:stage:moderate",
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "toggleable": true
@@ -164,7 +198,8 @@
                 "mode": "override",
                 "predicate": {
                     "all": [
-                        "oracular-curse:major"
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "selectors": [
@@ -177,7 +212,8 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "oracular-curse:major"
+                        "oracular-curse:stage:major",
+                        "oracular-curse:stage:extreme"
                     ]
                 },
                 "selector": "attack",

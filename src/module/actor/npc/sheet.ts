@@ -11,8 +11,7 @@ import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { TextEditorPF2e } from "@system/text-editor";
-import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
 import { NPCSkillData } from "./data";
@@ -172,11 +171,11 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.publicNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.publicNotes, {
+        sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
             rollData,
             async: true,
         });
-        sheetData.enrichedContent.privateNotes = await TextEditorPF2e.enrichHTML(sheetData.data.details.privateNotes, {
+        sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
             rollData,
             async: true,
         });
@@ -187,10 +186,17 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html.get(0)!;
 
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
             $html.find(".tab.inventory").addClass("active");
+        }
+
+        // Tagify the traits selection
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.traits.value"]');
+        if (traitsEl) {
+            tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
         }
 
         // Subscribe to roll events
@@ -427,7 +433,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         return Promise.all(
             sheetData.actions.map(async (attack) => {
                 const itemRollData = attack.item.getRollData();
-                attack.description = await TextEditorPF2e.enrichHTML(attack.description, {
+                attack.description = await TextEditor.enrichHTML(attack.description, {
                     rollData: { ...actorRollData, ...itemRollData },
                     async: true,
                 });

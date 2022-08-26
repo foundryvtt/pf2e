@@ -24,10 +24,10 @@
                     <li class="spellbook-header spellbook-empty">
                         <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
                         <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry.id}}">
-                            <i class="fas fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
+                            <i class="fas fa-plus fa-fw"></i>{{localize "PF2E.AddSpellTitle"}}
                         </a>
                         <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell" data-location="{{entry.id}}">
-                            <i class="fas fa-search"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
+                            <i class="fas fa-search fa-fw"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
                         </a>
                     </li>
                 {{/if}}
@@ -45,16 +45,14 @@
                             </h3>
                         </div>
 
-                        <div class="spell-range">
-                            {{localize "PF2E.SpellRangeLabel"}}
-                        </div>
+                        <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
                         <div class="spell-components">{{localize "PF2E.SpellComponentsLabel"}}</div>
                         {{#if @root.owner}}
                             <div class="item-controls">
                                 <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
-                                    data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-plus"></i></a>
+                                    data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-plus fa-fw"></i></a>
                                 <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell"
-                                    data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-search"></i></a>
+                                    data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-search fa-fw"></i></a>
                             </div>
                         {{/if}}
                     </li>
@@ -91,15 +89,15 @@
                                             type="checkbox"
                                             class="toggle-signature-spell"
                                             {{checked signature}}
-                                            title="{{#if signature}}{{localize 'PF2E.SpellCollectionRemove'}}{{else}}{{localize 'PF2E.SpellCollectionAdd'}}{{/if}}"
+                                            title="{{#if signature}}{{localize "PF2E.SpellCollectionRemove"}}{{else}}{{localize "PF2E.SpellCollectionAdd"}}{{/if}}"
                                         />
                                     </div>
                                 {{/if}}
                             {{/unless}}
                             {{#if @root.editable}}
                                 <div class="item-controls">
-                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit fa-fw"></i></a>
+                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash fa-fw"></i></a>
                                 </div>
                             {{/if}}
                         </li>

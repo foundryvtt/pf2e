@@ -53,6 +53,8 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             craftableItems: craftableItems,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
+            preparedFormulaData: this.data.preparedFormulas,
+            parentItem: this.item,
         };
 
         this.actor.system.crafting.entries[this.selector] = data;
@@ -82,6 +84,7 @@ interface CraftingEntryRuleData extends RuleElementData {
     maxItemLevel?: number;
     maxSlots?: number;
     craftableItems?: RawPredicate;
+    preparedFormulas?: PreparedFormulaData[];
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -92,6 +95,14 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     maxItemLevel?: unknown;
     maxSlots?: unknown;
     craftableItems?: unknown;
+    preparedFormulas?: unknown;
+}
+
+interface PreparedFormulaData {
+    itemUUID: string;
+    quantity?: number;
+    expended?: boolean;
+    isSignatureItem?: boolean;
 }
 
 export { CraftingEntryRuleElement };

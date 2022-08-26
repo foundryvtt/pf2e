@@ -185,7 +185,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         try {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
             const changes = diffObject(macro.toObject(), updatedMacro);
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 await macro.update(changes, { noHook: true });
             }
         } catch (error) {
@@ -199,7 +199,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         try {
             const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
             const changes = diffObject(table.toObject(), updatedMacro);
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 table.update(changes, { noHook: true });
             }
         } catch (error) {
@@ -217,7 +217,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.toObject(), updatedToken);
 
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 try {
                     await token.update(changes, { noHook: true });
                 } catch (error) {
@@ -238,7 +238,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const baseUser = user.toObject();
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
             const changes = diffObject(user.toObject(), updatedUser);
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 await user.update(changes, { noHook: true });
             }
         } catch (error) {

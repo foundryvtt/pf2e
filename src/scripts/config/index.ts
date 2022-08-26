@@ -29,13 +29,7 @@ import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import {
-    BaseWeaponType,
-    MeleeWeaponGroup,
-    RangedWeaponGroup,
-    WeaponGroup,
-    WeaponPropertyRuneType,
-} from "@item/weapon/types";
+import { BaseWeaponType, MeleeWeaponGroup, WeaponGroup, WeaponPropertyRuneType } from "@item/weapon/types";
 import enJSON from "../../../static/lang/en.json";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
 import {
@@ -672,6 +666,7 @@ const meleeWeaponGroups: Record<MeleeWeaponGroup, string> = {
     axe: "PF2E.WeaponGroupAxe",
     brawling: "PF2E.WeaponGroupBrawling",
     club: "PF2E.WeaponGroupClub",
+    dart: "PF2E.WeaponGroupDart",
     flail: "PF2E.WeaponGroupFlail",
     hammer: "PF2E.WeaponGroupHammer",
     knife: "PF2E.WeaponGroupKnife",
@@ -682,15 +677,13 @@ const meleeWeaponGroups: Record<MeleeWeaponGroup, string> = {
     sword: "PF2E.WeaponGroupSword",
 };
 
-const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
+const weaponGroups: Record<WeaponGroup, string> = {
+    ...meleeWeaponGroups,
     bomb: "PF2E.WeaponGroupBomb",
     bow: "PF2E.WeaponGroupBow",
-    dart: "PF2E.WeaponGroupDart",
     firearm: "PF2E.WeaponGroupFirearm",
     sling: "PF2E.WeaponGroupSling",
 };
-
-const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
 
 const weaponPropertyRunes = {
     ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
@@ -983,7 +976,6 @@ export const PF2ECONFIG = {
     weaponCategories,
     weaponGroups,
     meleeWeaponGroups,
-    rangedWeaponGroups,
 
     baseWeaponTypes,
     equivalentWeapons,
