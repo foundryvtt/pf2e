@@ -93,6 +93,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                     damageCategory: this.data.damageCategory || undefined,
                     hideIfDisabled: this.hideIfDisabled,
+                    source: this.item.uuid,
                 });
                 if (options.test) modifier.test(options.test);
 
