@@ -175,15 +175,20 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
+                                "class:rogue",
                                 "target:condition:flat-footed"
                             ],
                             "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ],
-                            "not": [
-                                "rogueDedication"
+                                "weapon:trait:agile",
+                                "weapon:trait:finesse",
+                                {
+                                    "and": [
+                                        "weapon:ranged",
+                                        {
+                                            "not": "weapon:thrown-melee"
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage",

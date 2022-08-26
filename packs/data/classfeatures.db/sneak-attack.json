@@ -33,18 +33,16 @@
                 "predicate": {
                     "all": [
                         "class:rogue",
-                        "target:condition:flat-footed",
+                        "target:condition:flat-footed"
+                    ],
+                    "any": [
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse",
                         {
-                            "or": [
-                                "weapon:trait:finesse",
-                                "weapon:trait:agile",
+                            "and": [
+                                "weapon:ranged",
                                 {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown"
-                                        }
-                                    ]
+                                    "not": "weapon:thrown-melee"
                                 }
                             ]
                         }

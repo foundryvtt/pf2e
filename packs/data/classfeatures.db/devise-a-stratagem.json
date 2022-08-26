@@ -34,25 +34,25 @@
             },
             {
                 "ability": "int",
+                "force": true,
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
                         "class:investigator",
-                        "devise-a-stratagem",
+                        "devise-a-stratagem"
+                    ],
+                    "any": [
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse",
                         {
-                            "or": [
-                                "weapon:trait:finesse",
-                                "weapon:trait:agile",
+                            "and": [
+                                "weapon:ranged",
                                 {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:trait:thrown"
-                                        }
-                                    ]
+                                    "not": "weapon:thrown-melee"
                                 }
                             ]
-                        }
+                        },
+                        "weapon:base:sap"
                     ]
                 },
                 "selector": "attack-roll",

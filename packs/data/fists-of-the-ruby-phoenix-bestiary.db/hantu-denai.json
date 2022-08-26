@@ -274,23 +274,16 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
+                                "target:condition:flat-footed"
+                            ],
+                            "any": [
+                                "weapon:trait:agile",
+                                "weapon:trait:finesse",
                                 {
-                                    "or": [
-                                        "target:condition:flat-footed",
-                                        "target:condition:frightened"
-                                    ]
-                                },
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
+                                    "and": [
+                                        "weapon:ranged",
                                         {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
+                                            "not": "weapon:thrown-melee"
                                         }
                                     ]
                                 }
