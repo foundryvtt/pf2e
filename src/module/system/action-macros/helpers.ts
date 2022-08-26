@@ -101,22 +101,30 @@ export class ActionMacroHelpers {
                 ].flat();
                 const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
 
-                const stat = getProperty(selfActor, options.statName) as StatisticModifier;
-                const modifiers =
-                    typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers;
-                const check = new CheckModifier(content, stat, modifiers ?? []);
+                // Modifier from roller's equipped weapon
+                const weapon = ((): Embedded<WeaponPF2e> | null => {
+                    if (!options.traits.includes("attack")) return null;
+                    return (
+                        [
+                            ...(options.weaponTrait
+                                ? this.getApplicableEquippedWeapons(selfActor, options.weaponTrait)
+                                : []),
+                            ...(options.weaponTraitWithPenalty
+                                ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
+                                : []),
+                        ].shift() ?? this.getBasicUnarmedAttack(selfActor)
+                    );
+                })();
+                combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
 
-                // modifier from roller's equipped weapon
-                const weapon = [
-                    ...(options.weaponTrait ? this.getApplicableEquippedWeapons(selfActor, options.weaponTrait) : []),
-                    ...(options.weaponTraitWithPenalty
-                        ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
-                        : []),
-                ].shift();
-                if (weapon) {
-                    const modifier = this.getWeaponPotencyModifier(weapon, stat.name);
-                    if (modifier) check.push(modifier);
-                }
+                const stat = getProperty(selfActor, options.statName) as StatisticModifier;
+                const itemBonus =
+                    weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.name) : null;
+
+                const modifiers =
+                    (typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers) ?? [];
+                if (itemBonus) modifiers.push(itemBonus);
+                const check = new CheckModifier(content, stat, modifiers);
 
                 const weaponTraits = weapon?.traits;
 
@@ -162,6 +170,7 @@ export class ActionMacroHelpers {
 
                 const finalOptions = new Set(combinedOptions);
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
+                check.calculateTotal(finalOptions);
 
                 const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
                 const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
@@ -196,6 +205,7 @@ export class ActionMacroHelpers {
                     {
                         actor: selfActor,
                         token: selfToken,
+                        item: weapon,
                         createMessage: options.createMessage,
                         target: targetInfo,
                         dc,
@@ -257,5 +267,10 @@ export class ActionMacroHelpers {
         } else {
             return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
         }
+    }
+
+    private static getBasicUnarmedAttack(actor: ActorPF2e): Embedded<WeaponPF2e> | null {
+        if (!actor.isOfType("character")) return null;
+        return actor.system.actions.find((s) => s.ready && s.slug === "basic-unarmed")?.item ?? null;
     }
 }
