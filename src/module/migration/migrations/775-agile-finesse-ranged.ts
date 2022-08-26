@@ -26,11 +26,9 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
             case "feat": {
                 switch (source.system.slug) {
                     case "athletic-strategist": {
-                        const abilityModifier = source.system.rules.find(
-                            (r): r is RuleElementSource & { force?: unknown } => r.key === "FlatModifier"
-                        );
-                        if (abilityModifier) {
-                            abilityModifier.force = true;
+                        const index = source.system.rules.findIndex((r) => r.key === "FlatModifier");
+                        if (index !== -1) {
+                            source.system.rules[index] = this.#athleticStrategist;
                         }
                         break;
                     }
@@ -67,10 +65,31 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
         }
     }
 
+    get #athleticStrategist(): BaseREWithOtherStuff {
+        return {
+            ability: "int",
+            key: "FlatModifier",
+            predicate: {
+                all: [
+                    "class:investigator",
+                    "devise-a-stratagem",
+                    { or: ["action:disarm", "action:grapple", "action:shove", "action:trip"] },
+                ],
+                any: [
+                    "weapon:trait:agile",
+                    "weapon:trait:finesse",
+                    { and: ["weapon:ranged", { not: "weapon:thrown-melee" }] },
+                    "weapon:base:sap",
+                ],
+            },
+            selector: "athletics",
+            type: "ability",
+        };
+    }
+
     get #deviseAStratagem(): BaseREWithOtherStuff {
         return {
             ability: "int",
-            force: true,
             key: "FlatModifier",
             predicate: {
                 all: ["class:investigator", "devise-a-stratagem"],
