@@ -123,6 +123,61 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
+    /** Overrides _drawBar() to also draw pf2e variants of normal resource bars (such as temp health) */
+    protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
+        if (!canvas.dimensions) return;
+
+        const actor = this.document.actor;
+        const isHealth = data.attribute === "attributes.hp" && actor?.attributes.hp;
+
+        if (!isHealth) {
+            return super._drawBar(number, bar, data);
+        }
+
+        const { value, max, temp } = actor.attributes.hp;
+        const healthPercent = Math.clamped(value, 0, max) / max;
+
+        // Compute the color based on health percentage, this formula is the one core foundry uses
+        const black = 0x000000;
+        const color = number
+            ? PIXI.utils.rgb2hex([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2])
+            : PIXI.utils.rgb2hex([1 - healthPercent / 2, healthPercent, 0]);
+
+        // Bar size logic stolen from core
+        let h = Math.max(canvas.dimensions.size / 12, 8);
+        const bs = Math.clamped(h / 8, 1, 2);
+        if (this.document.height >= 2) h *= 1.6; // Enlarge the bar for large tokens
+
+        const numBars = temp > 0 ? 2 : 1;
+        const barHeight = h / numBars;
+
+        bar.clear();
+
+        // Draw background
+        bar.lineStyle(0).beginFill(black, 0.5).drawRoundedRect(0, 0, this.w, h, 3);
+
+        // Set border style for temp hp and health bar
+        bar.lineStyle(bs / 2, black, 1.0);
+
+        // Draw temp hp
+        if (temp > 0) {
+            const tempColor = 0x66ccff;
+            const tempPercent = Math.clamped(temp, 0, max) / max;
+            const tempWidth = tempPercent * this.w - 2 * (bs - 1);
+            bar.beginFill(tempColor, 1.0).drawRoundedRect(0, 0, tempWidth, barHeight, 2);
+        }
+
+        // Draw the health bar
+        const healthBarY = (numBars - 1) * barHeight;
+        bar.beginFill(color, 1.0).drawRoundedRect(0, healthBarY, healthPercent * this.w, barHeight, 2);
+
+        // Draw the container (outermost border)
+        bar.beginFill(black, 0).lineStyle(bs, black, 1.0).drawRoundedRect(0, 0, this.w, h, 3);
+
+        // Set position
+        bar.position.set(0, number === 0 ? this.h - h : 0);
+    }
+
     /** Make the drawing promise accessible to `#redraw` */
     override async draw(): Promise<this> {
         this.auras.clear();
