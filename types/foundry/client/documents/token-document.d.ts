@@ -66,6 +66,13 @@ declare global {
          */
         getBarAttribute(barName: string, { alternative }?: { alternative?: string }): TokenResourceData | null;
 
+        /**
+         * Test whether a Token has a specific status effect.
+         * @param statusId The status effect ID as defined in CONFIG.statusEffects
+         * @returns Does the Token have this status effect?
+         */
+        hasStatusEffect(statusId: string): boolean;
+
         /* -------------------------------------------- */
         /*  Actor Data Operations                       */
         /* -------------------------------------------- */
