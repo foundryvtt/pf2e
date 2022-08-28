@@ -40,10 +40,10 @@ export const HooksPF2e = {
             RenderChatMessage,
             RenderCombatTrackerConfig,
             RenderDialog,
+            RenderJournalPageSheet,
             RenderSceneControls,
             RenderSettings,
             RenderTokenHUD,
-            RenderJournalPageSheet,
             Setup,
             UpdateWorldTime,
         ];
