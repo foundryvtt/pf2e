@@ -5,7 +5,7 @@ export function monkeyPatchFoundry(): void {
     DetectionMode.prototype.testVisibility = function (
         this: DetectionMode,
         visionSource: VisionSource<TokenPF2e>,
-        mode: DetectionModeConfig,
+        mode: TokenDetectionMode,
         { object, tests }: CanvasVisibilityTestConfig
     ) {
         if (!mode.enabled) return false;
