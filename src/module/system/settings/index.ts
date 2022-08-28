@@ -2,7 +2,6 @@ import { VariantRulesSettings } from "./variant-rules";
 import { WorldClockSettings } from "./world-clock";
 import { HomebrewElements } from "./homebrew";
 import { StatusEffects } from "@module/canvas/status-effects";
-import { objectHasKey } from "@util";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
@@ -96,20 +95,17 @@ export function registerSettings() {
     const iconChoices = {
         blackWhite: "PF2E.SETTINGS.statusEffectType.blackWhite",
         default: "PF2E.SETTINGS.statusEffectType.default",
-        legacy: "PF2E.SETTINGS.statusEffectType.legacy",
     };
     game.settings.register("pf2e", "statusEffectType", {
         name: "PF2E.SETTINGS.statusEffectType.name",
         hint: "PF2E.SETTINGS.statusEffectType.hint",
         scope: "world",
         config: true,
-        default: "blackWhite",
+        default: "default",
         type: String,
         choices: iconChoices,
-        onChange: (iconType = "") => {
-            if (objectHasKey(iconChoices, iconType)) {
-                StatusEffects.migrateStatusEffectUrls(iconType);
-            }
+        onChange: (iconType) => {
+            StatusEffects.migrateStatusEffectUrls(iconType);
         },
     });
 

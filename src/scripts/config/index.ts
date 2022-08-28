@@ -67,7 +67,7 @@ import { sluggify } from "@util";
 import { Alignment } from "@actor/creature/types";
 import { WeaponReloadTime } from "@item/weapon/types";
 
-export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
+export type StatusEffectIconTheme = "default" | "blackWhite";
 
 const actorTypes: Record<ActorType, string> = {
     character: "ACTOR.TypeCharacter",
@@ -749,15 +749,11 @@ const weaponReload: Record<WeaponReloadTime, string> = {
 };
 
 export const PF2ECONFIG = {
-    chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
-    // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
+    chatDamageButtonShieldToggle: false,
 
     statusEffects: {
-        lastIconType: "default" as StatusEffectIconTheme,
-        folder: "systems/pf2e/icons/conditions/",
-        extension: "webp",
-        keepFoundryStatusEffects: true,
-        foundryStatusEffects: [] as string[],
+        lastIconTheme: "default" as StatusEffectIconTheme,
+        iconDir: "systems/pf2e/icons/conditions/",
     },
 
     levels: {

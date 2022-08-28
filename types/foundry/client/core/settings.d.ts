@@ -72,7 +72,11 @@ declare global {
          *   }
          * });
          */
-        register(module: string, key: string, data: SettingRegistration): void;
+        register<TChoices extends Record<string, unknown> | undefined>(
+            module: string,
+            key: string,
+            data: SettingRegistration<TChoices>
+        ): void;
 
         /**
          * Register a new sub-settings menu
@@ -113,7 +117,9 @@ declare global {
         set(module: string, key: string, value: unknown): Promise<unknown>;
     }
 
-    interface SettingRegistration extends Omit<SettingConfig, "config" | "key" | "namespace" | "scope"> {
+    interface SettingRegistration<
+        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined
+    > extends Omit<SettingConfig<TChoices>, "config" | "key" | "namespace" | "scope"> {
         config?: boolean;
         scope?: "client" | "world";
     }

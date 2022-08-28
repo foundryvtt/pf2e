@@ -216,7 +216,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (condition: ConditionPF2e): ImagePath => {
-            const folder = CONFIG.PF2E.statusEffects.folder;
+            const folder = CONFIG.PF2E.statusEffects.iconDir;
             const statusName = condition.system.hud.statusName;
             return `${folder}${statusName}.webp`;
         };
