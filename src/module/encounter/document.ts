@@ -181,6 +181,8 @@ class EncounterPF2e extends Combat {
     ): void {
         super._onUpdate(changed, options, userId);
 
+        game.pf2e.StatusEffects.onUpdateEncounter(this);
+
         // No updates necessary if combat hasn't started or this combatant has already had a turn this round
         const combatant = this.combatant;
         const actor = combatant?.actor;
