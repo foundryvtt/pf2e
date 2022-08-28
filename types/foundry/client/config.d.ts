@@ -485,4 +485,10 @@ declare global {
             // webrtc: typeof CameraViews;
         };
     }
+
+    interface StatusEffect {
+        id: string;
+        label: string;
+        icon: ImagePath | VideoPath;
+    }
 }
