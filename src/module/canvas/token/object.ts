@@ -6,9 +6,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
-    /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
-    statusEffectChanged = false;
-
     constructor(document: TokenDocumentPF2e) {
         super(document);
         this.auras = new AuraRenderers(this);

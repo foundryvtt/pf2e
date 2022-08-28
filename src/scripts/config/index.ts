@@ -132,7 +132,8 @@ const damageTypes: Record<DamageType, string> = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const conditionTypes: Record<ConditionSlug, string> = {
+/** Non-detection- and attitude- related conditions added to the Token HUD */
+const tokenHUDConditions = {
     blinded: "PF2E.ConditionTypeBlinded",
     broken: "PF2E.ConditionTypeBroken",
     clumsy: "PF2E.ConditionTypeClumsy",
@@ -150,16 +151,10 @@ const conditionTypes: Record<ConditionSlug, string> = {
     fatigued: "PF2E.ConditionTypeFatigued",
     "flat-footed": "PF2E.ConditionTypeFlatFooted",
     fleeing: "PF2E.ConditionTypeFleeing",
-    friendly: "PF2E.ConditionTypeFriendly",
     frightened: "PF2E.ConditionTypeFrightened",
     grabbed: "PF2E.ConditionTypeGrabbed",
-    helpful: "PF2E.ConditionTypeHelpful",
-    hidden: "PF2E.ConditionTypeHidden",
-    hostile: "PF2E.ConditionTypeHostile",
     immobilized: "PF2E.ConditionTypeImmobilized",
-    indifferent: "PF2E.ConditionTypeIndifferent",
     invisible: "PF2E.ConditionTypeInvisible",
-    observed: "PF2E.ConditionTypeObserved",
     paralyzed: "PF2E.ConditionTypeParalyzed",
     "persistent-damage": "PF2E.ConditionTypePersistent",
     petrified: "PF2E.ConditionTypePetrified",
@@ -171,10 +166,20 @@ const conditionTypes: Record<ConditionSlug, string> = {
     stunned: "PF2E.ConditionTypeStunned",
     stupefied: "PF2E.ConditionTypeStupefied",
     unconscious: "PF2E.ConditionTypeUnconscious",
+    wounded: "PF2E.ConditionTypeWounded",
+};
+
+const conditionTypes: Record<ConditionSlug, string> = {
+    ...tokenHUDConditions,
+    friendly: "PF2E.ConditionTypeFriendly",
+    helpful: "PF2E.ConditionTypeHelpful",
+    hidden: "PF2E.ConditionTypeHidden",
+    hostile: "PF2E.ConditionTypeHostile",
+    indifferent: "PF2E.ConditionTypeIndifferent",
+    observed: "PF2E.ConditionTypeObserved",
     undetected: "PF2E.ConditionTypeUndetected",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
-    wounded: "PF2E.ConditionTypeWounded",
 };
 
 const immunityTypes: Record<ImmunityType, string> = {
@@ -754,6 +759,7 @@ export const PF2ECONFIG = {
     statusEffects: {
         lastIconTheme: "default" as StatusEffectIconTheme,
         iconDir: "systems/pf2e/icons/conditions/",
+        conditions: tokenHUDConditions,
     },
 
     levels: {

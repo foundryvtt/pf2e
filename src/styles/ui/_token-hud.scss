@@ -1,0 +1,83 @@
+#token-hud {
+    .status-effects {
+        grid-template-columns: repeat(5, 1fr);
+        width: auto;
+
+        .effect-control {
+            border-radius: 1px;
+            color: var(--color-text-dark-1);
+            cursor: pointer;
+            height: 36px;
+            line-height: var(--font-size-12);
+            opacity: 0.75;
+            position: relative;
+            width: 36px;
+            font-size: var(--font-size-12);
+            font-weight: bold;
+
+            &.badged {
+                &::after {
+                    background: rgba(255, 255, 255, 90%);
+                    border-radius: 50%;
+                    border: 0.1em solid darkred;
+                    position: absolute;
+                    right: -3px;
+                    text-align: center;
+                    top: -3px;
+                    width: 0.75rem;
+                    z-index: 1;
+                }
+
+                &[data-badge]::after {
+                    content: attr(data-badge);
+                    font-size: 0.75rem;
+                }
+
+                &.locked::after {
+                    content: "\f023";
+                    font-family: "Font Awesome 6 Pro";
+                    font-size: 0.6rem;
+                    padding-left: 1px;
+                }
+            }
+
+            img {
+                border: 1px solid rgba(black, 0);
+                height: 35px;
+                margin: 0;
+                width: 35px;
+            }
+
+            &.active img {
+                border: 1px solid var(--color-border-highlight);
+            }
+
+            &:hover img {
+                border: 1px solid rgba(#ff6400, 0.5);
+            }
+        }
+
+        .title-bar {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: inherit;
+            border: inherit;
+            box-shadow: inherit;
+            box-sizing: content-box;
+            font-size: var(--font-size-14);
+            font-weight: normal;
+            left: 0;
+            line-height: normal;
+            padding: 3px 0;
+            position: absolute;
+            text-align: center;
+            top: -30px;
+            visibility: hidden;
+            width: 100%;
+            z-index: 1;
+
+            &.active {
+                visibility: visible;
+            }
+        }
+    }
+}
