@@ -7,12 +7,24 @@ import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
 import { ActorSourcePF2e } from "@actor/data";
+import { objectHasKey, sluggify } from "@util";
 
 class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized?: boolean;
 
     auras!: Map<string, TokenAura>;
+
+    /** Check actor for effects found in `CONFIG.specialStatusEffects` */
+    override hasStatusEffect(statusId: string): boolean {
+        const { actor } = this;
+        if (!actor) return false;
+
+        const hasCondition = objectHasKey(CONFIG.PF2E.conditionTypes, statusId) && actor.hasCondition(statusId);
+        const hasEffect = () => actor.itemTypes.effect.some((e) => (e.slug ?? sluggify(e.name)) === statusId);
+
+        return hasCondition || hasEffect();
+    }
 
     /** Filter trackable attributes for relevance and avoidance of circular references */
     static override getTrackedAttributes(data: Record<string, unknown> = {}, _path: string[] = []): TokenAttributes {
