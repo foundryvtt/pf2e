@@ -36,6 +36,7 @@ interface ChoiceSetSource extends RuleElementSource {
     allowedDrops?: unknown;
     allowNoSelection?: unknown;
     rollOption?: unknown;
+    sort?: unknown;
 }
 
 interface ChoiceSetOwnedItems {

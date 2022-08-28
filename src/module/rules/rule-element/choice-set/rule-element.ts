@@ -32,6 +32,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     /** An optional roll option to be set from the selection */
     private rollOption: string | null;
 
+    /** Should the options on the prompt be sorted alphabetically? */
+    private sort: boolean;
+
     constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
@@ -42,6 +45,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.allowedDrops = isObject(data.allowedDrops) ? new PredicatePF2e(data.allowedDrops) : new PredicatePF2e();
         this.allowNoSelection = !!data.allowNoSelection;
         this.rollOption = typeof data.rollOption === "string" && data.rollOption ? data.rollOption : null;
+        this.sort = !!(data.sort ?? true);
         if (isObject(this.data.choices) && "predicate" in this.data.choices) {
             this.data.choices.predicate = new PredicatePF2e(this.data.choices.predicate);
         }
@@ -143,7 +147,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     }
 
     /**
-     * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
+     * If an array was passed, localize the labels and sort if necessary, then return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
     private async inflateChoices(): Promise<PickableThing<string | number | object>[]> {
@@ -182,11 +186,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         try {
             return choices
-                .map((c) => ({
+                .map((c, index) => ({
                     value: c.value,
                     label: game.i18n.localize(c.label),
                     img: c.img,
-                    sort: c.sort,
+                    sort: this.sort ? c.sort : index + 1,
                     predicate: c.predicate ? new PredicatePF2e(c.predicate) : undefined,
                 }))
                 .sort((a, b) => a.label.localeCompare(b.label));
