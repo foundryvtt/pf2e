@@ -9,6 +9,9 @@ import { TokenDocumentPF2e } from "@scene";
 
 /** Handle interaction with the TokenHUD */
 export class StatusEffects {
+    /** The ID of the last token processed following an encounter update */
+    static #lastCombatantToken: string | null = null;
+
     static readonly #ICON_THEME_DIRS: Record<StatusEffectIconTheme, string> = {
         default: "systems/pf2e/icons/conditions/",
         blackWhite: "systems/pf2e/icons/conditions-2/",
@@ -27,7 +30,6 @@ export class StatusEffects {
         if (!canvas.ready) return;
 
         console.debug("PF2e System | Initializing Status Effects handler");
-        this.#hookIntoFoundry();
         this.#updateStatusIcons();
     }
 
@@ -39,7 +41,7 @@ export class StatusEffects {
      * If the system setting statusEffectType is changed, we need to upgrade CONFIG
      * And migrate all statusEffect URLs of all Tokens
      */
-    static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme) {
+    static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme): Promise<void> {
         console.debug("PF2e System | Changing status effect icon types");
         const iconDir = this.#ICON_THEME_DIRS[chosenSetting];
         const lastIconDir = this.#ICON_THEME_DIRS[CONFIG.PF2E.statusEffects.lastIconTheme];
@@ -126,34 +128,6 @@ export class StatusEffects {
         }
     }
 
-    /** Hook PF2e's status effects into FoundryVTT */
-    static #hookIntoFoundry(): void {
-        Hooks.on("renderTokenHUD", (_app, html, data) => {
-            StatusEffects.#hookOnRenderTokenHUD(html, data);
-        });
-
-        if (game.user.isGM && game.settings.get("pf2e", "statusEffectShowCombatMessage")) {
-            let lastTokenId = "";
-            Hooks.on("updateCombat", (combat) => {
-                if (!(combat instanceof EncounterPF2e)) return;
-
-                const combatant = combat.combatant;
-                const token = combatant?.token;
-                if (
-                    token &&
-                    token.id !== lastTokenId &&
-                    combat?.started &&
-                    typeof combatant?.initiative === "number" &&
-                    !combatant.defeated
-                ) {
-                    lastTokenId = token.id;
-                    this.#createChatMessage(token.object, combatant.hidden);
-                }
-                if (!combat?.started && lastTokenId !== "") lastTokenId = "";
-            });
-        }
-    }
-
     static #setStatusEffectControls($html: JQuery, token: TokenPF2e): void {
         // Status Effects Controls
         const effects = $html.find(".status-effects");
@@ -191,7 +165,8 @@ export class StatusEffects {
         CONFIG.statusEffects.push(CONFIG.controlIcons.defeated);
     }
 
-    static async #hookOnRenderTokenHUD(html: JQuery, tokenData: TokenHUDData) {
+    /** Called by "renderTokenHud" hook */
+    static async onRenderTokenHUD(html: JQuery, tokenData: TokenHUDData): Promise<void> {
         const token = canvas.tokens.get(tokenData._id);
 
         if (!token) {
@@ -246,6 +221,25 @@ export class StatusEffects {
             } else if (iconPath === CONFIG.controlIcons.defeated) {
                 $icon.attr({ "data-condition": game.i18n.localize("PF2E.Actor.Dead") });
             }
+        }
+    }
+
+    /** Called by `EncounterPF2e#_onUpdate` */
+    static onUpdateEncounter(encounter: EncounterPF2e): void {
+        if (!(game.user.isGM && game.settings.get("pf2e", "statusEffectShowCombatMessage"))) return;
+
+        if (!encounter.started) {
+            this.#lastCombatantToken = null;
+            return;
+        }
+
+        const { combatant } = encounter;
+        const token = combatant?.token;
+        if (!(combatant && token)) return;
+
+        if (token.id !== this.#lastCombatantToken && typeof combatant.initiative === "number" && !combatant.defeated) {
+            this.#lastCombatantToken = token.id;
+            this.#createChatMessage(token.object, combatant.hidden);
         }
     }
 
