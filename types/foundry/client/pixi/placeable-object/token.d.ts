@@ -389,7 +389,7 @@ declare global {
          * @return Was the texture applied (true) or removed (false)
          */
         toggleEffect(
-            effect: ActiveEffect | ImagePath,
+            effect: StatusEffect | ImagePath,
             { active, overlay }?: { active?: boolean; overlay?: boolean }
         ): Promise<boolean>;
 
