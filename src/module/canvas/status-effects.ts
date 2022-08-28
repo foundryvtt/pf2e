@@ -9,28 +9,17 @@ import { TokenDocumentPF2e } from "@scene";
 
 /** Handle interaction with the TokenHUD */
 export class StatusEffects {
-    static readonly #SETTING_OPTIONS: StatusEffectsSettingOptions = {
-        default: {
-            folder: "systems/pf2e/icons/conditions/",
-            extension: "webp",
-        },
-        blackWhite: {
-            folder: "systems/pf2e/icons/conditions-2/",
-            extension: "webp",
-        },
-        legacy: {
-            folder: "systems/pf2e/icons/conditions-3/",
-            extension: "webp",
-        },
+    static readonly #ICON_THEME_DIRS: Record<StatusEffectIconTheme, string> = {
+        default: "systems/pf2e/icons/conditions/",
+        blackWhite: "systems/pf2e/icons/conditions-2/",
     };
 
     /** Set the theme for condition icons on tokens */
     static setIconTheme(): void {
         const iconTheme = game.settings.get("pf2e", "statusEffectType");
-        CONFIG.PF2E.statusEffects.lastIconType = iconTheme;
-        CONFIG.PF2E.statusEffects.folder = this.#SETTING_OPTIONS[iconTheme].folder;
-        CONFIG.PF2E.statusEffects.extension = this.#SETTING_OPTIONS[iconTheme].extension;
-        CONFIG.PF2E.statusEffects.foundryStatusEffects = CONFIG.statusEffects;
+        CONFIG.PF2E.statusEffects.lastIconTheme = iconTheme;
+        CONFIG.PF2E.statusEffects.iconDir = this.#ICON_THEME_DIRS[iconTheme];
+        this.#updateStatusIcons();
     }
 
     /** Link status effect icons to conditions */
@@ -52,8 +41,8 @@ export class StatusEffects {
      */
     static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme) {
         console.debug("PF2e System | Changing status effect icon types");
-        const iconType = this.#SETTING_OPTIONS[chosenSetting];
-        const lastIconType = this.#SETTING_OPTIONS[CONFIG.PF2E.statusEffects.lastIconType];
+        const iconDir = this.#ICON_THEME_DIRS[chosenSetting];
+        const lastIconDir = this.#ICON_THEME_DIRS[CONFIG.PF2E.statusEffects.lastIconTheme];
 
         const promises: Promise<TokenDocument[]>[] = [];
         for (const scene of game.scenes) {
@@ -62,14 +51,14 @@ export class StatusEffects {
             for (const token of scene.tokens) {
                 const update = token.toObject(false);
                 for (const url of token.effects) {
-                    if (url.includes(lastIconType.folder)) {
-                        const statusName = this.#getSlugFromImg(url);
-                        const newUrl = `${iconType.folder}${statusName}.webp` as const;
+                    if (url.includes(lastIconDir)) {
+                        const slug = /([-\w]+)\./.exec(url)?.[1] ?? "";
+                        const newUrl = `${iconDir}${slug}.webp` as const;
                         console.debug(
-                            `PF2e System | Migrating effect ${statusName} of Token ${token.name} on scene ${scene.name} | "${url}" to "${newUrl}"`
+                            `PF2e System | Migrating effect ${slug} of Token ${token.name} on scene ${scene.name} | "${url}" to "${newUrl}"`
                         );
                         const index = update.effects.indexOf(url);
-                        if (index > -1) {
+                        if (index !== -1) {
                             update.effects.splice(index, 1, newUrl);
                         }
                     }
@@ -80,10 +69,9 @@ export class StatusEffects {
         }
         await Promise.all(promises);
 
-        CONFIG.PF2E.statusEffects.folder = iconType.folder;
-        CONFIG.PF2E.statusEffects.extension = iconType.extension;
-        CONFIG.PF2E.statusEffects.lastIconType = chosenSetting;
-        StatusEffects.#updateStatusIcons();
+        CONFIG.PF2E.statusEffects.iconDir = iconDir;
+        CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;
+        this.#updateStatusIcons();
     }
 
     static async updateHUD(html: JQuery, actor: ActorPF2e): Promise<void> {
@@ -197,7 +185,7 @@ export class StatusEffects {
             .filter((c) => !["attitudes", "detection"].includes(c.system.group))
             .sort((conditionA, conditionB) => conditionA.name.localeCompare(conditionB.name))
             .map((condition): VideoPath => {
-                const folder = CONFIG.PF2E.statusEffects.folder;
+                const folder = CONFIG.PF2E.statusEffects.iconDir;
                 return `${folder}${condition.slug}.webp`;
             });
         CONFIG.statusEffects.push(CONFIG.controlIcons.defeated);
@@ -224,7 +212,7 @@ export class StatusEffects {
             const $icon = $(icon);
             const iconPath = $icon.attr("src") ?? "";
 
-            if (iconPath.includes(CONFIG.PF2E.statusEffects.folder)) {
+            if (iconPath.includes(CONFIG.PF2E.statusEffects.iconDir)) {
                 const slug = this.#getSlugFromImg(iconPath);
                 const condition = game.pf2e.ConditionManager.getCondition(slug);
                 if (!condition) continue;
@@ -406,7 +394,7 @@ export class StatusEffects {
         const conditions =
             token.actor?.itemTypes.condition.filter((condition) => condition.fromSystem && condition.system.active) ??
             [];
-        const iconFolder = CONFIG.PF2E.statusEffects.folder;
+        const iconFolder = CONFIG.PF2E.statusEffects.iconDir;
         for (const condition of conditions) {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = "summary" in conditionInfo ? conditionInfo.summary : "";
@@ -452,8 +440,6 @@ export class StatusEffects {
 
     /** Helper to get status effect name from image url */
     static #getSlugFromImg(url: string) {
-        return url.substring(url.lastIndexOf("/") + 1, url.length - CONFIG.PF2E.statusEffects.extension.length - 1);
+        return url.substring(url.lastIndexOf("/") + 1, url.length - 5);
     }
 }
-
-type StatusEffectsSettingOptions = Record<StatusEffectIconTheme, { folder: string; extension: "webp" }>;
