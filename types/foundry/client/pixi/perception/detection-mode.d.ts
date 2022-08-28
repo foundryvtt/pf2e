@@ -22,7 +22,7 @@ declare global {
          */
         testVisibility(
             visionSource: VisionSource<Token>,
-            mode: DetectionModeConfig,
+            mode: TokenDetectionMode,
             config?: CanvasVisibilityTestConfig
         ): boolean;
 
@@ -45,7 +45,7 @@ declare global {
          */
         protected _testPoint(
             visionSource: VisionSource<Token>,
-            mode: DetectionModeConfig,
+            mode: TokenDetectionMode,
             target: PlaceableObject,
             test: CanvasVisibilityTest
         ): boolean;
@@ -58,9 +58,12 @@ declare global {
      */
     class DetectionModeBasicSight extends DetectionMode {}
 
-    interface DetectionModeConfig {
+    interface TokenDetectionMode {
+        /** The id of the detection mode, a key from CONFIG.Canvas.detectionModes */
         id: string;
+        /** Whether or not this detection mode is presently enabled */
         enabled: boolean;
+        /** The maximum range in distance units at which this mode can detect targets */
         range: number;
     }
 
