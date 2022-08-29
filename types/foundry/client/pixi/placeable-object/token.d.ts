@@ -325,6 +325,13 @@ declare global {
          */
         checkCollision(destination: Point): boolean;
 
+        /**
+         * Handle changes to Token behavior when a significant status effect is applied
+         * @param statusId The status effect ID being applied, from CONFIG.specialStatusEffects
+         * @param active   Is the special status effect now active?
+         */
+        _onApplyStatusEffect(statusId: string, active: boolean): void;
+
         protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void;
 
         protected override _onRelease(options?: Record<string, unknown>): void;
