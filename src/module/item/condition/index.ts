@@ -77,6 +77,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
         if (this.system.references.parent?.type !== "condition") {
             this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
         }
+
+        for (const token of this.actor?.getActiveTokens() ?? []) {
+            token._onApplyStatusEffect(this.rollOptionSlug, true);
+        }
     }
 
     protected override _onUpdate(
@@ -111,6 +115,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
             const baseName = this.system.base;
             const change = { delete: { name: baseName } };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
+        }
+
+        for (const token of this.actor?.getActiveTokens() ?? []) {
+            token._onApplyStatusEffect(this.rollOptionSlug, false);
         }
     }
 }

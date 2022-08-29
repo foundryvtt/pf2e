@@ -55,6 +55,9 @@ export const Init = {
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
 
+            // The condition in Pathfinder 2e is "blinded" rather than "blind"
+            CONFIG.specialStatusEffects.BLIND = "blinded";
+
             // Insert templates into DOM tree so Applications can render into
             if (document.querySelector("#ui-top") !== null) {
                 // Template element for effects-panel
