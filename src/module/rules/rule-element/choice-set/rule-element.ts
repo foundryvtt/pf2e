@@ -45,7 +45,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.allowedDrops = isObject(data.allowedDrops) ? new PredicatePF2e(data.allowedDrops) : new PredicatePF2e();
         this.allowNoSelection = !!data.allowNoSelection;
         this.rollOption = typeof data.rollOption === "string" && data.rollOption ? data.rollOption : null;
-        this.sort = !!(data.sort ?? true);
+        this.sort = !!data.sort;
         if (isObject(this.data.choices) && "predicate" in this.data.choices) {
             this.data.choices.predicate = new PredicatePF2e(this.data.choices.predicate);
         }
