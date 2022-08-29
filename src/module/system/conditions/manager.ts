@@ -1,4 +1,3 @@
-import { StatusEffects } from "@module/canvas/status-effects";
 import { ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
 import { ActorPF2e } from "@actor";
@@ -32,11 +31,11 @@ export class ConditionManager {
      * Get a condition using the condition name.
      * @param slug A condition slug
      */
-    static getCondition(slug: string, modifications: DeepPartial<ConditionSource> = {}): ConditionPF2e {
+    static getCondition(slug: ConditionSlug, modifications?: DeepPartial<ConditionSource>): ConditionPF2e;
+    static getCondition(slug: string, modifications?: DeepPartial<ConditionSource>): ConditionPF2e | null;
+    static getCondition(slug: string, modifications: DeepPartial<ConditionSource> = {}): ConditionPF2e | null {
         slug = sluggify(slug);
-        if (!setHasElement(CONDITION_SLUGS, slug)) {
-            throw ErrorPF2e(`"${slug} is not a recognized condition slug`);
-        }
+        if (!setHasElement(CONDITION_SLUGS, slug)) return null;
 
         const condition = ConditionManager.conditions.get(slug)?.clone(modifications);
         if (!condition) throw ErrorPF2e("Unexpected failure looking up condition");
@@ -198,26 +197,25 @@ export class ConditionManager {
         const updates = new Map<string, ConditionSource>();
 
         // Map of applied conditions.
-        const appliedConditions = new Map<string, ConditionSource>();
+        const appliedConditions: Map<string, ConditionSource> = new Map();
 
-        // Set of base conditions
-        const baseList = new Set<string>();
+        const slugSet = new Set<ConditionSlug>();
 
         // A list of overrides seen.
-        const overriding: string[] = [];
+        const overriding: ConditionSlug[] = [];
 
-        conditions.forEach((condition) => {
-            if (!baseList.has(condition.system.base)) {
+        for (const condition of conditions) {
+            if (!slugSet.has(condition.system.slug)) {
                 // Have not seen this base condition before.
-                const base: string = condition.system.base;
-                baseList.add(base);
+                const slug = condition.system.slug;
+                slugSet.add(slug);
 
                 // List of conditions with the same base.
-                const list = conditions.filter((c) => c.system.base === base);
+                const list = conditions.filter((c) => c.system.slug === slug);
 
                 let appliedCondition: ConditionSource;
 
-                if (ConditionManager.getCondition(base).value) {
+                if (ConditionManager.getCondition(slug).value) {
                     // Condition is normally valued.
                     appliedCondition = this.processValuedCondition(list, updates);
                 } else {
@@ -225,46 +223,43 @@ export class ConditionManager {
                     appliedCondition = this.processToggleCondition(list, updates);
                 }
 
-                appliedConditions.set(base, appliedCondition);
+                appliedConditions.set(slug, appliedCondition);
 
                 if (appliedCondition.system.overrides.length) {
-                    overriding.push(base);
+                    overriding.push(slug);
                 }
             }
-        });
+        }
 
         // Iterate the overriding bases.
-        for (const base of overriding) {
+        for (const slug of overriding) {
             // Make sure to get the most recent version of a condition.
-            const overrider = updates.get(appliedConditions.get(base)?._id ?? "") ?? appliedConditions.get(base);
+            const overrider = updates.get(appliedConditions.get(slug)?._id ?? "") ?? appliedConditions.get(slug);
+            if (!overrider) continue;
 
             // Iterate the condition's overrides.
-            overrider?.system.overrides.forEach((overriddenBase) => {
-                if (appliedConditions.has(overriddenBase)) {
-                    // appliedConditions has a condition that needs to be overridden.
+            for (const overriddenBase of overrider?.system.overrides ?? []) {
+                const overriddenSlug = sluggify(overriddenBase);
+                if (appliedConditions.has(overriddenSlug)) {
+                    // `appliedConditions` has a condition that needs to be overridden
 
                     // Remove the condition from applied.
-                    appliedConditions.delete(overriddenBase);
+                    appliedConditions.delete(overriddenSlug);
 
                     // Ensure all copies of overridden base are updated.
-                    for (const source of conditions.filter((c) => c.system.base === overriddenBase)) {
+                    for (const source of conditions.filter((c) => c.system.slug === overriddenBase)) {
                         // List of conditions that have been overridden.
                         const overridden = updates.get(source._id) ?? source;
                         this.processOverride(overridden, overrider, updates);
                     }
                 }
-            });
+            }
         }
 
         // Make sure to update any items that need updating.
         if (updates.size) {
             await actor?.updateEmbeddedDocuments("Item", Array.from(updates.values()));
         }
-
-        // Update token effects from applied conditions.
-        const hudElement = canvas.tokens.hud?.element;
-        const tokens = actor?.getActiveTokens().filter((t) => t.hasActiveHUD) ?? [];
-        if (actor && hudElement && tokens.length > 0) await StatusEffects.updateHUD(hudElement, actor);
     }
 
     /**
@@ -283,7 +278,8 @@ export class ConditionManager {
         actorOrToken: ActorPF2e | TokenPF2e
     ): Promise<ConditionPF2e | null> {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
-        const conditionSource = typeof name === "string" ? this.getCondition(name).toObject() : name;
+        const conditionSource = typeof name === "string" ? this.getCondition(name)?.toObject() : name;
+        if (!conditionSource) throw ErrorPF2e("Unexpected error retrieving condition");
 
         if (actor) {
             const condition = await this.createConditions(conditionSource, actor);
@@ -305,11 +301,11 @@ export class ConditionManager {
 
     private static async createConditions(source: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
         const exists = actor.itemTypes.condition.some(
-            (existing) => existing.system.base === source.system.base && !source.system.references.parent?.id
+            (c) => c.slug === source.system.slug && c.system.references.parent === source.system.references.parent
         );
         if (exists) return null;
 
-        source._id = randomID(16);
+        source._id = randomID();
         const sources = [source, ...this.createAdditionallyAppliedConditions(source, actor)];
         await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
@@ -341,9 +337,7 @@ export class ConditionManager {
             const conditionSource = this.getCondition(unlinked.condition).toObject();
 
             // Unlinked conditions can be abandoned, so we need to prevent duplicates
-            const exists = actor.itemTypes.condition.some(
-                (existing) => existing.system.base === conditionSource.system.base
-            );
+            const exists = actor.itemTypes.condition.some((c) => c.system.slug === conditionSource.system.slug);
             if (exists) continue;
 
             if (unlinked.value) {

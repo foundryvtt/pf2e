@@ -425,7 +425,7 @@ declare global {
         defaultFontFamily: string;
 
         /** An array of status effect icons which can be applied to Tokens */
-        statusEffects: string[];
+        statusEffects: StatusEffect[];
 
         /** A mapping of status effect IDs which provide some additional mechanical integration. */
         specialStatusEffects: {

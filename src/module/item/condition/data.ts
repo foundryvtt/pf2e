@@ -49,7 +49,7 @@ interface ConditionSystemSource extends ItemSystemSource {
             value?: number;
         }
     ];
-    base: string;
+    base: ConditionSlug;
     group: string;
     value: ConditionValueData;
     sources: {
@@ -58,13 +58,13 @@ interface ConditionSystemSource extends ItemSystemSource {
     alsoApplies: {
         linked: [
             {
-                condition: string;
+                condition: ConditionSlug;
                 value?: number;
             }
         ];
         unlinked: [
             {
-                condition: string;
+                condition: ConditionSlug;
                 value?: number;
             }
         ];

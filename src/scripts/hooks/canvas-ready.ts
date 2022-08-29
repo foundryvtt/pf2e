@@ -2,9 +2,7 @@
 export const CanvasReady = {
     listen: (): void => {
         Hooks.once("canvasReady", async () => {
-            // Requires ConditionManager to be fully loaded.
             await game.pf2e.ConditionManager.initialize();
-            game.pf2e.StatusEffects.init();
 
             // Register aura effects on synthetic actors after scene and canvas are ready
             const tokenActors = canvas.scene?.tokens.contents.flatMap((t) => t.actor ?? []) ?? [];
