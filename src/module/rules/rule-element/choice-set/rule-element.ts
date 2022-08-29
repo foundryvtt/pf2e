@@ -146,7 +146,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
-    private async inflateChoices(): Promise<PickableThing<string | number | object>[]> {
+    private async inflateChoices(): Promise<PickableThing[]> {
         const choices: PickableThing<string | number>[] = Array.isArray(this.data.choices)
             ? this.data.choices // Static choices from RE constructor data
             : isObject(this.data.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
@@ -181,15 +181,18 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
 
         try {
-            return choices
-                .map((c) => ({
-                    value: c.value,
-                    label: game.i18n.localize(c.label),
-                    img: c.img,
-                    sort: c.sort,
-                    predicate: c.predicate ? new PredicatePF2e(c.predicate) : undefined,
-                }))
-                .sort((a, b) => a.label.localeCompare(b.label));
+            const choiceData = choices.map((c) => ({
+                value: c.value,
+                label: game.i18n.localize(c.label),
+                img: c.img,
+                predicate: c.predicate ? new PredicatePF2e(c.predicate) : undefined,
+            }));
+
+            // Only sort if the choices were generated via NeDB query or actor data
+            if (!Array.isArray(this.data.choices)) {
+                choiceData.sort((a, b) => a.label.localeCompare(b.label));
+            }
+            return choiceData;
         } catch {
             return [];
         }
