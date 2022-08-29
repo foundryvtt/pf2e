@@ -319,12 +319,17 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (this.actor?.isOfType("loot")) this.actor.toggleTokenHiding();
     }
 
-    /** Handle ephemeral changes received by `TokenDocumentPF2e#_onUpdateBaseActor` */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext,
         userId: string
     ): void {
+        // Possibly re-render encounter tracker if token's `displayName` property has changed
+        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+        if ("displayName" in changed && tokenSetsNameVisibility && this.combatant) {
+            ui.combat.render();
+        }
+
         if (this.isLinked || !this.actor) {
             super._onUpdate(changed, options, userId);
             if (!("x" in changed || "y" in changed) && ("height" in changed || "width" in changed)) {
