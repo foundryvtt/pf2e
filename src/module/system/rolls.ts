@@ -196,6 +196,7 @@ class CheckPF2e {
         const substitutions = context.substitutions ?? [];
 
         // Acquire the d20 roll expression and resolve fortune/misfortune effects
+        const rollOptionsArray = Array.from(rollOptions);
         const [dice, tagsFromDice] = ((): [string, string[]] => {
             const substitutions =
                 context.substitutions?.filter((s) => (!s.ignored && s.predicate?.test(rollOptions)) ?? true) ?? [];
@@ -213,7 +214,7 @@ class CheckPF2e {
             }
 
             const substitution = substitutions.at(-1);
-            if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
+            if (rollOptionsArray.includes("fortune") && rollOptionsArray.includes("misfortune")) {
                 return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
             } else if (substitution) {
                 const effectType = {
@@ -319,7 +320,7 @@ class CheckPF2e {
             return TextEditor.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
-        const secret = context.secret ?? rollOptions.has("secret");
+        const secret = context.secret ?? rollOptionsArray.includes("secret");
 
         const contextFlag: CheckRollContextFlag = {
             ...context,
@@ -328,7 +329,7 @@ class CheckPF2e {
             token: context.token?.id ?? null,
             domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
-            options: Array.from(rollOptions).sort(),
+            options: rollOptionsArray.sort(),
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, rollOptions)),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
