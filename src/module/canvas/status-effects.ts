@@ -274,9 +274,7 @@ export class StatusEffects {
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
 
-        const conditions =
-            token.actor?.itemTypes.condition.filter((condition) => condition.fromSystem && condition.system.active) ??
-            [];
+        const conditions = token.actor?.itemTypes.condition.filter((c) => c.isActive) ?? [];
         const iconFolder = CONFIG.PF2E.statusEffects.iconDir;
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
