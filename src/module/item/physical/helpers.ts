@@ -93,8 +93,9 @@ class CoinsPF2e implements Coins {
         const DENOMINATIONS_REVERSED = [...DENOMINATIONS].reverse();
         const parts: string[] = [];
         for (const denomation of DENOMINATIONS_REVERSED) {
-            if (this[denomation]) {
-                parts.push(`${this[denomation]} ${denomation}`);
+            if (this[denomation] > 0) {
+                const abbreviation = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomation}`);
+                parts.push(`${this[denomation]} ${abbreviation}`);
             }
         }
 
