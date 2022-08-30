@@ -3,7 +3,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data";
 import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
-import { toBulkItem } from "@item/physical/bulk";
+import { Bulk } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
@@ -321,7 +321,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // https://2e.aonprd.com/Equipment.aspx?ID=380
         const runesData = this.getRunesData();
         const materialPrice = materialData?.price ?? 0;
-        const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this).bulk.normal), 1);
+        const heldOrStowedBulk = new Bulk({ light: this.system.bulk.heldOrStowed });
+        const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
         const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
