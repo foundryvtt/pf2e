@@ -16,7 +16,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         if (!encounter) return super.activateListeners($html);
 
         const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
-        for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
+        for (const row of tracker.querySelectorAll<HTMLLIElement>("li.combatant").values()) {
             const combatantId = row.dataset.combatantId ?? "";
             const combatant = encounter.combatants.get(combatantId, { strict: true });
 
@@ -36,7 +36,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                     const isActive = combatant.playersCanSeeName;
                     toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
                     toggleNameVisibility.dataset.control = "toggle-name-visibility";
-                    toggleNameVisibility.title = game.i18n.localize(
+                    toggleNameVisibility.dataset.tooltip = game.i18n.localize(
                         isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
                     );
                     const icon = fontAwesomeIcon("signature");
@@ -45,6 +45,10 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                     row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(
                         toggleNameVisibility
                     );
+
+                    if (!isActive) {
+                        row.classList.add("hidden-name");
+                    }
                 }
             }
         }
