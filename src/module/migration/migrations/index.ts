@@ -173,3 +173,4 @@ export { Migration772V10EmbeddedSpellData } from "./772-v10-embedded-spell-data"
 export { Migration773ReligiousSymbolUsage } from "./773-religious-symbol-usage";
 export { Migration774UnpersistCraftingEntries } from "./774-unpersist-crafting-entries";
 export { Migration775AgileFinesseRanged } from "./775-agile-finesse-ranged";
+export { Migration776SlugifyConditionOverrides } from "./776-sluggify-condition-overrides";
