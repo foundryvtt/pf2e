@@ -194,8 +194,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
-    prepareRuleElements(this: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
-        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this, options) : []);
+    prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
+        if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
+
+        return (this.rules = this.actor.canHostRuleElements
+            ? RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>, options)
+            : []);
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
