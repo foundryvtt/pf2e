@@ -328,7 +328,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const html = $html.get(0)!;
         const ruleSections = html.querySelectorAll<HTMLElement>(".rules .rule-form");
         for (const ruleSection of Array.from(ruleSections)) {
-            const idx = Number(ruleSection.dataset.idx) || -1;
+            const idx = ruleSection.dataset.idx ? Number(ruleSection.dataset.idx) : NaN;
             const form = this.ruleElementForms[idx];
             if (form) {
                 form.activateListeners(ruleSection);
