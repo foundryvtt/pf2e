@@ -45,15 +45,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './dist/system.json,./dist/pf2e.zip'
           tag: ${{ env.systemVersion }}
-
-      - name: Create Latest Release
-        id: create_latest_release
-        uses: ncipollo/release-action@v1
-        with:
-          name: Latest
-          allowUpdates: true
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './dist/system.json,./dist/pf2e.zip'
-          tag: latest
