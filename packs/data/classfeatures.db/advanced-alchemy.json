@@ -27,6 +27,11 @@
         },
         "rules": [
             {
+                "craftableItems": {
+                    "all": [
+                        "item:trait:alchemical"
+                    ]
+                },
                 "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
@@ -36,18 +41,13 @@
                         "class:alchemist"
                     ]
                 },
-                "craftableItems": {
-                    "all": [
-                        "item:trait:alchemical"
-                    ]
-                },
                 "selector": "alchemist"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "phase":"afterDerived",
                 "path": "system.crafting.entries.alchemist.maxItemLevel",
+                "phase": "afterDerived",
                 "predicate": {
                     "all": [
                         "class:alchemist",
