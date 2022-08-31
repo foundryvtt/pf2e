@@ -6,7 +6,7 @@ import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import { Bulk } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
-import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { MaterialGradeData, WEAPON_MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
@@ -344,7 +344,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     getMaterialData(): MaterialGradeData | null {
         const material = this.material;
-        return MATERIAL_VALUATION_DATA[material.precious?.type ?? ""][material.precious?.grade ?? "low"];
+        const materialData = WEAPON_MATERIAL_VALUATION_DATA[material.precious?.type ?? ""];
+        return materialData?.[material.precious?.grade ?? "low"] ?? null;
     }
 
     override async getChatData(

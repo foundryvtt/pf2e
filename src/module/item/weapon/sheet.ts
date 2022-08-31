@@ -1,11 +1,9 @@
-import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values";
-import { PreciousMaterialGrade } from "@item/physical/types";
-import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { WEAPON_MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { OneToFour, OneToThree } from "@module/data";
-import { objectHasKey, setHasElement } from "@util";
+import { setHasElement } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";
@@ -71,36 +69,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 : null;
         })();
 
-        type MaterialSheetData = MaterialValuationData & {
-            [key in keyof MaterialValuationData]:
-                | null
-                | (MaterialValuationData[key] & {
-                      label?: string;
-                  } & {
-                      [key in PreciousMaterialGrade]: { label?: string; selected?: boolean } | null;
-                  });
-        };
-
-        const preciousMaterials: Partial<MaterialSheetData> = deepClone(MATERIAL_VALUATION_DATA);
-        delete preciousMaterials[""];
-        delete preciousMaterials["dragonhide"];
-        delete preciousMaterials["grisantian-pelt"];
-        const { material } = this.item;
-        for (const materialKey of PRECIOUS_MATERIAL_TYPES) {
-            const materialData = preciousMaterials[materialKey];
-            if (materialData) {
-                materialData.label = game.i18n.localize(CONFIG.PF2E.preciousMaterials[materialKey]);
-                for (const gradeKey of PRECIOUS_MATERIAL_GRADES) {
-                    const grade = materialData[gradeKey];
-                    if (grade) {
-                        grade.label = game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[gradeKey]);
-                        grade.selected =
-                            material.precious?.type === materialKey && material.precious?.grade === gradeKey;
-                    }
-                }
-            }
-        }
-
         const groups = Object.fromEntries(
             Object.entries(CONFIG.PF2E.weaponGroups)
                 .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
@@ -153,7 +121,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             ...sheetData,
             hasDetails: true,
             hasSidebar: true,
-            preciousMaterials,
+            preciousMaterials: this.prepareMaterials(WEAPON_MATERIAL_VALUATION_DATA),
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
@@ -215,23 +183,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Coerce a weapon range of zero to null
         formData["system.range"] ||= null;
-
-        // Process precious-material selection
-        if (typeof formData["preciousMaterial"] === "string") {
-            const typeGrade = formData["preciousMaterial"].split("-");
-            const isValidSelection =
-                objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
-                objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
-            if (isValidSelection) {
-                formData["system.preciousMaterial.value"] = typeGrade[0];
-                formData["system.preciousMaterialGrade.value"] = typeGrade[1];
-            } else {
-                formData["system.preciousMaterial.value"] = null;
-                formData["system.preciousMaterialGrade.value"] = null;
-            }
-
-            delete formData["preciousMaterial"];
-        }
 
         // Seal specific magic weapon data if set to true
         const isSpecific = formData["system.specific.value"];
