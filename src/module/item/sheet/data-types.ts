@@ -102,4 +102,7 @@ type MaterialSheetEntry = {
     grades: Partial<Record<PreciousMaterialGrade, MaterialGradeData>>;
 };
 
-export type MaterialSheetData = Record<string, MaterialSheetEntry>;
+export type MaterialSheetData = {
+    value: string;
+    materials: Record<string, MaterialSheetEntry>;
+};

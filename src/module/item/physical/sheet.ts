@@ -125,7 +125,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
     protected prepareMaterials(valuationData: MaterialValuationData) {
         const { material } = this.item;
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
-        return Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
+        const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
             const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
             if (validGrades.length) {
                 result[materialKey] = {
@@ -136,7 +136,6 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                             {
                                 ...materialData[grade],
                                 label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
-                                selected: material.precious?.type === materialKey && material.precious?.grade === grade,
                             },
                         ])
                     ),
@@ -144,7 +143,10 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             }
 
             return result;
-        }, {} as MaterialSheetData);
+        }, {} as MaterialSheetData["materials"]);
+
+        const value = material.precious ? `${material.precious.type}-${material.precious.grade}` : "";
+        return { value, materials };
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
