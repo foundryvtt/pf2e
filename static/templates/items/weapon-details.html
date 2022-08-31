@@ -89,12 +89,10 @@
                 <option value=""></option>
                 {{#each preciousMaterials as |material materialKey|}}
                     <optgroup label="{{material.label}}">
-                        {{#each material as |grade gradeKey|}}
-                            {{#if grade.label}}
-                                <option value="{{materialKey}}-{{gradeKey}}"{{#if grade.selected}} selected="selected"{{/if}}>
-                                    {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
-                                </option>
-                            {{/if}}
+                        {{#each material.grades as |grade gradeKey|}}
+                            <option value="{{materialKey}}-{{gradeKey}}"{{#if grade.selected}} selected="selected"{{/if}}>
+                                {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
+                            </option>
                         {{/each}}
                     </optgroup>
                 {{/each}}

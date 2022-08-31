@@ -9,11 +9,10 @@ export interface MaterialGradeData {
 
 // https://2e.aonprd.com/Equipment.aspx?Category=11&Subcategory=12
 // https://2e.aonprd.com/Equipment.aspx?Category=37&Subcategory=38
-export type MaterialValuationData = Record<
-    PreciousMaterialType | "",
-    Record<PreciousMaterialGrade, MaterialGradeData | null>
+export type MaterialValuationData = Partial<
+    Record<PreciousMaterialType | "", Record<PreciousMaterialGrade, MaterialGradeData | null>>
 >;
-export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
+export const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     "": {
         low: null,
         standard: null,
@@ -85,32 +84,6 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 18,
             price: 22000,
-            rarity: "rare",
-        },
-    },
-    dragonhide: {
-        low: null,
-        standard: {
-            level: 12,
-            price: 1600,
-            rarity: "uncommon",
-        },
-        high: {
-            level: 17,
-            price: 32000,
-            rarity: "uncommon",
-        },
-    },
-    "grisantian-pelt": {
-        low: null,
-        standard: {
-            level: 12,
-            price: 1800,
-            rarity: "rare",
-        },
-        high: {
-            level: 19,
-            price: 33000,
             rarity: "rare",
         },
     },
@@ -226,5 +199,208 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
             price: 14000,
             rarity: "rare",
         },
+    },
+};
+export const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
+    "": {
+        low: null,
+        standard: null,
+        high: null,
+    },
+    abysium: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 2000,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 40000,
+            rarity: "rare",
+        },
+    },
+    adamantine: {
+        low: null,
+        standard: {
+            level: 11,
+            price: 1600,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "uncommon",
+        },
+    },
+    coldIron: {
+        low: {
+            level: 5,
+            price: 140,
+            rarity: "common",
+        },
+        standard: {
+            level: 11,
+            price: 1200,
+            rarity: "common",
+        },
+        high: {
+            level: 18,
+            price: 20000,
+            rarity: "common",
+        },
+    },
+    darkwood: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "uncommon",
+        },
+    },
+    djezet: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1800,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 35000,
+            rarity: "rare",
+        },
+    },
+    dragonhide: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "uncommon",
+        },
+    },
+    "grisantian-pelt": {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1800,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 33000,
+            rarity: "rare",
+        },
+    },
+    inubrix: {
+        low: null,
+        standard: {
+            level: 11,
+            price: 1200,
+            rarity: "rare",
+        },
+        high: {
+            level: 18,
+            price: 18000,
+            rarity: "rare",
+        },
+    },
+    mithral: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "uncommon",
+        },
+    },
+    noqual: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "rare",
+        },
+    },
+    peachwood: {
+        low: null,
+        standard: null,
+        high: null,
+    },
+    orichalcum: {
+        low: null,
+        standard: null,
+        high: {
+            level: 20,
+            price: 55000,
+            rarity: "rare",
+        },
+    },
+    siccatite: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "rare",
+        },
+    },
+    silver: {
+        low: {
+            level: 5,
+            price: 140,
+            rarity: "common",
+        },
+        standard: {
+            level: 11,
+            price: 1200,
+            rarity: "common",
+        },
+        high: {
+            level: 18,
+            price: 20000,
+            rarity: "common",
+        },
+    },
+    sovereignSteel: {
+        low: null,
+        standard: {
+            level: 13,
+            price: 2400,
+            rarity: "rare",
+        },
+        high: {
+            level: 20,
+            price: 50000,
+            rarity: "rare",
+        },
+    },
+    warpglass: {
+        low: null,
+        standard: null,
+        high: null,
     },
 };
