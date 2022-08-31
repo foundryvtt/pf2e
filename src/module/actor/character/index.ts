@@ -462,8 +462,9 @@ class CharacterPF2e extends CreaturePF2e {
 
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs.levelBump) {
-            const modifiersAll = (statisticsModifiers.all ??= []);
-            modifiersAll.push(() => new ModifierPF2e("PF2E.PFS.LevelBump", 1, MODIFIER_TYPE.UNTYPED));
+            const params = { slug: "level-bump", label: "PF2E.PFS.LevelBump", modifier: 1 };
+            statisticsModifiers.all.push(() => new ModifierPF2e(params));
+            statisticsModifiers.damage.push(() => new ModifierPF2e(params));
         }
 
         // Calculate HP and SP
