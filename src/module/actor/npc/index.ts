@@ -322,7 +322,7 @@ class NPCPF2e extends CreaturePF2e {
         system.skills = {};
         for (const skill of SKILL_LONG_FORMS) {
             const { ability, shortform } = SKILL_EXPANDED[skill];
-            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
+            const domains = [skill, shortform, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e({
                     slug: "base",

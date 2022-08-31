@@ -992,7 +992,7 @@ class CharacterPF2e extends CreaturePF2e {
             const skill = systemData.skills[shortForm];
             const longForm = SKILL_DICTIONARY[shortForm];
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
+            const domains = [longForm, shortForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: skill.ability, domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),

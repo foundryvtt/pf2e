@@ -286,7 +286,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 );
             }
             const ability = SKILL_EXPANDED[longForm].ability;
-            const selectors = [longForm, `${ability}-based`, "skill-check", "all"];
+            const selectors = [longForm, shortForm, `${ability}-based`, "skill-check", "all"];
             modifiers.push(...extractModifiers(synthetics, selectors).filter(filterModifier));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;

@@ -67,7 +67,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             if (!objectHasKey(this.system.skills, shortForm)) return current;
             const longForm = skill.name;
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
-            const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
+            const domains = ["all", "skill-check", longForm, shortForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
             current[longForm] = new Statistic(this, {
                 slug: longForm,
