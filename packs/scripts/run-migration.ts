@@ -36,6 +36,7 @@ import { Migration773ReligiousSymbolUsage } from "@module/migration/migrations/7
 import { Migration774UnpersistCraftingEntries } from "@module/migration/migrations/774-unpersist-crafting-entries";
 import { Migration775AgileFinesseRanged } from "@module/migration/migrations/775-agile-finesse-ranged";
 import { Migration776SlugifyConditionOverrides } from "@module/migration/migrations/776-sluggify-condition-overrides";
+import { Migration777HandOfTheApprentice } from "@module/migration/migrations/777-hand-of-the-apprentice";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -74,6 +75,7 @@ const migrations: MigrationBase[] = [
     new Migration774UnpersistCraftingEntries(),
     new Migration775AgileFinesseRanged(),
     new Migration776SlugifyConditionOverrides(),
+    new Migration777HandOfTheApprentice(),
 ];
 
 global.deepClone = <T>(original: T): T => {
