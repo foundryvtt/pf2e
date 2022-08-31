@@ -33,22 +33,22 @@
         },
         "rules": [
             {
-                "isDailyPrep": false,
-                "isPrepared": true,
-                "key": "CraftingEntry",
-                "label": "PF2E.SpecificRule.DedicationCraftingEntry.Snarecrafter",
                 "craftableItems": {
                     "all": [
                         "item:trait:snare"
                     ]
                 },
+                "isDailyPrep": false,
+                "isPrepared": true,
+                "key": "CraftingEntry",
+                "label": "PF2E.SpecificRule.DedicationCraftingEntry.Snarecrafter",
                 "selector": "snareCrafting"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "phase":"afterDerived",
                 "path": "system.crafting.entries.snareCrafting.maxSlots",
+                "phase": "afterDerived",
                 "value": {
                     "brackets": [
                         {
