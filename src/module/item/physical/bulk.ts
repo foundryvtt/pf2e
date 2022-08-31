@@ -1,7 +1,5 @@
 import { Size, SIZES } from "@module/data";
 import { applyNTimes, Optional } from "@util";
-import { PhysicalItemPF2e } from ".";
-import { isEquipped } from "./usage";
 
 interface StackDefinition {
     size: number;
@@ -338,32 +336,4 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
     // turn numbers into strings
     const stringWeight = `${weight}`;
     return stringWeight.toLowerCase().trim();
-}
-
-// Used by weapon, slated for chopping block
-export function toBulkItem(item: PhysicalItemPF2e, nestedItems: BulkItem[] = []): BulkItem {
-    const weight = item.system.weight?.value;
-    const quantity = item.system.quantity ?? 0;
-    const equippedBulk = item.system.equippedBulk?.value;
-    const unequippedBulk = item.system.unequippedBulk?.value;
-    const stackGroup = item.system.stackGroup;
-    const negateBulk = item.system.negateBulk?.value;
-    const traits: string[] = item.system.traits.value;
-    const extraDimensionalContainer = traits.includes("extradimensional");
-    const size = item.system.size;
-
-    return new BulkItem({
-        id: item.id,
-        bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
-        negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
-        // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
-        unequippedBulk: weightToBulk(normalizeWeight(unequippedBulk)),
-        equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
-        holdsItems: nestedItems,
-        stackGroup,
-        isEquipped: isEquipped(item.system.usage, item.system.equipped),
-        quantity,
-        extraDimensionalContainer,
-        size,
-    });
 }
