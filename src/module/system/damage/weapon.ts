@@ -700,11 +700,18 @@ class WeaponDamagePF2e {
             "strike-damage",
             "damage",
         ];
-        if (weapon.isOfType("melee")) return selectors;
+
+        if (weapon.isOfType("melee")) {
+            if (this.strengthBasedDamage(weapon)) {
+                selectors.push("str-damage");
+            }
+            return selectors;
+        }
 
         if (weapon.group) {
             selectors.push(`${weapon.group}-weapon-group-damage`);
         }
+
         if (weapon.category === "unarmed") {
             selectors.push("unarmed-damage");
         }
@@ -712,6 +719,7 @@ class WeaponDamagePF2e {
         if (ability) {
             selectors.push(`${ability}-damage`);
         }
+
         if (proficiencyRank >= 0) {
             const proficiencies = ["untrained", "trained", "expert", "master", "legendary"];
             selectors.push(`${proficiencies[proficiencyRank]}-damage`);
@@ -756,9 +764,14 @@ class WeaponDamagePF2e {
         };
     }
 
+    /** Determine whether the damage source is a strength-based statistic */
+    static strengthBasedDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
+        return weapon.isMelee || (weapon.isThrown && !weapon.traits.has("splash"));
+    }
+
     /** Determine whether a strike's damage includes the actor's strength modifier */
     static strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return weapon.isOfType("weapon") && (weapon.isMelee || (weapon.isThrown && !weapon.traits.has("splash")));
+        return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
     }
 }
 
