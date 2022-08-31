@@ -1,5 +1,21 @@
 # Changelog
 
+# Version 3.13.6
+
+### System Improvements
+* (Supe) Improve visibility of traits when viewing item sheets from locked compendiums
+
+### Bugfixes
+* (stwlam) Restore PFS level bump to damage rolls
+* (stwlam) Include constitution modifier when calculating level-zero PC hit points
+* (stwlam) Exclude negative ability modifiers from battle form damage
+* (stwlam) Fix issue preventing penalties to strength-based damage rolls from affecting NPCs
+* (Supe) Fix issue preventing action frequency values from being updated
+
+### Data Updates
+* (SpartanCPA, Tikael) Add content from book 2 of _Blood Lords_
+
+
 # Version 3.13.5
 
 ### System Improvements
