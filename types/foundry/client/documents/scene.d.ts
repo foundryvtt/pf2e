@@ -87,7 +87,7 @@ declare global {
             user: User
         ): Promise<void>;
 
-        protected override _onUpdate(
+        override _onUpdate(
             changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
