@@ -101,7 +101,7 @@ export class TemplateLayerPF2e<
 
     protected override _onMouseWheel(event: WheelEvent): Promise<TTemplate["document"] | undefined> | void {
         // Abort if there's no hovered template
-        const template = this._hover;
+        const template = this.hover;
         if (!template) return;
 
         // Determine the incremental angle of rotation from event data

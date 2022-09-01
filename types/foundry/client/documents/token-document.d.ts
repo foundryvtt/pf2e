@@ -12,6 +12,8 @@ declare global {
         /** An array of detection modes which are available to this Token */
         detectionModes: TokenDetectionMode[];
 
+        sort: number;
+
         /**
          * A cached reference to the Actor document that this Token modifies.
          * This may be a "synthetic" unlinked Token Actor which does not exist in the World.
