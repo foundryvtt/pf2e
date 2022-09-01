@@ -8,37 +8,13 @@
             color: var(--color-text-dark-1);
             cursor: pointer;
             height: 36px;
-            line-height: var(--font-size-12);
             opacity: 0.75;
             position: relative;
             width: 36px;
-            font-size: var(--font-size-12);
-            font-weight: bold;
 
-            &.badged {
-                &::after {
-                    background: rgba(255, 255, 255, 90%);
-                    border-radius: 50%;
-                    border: 0.1em solid darkred;
-                    position: absolute;
-                    right: -3px;
-                    text-align: center;
-                    top: -3px;
-                    width: 0.75rem;
-                    z-index: 1;
-                }
-
-                &[data-badge]::after {
-                    content: attr(data-badge);
-                    font-size: 0.75rem;
-                }
-
-                &.locked::after {
-                    content: "\f023";
-                    font-family: "Font Awesome 6 Pro";
-                    font-size: 0.6rem;
-                    padding-left: 1px;
-                }
+            &.active img {
+                border: 1px solid var(--color-border-highlight);
+                opacity: 1;
             }
 
             img {
@@ -48,13 +24,35 @@
                 width: 35px;
             }
 
-            &.active img {
-                border: 1px solid var(--color-border-highlight);
-                opacity: 1;
-            }
-
             &:hover img {
                 border: 1px solid rgba(#ff6400, 0.5);
+            }
+
+            .badge {
+                background: rgba(255, 255, 255, 90%);
+                border-radius: 50%;
+                border: 0.1em solid darkred;
+                font-size: var(--font-size-8);
+                height: 0.8rem;
+                line-height: var(--font-size-10);
+                pointer-events: none;
+                position: absolute;
+                right: -3px;
+                text-align: center;
+                top: -3px;
+                width: 0.8rem;
+                z-index: 1;
+            }
+
+            &.overridden > * {
+                filter: saturate(0);
+            }
+
+            &.valued .badge {
+                font-size: var(--font-size-12);
+                font-style: unset;
+                font-weight: 500;
+                line-height: var(--font-size-12);
             }
         }
 
