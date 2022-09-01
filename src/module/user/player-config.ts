@@ -7,7 +7,7 @@ export class PlayerConfigPF2e extends FormApplication {
     static readonly defaultSettings: UserSettingsPF2e = {
         uiTheme: "blue",
         showEffectPanel: true,
-        showRollDialogs: true,
+        showRollDialogs: false,
         darkvisionFilter: false,
         searchPackContents: false,
     };
