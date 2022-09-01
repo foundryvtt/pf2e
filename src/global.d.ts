@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { FeatCategoryOptions } from "@actor/character/feats";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { ItemPF2e } from "@item/base";
 import { CoinsPF2e } from "@item/physical/helpers";
@@ -10,7 +11,8 @@ import { LicenseViewer } from "@module/apps/license-viewer";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import { WorldClock } from "@module/apps/world-clock";
-import { CanvasPF2e } from "@module/canvas";
+import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas";
+import { StatusEffects } from "@module/canvas/status-effects";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorsPF2e } from "@module/collection/actors";
 import { MacroPF2e } from "@module/macro";
@@ -23,7 +25,6 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { UserPF2e } from "@module/user";
-import { StatusEffects } from "@module/canvas/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
@@ -40,7 +41,6 @@ import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
-import { FeatCategoryOptions } from "@actor/character/feats";
 
 declare global {
     interface Game {
@@ -198,5 +198,6 @@ type ConfiguredConfig = Config<
     TileDocumentPF2e,
     TokenDocumentPF2e,
     ScenePF2e,
-    UserPF2e
+    UserPF2e,
+    EffectsCanvasGroupPF2e
 >;

@@ -42,8 +42,10 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
+import "./groups";
 import "./layers/effects/visibility";
 import "./perception";
+import "./webgl";
 
 declare global {
     module PIXI {

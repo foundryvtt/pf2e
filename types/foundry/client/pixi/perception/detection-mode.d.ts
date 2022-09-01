@@ -135,13 +135,32 @@ declare global {
         protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
     }
 
+    /**
+     * Detection mode that see creatures in contact with the ground.
+     */
+    class DetectionModeTremor extends DetectionMode {
+        static override getDetectionFilter(): PIXI.Filter;
+
+        protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
+    }
+
+    /**
+     * Detection mode that see ALL creatures (no blockers).
+     * If not constrained by walls, see everything within the range.
+     */
+    class DetectionModeAll extends DetectionMode {
+        static override getDetectionFilter(): PIXI.Filter;
+
+        protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
+    }
+
     interface TokenDetectionMode {
         /** The id of the detection mode, a key from CONFIG.Canvas.detectionModes */
         id: string;
         /** Whether or not this detection mode is presently enabled */
         enabled: boolean;
         /** The maximum range in distance units at which this mode can detect targets */
-        range: number;
+        range: number | null;
     }
 
     type DetectionType = typeof DetectionMode.DETECTION_TYPES[keyof typeof DetectionMode.DETECTION_TYPES];

@@ -9,7 +9,7 @@ declare global {
         constructor(object: TObject);
 
         /** The current vision mesh for this source */
-        illumination: PIXI.Mesh<AdaptiveIlluminationShader>;
+        illumination: PIXI.Mesh;
 
         static sourceType: "vision";
 
@@ -68,7 +68,7 @@ declare global {
          * @see {LightSource#drawLight}
          * @return The rendered light container
          */
-        drawVision(): PIXI.Mesh<AdaptiveIlluminationShader> | null;
+        drawVision(): PIXI.Mesh | null;
 
         /** Draw a Container used for exploring the FOV area of Token sight in the SightLayer */
         drawSight(): PIXI.Container;
@@ -77,7 +77,7 @@ declare global {
          * Update shader uniforms by providing data from this PointSource
          * @param shader The shader being updated
          */
-        _updateIlluminationUniforms(shader: AdaptiveIlluminationShader): void;
+        _updateIlluminationUniforms(shader: PIXI.Shader): void;
 
         override _drawRenderTextureContainer(): PIXI.Container;
     }

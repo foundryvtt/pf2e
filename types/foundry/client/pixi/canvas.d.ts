@@ -5,7 +5,8 @@ declare global {
         TScene extends Scene = Scene,
         TAmbientLight extends AmbientLight = AmbientLight,
         TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
-        TToken extends Token = Token
+        TToken extends Token = Token,
+        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
     > {
         constructor();
 
@@ -77,11 +78,12 @@ declare global {
         msk: PIXI.Graphics;
         performance: CanvasPerformanceSettings;
 
+        effects: TEffectsCanvasGroup;
+
         // Layers
         background: BackgroundLayer;
         controls: ControlsLayer;
         drawings: DrawingsLayer;
-        effects: EffectsLayer<TToken>;
         foreground: ForegroundLayer;
         grid: GridLayer;
         lighting: TAmbientLight["layer"];
