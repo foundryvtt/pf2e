@@ -1,6 +1,5 @@
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import type * as TinyMCE from "tinymce";
-import "../../styles/tinymce.scss";
 
 class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
     static get theme(): string | null {
@@ -23,13 +22,7 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
     }
 }
 
-class JournalSheetStyledPF2e extends JournalSheetPF2e {
-    static override get theme() {
-        return "pf2e";
-    }
-}
-
-class JournalTextPageSheetPF2e extends JournalTextTinyMCESheet {
+class JournalTextTinyMCESheetPF2e extends JournalTextTinyMCESheet {
     override async activateEditor(
         name: string,
         options: Partial<TinyMCE.EditorOptions> = {},
@@ -39,13 +32,14 @@ class JournalTextPageSheetPF2e extends JournalTextTinyMCESheet {
 
         const parentSheet = this.object.parent?.sheet.constructor as { theme?: string } | undefined;
         const theme = parentSheet?.theme;
+        editor.contentDocument.documentElement.classList.add("journal-entry-page", "text");
+        editor.contentDocument.body.classList.add("journal-page-content");
         if (theme) {
-            editor.contentDocument.documentElement.classList.add(theme, "journal-entry-page", "text");
-            editor.contentDocument.body.classList.add("journal-page-content");
+            editor.contentDocument.documentElement.classList.add(theme);
         }
 
         return editor;
     }
 }
 
-export { JournalSheetPF2e, JournalSheetStyledPF2e, JournalTextPageSheetPF2e };
+export { JournalSheetPF2e, JournalTextTinyMCESheetPF2e };
