@@ -50,7 +50,6 @@ class EmptyStaticFilesPlugin {
     apply(compiler: webpack.Compiler): void {
         compiler.hooks.afterEmit.tap("EmptyStaticFilesPlugin", (): void => {
             if (!isProductionBuild) {
-                fs.closeSync(fs.openSync(path.resolve(outDir, "styles/tinymce.css"), "w"));
                 fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.bundle.js"), "w"));
             }
         });
@@ -86,7 +85,6 @@ const config: Configuration = {
     mode: buildMode,
     entry: {
         main: "./src/pf2e.ts",
-        tinymce: "./src/styles/tinymce.scss",
     },
     module: {
         rules: [
