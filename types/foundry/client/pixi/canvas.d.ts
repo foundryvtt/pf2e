@@ -111,6 +111,9 @@ declare global {
         /** The id of the currently displayed Scene. */
         get id(): string | null;
 
+        /** The color manager class bound to this canvas */
+        get colorManager(): CanvasColorManager;
+
         /** A mapping of named CanvasLayer classes which defines the layers which comprise the Scene. */
         static get layers(): Record<string, CanvasLayer>;
 
