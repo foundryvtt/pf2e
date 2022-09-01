@@ -3,6 +3,7 @@ import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@mod
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import {
     AmbientLightPF2e,
+    EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     TemplateLayerPF2e,
@@ -40,6 +41,7 @@ export const Init = {
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.layerClass = TokenLayerPF2e;
 
+            CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;

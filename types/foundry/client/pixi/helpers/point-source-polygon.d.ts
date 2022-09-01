@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /** An extension of the default PIXI.Polygon which is used to represent the line of sight for a point source. */
-    abstract class PointSourcePolygon<TPointSource extends PointSource = PointSource> extends PIXI.Polygon {
+    abstract class PointSourcePolygon<TPointSource extends PointSource> extends PIXI.Polygon {
         /** The origin point of the source polygon. */
         origin: PIXI.Point;
 
@@ -32,7 +32,7 @@ declare global {
          * @param [config={}] Configuration options which customize the polygon computation
          * @returns The computed polygon instance
          */
-        static create(origin: Point, config?: PointSourcePolygonConfig): PointSourcePolygon;
+        static create(origin: Point, config?: PointSourcePolygonConfig): PointSourcePolygon<PointSource>;
 
         /**
          * Compute the polygon using the origin and configuration options.

@@ -60,9 +60,9 @@ export class SceneDarknessAdjuster extends Application {
         });
 
         // Show a preview while the darkness level is being moved
-        this.slider.on("slide", (values, thumbNumber) => {
+        this.slider.on("slide", (_values, thumbNumber) => {
             if (thumbNumber === 1) {
-                canvas.lighting.refresh({ darkness: Number(values[1]), noHook: true });
+                canvas.effects.refreshLighting(true);
             }
         });
 
