@@ -179,6 +179,14 @@ export class CheckModifiersDialog extends Application {
         };
         return [settingsButton, ...buttons];
     }
+
+    /** Overriden to add some additional first-render behavior */
+    protected override _injectHTML($html: JQuery<HTMLElement>): void {
+        super._injectHTML($html);
+
+        // Since this is an initial render, focus the roll button
+        $html[0]?.querySelector<HTMLElement>("button.roll")?.focus();
+    }
 }
 
 interface CheckDialogData {
