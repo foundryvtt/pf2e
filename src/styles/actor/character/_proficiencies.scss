@@ -130,7 +130,7 @@
             .skill {
                 grid:
                     'score name btn' min-content
-                    / 42px 2fr 1fr;
+                    / 42px 4fr 1fr;
                 padding: 2px 15px 2px 6px;
 
                 .skill-score {
@@ -145,6 +145,30 @@
                         font-weight: 600;
                         &:hover {
                             border: 1px solid var(--sub);
+                        }
+                    }
+                }
+                .lore-select-group {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                    .lore-ability {
+                        border: 1px solid rgba(black, 0.5);
+                        text-align-last: center;
+                        padding: 2px 1px 1px 1px;
+                        border-radius: 2px;
+                        box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+                        @include micro;
+                        font-size: var(--font-size-10);
+                        color: var(--text-light);
+                        @include flex-center;
+                        cursor: pointer;
+                        background-image: none;
+                        margin: 1px 0;
+                        
+                        &.readonly {
+                            pointer-events: none;
                         }
                     }
                 }

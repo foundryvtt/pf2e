@@ -28,7 +28,7 @@
         <h3 class="header">
             {{localize "PF2E.LoreSkillsHeader"}}
             <div class="controls">
-                <button type="button" class="item-control item-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore">
+                <button type="button" class="item-control lore-create" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore">
                     <i class="fas fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
                 </button>
             </div>
@@ -36,21 +36,28 @@
 
         <ol class="lores-list">
             <!-- Lore Skills -->
-            {{#each data.skills as |skill idx|}}
+            {{#each data.skills as |skill key|}}
                 {{#if skill.lore}}
-                    <li class="skill item" data-skill="{{skill.shortform}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
+                    <li class="skill item" data-skill="{{key}}">
                         <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
                         <div class="skill-name lore-name-input item-name-input">
-                            <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" style="color: white;"/>
+                            <input class="lore-name" type="text" value="{{skill.label}}" style="color: white;"/>
                         </div>
                         <div class="skill-prof button-group skill-container">
-                            <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">
-                                {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank}}
-                            </select>
+                            <div class="lore-select-group">
+                                <select class="skill-proficiency pf-rank adjust-stat-select" data-property="system.lores.{{key}}.rank" value="{{skill.rank}}" title="{{skill.breakdown}}">
+                                    {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank}}
+                                </select>
+                                <select class="lore-ability" name="system.lores.{{key}}.ability">
+                                    {{#each ../data.abilities as |ability key|}}
+                                        <option value="{{key}}" {{#if (eq skill.ability key)}}selected{{/if}}>{{localize ability.label}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
                             {{#if ../editable}}
-                                <div class="item-controls">
-                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
-                                </div>
+                                <div class="item-controls">                        
+                                    <a class="item-control lore-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                            </div>
                             {{/if}}
                         </div>
                     </li>

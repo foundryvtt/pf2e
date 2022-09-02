@@ -121,7 +121,7 @@ class CharacterPF2e extends CreaturePF2e {
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
-        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
+        return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action"];
     }
 
     get keyAbility(): AbilityString {
@@ -1106,14 +1106,21 @@ class CharacterPF2e extends CreaturePF2e {
         }, {} as Record<SkillAbbreviation, CharacterSkillData>);
 
         // Lore skills
-        for (const loreItem of this.itemTypes.lore) {
-            // normalize skill name to lower-case and dash-separated words
-            const shortForm = sluggify(loreItem.name) as SkillAbbreviation;
-            const rank = loreItem.system.proficient.value;
+        for (const shortForm in systemData.lores) {
+            const lore = systemData.lores[shortForm];
+            const rank = lore.rank;
+            const ability = lore.ability ?? "int";
 
-            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
+            const domains = [
+                shortForm,
+                `${ability}-based`,
+                "skill-check",
+                "lore-skill-check",
+                `${ability}-skill-check`,
+                "all",
+            ];
             const modifiers = [
-                createAbilityModifier({ actor: this, ability: "int", domains }),
+                createAbilityModifier({ actor: this, ability: ability, domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
             ];
             for (const modifier of modifiers) {
@@ -1125,19 +1132,18 @@ class CharacterPF2e extends CreaturePF2e {
             }
             modifiers.push(...extractModifiers(synthetics, domains));
 
-            const loreSkill = systemData.skills[shortForm];
+            const loreSkill = systemData.skills[shortForm as SkillAbbreviation];
             const stat = mergeObject(
                 new StatisticModifier(shortForm, modifiers, this.getRollOptions(domains)),
                 loreSkill,
                 { overwrite: false }
             );
-            stat.label = loreItem.name;
-            stat.ability = "int";
-            stat.itemID = loreItem.id;
+            stat.label = lore.name;
+            stat.ability = ability;
             stat.notes = extractNotes(synthetics.rollNotes, domains);
             stat.rank = rank ?? 0;
             stat.shortform = shortForm;
-            stat.expanded = loreItem;
+            stat.expanded = lore;
             stat.value = stat.totalModifier;
             stat.lore = true;
             stat.breakdown = stat.modifiers
@@ -1148,7 +1154,7 @@ class CharacterPF2e extends CreaturePF2e {
                 console.warn(
                     `Rolling skill checks via actor.system.skills.${shortForm}.roll() is deprecated, use actor.skills.${shortForm}.check.roll() instead`
                 );
-                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: loreItem.name });
+                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: lore.name });
                 const rollOptions = new Set(params.options ?? []);
                 ensureProficiencyOption(rollOptions, rank);
 
@@ -1183,7 +1189,7 @@ class CharacterPF2e extends CreaturePF2e {
                 return roll;
             };
 
-            skills[shortForm] = stat;
+            skills[shortForm as SkillAbbreviation] = stat;
         }
 
         return skills;

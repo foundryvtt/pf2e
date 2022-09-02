@@ -4,14 +4,14 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { ItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { ItemSourcePF2e, LoreData } from "@item/data";
+import { ItemSourcePF2e } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -220,9 +220,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const readonlyEquipment: unknown[] = [];
 
-        // Skills
-        const lores: LoreData[] = [];
-
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });
             if (item.isOfType("physical")) {
@@ -256,25 +253,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             }
 
-            // Lore Skills
-            else if (itemData.type === "lore") {
-                itemData.system.icon = this.getProficiencyIcon((itemData.system.proficient || {}).value);
-                itemData.system.hover = CONFIG.PF2E.proficiencyLevels[(itemData.system.proficient || {}).value];
-
-                const rank = itemData.system.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(
-                    actorData.system.details.level.value,
-                    rank
-                ).modifier;
-                const modifier = actorData.system.abilities.int.mod;
-                const itemBonus = Number((itemData.system.item || {}).value || 0);
-                itemData.system.itemBonus = itemBonus;
-                itemData.system.value = modifier + proficiency + itemBonus;
-                itemData.system.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
-
-                lores.push(itemData);
-            }
-
             // Actions
             else if (item.isOfType("action")) {
                 const actionType = ["free", "reaction", "passive"].includes(item.system.actionType.value)
@@ -303,7 +281,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
-        actorData.lores = lores;
     }
 
     protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {
@@ -525,6 +502,34 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const $list = $tab.find("ol.combat-list");
             $list.find("li.skill.custom a.delete").on("click", (event) => {
                 ManageCombatProficiencies.remove(this.actor, event);
+            });
+        }
+
+        {
+            // Add, remove and edit lore skills
+            const $tab = $html.find(".tab.proficiencies");
+            $tab.find("button.lore-create").on("click", () => {
+                const lore = {
+                    rank: 0,
+                    name: "New Lore",
+                    ability: "int",
+                };
+                this.actor.update({ [`system.lores.${sluggify(lore.name)}`]: lore });
+            });
+            $tab.find("a.lore-delete").on("click", (event) => {
+                const shortForm = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
+                this.actor.update({ [`system.lores.-=${shortForm}`]: null });
+            });
+            $tab.find("input.lore-name").on("change", (event) => {
+                const newName = $(event.currentTarget).val() as string;
+                const shortForm = event.currentTarget.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
+                const lore = this.actor.system.lores[shortForm];
+                lore.name = newName;
+
+                this.actor.update({
+                    [`system.lores.-=${shortForm}`]: null,
+                    [`system.lores.${sluggify(newName)}`]: lore,
+                });
             });
         }
 
@@ -814,7 +819,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         await this.actor.update({ [propertyKey]: newValue });
     }
 
-    /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
+    /** Handle changing of spellcasting entry proficiency-rank via dropdown */
     private async onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $select = $(event.delegateTarget);
         const propertyKey = $select.attr("data-item-property") ?? "";
@@ -831,8 +836,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     "system.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
-            } else if (item.isOfType("lore")) {
-                return Math.clamped(selectedValue, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
@@ -846,7 +849,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    /** Handle clicking of lore and spellcasting entry adjustment buttons */
+    /** Handle clicking of spellcasting entry adjustment buttons */
     private async onClickAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $button = $(event.delegateTarget);
         const itemId = $button.closest(".item").attr("data-item-id") ?? "";
@@ -864,9 +867,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
-            } else if (item.isOfType("lore")) {
-                const currentRank = item.system.proficient.value;
-                return Math.clamped(currentRank + change, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
