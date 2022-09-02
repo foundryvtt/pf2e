@@ -1,4 +1,4 @@
-const USER_SETTINGS_KEYS = ["uiTheme", "showEffectPanel", "showRollDialogs", "darkvisionFilter"] as const;
+const USER_SETTINGS_KEYS = ["uiTheme", "showEffectPanel", "showRollDialogs"] as const;
 
 /** Player-specific settings, stored as flags on each world User */
 export class PlayerConfigPF2e extends FormApplication {
@@ -7,8 +7,7 @@ export class PlayerConfigPF2e extends FormApplication {
     static readonly defaultSettings: UserSettingsPF2e = {
         uiTheme: "blue",
         showEffectPanel: true,
-        showRollDialogs: true,
-        darkvisionFilter: false,
+        showRollDialogs: false,
         searchPackContents: false,
     };
 
@@ -77,6 +76,5 @@ export interface UserSettingsPF2e {
     uiTheme: "blue" | "red" | "original" | "ui";
     showEffectPanel: boolean;
     showRollDialogs: boolean;
-    darkvisionFilter: boolean;
     searchPackContents: boolean;
 }
