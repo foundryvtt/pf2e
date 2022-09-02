@@ -39,7 +39,7 @@ export function isItemSource(docSource: CompendiumSource): docSource is ItemSour
     return (
         "system" in docSource &&
         "type" in docSource &&
-        "effects" in docSource &&
+        !("text" in docSource) &&
         isObject(docSource.system) &&
         !isActorSource(docSource)
     );
