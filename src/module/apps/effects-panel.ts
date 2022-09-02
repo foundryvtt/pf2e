@@ -3,12 +3,6 @@ import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { ConditionReference, FlattenedCondition } from "../system/conditions";
 import { EffectExpiryType } from "@item/effect/data";
 
-interface EffectsPanelData {
-    conditions: FlattenedCondition[];
-    effects: EffectPF2e[];
-    actor: ActorPF2e | null;
-}
-
 export class EffectsPanel extends Application {
     private get actor(): ActorPF2e | null {
         return canvas.tokens.controlled[0]?.actor ?? game.user?.character ?? null;
@@ -30,8 +24,10 @@ export class EffectsPanel extends Application {
 
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
+        if (!actor) return { conditions: [], effects: [], actor: null };
+
         const effects =
-            actor?.itemTypes.effect.map((effect) => {
+            actor.itemTypes.effect.map((effect) => {
                 const duration = effect.totalDuration;
                 const { system } = effect;
                 if (duration === Infinity) {
@@ -57,7 +53,7 @@ export class EffectsPanel extends Application {
                 return effect;
             }) ?? [];
 
-        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor?.itemTypes.condition ?? []).map(
+        const conditions = game.pf2e.ConditionManager.getFlattenedConditions(actor.itemTypes.condition).map(
             (condition) => {
                 condition.locked = condition.parents.length > 0;
                 condition.breakdown = EffectsPanel.getParentConditionsBreakdown(condition.parents);
@@ -175,4 +171,10 @@ export class EffectsPanel extends Application {
             return game.i18n.format(key, { initiative });
         }
     }
+}
+
+interface EffectsPanelData {
+    conditions: FlattenedCondition[];
+    effects: EffectPF2e[];
+    actor: ActorPF2e | null;
 }

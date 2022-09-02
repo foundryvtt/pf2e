@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /** An extension of the default PIXI.Polygon which is used to represent the line of sight for a point source. */
-    abstract class PointSource<TObject extends PlaceableObject = PlaceableObject> {
+    abstract class PointSource<TObject extends PlaceableObject | undefined = PlaceableObject | undefined> {
         constructor(object: TObject);
 
         /** The object responsible for this source. */
@@ -85,14 +85,14 @@ declare global {
          * @param shaderCls The subclass of AdaptiveLightingShader being used for this Mesh
          * @returns The created Mesh
          */
-        _createMesh<T extends typeof AdaptiveLightingShader>(shaderCls: T): PIXI.Mesh<InstanceType<T>>;
+        protected _createMesh(shaderCls: PIXI.Shader): PIXI.Mesh;
 
         /**
          * Update the position and size of the mesh each time it is drawn.
          * @param mesh The Mesh being updated
          * @returns The updated Mesh
          */
-        protected _updateMesh<T extends PIXI.Mesh<AdaptiveLightingShader>>(mesh: T): T;
+        protected _updateMesh<T extends PIXI.Mesh>(mesh: T): T;
 
         /** Render this source to a texture which can be used for masking and blurring. */
         protected _renderTexture(): PIXI.RenderTexture;

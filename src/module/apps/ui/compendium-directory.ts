@@ -139,7 +139,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const regexp = new RegExp(RegExp.escape(query), "i");
 
         const matchesQuery = (pack: CompendiumCollection): boolean => {
-            return searchMode ? packsFromDocMatches.has(pack.collection) : regexp.test(pack.title);
+            return regexp.test(pack.title) || (searchMode && packsFromDocMatches.has(pack.collection));
         };
         const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
         const packRows = Array.from(

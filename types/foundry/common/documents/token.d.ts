@@ -30,14 +30,14 @@ declare module foundry {
 
             sight: {
                 enabled: boolean;
-                range: number;
+                range: number | null;
                 angle: number;
                 color: HexColorString;
                 attenuation: number;
                 brightness: number;
                 saturation: number;
                 contrast: number;
-                visionMode: object;
+                visionMode: string;
             };
 
             elevation: number;

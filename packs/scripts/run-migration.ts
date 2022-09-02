@@ -7,26 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration743FixWeaknessStructure } from "@module/migration/migrations/743-fix-weakness-structure";
-import { Migration744MigrateSpellHeighten } from "@module/migration/migrations/744-migrate-spell-heighten";
-import { Migration745EffectTargetToChoiceSet } from "@module/migration/migrations/745-effect-target-to-choice-set";
-import { Migration746StandardizePricing } from "@module/migration/migrations/746-standardize-pricing";
-import { Migration748BatchConsumablePricing } from "@module/migration/migrations/748-batch-consumable-pricing";
-import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
-import { Migration752StrikeVsWeaponTraits } from "@module/migration/migrations/752-strike-vs-weapon-traits";
-import { Migration753WeaponReloadTimes } from "@module/migration/migrations/753-weapon-reload-times";
-import { Migration754MightyBulwarkAdjustModifiers } from "@module/migration/migrations/754-mighty-bulwark-adjust-modifiers";
-import { Migration755GrantIdsToData } from "@module/migration/migrations/755-grant-ids-to-data";
-import { Migration757HillockHalfling } from "@module/migration/migrations/757-hillock-halfling";
-import { Migration759CritSpecRE } from "@module/migration/migrations/759-crit-spec-re";
-import { Migration760SeparateNoteTitle } from "@module/migration/migrations/760-separate-note-title";
-import { Migration761ShotRules } from "@module/migration/migrations/761-update-shot-rules";
-import { Migration762UpdateBackgroundItems } from "@module/migration/migrations/762-update-background-items";
-import { Migration763RestoreAnimalStrikeOptions } from "@module/migration/migrations/763-restore-animal-strike-options";
-import { Migration764PanacheVivaciousREs } from "@module/migration/migrations/764-panache-vivacious-res";
-import { Migration765ChoiceOwnedItemTypes } from "@module/migration/migrations/765-choice-owned-item-types";
-import { Migration766WipeURLSources } from "@module/migration/migrations/766-wipe-url-sources";
-import { Migration767ConvertVoluntaryFlaws } from "@module/migration/migrations/767-convert-voluntary-flaws";
 import { Migration768AddNewAuras } from "@module/migration/migrations/768-add-new-auras";
 import { Migration769NoUniversalistFocusPool } from "@module/migration/migrations/769-no-universalist-focus-pool";
 import { Migration770REDataToSystem } from "@module/migration/migrations/770-re-data-to-system";
@@ -36,6 +16,8 @@ import { Migration773ReligiousSymbolUsage } from "@module/migration/migrations/7
 import { Migration774UnpersistCraftingEntries } from "@module/migration/migrations/774-unpersist-crafting-entries";
 import { Migration775AgileFinesseRanged } from "@module/migration/migrations/775-agile-finesse-ranged";
 import { Migration776SlugifyConditionOverrides } from "@module/migration/migrations/776-sluggify-condition-overrides";
+import { Migration777HandOfTheApprentice } from "@module/migration/migrations/777-hand-of-the-apprentice";
+import { Migration778RenameRetiredPackRefs } from "@module/migration/migrations/778-rename-feature-effects-refs";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -45,26 +27,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration743FixWeaknessStructure(),
-    new Migration744MigrateSpellHeighten(),
-    new Migration745EffectTargetToChoiceSet(),
-    new Migration746StandardizePricing(),
-    new Migration748BatchConsumablePricing(),
-    new Migration749AssuranceREs(),
-    new Migration752StrikeVsWeaponTraits(),
-    new Migration753WeaponReloadTimes(),
-    new Migration754MightyBulwarkAdjustModifiers(),
-    new Migration755GrantIdsToData(),
-    new Migration757HillockHalfling(),
-    new Migration759CritSpecRE(),
-    new Migration760SeparateNoteTitle(),
-    new Migration761ShotRules(),
-    new Migration762UpdateBackgroundItems(),
-    new Migration763RestoreAnimalStrikeOptions(),
-    new Migration764PanacheVivaciousREs(),
-    new Migration765ChoiceOwnedItemTypes(),
-    new Migration766WipeURLSources(),
-    new Migration767ConvertVoluntaryFlaws(),
     new Migration768AddNewAuras(),
     new Migration769NoUniversalistFocusPool(),
     new Migration770REDataToSystem(),
@@ -74,6 +36,8 @@ const migrations: MigrationBase[] = [
     new Migration774UnpersistCraftingEntries(),
     new Migration775AgileFinesseRanged(),
     new Migration776SlugifyConditionOverrides(),
+    new Migration777HandOfTheApprentice(),
+    new Migration778RenameRetiredPackRefs(),
 ];
 
 global.deepClone = <T>(original: T): T => {

@@ -21,7 +21,7 @@ import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
 import { ArmorSheetPF2e } from "@item/armor/sheet";
 import { HeritageSheetPF2e } from "@item/heritage";
-import { JournalSheetPF2e, JournalSheetStyledPF2e, JournalTextPageSheetPF2e } from "@module/journal-entry/sheet";
+import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
 import { SceneConfigPF2e } from "@scene/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { EquipmentSheetPF2e } from "@item/equipment/sheet";
@@ -40,13 +40,9 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetStyledPF2e, {
-        label: game.i18n.localize("PF2E.JournalEntry.PF2ETheme"),
-    });
-
     // Replace the TinyMCE sheet with the version that'll let us inject themes
     DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
-    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextPageSheetPF2e, {
+    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextTinyMCESheetPF2e, {
         types: ["text"],
         label: game.i18n.localize("EDITOR.TinyMCE"),
     });

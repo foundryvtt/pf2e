@@ -196,6 +196,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     docSource.system.description = { value: docSource.system.description.value };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
+                        if (docSource.type === "consumable" && !docSource.system.spell) {
+                            delete (docSource.system as { spell?: unknown }).spell;
+                        }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
                     } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {

@@ -3,6 +3,7 @@ import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@mod
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import {
     AmbientLightPF2e,
+    EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     TemplateLayerPF2e,
@@ -17,6 +18,7 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
 import { PF2ECONFIG } from "@scripts/config";
+import { setPerceptionModes } from "@module/canvas/perception/modes";
 
 export const Init = {
     listen: (): void => {
@@ -40,9 +42,12 @@ export const Init = {
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.layerClass = TokenLayerPF2e;
 
+            CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
+
+            setPerceptionModes();
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;

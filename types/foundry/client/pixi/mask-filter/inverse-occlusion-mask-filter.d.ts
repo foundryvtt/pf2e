@@ -8,7 +8,7 @@ declare class InverseOcclusionMaskFilter extends AbstractBaseMaskFilter {
 
     static override create<T extends InverseOcclusionMaskFilter>(
         this: ConstructorOf<T>,
-        defaultUniforms?: DefaultShaderUniforms,
+        defaultUniforms?: object,
         channel?: string
     ): T;
 }

@@ -1,9 +1,12 @@
 import { ItemSheetPF2e } from "../sheet/base";
 import { PhysicalItemPF2e } from "@item/physical";
-import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
+import { ItemSheetDataPF2e, MaterialSheetData, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { CoinsPF2e } from "@item/physical/helpers";
+import { MaterialValuationData } from "./materials";
+import { PRECIOUS_MATERIAL_GRADES } from "./values";
+import { objectHasKey } from "@util";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -119,7 +122,51 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         });
     }
 
+    protected prepareMaterials(valuationData: MaterialValuationData) {
+        const { material } = this.item;
+        const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
+        const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
+            const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter((grade) => !!materialData[grade]);
+            if (validGrades.length) {
+                result[materialKey] = {
+                    label: game.i18n.localize(preciousMaterials[materialKey]),
+                    grades: Object.fromEntries(
+                        validGrades.map((grade) => [
+                            grade,
+                            {
+                                ...materialData[grade],
+                                label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
+                            },
+                        ])
+                    ),
+                };
+            }
+
+            return result;
+        }, {} as MaterialSheetData["materials"]);
+
+        const value = material.precious ? `${material.precious.type}-${material.precious.grade}` : "";
+        return { value, materials };
+    }
+
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Process precious-material selection
+        if (typeof formData["preciousMaterial"] === "string") {
+            const typeGrade = formData["preciousMaterial"].split("-");
+            const isValidSelection =
+                objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
+                objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
+            if (isValidSelection) {
+                formData["system.preciousMaterial.value"] = typeGrade[0];
+                formData["system.preciousMaterialGrade.value"] = typeGrade[1];
+            } else {
+                formData["system.preciousMaterial.value"] = null;
+                formData["system.preciousMaterialGrade.value"] = null;
+            }
+
+            delete formData["preciousMaterial"];
+        }
+
         // Normalize nullable fields to actual `null`s
         const propertyPaths = [
             "system.baseItem",

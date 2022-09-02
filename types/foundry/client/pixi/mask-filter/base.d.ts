@@ -16,7 +16,7 @@ declare class AbstractBaseMaskFilter extends PIXI.Filter {
      */
     static create<T extends AbstractBaseMaskFilter>(
         this: ConstructorOf<T>,
-        defaultUniforms?: DefaultShaderUniforms,
+        defaultUniforms?: object,
         channel?: string
     ): T;
 

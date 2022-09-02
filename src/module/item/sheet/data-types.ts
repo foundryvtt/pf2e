@@ -5,6 +5,8 @@ import { BackgroundPF2e } from "@item/background";
 import { FeatPF2e } from "@item/feat";
 import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
+import { MaterialGradeData } from "@item/physical/materials";
+import { PreciousMaterialGrade } from "@item/physical/types";
 import { Rarity } from "@module/data";
 import { RuleElementSource } from "@module/rules";
 import { SheetOptions } from "@module/sheet/helpers";
@@ -94,3 +96,13 @@ export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
     ancestry: AncestryPF2e | null;
     ancestryRefBroken: boolean;
 }
+
+type MaterialSheetEntry = {
+    label: string;
+    grades: Partial<Record<PreciousMaterialGrade, MaterialGradeData>>;
+};
+
+export type MaterialSheetData = {
+    value: string;
+    materials: Record<string, MaterialSheetEntry>;
+};

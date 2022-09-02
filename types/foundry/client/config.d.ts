@@ -18,7 +18,8 @@ declare global {
         TTileDocument extends TileDocument = TileDocument,
         TTokenDocument extends TokenDocument = TokenDocument,
         TScene extends Scene = Scene,
-        TUser extends User = User
+        TUser extends User = User,
+        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
     > {
         /** Configure debugging flags to display additional information */
         debug: {
@@ -254,6 +255,32 @@ declare global {
             };
             exploredColor: number;
             unexploredColor: number;
+            groups: {
+                hidden: {
+                    groupClass: ConstructorOf<PIXI.Container>;
+                    parent: "stage";
+                };
+                rendered: {
+                    groupClass: ConstructorOf<PIXI.Container>;
+                    parent: "stage";
+                };
+                environment: {
+                    groupClass: ConstructorOf<PIXI.Container>;
+                    parent: "rendered";
+                };
+                primary: {
+                    groupClass: ConstructorOf<PIXI.Container>;
+                    parent: "environment";
+                };
+                effects: {
+                    groupClass: ConstructorOf<TEffectsCanvasGroup>;
+                    parent: "environment";
+                };
+                interface: {
+                    groupClass: ConstructorOf<InterfaceCanvasGroup>;
+                    parent: "rendered";
+                };
+            };
             layers: {
                 background: {
                     group: "primary";
@@ -295,10 +322,6 @@ declare global {
                     group: "effects";
                     layerClass: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
                 };
-                weather: {
-                    group: "effects";
-                    layerClass: typeof EffectsLayer;
-                };
                 controls: {
                     group: "interface";
                     layerClass: typeof ControlsLayer;
@@ -316,14 +339,14 @@ declare global {
                 torch: {
                     label: "LIGHT.AnimationTorch";
                     animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
-                    illuminationShader: typeof TorchIlluminationShader;
-                    colorationShader: typeof TorchColorationShader;
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
                 };
                 pulse: {
                     label: "LIGHT.AnimationPulse";
                     animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animatePulse"];
-                    illuminationShader: typeof PulseIlluminationShader;
-                    colorationShader: typeof PulseColorationShader;
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
                 };
                 chroma: {
                     label: "LIGHT.AnimationChroma";
@@ -383,6 +406,40 @@ declare global {
                     animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                 };
+            };
+
+            /** The set of VisionMode definitions which are available to be used for Token vision. */
+            visionModes: {
+                // Default (Basic) Vision
+                basic: VisionMode;
+
+                // Darkvision
+                darkvision: VisionMode;
+
+                // Monochromatic
+                monochromatic: VisionMode;
+
+                // Blindness
+                blindness: VisionMode;
+
+                // Tremorsense
+                tremorsense: VisionMode;
+
+                // Light Amplification
+                lightAmplification: VisionMode;
+
+                [key: string]: VisionMode;
+            };
+
+            /** The set of DetectionMode definitions which are available to be used for visibility detection. */
+            detectionModes: {
+                basicSight: DetectionModeBasicSight;
+                seeInvisibility: DetectionModeInvisibility;
+                senseInvisibility: DetectionModeInvisibility;
+                feelTremor: DetectionModeTremor;
+                seeAll: DetectionModeAll;
+                senseAll: DetectionModeAll;
+                [key: string]: DetectionMode;
             };
         };
 

@@ -27,22 +27,22 @@
         },
         "rules": [
             {
-                "isDailyPrep": true,
-                "key": "CraftingEntry",
-                "label": "PF2E.SpecificRule.Thaumaturge.TalismanEsoterica",
-                "maxSlots": 2,
                 "craftableItems": {
                     "all": [
                         "item:trait:talisman"
                     ]
                 },
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "label": "PF2E.SpecificRule.Thaumaturge.TalismanEsoterica",
+                "maxSlots": 2,
                 "selector": "talismanEsoterica"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "phase":"afterDerived",
                 "path": "system.crafting.entries.talismanEsoterica.maxItemLevel",
+                "phase": "afterDerived",
                 "predicate": {
                     "all": [
                         "crafting:entry:talisman-esoterica"

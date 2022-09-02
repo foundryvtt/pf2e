@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@system/localize";
 import { StatusEffectIconTheme } from "@scripts/config";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
 import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -115,10 +115,7 @@ export class StatusEffects {
 
     static async onRenderTokenHUD(html: HTMLElement, tokenData: TokenHUDData): Promise<void> {
         const token = canvas.tokens.get(tokenData._id);
-
-        if (!token) {
-            throw ErrorPF2e(`StatusEffects | Could not find token with id: ${tokenData._id}`);
-        }
+        if (!token) return;
 
         const iconGrid = html.querySelector<HTMLElement>(".status-effects");
         if (!iconGrid) throw ErrorPF2e("Unexpected error retrieving status effects grid");
@@ -148,17 +145,31 @@ export class StatusEffects {
             const affecting = affectingConditions.filter((c) => c.slug === slug);
             if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
                 picture.classList.add("active");
+            }
 
+            if (affecting.length > 0) {
                 // Show a badge icon if the condition has a value or is locked
+                const isOverridden = affecting.every((c) => c.system.references.overriddenBy.length > 0);
+                const isLocked = affecting.every((c) => c.isLocked);
                 const hasValue = affecting.some((c) => c.value);
-                const hasParent = affecting.every((c) => c.system.references.parent);
-                if (hasValue || hasParent) picture.classList.add("badged");
 
-                if (hasValue) {
-                    const maxValue = affecting.map((c) => c.value ?? 0);
-                    picture.dataset.badge = maxValue.toString();
-                } else if (hasParent) {
+                if (isOverridden) {
+                    picture.classList.add("overridden");
+                    const badge = fontAwesomeIcon("angle-double-down");
+                    badge.classList.add("badge");
+                    picture.append(badge);
+                } else if (isLocked) {
                     picture.classList.add("locked");
+                    const badge = fontAwesomeIcon("lock");
+                    badge.classList.add("badge");
+                    picture.append(badge);
+                } else if (hasValue) {
+                    picture.classList.add("valued");
+                    const badge = document.createElement("i");
+                    badge.classList.add("badge");
+                    const value = Math.max(...affecting.map((c) => c.value ?? 1));
+                    badge.innerText = value.toString();
+                    picture.append(badge);
                 }
             }
         }
@@ -274,14 +285,12 @@ export class StatusEffects {
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
 
-        const conditions =
-            token.actor?.itemTypes.condition.filter((condition) => condition.fromSystem && condition.system.active) ??
-            [];
+        const conditions = token.actor?.itemTypes.condition.filter((c) => c.isActive) ?? [];
         const iconFolder = CONFIG.PF2E.statusEffects.iconDir;
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
-            const summary = "summary" in conditionInfo ? conditionInfo.summary : "";
-            const conditionValue = condition.system.value.isValued ? condition.value : "";
+            const summary = conditionInfo.summary ?? "";
+            const conditionValue = condition.value ?? "";
             const iconPath = `${iconFolder}${condition.system.hud.statusName}.webp`;
             return `
                 <li><img src="${iconPath}" title="${summary}">

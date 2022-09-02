@@ -3,19 +3,21 @@ import { TokenPF2e } from "../token";
 export class TokenLayerPF2e<TToken extends TokenPF2e = TokenPF2e> extends TokenLayer<TToken> {
     /** Cycle Z indices of a hovered token stack */
     cycleStack(): boolean {
-        const hovered = this._hover;
+        const hovered = this.hover;
         if (!hovered) return false;
 
-        const stack = this.placeables.filter((t) => hovered.distanceTo(t) === 0);
+        const stack = this.placeables
+            .filter((t) => hovered.distanceTo(t) === 0 && hovered.document.elevation === t.document.elevation)
+            .sort((a, b) => a.document.sort - b.document.sort);
         if (stack.length < 2) return false;
 
-        const last = stack.pop();
-        if (!last) return false;
-        stack.unshift(last);
+        const first = stack.shift()!;
+        stack.push(first);
 
-        for (let i = 0; i < stack.length; i++) {
-            stack[i].zIndex = -1 * (stack.length - i);
+        for (let i = stack.length; i > 0; i--) {
+            stack[i - 1].document.sort = i - 1;
         }
+        canvas.primary.sortChildren();
 
         return true;
     }
