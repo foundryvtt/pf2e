@@ -148,7 +148,9 @@ export class StatusEffects {
             const affecting = affectingConditions.filter((c) => c.slug === slug);
             if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
                 picture.classList.add("active");
+            }
 
+            if (affecting.length > 0) {
                 // Show a badge icon if the condition has a value or is locked
                 const isOverridden = affecting.every((c) => c.system.references.overriddenBy.length > 0);
                 const isLocked = affecting.every((c) => c.isLocked);
