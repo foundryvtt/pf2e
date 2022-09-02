@@ -115,10 +115,7 @@ export class StatusEffects {
 
     static async onRenderTokenHUD(html: HTMLElement, tokenData: TokenHUDData): Promise<void> {
         const token = canvas.tokens.get(tokenData._id);
-
-        if (!token) {
-            throw ErrorPF2e(`StatusEffects | Could not find token with id: ${tokenData._id}`);
-        }
+        if (!token) return;
 
         const iconGrid = html.querySelector<HTMLElement>(".status-effects");
         if (!iconGrid) throw ErrorPF2e("Unexpected error retrieving status effects grid");
