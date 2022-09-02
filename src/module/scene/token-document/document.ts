@@ -16,8 +16,6 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     auras!: Map<string, TokenAura>;
 
-    #basicDetection!: TokenDetectionMode;
-
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
         const { actor } = this;
@@ -195,8 +193,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Reset sight defaults if using rules-based vision */
     protected override _prepareDetectionModes(): void {
-        this.#basicDetection = { id: "basicSight", enabled: true, range: null };
-        this.detectionModes = [this.#basicDetection];
+        const baseDetection = { id: "basicSight", enabled: true, range: null };
+        this.detectionModes = [baseDetection];
 
         if (!this.initialized || !this.actor) return super._prepareDetectionModes();
 
@@ -239,7 +237,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             this.sight.saturation = defaults.saturation;
 
             if (mode === "darkvision" || !isDark) {
-                this.sight.range = this.#basicDetection.range = defaults.range;
+                const basicDetection = this.detectionModes.at(0);
+                if (!basicDetection) return;
+                this.sight.range = basicDetection.range = defaults.range;
 
                 // Temporary hard-coded fetchling check for initial release
                 if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
