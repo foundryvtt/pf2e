@@ -32,4 +32,12 @@ interface CreateAuxiliaryReleaseParams {
 
 type CreateAuxiliaryParams = CreateAuxiliaryInteractParams | CreateAuxiliaryReleaseParams;
 
-export { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, CreateAuxiliaryParams };
+/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
+interface DexterityModifierCapData {
+    /** The numeric value that constitutes the maximum Dexterity modifier. */
+    value: number;
+    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
+    source: string;
+}
+
+export { CharacterHitPointsSummary, CharacterSkill, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData };

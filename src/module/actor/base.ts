@@ -458,8 +458,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const preparationWarnings: Set<string> = new Set();
 
         this.synthetics = {
-            damageDice: { damage: [] },
             criticalSpecalizations: { standard: [], alternate: [] },
+            damageDice: { damage: [] },
+            dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
             multipleAttackPenalties: {},
             rollNotes: {},

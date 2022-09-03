@@ -104,7 +104,6 @@ class NPCPF2e extends CreaturePF2e {
 
         const { attributes, details } = systemData;
         attributes.perception.ability = "wis";
-        attributes.dexCap = [{ value: Infinity, source: "" }];
         attributes.reach = {
             general: SIZE_TO_REACH[this.size],
             manipulate: SIZE_TO_REACH[this.size],
