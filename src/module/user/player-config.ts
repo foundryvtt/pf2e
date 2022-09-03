@@ -1,11 +1,10 @@
-const USER_SETTINGS_KEYS = ["uiTheme", "showEffectPanel", "showRollDialogs"] as const;
+const USER_SETTINGS_KEYS = ["showEffectPanel", "showRollDialogs"] as const;
 
 /** Player-specific settings, stored as flags on each world User */
 export class PlayerConfigPF2e extends FormApplication {
     settings: UserSettingsPF2e = game.user.settings;
 
     static readonly defaultSettings: UserSettingsPF2e = {
-        uiTheme: "blue",
         showEffectPanel: true,
         showRollDialogs: false,
         searchPackContents: false,
@@ -25,14 +24,6 @@ export class PlayerConfigPF2e extends FormApplication {
 
     override getData(): PlayerConfigData {
         return { ...super.getData(), ...this.settings, developMode: BUILD_MODE === "development" };
-    }
-
-    static activateColorScheme(): void {
-        console.debug("PF2e System | Activating Player Configured color scheme");
-        const color = game.user.settings.uiTheme;
-
-        const cssLink = `<link id="pf2e-color-scheme" href="systems/pf2e/styles/user/color-scheme-${color}.css" rel="stylesheet" type="text/css">`;
-        $("head").append(cssLink);
     }
 
     /**
@@ -63,7 +54,6 @@ export class PlayerConfigPF2e extends FormApplication {
         }, this.settings);
 
         await game.user.update({ "flags.pf2e.settings": settings });
-        $("link#pf2e-color-scheme").attr({ href: `systems/pf2e/styles/user/color-scheme-${formData["uiTheme"]}.css` });
     }
 }
 
@@ -73,7 +63,6 @@ interface PlayerConfigData extends FormApplicationData, UserSettingsPF2e {
 
 type UserSettingsKey = typeof USER_SETTINGS_KEYS[number];
 export interface UserSettingsPF2e {
-    uiTheme: "blue" | "red" | "original" | "ui";
     showEffectPanel: boolean;
     showRollDialogs: boolean;
     searchPackContents: boolean;
