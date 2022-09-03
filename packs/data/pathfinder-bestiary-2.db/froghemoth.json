@@ -225,7 +225,12 @@
             "type": "action"
         },
         {
-            "_id": "r9UN2dDmxrL8ACPX",
+            "_id": "XPEavSJTuusA8TlU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
             "sort": 600000,
@@ -245,10 +250,17 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
