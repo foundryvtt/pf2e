@@ -46,7 +46,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
         systemData.traits = {
-            senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
+            senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
             size: new ActorSizePF2e({ value: "tiny" }),
             traits: { value: ["minion"], custom: "" },
         };

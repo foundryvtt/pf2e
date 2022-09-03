@@ -80,22 +80,23 @@ const actorTypes: Record<ActorType, string> = {
 
 // Senses
 const senses: Record<SenseType, string> = {
-    darkvision: "PF2E.SensesDarkvision",
-    echolocation: "PF2E.SensesEcholocation",
-    greaterDarkvision: "PF2E.SensesGreaterDarkvision",
-    lifesense: "PF2E.SensesLifesense",
-    lowLightVision: "PF2E.SensesLowLightVision",
-    motionsense: "PF2E.SensesMotionsense",
-    scent: "PF2E.SensesScent",
-    tremorsense: "PF2E.SensesTremorsense",
-    wavesense: "PF2E.SensesWavesense",
+    darkvision: "PF2E.Actor.Creature.Sense.Type.Darkvision",
+    echolocation: "PF2E.Actor.Creature.Sense.Type.Echolocation",
+    greaterDarkvision: "PF2E.Actor.Creature.Sense.Type.GreaterDarkvision",
+    lifesense: "PF2E.Actor.Creature.Sense.Type.Lifesense",
+    lowLightVision: "PF2E.Actor.Creature.Sense.Type.LowLightVision",
+    motionsense: "PF2E.Actor.Creature.Sense.Type.Motionsense",
+    scent: "PF2E.Actor.Creature.Sense.Type.Scent",
+    seeInvisibility: "PF2E.Actor.Creature.Sense.Type.SeeInvisibility",
+    tremorsense: "PF2E.Actor.Creature.Sense.Type.Tremorsense",
+    wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
 };
 
 // Sense acuity
 const senseAcuity: Record<SenseAcuity, string> = {
-    imprecise: "PF2E.Sense.Acuity.Imprecise",
-    precise: "PF2E.Sense.Acuity.Precise",
-    vague: "PF2E.Sense.Acuity.Vague",
+    imprecise: "PF2E.Actor.Creature.Sense.Acuity.Imprecise",
+    precise: "PF2E.Actor.Creature.Sense.Acuity.Precise",
+    vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
 };
 
 const damageCategories: Record<DamageCategory, string> = {

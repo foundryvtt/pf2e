@@ -227,7 +227,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this, this.actor);
 
-        // Set vision mode and its defaults
+        // Set primary vision mode and its defaults
         if (this.rulesBasedVision && this.actor.type !== "npc") {
             const isDark = this.scene.lightLevel <= LightLevels.DARKNESS;
             const mode = this.hasDarkvision && isDark ? "darkvision" : "basic";
@@ -246,6 +246,13 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                     this.sight.saturation = 1;
                 }
             }
+        }
+
+        const canSeeInvisibility =
+            this.actor.isOfType("character") &&
+            this.actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
+        if (canSeeInvisibility) {
+            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
         }
     }
 
