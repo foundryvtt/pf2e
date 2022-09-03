@@ -63,6 +63,7 @@ interface NPCAttributesSource {
         value: number;
         details: string;
     };
+    adjustment: "elite" | "weak" | null;
     hp: {
         value: number;
         max: number;
@@ -209,6 +210,7 @@ interface NPCSkillData extends SkillData {
 
 interface NPCAttributes extends CreatureAttributes {
     ac: NPCArmorClass;
+    adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
 
