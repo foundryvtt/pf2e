@@ -1,3 +1,4 @@
+import { DexterityModifierCapData } from "@actor/character/types";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { MeleePF2e, WeaponPF2e } from "@item";
@@ -12,6 +13,7 @@ interface RuleElementSynthetics {
         alternate: CritSpecSynthetic[];
     };
     damageDice: Record<string, DamageDicePF2e[]>;
+    dexterityModifierCaps: DexterityModifierCapData[];
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     rollNotes: Record<string, RollNotePF2e[]>;

@@ -16,7 +16,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { ActorFlagsPF2e, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
+import { ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
@@ -213,9 +213,6 @@ interface NPCAttributes extends CreatureAttributes {
     adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
-
-    /** Sources of the dexterity modifier cap to AC */
-    dexCap: DexterityModifierCapData[];
 
     initiative: CreatureInitiative;
 

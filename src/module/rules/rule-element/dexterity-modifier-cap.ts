@@ -13,7 +13,7 @@ class DexterityModifierCapRuleElement extends RuleElementPF2e {
 
         const value = this.resolveValue(this.data.value);
         if (typeof value === "number") {
-            this.actor.system.attributes.dexCap.push({
+            this.actor.synthetics.dexterityModifierCaps.push({
                 value,
                 source: this.label,
             });
