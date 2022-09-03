@@ -2,7 +2,6 @@ import { MigrationSummary } from "@module/apps/migration-summary";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
 import { MigrationRunner } from "@module/migration/runner";
-import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerModuleArt } from "@scripts/register-module-art";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { activateSocketListener } from "@scripts/socket";
@@ -69,8 +68,6 @@ export const Ready = {
             for (const li of document.querySelectorAll<HTMLLIElement>("#chat-log > li")) {
                 SetAsInitiative.listen($(li));
             }
-
-            PlayerConfigPF2e.activateColorScheme();
 
             activateSocketListener();
 
