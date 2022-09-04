@@ -31,7 +31,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
                 [type]: {
                     selected: !!speed,
                     label: game.i18n.localize(speedLabels[type]),
-                    value: speed?.value ?? "",
+                    value: Number(speed?.value) || "",
                 },
             };
         }, {});
@@ -83,5 +83,5 @@ interface SpeedSelectorData<TActor extends ActorPF2e> extends FormApplicationDat
 interface ChoiceData {
     selected: boolean;
     label: string;
-    value: string;
+    value: number | string;
 }

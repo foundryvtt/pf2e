@@ -77,7 +77,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
         this.prepareSkills(sheetData.data);
-        this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
         await this.prepareActions(sheetData);
         sheetData.attacks = await this.prepareAttacks(sheetData.data);
@@ -319,25 +318,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         }
 
         sheetSystemData.sortedSkills = sortedSkills;
-    }
-
-    private prepareSpeeds(sheetData: NPCSystemSheetData): void {
-        const configSpeedTypes = CONFIG.PF2E.speedTypes;
-        sheetData.attributes.speed.otherSpeeds.forEach((speed) => {
-            // Try to convert it to a recognizable speed name
-            // This is done to recognize speed types for NPCs from the compendium
-            const speedName: string = speed.type.trim().toLowerCase().replace(/\s+/g, "-");
-            let value = speed.value;
-            if (typeof value === "string" && value.includes("feet")) {
-                value = value.replace("feet", "").trim(); // Remove `feet` at the end, wi will localize it later
-            }
-            speed.label = objectHasKey(configSpeedTypes, speedName) ? configSpeedTypes[speedName] : "";
-        });
-        // Make sure regular speed has no `feet` at the end, we will add it localized later on
-        // This is usally the case for NPCs from the compendium
-        if (typeof sheetData.attributes.speed.value === "string") {
-            sheetData.attributes.speed.value = sheetData.attributes.speed.value.replace("feet", "").trim();
-        }
     }
 
     private prepareSaves(systemData: NPCSystemSheetData): void {

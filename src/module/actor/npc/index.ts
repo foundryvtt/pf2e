@@ -217,11 +217,8 @@ class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        system.attributes.speed = this.prepareSpeed("land");
-        const { otherSpeeds } = system.attributes.speed;
-        for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
-        }
+        const speeds = (system.attributes.speed = this.prepareSpeed("land"));
+        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Armor Class
         {

@@ -462,6 +462,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             damageDice: { damage: [] },
             dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
+            movementTypes: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             rollSubstitutions: {},

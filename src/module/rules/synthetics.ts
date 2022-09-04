@@ -1,4 +1,5 @@
 import { DexterityModifierCapData } from "@actor/character/types";
+import { MovementType } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { MeleePF2e, WeaponPF2e } from "@item";
@@ -15,6 +16,7 @@ interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
+    movementTypes: { [K in BaseSpeedType]?: DeferredMovementType[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
@@ -37,6 +39,9 @@ interface RuleElementSynthetics {
 type CritSpecSynthetic = (weapon: Embedded<WeaponPF2e>, options: Set<string>) => RollNotePF2e | null;
 
 type DeferredModifier = DeferredValue<ModifierPF2e | null>;
+
+type BaseSpeedType = Exclude<MovementType, "land">;
+type DeferredMovementType = DeferredValue<{ type: BaseSpeedType; value: number } | null>;
 
 interface MAPSynthetic {
     label: string;
@@ -89,12 +94,13 @@ interface PotencySynthetic {
 
 export {
     DeferredModifier,
+    DeferredMovementType,
     MAPSynthetic,
+    PotencySynthetic,
     RollSubstitution,
     RollTwiceSynthetic,
     RuleElementSynthetics,
     SenseSynthetic,
     StrikeAdjustment,
     StrikingSynthetic,
-    PotencySynthetic,
 };

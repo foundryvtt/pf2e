@@ -177,3 +177,4 @@ export { Migration776SlugifyConditionOverrides } from "./776-sluggify-condition-
 export { Migration777HandOfTheApprentice } from "./777-hand-of-the-apprentice";
 export { Migration778RenameRetiredPackRefs } from "./778-rename-feature-effects-refs";
 export { Migration779EliteWeak } from "./779-elite-weak";
+export { Migration780NumifySpeeds } from "./780-numify-speeds";
