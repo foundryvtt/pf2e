@@ -53,8 +53,8 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             craftableItems: craftableItems,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
+            parentItem: this.item.id,
             preparedFormulaData: this.data.preparedFormulas,
-            parentItem: this.item,
         };
 
         this.actor.system.crafting.entries[this.selector] = data;
