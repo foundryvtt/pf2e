@@ -1,6 +1,7 @@
 import { MystifiedTraits } from "@item/data/values";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { PlayerListPF2e } from "@module/apps/ui/player-list";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -10,15 +11,14 @@ import {
     TokenLayerPF2e,
     TokenPF2e,
 } from "@module/canvas";
-import { PlayerConfigPF2e } from "@module/user/player-config";
+import { setPerceptionModes } from "@module/canvas/perception/modes";
+import { PF2ECONFIG } from "@scripts/config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
-import { PF2ECONFIG } from "@scripts/config";
-import { setPerceptionModes } from "@module/canvas/perception/modes";
 
 export const Init = {
     listen: (): void => {
@@ -59,6 +59,7 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
+            CONFIG.ui.players = PlayerListPF2e;
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";
@@ -150,7 +151,6 @@ export const Init = {
             registerTemplates();
             registerHandlebarsHelpers();
 
-            PlayerConfigPF2e.hookOnRenderSettings();
             MystifiedTraits.compile();
 
             // Create and populate initial game.pf2e interface
