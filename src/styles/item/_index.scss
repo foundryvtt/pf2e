@@ -52,10 +52,6 @@
         @import "tagify";
         @import "rules";
 
-        > * {
-            flex: 1;
-        }
-
         label {
             display: block;
         }
@@ -68,27 +64,6 @@
             color: #000;
             text-shadow: 0 0 10px #00005a;
             cursor: pointer;
-        }
-
-        .sheet-tabs {
-            font-weight: 500;
-            height: 30px;
-
-            > .list-row {
-                line-height: 24px;
-                padding-top: 3px;
-                font-size: var(--font-size-12);
-                text-align: center;
-
-                &:last-of-type {
-                    padding-right: 4px;
-                }
-
-                &.active {
-                    color: #000;
-                    font-weight: 700;
-                }
-            }
         }
 
         .tab {
@@ -118,6 +93,50 @@
             margin: 0 4px;
             align-items: baseline;
             gap: 2px;
+        }
+
+        .sheet-navigation {
+            display: flex;
+            align-items: baseline;
+            border-bottom: 1px solid var(--secondary-background);
+            flex: 0 0 30px;
+            line-height: 30px;
+            margin-bottom: 0.5rem;
+
+            a {
+                flex: 1 1 auto;
+            }
+
+            a.active {
+                text-decoration: underline;
+            }
+
+            .sidebar-summary {
+                flex: 0 0 220px;
+                margin: 0;
+                text-align: center;
+            }
+
+            .sheet-tabs {
+                font-weight: 500;
+                margin: 0;
+                flex: 1;
+                align-items: baseline;
+
+                > .list-row {
+                    font-size: var(--font-size-12);
+                    text-align: center;
+
+                    &:last-of-type {
+                        padding-right: 4px;
+                    }
+
+                    &.active {
+                        color: #000;
+                        font-weight: 700;
+                    }
+                }
+            }
         }
 
         article.sheet-content {
@@ -164,16 +183,6 @@
         }
 
         section.sheet-body {
-            .tabs {
-                border-bottom: 1px solid var(--secondary-background);
-                a {
-                    flex: 1 1 auto;
-                }
-                a.active {
-                    text-decoration: underline;
-                }
-            }
-
             input[type="text"], input[type="number"] {
                 background: rgba(255, 255, 255, 0.5);
                 border: 1px solid #aaa;
@@ -186,6 +195,10 @@
                 /** Any tab */
                 .editor {
                     height: 100%;
+                }
+
+                .editor-content {
+                    @include scrollbar;
                 }
 
                 /** Details */
