@@ -77,7 +77,7 @@ interface NPCAttributesSource {
         value: number;
     };
     speed: {
-        value: string;
+        value: number;
         otherSpeeds: LabeledSpeed[];
         details?: string;
     };

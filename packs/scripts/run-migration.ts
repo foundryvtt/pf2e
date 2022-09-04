@@ -7,8 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration768AddNewAuras } from "@module/migration/migrations/768-add-new-auras";
-import { Migration769NoUniversalistFocusPool } from "@module/migration/migrations/769-no-universalist-focus-pool";
 import { Migration770REDataToSystem } from "@module/migration/migrations/770-re-data-to-system";
 import { Migration771SpellVariantsToSystem } from "@module/migration/migrations/771-spell-variants-to-system";
 import { Migration772V10EmbeddedSpellData } from "@module/migration/migrations/772-v10-embedded-spell-data";
@@ -19,6 +17,7 @@ import { Migration776SlugifyConditionOverrides } from "@module/migration/migrati
 import { Migration777HandOfTheApprentice } from "@module/migration/migrations/777-hand-of-the-apprentice";
 import { Migration778RenameRetiredPackRefs } from "@module/migration/migrations/778-rename-feature-effects-refs";
 import { Migration779EliteWeak } from "@module/migration/migrations/779-elite-weak";
+import { Migration780NumifySpeeds } from "@module/migration/migrations/780-numify-speeds";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -28,8 +27,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration768AddNewAuras(),
-    new Migration769NoUniversalistFocusPool(),
     new Migration770REDataToSystem(),
     new Migration771SpellVariantsToSystem(),
     new Migration772V10EmbeddedSpellData(),
@@ -40,6 +37,7 @@ const migrations: MigrationBase[] = [
     new Migration777HandOfTheApprentice(),
     new Migration778RenameRetiredPackRefs(),
     new Migration779EliteWeak(),
+    new Migration780NumifySpeeds(),
 ];
 
 global.deepClone = <T>(original: T): T => {
