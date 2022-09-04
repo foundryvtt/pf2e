@@ -11,7 +11,16 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify } from "@util";
+import {
+    ErrorPF2e,
+    sluggify,
+    sortStringRecord,
+    tupleHasValue,
+    objectHasKey,
+    tagify,
+    htmlClosest,
+    htmlQuery,
+} from "@util";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -509,5 +518,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         return super._updateObject(event, flattenObject(expanded));
+    }
+
+    /** Overriden _render to maintain focus on tagify elements */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        const active = document.activeElement;
+        await super._render(force, options);
+        if (active?.classList.contains("tagify__input")) {
+            const name = htmlClosest(active, "tags")?.dataset.name;
+            if (name && this.element[0]) {
+                htmlQuery(this.element[0], `tags[data-name="${name}"] span[contenteditable]`)?.focus();
+            }
+        }
     }
 }

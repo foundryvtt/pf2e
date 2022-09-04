@@ -28,7 +28,7 @@ import {
     TAG_SELECTOR_TYPES,
     WeaknessSelector,
 } from "@system/tag-selector";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, objectHasKey, tupleHasValue } from "@util";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
@@ -1206,6 +1206,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return this.itemRenderer.saveAndRestoreState(() => {
             return super._renderInner(data, options);
         });
+    }
+
+    /** Overridden to maintain focus on tagify elements */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        const active = document.activeElement;
+        await super._render(force, options);
+        if (active?.classList.contains("tagify__input")) {
+            const name = htmlClosest(active, "tags")?.dataset.name;
+            if (name && this.element[0]) {
+                htmlQuery(this.element[0], `tags[data-name="${name}"] span[contenteditable]`)?.focus();
+            }
+        }
     }
 
     protected override _getSubmitData(updateData?: DocumentUpdateData<TActor>): Record<string, unknown> {
