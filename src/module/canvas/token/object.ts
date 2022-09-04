@@ -208,9 +208,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Include actor overrides in the clone if it is a preview */
     override clone(): this {
         const clone = super.clone();
-        if (!clone.id) {
+        if (clone.isPreview) {
             clone.document.height = this.document.height;
             clone.document.width = this.document.width;
+            clone.document.texture.scaleX = this.document.texture.scaleX;
+            clone.document.texture.scaleY = this.document.texture.scaleY;
             clone.document.texture.src = this.document.texture.src;
         }
 
