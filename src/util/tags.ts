@@ -32,7 +32,7 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
               }))
               .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
 
-    return new Tagify(input, {
+    const tagify = new Tagify(input, {
         enforceWhitelist: true,
         keepInvalidTags: false,
         skipInvalid: true,
@@ -44,6 +44,12 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
         },
         whitelist: whitelistTransformed,
     });
+
+    // Work around a tagify bug on Firefox
+    // https://github.com/yairEO/tagify/issues/1115
+    tagify.DOM.input.blur();
+
+    return tagify;
 }
 
 /**
