@@ -65,7 +65,7 @@ export class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
         const update = Object.entries(formData).flatMap(([key, value]): TagChoice | never[] => {
             if (!(Array.isArray(value) && value.length === 2)) return [];
             const selected = !!value[0];
-            const distance = Number(value[1]);
+            const distance = Math.trunc(Math.abs(value[1]));
             if (!(selected && distance)) return [];
 
             return { type: key, value: distance };
