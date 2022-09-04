@@ -1,10 +1,10 @@
-import { CharacterPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { CraftingEntryRuleElement } from "@module/rules/rule-element/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
 import { CraftingFormula } from "./formula";
 
-export class CraftingEntry implements CraftingEntryData {
+export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     preparedCraftingFormulas: PreparedCraftingFormula[];
     preparedFormulaData: PreparedFormulaData[];
     name: string;
@@ -18,16 +18,16 @@ export class CraftingEntry implements CraftingEntryData {
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
-    parentItem: ItemPF2e;
+    parentItem: Embedded<ItemPF2e>;
 
-    constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
+    constructor(actor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.selector = data.selector;
         this.name = data.name;
         this.isAlchemical = !!data.isAlchemical;
         this.isDailyPrep = !!data.isDailyPrep;
         this.isPrepared = !!data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
-        this.maxItemLevel = data.maxItemLevel || parentActor.level;
+        this.maxItemLevel = data.maxItemLevel || actor.level;
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
@@ -39,7 +39,7 @@ export class CraftingEntry implements CraftingEntryData {
                 return null;
             })
             .filter((prepData): prepData is PreparedFormulaData => !!prepData);
-        this.parentItem = data.parentItem;
+        this.parentItem = actor.items.get(data.parentItem, { strict: true });
         this.preparedCraftingFormulas = this.preparedFormulaData
             .map((prepData): PreparedCraftingFormula | null => {
                 const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
@@ -53,6 +53,10 @@ export class CraftingEntry implements CraftingEntryData {
                 return null;
             })
             .filter((prepData): prepData is PreparedCraftingFormula => !!prepData);
+    }
+
+    get actor(): ActorPF2e {
+        return this.parentItem.actor;
     }
 
     get formulas(): (PreparedFormulaSheetData | null)[] {
@@ -96,7 +100,7 @@ export class CraftingEntry implements CraftingEntryData {
         );
     }
 
-    static isValid(data?: Partial<CraftingEntry>): data is CraftingEntry {
+    static isValid(data?: Partial<CraftingEntryData>): data is CraftingEntryData {
         return !!data && !!data.name && !!data.selector;
     }
 
@@ -123,7 +127,7 @@ export class CraftingEntry implements CraftingEntryData {
             if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
             return false;
         }
-        if (this.parentActor.level < formula.level) {
+        if (this.actor.level < formula.level) {
             if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.CharacterLevel"));
             return false;
         }
@@ -220,7 +224,7 @@ export class CraftingEntry implements CraftingEntryData {
 export interface CraftingEntryData {
     selector: string;
     name: string;
-    parentItem: ItemPF2e;
+    parentItem: string;
     isAlchemical?: boolean;
     isDailyPrep?: boolean;
     isPrepared?: boolean;
