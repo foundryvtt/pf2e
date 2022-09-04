@@ -45,6 +45,11 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
         whitelist: whitelistTransformed,
     });
 
+    // Add the name to the tags html as an indicator for refreshing
+    if (input.name) {
+        tagify.DOM.scope.dataset.name = input.name;
+    }
+
     // Work around a tagify bug on Firefox
     // https://github.com/yairEO/tagify/issues/1115
     tagify.DOM.input.blur();
