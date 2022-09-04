@@ -94,6 +94,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             showTraits: this.validTraits !== null,
             hasSidebar: this.item.isOfType("condition", "lore"),
             hasDetails: true,
+            sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
+                type: game.i18n.localize(`ITEM.Type${this.item.type.capitalize()}`),
+            }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: this.item,
@@ -349,6 +352,25 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         } else if (tagElement && traitsPrepend) {
             // If there are no traits, we still need to show elements like rarity
             tagElement.append(traitsPrepend.content);
+        }
+
+        // Update Tab visibility (in case this is a tab without a sidebar)
+        this.updateSidebarVisibility(this._tabs[0].active);
+    }
+
+    /** When tabs are changed, change visibility of elements such as the sidebar */
+    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+        super._onChangeTab(event, tabs, active);
+        this.updateSidebarVisibility(active);
+    }
+
+    /** Internal function to update the sidebar visibility based on the current tab */
+    private updateSidebarVisibility(activeTab: string) {
+        const sidebarHeader = this.element[0]?.querySelector<HTMLElement>(".sidebar-summary");
+        const sidebar = this.element[0]?.querySelector<HTMLElement>(".sheet-sidebar");
+        if (sidebarHeader && sidebar) {
+            const display = activeTab === "rules" ? "none" : "block";
+            sidebarHeader.style.display = sidebar.style.display = display;
         }
     }
 
