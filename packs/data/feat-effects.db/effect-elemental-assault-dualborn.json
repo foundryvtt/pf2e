@@ -1,0 +1,93 @@
+{
+    "_id": "R7eaWfY4I0Vs23VU",
+    "img": "systems/pf2e/icons/spells/elemental-zone.webp",
+    "name": "Effect: Elemental Assault (Dualborn)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>You shroud your arms and held weapons in elemental magic. Choose one element. Until the end of your next turn, your Strikes deal an additional [[/r 1d6]] damage of the indicated type and have the trait corresponding to the element: electricity for air, bludgeoning for earth, fire for fire, or cold for water.</p>\n<p>As a dualborn, you can only use this effect with your chosen elements.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": {
+                            "any": [
+                                "dualbornFirst:air",
+                                "dualbornSecond:air"
+                            ]
+                        },
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": {
+                            "any": [
+                                "dualbornFirst:earth",
+                                "dualbornSecond:earth"
+                            ]
+                        },
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": {
+                            "any": [
+                                "dualbornFirst:fire",
+                                "dualbornSecond:fire"
+                            ]
+                        },
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": {
+                            "any": [
+                                "dualbornFirst:water",
+                                "dualbornSecond:water"
+                            ]
+                        },
+                        "value": "cold"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Suli.ElementalAssult.Prompt",
+                "rollOption": "elementalAssault"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.elementalAssault}",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
