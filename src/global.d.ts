@@ -41,7 +41,7 @@ import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
-
+import * as dc from "@module/dc";
 declare global {
     interface Game {
         pf2e: {
@@ -57,6 +57,7 @@ declare global {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
             };
+            dc: typeof dc;
             system: {
                 moduleArt: Map<ActorUUID, ModuleArt>;
                 remigrate: typeof remigrate;

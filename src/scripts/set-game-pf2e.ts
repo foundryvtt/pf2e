@@ -25,6 +25,7 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import * as dc from "@module/dc";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -62,6 +63,7 @@ export const SetGamePF2e = {
             rollItemMacro,
             system: { moduleArt: new Map(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
+            dc: dc,
         };
 
         game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);
