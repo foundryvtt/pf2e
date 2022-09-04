@@ -13,6 +13,7 @@ import "./client/application/form-application/document-sheet/journal-page-sheet"
 import "./client/application/form-application/document-sheet/journal-sheet";
 import "./client/application/form-application/document-sheet/note-config";
 import "./client/application/form-application/document-sheet/scene-config";
+import "./client/application/form-application/document-sheet/user-config";
 import "./client/application/form-application/image-popout";
 import "./client/application/form-application/macro-config";
 import "./client/application/form-application/other";
