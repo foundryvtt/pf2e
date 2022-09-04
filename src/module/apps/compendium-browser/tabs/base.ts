@@ -47,7 +47,7 @@ export abstract class CompendiumBrowserTab {
 
     /** Reset all filters */
     resetFilters(): void {
-        this.filterData = this.defaultFilterData;
+        this.filterData = deepClone(this.defaultFilterData);
     }
 
     /** Load and prepare the compendium index and set filter options */
