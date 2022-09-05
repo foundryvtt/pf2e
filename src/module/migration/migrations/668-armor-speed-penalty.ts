@@ -12,11 +12,12 @@ export class Migration668ArmorSpeedPenalty extends MigrationBase {
         if (itemSource.type === "armor") {
             const rules = (itemSource.system.rules ??= []);
             const rule = rules.find(
-                (rule) =>
-                    rule.key.endsWith("FlatModifier") &&
-                    rule.selector === "speed" &&
-                    typeof rule.value === "object" &&
-                    JSON.stringify(rule.predicate ?? null) === JSON.stringify({ not: ["unburdened-iron"] })
+                (r: RuleElementSource & { selector?: unknown }) =>
+                    typeof r.key === "string" &&
+                    r.key.endsWith("FlatModifier") &&
+                    r.selector === "speed" &&
+                    typeof r.value === "object" &&
+                    JSON.stringify(r.predicate ?? null) === JSON.stringify({ not: ["unburdened-iron"] })
             );
             if (rule) rules.splice(rules.indexOf(rule), 1);
         } else if (itemSource.type === "feat") {

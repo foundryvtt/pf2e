@@ -1,11 +1,10 @@
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 type RuleElementSource = {
-    key: string;
+    key?: unknown;
     data?: unknown;
-    selector?: string;
-    value?: RuleValue | BracketedValue;
-    label?: string;
+    value?: unknown;
+    label?: unknown;
     slug?: unknown;
     predicate?: RawPredicate;
     /** The place in order of application (ascending), among an actor's list of rule elements */
@@ -18,8 +17,6 @@ type RuleElementSource = {
 
 interface RuleElementData extends RuleElementSource {
     key: string;
-    data?: object;
-    selector?: string;
     value?: RuleValue | BracketedValue;
     label: string;
     slug?: string | null;

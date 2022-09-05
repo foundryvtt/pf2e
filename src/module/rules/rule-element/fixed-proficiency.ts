@@ -17,10 +17,19 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
 
     override slug: string;
 
-    ability: AbilityString | null;
+    private selector: string;
+
+    private ability: AbilityString | null;
 
     constructor(data: FixedProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
+
+        if (typeof data.selector === "string") {
+            this.selector = data.selector;
+        } else {
+            this.failValidation("Missing string selector property");
+            this.selector = "";
+        }
 
         this.slug = sluggify(typeof data.slug === "string" ? data.slug : this.label);
         this.ability =
@@ -34,7 +43,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        const selector = this.resolveInjectedProperties(this.selector);
         const proficiencyBonus = Number(this.resolveValue(this.data.value)) || 0;
         const abilityModifier = this.ability ? this.actor.system.abilities[this.ability].mod : 0;
 
@@ -49,7 +58,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 
     override afterPrepareData() {
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        const selector = this.resolveInjectedProperties(this.selector);
         const systemData = this.actor.system;
         const skillLongForms: Record<string, { shortform?: string } | undefined> = SKILL_EXPANDED;
         const proficiency = skillLongForms[selector]?.shortform ?? selector;
@@ -80,6 +89,7 @@ interface FixedProficiencyRuleElement {
 }
 
 interface FixedProficiencySource extends RuleElementSource {
+    selector?: unknown;
     ability?: unknown;
     force?: unknown;
 }

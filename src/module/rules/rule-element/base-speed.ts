@@ -14,9 +14,9 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
 
     static VALID_SELECTORS = ["burrow", "fly", "climb", "swim"] as const;
 
-    selector: BaseSpeedSelector = "fly";
+    private selector: BaseSpeedSelector = "fly";
 
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+    constructor(data: BaseSpeedSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         const speedType = String(data.selector)
@@ -55,6 +55,10 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
             };
         };
     }
+}
+
+interface BaseSpeedSource extends RuleElementSource {
+    selector?: unknown;
 }
 
 interface BaseSpeedRuleElement extends RuleElementPF2e {

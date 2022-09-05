@@ -76,6 +76,7 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
 }
 
 interface RollTwiceSource extends RuleElementSource {
+    selector?: unknown;
     keep?: unknown;
     removeAfterRoll?: unknown;
 }

@@ -76,6 +76,7 @@ export interface DamageDiceRuleElement {
 }
 
 interface DamageDiceData extends RuleElementData {
+    selector: string;
     slug?: string;
     name?: string;
     damageType?: string;
@@ -84,6 +85,7 @@ interface DamageDiceData extends RuleElementData {
 }
 
 interface DamageDiceSource extends RuleElementSource {
+    selector?: unknown;
     name?: unknown;
     damageType?: unknown;
     override?: unknown;

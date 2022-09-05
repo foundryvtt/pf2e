@@ -38,7 +38,7 @@ export class Migration731TogglePropertyToRollOption extends Migration727TrimSelf
                 delete rule.default;
             }
 
-            if (sluggify(rule.label ?? "") === source.system.slug) {
+            if (sluggify(String(rule.label ?? "")) === source.system.slug) {
                 delete rule.label;
             }
         }
