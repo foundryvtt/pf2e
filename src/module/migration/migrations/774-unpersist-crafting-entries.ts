@@ -21,10 +21,15 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
             const craftingEntries = craftingData.entries ?? {};
             const rules: MaybeWithRequiredTraits[] = source.items.flatMap((i) => i.system.rules);
             for (const rule of rules) {
-                if (rule.key !== "CraftingEntry" || !rule.selector || !rule.requiredTraits) {
+                if (
+                    rule.key !== "CraftingEntry" ||
+                    typeof rule.selector !== "string" ||
+                    rule.selector.length === 0 ||
+                    !rule.requiredTraits
+                ) {
                     continue;
                 }
-                rule.preparedFormulas = craftingEntries[rule.selector].actorPreparedFormulas;
+                rule.preparedFormulas = craftingEntries[rule.selector]?.actorPreparedFormulas ?? [];
             }
             delete craftingData.entries;
             craftingData["-=entries"] = null;
