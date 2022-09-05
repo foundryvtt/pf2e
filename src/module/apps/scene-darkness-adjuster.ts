@@ -2,6 +2,7 @@ import { ScenePF2e } from "@scene";
 import { fontAwesomeIcon } from "@util";
 import noUiSlider, { API as Slider, PipsMode } from "nouislider";
 import "nouislider/dist/nouislider.min.css";
+import { WorldClock } from "./world-clock";
 
 export class SceneDarknessAdjuster extends Application {
     static readonly instance = new this();
@@ -25,6 +26,14 @@ export class SceneDarknessAdjuster extends Application {
 
     override get template(): string {
         return "systems/pf2e/templates/system/scene-darkness-adjuster.html";
+    }
+
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<object> {
+        if (this.scene?.darknessSyncedToTime) {
+            options.classes?.push("synchronized");
+        }
+
+        return super.getData(options);
     }
 
     override async render(force = true, options: RenderOptions & { scene: ScenePF2e | null }): Promise<this> {
@@ -61,9 +70,23 @@ export class SceneDarknessAdjuster extends Application {
             step: 0.05,
         });
 
+        // Add a message informing the user why the slider is disabled
+        if (game.scenes.viewed?.darknessSyncedToTime) {
+            slider.setAttribute("disabled", "true");
+            const synchronized = document.createElement("div");
+            synchronized.className = "message";
+            const message = WorldClock.createSyncedMessage();
+            synchronized.append(message);
+            slider.append(synchronized);
+        }
+
         // Disable the sun and moon thumbs for now
         slider.querySelectorAll(".noUi-origin").forEach((thumb, index) => {
             if (index !== 1) $(thumb).attr({ disabled: "disabled" });
+
+            if (game.scenes.viewed?.darknessSyncedToTime) {
+                thumb.setAttribute("disabled", "true");
+            }
         });
 
         // Show a preview while the darkness level is being moved. The lighting update is added to the PIXI ticker

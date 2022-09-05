@@ -159,7 +159,9 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
         const managedBy = document.createElement("a");
         managedBy.className = "managed-by-rbv";
         managedBy.append(fontAwesomeIcon("robot"));
-        managedBy.title = game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy");
+        managedBy.title = game.i18n
+            .localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
+            .replace(/<\/?rbv>/g, "");
         for (const sightInput of sightInputs) {
             const anchor = managedBy.cloneNode(true);
             anchor.addEventListener("click", () => {
