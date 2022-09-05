@@ -112,7 +112,7 @@ export class ActionMacroHelpers {
                             ...(options.weaponTraitWithPenalty
                                 ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
                                 : []),
-                        ].shift() ?? this.getBasicUnarmedAttack(selfActor)
+                        ].shift() ?? null
                     );
                 })();
                 combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
@@ -267,10 +267,5 @@ export class ActionMacroHelpers {
         } else {
             return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
         }
-    }
-
-    private static getBasicUnarmedAttack(actor: ActorPF2e): Embedded<WeaponPF2e> | null {
-        if (!actor.isOfType("character")) return null;
-        return actor.system.actions.find((s) => s.ready && s.slug === "basic-unarmed")?.item ?? null;
     }
 }
