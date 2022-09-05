@@ -94,6 +94,12 @@ class RuleElements {
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
         for (const data of item.system.rules) {
+            if (typeof data.key !== "string") {
+                console.error(
+                    `PF2e System | Missing key in rule element ${data.key} on item ${item.name} (${item.uuid})`
+                );
+                continue;
+            }
             const key = data.key.replace(/^PF2E\.RuleElement\./, "");
             const REConstructor = this.custom[key] ?? this.custom[data.key] ?? this.builtin[key];
             if (REConstructor) {
@@ -102,9 +108,9 @@ class RuleElements {
                         return new REConstructor(data, item, options);
                     } catch (error) {
                         if (!options?.suppressWarnings) {
-                            const { name, uuid } = item;
                             console.warn(
-                                `PF2e System | Failed to construct rule element ${data.key} on item ${name} (${uuid})`
+                                `PF2e System | Failed to construct rule element ${data.key} on item ${item.name}`,
+                                `(${item.uuid})`
                             );
                             console.warn(error);
                         }

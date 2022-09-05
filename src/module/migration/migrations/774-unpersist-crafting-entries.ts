@@ -115,6 +115,7 @@ interface ActorPreparedFormula {
 }
 
 interface MaybeWithRequiredTraits extends RuleElementSource {
+    selector?: unknown;
     requiredTraits?: PhysicalItemTrait[][];
     craftableItems?: RawPredicate;
     isAlchemical?: boolean;

@@ -94,7 +94,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Activate rule element sub forms
         this.ruleElementForms = {};
         for (const [idx, rule] of rules.entries()) {
-            const FormClass = RULE_ELEMENT_FORMS[rule.key ?? ""] ?? RuleElementForm;
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
             this.ruleElementForms[Number(idx)] = new FormClass(idx, rule);
         }
 
@@ -126,7 +126,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
                     const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                    const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
+                    const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
                     const label = translations[key] ?? translations.Unrecognized;
                     const recognized = label !== translations.Unrecognized;
                     return { label, recognized };

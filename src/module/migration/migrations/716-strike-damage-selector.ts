@@ -1,4 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 export class Migration716StrikeDamageSelector extends MigrationBase {
@@ -20,7 +21,10 @@ export class Migration716StrikeDamageSelector extends MigrationBase {
 
         const { rules } = source.system;
         for (const rule of rules) {
-            if (["damage", "mundane-damage"].includes(rule.selector ?? "")) {
+            if (
+                isObject<{ selector?: unknown }>(rule) &&
+                ["damage", "mundane-damage"].includes(String(rule.selector ?? ""))
+            ) {
                 rule.selector = "strike-damage";
             }
         }

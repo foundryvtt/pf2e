@@ -53,7 +53,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         if (this.type === "ability") {
             if (setHasElement(ABILITY_ABBREVIATIONS, data.ability)) {
                 this.ability = data.ability;
-                this.data.label = data.label ?? CONFIG.PF2E.abilities[this.ability];
+                this.data.label = typeof data.label === "string" ? data.label : CONFIG.PF2E.abilities[this.ability];
                 this.data.value ??= `@actor.abilities.${this.ability}.mod`;
             } else {
                 this.failValidation(
@@ -128,6 +128,7 @@ interface FlatModifierRuleElement {
 }
 
 interface FlatModifierData extends RuleElementData {
+    selector: string | string[];
     min?: number;
     max?: number;
     damageType?: string;
@@ -136,6 +137,7 @@ interface FlatModifierData extends RuleElementData {
 }
 
 interface FlatModifierSource extends RuleElementSource {
+    selector?: unknown;
     min?: unknown;
     max?: unknown;
     type?: unknown;

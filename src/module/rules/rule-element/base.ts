@@ -38,7 +38,7 @@ abstract class RuleElementPF2e {
      * @param item where the rule is persisted on
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
-        this.key = data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
+        this.key = String(data.key);
         this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
         this.suppressWarnings = options.suppressWarnings ?? false;
 
@@ -49,12 +49,13 @@ abstract class RuleElementPF2e {
             console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
             data.ignored = true;
         }
+        const label = typeof data.label === "string" ? data.label : item.name;
 
         this.data = {
             priority: 100,
             ...data,
             predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
-            label: game.i18n.localize(this.resolveInjectedProperties(data.label ?? item.name)),
+            label: game.i18n.localize(this.resolveInjectedProperties(label)),
             ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;

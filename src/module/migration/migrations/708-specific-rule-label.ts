@@ -7,7 +7,7 @@ export class Migration708SpecificRuleLabel extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         for (const rule of itemSource.system.rules) {
             if (rule.label) {
-                rule.label = rule.label.replace(/\bSpecificRules\b/, "SpecificRule");
+                rule.label = String(rule.label).replace(/\bSpecificRules\b/, "SpecificRule");
             }
         }
     }

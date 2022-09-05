@@ -10,7 +10,7 @@ export class Migration730DeruneHandwraps extends MigrationBase {
             const { rules } = source.system;
 
             for (const rule of [...rules]) {
-                if (["Striking", "WeaponPotency"].includes(rule.key)) {
+                if (["Striking", "WeaponPotency"].includes(String(rule.key))) {
                     source.system.rules.splice(rules.indexOf(rule), 1);
                 }
             }
