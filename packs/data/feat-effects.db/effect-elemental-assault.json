@@ -17,30 +17,43 @@
             "value": 1
         },
         "rules": [
-            {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "value": "electricity"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "value": "bludgeoning"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "value": "cold"
-                    }
-                ],
-                "flag": "elementalAssault",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Suli.ElementalAssult.Prompt",
-                "rollOption": "elementalAssault"
-            },
+{
+    "key": "ChoiceSet",
+    "choices": [{
+        "label": "PF2E.TraitAir",
+        "value": "electricity",
+        "predicate": {
+            "any": [{
+                "not": "feat:dualborn"
+            }, "dualborn:air"]
+        }
+    }, {
+        "label": "PF2E.TraitEarth",
+        "value": "bludgeoning",
+        "predicate": {
+            "any": [{
+                "not": "feat:dualborn"
+            }, "dualborn:earth"]
+        }
+    }, {
+        "label": "PF2E.TraitFire",
+        "value": "fire",
+        "predicate": {
+            "any": [{
+                "not": "feat:dualborn"
+            }, "dualborn:fire"]
+        }
+    }, {
+        "label": "PF2E.TraitWater",
+        "value": "cold",
+        "predicate": {
+            "any": [{
+                "not": "feat:dualborn"
+            }, "dualborn:water"]
+        }
+    }],
+    "flag": "energy"
+},            
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.elementalAssault}",
                 "dieSize": "d6",
