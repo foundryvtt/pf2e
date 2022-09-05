@@ -107,4 +107,16 @@ class StrikeWeaponTraits {
     }
 }
 
-export { StrikeWeaponTraits };
+/** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
+function createForceOpenPenalty(): ModifierPF2e {
+    return new ModifierPF2e({
+        slug: "no-crowbar",
+        label: "PF2E.Actions.ForceOpen.NoCrowbarPenalty",
+        type: "item",
+        modifier: -2,
+        predicate: { all: ["action:force-open"] },
+        hideIfDisabled: true,
+    });
+}
+
+export { createForceOpenPenalty, StrikeWeaponTraits };
