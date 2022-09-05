@@ -32,11 +32,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
-        const isDamageRoll = !!this.flags.pf2e.damageRoll;
         const fromRollTable = !!this.flags.core.RollTable;
-        const isRoll = isDamageRoll || this.isRoll;
-        const isD20 = (isRoll && firstRoll.dice[0]?.faces === 20) || false;
-        return isRoll && !(isD20 || fromRollTable);
+        const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
+        return !(isD20 || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
