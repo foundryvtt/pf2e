@@ -24,13 +24,6 @@ declare class MeasuredTemplateConfig extends FormApplication {
 }
 
 /**
- * The player configuration menu
- * This form is used to allow the client to edit some preferences about their own User entity
- */
-declare class UserConfig extends FormApplication {
-    protected override _updateObject(event: Event, formData: {}): Promise<void>;
-}
-/**
  * Playlist Configuration Sheet
  *
  * @param object    The Playlist being edited

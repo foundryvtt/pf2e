@@ -11,7 +11,16 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify } from "@util";
+import {
+    ErrorPF2e,
+    sluggify,
+    sortStringRecord,
+    tupleHasValue,
+    objectHasKey,
+    tagify,
+    htmlClosest,
+    htmlQuery,
+} from "@util";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -94,6 +103,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             showTraits: this.validTraits !== null,
             hasSidebar: this.item.isOfType("condition", "lore"),
             hasDetails: true,
+            sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
+                type: game.i18n.localize(`ITEM.Type${this.item.type.capitalize()}`),
+            }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: this.item,
@@ -350,6 +362,25 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             // If there are no traits, we still need to show elements like rarity
             tagElement.append(traitsPrepend.content);
         }
+
+        // Update Tab visibility (in case this is a tab without a sidebar)
+        this.updateSidebarVisibility(this._tabs[0].active);
+    }
+
+    /** When tabs are changed, change visibility of elements such as the sidebar */
+    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+        super._onChangeTab(event, tabs, active);
+        this.updateSidebarVisibility(active);
+    }
+
+    /** Internal function to update the sidebar visibility based on the current tab */
+    private updateSidebarVisibility(activeTab: string) {
+        const sidebarHeader = this.element[0]?.querySelector<HTMLElement>(".sidebar-summary");
+        const sidebar = this.element[0]?.querySelector<HTMLElement>(".sheet-sidebar");
+        if (sidebarHeader && sidebar) {
+            const display = activeTab === "rules" ? "none" : "block";
+            sidebarHeader.style.display = sidebar.style.display = display;
+        }
     }
 
     /** Ensure the source description is edited rather than a prepared one */
@@ -487,5 +518,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         return super._updateObject(event, flattenObject(expanded));
+    }
+
+    /** Overriden _render to maintain focus on tagify elements */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        const active = document.activeElement;
+        await super._render(force, options);
+        if (active?.classList.contains("tagify__input")) {
+            const name = htmlClosest(active, "tags")?.dataset.name;
+            if (name && this.element[0]) {
+                htmlQuery(this.element[0], `tags[data-name="${name}"] span[contenteditable]`)?.focus();
+            }
+        }
     }
 }

@@ -36,7 +36,13 @@ export function isActorSource(docSource: CompendiumSource): docSource is ActorSo
 }
 
 export function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
-    return "system" in docSource && isObject(docSource.system) && !isActorSource(docSource);
+    return (
+        "system" in docSource &&
+        "type" in docSource &&
+        !("text" in docSource) &&
+        isObject(docSource.system) &&
+        !isActorSource(docSource)
+    );
 }
 
 export class CompendiumPack {

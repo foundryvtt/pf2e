@@ -40,12 +40,12 @@ class NPCPF2e extends CreaturePF2e {
 
     /** Does this NPC have the Elite adjustment? */
     get isElite(): boolean {
-        return this.traits.has("elite");
+        return this.attributes.adjustment === "elite";
     }
 
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
-        return this.traits.has("weak");
+        return this.attributes.adjustment === "weak";
     }
 
     /** Users with limited permission can loot a dead NPC */
@@ -104,7 +104,6 @@ class NPCPF2e extends CreaturePF2e {
 
         const { attributes, details } = systemData;
         attributes.perception.ability = "wis";
-        attributes.dexCap = [{ value: Infinity, source: "" }];
         attributes.reach = {
             general: SIZE_TO_REACH[this.size],
             manipulate: SIZE_TO_REACH[this.size],
@@ -117,11 +116,10 @@ class NPCPF2e extends CreaturePF2e {
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
     override prepareEmbeddedDocuments(): void {
-        const { traits } = this;
         const { level } = this.system.details;
 
         const baseLevel = level.value;
-        level.value = traits.has("elite") ? baseLevel + 1 : traits.has("weak") ? baseLevel - 1 : baseLevel;
+        level.value = this.isElite ? baseLevel + 1 : this.isWeak ? baseLevel - 1 : baseLevel;
         level.base = baseLevel;
 
         this.rollOptions.all[`self:level:${level.value}`] = true;
@@ -219,11 +217,8 @@ class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        system.attributes.speed = this.prepareSpeed("land");
-        const { otherSpeeds } = system.attributes.speed;
-        for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
-        }
+        const speeds = (system.attributes.speed = this.prepareSpeed("land"));
+        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Armor Class
         {
@@ -856,7 +851,7 @@ class NPCPF2e extends CreaturePF2e {
         return notes;
     }
 
-    protected getHpAdjustment(level: number, adjustment: "elite" | "weak" | "normal"): number {
+    protected getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
         if (adjustment === "elite") {
             // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
             if (level >= 20) {
@@ -884,12 +879,12 @@ class NPCPF2e extends CreaturePF2e {
     }
 
     /** Make the NPC elite, weak, or normal */
-    async applyAdjustment(adjustment: "elite" | "weak" | "normal"): Promise<void> {
+    async applyAdjustment(adjustment: "elite" | "weak" | null): Promise<void> {
         const { isElite, isWeak } = this;
         if (
             (isElite && adjustment === "elite") ||
             (isWeak && adjustment === "weak") ||
-            (!isElite && !isWeak && adjustment === "normal")
+            (!isElite && !isWeak && !adjustment)
         ) {
             return;
         }
@@ -910,14 +905,14 @@ class NPCPF2e extends CreaturePF2e {
             if (isElite) {
                 if (adjustment === "weak") {
                     return currentHP - currentHPAdjustment - newHPAdjustment;
-                } else if (adjustment === "normal") {
+                } else if (!adjustment) {
                     return currentHP - currentHPAdjustment;
                 }
             } else if (isWeak) {
                 if (adjustment === "elite") {
                     this.system.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
                     return currentHP + currentHPAdjustment + newHPAdjustment;
-                } else if (adjustment === "normal") {
+                } else if (!adjustment) {
                     this.system.attributes.hp.max = maxHP + currentHPAdjustment;
                     return currentHP + currentHPAdjustment;
                 }
@@ -932,15 +927,9 @@ class NPCPF2e extends CreaturePF2e {
             return currentHP;
         })();
 
-        const toAdd = adjustment === "normal" ? [] : [adjustment];
-        const toRemove = adjustment === "weak" ? ["elite"] : adjustment === "elite" ? ["weak"] : ["elite", "weak"];
-        const newTraits = this.toObject()
-            .system.traits.traits.value.filter((trait) => !toRemove.includes(trait))
-            .concat(toAdd);
-
         await this.update({
             "system.attributes.hp.value": Math.max(0, newHP),
-            "system.traits.traits.value": newTraits,
+            "system.attributes.adjustment": adjustment,
         });
     }
 

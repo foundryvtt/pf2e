@@ -33,22 +33,22 @@
         },
         "rules": [
             {
-                "isDailyPrep": false,
-                "isPrepared": true,
-                "key": "CraftingEntry",
-                "name": "Snare Crafting",
                 "craftableItems": {
                     "all": [
                         "item:trait:snare"
                     ]
                 },
+                "isDailyPrep": false,
+                "isPrepared": true,
+                "key": "CraftingEntry",
+                "name": "Snare Crafting",
                 "selector": "snareCrafting"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "phase":"afterDerived",
                 "path": "system.crafting.entries.snareCrafting.maxSlots",
+                "phase": "afterDerived",
                 "value": {
                     "brackets": [
                         {

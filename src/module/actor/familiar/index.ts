@@ -34,7 +34,7 @@ export class FamiliarPF2e extends CreaturePF2e {
     override prepareBaseData() {
         super.prepareBaseData();
 
-        type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
+        type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
         type PartialSystemData = DeepPartial<FamiliarSystemData> & {
             attributes: { speed: RawSpeed; flanking: {} };
             details: {};
@@ -46,7 +46,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
         systemData.traits = {
-            senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
+            senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
             size: new ActorSizePF2e({ value: "tiny" }),
             traits: { value: ["minion"], custom: "" },
         };
@@ -54,7 +54,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
         systemData.attributes.speed = {
-            value: "25",
+            value: 25,
             label: game.i18n.localize("PF2E.SpeedTypesLand"),
             otherSpeeds: [],
         };
@@ -109,11 +109,8 @@ export class FamiliarPF2e extends CreaturePF2e {
         const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
         const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
-        attributes.speed = this.prepareSpeed("land");
-        const { otherSpeeds } = attributes.speed;
-        for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
-        }
+        const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
+        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Hit Points
         {

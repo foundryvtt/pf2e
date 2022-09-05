@@ -12,7 +12,7 @@ declare global {
     }
 
     interface RegisterSheetOptions {
-        label?: string;
+        label?: string | (() => string);
         types?: string[];
         makeDefault?: boolean;
     }

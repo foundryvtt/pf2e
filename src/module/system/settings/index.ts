@@ -134,7 +134,7 @@ export function registerSettings() {
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
-        scope: "client",
+        scope: "world",
         config: true,
         default: true,
         type: Boolean,

@@ -2,7 +2,6 @@ import { MigrationSummary } from "@module/apps/migration-summary";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
 import { MigrationRunner } from "@module/migration/runner";
-import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerModuleArt } from "@scripts/register-module-art";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { activateSocketListener } from "@scripts/socket";
@@ -13,7 +12,7 @@ export const Ready = {
     listen: (): void => {
         Hooks.once("ready", () => {
             /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
-            console.log("PF2e System | Readying Pathfinder 2nd Edition System");
+            console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
             // Determine whether a system migration is required and feasible
@@ -69,8 +68,6 @@ export const Ready = {
             for (const li of document.querySelectorAll<HTMLLIElement>("#chat-log > li")) {
                 SetAsInitiative.listen($(li));
             }
-
-            PlayerConfigPF2e.activateColorScheme();
 
             activateSocketListener();
 

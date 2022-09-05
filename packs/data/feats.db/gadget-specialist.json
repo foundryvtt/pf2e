@@ -31,21 +31,21 @@
         },
         "rules": [
             {
-                "isDailyPrep": true,
-                "key": "CraftingEntry",
-                "name": "Gadget Specialist",
                 "craftableItems": {
                     "all": [
                         "item:trait:gadget"
                     ]
                 },
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "name": "Gadget Specialist",
                 "selector": "gadgetSpecialist"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "phase":"afterDerived",
                 "path": "system.crafting.entries.gadgetSpecialist.maxSlots",
+                "phase": "afterDerived",
                 "priority": 41,
                 "value": {
                     "brackets": [

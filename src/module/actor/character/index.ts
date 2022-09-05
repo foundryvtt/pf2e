@@ -102,7 +102,7 @@ import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { CharacterFeats } from "./feats";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
-import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
+import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -337,7 +337,6 @@ class CharacterPF2e extends CreaturePF2e {
         const attributes: DeepPartial<CharacterAttributes> = this.system.attributes;
         attributes.ac = {};
         attributes.classDC = { rank: 0 };
-        attributes.dexCap = [{ value: Infinity, source: "" }];
         attributes.polymorphed = false;
         attributes.battleForm = false;
 
@@ -644,11 +643,14 @@ class CharacterPF2e extends CreaturePF2e {
         const { wornArmor, heldShield } = this;
         {
             const modifiers = [this.getShieldBonus() ?? []].flat();
-            const dexCapSources = systemData.attributes.dexCap;
+            const dexCapSources: DexterityModifierCapData[] = [
+                { value: Infinity, source: "" },
+                ...synthetics.dexterityModifierCaps,
+            ];
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
 
-            if (wornArmor && wornArmor.acBonus > 0) {
+            if (wornArmor) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
@@ -726,11 +728,8 @@ class CharacterPF2e extends CreaturePF2e {
         systemData.skills = this.prepareSkills();
 
         // Speeds
-        systemData.attributes.speed = this.prepareSpeed("land");
-        const { otherSpeeds } = systemData.attributes.speed;
-        for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
-        }
+        const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
+        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         systemData.actions = this.prepareStrikes();
 
@@ -1190,9 +1189,9 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     override prepareSpeed(movementType: "land"): CreatureSpeeds;
-    override prepareSpeed(movementType: Exclude<MovementType, "land">): LabeledSpeed & StatisticModifier;
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+    override prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
+    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
+    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.value;
@@ -1220,6 +1219,7 @@ class CharacterPF2e extends CreaturePF2e {
             armorPenalty.test(this.getRollOptions(["speed", `${movementType}-speed`]));
             speedModifiers.push(() => armorPenalty);
         }
+
         return super.prepareSpeed(movementType);
     }
 

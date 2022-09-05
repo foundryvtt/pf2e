@@ -5,7 +5,8 @@ declare global {
         TScene extends Scene = Scene,
         TAmbientLight extends AmbientLight = AmbientLight,
         TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
-        TToken extends Token = Token
+        TToken extends Token = Token,
+        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
     > {
         constructor();
 
@@ -77,11 +78,23 @@ declare global {
         msk: PIXI.Graphics;
         performance: CanvasPerformanceSettings;
 
+        /**
+         * The effects Canvas group which modifies the result of the {@link PrimaryCanvasGroup} by adding special effects.
+         * This includes lighting, weather, vision, and other visual effects which modify the appearance of the Scene.
+         */
+        effects: TEffectsCanvasGroup;
+
+        /**
+         * The primary Canvas group which generally contains tangible physical objects which exist within the Scene.
+         * This group is a {@link CachedContainer} which is rendered to the Scene as a {@link SpriteMesh}.
+         * This allows the rendered result of the Primary Canvas Group to be affected by a {@link BaseSamplerShader}.
+         */
+        primary: PrimaryCanvasGroup;
+
         // Layers
         background: BackgroundLayer;
         controls: ControlsLayer;
         drawings: DrawingsLayer;
-        effects: EffectsLayer<TToken>;
         foreground: ForegroundLayer;
         grid: GridLayer;
         lighting: TAmbientLight["layer"];
@@ -108,6 +121,9 @@ declare global {
 
         /** The id of the currently displayed Scene. */
         get id(): string | null;
+
+        /** The color manager class bound to this canvas */
+        get colorManager(): CanvasColorManager;
 
         /** A mapping of named CanvasLayer classes which defines the layers which comprise the Scene. */
         static get layers(): Record<string, CanvasLayer>;

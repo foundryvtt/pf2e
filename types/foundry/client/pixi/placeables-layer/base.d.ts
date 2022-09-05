@@ -14,7 +14,7 @@ declare global {
         history: CanvasHistory<TObject>[];
 
         /** Track the PlaceableObject on this layer which is currently being hovered upon */
-        protected _hover: TObject | null;
+        protected hover: TObject | null;
 
         /** Track the set of PlaceableObjects on this layer which are currently controlled by their id */
         protected _controlled: Record<string, TObject>;

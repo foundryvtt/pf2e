@@ -86,18 +86,18 @@
         <div class="form-group">
             <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
             <select name="preciousMaterial">
-                <option value=""></option>
-                {{#each preciousMaterials as |material materialKey|}}
-                    <optgroup label="{{material.label}}">
-                        {{#each material as |grade gradeKey|}}
-                            {{#if grade.label}}
-                                <option value="{{materialKey}}-{{gradeKey}}"{{#if grade.selected}} selected="selected"{{/if}}>
+                {{#select preciousMaterials.value}}
+                    <option value=""></option>
+                    {{#each preciousMaterials.materials as |material materialKey|}}
+                        <optgroup label="{{material.label}}">
+                            {{#each material.grades as |grade gradeKey|}}
+                                <option value="{{materialKey}}-{{gradeKey}}">
                                     {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
                                 </option>
-                            {{/if}}
-                        {{/each}}
-                    </optgroup>
-                {{/each}}
+                            {{/each}}
+                        </optgroup>
+                    {{/each}}
+                {{/select}}
             </select>
         </div>
         {{#unless abpEnabled}}

@@ -690,18 +690,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     prepareSpeed(movementType: "land"): CreatureSpeeds;
-    prepareSpeed(movementType: Exclude<MovementType, "land">): LabeledSpeed & StatisticModifier;
-    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
-    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+    prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
+    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
+    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
         const systemData = this.system;
         const selectors = ["speed", "all-speeds", `${movementType}-speed`];
         const rollOptions = this.getRollOptions(selectors);
-        const modifiers = extractModifiers(this.synthetics, selectors);
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
             const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: label });
+            const modifiers = extractModifiers(this.synthetics, selectors);
             const stat = mergeObject(
                 new StatisticModifier(statLabel, modifiers, rollOptions),
                 systemData.attributes.speed,
@@ -718,15 +718,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 .join(", ");
             return stat;
         } else {
-            const speed = systemData.attributes.speed.otherSpeeds.find(
-                (otherSpeed) => otherSpeed.type === movementType
-            );
-            if (!speed) throw ErrorPF2e("Unexpected missing speed");
+            const speeds = systemData.attributes.speed;
+            const otherSpeeds: { value: number; type: string }[] = speeds.otherSpeeds;
+            const existing = otherSpeeds.find((speed) => speed.type === movementType);
+            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d());
+            const bestValue = [existing ?? [], fromSynthetics]
+                .flat()
+                .reduce((best, speed) => (Number(speed?.value) > best ? Number(speed?.value) : best), 0);
+            if (!bestValue) return null;
 
-            speed.label = game.i18n.localize(game.i18n.localize(CONFIG.PF2E.speedTypes[speed.type]));
-            const base = Number(speed.value ?? 0);
-            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: speed.label });
-            const stat = mergeObject(new StatisticModifier(statLabel, modifiers, rollOptions), speed, {
+            const label = game.i18n.format("PF2E.SpeedLabel", { type: movementType });
+            const speed =
+                existing?.value === bestValue
+                    ? { ...existing, type: movementType, value: existing.value, label }
+                    : { type: movementType, label, value: bestValue };
+            const base = speed.value;
+            const modifiers = extractModifiers(this.synthetics, selectors);
+            const stat = mergeObject(new StatisticModifier(movementType, modifiers, rollOptions), speed, {
                 overwrite: false,
             });
             stat.total = base + stat.totalModifier;

@@ -16,7 +16,7 @@ import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModi
 import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { CreatureTraits } from "@item/ancestry/data";
-import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
+import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { Statistic, StatisticCompatData } from "@system/statistic";
@@ -169,7 +169,7 @@ interface CreatureAttributes extends BaseActorAttributes {
 
 interface CreatureSpeeds extends StatisticModifier {
     /** The actor's primary speed (usually walking/stride speed). */
-    value: string;
+    value: number;
     /** Other speeds that this actor can use (such as swim, climb, etc). */
     otherSpeeds: LabeledSpeed[];
     /** The derived value after applying modifiers, bonuses, and penalties */
@@ -177,10 +177,8 @@ interface CreatureSpeeds extends StatisticModifier {
 }
 
 type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
-interface LabeledSpeed extends LabeledValue {
+interface LabeledSpeed extends LabeledNumber {
     type: Exclude<MovementType, "land">;
-    value: string;
-    label: string;
 }
 
 interface CreatureHitPoints extends HitPointsData {

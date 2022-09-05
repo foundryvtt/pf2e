@@ -11,7 +11,7 @@
                 text-align: center;
                 &:disabled {
                     border: none;
-                    color: #777;
+                    color: var(--color-text-dark-6);
                 }
             }
 
@@ -26,23 +26,13 @@
     }
 
     .tab[data-tab="vision"] {
-        .form-group.managed-by-rbv {
-            position: relative;
+        .disabled[data-tab] {
+            color: var(--color-text-dark-6);
+            pointer-events: none;
+        }
 
-            p {
-                background: rgba(0, 0, 0, 0.05);
-                border-radius: 3px;
-                color: #4b4a44;
-                padding: 16px 48px;
-                position: absolute;
-                right: 0;
-                text-align: center;
-                top: 4px;
-
-                a {
-                    color: var(--primary);
-                }
-            }
+        a.managed-by-rbv {
+            padding-left: 0.33em;
         }
     }
 

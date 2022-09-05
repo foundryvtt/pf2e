@@ -8,6 +8,7 @@ import { PrototypeTokenPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
 import { ActorSourcePF2e } from "@actor/data";
 import { objectHasKey, sluggify } from "@util";
+import { LightLevels } from "@scene/data";
 
 class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -18,7 +19,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
         const { actor } = this;
-        if (!actor) return false;
+        if (!actor || !game.settings.get("pf2e", "automation.rulesBasedVision")) {
+            return false;
+        }
 
         const hasCondition = objectHasKey(CONFIG.PF2E.conditionTypes, statusId) && actor.hasCondition(statusId);
         const hasEffect = () => actor.itemTypes.effect.some((e) => (e.slug ?? sluggify(e.name)) === statusId);
@@ -75,14 +78,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         return this.data.brightLight < 0;
     }
 
+    get rulesBasedVision(): boolean {
+        return !!(this.sight.enabled && this.actor && this.scene?.rulesBasedVision);
+    }
+
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
-        return !!(this.scene?.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasLowLightVision);
+        return !!(this.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasLowLightVision);
     }
 
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
-        return !!(this.scene?.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasDarkvision);
+        return !!(this.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasDarkvision);
     }
 
     /** Is this token's dimensions linked to its actor's size category? */
@@ -159,14 +166,6 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         const autoscale = linkToActorSize ? this.flags.pf2e?.autoscale ?? autoscaleDefault : false;
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
-        // Vision
-        /* if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
-            for (const property of ["brightSight", "dimSight"] as const) {
-                this.data[property] = this._source[property] = 0;
-            }
-            this.sight.angle = this._source.sight.angle = 360;
-        }*/
-
         // Nath mode
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
         if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.texture.src)) {
@@ -192,6 +191,25 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
+    /** Reset sight defaults if using rules-based vision */
+    protected override _prepareDetectionModes(): void {
+        const baseDetection = { id: "basicSight", enabled: true, range: null };
+        this.detectionModes = [baseDetection];
+
+        if (!this.initialized || !this.actor) return super._prepareDetectionModes();
+
+        if (this.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+            this.sight.attenuation = 0.1;
+            this.sight.brightness = 0;
+            this.sight.contrast = 0;
+            this.sight.range = null;
+            this.sight.saturation = 0;
+            this.sight.visionMode = "basic";
+        } else {
+            super._prepareDetectionModes();
+        }
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         if (!(this.initialized && this.actor && this.scene)) return;
@@ -209,13 +227,33 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this, this.actor);
 
-        // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
-        // Setting vision radii is less performant but necessary if multiple tokens are controlled
-        /* if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
-            const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
-            const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
-            this.data.brightSight = this.data.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
-        }*/
+        // Set primary vision mode and its defaults
+        if (this.rulesBasedVision && this.actor.type !== "npc") {
+            const isDark = this.scene.lightLevel <= LightLevels.DARKNESS;
+            const mode = this.hasDarkvision && isDark ? "darkvision" : "basic";
+            this.sight.visionMode = mode;
+            const { defaults } = CONFIG.Canvas.visionModes[mode].vision;
+            this.sight.brightness = defaults.brightness;
+            this.sight.saturation = defaults.saturation;
+
+            if (mode === "darkvision" || !isDark) {
+                const basicDetection = this.detectionModes.at(0);
+                if (!basicDetection) return;
+                this.sight.range = basicDetection.range = defaults.range;
+
+                // Temporary hard-coded fetchling check for initial release
+                if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
+                    this.sight.saturation = 1;
+                }
+            }
+        }
+
+        const canSeeInvisibility =
+            this.actor.isOfType("character") &&
+            this.actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
+        if (canSeeInvisibility) {
+            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
+        }
     }
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */

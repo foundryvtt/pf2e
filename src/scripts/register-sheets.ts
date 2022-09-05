@@ -21,7 +21,7 @@ import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
 import { ArmorSheetPF2e } from "@item/armor/sheet";
 import { HeritageSheetPF2e } from "@item/heritage";
-import { JournalSheetPF2e, JournalSheetStyledPF2e, JournalTextPageSheetPF2e } from "@module/journal-entry/sheet";
+import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
 import { SceneConfigPF2e } from "@scene/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { EquipmentSheetPF2e } from "@item/equipment/sheet";
@@ -29,6 +29,8 @@ import { ContainerSheetPF2e } from "@item/container/sheet";
 import { MeleeSheetPF2e } from "@item/melee/sheet";
 import { ConsumableSheetPF2e } from "@item/consumable/sheet";
 import { TreasureSheetPF2e } from "@item/treasure/sheet";
+import { UserPF2e } from "@module/user";
+import { UserConfigPF2e } from "@module/user/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -40,13 +42,9 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetStyledPF2e, {
-        label: game.i18n.localize("PF2E.JournalEntry.PF2ETheme"),
-    });
-
     // Replace the TinyMCE sheet with the version that'll let us inject themes
     DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
-    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextPageSheetPF2e, {
+    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextTinyMCESheetPF2e, {
         types: ["text"],
         label: game.i18n.localize("EDITOR.TinyMCE"),
     });
@@ -152,4 +150,12 @@ export function registerSheets() {
             makeDefault: true,
         });
     }
+
+    // User
+
+    DocumentSheetConfig.unregisterSheet(User, "core", UserConfig);
+    DocumentSheetConfig.registerSheet(UserPF2e, "pf2e", UserConfigPF2e, {
+        makeDefault: true,
+        label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.User") }),
+    });
 }

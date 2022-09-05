@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor/base";
+import { DexterityModifierCapData } from "@actor/character/types";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
@@ -174,14 +175,6 @@ interface InitiativeData {
 type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
 
-/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
-interface DexterityModifierCapData {
-    /** The numeric value that constitutes the maximum Dexterity modifier. */
-    value: number;
-    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
-    source: string;
-}
-
 interface ArmorClassData {
     /** The actual AC value */
     value: number;
@@ -301,7 +294,6 @@ export {
     BaseActorSourcePF2e,
     BaseHitPointsData,
     BaseTraitsData,
-    DexterityModifierCapData,
     GangUpCircumstance,
     InitiativeData,
     PerceptionData,

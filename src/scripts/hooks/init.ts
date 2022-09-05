@@ -1,22 +1,24 @@
 import { MystifiedTraits } from "@item/data/values";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { PlayerListPF2e } from "@module/apps/ui/player-list";
 import {
     AmbientLightPF2e,
+    EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     TemplateLayerPF2e,
     TokenLayerPF2e,
     TokenPF2e,
 } from "@module/canvas";
-import { PlayerConfigPF2e } from "@module/user/player-config";
+import { setPerceptionModes } from "@module/canvas/perception/modes";
+import { PF2ECONFIG } from "@scripts/config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
-import { PF2ECONFIG } from "@scripts/config";
 
 export const Init = {
     listen: (): void => {
@@ -40,9 +42,12 @@ export const Init = {
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.layerClass = TokenLayerPF2e;
 
+            CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
+
+            setPerceptionModes();
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
@@ -54,6 +59,7 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
+            CONFIG.ui.players = PlayerListPF2e;
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";
@@ -145,7 +151,6 @@ export const Init = {
             registerTemplates();
             registerHandlebarsHelpers();
 
-            PlayerConfigPF2e.hookOnRenderSettings();
             MystifiedTraits.compile();
 
             // Create and populate initial game.pf2e interface
