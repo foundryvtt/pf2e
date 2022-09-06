@@ -1215,19 +1215,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
-        super._onEmbeddedDocumentChange(embeddedName);
+        if (this.isToken) {
+            return super._onEmbeddedDocumentChange(embeddedName);
+        }
 
-        Promise.resolve().then(async () => {
-            // As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors
-            await this.token?.object?.drawEffects();
-            // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
-            for (const tokenDoc of this.getActiveTokens(true, true)) {
-                tokenDoc._onUpdateBaseActor();
-            }
-        });
+        for (const tokenDoc of this.getActiveTokens(true, true)) {
+            tokenDoc._onUpdateBaseActor();
+        }
 
         // Send any accrued warnings to the console
         this.synthetics.preparationWarnings.flush();
+        super._onEmbeddedDocumentChange(embeddedName);
     }
 }
 
