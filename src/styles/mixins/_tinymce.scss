@@ -9,6 +9,12 @@
     --space-2xl: 2em;
     --radius: 3px;
 
+    // Override so that empty <p> (and <p>s with empty <span>) do not take space
+    // This comes up for @Localize
+    p {
+        min-height: unset;
+    }
+
     // Redeclared so that popout journals pages match embedded journal pages and item summaries
     :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
         margin-top: 1em;
