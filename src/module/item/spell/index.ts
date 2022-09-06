@@ -38,6 +38,12 @@ interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
 }
 
+interface SpellToMessageOptions extends ToMessageOptions {
+    data?: {
+        castLevel?: number;
+    };
+}
+
 class SpellPF2e extends ItemPF2e {
     readonly isFromConsumable: boolean;
 
@@ -149,12 +155,13 @@ class SpellPF2e extends ItemPF2e {
         this.isFromConsumable = context.fromConsumable ?? false;
     }
 
-    private computeCastLevel(castLevel?: number): number {
+    /** Given a slot level, compute the actual level the spell will be cast at */
+    computeCastLevel(slotLevel?: number): number {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) return this.level;
 
         // Spells cannot go lower than base level
-        return Math.max(this.baseLevel, castLevel ?? this.level);
+        return Math.max(this.baseLevel, slotLevel ?? this.level);
     }
 
     override getRollData(
@@ -423,7 +430,7 @@ class SpellPF2e extends ItemPF2e {
 
     override async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} }: ToMessageOptions = {}
+        { create = true, data = {} }: SpellToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
         const message = await super.toMessage(event, { create: false, data });
         if (!message) return undefined;
