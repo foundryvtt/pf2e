@@ -54,7 +54,7 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion ?? 9, "0.8.9"))
+                            !foundry.utils.isNewerVersion(m.compatibility.verified ?? 9, "0.8.9"))
                 );
 
                 for (const badModule of subV9Modules) {
