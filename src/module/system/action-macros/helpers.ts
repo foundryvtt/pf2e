@@ -64,7 +64,7 @@ export class ActionMacroHelpers {
         });
     }
 
-    static async simpleRollActionCheck(options: SimpleRollActionCheckOptions) {
+    static async simpleRollActionCheck(options: SimpleRollActionCheckOptions): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
         if (Array.isArray(options.actors)) {
@@ -77,153 +77,149 @@ export class ActionMacroHelpers {
 
         const { token: target, actor: targetActor } = options.target?.() ?? this.target();
 
-        if (rollers.length) {
-            for (const actor of rollers) {
-                let title = "";
-                if (options.actionGlyph) {
-                    title += `<span class="pf2-icon">${options.actionGlyph}</span> `;
-                }
-                title += `<b>${game.i18n.localize(options.title)}</b>`;
-                title += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
-                const content = (await options.content?.(title)) ?? title;
+        if (rollers.length === 0) {
+            return ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+        }
 
-                const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-                const selfToken = actor.getActiveTokens(false, true).shift();
-                const combinedOptions = [
-                    actor.getRollOptions(options.rollOptions),
-                    options.extraOptions,
-                    options.traits,
-                    targetOptions,
-                    !!target?.object &&
-                    !!selfToken?.object.isFlanking(target.object, { reach: actor.getReach({ action: "attack" }) })
-                        ? "self:flanking"
-                        : [],
-                ].flat();
-                const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
+        for (const actor of rollers) {
+            let title = "";
+            if (options.actionGlyph) {
+                title += `<span class="pf2-icon">${options.actionGlyph}</span> `;
+            }
+            title += `<b>${game.i18n.localize(options.title)}</b>`;
+            title += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
+            const content = (await options.content?.(title)) ?? title;
 
-                // Modifier from roller's equipped weapon
-                const weapon = ((): Embedded<WeaponPF2e> | null => {
-                    if (!options.traits.includes("attack")) return null;
-                    return (
-                        [
-                            ...(options.weaponTrait
-                                ? this.getApplicableEquippedWeapons(selfActor, options.weaponTrait)
-                                : []),
-                            ...(options.weaponTraitWithPenalty
-                                ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
-                                : []),
-                        ].shift() ?? null
-                    );
-                })();
-                combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
+            const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+            const selfToken = actor.getActiveTokens(false, true).shift();
+            const combinedOptions = [
+                actor.getRollOptions(options.rollOptions),
+                options.extraOptions,
+                options.traits,
+                targetOptions,
+                !!target?.object &&
+                !!selfToken?.object.isFlanking(target.object, { reach: actor.getReach({ action: "attack" }) })
+                    ? "self:flanking"
+                    : [],
+            ].flat();
+            const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
 
-                const stat = getProperty(selfActor, options.statName) as StatisticModifier;
-                const itemBonus =
-                    weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.name) : null;
-
-                const modifiers =
-                    (typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers) ?? [];
-                if (itemBonus) modifiers.push(itemBonus);
-                const check = new CheckModifier(content, stat, modifiers);
-
-                const weaponTraits = weapon?.traits;
-
-                // Modifier from roller's equipped weapon with -2 ranged penalty
-                if (options.weaponTraitWithPenalty === "ranged-trip" && weaponTraits?.has("ranged-trip")) {
-                    const slug = "ranged-trip";
-
-                    check.push(
-                        new ModifierPF2e({
-                            slug,
-                            adjustments: extractModifierAdjustments(
-                                selfActor.synthetics.modifierAdjustments,
-                                ["all", stat.name],
-                                slug
-                            ),
-                            type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            label: CONFIG.PF2E.weaponTraits["ranged-trip"],
-                            modifier: -2,
-                        })
-                    );
-                }
-
-                const dc = ((): CheckDC | null => {
-                    if (options.difficultyClass) {
-                        return options.difficultyClass;
-                    } else if (targetActor instanceof CreaturePF2e) {
-                        // try to resolve target's defense stat and calculate DC
-                        const dcStat = options.difficultyClassStatistic?.(targetActor);
-                        if (dcStat) {
-                            const extraRollOptions = combinedOptions.concat(targetOptions);
-                            const { dc } = dcStat.withRollOptions({ extraRollOptions });
-                            const dcData: CheckDC = {
-                                value: dc.value,
-                                adjustments: stat.adjustments ?? [],
-                            };
-                            if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
-
-                            return dcData;
-                        }
-                    }
-                    return null;
-                })();
-
-                const finalOptions = new Set(combinedOptions);
-                ensureProficiencyOption(finalOptions, stat.rank ?? -1);
-                check.calculateTotal(finalOptions);
-
-                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
-                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-                const traitObjects = options.traits.map((trait) => ({
-                    description: traitDescriptions[trait],
-                    name: trait,
-                    label: actionTraits[trait] ?? trait,
-                }));
-
-                const distance = ((): number | null => {
-                    const reach =
-                        selfActor instanceof CreaturePF2e
-                            ? selfActor.getReach({ action: "attack", weapon }) ?? null
-                            : null;
-                    return selfToken?.object && target?.object
-                        ? selfToken.object.distanceTo(target.object, { reach })
-                        : null;
-                })();
-                const targetInfo =
-                    target && targetActor && typeof distance === "number"
-                        ? { token: target, actor: targetActor, distance }
-                        : null;
-                const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
-                const substitutions = extractRollSubstitutions(
-                    actor.synthetics.rollSubstitutions,
-                    [stat.name],
-                    finalOptions
+            // Modifier from roller's equipped weapon
+            const weapon = ((): Embedded<WeaponPF2e> | null => {
+                if (!options.traits.includes("attack")) return null;
+                return (
+                    [
+                        ...(options.weaponTrait
+                            ? this.getApplicableEquippedWeapons(selfActor, options.weaponTrait)
+                            : []),
+                        ...(options.weaponTraitWithPenalty
+                            ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
+                            : []),
+                    ].shift() ?? null
                 );
+            })();
+            combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
 
-                CheckPF2e.roll(
-                    check,
-                    {
-                        actor: selfActor,
-                        token: selfToken,
-                        item: weapon,
-                        createMessage: options.createMessage,
-                        target: targetInfo,
-                        dc,
-                        type: options.checkType,
-                        options: finalOptions,
-                        notes,
-                        substitutions,
-                        traits: traitObjects,
-                        title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
-                    },
-                    options.event,
-                    (roll, outcome, message) => {
-                        options.callback?.({ actor, message, outcome, roll });
-                    }
+            const stat = getProperty(selfActor, options.statName) as StatisticModifier;
+            const itemBonus =
+                weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.name) : null;
+
+            const modifiers =
+                (typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers) ?? [];
+            if (itemBonus) modifiers.push(itemBonus);
+            const check = new CheckModifier(content, stat, modifiers);
+            const domains = options.rollOptions;
+
+            const weaponTraits = weapon?.traits;
+
+            // Modifier from roller's equipped weapon with -2 ranged penalty
+            if (options.weaponTraitWithPenalty === "ranged-trip" && weaponTraits?.has("ranged-trip")) {
+                const slug = "ranged-trip";
+
+                const syntheticAdjustments = selfActor.synthetics.modifierAdjustments;
+                check.push(
+                    new ModifierPF2e({
+                        slug,
+                        adjustments: extractModifierAdjustments(syntheticAdjustments, domains, slug),
+                        type: MODIFIER_TYPE.CIRCUMSTANCE,
+                        label: CONFIG.PF2E.weaponTraits["ranged-trip"],
+                        modifier: -2,
+                    })
                 );
             }
-        } else {
-            ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+
+            const dc = ((): CheckDC | null => {
+                if (options.difficultyClass) {
+                    return options.difficultyClass;
+                } else if (targetActor instanceof CreaturePF2e) {
+                    // try to resolve target's defense stat and calculate DC
+                    const dcStat = options.difficultyClassStatistic?.(targetActor);
+                    if (dcStat) {
+                        const extraRollOptions = combinedOptions.concat(targetOptions);
+                        const { dc } = dcStat.withRollOptions({ extraRollOptions });
+                        const dcData: CheckDC = {
+                            value: dc.value,
+                            adjustments: stat.adjustments ?? [],
+                        };
+                        if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
+
+                        return dcData;
+                    }
+                }
+                return null;
+            })();
+
+            const finalOptions = new Set(combinedOptions);
+            ensureProficiencyOption(finalOptions, stat.rank ?? -1);
+            check.calculateTotal(finalOptions);
+
+            const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
+            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
+            const traitObjects = options.traits.map((trait) => ({
+                description: traitDescriptions[trait],
+                name: trait,
+                label: actionTraits[trait] ?? trait,
+            }));
+
+            const distance = ((): number | null => {
+                const reach =
+                    selfActor instanceof CreaturePF2e ? selfActor.getReach({ action: "attack", weapon }) ?? null : null;
+                return selfToken?.object && target?.object
+                    ? selfToken.object.distanceTo(target.object, { reach })
+                    : null;
+            })();
+            const targetInfo =
+                target && targetActor && typeof distance === "number"
+                    ? { token: target, actor: targetActor, distance }
+                    : null;
+            const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
+            const substitutions = extractRollSubstitutions(
+                actor.synthetics.rollSubstitutions,
+                [stat.name],
+                finalOptions
+            );
+
+            CheckPF2e.roll(
+                check,
+                {
+                    actor: selfActor,
+                    token: selfToken,
+                    item: weapon,
+                    createMessage: options.createMessage,
+                    target: targetInfo,
+                    dc,
+                    type: options.checkType,
+                    options: finalOptions,
+                    notes,
+                    substitutions,
+                    traits: traitObjects,
+                    title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
+                },
+                options.event,
+                (roll, outcome, message) => {
+                    options.callback?.({ actor, message, outcome, roll });
+                }
+            );
         }
     }
 

@@ -1042,7 +1042,7 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
-            if (longForm === "athletics") modifiers.push(createForceOpenPenalty());
+            if (longForm === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
 
             modifiers.push(...extractModifiers(synthetics, domains));
 
@@ -1907,12 +1907,10 @@ class CharacterPF2e extends CreaturePF2e {
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item);
-            const allAdjustments = this.synthetics.modifierAdjustments;
-            for (const modifier of fromTraits) {
-                modifier.adjustments = extractModifierAdjustments(allAdjustments, params.domains ?? [], modifier.slug);
-            }
-
+            const fromTraits = StrikeWeaponTraits.createAttackModifiers(
+                context.self.item as Embedded<WeaponPF2e>,
+                params.domains ?? []
+            );
             context.self.modifiers.push(...fromTraits);
         }
 
