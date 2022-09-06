@@ -1,7 +1,7 @@
 export const RenderJournalPageSheet = {
     listen: (): void => {
-        Hooks.on("renderJournalPageSheet", (sheet, render) => {
-            const pageEl = render.get(0)?.closest(".journal-entry-page");
+        Hooks.on("renderJournalPageSheet", (sheet, $html) => {
+            const pageEl = $html.get(0)?.closest(".journal-entry-page");
             const entry = sheet.object.parent;
             const parentSheetClass = entry?.sheet.constructor as { theme?: string } | undefined;
             if (!parentSheetClass || !pageEl) return;
