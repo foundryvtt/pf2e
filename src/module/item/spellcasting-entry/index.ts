@@ -133,7 +133,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         const slotLevel = options.level ?? spell.level;
         const valid = !consume || spell.isCantrip || (await this.consume(spell, slotLevel, options.slot));
         if (message && valid) {
-            await spell.toMessage(undefined, { data: { slotLevel } });
+            const castLevel = spell.computeCastLevel(slotLevel);
+            await spell.toMessage(undefined, { data: { castLevel } });
         }
     }
 
