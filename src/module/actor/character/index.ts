@@ -231,14 +231,6 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    /** @deprecated */
-    async insertFeat(feat: FeatPF2e, categoryId: string, slotId?: string): Promise<ItemPF2e[]> {
-        console.warn(
-            "CharacterPF2e#insertFeat(feat, categoryId, slotId) is deprecated: use CharacterPF2e#feats#insertFeat(feat, { categoryId, slotId })"
-        );
-        return this.feats.insertFeat(feat, { categoryId, slotId });
-    }
-
     /** If one exists, prepare this character's familiar */
     override prepareData(): void {
         super.prepareData();
