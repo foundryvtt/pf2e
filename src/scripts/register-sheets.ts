@@ -38,7 +38,8 @@ export function registerSheets() {
 
     DocumentSheetConfig.unregisterSheet(JournalEntry, "core", JournalSheet);
     DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, {
-        label: game.i18n.localize("PF2E.JournalEntry.FoundryTheme"),
+        label: () =>
+            game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
         makeDefault: true,
     });
 
