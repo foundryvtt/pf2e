@@ -97,8 +97,8 @@ class TextEditorPF2e extends TextEditor {
         }
         const enriched = await TextEditor.enrichHTML(content, { ...options, async: true });
         const doc = new DOMParser().parseFromString(enriched, "text/html");
-        if (doc.body.firstElementChild instanceof HTMLElement) {
-            return doc.body.firstElementChild;
+        if (doc.body instanceof HTMLElement) {
+            return doc.body;
         }
         return null;
     }
