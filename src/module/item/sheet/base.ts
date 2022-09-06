@@ -1,7 +1,7 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -404,18 +404,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             : expandObject(fd.object);
 
         const flattenedData = flattenObject(data);
-
-        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
-        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-        for (const inputEl of Array.from(tagifyInputElements)) {
-            const path = inputEl.name;
-            const inputValue = flattenedData[path];
-            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
-            if (Array.isArray(selections)) {
-                flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
-            }
-        }
-
+        processTagifyInSubmitData(this.form, flattenedData);
         return flattenedData;
     }
 
