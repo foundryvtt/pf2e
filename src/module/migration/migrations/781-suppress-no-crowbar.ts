@@ -3,7 +3,7 @@ import { MigrationBase } from "../base";
 
 /** Suppress the "no-crowbar" penalty applied to the Force Open action */
 export class Migration781SuppressNoCrowbar extends MigrationBase {
-    static override version = 0.778;
+    static override version = 0.781;
 
     get #suppressNoCrowbar() {
         return {
