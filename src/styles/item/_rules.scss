@@ -38,11 +38,10 @@
 
     .create-rule-element {
         display: flex;
+        align-items: center;
         white-space: nowrap;
         gap: 6px;
-        select {
-            flex: 1;
-        }
+        justify-content: flex-end;
     }
 
     .rule-editing {
@@ -93,6 +92,7 @@
         }
     }
 
+    // Styles for the rule editor forms
     .rule-form {
         label, .labelled-element {
             display: flex;
@@ -110,18 +110,15 @@
         }
 
         &[data-key="GrantItem"] {
-            .granted {
+            a.granted {
                 display: flex;
-                justify-content: flex-end;
-                a {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: 3px;
-                    img {
-                        width: 16px;
-                        height: 16px;
-                    }
+                flex: 0 0 auto;
+                flex-direction: row;
+                align-items: center;
+                gap: 3px;
+                img {
+                    width: 16px;
+                    height: 16px;
                 }
             }
         }

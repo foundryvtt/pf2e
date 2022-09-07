@@ -504,19 +504,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         await this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [key]: value }]);
     }
 
-    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected override async _onSubmit(
-        event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
-    ): Promise<Record<string, unknown>> {
-        const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
-            if (input.value === "") input.value = "[]";
-        });
-
-        return super._onSubmit(event, { updateData, preventClose, preventRender });
-    }
-
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // do not update max health if the value has not actually changed
         if (this.actor.isElite || this.actor.isWeak) {

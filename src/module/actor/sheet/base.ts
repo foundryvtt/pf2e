@@ -11,7 +11,7 @@ import { DENOMINATIONS } from "@item/physical/values";
 import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
-import { createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
@@ -1220,8 +1220,22 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
+    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
+    protected override async _onSubmit(
+        event: Event,
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
+    ): Promise<Record<string, unknown>> {
+        const $form = $<HTMLFormElement>(this.form);
+        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
+            if (input.value === "") input.value = "[]";
+        });
+
+        return super._onSubmit(event, { updateData, preventClose, preventRender });
+    }
+
     protected override _getSubmitData(updateData?: DocumentUpdateData<TActor>): Record<string, unknown> {
         const data = super._getSubmitData(updateData);
+        processTagifyInSubmitData(this.form, data);
 
         // Use delta values for inputs that have `data-allow-delta` if input value starts with + or -
         for (const el of this.form.elements) {
@@ -1230,17 +1244,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const value = Number(strValue);
                 if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
                     data[el.name] = getProperty(this.actor, el.name) + value;
-            }
-        }
-
-        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
-        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-        for (const inputEl of tagifyInputElements.values()) {
-            const path = inputEl.name;
-            const inputValue = data[path];
-            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
-            if (Array.isArray(selections)) {
-                data[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
             }
         }
 
