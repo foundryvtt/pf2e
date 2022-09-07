@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 4.0.0 (Beta 2)
+
+### Bugfixes
+* (stwlam) Fix issue causing auras to not appear until after their source is removed
+* (stwlam) Fix issue causing some AE-like rule elements to not apply
+* (stwlam, Supe) Fix vision and detection modes not functioning when rules-based vision is disabled
+* (Supe) Fix display and deprecation warnings in vehicle biography tab
+* (Supe) Fix display of scrollbars in hazard sheet
+* (Supe) Fix UI error thrown when editing hazard traits
+
+### Data Updates
+* (Dooplan) Fix level of Icewyrm
+* (Shandyan) Automate strix feats
+
+
 ## Version 4.0.0 (Beta 1)
 
 ### New Features
