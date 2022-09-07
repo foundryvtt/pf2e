@@ -33,12 +33,12 @@
         </div>
         {{#if options.editable}}
             <div class="adjustment-select flexrow" style="flex: auto; justify-content: flex-end;">
-                <div class="adjustment elite trait {{#if isElite}}active{{/if}}">
-                    <a class="npc-elite-adjustment">{{localize "PF2E.NPC.Adjustment.EliteLabel"}}</a>
-                </div>
-                <div class="adjustment weak trait {{#if isWeak}}active{{/if}}">
-                    <a class="npc-weak-adjustment">{{localize "PF2E.NPC.Adjustment.WeakLabel"}}</a>
-                </div>
+                <a class="adjustment elite trait {{#if isElite}}active{{/if}}" data-adjustment="elite">
+                    {{localize "PF2E.NPC.Adjustment.EliteLabel"}}
+                </a>
+                <a class="adjustment weak trait {{#if isWeak}}active{{/if}}" data-adjustment="weak">
+                    {{localize "PF2E.NPC.Adjustment.WeakLabel"}}
+                </a>
             </div>
         {{/if}}
     </div>
