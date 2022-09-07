@@ -45,6 +45,7 @@ declare global {
              * @param [options.recursive=true]      Control whether to merge inner-objects recursively (if true), or whether to simply replace inner objects with a provided new value.
              * @param [options.inplace=true]        Control whether to apply updates to the original object in-place (if true), otherwise the original object is duplicated and the copy is merged.
              * @param [options.enforceTypes=false]  Control whether strict type checking requires that the value of a key in the other object must match the data type in the original data to be merged.
+             * @param [options.performDeletions=false]  Control whether to perform deletions on the original object if deletion keys are present in the other object.
              * @param [_d=0]         A privately used parameter to track recursion depth.
              * @returns The original source object including updated, inserted, or overwritten records.
              *
@@ -68,7 +69,7 @@ declare global {
             function mergeObject<T extends object, U extends object = T>(
                 original: T,
                 other?: U,
-                { insertKeys, insertValues, overwrite, inplace, enforceTypes }?: MergeObjectOptions,
+                { insertKeys, insertValues, overwrite, inplace, enforceTypes, performDeletions }?: MergeObjectOptions,
                 _d?: number
             ): T & U;
 
@@ -273,6 +274,7 @@ declare global {
         overwrite?: boolean;
         inplace?: boolean;
         enforceTypes?: boolean;
+        performDeletions?: boolean;
     }
 
     namespace globalThis {
