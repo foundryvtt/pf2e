@@ -15,8 +15,7 @@ import {
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
 import type { CREATURE_ACTOR_TYPES } from "@actor/values";
-import { CreatureTraits } from "@item/ancestry/data";
-import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
+import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { Statistic, StatisticCompatData } from "@system/statistic";
@@ -96,7 +95,7 @@ type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
 interface SenseData {
     type: SenseType;
     acuity?: SenseAcuity;
-    value: string;
+    value?: string;
     source?: string;
 }
 
@@ -115,20 +114,14 @@ type Language = keyof ConfigPF2e["PF2E"]["languages"];
 type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
 type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
-interface CreatureTraitsSource extends BaseTraitsSource {
-    traits: BaseTraitsData["traits"] & {
-        /** Actual Pathfinder traits */
-        traits: CreatureTraits;
-    };
+interface CreatureTraitsSource extends BaseTraitsSource<CreatureTrait> {
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
+
+    size?: { value: Size };
 }
 
-interface CreatureTraitsData extends BaseTraitsData {
-    traits: BaseTraitsData["traits"] & {
-        /** Actual Pathfinder traits */
-        traits: CreatureTraits;
-    };
+interface CreatureTraitsData extends BaseTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
 }

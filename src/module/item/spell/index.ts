@@ -210,16 +210,6 @@ class SpellPF2e extends ItemPF2e {
             if (damage.value && damage.value !== "0") parts.push(damage.value);
             if (damage.applyMod && this.actor) parts.push("@mod");
 
-            // Add elite/weak if its the first damage entry only
-            if (formulas.length === 0) {
-                const traits = this.actor?.system.traits.traits.value ?? [];
-                if (traits.some((trait) => trait === "elite")) {
-                    parts.push(this.unlimited ? 2 : 4);
-                } else if (traits.some((trait) => trait === "weak")) {
-                    parts.push(this.unlimited ? -2 : -4);
-                }
-            }
-
             // Check for and apply interval Spell scaling
             const heightening = this.system.heightening;
             if (heightening?.type === "interval" && heightening.interval) {

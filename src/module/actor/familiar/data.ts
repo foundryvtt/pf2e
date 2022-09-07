@@ -19,7 +19,7 @@ interface FamiliarData
     extends Omit<FamiliarSource, "data" | "system" | "effects" | "flags" | "items" | "prototypeToken" | "type">,
         BaseCreatureData<FamiliarPF2e, "familiar", FamiliarSystemData, FamiliarSource> {}
 
-interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
+interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema" | "traits"> {
     details: {
         creature: {
             value: string;
@@ -37,13 +37,13 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles" | "traits">, CreatureSystemData {
+interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles">, CreatureSystemData {
     details: CreatureSystemData["details"] & {
         creature: {
             value: string;
         };
     };
-    actions?: undefined;
+    actions?: never;
     attack: StatisticModifier & Rollable;
     attributes: FamiliarAttributes;
     skills: FamiliarSkills;

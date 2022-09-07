@@ -46,9 +46,9 @@ export class FamiliarPF2e extends CreaturePF2e {
         systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
         systemData.traits = {
+            value: ["minion"],
             senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
             size: new ActorSizePF2e({ value: "tiny" }),
-            traits: { value: ["minion"], custom: "" },
         };
 
         systemData.attributes.flanking.canFlank = false;
@@ -89,7 +89,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.applyActiveEffects();
 
         // Ensure uniqueness of traits
-        systemData.traits.traits.value = [...this.traits].sort();
+        systemData.traits.value = [...this.traits].sort();
 
         // Data preparation ends here unless the familiar has a master
         if (!master) return;

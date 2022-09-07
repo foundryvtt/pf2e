@@ -37,6 +37,7 @@ import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
+    CreatureTrait,
     InitiativeRollParams,
     InitiativeRollResult,
     LabeledSpeed,
@@ -168,7 +169,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     override get canAct(): boolean {
         // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
-        const traits = this.system.traits.traits.value;
+        const traits = this.system.traits.value;
         const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
 
         const conditions = this.itemTypes.condition;
@@ -353,7 +354,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         })();
         const { rollOptions } = this;
         for (const trait of alignmentTraits) {
-            this.system.traits.traits.value.push(trait);
+            this.system.traits.value.push(trait);
             rollOptions.all[`self:trait:${trait}`] = true;
         }
 
@@ -916,6 +917,8 @@ export interface CreaturePF2e {
 
     /** Saving throw rolls for the creature, built during data prep */
     saves: Record<SaveType, Statistic>;
+
+    get traits(): Set<CreatureTrait>;
 
     get hitPoints(): HitPointsSummary;
 

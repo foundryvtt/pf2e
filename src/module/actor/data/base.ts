@@ -44,7 +44,7 @@ interface ActorSystemSource {
     attributes: {
         hp?: ValueAndMaybeMax;
     };
-    traits?: BaseTraitsSource;
+    traits?: BaseTraitsSource<string>;
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
     schema: DocumentSchemaRecord;
 }
@@ -55,7 +55,7 @@ interface ActorSystemData extends ActorSystemSource {
         alliance: ActorAlliance;
     };
     attributes: BaseActorAttributes;
-    traits: BaseTraitsData;
+    traits: BaseTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
@@ -129,13 +129,13 @@ export interface LabeledResistance extends LabeledNumber {
     type: ResistanceType;
 }
 
-export interface BaseTraitsSource {
-    /** The rarity of the actor (common, uncommon, etc.) */
-    rarity: Rarity;
-    /** The character size (such as 'med'). */
-    size: { value: Size };
+export interface BaseTraitsSource<TTrait extends string> {
     /** Actual Pathfinder traits */
-    traits: ValuesList;
+    value: TTrait[];
+    /** The rarity of the actor (common, uncommon, etc.) */
+    rarity?: Rarity;
+    /** The character size (such as 'med'). */
+    size?: { value: Size };
     /** Damage immunities this actor has. */
     di: ValuesList<ImmunityType>;
     /** Damage resistances that this actor has. */
@@ -144,7 +144,8 @@ export interface BaseTraitsSource {
     dv: LabeledWeakness[];
 }
 
-interface BaseTraitsData extends BaseTraitsSource {
+interface BaseTraitsData<TTrait extends string> extends BaseTraitsSource<TTrait> {
+    rarity: Rarity;
     size: ActorSizePF2e;
 }
 

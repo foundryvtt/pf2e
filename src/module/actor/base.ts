@@ -144,7 +144,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get traits(): Set<string> {
-        return new Set(this.system.traits.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get level(): number {
@@ -443,8 +443,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
         this.system.toggles = [];
 
-        const notTraits: BaseTraitsData | undefined = this.system.traits;
-        if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
+        const traits: BaseTraitsData<string> | undefined = this.system.traits;
+        if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
         const { flags } = this;

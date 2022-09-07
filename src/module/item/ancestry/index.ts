@@ -125,7 +125,7 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         // Add traits from this item
-        actor.system.traits.traits.value.push(...this.traits);
+        actor.system.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
         actor.system.details.ancestry = { name: this.name, trait: slug };

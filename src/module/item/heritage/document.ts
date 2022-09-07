@@ -19,7 +19,7 @@ class HeritagePF2e extends ItemPF2e {
         this.actor.heritage = this;
 
         // Add and remove traits as specified
-        this.actor.system.traits.traits.value.push(...this.traits);
+        this.actor.system.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
         this.actor.system.details.heritage = {
