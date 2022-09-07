@@ -109,7 +109,7 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (this.mode === "add" && Array.isArray(current)) {
             current.push(newValue);
         } else {
-            setProperty(actor, this.path, newValue);
+            setProperty(actor, path, newValue);
             this.logChange(change);
         }
     }
