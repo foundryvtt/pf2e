@@ -6,9 +6,10 @@ import {
     BaseHitPointsData,
     BaseTraitsData,
 } from "@actor/data/base";
-import { ValuesList } from "@module/data";
+import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticCompatData } from "@system/statistic";
 import { VehiclePF2e } from ".";
+import { VehicleTrait } from "./types";
 
 /** The stored source data of a vehicle actor */
 type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemData>;
@@ -63,11 +64,8 @@ interface VehicleFortitudeSaveData extends StatisticCompatData {
     saveDetail: string;
 }
 
-type VehicleTrait = keyof ConfigPF2e["PF2E"]["vehicleTraits"];
-type VehicleTraits = ValuesList<VehicleTrait>;
-
-interface VehicleTraitsData extends BaseTraitsData {
-    traits: VehicleTraits;
+interface VehicleTraitsData extends BaseTraitsData<VehicleTrait> {
+    size: ActorSizePF2e;
 }
 
 interface TokenDimensions {

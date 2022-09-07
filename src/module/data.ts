@@ -30,6 +30,10 @@ interface LabeledNumber extends LabeledValue {
     value: number;
 }
 
+interface TraitsWithRarity<T extends string> extends ValuesList<T> {
+    rarity: Rarity;
+}
+
 /** Literal numeric types */
 type ZeroToTwo = 0 | 1 | 2;
 type ZeroToThree = ZeroToTwo | 3; // +1!
@@ -139,6 +143,7 @@ export {
     SIZES,
     SIZE_SLUGS,
     Size,
+    TraitsWithRarity,
     TwoToThree,
     ValueAndMax,
     ValueAndMaybeMax,

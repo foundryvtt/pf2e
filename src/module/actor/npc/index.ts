@@ -131,12 +131,6 @@ class NPCPF2e extends CreaturePF2e {
         super.prepareDerivedData();
         const { system } = this;
 
-        // Add rarity and custom traits to main trait list
-        const traits = this.system.traits;
-        const customTraits = traits.traits.custom.split(/\s*[,;|]\s*/).filter((trait) => trait);
-        const traitSet = new Set(traits.traits.value.concat(customTraits));
-        traits.traits.value = Array.from(traitSet).sort();
-
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
         const { modifierAdjustments, damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;

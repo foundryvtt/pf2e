@@ -179,3 +179,4 @@ export { Migration778RenameRetiredPackRefs } from "./778-rename-feature-effects-
 export { Migration779EliteWeak } from "./779-elite-weak";
 export { Migration780NumifySpeeds } from "./780-numify-speeds";
 export { Migration781SuppressNoCrowbar } from "./781-suppress-no-crowbar";
+export { Migration782UnnestActorTraits } from "./782-unnest-actor-traits";

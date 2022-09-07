@@ -17,11 +17,6 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
     override async updateActor(actorData: ActorSourcePF2e) {
         this.addEffects(actorData);
 
-        // Add custom trait property
-        if ("traits" in actorData.system && !(typeof actorData.system.traits.traits.custom === "string")) {
-            actorData.system.traits.traits.custom = "";
-        }
-
         if (actorData.type === "character" || actorData.type === "npc") {
             // Numeric HP max
             if (typeof actorData.system.attributes.hp.max === "string") {

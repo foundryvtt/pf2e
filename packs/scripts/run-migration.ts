@@ -7,7 +7,6 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration771SpellVariantsToSystem } from "@module/migration/migrations/771-spell-variants-to-system";
 import { Migration772V10EmbeddedSpellData } from "@module/migration/migrations/772-v10-embedded-spell-data";
 import { Migration773ReligiousSymbolUsage } from "@module/migration/migrations/773-religious-symbol-usage";
 import { Migration774UnpersistCraftingEntries } from "@module/migration/migrations/774-unpersist-crafting-entries";
@@ -18,6 +17,7 @@ import { Migration778RenameRetiredPackRefs } from "@module/migration/migrations/
 import { Migration779EliteWeak } from "@module/migration/migrations/779-elite-weak";
 import { Migration780NumifySpeeds } from "@module/migration/migrations/780-numify-speeds";
 import { Migration781SuppressNoCrowbar } from "@module/migration/migrations/781-suppress-no-crowbar";
+import { Migration782UnnestActorTraits } from "@module/migration/migrations/782-unnest-actor-traits";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -27,7 +27,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration771SpellVariantsToSystem(),
     new Migration772V10EmbeddedSpellData(),
     new Migration773ReligiousSymbolUsage(),
     new Migration774UnpersistCraftingEntries(),
@@ -38,6 +37,7 @@ const migrations: MigrationBase[] = [
     new Migration779EliteWeak(),
     new Migration780NumifySpeeds(),
     new Migration781SuppressNoCrowbar(),
+    new Migration782UnnestActorTraits(),
 ];
 
 global.deepClone = <T>(original: T): T => {

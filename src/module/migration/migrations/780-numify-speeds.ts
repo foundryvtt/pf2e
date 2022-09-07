@@ -4,6 +4,7 @@ import { MigrationBase } from "../base";
 /** Ensure actor speed values are numbers */
 export class Migration780NumifySpeeds extends MigrationBase {
     static override version = 0.78;
+
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "npc" && source.type !== "character") {
             return;
