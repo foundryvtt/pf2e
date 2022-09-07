@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ItemPF2e } from "@item";
+import { ActionItemPF2e, ItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, LoreData } from "@item/data";
@@ -212,7 +212,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<string, { label: string; actions: any[] }> = {
+        type AnnotatedAction = RawObject<ActionItemPF2e["data"]> & {
+            encounter?: boolean;
+            exploration?: boolean;
+            downtime?: boolean;
+        };
+        const actions: Record<string, { label: string; actions: AnnotatedAction[] }> = {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
@@ -290,13 +295,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // assign mode to actions
-        Object.values(actions)
-            .flatMap((section) => section.actions)
-            .forEach((action: any) => {
-                action.downtime = action.system.traits.value.includes("downtime");
-                action.exploration = action.system.traits.value.includes("exploration");
-                action.encounter = !(action.downtime || action.exploration);
-            });
+        for (const action of Object.values(actions).flatMap((section) => section.actions)) {
+            action.downtime = action.system.traits.value.includes("downtime");
+            action.exploration = action.system.traits.value.includes("exploration");
+            action.encounter = !(action.downtime || action.exploration);
+        }
 
         // Assign and return
         actorData.pfsBoons = this.actor.pfsBoons;
