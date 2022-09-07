@@ -193,13 +193,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Reset sight defaults if using rules-based vision */
     protected override _prepareDetectionModes(): void {
-        const baseDetection = { id: "basicSight", enabled: true, range: null };
-        this.detectionModes = [baseDetection];
-
         if (!(this.initialized && this.actor && this.rulesBasedVision)) {
             return super._prepareDetectionModes();
         }
 
+        const baseDetection = { id: "basicSight", enabled: true, range: null };
+        this.detectionModes = [baseDetection];
         if (this.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
