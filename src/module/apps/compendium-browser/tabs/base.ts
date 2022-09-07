@@ -47,8 +47,7 @@ export abstract class CompendiumBrowserTab {
 
     /** Reset all filters */
     resetFilters(): void {
-        const { search } = this.filterData;
-        this.filterData = mergeObject(this.defaultFilterData, { search }, { inplace: false });
+        this.filterData = deepClone(this.defaultFilterData);
     }
 
     /** Load and prepare the compendium index and set filter options */
