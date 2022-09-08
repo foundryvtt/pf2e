@@ -35,6 +35,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 ? game.i18n.localize("PF2E.TraitCantrip")
                 : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.system.category.value]);
 
+        const damageTypes = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.damageTypes)
+                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+        );
+
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
@@ -58,6 +64,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             saves: CONFIG.PF2E.saves,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
+            damageTypes,
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
             spellComponents: this.formatSpellComponents(sheetData.data),
@@ -414,6 +421,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
     saves: ConfigPF2e["PF2E"]["saves"];
     damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
+    damageTypes: Record<string, string>;
     damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
     spellComponents: string[];
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];

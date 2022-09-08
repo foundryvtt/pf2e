@@ -135,7 +135,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         // Pre-clear other rule elements on this item as being compatible with the battle form
         const rules = (itemSource.system?.rules ?? []) as RuleElementSource[];
         for (const rule of rules) {
-            if (["DamageDice", "FlatModifier", "Note"].includes(rule.key)) {
+            if (["DamageDice", "FlatModifier", "Note"].includes(String(rule.key))) {
                 const predicate = (rule.predicate ??= {});
                 const predicateAll = (predicate.all ??= []);
                 predicateAll.push("battle-form");
@@ -175,7 +175,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
-            const currentTraits = actor.system.traits.traits;
+            const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 

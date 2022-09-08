@@ -72,8 +72,8 @@ export function identifyCreature(
     const level = Number(creature.system.details.level?.value) || 0;
     const dc = calculateDC(level, { proficiencyWithoutLevel });
 
-    const traits = creature.system.traits.traits.value;
-    const skills = new Set(traits.flatMap((trait) => identifySkills.get(trait) ?? []));
+    const traits = creature.system.traits.value;
+    const skills = new Set(traits.flatMap((t) => identifySkills.get(t) ?? []));
 
     return {
         specificLoreDC: toKnowledgeDC(dc, rarity, "very easy"),

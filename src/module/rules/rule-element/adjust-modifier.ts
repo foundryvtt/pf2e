@@ -35,8 +35,8 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
         }
 
         this.selectors =
-            typeof this.data.selector === "string"
-                ? [this.data.selector]
+            typeof data.selector === "string"
+                ? [data.selector]
                 : Array.isArray(data.selectors) && data.selectors.every((s): s is string => typeof s === "string")
                 ? data.selectors
                 : [];
@@ -111,9 +111,10 @@ interface AdjustModifierRuleElement extends AELikeRuleElement {
 }
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
+    selector?: unknown;
+    selectors?: unknown;
     relabel?: unknown;
     damageType?: unknown;
-    selectors?: unknown;
     suppress?: unknown;
 }
 

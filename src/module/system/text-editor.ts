@@ -95,12 +95,9 @@ class TextEditorPF2e extends TextEditor {
             ui.notifications.error(`Failed to localize ${paramString}!`);
             return null;
         }
-        const enriched = await TextEditor.enrichHTML(content, { ...options, async: true });
-        const doc = new DOMParser().parseFromString(enriched, "text/html");
-        if (doc.body.firstElementChild instanceof HTMLElement) {
-            return doc.body.firstElementChild;
-        }
-        return null;
+        const result = document.createElement("span");
+        result.innerHTML = await TextEditor.enrichHTML(content, { ...options, async: true });
+        return result;
     }
 
     /** Create inline template button from @template command */

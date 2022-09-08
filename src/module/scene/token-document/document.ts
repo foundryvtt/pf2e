@@ -193,11 +193,12 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Reset sight defaults if using rules-based vision */
     protected override _prepareDetectionModes(): void {
+        if (!(this.initialized && this.actor && this.rulesBasedVision)) {
+            return super._prepareDetectionModes();
+        }
+
         const baseDetection = { id: "basicSight", enabled: true, range: null };
         this.detectionModes = [baseDetection];
-
-        if (!this.initialized || !this.actor) return super._prepareDetectionModes();
-
         if (this.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
@@ -325,27 +326,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
-
-    /**
-     * Since token properties may be changed during data preparation, rendering called by the parent method must be
-     * based on the diff between pre- and post-data-preparation.
-     */
-    override _onUpdateBaseActor(
-        updates: DeepPartial<ActorSourcePF2e> = {},
-        options: DocumentModificationContext<ActorPF2e> = {}
-    ): void {
-        super._onUpdateBaseActor(updates, options);
-
-        if (this.isLinked) {
-            const preUpdate = this.toObject(false);
-            this.reset();
-            const postUpdate = this.toObject(false);
-            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            this._onUpdate(changed, options, game.user.id);
-        }
-    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
@@ -368,45 +350,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             ui.combat.render();
         }
 
-        if (this.isLinked || !this.actor) {
+        // Handle ephemeral changes from synthetic actor
+        if (this.actor && changed.actorData) {
             super._onUpdate(changed, options, userId);
-            if (!("x" in changed || "y" in changed) && ("height" in changed || "width" in changed)) {
-                this.scene?.reset();
+            const preUpdate = this.toObject(false);
+            this.reset();
+            const postUpdate = this.toObject(false);
+            const ephemeralChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+            if (Object.keys(ephemeralChanges).length > 0) {
+                this.object?._onUpdate(ephemeralChanges, options, userId);
             }
-            return;
-        }
-
-        // Completely override the parent class's method for unlinked tokens
-        if ("actorId" in changed || "actorLink" in changed) {
-            if (this._actor) {
-                for (const app of Object.values(this._actor.apps)) {
-                    app.close({ submit: false });
-                }
-            }
-            this._actor = null;
-        }
-
-        const preUpdateLight = this.light.toObject(false);
-        // If the Actor data override changed, simulate updating the synthetic Actor
-        if (changed.actorData) {
-            this._onUpdateTokenActor(changed.actorData, options, userId);
-        }
-        const postUpdateLight = this.light.toObject(false);
-
-        // From `ClientDocumentMixin#_onUpdate`
-        // Re-render associated applications
-        if (options.render ?? true) {
-            this.render(false, { action: "update", renderData: changed });
-        }
-        // Update global index
-        if ("name" in changed) game.documentIndex.replaceDocument(this);
-
-        const lightChanges = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdateLight, postUpdateLight);
-        // From `CanvasDocumentMixin#_onUpdate`
-        if (this.rendered) {
-            const changedWithLight =
-                Object.keys(lightChanges).length > 0 ? mergeObject(changed, { light: lightChanges }) : changed;
-            this.object._onUpdate(changedWithLight, options, userId);
+        } else {
+            super._onUpdate(changed, options, userId);
         }
     }
 
@@ -417,6 +372,28 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (this.isLinked && !this.scene?.tokens.some((t) => t.actor === this.actor)) {
             this.actor?.checkAreaEffects();
         }
+    }
+
+    /**
+     * Since token properties may be changed during data preparation, rendering called by the parent method must be
+     * based on the diff between pre- and post-data-preparation.
+     */
+    override _onUpdateBaseActor(
+        updates: DeepPartial<ActorSourcePF2e> = {},
+        options: DocumentModificationContext<ActorPF2e> = {}
+    ): void {
+        if (this.isLinked) {
+            const preUpdate = this.toObject(false);
+            this.reset();
+            const postUpdate = this.toObject(false);
+            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+            if (Object.keys(changed).length > 0) {
+                this._onUpdate(changed, options, game.user.id);
+            }
+        }
+
+        // Parent method will perform effects redrawing
+        super._onUpdateBaseActor(updates, options);
     }
 }
 

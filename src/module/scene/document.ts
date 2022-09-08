@@ -17,6 +17,14 @@ class ScenePF2e extends Scene<
         return this.tokenVision && settingEnabled;
     }
 
+    /** Is this scene's darkness value synced to the world time? */
+    get darknessSyncedToTime(): boolean {
+        return (
+            this.flags.pf2e.syncDarkness === "enabled" ||
+            (this.flags.pf2e.syncDarkness === "default" && game.settings.get("pf2e", "worldClock.syncDarkness"))
+        );
+    }
+
     get lightLevel(): number {
         return 1 - this.darkness;
     }

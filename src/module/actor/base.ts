@@ -144,7 +144,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get traits(): Set<string> {
-        return new Set(this.system.traits.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get level(): number {
@@ -443,8 +443,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
         this.system.toggles = [];
 
-        const notTraits: BaseTraitsData | undefined = this.system.traits;
-        if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
+        const traits: BaseTraitsData<string> | undefined = this.system.traits;
+        if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
         const { flags } = this;
@@ -1215,19 +1215,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
-        super._onEmbeddedDocumentChange(embeddedName);
+        if (this.isToken) {
+            return super._onEmbeddedDocumentChange(embeddedName);
+        }
 
-        Promise.resolve().then(async () => {
-            // As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors
-            await this.token?.object?.drawEffects();
-            // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
-            for (const tokenDoc of this.getActiveTokens(true, true)) {
-                tokenDoc._onUpdateBaseActor();
-            }
-        });
+        for (const tokenDoc of this.getActiveTokens(true, true)) {
+            tokenDoc._onUpdateBaseActor();
+        }
 
         // Send any accrued warnings to the console
         this.synthetics.preparationWarnings.flush();
+        super._onEmbeddedDocumentChange(embeddedName);
     }
 }
 

@@ -2,6 +2,8 @@ import { TraitViewData } from "@actor/data/base";
 import Tagify from "@yaireo/tagify";
 import { ErrorPF2e, objectHasKey } from "./misc";
 
+type WhitelistData = string[] | Record<string, string | { label: string }>;
+
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
     // in use, which can include what are normally NPC-only traits
@@ -17,13 +19,8 @@ function traitSlugToObject(trait: string, dictionary: Record<string, string | un
     return traitObject;
 }
 
-/** Create a tagify select menu out of a JSON input element */
-function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOptions): Tagify<TagRecord> {
-    if (input?.dataset.dtype !== "JSON") {
-        throw ErrorPF2e("Usable only on input elements with JSON data-dtype");
-    }
-
-    const whitelistTransformed = Array.isArray(whitelist)
+function transformWhitelist(whitelist: WhitelistData) {
+    return Array.isArray(whitelist)
         ? whitelist
         : Object.entries(whitelist)
               .map(([key, locPath]) => ({
@@ -31,15 +28,25 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
                   value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
               }))
               .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
+}
+
+/** Create a tagify select menu out of a JSON input element */
+function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOptions = {}): Tagify<TagRecord> {
+    if (input?.dataset.dtype !== "JSON") {
+        throw ErrorPF2e("Usable only on input elements with JSON data-dtype");
+    }
+
+    const whitelistTransformed = whitelist ? transformWhitelist(whitelist) : [];
+    const maxItems = whitelist ? Object.keys(whitelistTransformed).length : undefined;
 
     const tagify = new Tagify(input, {
-        enforceWhitelist: true,
+        enforceWhitelist: !!whitelist,
         keepInvalidTags: false,
-        skipInvalid: true,
-        maxTags: maxTags ?? whitelistTransformed.length,
+        skipInvalid: !!whitelist,
+        maxTags: maxTags ?? maxItems,
         dropdown: {
             enabled: 0,
-            maxItems: Object.keys(whitelist).length,
+            maxItems,
             searchKeys: ["id", "value"],
         },
         whitelist: whitelistTransformed,
@@ -67,7 +74,7 @@ interface TagifyOptions {
     /** The maximum number of tags that may be added to the input */
     maxTags?: number;
     /** A whitelist record, typically pulled from `CONFIG.PF2E` */
-    whitelist: string[] | Record<string, string | { label: string }>;
+    whitelist?: WhitelistData;
 }
 
 export { tagify, traitSlugToObject };

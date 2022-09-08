@@ -156,6 +156,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             if ("type" in docSource) {
                 if (isActorSource(docSource) || isItemSource(docSource)) {
                     docSource.name = docSource.name.trim();
+                    delete (docSource as { ownership?: unknown }).ownership;
                     delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.system as { schema?: unknown }).schema;
                     delete (docSource as { _stats?: unknown })._stats;
@@ -189,10 +190,8 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                             }
                         }
                     }
-                }
-
-                // Prune several common item data defaults
-                if (isItemSource(docSource)) {
+                } else if (isItemSource(docSource)) {
+                    // Prune several common item data defaults
                     docSource.system.description = { value: docSource.system.description.value };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
@@ -201,23 +200,22 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
-                    } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
-                        delete (docSource.system as { ability?: unknown }).ability;
                     } else if (docSource.type === "feat") {
                         const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.system.featType.value);
                         if (isFeat && docSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
                             docSource.img = "systems/pf2e/icons/features/feats/feats.webp";
                         }
+
                         if (docSource.system.maxTakable === 1) {
                             delete (docSource.system as { maxTakable?: number }).maxTakable;
                         }
                         if (!docSource.system.onlyLevel1) {
                             delete (docSource.system as { onlyLevel1?: boolean }).onlyLevel1;
                         }
+                    } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
+                        delete (docSource.system as { ability?: unknown }).ability;
                     }
-                }
-
-                if (docSource.type !== "script") {
+                } else if (docSource.type !== "script") {
                     delete (docSource as Partial<PackEntry>).ownership;
                 }
             }
@@ -254,6 +252,8 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
             if (isPhysicalData(docSource)) {
                 delete (docSource.system as { equipped?: unknown }).equipped;
+            } else if (["feat", "spell"].includes(docSource.type)) {
+                delete (docSource.system as { location?: unknown }).location;
             }
         }
     }

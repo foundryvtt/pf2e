@@ -6,11 +6,13 @@ import {
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
-    BaseTraitsData,
+    BaseTraitsSource,
 } from "@actor/data/base";
+import { ActorSizePF2e } from "@actor/data/size";
 import { SaveType } from "@actor/types";
-import { ZeroToTwo } from "@module/data";
+import { Rarity, Size, ZeroToTwo } from "@module/data";
 import { HazardPF2e } from ".";
+import { HazardTrait } from "./types";
 
 /** The stored source data of a hazard actor */
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemData>;
@@ -25,11 +27,22 @@ interface HazardSystemSource extends ActorSystemSource {
     attributes: HazardAttributes;
     saves: HazardSaves;
     /** Traits, languages, and other information. */
-    traits: BaseTraitsData;
+    traits: HazardTraitsSource;
 }
 
-interface HazardSystemData extends HazardSystemSource, Omit<ActorSystemData, "attributes"> {
+interface HazardSystemData extends HazardSystemSource, Omit<ActorSystemData, "attributes" | "traits"> {
     details: HazardDetailsData;
+    traits: HazardTraitsData;
+}
+
+interface HazardTraitsSource extends BaseTraitsSource<HazardTrait> {
+    size: { value: Size };
+    rarity: Rarity;
+}
+
+interface HazardTraitsData extends HazardTraitsSource {
+    size: ActorSizePF2e;
+    rarity: Rarity;
 }
 
 interface HazardAttributes extends BaseActorAttributes {

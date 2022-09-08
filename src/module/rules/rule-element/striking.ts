@@ -1,14 +1,29 @@
-import { RuleElementPF2e } from "./";
-import { getStrikingDice } from "@item/runes";
-import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
+import { ItemPF2e, WeaponPF2e } from "@item";
+import { getStrikingDice } from "@item/runes";
 import { StrikingSynthetic } from "../synthetics";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 export class StrikingRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
+    selector: string;
+
+    constructor(data: StrikingSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
+        if (typeof data.selector === "string") {
+            this.selector = data.selector;
+        } else {
+            this.failValidation("Missing string selector property");
+            this.selector = "";
+        }
+    }
+
     override beforePrepareData(): void {
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        if (this.ignored) return;
+
+        const selector = this.resolveInjectedProperties(this.selector);
         const strikingValue =
             "value" in this.data
                 ? this.data.value
@@ -30,4 +45,8 @@ export class StrikingRuleElement extends RuleElementPF2e {
             console.warn("PF2E | Striking requires at least a selector field and a non-empty value field");
         }
     }
+}
+
+interface StrikingSource extends RuleElementSource {
+    selector?: string;
 }

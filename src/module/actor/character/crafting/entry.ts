@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { CraftingEntryRuleElement } from "@module/rules/rule-element/crafting/entry";
+import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
 import { CraftingFormula } from "./formula";
 
@@ -210,14 +210,16 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         return this.updateRE();
     }
 
-    async updateRE(): Promise<void> {
-        const rules = this.parentItem.rules.map((rule) => {
-            if (!(rule.key === "CraftingEntry")) return rule.data;
-            const entryRE = rule as CraftingEntryRuleElement;
-            if (entryRE.selector === this.selector) entryRE.data.preparedFormulas = this.preparedFormulaData;
-            return entryRE.data;
-        });
-        await this.parentItem.update({ [`system.rules`]: rules });
+    private async updateRE(): Promise<void> {
+        const rules = this.parentItem._source.system.rules;
+        const thisRule = rules.find(
+            (r: CraftingEntryRuleSource): r is CraftingEntryRuleData =>
+                r.key === "CraftingEntry" && r.selector === this.selector
+        );
+        if (thisRule) {
+            thisRule.preparedFormulas = this.preparedFormulaData;
+            await this.parentItem.update({ "system.rules": rules });
+        }
     }
 }
 

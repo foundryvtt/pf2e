@@ -61,8 +61,10 @@ declare global {
                 active: boolean;
                 flags: Record<string, Record<string, unknown>>;
                 title: string;
-                data: {
-                    compatibleCoreVersion: string | undefined;
+                compatibility: {
+                    minimum?: string;
+                    verified?: string;
+                    maximum?: string;
                 };
             }
         >;

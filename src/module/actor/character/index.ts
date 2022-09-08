@@ -101,7 +101,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { CharacterFeats } from "./feats";
-import { StrikeWeaponTraits } from "./strike-weapon-traits";
+import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -229,14 +229,6 @@ class CharacterPF2e extends CreaturePF2e {
                 await this.addToInventory(itemSource);
             }
         }
-    }
-
-    /** @deprecated */
-    async insertFeat(feat: FeatPF2e, categoryId: string, slotId?: string): Promise<ItemPF2e[]> {
-        console.warn(
-            "CharacterPF2e#insertFeat(feat, categoryId, slotId) is deprecated: use CharacterPF2e#feats#insertFeat(feat, { categoryId, slotId })"
-        );
-        return this.feats.insertFeat(feat, { categoryId, slotId });
     }
 
     /** If one exists, prepare this character's familiar */
@@ -1025,12 +1017,12 @@ class CharacterPF2e extends CreaturePF2e {
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
-                if (["acr", "ath"].includes(shortForm)) {
+                if (["acrobatics", "athletics"].includes(longForm)) {
                     armorCheckPenalty.predicate.not.push(
                         "self:armor:strength-requirement-met",
                         "self:armor:trait:flexible"
                     );
-                } else if (shortForm === "ste" && wornArmor.traits.has("noisy")) {
+                } else if (longForm === "stealth" && wornArmor.traits.has("noisy")) {
                     armorCheckPenalty.predicate.not.push({
                         and: ["self:armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
                     });
@@ -1040,6 +1032,9 @@ class CharacterPF2e extends CreaturePF2e {
 
                 modifiers.push(armorCheckPenalty);
             }
+
+            // Add a penalty for attempting to Force Open without a crowbar or similar tool
+            if (longForm === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
 
             modifiers.push(...extractModifiers(synthetics, domains));
 
@@ -1904,12 +1899,10 @@ class CharacterPF2e extends CreaturePF2e {
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item);
-            const allAdjustments = this.synthetics.modifierAdjustments;
-            for (const modifier of fromTraits) {
-                modifier.adjustments = extractModifierAdjustments(allAdjustments, params.domains ?? [], modifier.slug);
-            }
-
+            const fromTraits = StrikeWeaponTraits.createAttackModifiers(
+                context.self.item as Embedded<WeaponPF2e>,
+                params.domains ?? []
+            );
             context.self.modifiers.push(...fromTraits);
         }
 

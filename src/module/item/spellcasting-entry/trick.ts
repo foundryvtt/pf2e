@@ -80,9 +80,10 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
 
     async cast(spell: SpellPF2e, options: { level?: number } = {}): Promise<void> {
         const slotLevel = options.level ?? spell.level;
+        const castLevel = spell.computeCastLevel(slotLevel);
         try {
             spell.trickMagicEntry = this;
-            await spell.toMessage(undefined, { data: { slotLevel } });
+            await spell.toMessage(undefined, { data: { castLevel } });
         } finally {
             spell.trickMagicEntry = null;
         }

@@ -19,13 +19,14 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
         const rules: MaybeFlatAbilityRule[] = itemSource.system.rules;
         for (const rule of rules) {
             if (
+                typeof rule.key === "string" &&
                 rule.key.endsWith("FlatModifier") &&
                 rule.type === "ability" &&
                 !setHasElement(ABILITY_ABBREVIATIONS, rule.ability)
             ) {
                 const abilityFromValue = (this.abilityModPattern.exec(String(rule.value))?.[1] ??
                     null) as AbilityString | null;
-                rule.ability = abilityFromValue ?? this.abbreviationMap.get(rule.label ?? "") ?? "str";
+                rule.ability = abilityFromValue ?? this.abbreviationMap.get(String(rule.label ?? "")) ?? "str";
                 if (typeof rule.value === "string" && rule.value.startsWith("@") && rule.value.endsWith(".mod")) {
                     delete rule.value;
                 }
@@ -48,6 +49,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
 }
 
 interface MaybeFlatAbilityRule extends RuleElementSource {
+    selector?: string;
     type?: string;
     ability?: AbilityString;
 }

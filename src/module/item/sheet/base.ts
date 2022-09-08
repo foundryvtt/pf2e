@@ -1,7 +1,7 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -11,16 +11,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import {
-    ErrorPF2e,
-    sluggify,
-    sortStringRecord,
-    tupleHasValue,
-    objectHasKey,
-    tagify,
-    htmlClosest,
-    htmlQuery,
-} from "@util";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify } from "@util";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -94,7 +85,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Activate rule element sub forms
         this.ruleElementForms = {};
         for (const [idx, rule] of rules.entries()) {
-            const FormClass = RULE_ELEMENT_FORMS[rule.key ?? ""] ?? RuleElementForm;
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
             this.ruleElementForms[Number(idx)] = new FormClass(idx, rule);
         }
 
@@ -126,7 +117,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
                     const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                    const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
+                    const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
                     const label = translations[key] ?? translations.Unrecognized;
                     const recognized = label !== translations.Unrecognized;
                     return { label, recognized };
@@ -404,18 +395,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             : expandObject(fd.object);
 
         const flattenedData = flattenObject(data);
-
-        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
-        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-        for (const inputEl of Array.from(tagifyInputElements)) {
-            const path = inputEl.name;
-            const inputValue = flattenedData[path];
-            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
-            if (Array.isArray(selections)) {
-                flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
-            }
-        }
-
+        processTagifyInSubmitData(this.form, flattenedData);
         return flattenedData;
     }
 
@@ -522,13 +502,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        const active = document.activeElement;
-        await super._render(force, options);
-        if (active?.classList.contains("tagify__input")) {
-            const name = htmlClosest(active, "tags")?.dataset.name;
-            if (name && this.element[0]) {
-                htmlQuery(this.element[0], `tags[data-name="${name}"] span[contenteditable]`)?.focus();
-            }
-        }
+        await maintainTagifyFocusInRender(this, () => super._render(force, options));
     }
 }
