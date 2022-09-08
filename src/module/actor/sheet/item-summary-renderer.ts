@@ -96,6 +96,13 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
               })()
             : null;
 
+        const $levelTag = itemIsIdentifiedOrUserIsGM
+            ? (() => {
+                  const mystifiedClass = item.isIdentified ? "" : " mystified";
+                  return $(`<span class="tag tag_secondary${mystifiedClass}">${localize('Level')} ${item.level}</span>`);
+              })()
+            : null;
+
         const $priceLabel =
             itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
                 ? ((): JQuery => {
@@ -134,7 +141,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
                   })
             : [];
 
-        const allTags = [$rarityTag, ...traitTags, ...properties].filter((tag): tag is JQuery => !!tag);
+        const allTags = [$rarityTag, $levelTag, ...traitTags, ...properties].filter((tag): tag is JQuery => !!tag);
         const $properties = $('<div class="item-properties tags"></div>').append(...allTags);
 
         const description = isItemSystemData(chatData)
