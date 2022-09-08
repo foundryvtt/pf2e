@@ -3,6 +3,10 @@
     box-shadow: 0 0 10px black;
     height: 38px !important;
 
+    .window-header {
+        display: none;
+    }
+
     .window-content {
         background: rgba(0, 0, 0, 0.5);
         border: 1px solid black;
@@ -15,23 +19,19 @@
 
         .noUi-base {
             background: #ecc1b3;
+            cursor: pointer;
 
             .noUi-origin .noUi-handle {
                 background: none;
                 border: none;
                 box-shadow: none;
                 color: white;
-                cursor: grab;
                 font-size: var(--font-size-16);
                 height: 14px;
                 width: 14px;
                 top: -5px;
                 right: -7px; // Half width
                 text-shadow: 0 0 4px black;
-
-                &:active {
-                    cursor: grabbing;
-                }
 
                 &.threshold_darkness {
                     font-size: var(--font-size-14);
@@ -46,6 +46,14 @@
                     width: 12px;
                     right: -6px; // Half width
                     top: -4px;
+
+                    .noUi-touch-area {
+                        cursor: grab;
+                    }
+                }
+
+                &.darkness-level:active .noUi-touch-area {
+                    cursor: grabbing;
                 }
 
                 &::before, &::after {
@@ -61,10 +69,6 @@
                     &.fa-sun {
                         left: -1px;
                     }
-                }
-
-                .noUi-touch-area {
-                    cursor: pointer;
                 }
             }
 
@@ -93,7 +97,11 @@
         }
     }
 
-    &.synchronized .slider {
+    .synchronized .slider {
+        .noUi-base {
+            cursor: not-allowed;
+        }
+
         .message {
             display: flex;
             justify-content: center;
@@ -115,11 +123,12 @@
                 background: var(--color-disabled);
                 border: none;
                 box-shadow: none;
+
+                .noUi-touch-area, &:active .noUi-touch-area {
+                    cursor: inherit;
+                }
             }
 
-            .noUi-touch-area {
-                cursor: inherit;
-            }
 
             i.fas {
                 cursor: inherit;
