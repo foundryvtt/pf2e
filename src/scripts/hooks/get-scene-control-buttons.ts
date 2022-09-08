@@ -39,7 +39,7 @@ export const GetSceneControlButtons = {
                             adjuster.close({ force: true });
                         });
                     } else {
-                        adjuster.render(true, { scene: canvas.scene }).then(() => {
+                        adjuster.render(true, {}).then(() => {
                             $("#darkness-adjuster").hide().fadeIn();
                         });
                     }

@@ -290,6 +290,8 @@ declare global {
         top: number | null;
         /** The default offset-left position for the rendered HTML */
         left: number | null;
+        /** A transformation scale for the rendered HTML */
+        scale?: number | null;
         /** Whether to display the application as a pop-out container */
         popOut: boolean;
         /** Whether the rendered application can be minimized (popOut only) */
@@ -345,19 +347,9 @@ declare global {
         onclick: ((event: Event) => void) | null;
     }
 
-    interface RenderOptions {
+    interface RenderOptions extends Partial<ApplicationOptions> {
         // Undocumented
         action?: UserAction;
-        /** The left positioning attribute */
-        left?: number;
-        /** The top positioning attribute */
-        top?: number;
-        /** The rendered width */
-        width?: number;
-        /** The rendered height */
-        height?: number;
-        /** The rendered transformation scale */
-        scale?: number;
         /** Apply focus to the application, maximizing it and bringing it to the top of the vertical stack. */
         focus?: boolean;
         /** A context-providing string which suggests what event triggered the render */
