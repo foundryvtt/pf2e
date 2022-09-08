@@ -1238,7 +1238,7 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     _sheet: ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e> | null;
 
-    get sheet(): ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e>;
+    get sheet(): ActorSheetPF2e<this>;
 
     /** See implementation in class */
     createEmbeddedDocuments(
