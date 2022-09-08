@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 4.0.0 (Beta 3)
+
+### System Improvements
+* (LebombJames) Clear search bar in compendium browser when filters are cleared
+
+### Bugfixes
+* (stwlam) Restore damage types to spell sheet
+* (stwlam) Fix race condition causing kits to inflate with incorrect item quantities
+* (stwlam) Fix issue causing advanced alchemy formulas to not be removable
+* (Supe) Fix removing Elite/Weak adjustments
+
 ## Version 4.0.0 (Beta 2)
 
 ### Bugfixes
