@@ -209,8 +209,13 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         });
 
         // Adjustments
-        $html.find(".npc-elite-adjustment").on("click", () => this.actor.applyAdjustment("elite"));
-        $html.find(".npc-weak-adjustment").on("click", () => this.actor.applyAdjustment("weak"));
+        $html.find(".adjustment").on("click", (event) => {
+            const adjustment = String(event.target.dataset.adjustment);
+            if (adjustment === "elite" || adjustment === "weak") {
+                const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
+                this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
+            }
+        });
 
         // Handle spellcastingEntry attack and DC updates
         $html
