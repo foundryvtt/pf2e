@@ -262,7 +262,7 @@ export class WorldClock extends Application {
         managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.WorldClock.SyncDarknessScene.ManagedBy"));
         // Create a link to open world clock settings
         const anchor = document.createElement("a");
-        const wcLink = managedBy.querySelector("wc");
+        const wcLink = managedBy.querySelector("wt");
         anchor.innerText = wcLink?.innerHTML ?? "";
         anchor.setAttribute("href", ""); // Pick up core Foundry styling
         anchor.addEventListener("click", (event) => {
