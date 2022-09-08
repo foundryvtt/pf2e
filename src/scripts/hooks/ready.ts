@@ -1,4 +1,5 @@
 import { MigrationSummary } from "@module/apps/migration-summary";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
 import { MigrationRunner } from "@module/migration/runner";
@@ -79,6 +80,9 @@ export const Ready = {
 
             // In case there's no canvas, run Condition Manager initialization from this hook as well
             game.pf2e.ConditionManager.initialize();
+
+            // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
+            game.scenes.apps.push(SceneDarknessAdjuster.instance);
 
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {

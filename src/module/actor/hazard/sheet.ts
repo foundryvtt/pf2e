@@ -69,7 +69,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             ...sheetData,
             actions: this.prepareActions(),
             editing: this.editing,
-            actorTraits: systemData.traits.traits.value,
+            actorTraits: systemData.traits.value,
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             brokenThreshold: systemData.attributes.hp.brokenThreshold,
@@ -167,7 +167,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         super.activateListeners($html);
 
         // Tagify the traits selection
-        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.traits.value"]');
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
         if (traitsEl) {
             const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.hazardTraits });
             const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");

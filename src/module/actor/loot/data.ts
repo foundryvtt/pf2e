@@ -22,7 +22,7 @@ interface LootSystemSource extends ActorSystemSource {
     details: LootDetailsSource;
     lootSheetType: "Merchant" | "Loot";
     hiddenWhenEmpty: boolean;
-    traits: BaseTraitsSource;
+    traits: BaseTraitsSource<string>;
 }
 
 interface LootSystemData extends LootSystemSource, Omit<ActorSystemData, "attributes"> {
@@ -30,7 +30,7 @@ interface LootSystemData extends LootSystemSource, Omit<ActorSystemData, "attrib
 
     details: LootDetailsData;
 
-    traits: BaseTraitsData;
+    traits: BaseTraitsData<string>;
 }
 
 interface LootAttributesSource {

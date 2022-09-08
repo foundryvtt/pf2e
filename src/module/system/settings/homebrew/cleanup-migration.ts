@@ -17,7 +17,7 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewRecord, deletions: str
 
             switch (listKey) {
                 case "creatureTraits": {
-                    const traits = source.system.traits.traits;
+                    const traits = source.system.traits;
                     traits.value = traits.value.filter((t) => !deletions.includes(t));
                     break;
                 }

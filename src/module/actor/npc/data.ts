@@ -21,7 +21,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
-import { ValueAndMax } from "@module/data";
+import { Rarity, Size, ValueAndMax } from "@module/data";
 import type { NPCPF2e } from ".";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
@@ -91,10 +91,12 @@ type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
 interface NPCTraitsSource extends CreatureTraitsSource {
     /** A description of special senses this NPC has */
     senses: { value: string };
+    rarity: Rarity;
+    size: { value: Size };
 }
 
 /** The raw information contained within the actor data object for NPCs. */
-interface NPCSystemData extends CreatureSystemData, NPCSystemSource {
+interface NPCSystemData extends Omit<CreatureSystemData, "senses">, NPCSystemSource {
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -122,7 +124,8 @@ interface NPCSystemData extends CreatureSystemData, NPCSystemSource {
     customModifiers: Record<string, ModifierPF2e[]>;
 }
 
-interface NPCTraitsData extends CreatureTraitsData, NPCTraitsSource {
+interface NPCTraitsData extends Omit<CreatureTraitsData, "senses">, NPCTraitsSource {
+    rarity: Rarity;
     size: ActorSizePF2e;
 }
 

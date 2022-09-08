@@ -2,13 +2,7 @@
 <header>
     <div class="frame-container">
         <div class="frame">
-            <img
-                class="player-image"
-                alt="{{actor.name}}"
-                src="{{actor.img}}"
-                title="{{actor.name}}"
-                data-edit="img"
-            />
+            <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
             <div class="edit-mode-button"><i class="fas {{#if editing}}fa-lock-open{{else}}fa-lock{{/if}}"></i></div>
         </div>
     </div>
@@ -36,7 +30,7 @@
                     {{/select}}
                 </select>
             </template>
-            <input class="tags paizo-style" name="system.traits.traits.value" value="{{json data.traits.traits.value}}" data-dtype="JSON" />
+            <input class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON" />
         {{else}}
         <div class="tags paizo-style">
             {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}

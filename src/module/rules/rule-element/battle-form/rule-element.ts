@@ -175,7 +175,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
-            const currentTraits = actor.system.traits.traits;
+            const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 

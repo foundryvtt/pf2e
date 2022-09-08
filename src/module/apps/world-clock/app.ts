@@ -262,8 +262,8 @@ export class WorldClock extends Application {
         managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.WorldClock.SyncDarknessScene.ManagedBy"));
         // Create a link to open world clock settings
         const anchor = document.createElement("a");
-        const wcLink = managedBy.querySelector("wc");
-        anchor.innerText = wcLink?.innerHTML ?? "";
+        const wtLink = managedBy.querySelector("wt");
+        anchor.innerText = wtLink?.innerHTML ?? "";
         anchor.setAttribute("href", ""); // Pick up core Foundry styling
         anchor.addEventListener("click", (event) => {
             event.preventDefault();
@@ -273,7 +273,7 @@ export class WorldClock extends Application {
             const app = new menu.type();
             app.render(true);
         });
-        wcLink?.replaceWith(anchor);
+        wtLink?.replaceWith(anchor);
 
         return managedBy;
     }

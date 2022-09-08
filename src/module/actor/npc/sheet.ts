@@ -101,7 +101,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         // Filter out alignment traits for sheet presentation purposes
         const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
-        const actorTraits = sheetData.data.traits.traits;
+        const actorTraits = sheetData.data.traits;
         actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
 
         // recall knowledge DCs
@@ -191,7 +191,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         }
 
         // Tagify the traits selection
-        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.traits.value"]');
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
         if (traitsEl) {
             tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
         }
@@ -209,8 +209,13 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         });
 
         // Adjustments
-        $html.find(".npc-elite-adjustment").on("click", () => this.actor.applyAdjustment("elite"));
-        $html.find(".npc-weak-adjustment").on("click", () => this.actor.applyAdjustment("weak"));
+        $html.find(".adjustment").on("click", (event) => {
+            const adjustment = String(event.target.dataset.adjustment);
+            if (adjustment === "elite" || adjustment === "weak") {
+                const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
+                this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
+            }
+        });
 
         // Handle spellcastingEntry attack and DC updates
         $html

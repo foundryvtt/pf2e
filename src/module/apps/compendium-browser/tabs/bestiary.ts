@@ -59,7 +59,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                         level: actorData.system.details.level.value,
                         alignment: actorData.system.details.alignment.value,
                         actorSize: actorData.system.traits.size.value,
-                        traits: actorData.system.traits.traits.value,
+                        traits: actorData.system.traits.value,
                         rarity: actorData.system.traits.rarity,
                         source: actorData.system.details.source.value,
                     });
