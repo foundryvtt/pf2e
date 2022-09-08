@@ -117,7 +117,10 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
 
     #disableVisionInputs(html: HTMLElement): void {
         const actorIsPCOrFamiliar = ["character", "familiar"].includes(this.actor?.type ?? "");
-        const rulesBasedVision = this.token.rulesBasedVision && actorIsPCOrFamiliar;
+        const rulesBasedVision =
+            actorIsPCOrFamiliar &&
+            (this.token.rulesBasedVision ||
+                (this.isPrototype && game.settings.get("pf2e", "automation.rulesBasedVision")));
         if (!rulesBasedVision) return;
 
         const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
