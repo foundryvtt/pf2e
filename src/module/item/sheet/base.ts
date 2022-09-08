@@ -1,7 +1,7 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags, processTagifyInSubmitData } from "@module/sheet/helpers";
+import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -11,16 +11,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import {
-    ErrorPF2e,
-    sluggify,
-    sortStringRecord,
-    tupleHasValue,
-    objectHasKey,
-    tagify,
-    htmlClosest,
-    htmlQuery,
-} from "@util";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify } from "@util";
 import Tagify from "@yaireo/tagify";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
@@ -511,13 +502,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** Overriden _render to maintain focus on tagify elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
-        const active = document.activeElement;
-        await super._render(force, options);
-        if (active?.classList.contains("tagify__input")) {
-            const name = htmlClosest(active, "tags")?.dataset.name;
-            if (name && this.element[0]) {
-                htmlQuery(this.element[0], `tags[data-name="${name}"] span[contenteditable]`)?.focus();
-            }
-        }
+        await maintainTagifyFocusInRender(this, () => super._render(force, options));
     }
 }

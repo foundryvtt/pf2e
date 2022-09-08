@@ -1,4 +1,4 @@
-import { sortLabeledRecord } from "@util";
+import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
 
 /** Prepare form options on an item or actor sheet */
 function createSheetOptions(
@@ -49,6 +49,23 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
     }
 }
 
+/** Override to refocus tagify elements in _render() to workaround handlebars full re-render */
+async function maintainTagifyFocusInRender(sheet: DocumentSheet, renderLogic: () => Promise<void>) {
+    const element = sheet.element[0];
+    const active = document.activeElement;
+    const activeWasHere = element?.contains(active);
+
+    await renderLogic();
+
+    // If the active element was a tagify that is part of this sheet, re-render
+    if (activeWasHere && active?.classList.contains("tagify__input")) {
+        const name = htmlClosest(active, "tags")?.dataset.name;
+        if (name && sheet.element[0]) {
+            htmlQuery(element, `tags[data-name="${name}"] span[contenteditable]`)?.focus();
+        }
+    }
+}
+
 interface SheetOption {
     value: string;
     label: string;
@@ -59,4 +76,11 @@ type SheetOptions = Record<string, SheetOption>;
 
 type SheetSelections = { value: (string | number)[]; custom?: string } | (string[] & { custom?: never });
 
-export { createSheetOptions, createSheetTags, processTagifyInSubmitData, SheetOption, SheetOptions };
+export {
+    createSheetOptions,
+    createSheetTags,
+    maintainTagifyFocusInRender,
+    processTagifyInSubmitData,
+    SheetOption,
+    SheetOptions,
+};
