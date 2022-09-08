@@ -209,8 +209,8 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         });
 
         // Adjustments
-        $html.find(".adjustment").on("click", (evt) => {
-            const adjustment = String(evt.target.dataset.adjustment);
+        $html.find(".adjustment").on("click", (event) => {
+            const adjustment = String(event.target.dataset.adjustment);
             if (adjustment === "elite" || adjustment === "weak") {
                 const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
                 this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
