@@ -1,27 +1,9 @@
-import { RuleElementSource } from "@module/rules";
 import { GrantItemSource } from "@module/rules/rule-element/grant-item/base";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { tagify } from "@util";
+import { RuleElementForm } from "./base";
 
-class RuleElementForm<TSource extends RuleElementSource = RuleElementSource> {
-    template = "systems/pf2e/templates/items/rules/default.html";
-    constructor(protected index: number, protected rule: TSource) {}
-    async getData(): Promise<object> {
-        return {
-            index: this.index,
-            rule: this.rule,
-        };
-    }
-
-    async render() {
-        const data = await this.getData();
-        return renderTemplate(this.template, data);
-    }
-
-    activateListeners(_html: HTMLElement) {}
-    _updateObject(_formData: Partial<Record<string, unknown>>) {}
-}
-
+/** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm {
     private html: HTMLElement | null = null;
     override template = "systems/pf2e/templates/items/rules/note.html";
@@ -60,6 +42,7 @@ class RollNoteForm extends RuleElementForm {
     }
 }
 
+/** Form handler for the GrantItem rule element */
 class GrantItemForm extends RuleElementForm<GrantItemSource> {
     override template = "systems/pf2e/templates/items/rules/grant-item.html";
     override async getData() {
