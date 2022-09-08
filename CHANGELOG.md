@@ -9,6 +9,8 @@
 * (stwlam) Restore damage types to spell sheet
 * (stwlam) Fix race condition causing kits to inflate with incorrect item quantities
 * (stwlam) Fix issue causing advanced alchemy formulas to not be removable
+* (stwlam) Fix compendium browser pre-filter for ancestry feats on PC sheet
+* (stwlam) Disable vision options in prototype token config if RBV is enabled
 * (Supe) Fix removing Elite/Weak adjustments
 
 ## Version 4.0.0 (Beta 2)
