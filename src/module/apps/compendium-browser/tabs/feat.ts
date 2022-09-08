@@ -50,7 +50,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "name",
+                by: "level",
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",
