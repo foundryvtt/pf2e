@@ -81,6 +81,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const validTraits = this.validTraits;
         const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
+        const traits = validTraits ? createSheetTags(validTraits, this.item.system.traits?.value ?? []) : null;
 
         // Activate rule element sub forms
         this.ruleElementForms = {};
@@ -111,7 +112,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             user: { isGM: game.user.isGM },
             rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
             rarities: CONFIG.PF2E.rarityTraits,
-            traits: validTraits ? createSheetTags(validTraits, this.item.system.traits?.value ?? []) : null,
+            traits,
+            traitSlugs: Object.keys(traits ?? {}),
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
