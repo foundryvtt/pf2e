@@ -26,6 +26,49 @@
         },
         "rules": [
             {
+                "batchSizes": [
+                    {
+                        "batchSize": 10,
+                        "predicate": [
+                            "item:trait:alchemical",
+                            "item:subtype:ammo",
+                            "item:level:0",
+                            {
+                                "not": "item:trait:magical"
+                            }
+                        ]
+                    },
+                    {
+                        "batchSize": 1,
+                        "predicate": [
+                            "feat:precious-munitions",
+                            "item:subtype:ammo",
+                            {
+                                "or": [
+                                    "item:material:grade:standard",
+                                    "item:material:grade:high"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:precious-munitions",
+                                    "item:subtype:ammo",
+                                    {
+                                        "or": [
+                                            "item:material:grade:standard",
+                                            "item:material:grade:high"
+                                        ]
+                                    }
+                                ],
+                                "or": [
+                                    "item:material:adamantine",
+                                    "item:material:silver",
+                                    "item:material:coldiron"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "craftableItems": [
                     "item:trait:alchemical",
                     {
@@ -35,6 +78,7 @@
                         ]
                     }
                 ],
+                "defaultBatchSize": 2,
                 "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingEntry",

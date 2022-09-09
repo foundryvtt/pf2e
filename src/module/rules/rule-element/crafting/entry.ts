@@ -42,6 +42,19 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             this.failValidation("Malformed craftableItems predicate");
         }
 
+        const batchSizes = (this.data.batchSizes || []).map((data) => {
+            const predicate = new PredicatePF2e(data.predicate ?? []);
+
+            if (!predicate.isValid) {
+                this.failValidation("Malformed batchSizes predicate");
+            }
+
+            return {
+                predicate: predicate,
+                batchSize: data.batchSize,
+            };
+        });
+
         this.actor.system.crafting.entries[this.selector] = {
             selector: selector,
             name: this.name,
@@ -53,6 +66,8 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             maxSlots: this.data.maxSlots,
             parentItem: this.item.id,
             preparedFormulaData: this.data.preparedFormulas,
+            defaultBatchSize: this.data.defaultBatchSize,
+            batchSizes: batchSizes,
         };
 
         // Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s
@@ -75,6 +90,8 @@ interface CraftingEntryRuleData extends RuleElementData {
     maxSlots?: number;
     craftableItems?: RawPredicate;
     preparedFormulas?: PreparedFormulaData[];
+    defaultBatchSize?: number;
+    batchSizes?: BatchSizeData[];
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
@@ -87,6 +104,8 @@ interface CraftingEntryRuleSource extends RuleElementSource {
     maxSlots?: unknown;
     craftableItems?: unknown;
     preparedFormulas?: unknown;
+    defaultBatchSize?: unknown;
+    batchSizes?: unknown;
 }
 
 interface PreparedFormulaData {
@@ -94,6 +113,11 @@ interface PreparedFormulaData {
     quantity?: number;
     expended?: boolean;
     isSignatureItem?: boolean;
+}
+
+interface BatchSizeData {
+    batchSize: number;
+    predicate: RawPredicate;
 }
 
 export { CraftingEntryRuleData, CraftingEntryRuleElement, CraftingEntryRuleSource };

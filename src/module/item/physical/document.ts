@@ -165,6 +165,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             magical: this.isMagical,
             uninvested: this.isInvested === false,
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
+            [`material:grade:${this.material.precious?.grade}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
             .map(([key]) => `${delimitedPrefix}${key}`)

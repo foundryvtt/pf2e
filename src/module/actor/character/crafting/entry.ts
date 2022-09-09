@@ -5,20 +5,47 @@ import { PredicatePF2e } from "@system/predication";
 import { CraftingFormula } from "./formula";
 
 export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
+    /** Array of crafting formulas currently prepared */
     preparedCraftingFormulas: PreparedCraftingFormula[];
+
+    /** Array of prepared item uuids and preparation data to be persisted on the parent RE */
     preparedFormulaData: PreparedFormulaData[];
+
+    /** The display name of the crafting entry */
     name: string;
+
+    /** The identifying selector for the crafting entry */
     selector: string;
+
+    /** Alchemical entries do not have limited slots and formulas are crafted during daily preparations */
     isAlchemical: boolean;
+
+    /** Formulas are crafted during daily preparations */
     isDailyPrep: boolean;
+
+    /** Formulas are prepared to be crafted individually and expended */
     isPrepared: boolean;
+
+    /** Predicate to determine which item formulas are usable within the entry */
     craftableItems: PredicatePF2e;
+
+    /** How many formulas can be prepared within the entry */
     maxSlots: number;
-    fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
-    batchSize?: number;
-    fieldDiscoveryBatchSize?: number;
+
+    /** For alchemical entries: How many items are crafted by expending 1 batch of infused reagents */
+    defaultBatchSize: number;
+
+    /** The highest level of item that can be prepared within the entry. Defaults to character level. */
     maxItemLevel: number;
+
+    /** The parent item that contains the crafting entry RE */
     parentItem: Embedded<ItemPF2e>;
+
+    /** An array of Predicate, Batch Size pairs for determining the maximum batch size of different formulas */
+    batchSizes: BatchSizeData[];
+
+    /** Added after calculating the batch size of a formula */
+    batchSizeModifier: number;
 
     constructor(actor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.selector = data.selector;
@@ -28,9 +55,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         this.isPrepared = !!data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
         this.maxItemLevel = data.maxItemLevel || actor.level;
-        this.fieldDiscovery = data.fieldDiscovery;
-        this.batchSize = data.batchSize;
-        this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
+        this.defaultBatchSize = data.defaultBatchSize || 1;
         this.craftableItems = data.craftableItems;
         this.preparedFormulaData = (data.preparedFormulaData || [])
             .map((prepData) => {
@@ -53,6 +78,8 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
                 return null;
             })
             .filter((prepData): prepData is PreparedCraftingFormula => !!prepData);
+        this.batchSizes = data.batchSizes || [];
+        this.batchSizeModifier = data.batchSizeModifier || 0;
     }
 
     get actor(): ActorPF2e {
@@ -83,20 +110,26 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
-        const fieldDiscoveryQuantity = this.preparedCraftingFormulas
-            .filter((f) => (this.fieldDiscovery && f.item.traits.has(this.fieldDiscovery)) || f.isSignatureItem)
-            .reduce((sum, current) => sum + current.quantity, 0);
+        const batchQuantities = new Map<number, number>();
 
-        const otherQuantity = this.preparedCraftingFormulas
-            .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
-            .reduce((sum, current) => sum + current.quantity, 0);
+        for (const formula of this.preparedCraftingFormulas) {
+            const rollOptions = formula.item.getRollOptions("item");
+            if (formula.isSignatureItem) rollOptions.push("item:signature");
+            const batchSize = this.getFormulaBatchSize(rollOptions);
+            const currentQuantity = batchQuantities.get(batchSize) || 0;
+            batchQuantities.set(batchSize, currentQuantity + formula.quantity);
+        }
 
-        const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
-        const batchSize = this.batchSize || 2;
+        let remainder = 0;
 
         return (
-            Math.floor(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) +
-            Math.ceil(((fieldDiscoveryQuantity % fieldDiscoveryBatchSize) + otherQuantity) / batchSize)
+            Array.from(batchQuantities.entries()).reduce((total, data) => {
+                const batchSize = data[0];
+                const quantity = data[1];
+
+                remainder += quantity % batchSize;
+                return total + Math.floor(quantity / batchSize);
+            }, 0) + Math.ceil(remainder / this.defaultBatchSize)
         );
     }
 
@@ -115,7 +148,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         } else {
             this.preparedFormulaData.push({
                 itemUUID: formula.uuid,
-                quantity: 1,
+                quantity: this.getFormulaBatchSize(formula.item.getRollOptions("item")),
             });
         }
 
@@ -221,6 +254,21 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
             await this.parentItem.update({ "system.rules": rules });
         }
     }
+
+    /** Check each predicate in the array of batch sizes, choosing the largest valid size or the default */
+    getFormulaBatchSize(itemRollOptions: string[]): number {
+        const defaultBatchSize = this.defaultBatchSize || 2;
+        const actorRollOptions = this.actor.getRollOptions(["all"]);
+
+        const validBatchSizes = this.batchSizes.map((data) => {
+            if (data.predicate.test([...actorRollOptions, ...itemRollOptions])) {
+                return data.batchSize;
+            }
+            return 0;
+        });
+        const batchSize = Math.max(...validBatchSizes);
+        return (batchSize > 0 ? batchSize : defaultBatchSize) + this.batchSizeModifier;
+    }
 }
 
 export interface CraftingEntryData {
@@ -232,11 +280,16 @@ export interface CraftingEntryData {
     isPrepared?: boolean;
     maxSlots?: number;
     craftableItems: PredicatePF2e;
-    fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
-    batchSize?: number;
-    fieldDiscoveryBatchSize?: number;
+    defaultBatchSize?: number;
     maxItemLevel?: number;
     preparedFormulaData?: PreparedFormulaData[];
+    batchSizes?: BatchSizeData[];
+    batchSizeModifier?: number;
+}
+
+interface BatchSizeData {
+    batchSize: number;
+    predicate: PredicatePF2e;
 }
 
 interface PreparedFormulaData {

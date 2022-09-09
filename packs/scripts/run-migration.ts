@@ -18,6 +18,7 @@ import { Migration796ItemGrantsToObjects } from "@module/migration/migrations/79
 import { Migration798WeaponToItemStatements } from "@module/migration/migrations/798-weapon-to-item-statements";
 import { Migration799RMRecallKnowledgeDuplicates } from "@module/migration/migrations/799-rm-recall-knowledge-duplicates";
 import { Migration800SelfEffectPanacheRage } from "@module/migration/migrations/800-self-effect-panache-rage";
+import { Migration801PredicateFieldDiscoveries } from "@module/migration/migrations/801-predicate-field-discovery";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -39,6 +40,7 @@ const migrations: MigrationBase[] = [
     new Migration798WeaponToItemStatements(),
     new Migration799RMRecallKnowledgeDuplicates(),
     new Migration800SelfEffectPanacheRage(),
+    new Migration801PredicateFieldDiscoveries(),
 ];
 
 global.deepClone = <T>(original: T): T => {

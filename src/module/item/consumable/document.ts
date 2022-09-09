@@ -196,6 +196,19 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             entry.cast(spell, { consume: false });
         }
     }
+
+    /** Generate a list of strings for use in predication */
+    override getRollOptions(prefix = this.type): string[] {
+        const baseOptions = super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const consumableItemOptions = Object.entries({
+            [`subtype:${this.consumableType}`]: !!this.consumableType,
+        })
+            .filter(([_key, isTrue]) => isTrue)
+            .map(([key]) => `${delimitedPrefix}${key}`);
+
+        return [baseOptions, consumableItemOptions].flat();
+    }
 }
 
 interface ConsumablePF2e {
