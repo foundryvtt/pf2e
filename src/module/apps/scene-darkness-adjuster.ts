@@ -31,7 +31,7 @@ export class SceneDarknessAdjuster extends Application {
         };
     }
 
-    override async render(force = true, options: RenderOptions & { scenes?: ScenePF2e[] }): Promise<this> {
+    override async render(force = true, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): Promise<this> {
         if (!game.scenes.viewed) return this;
 
         // Adjust position of this application's window
