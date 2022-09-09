@@ -234,13 +234,15 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         super.prepareDerivedData();
 
         const systemData = this.system;
-        systemData.identification.identified = {
-            name: this.name,
-            img: this.img,
-            data: {
-                description: { value: this.description },
-            },
-        };
+        if (!systemData.identification.identified) {
+            systemData.identification.identified = {
+                name: this.name,
+                img: this.img,
+                data: {
+                    description: { value: this.description },
+                },
+            };
+        }
 
         // If the item has an adjusted price, replace it if higher
         const adjustedPrice = this.computeAdjustedPrice?.();
