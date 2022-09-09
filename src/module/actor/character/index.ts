@@ -1775,7 +1775,7 @@ class CharacterPF2e extends CreaturePF2e {
                         rollTwice,
                     };
 
-                    if (!this.consumeAmmo({ weapon: item, ...params })) return null;
+                    if (!this.consumeAmmo(item, params)) return null;
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(otherModifiers),
@@ -1909,7 +1909,7 @@ class CharacterPF2e extends CreaturePF2e {
         return context;
     }
 
-    consumeAmmo({ weapon, ...params }: { weapon: WeaponPF2e } & RollParameters): boolean {
+    consumeAmmo(weapon: WeaponPF2e, params: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;
