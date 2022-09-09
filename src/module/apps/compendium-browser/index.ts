@@ -222,7 +222,11 @@ class CompendiumBrowser extends Application {
     }
 
     loadSettings(): void {
-        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
+        const settings = game.settings.get("pf2e", "compendiumBrowserPacks");
+        // Only override the generated list if the setting is not empty
+        if (Object.keys(settings).length) {
+            this.settings = settings;
+        }
     }
 
     hookTab(): void {
@@ -485,7 +489,7 @@ class CompendiumBrowser extends Application {
                             pack.load = formData.has(`${t}-${key}`);
                         }
                     }
-                    await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
+                    await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
                     this.loadSettings();
                     this.initCompendiumList();
                     for (const tab of Object.values(this.tabs)) {
