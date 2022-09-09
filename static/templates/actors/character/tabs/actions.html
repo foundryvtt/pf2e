@@ -40,9 +40,9 @@
                                             </h4>
                                             {{#if action.item}}
                                                 <div class="action-options" data-item-id="{{action.item.id}}">
-                                                    {{#with action.item.ammo.charges}}
+                                                    {{#with action.item.ammo.uses}}
                                                         {{#if (gt max 1)}}
-                                                            <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
+                                                            <span class="ammo-remaining"><i class="ammo-icon"></i> {{value}}</span>
                                                         {{/if}}
                                                     {{/with}}
                                                 </div>
