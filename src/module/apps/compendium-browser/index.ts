@@ -78,7 +78,7 @@ class PackLoader {
 }
 
 class CompendiumBrowser extends Application {
-    settings!: CompendiumBrowserSettings;
+    settings: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
     tabs: Record<Exclude<TabName, "settings">, BrowserTab>;
     packLoader = new PackLoader();
@@ -100,7 +100,8 @@ class CompendiumBrowser extends Application {
             spell: new browserTabs.Spells(this),
         };
 
-        this.loadSettings();
+        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
+
         this.initCompendiumList();
         this.injectActorDirectory();
         this.hookTab();
@@ -140,7 +141,7 @@ class CompendiumBrowser extends Application {
         await super.close(options);
     }
 
-    private initCompendiumList(): void {
+    initCompendiumList(): void {
         const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
             action: {},
             bestiary: {},
@@ -219,14 +220,6 @@ class CompendiumBrowser extends Application {
         }
 
         this.settings = settings;
-    }
-
-    loadSettings(): void {
-        const settings = game.settings.get("pf2e", "compendiumBrowserPacks");
-        // Only override the generated list if the setting is not empty
-        if (Object.keys(settings).length) {
-            this.settings = settings;
-        }
     }
 
     hookTab(): void {
@@ -490,8 +483,6 @@ class CompendiumBrowser extends Application {
                         }
                     }
                     await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
-                    this.loadSettings();
-                    this.initCompendiumList();
                     for (const tab of Object.values(this.tabs)) {
                         if (tab.isInitialized) {
                             await tab.init();

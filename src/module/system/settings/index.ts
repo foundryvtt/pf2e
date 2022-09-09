@@ -51,11 +51,11 @@ export function registerSettings() {
     game.settings.register("pf2e", "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
-        default: "{}",
+        default: {},
         type: Object,
         scope: "world",
         onChange: () => {
-            game.pf2e.compendiumBrowser.loadSettings();
+            game.pf2e.compendiumBrowser.initCompendiumList();
         },
     });
 
