@@ -1,0 +1,49 @@
+header.char-header {
+    .char-level .exp-data {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0.5em 0;
+        position: relative;
+
+        .exp-input {
+            font-size: var(--font-size-13);
+            height: 1.5em;
+
+            input {
+                color: var(--text-light);
+                font-family: var(--sans-serif);
+                text-align: right;
+                width: 3em;
+            }
+
+            .slash {
+                color: var(--sidebar-label);
+            }
+        }
+
+        progress {
+            background-color: unset;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: none;
+            bottom: 7px;
+            box-shadow: 0 0 2px var(--sidebar-label);
+            height: 5px;
+            left: -9px;
+            position: absolute;
+            width: 7em;
+
+            &::-moz-progress-bar {
+                background: var(--sidebar-title);
+            }
+
+            &::-webkit-progress-bar {
+                background: rgba(0, 0, 0, 0.2);
+            }
+
+            &::-webkit-progress-value {
+                background: var(--sidebar-title);
+            }
+        }
+    }
+}
