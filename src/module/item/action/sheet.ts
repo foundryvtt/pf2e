@@ -1,5 +1,6 @@
 import { ActionItemPF2e } from "@item/action";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { getActionIcon } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
 
@@ -33,6 +34,35 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
         $html.find("[data-action=frequency-delete]").on("click", () => {
             this.item.update({ "system.-=frequency": null });
         });
+
+        $(".send-to-chat").on("click", () => {
+            this.item.renderChatTemplate(this.item.type, undefined, null, {}).then((chatTemplate) => {
+                const chatData: PreCreate<foundry.data.ChatMessageSource> = {
+                    flags: {
+                        core: {
+                            canPopout: true,
+                        },
+                        pf2e: {
+                            origin: { uuid: this.item.uuid, type: this.item.type },
+                        },
+                    },
+                    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                    content: chatTemplate
+                };
+                ChatMessagePF2e.create(chatData, { renderSheet: false });
+            });
+        });
+    }
+
+    override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        buttons.unshift({
+            label: "",
+            class: "send-to-chat",
+            icon: "fas fa-comment-alt",
+            onclick: () => {}
+        });
+        return buttons;
     }
 }
 

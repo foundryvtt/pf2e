@@ -104,6 +104,17 @@ class ItemPF2e extends Item<ActorPF2e> {
         return { actor: this.actor, item: this };
     }
 
+    async renderChatTemplate(itemType: string, actor: ActorPF2e | undefined, tokenId: string | null, contextualData: any): Promise<string> {
+        const template = `systems/pf2e/templates/chat/${itemType}-card.html`;
+        const templateData = {
+            actor: actor,
+            tokenId: tokenId,
+            item: this,
+            data: await this.getChatData(undefined, contextualData),
+        };
+        return await renderTemplate(template, templateData);
+    }
+
     /**
      * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
      * follow-up options for attack rolls, effect application, etc.
@@ -113,22 +124,15 @@ class ItemPF2e extends Item<ActorPF2e> {
         {
             rollMode = undefined,
             create = true,
-            data = {},
+            data = {}
         }: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {}
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.type}-card.html`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
-        const templateData = {
-            actor: this.actor,
-            tokenId: token ? `${token.parent?.id}.${token.id}` : null,
-            item: this,
-            data: await this.getChatData(undefined, contextualData),
-        };
 
         // Basic chat message data
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
@@ -154,7 +158,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (rollMode === "blindroll") chatData.blind = true;
 
         // Render the template
-        chatData.content = await renderTemplate(template, templateData);
+        chatData.content = await this.renderChatTemplate(this.type, this.actor, token ? `${token.parent?.id}.${token.id}` : null, contextualData);
 
         // Create the chat message
         return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
