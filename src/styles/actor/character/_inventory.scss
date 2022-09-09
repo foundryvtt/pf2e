@@ -3,6 +3,47 @@
 
     .inventory-list {
         padding-right: 0.1rem;
+
+        .item {
+
+            &[data-item-identified="true"] {
+                &[data-item-rarity="common"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-common;
+                            color: $rarity-common;
+                        }
+                    }
+                }
+
+                &[data-item-rarity="uncommon"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-uncommon;
+                            color: $rarity-uncommon;
+                        }
+                    }
+                }
+
+                &[data-item-rarity="rare"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-rare;
+                            color: $rarity-rare;
+                        }
+                    }
+                }
+
+                &[data-item-rarity="unique"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-unique;
+                            color: $rarity-unique;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .item-controls {
