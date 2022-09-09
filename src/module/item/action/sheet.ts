@@ -47,7 +47,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
                         },
                     },
                     type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-                    content: chatTemplate
+                    content: chatTemplate,
                 };
                 ChatMessagePF2e.create(chatData, { renderSheet: false });
             });
@@ -60,7 +60,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
             label: "",
             class: "send-to-chat",
             icon: "fas fa-comment-alt",
-            onclick: () => {}
+            onclick: () => {},
         });
         return buttons;
     }

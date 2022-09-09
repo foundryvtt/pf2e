@@ -104,7 +104,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         return { actor: this.actor, item: this };
     }
 
-    async renderChatTemplate(itemType: string, actor: ActorPF2e | undefined, tokenId: string | null, contextualData: any): Promise<string> {
+    async renderChatTemplate(
+        itemType: string,
+        actor: ActorPF2e | undefined,
+        tokenId: string | null,
+        contextualData: Record<string, unknown>
+    ): Promise<string> {
         const template = `systems/pf2e/templates/chat/${itemType}-card.html`;
         const templateData = {
             actor: actor,
@@ -124,7 +129,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         {
             rollMode = undefined,
             create = true,
-            data = {}
+            data = {},
         }: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {}
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
@@ -158,7 +163,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (rollMode === "blindroll") chatData.blind = true;
 
         // Render the template
-        chatData.content = await this.renderChatTemplate(this.type, this.actor, token ? `${token.parent?.id}.${token.id}` : null, contextualData);
+        chatData.content = await this.renderChatTemplate(
+            this.type,
+            this.actor,
+            token ? `${token.parent?.id}.${token.id}` : null,
+            contextualData
+        );
 
         // Create the chat message
         return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
