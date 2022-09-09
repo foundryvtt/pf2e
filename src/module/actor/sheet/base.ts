@@ -195,13 +195,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        // Pad field width
-        $html.find("[data-wpad]").each((_i, e) => {
-            const text = e.tagName === "INPUT" ? (e as HTMLInputElement).value : e.innerText;
-            const w = (text.length * Number(e?.getAttribute("data-wpad"))) / 2;
-            e.setAttribute("style", `flex: 0 0 ${w}px`);
-        });
-
         // Item summaries
         this.itemRenderer.activateListeners($html);
 
