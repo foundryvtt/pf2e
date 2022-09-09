@@ -1,7 +1,6 @@
 import { MystifiedTraits } from "@item/data/values";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
-import { PlayerListPF2e } from "@module/apps/ui/player-list";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -59,7 +58,6 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
-            CONFIG.ui.players = PlayerListPF2e;
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";
