@@ -567,19 +567,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     setEncounterRollOptions(): void {
         const encounter = game.ready ? game.combat : null;
         const participants = encounter?.combatants.contents ?? [];
-        if (!(encounter?.started && participants.some((c) => c.actor === this && typeof c.initiative === "number"))) {
-            return;
-        }
+        const participant = encounter?.started
+            ? this.token
+                ? this.token.combatant
+                : participants.find((c) => c.actor === this)
+            : null;
+        if (!(encounter && participant)) return;
 
         const rollOptionsAll = this.rollOptions.all;
         rollOptionsAll[`encounter:round:${encounter.round}`] = true;
         rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
         rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
 
-        const thisCombatant = participants.find((c) => c.actor === this);
-        if (!thisCombatant) return;
-
-        const rank = participants.indexOf(thisCombatant) + 1;
+        const rank = participants.indexOf(participant) + 1;
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
