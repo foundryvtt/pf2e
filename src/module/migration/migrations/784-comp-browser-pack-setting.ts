@@ -9,6 +9,11 @@ export class Migration784CompBrowserPackSetting extends MigrationBase {
         if (savedSettings instanceof String) {
             const settings = JSON.parse(savedSettings.toString());
             await game.settings.set("pf2e", "compendiumBrowserPacks", settings);
+            const browser = game?.pf2e?.compendiumBrowser;
+            if (browser) {
+                browser.settings = settings;
+                browser.initCompendiumList();
+            }
         }
     }
 }
