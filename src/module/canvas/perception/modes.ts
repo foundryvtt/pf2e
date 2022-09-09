@@ -1,3 +1,5 @@
+import { TokenPF2e } from "../token";
+
 const darkvision = new VisionMode({
     id: "darkvision",
     label: "VISION.ModeDarkvision",
@@ -14,12 +16,44 @@ const darkvision = new VisionMode({
     },
     vision: {
         darkness: { adaptive: true },
-        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0.75, range: 1250 },
+        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0.75, range: Infinity },
     },
 });
 
+class HearingDetectionMode extends DetectionMode {
+    constructor() {
+        super({
+            id: "hearing",
+            label: "PF2E.Actor.Creature.Sense.Type.Hearing",
+            type: DetectionMode.DETECTION_TYPES.SOUND,
+        });
+    }
+
+    static override getDetectionFilter(): OutlineOverlayFilter {
+        const filter = (this._detectionFilter ??= OutlineOverlayFilter.create({
+            wave: true,
+            knockout: false,
+        }));
+        filter.thickness = 1;
+        return filter;
+    }
+
+    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+        const targetIsUndetected = () =>
+            target instanceof TokenPF2e &&
+            target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
+        return !visionSource.object.actor?.hasCondition("deafened") && !targetIsUndetected();
+    }
+}
+
+declare namespace HearingDetectionMode {
+    // eslint-disable-next-line no-var
+    var _detectionFilter: OutlineOverlayFilter | undefined;
+}
+
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
+    CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
 }
 
 export { setPerceptionModes };
