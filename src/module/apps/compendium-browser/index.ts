@@ -949,6 +949,14 @@ class CompendiumBrowser extends Application {
             ev.preventDefault();
             this.openTab("bestiary");
         });
+
+        // Add levels to actors.
+        $html.find(".actor").filter(":not([level-added])").each((_,actor) => {
+            const documentId = $(actor).attr("data-document-id");
+            $(actor).attr("level-added", "true");
+            const level = ui.actors.documents.find((actorDoc) => actorDoc.id === documentId)?.level;
+            if (level) $(actor).find(".document-name").append(`<span class="actor-level">Level ${level}</span>`);
+        });
     }
 
     override getData() {
