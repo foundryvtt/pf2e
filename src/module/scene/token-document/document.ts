@@ -79,7 +79,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     get rulesBasedVision(): boolean {
-        return !!(this.sight.enabled && this.actor && this.scene?.rulesBasedVision);
+        return !!(this.sight.enabled && this.actor?.isOfType("character", "familiar") && this.scene?.rulesBasedVision);
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
@@ -197,17 +197,14 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             return super._prepareDetectionModes();
         }
 
-        const baseDetection = { id: "basicSight", enabled: true, range: null };
-        this.detectionModes = [baseDetection];
-        if (this.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+        this.detectionModes = [{ id: "basicSight", enabled: true, range: null }];
+        if (["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
             this.sight.range = null;
             this.sight.saturation = 0;
             this.sight.visionMode = "basic";
-        } else {
-            super._prepareDetectionModes();
         }
     }
 
@@ -228,8 +225,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this, this.actor);
 
-        // Set primary vision mode and its defaults
-        if (this.rulesBasedVision && this.actor.type !== "npc") {
+        // Set vision and detection modes
+        if (this.rulesBasedVision) {
             const isDark = this.scene.lightLevel <= LightLevels.DARKNESS;
             const mode = this.hasDarkvision && isDark ? "darkvision" : "basic";
             this.sight.visionMode = mode;
@@ -246,6 +243,10 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                 if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
                     this.sight.saturation = 1;
                 }
+            }
+
+            if (!this.actor.hasCondition("deafened")) {
+                this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
             }
         }
 
