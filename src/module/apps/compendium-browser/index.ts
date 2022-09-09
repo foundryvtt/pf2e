@@ -102,7 +102,7 @@ class CompendiumBrowser extends Application {
 
         this.loadSettings();
         this.initCompendiumList();
-        this.injectActorDirectory();
+        this.injectActorDirectory(ui.actors.element);
         this.hookTab();
     }
 
@@ -929,8 +929,8 @@ class CompendiumBrowser extends Application {
         this.element.css({ pointerEvents: "none" });
     }
 
-    injectActorDirectory() {
-        const $html = ui.actors.element;
+    injectActorDirectory(actorDirectory: JQuery<HTMLElement>) {
+        const $html = actorDirectory;
         if ($html.find(".bestiary-browser-btn").length > 0) return;
 
         // Bestiary Browser Buttons
