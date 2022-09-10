@@ -1,10 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { HazardSystemData } from "@actor/hazard/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { UserPF2e } from "@module/user";
-import { DicePF2e } from "@scripts/dice";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
@@ -12,7 +10,6 @@ import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { MeleeSystemData } from "./melee/data";
 import type { PhysicalItemPF2e } from "./physical";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
@@ -271,10 +268,10 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected async processChatData(
+    protected async processChatData<T extends ItemSummaryData>(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        data: ItemSummaryData
-    ): Promise<ItemSummaryData> {
+        data: T
+    ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
@@ -320,99 +317,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         });
 
         return traitChatLabels;
-    }
-
-    /* -------------------------------------------- */
-    /*  Roll Attacks                                */
-    /* -------------------------------------------- */
-
-    /**
-     * Roll a NPC Attack
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1): void {
-        if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (!this.actor?.isOfType("hazard")) {
-            throw ErrorPF2e("Attempted to roll an attack without an actor!");
-        }
-        // Prepare roll data
-        const itemData: any = this.getChatData();
-        const rollData: HazardSystemData & { item?: unknown; itemBonus?: number } = deepClone(this.actor.system);
-        const parts = ["@itemBonus"];
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
-
-        rollData.item = itemData;
-        rollData.itemBonus = Number(itemData.bonus.value) || 0;
-
-        if (multiAttackPenalty === 2) parts.push(itemData.map2);
-        else if (multiAttackPenalty === 3) parts.push(itemData.map3);
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            actor: this.actor,
-            data: rollData as unknown as Record<string, unknown>,
-            rollType: "attack-roll",
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event ? event.clientY - 80 : 400,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
-     * Roll NPC Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
-     */
-    rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false): void {
-        if (!this.isOfType("melee")) throw ErrorPF2e("Wrong item type!");
-        if (!this.actor.isOfType("hazard")) {
-            throw ErrorPF2e("Attempted to roll an attack without an actor!");
-        }
-
-        // Get item and actor data and format it for the damage roll
-        const systemData = this.system;
-        const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).system;
-        let parts: (string | number)[] = [];
-        const partsType: string[] = [];
-
-        // If the NPC is using the updated NPC Attack data object
-        if (systemData.damageRolls && typeof systemData.damageRolls === "object") {
-            Object.keys(systemData.damageRolls).forEach((key) => {
-                if (systemData.damageRolls[key].damage) parts.push(systemData.damageRolls[key].damage);
-                partsType.push(`${systemData.damageRolls[key].damage} ${systemData.damageRolls[key].damageType}`);
-            });
-        }
-
-        // Set the title of the roll
-        const title = `${this.name}: ${partsType.join(", ")}`;
-
-        // do nothing if no parts are provided in the damage roll
-        if (parts.length === 0) {
-            console.warn("PF2e System | No damage parts provided in damage roll");
-            parts = ["0"];
-        }
-
-        // Call the roll helper utility
-        rollData.item = systemData;
-        DicePF2e.damageRoll({
-            event,
-            parts,
-            critical,
-            actor: this.actor,
-            data: rollData as unknown as Record<string, unknown>,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
