@@ -126,17 +126,9 @@ export const ChatCards = {
                     ChatCards.rollActorSaves(event, item);
                 }
             } else if (actor.isOfType("character", "npc")) {
-                const strikeIndex = $card.attr("data-strike-index");
                 const strikeName = $card.attr("data-strike-name");
-                const altUsage = message.flags.pf2e.context?.altUsage ?? null;
-
-                const strikeAction = ((): StrikeData | null => {
-                    const action = actor.system.actions.at(Number(strikeIndex)) ?? null;
-                    return altUsage
-                        ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ??
-                              null
-                        : action;
-                })();
+                const altUsage = message.flags.pf2e.context?.altUsage;
+                const strikeAction = message.strike;
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
