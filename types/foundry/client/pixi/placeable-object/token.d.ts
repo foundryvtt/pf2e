@@ -270,7 +270,7 @@ declare global {
         /** Return the text which should be displayed in a token's tooltip field */
         protected _getTooltipText(): string;
 
-        protected _getTextStyle(): PIXI.Text;
+        protected _getTextStyle(): PIXI.TextStyle;
 
         /** Draw the active effects and overlay effect icons which are present upon the Token */
         drawEffects(): Promise<void>;

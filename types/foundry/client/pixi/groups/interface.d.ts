@@ -15,17 +15,14 @@ declare global {
          * @param [options.jitter=0]      An amount of randomization between [0, 1] applied to the initial position
          * @param [options.textStyle={}]  Additional parameters of PIXI.TextStyle which are applied to the text
          */
-        createScrollingText(
-            origin: Point,
-            content: string,
-            options: {
-                duration?: number;
-                distance?: number;
-                jitter?: number;
-                anchor: number;
-                direction?: number;
-                textStyle: Partial<PIXI.TextStyle>;
-            }
-        ): Promise<void | null>;
+        createScrollingText(origin: Point, content: string, options: CreateScrollingTextOptions): Promise<void | null>;
     }
+}
+
+interface CreateScrollingTextOptions extends Partial<PIXI.TextStyle> {
+    duration?: number;
+    distance?: number;
+    jitter?: number;
+    anchor: number;
+    direction?: number;
 }
