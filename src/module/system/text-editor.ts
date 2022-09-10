@@ -11,15 +11,18 @@ const superEnrichHTML = TextEditor.enrichHTML;
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
-    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e & { async: true }): Promise<string>;
-    static override enrichHTML(content?: string, options?: EnrichHTMLOptionsPF2e): string;
+    static override enrichHTML(content: string | null, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
+    static override enrichHTML(
+        content: string | null,
+        options?: EnrichHTMLOptionsPF2e & { async: true }
+    ): Promise<string>;
+    static override enrichHTML(content: string | null, options?: EnrichHTMLOptionsPF2e): string;
     static override enrichHTML(
         this: typeof TextEditor,
-        content = "",
+        content: string | null,
         options: EnrichHTMLOptionsPF2e = {}
     ): string | Promise<string> {
-        if (content.startsWith("<p>@Localize")) {
+        if (content?.startsWith("<p>@Localize")) {
             // Remove tags
             content = content.substring(3, content.length - 4);
         }
