@@ -31,12 +31,15 @@ function htmlQueryAll(parent: Optional<Element | EventTarget>, selectors: string
 }
 
 function htmlClosest<K extends keyof HTMLElementTagNameMap>(
-    parent: Element | EventTarget,
+    parent: Element | EventTarget | null,
     selectors: K
 ): HTMLElementTagNameMap[K] | null;
-function htmlClosest(child: Element | EventTarget, selectors: string): HTMLElement | null;
-function htmlClosest<E extends HTMLElement = HTMLElement>(parent: Element | EventTarget, selectors: string): E | null;
-function htmlClosest(child: Element | EventTarget, selectors: string): HTMLElement | null {
+function htmlClosest(child: Element | EventTarget | null, selectors: string): HTMLElement | null;
+function htmlClosest<E extends HTMLElement = HTMLElement>(
+    parent: Element | EventTarget | null,
+    selectors: string
+): E | null;
+function htmlClosest(child: Element | EventTarget | null, selectors: string): HTMLElement | null {
     if (!(child instanceof Element)) return null;
     return child.closest<HTMLElement>(selectors);
 }

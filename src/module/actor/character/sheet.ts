@@ -11,10 +11,10 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
-import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
+import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
@@ -515,15 +515,20 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         {
             // Add and remove combat proficiencies
-            const $tab = $html.find(".tab.proficiencies");
-            const $header = $tab.find("ol.combat-proficiencies");
-            $header.find("a.add").on("click", (event) => {
-                ManageCombatProficiencies.add(this.actor, event);
-            });
-            const $list = $tab.find("ol.combat-list");
-            $list.find("li.skill.custom a.delete").on("click", (event) => {
-                ManageCombatProficiencies.remove(this.actor, event);
-            });
+            const tab = html.querySelector(".tab.proficiencies");
+            const header = tab?.querySelector("h3.attacks-defenses");
+            header
+                ?.querySelector<HTMLElement>("button[data-action=add-attack-proficiency]")
+                ?.addEventListener("click", (event) => {
+                    ManageAttackProficiencies.add(this.actor, event);
+                });
+            const list = tab?.querySelector("ol.combat-list") ?? null;
+            const links = htmlQueryAll(list, "li.custom a[data-action=remove-attack-proficiency]");
+            for (const link of links) {
+                link.addEventListener("click", (event) => {
+                    ManageAttackProficiencies.remove(this.actor, event);
+                });
+            }
         }
 
         $html.find(".hover").tooltipster({
