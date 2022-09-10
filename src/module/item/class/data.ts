@@ -1,5 +1,5 @@
 import { AbilityString, SaveType } from "@actor/types";
-import { ABCSystemData } from "@item/abc/data";
+import { ABCSystemSource } from "@item/abc/data";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { ZeroToFour } from "@module/data";
 import type { ClassPF2e } from ".";
@@ -10,7 +10,7 @@ type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 type ClassData = Omit<ClassSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ClassPF2e, "class", ClassSystemData, ClassSource>;
 
-interface ClassSystemSource extends ABCSystemData {
+interface ClassSystemSource extends ABCSystemSource {
     traits: ItemTraits;
     keyAbility: { value: AbilityString[]; selected: AbilityString | null };
     hp: number;

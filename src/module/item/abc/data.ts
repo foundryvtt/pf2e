@@ -1,13 +1,16 @@
-import { ItemSystemData } from "@item/data/base";
+import { ItemSystemSource } from "@item/data/base";
 
-export interface ABCFeatureEntryData {
-    pack?: string;
-    id: string;
+interface ABCFeatureEntryData {
+    uuid: string;
     img: ImagePath;
     name: string;
     level: number;
 }
 
-export interface ABCSystemData extends ItemSystemData {
+interface ABCSystemSource extends ItemSystemSource {
     items: Record<string, ABCFeatureEntryData>;
 }
+
+type ABCSystemData = ABCSystemSource;
+
+export { ABCFeatureEntryData, ABCSystemData, ABCSystemSource };

@@ -182,3 +182,4 @@ export { Migration781SuppressNoCrowbar } from "./781-suppress-no-crowbar";
 export { Migration782UnnestActorTraits } from "./782-unnest-actor-traits";
 export { Migration783RemoveClassSkillAELikes } from "./783-remove-class-skill-ae-likes";
 export { Migration784CompBrowserPackSetting } from "./784-comp-browser-pack-setting";
+export { Migration785ABCKitItemUUIDs } from "./785-abc-kit-items";
