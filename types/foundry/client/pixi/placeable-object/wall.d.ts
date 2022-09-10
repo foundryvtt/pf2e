@@ -44,7 +44,7 @@ declare class Wall<TDocument extends WallDocument = WallDocument> extends Placea
      */
     toRay(): Ray;
 
-    draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     protected _createInteractionManager(): MouseInteractionManager;
 

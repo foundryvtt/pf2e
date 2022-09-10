@@ -141,6 +141,9 @@ declare global {
         /** Draw the placeable object into its parent container */
         draw(): Promise<this>;
 
+        /** The inner _draw method which must be defined by each PlaceableObject subclass. */
+        protected abstract _draw(): Promise<void>;
+
         /**
          * Refresh the current display state of the Placeable Object
          * @return The refreshed object
