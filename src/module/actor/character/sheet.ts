@@ -189,11 +189,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             )
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
-        // Hide basic unarmed attack if configured so
-        if (!this.actor.flags.pf2e.showBasicUnarmed) {
-            sheetData.data.actions.findSplice((s: CharacterStrike) => s.item.id === "xxPF2ExUNARMEDxx");
-        }
-
         // Show hints for some things being modified
         const baseData = this.actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =

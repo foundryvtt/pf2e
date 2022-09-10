@@ -219,6 +219,8 @@ interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
     slug: string | null;
+    /** Whether this attack is visible on the sheet */
+    visible: boolean;
     adjustments?: DegreeOfSuccessAdjustment[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
