@@ -31,13 +31,23 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "panache",
-                        "melee",
-                        "class:swashbuckler"
+                        "class:swashbuckler",
+                        "self:effect:panache",
+                        {
+                            "or": [
+                                "weapon:melee",
+                                {
+                                    "and": [
+                                        "feat:flying-blade",
+                                        "weapon:thrown"
+                                    ]
+                                }
+                            ]
+                        }
                     ],
                     "any": [
-                        "finesse",
-                        "agile"
+                        "weapon:trait:finesse",
+                        "weapon:trait:agile"
                     ],
                     "not": [
                         "finisher"
@@ -79,14 +89,23 @@
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
-                        "finisher",
-                        "panache",
-                        "melee",
-                        "class:swashbuckler"
+                        "class:swashbuckler",
+                        "self:effect:panache",
+                        {
+                            "or": [
+                                "weapon:melee",
+                                {
+                                    "and": [
+                                        "feat:flying-blade",
+                                        "weapon:thrown"
+                                    ]
+                                }
+                            ]
+                        }
                     ],
                     "any": [
-                        "finesse",
-                        "agile"
+                        "weapon:trait:finesse",
+                        "weapon:trait:agile"
                     ]
                 },
                 "selector": "strike-damage",
