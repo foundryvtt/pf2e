@@ -27,7 +27,7 @@
                     </h3>
                     <ol class="actions-list item-list directory-list strikes-list">
                         {{#each data.actions as |action ai|}}
-                            <li class="item action strike expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
+                            <li class="item action strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-action-index="{{ai}}">
                                 <div class="item-name rollable">
                                     <div class="item-image variant-strike" data-action="strike-attack" data-variant-index="0" style="background-image: url({{action.imageUrl}})">
                                         <i class="fas fa-dice-d20"></i>
@@ -40,9 +40,9 @@
                                             </h4>
                                             {{#if action.item}}
                                                 <div class="action-options" data-item-id="{{action.item.id}}">
-                                                    {{#with action.item.ammo.charges}}
+                                                    {{#with action.item.ammo.uses}}
                                                         {{#if (gt max 1)}}
-                                                            <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
+                                                            <span class="ammo-remaining"><i class="ammo-icon"></i> {{value}}</span>
                                                         {{/if}}
                                                     {{/with}}
                                                 </div>

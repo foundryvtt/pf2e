@@ -162,7 +162,10 @@ class CheckPF2e {
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
         context.skipDialog ??= !game.user.settings.showRollDialogs;
-        const rollOptions = context.options ?? new Set([]);
+
+        // System code must pass a set, but macros and modules may instead pass an array
+        if (Array.isArray(context.options)) context.options = new Set(context.options);
+        const rollOptions = context.options ?? new Set();
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);

@@ -1,8 +1,8 @@
 import { MigrationSummary } from "@module/apps/migration-summary";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
 import { MigrationRunner } from "@module/migration/runner";
-import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerModuleArt } from "@scripts/register-module-art";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { activateSocketListener } from "@scripts/socket";
@@ -55,7 +55,7 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion ?? 9, "0.8.9"))
+                            !foundry.utils.isNewerVersion(m.compatibility.verified ?? 9, "0.8.9"))
                 );
 
                 for (const badModule of subV9Modules) {
@@ -70,8 +70,6 @@ export const Ready = {
                 SetAsInitiative.listen($(li));
             }
 
-            PlayerConfigPF2e.activateColorScheme();
-
             activateSocketListener();
 
             // Extend drag data for things such as condition value
@@ -82,6 +80,9 @@ export const Ready = {
 
             // In case there's no canvas, run Condition Manager initialization from this hook as well
             game.pf2e.ConditionManager.initialize();
+
+            // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
+            game.scenes.apps.push(SceneDarknessAdjuster.instance);
 
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {

@@ -1,5 +1,3 @@
-<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeEffect")}}</h4>
-
 <div class="inventory-details">
     <div class="form-group">
         <label for="{{#if (eq data.duration.unit "unlimited")}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize "PF2E.Time.Duration"}}</label>
@@ -50,11 +48,7 @@
     <div class="form-group">
         {{#if data.badge}}
             <div class="form-fields">
-                <select name="system.badge.type">
-                    {{#select data.badge.type}}
-                        <option value="counter">{{localize "PF2E.Item.Effect.BadgeType.Counter"}}</option>
-                    {{/select}}
-                </select>
+                {{localize "PF2E.Item.Effect.BadgeType.Counter"}}
                 <input type={{#if (eq data.badge.type "counter")}}"number"{{else}}"text"{{/if}} name="system.badge.value" value="{{data.badge.value}}"/>
                 <div class="item-controls">
                     <a data-action="badge-delete"><i class="fas fa-fw fa-times"></i></a>

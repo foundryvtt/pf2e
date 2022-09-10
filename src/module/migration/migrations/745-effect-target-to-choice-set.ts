@@ -56,7 +56,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
             if (this.#isEffectTargetRE(rule)) {
                 rules[rules.indexOf(rule)] = this.#toChoiceSet(rule, source, actorSource ?? null);
                 const otherRules = rules.filter(
-                    (r): r is RuleElementSource & { selector: string } =>
+                    (r: RuleElementSource & { selector?: unknown }): r is RuleElementSource & { selector: string } =>
                         typeof r.selector === "string" && /item\|data\.target/.test(r.selector)
                 );
                 for (const other of otherRules) {

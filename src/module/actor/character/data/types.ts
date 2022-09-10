@@ -20,7 +20,6 @@ import {
     AbilityBasedStatistic,
     ActorFlagsPF2e,
     ArmorClassData,
-    DexterityModifierCapData,
     PerceptionData,
     StrikeData,
     TraitViewData,
@@ -220,6 +219,8 @@ interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
     slug: string | null;
+    /** Whether this attack is visible on the sheet */
+    visible: boolean;
     adjustments?: DegreeOfSuccessAdjustment[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
@@ -363,10 +364,6 @@ interface CharacterAttributes extends CreatureAttributes {
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
     initiative: CreatureInitiative;
-
-    /** Dexterity modifier cap to AC. Undefined means no limit. */
-    dexCap: DexterityModifierCapData[];
-
     /** The amount of HP provided per level by the character's class. */
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */

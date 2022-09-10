@@ -15,7 +15,7 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
-import { isObject, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, sluggify, tupleHasValue } from "@util";
 import { RuleElementSource } from "../data";
 import { CharacterStrike } from "@actor/character/data";
 
@@ -135,7 +135,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         // Pre-clear other rule elements on this item as being compatible with the battle form
         const rules = (itemSource.system?.rules ?? []) as RuleElementSource[];
         for (const rule of rules) {
-            if (["DamageDice", "FlatModifier", "Note"].includes(rule.key)) {
+            if (["DamageDice", "FlatModifier", "Note"].includes(String(rule.key))) {
                 const predicate = (rule.predicate ??= {});
                 const predicateAll = (predicate.all ??= []);
                 predicateAll.push("battle-form");
@@ -175,7 +175,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
-            const currentTraits = actor.system.traits.traits;
+            const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
@@ -309,9 +309,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 otherSpeeds.push({
                     type: movementType,
                     label,
-                    value: String(speedOverride),
+                    value: speedOverride,
                 });
                 const newSpeed = this.actor.prepareSpeed(movementType);
+                if (!newSpeed) throw ErrorPF2e("Unexpected failure retrieving movement type");
                 this.suppressModifiers(newSpeed);
                 newSpeed.totalModifier = newSpeed.total = speedOverride + newSpeed.totalModifier;
                 newSpeed.breakdown = [`${label} ${speedOverride}`]

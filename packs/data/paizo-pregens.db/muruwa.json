@@ -509,12 +509,6 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.skills.ste.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.martial.weapon-base-rapier.rank",
                         "value": 1
                     },
@@ -1243,7 +1237,14 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "selector": "athletics",
+                        "slug": "no-crowbar",
+                        "suppress": true
+                    }
+                ],
                 "size": "med",
                 "slug": "crowbar",
                 "source": {
@@ -2341,7 +2342,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25"
+                "value": 25
             }
         },
         "crafting": {
@@ -2491,10 +2492,7 @@
                 ]
             },
             "senses": [],
-            "traits": {
-                "custom": "",
-                "value": []
-            }
+            "value": []
         }
     },
     "type": "character"

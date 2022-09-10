@@ -29,6 +29,8 @@ import { ContainerSheetPF2e } from "@item/container/sheet";
 import { MeleeSheetPF2e } from "@item/melee/sheet";
 import { ConsumableSheetPF2e } from "@item/consumable/sheet";
 import { TreasureSheetPF2e } from "@item/treasure/sheet";
+import { UserPF2e } from "@module/user";
+import { UserConfigPF2e } from "@module/user/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -36,7 +38,8 @@ export function registerSheets() {
 
     DocumentSheetConfig.unregisterSheet(JournalEntry, "core", JournalSheet);
     DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, {
-        label: game.i18n.localize("PF2E.JournalEntry.FoundryTheme"),
+        label: () =>
+            game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
         makeDefault: true,
     });
 
@@ -148,4 +151,12 @@ export function registerSheets() {
             makeDefault: true,
         });
     }
+
+    // User
+
+    DocumentSheetConfig.unregisterSheet(User, "core", UserConfig);
+    DocumentSheetConfig.registerSheet(UserPF2e, "pf2e", UserConfigPF2e, {
+        makeDefault: true,
+        label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.User") }),
+    });
 }

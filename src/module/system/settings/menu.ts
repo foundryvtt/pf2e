@@ -9,7 +9,7 @@ export interface MenuTemplateData extends FormApplicationData {
     settings: SettingsTemplateData[];
 }
 
-export abstract class SettingsMenuPF2e extends FormApplication {
+abstract class SettingsMenuPF2e extends FormApplication {
     static readonly namespace: string;
 
     static override get defaultOptions() {
@@ -27,7 +27,7 @@ export abstract class SettingsMenuPF2e extends FormApplication {
     }
 
     get namespace(): string {
-        return (this.constructor as typeof SettingsMenuPF2e).namespace;
+        return this.constructor.namespace;
     }
 
     static readonly SETTINGS: readonly string[];
@@ -48,7 +48,7 @@ export abstract class SettingsMenuPF2e extends FormApplication {
         }
     }
 
-    override getData(): MenuTemplateData {
+    override async getData(): Promise<MenuTemplateData> {
         const settings = (this.constructor as typeof SettingsMenuPF2e).settings;
         const templateData: SettingsTemplateData[] = Object.entries(settings).map(([key, setting]) => {
             const value = game.settings.get("pf2e", `${this.namespace}.${key}`);
@@ -60,7 +60,7 @@ export abstract class SettingsMenuPF2e extends FormApplication {
                 isCheckbox: setting.type === Boolean,
             };
         });
-        return mergeObject(super.getData(), {
+        return mergeObject(await super.getData(), {
             settings: templateData,
             instructions: `PF2E.SETTINGS.${this.namespace.titleCase()}.Hint`,
         });
@@ -73,3 +73,9 @@ export abstract class SettingsMenuPF2e extends FormApplication {
         }
     }
 }
+
+interface SettingsMenuPF2e extends FormApplication {
+    constructor: typeof SettingsMenuPF2e;
+}
+
+export { SettingsMenuPF2e };

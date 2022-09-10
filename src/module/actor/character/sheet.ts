@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ItemPF2e } from "@item";
+import { ActionItemPF2e, ItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e, LoreData } from "@item/data";
@@ -11,10 +11,10 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
-import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
+import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
@@ -189,11 +189,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             )
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
-        // Hide basic unarmed attack if configured so
-        if (!this.actor.flags.pf2e.showBasicUnarmed) {
-            sheetData.data.actions.findSplice((s: CharacterStrike) => s.item.id === "xxPF2ExUNARMEDxx");
-        }
-
         // Show hints for some things being modified
         const baseData = this.actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =
@@ -212,7 +207,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorData = sheetData.actor;
 
         // Actions
-        const actions: Record<string, { label: string; actions: any[] }> = {
+        type AnnotatedAction = RawObject<ActionItemPF2e["data"]> & {
+            encounter?: boolean;
+            exploration?: boolean;
+            downtime?: boolean;
+        };
+        const actions: Record<string, { label: string; actions: AnnotatedAction[] }> = {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
@@ -290,13 +290,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // assign mode to actions
-        Object.values(actions)
-            .flatMap((section) => section.actions)
-            .forEach((action: any) => {
-                action.downtime = action.system.traits.value.includes("downtime");
-                action.exploration = action.system.traits.value.includes("exploration");
-                action.encounter = !(action.downtime || action.exploration);
-            });
+        for (const action of Object.values(actions).flatMap((section) => section.actions)) {
+            action.downtime = action.system.traits.value.includes("downtime");
+            action.exploration = action.system.traits.value.includes("exploration");
+            action.encounter = !(action.downtime || action.exploration);
+        }
 
         // Assign and return
         actorData.pfsBoons = this.actor.pfsBoons;
@@ -517,15 +515,20 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         {
             // Add and remove combat proficiencies
-            const $tab = $html.find(".tab.proficiencies");
-            const $header = $tab.find("ol.combat-proficiencies");
-            $header.find("a.add").on("click", (event) => {
-                ManageCombatProficiencies.add(this.actor, event);
-            });
-            const $list = $tab.find("ol.combat-list");
-            $list.find("li.skill.custom a.delete").on("click", (event) => {
-                ManageCombatProficiencies.remove(this.actor, event);
-            });
+            const tab = html.querySelector(".tab.proficiencies");
+            const header = tab?.querySelector("h3.attacks-defenses");
+            header
+                ?.querySelector<HTMLElement>("button[data-action=add-attack-proficiency]")
+                ?.addEventListener("click", (event) => {
+                    ManageAttackProficiencies.add(this.actor, event);
+                });
+            const list = tab?.querySelector("ol.combat-list") ?? null;
+            const links = htmlQueryAll(list, "li.custom a[data-action=remove-attack-proficiency]");
+            for (const link of links) {
+                link.addEventListener("click", (event) => {
+                    ManageAttackProficiencies.remove(this.actor, event);
+                });
+            }
         }
 
         $html.find(".hover").tooltipster({

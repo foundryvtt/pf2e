@@ -144,7 +144,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get traits(): Set<string> {
-        return new Set(this.system.traits.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get level(): number {
@@ -443,8 +443,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
         this.system.toggles = [];
 
-        const notTraits: BaseTraitsData | undefined = this.system.traits;
-        if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
+        const traits: BaseTraitsData<string> | undefined = this.system.traits;
+        if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
         const { flags } = this;
@@ -458,9 +458,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const preparationWarnings: Set<string> = new Set();
 
         this.synthetics = {
-            damageDice: { damage: [] },
             criticalSpecalizations: { standard: [], alternate: [] },
+            damageDice: { damage: [] },
+            dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
+            movementTypes: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             rollSubstitutions: {},
@@ -565,19 +567,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     setEncounterRollOptions(): void {
         const encounter = game.ready ? game.combat : null;
         const participants = encounter?.combatants.contents ?? [];
-        if (!(encounter?.started && participants.some((c) => c.actor === this && typeof c.initiative === "number"))) {
-            return;
-        }
+        const participant = encounter?.started
+            ? this.token
+                ? this.token.combatant
+                : participants.find((c) => c.actor === this)
+            : null;
+        if (!(encounter && participant)) return;
 
         const rollOptionsAll = this.rollOptions.all;
         rollOptionsAll[`encounter:round:${encounter.round}`] = true;
         rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
         rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
 
-        const thisCombatant = participants.find((c) => c.actor === this);
-        if (!thisCombatant) return;
-
-        const rank = participants.indexOf(thisCombatant) + 1;
+        const rank = participants.indexOf(participant) + 1;
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
@@ -1213,19 +1215,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
-        super._onEmbeddedDocumentChange(embeddedName);
+        if (this.isToken) {
+            return super._onEmbeddedDocumentChange(embeddedName);
+        }
 
-        Promise.resolve().then(async () => {
-            // As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors
-            await this.token?.object?.drawEffects();
-            // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
-            for (const tokenDoc of this.getActiveTokens(true, true)) {
-                tokenDoc._onUpdateBaseActor();
-            }
-        });
+        for (const tokenDoc of this.getActiveTokens(true, true)) {
+            tokenDoc._onUpdateBaseActor();
+        }
 
         // Send any accrued warnings to the console
         this.synthetics.preparationWarnings.flush();
+        super._onEmbeddedDocumentChange(embeddedName);
     }
 }
 
@@ -1238,7 +1238,7 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     _sheet: ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e> | null;
 
-    get sheet(): ActorSheetPF2e<this> | ActorSheet<this, ItemPF2e>;
+    get sheet(): ActorSheetPF2e<this>;
 
     /** See implementation in class */
     createEmbeddedDocuments(

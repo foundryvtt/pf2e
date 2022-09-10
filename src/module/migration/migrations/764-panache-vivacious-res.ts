@@ -91,5 +91,6 @@ export class Migration764PanacheVivaciousREs extends MigrationBase {
 }
 
 interface FlatModifierSource extends RuleElementSource {
+    selector?: string;
     type?: string;
 }

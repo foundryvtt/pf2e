@@ -9,7 +9,7 @@ export class Migration701ModifierNameToSlug extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         const rules: MaybeWithName[] = itemSource.system.rules.filter((r) =>
-            ["FlatModifier", "DamageDice"].includes(r.key)
+            ["FlatModifier", "DamageDice"].includes(String(r.key))
         );
         for (const rule of rules) {
             if (rule.name) {

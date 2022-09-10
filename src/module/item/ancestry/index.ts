@@ -88,7 +88,7 @@ class AncestryPF2e extends ABCItemPF2e {
         const reach = SIZE_TO_REACH[this.size];
         actor.system.attributes.reach = { general: reach, manipulate: reach };
 
-        actor.system.attributes.speed.value = String(this.speed);
+        actor.system.attributes.speed.value = this.speed;
 
         // Add ability boosts and flaws
         const { build } = actor.system;
@@ -125,7 +125,7 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         // Add traits from this item
-        actor.system.traits.traits.value.push(...this.traits);
+        actor.system.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
         actor.system.details.ancestry = { name: this.name, trait: slug };

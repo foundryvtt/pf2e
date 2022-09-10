@@ -54,7 +54,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         compendium: pack.collection,
                         level: actorData.system.details.level.value,
                         complexity: actorData.system.details.isComplex ? "complex" : "simple",
-                        traits: actorData.system.traits.traits.value,
+                        traits: actorData.system.traits.value,
                         rarity: actorData.system.traits.rarity,
                         source: actorData.system.details.source.value,
                     });
@@ -138,7 +138,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "name",
+                by: "level",
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",

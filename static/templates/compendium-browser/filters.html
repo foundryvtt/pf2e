@@ -1,6 +1,6 @@
 <div class="control-area">
     <div class="sortcontainer" id="tagfilter">
-        <input name="textFilter" type="text" value="{{filterData.search.text}}" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}" />
+        <input name="textFilter" type="search" value="{{filterData.search.text}}" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}" />
         <dl>
             <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
             <dd>
@@ -78,25 +78,25 @@
                 {{/if}}
             </div>
             <div {{#if (not range.isExpanded)}}style="display: none;"{{/if}}>
-                <input type="text" name="lowerBound-level" value="{{range.values.inputMin}}">
+                <input type="search" name="lowerBound-level" value="{{range.values.inputMin}}" placeholder="0cp">
                 -
-                <input type="text" name="upperBound-level" value="{{range.values.inputMax}}">
+                <input type="search" name="upperBound-level" value="{{range.values.inputMax}}" placeholder="200,000gp">
             </div>
         </div>
     {{/each}}
     {{#each filterData.sliders as |slider name|}}
-    <div class="filtercontainer slidercontainer" data-filter-type="sliders" data-filter-name="{{name}}">
-        <div class="title">
-            <h3>{{localize slider.label}}</h3>
-            {{#if slider.changed}}
-                <button type="button" data-action="clear-filter" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>{{localize "PF2E.BrowserClearFilter"}}</button>
-            {{/if}}
+        <div class="filtercontainer slidercontainer" data-filter-type="sliders" data-filter-name="{{name}}">
+            <div class="title">
+                <h3>{{localize slider.label}}</h3>
+                {{#if slider.changed}}
+                    <button type="button" data-action="clear-filter" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>{{localize "PF2E.BrowserClearFilter"}}</button>
+                {{/if}}
+            </div>
+            <div class="slidercontainer-flex" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>
+                <label id="{{name}}-min-label">{{slider.values.min}}</label>
+                <div class="slider-{{name}}"></div>
+                <label id="{{name}}-max-label">{{slider.values.max}}</label>
+            </div>
         </div>
-        <div class="slidercontainer-flex" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>
-            <label id="{{name}}-min-label">{{slider.values.min}}</label>
-            <div class="slider-{{name}}"></div>
-            <label id="{{name}}-max-label">{{slider.values.max}}</label>
-        </div>
-    </div>
     {{/each}}
 </div>

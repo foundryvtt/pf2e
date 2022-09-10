@@ -13,6 +13,9 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
 class FlatModifierRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    /** All domains to add a modifier to */
+    selectors: string[];
+
     type: ModifierType = MODIFIER_TYPE.UNTYPED;
 
     /** If this is an ability modifier, the ability score it modifies */
@@ -37,13 +40,20 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.failValidation(`A flat modifier must have one of the following types: ${validTypes}`);
         }
 
+        this.selectors =
+            typeof this.data.selector === "string"
+                ? [this.data.selector]
+                : Array.isArray(data.selector) && data.selector.every((s): s is string => typeof s === "string")
+                ? data.selector
+                : [];
+
         this.fromEquipment =
             this.item instanceof PhysicalItemPF2e || (this.type === "item" && !!(data.fromEquipment ?? true));
 
         if (this.type === "ability") {
             if (setHasElement(ABILITY_ABBREVIATIONS, data.ability)) {
                 this.ability = data.ability;
-                this.data.label = data.label ?? CONFIG.PF2E.abilities[this.ability];
+                this.data.label = typeof data.label === "string" ? data.label : CONFIG.PF2E.abilities[this.ability];
                 this.data.value ??= `@actor.abilities.${this.ability}.mod`;
             } else {
                 this.failValidation(
@@ -57,14 +67,19 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        // Strip out the title ("Effect:", etc.) of the effect name
         const label = this.data.label.includes(":")
             ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
             : this.data.label;
         const slug = this.slug ?? (this.type === "ability" && this.ability ? this.ability : sluggify(label));
 
-        if (selector && this.data.value) {
-            // Strip out the title ("Effect:", etc.) of the effect name
+        const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);
+        if (selectors.length === 0 || !this.data.value) {
+            this.failValidation("Flat modifier requires selector and value properties");
+            return;
+        }
+
+        for (const selector of selectors) {
             const construct = (options: DeferredValueParams = {}): ModifierPF2e | null => {
                 const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
                 if (this.ignored) return null;
@@ -102,8 +117,6 @@ class FlatModifierRuleElement extends RuleElementPF2e {
 
             const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
             modifiers.push(construct);
-        } else {
-            this.failValidation("Flat modifier requires selector and value properties");
         }
     }
 }
@@ -115,6 +128,7 @@ interface FlatModifierRuleElement {
 }
 
 interface FlatModifierData extends RuleElementData {
+    selector: string | string[];
     min?: number;
     max?: number;
     damageType?: string;
@@ -123,6 +137,7 @@ interface FlatModifierData extends RuleElementData {
 }
 
 interface FlatModifierSource extends RuleElementSource {
+    selector?: unknown;
     min?: unknown;
     max?: unknown;
     type?: unknown;

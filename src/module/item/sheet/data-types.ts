@@ -12,10 +12,15 @@ import { RuleElementSource } from "@module/rules";
 import { SheetOptions } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
     showTraits: boolean;
+    /** Whether the sheet should have a sidebar at all */
     hasSidebar: boolean;
+    /** Whether the sheet should have a details tab (some item types don't have one) */
     hasDetails: boolean;
+    /** The sidebar's current title */
+    sidebarTitle: string;
     sidebarTemplate?: () => string;
     detailsTemplate?: () => string;
     item: TItem["data"];

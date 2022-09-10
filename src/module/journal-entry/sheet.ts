@@ -1,4 +1,3 @@
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import type * as TinyMCE from "tinymce";
 
 class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
@@ -14,11 +13,6 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
             options.classes.push(theme);
         }
         return options;
-    }
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        InlineRollLinks.listen($html);
     }
 }
 

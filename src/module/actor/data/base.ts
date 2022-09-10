@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor/base";
+import { DexterityModifierCapData } from "@actor/character/types";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
@@ -43,7 +44,7 @@ interface ActorSystemSource {
     attributes: {
         hp?: ValueAndMaybeMax;
     };
-    traits?: BaseTraitsSource;
+    traits?: BaseTraitsSource<string>;
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
     schema: DocumentSchemaRecord;
 }
@@ -54,7 +55,7 @@ interface ActorSystemData extends ActorSystemSource {
         alliance: ActorAlliance;
     };
     attributes: BaseActorAttributes;
-    traits: BaseTraitsData;
+    traits: BaseTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
@@ -128,13 +129,13 @@ export interface LabeledResistance extends LabeledNumber {
     type: ResistanceType;
 }
 
-export interface BaseTraitsSource {
-    /** The rarity of the actor (common, uncommon, etc.) */
-    rarity: Rarity;
-    /** The character size (such as 'med'). */
-    size: { value: Size };
+export interface BaseTraitsSource<TTrait extends string> {
     /** Actual Pathfinder traits */
-    traits: ValuesList;
+    value: TTrait[];
+    /** The rarity of the actor (common, uncommon, etc.) */
+    rarity?: Rarity;
+    /** The character size (such as 'med'). */
+    size?: { value: Size };
     /** Damage immunities this actor has. */
     di: ValuesList<ImmunityType>;
     /** Damage resistances that this actor has. */
@@ -143,7 +144,8 @@ export interface BaseTraitsSource {
     dv: LabeledWeakness[];
 }
 
-interface BaseTraitsData extends BaseTraitsSource {
+interface BaseTraitsData<TTrait extends string> extends BaseTraitsSource<TTrait> {
+    rarity: Rarity;
     size: ActorSizePF2e;
 }
 
@@ -173,14 +175,6 @@ interface InitiativeData {
 /** The full data for character perception rolls (which behave similarly to skills). */
 type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
-
-/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
-interface DexterityModifierCapData {
-    /** The numeric value that constitutes the maximum Dexterity modifier. */
-    value: number;
-    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
-    source: string;
-}
 
 interface ArmorClassData {
     /** The actual AC value */
@@ -301,7 +295,6 @@ export {
     BaseActorSourcePF2e,
     BaseHitPointsData,
     BaseTraitsData,
-    DexterityModifierCapData,
     GangUpCircumstance,
     InitiativeData,
     PerceptionData,

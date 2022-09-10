@@ -2,11 +2,10 @@ import { ScenePF2e } from "@scene";
 import { fontAwesomeIcon } from "@util";
 import noUiSlider, { API as Slider, PipsMode } from "nouislider";
 import "nouislider/dist/nouislider.min.css";
+import { WorldClock } from "./world-clock";
 
 export class SceneDarknessAdjuster extends Application {
     static readonly instance = new this();
-
-    private scene: ScenePF2e | null = null;
 
     #slider?: Slider;
 
@@ -16,20 +15,24 @@ export class SceneDarknessAdjuster extends Application {
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
+            id: "darkness-adjuster",
+            title: "CONTROLS.AdjustSceneDarkness",
+            template: "systems/pf2e/templates/system/scene-darkness-adjuster.html",
             width: 400,
             height: 45,
-            id: "darkness-adjuster",
             minimizable: false,
         };
     }
 
-    override get template(): string {
-        return "systems/pf2e/templates/system/scene-darkness-adjuster.html";
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<object> {
+        return {
+            ...(await super.getData(options)),
+            darknessSyncedToTime: !!game.scenes.viewed?.darknessSyncedToTime,
+        };
     }
 
-    override async render(force = true, options: RenderOptions & { scene: ScenePF2e | null }): Promise<this> {
-        this.scene = options.scene;
-        if (!this.scene) return this;
+    override async render(force = true, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): Promise<this> {
+        if (!game.scenes.viewed) return this;
 
         // Adjust position of this application's window
         const controls = ui.controls.element[0]!;
@@ -43,15 +46,13 @@ export class SceneDarknessAdjuster extends Application {
     }
 
     override activateListeners($html: JQuery): void {
-        if (!this.scene) return;
+        if (!game.scenes.viewed) return;
         const html = $html[0];
         const slider = html.querySelector<HTMLElement>(".slider")!;
 
-        document.querySelector("#darkness-adjuster .window-header")?.remove();
-
         this.#slider = noUiSlider.create(slider, {
             range: { min: 0, max: 1 },
-            start: [0.25, this.scene.darkness, 0.75],
+            start: [0.25, game.scenes.viewed.darkness, 0.75],
             connect: [true, false, false, true],
             behaviour: "snap-unconstrained-snap",
             pips: {
@@ -61,9 +62,22 @@ export class SceneDarknessAdjuster extends Application {
             step: 0.05,
         });
 
+        // Add a message informing the user why the slider is disabled
+        if (game.scenes.viewed?.darknessSyncedToTime) {
+            const synchronized = document.createElement("div");
+            synchronized.className = "message";
+            const message = WorldClock.createSyncedMessage();
+            synchronized.append(message);
+            slider.append(synchronized);
+        }
+
         // Disable the sun and moon thumbs for now
         slider.querySelectorAll(".noUi-origin").forEach((thumb, index) => {
             if (index !== 1) $(thumb).attr({ disabled: "disabled" });
+
+            if (game.scenes.viewed?.darknessSyncedToTime) {
+                thumb.setAttribute("disabled", "true");
+            }
         });
 
         // Show a preview while the darkness level is being moved. The lighting update is added to the PIXI ticker

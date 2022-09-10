@@ -78,7 +78,7 @@ class PackLoader {
 }
 
 class CompendiumBrowser extends Application {
-    settings!: CompendiumBrowserSettings;
+    settings: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
     tabs: Record<Exclude<TabName, "settings">, BrowserTab>;
     packLoader = new PackLoader();
@@ -100,7 +100,8 @@ class CompendiumBrowser extends Application {
             spell: new browserTabs.Spells(this),
         };
 
-        this.loadSettings();
+        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
+
         this.initCompendiumList();
         this.injectActorDirectory();
         this.hookTab();
@@ -140,7 +141,7 @@ class CompendiumBrowser extends Application {
         await super.close(options);
     }
 
-    private initCompendiumList(): void {
+    initCompendiumList(): void {
         const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
             action: {},
             bestiary: {},
@@ -219,10 +220,6 @@ class CompendiumBrowser extends Application {
         }
 
         this.settings = settings;
-    }
-
-    loadSettings(): void {
-        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
     }
 
     hookTab(): void {
@@ -310,10 +307,8 @@ class CompendiumBrowser extends Application {
         }
 
         // Sorting
-        if (this.initialFilter.orderBy) {
-            currentTab.filterData.order.by = this.initialFilter.orderBy;
-            currentTab.filterData.order.direction = this.initialFilter.orderDirection ?? "asc";
-        }
+        currentTab.filterData.order.by = this.initialFilter.orderBy ?? "name";
+        currentTab.filterData.order.direction = this.initialFilter.orderDirection ?? "asc";
 
         for (const [filterType, filterValue] of Object.entries(this.initialFilter)) {
             const mappedFilterType = (() => {
@@ -487,9 +482,7 @@ class CompendiumBrowser extends Application {
                             pack.load = formData.has(`${t}-${key}`);
                         }
                     }
-                    await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
-                    this.loadSettings();
-                    this.initCompendiumList();
+                    await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
                     for (const tab of Object.values(this.tabs)) {
                         if (tab.isInitialized) {
                             await tab.init();

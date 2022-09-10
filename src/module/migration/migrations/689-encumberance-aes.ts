@@ -25,7 +25,7 @@ export class Migration689EncumberanceActiveEffects extends MigrationBase {
 
         if (amountToIncreaseBy === 0) return;
 
-        const alreadyMigrated = systemData.rules.some((x: { key: string }) => x.key === "ActiveEffectLike");
+        const alreadyMigrated = systemData.rules.some((r) => r.key === "ActiveEffectLike");
         if (alreadyMigrated) return;
 
         const rules: (RuleElementSource & { [key: string]: unknown })[] = [

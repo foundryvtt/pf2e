@@ -8,7 +8,7 @@ import { MigrationBase } from "../base";
 export class Migration675FlatModifierAEsToREs extends MigrationBase {
     static override version = 0.675;
 
-    private isFlatModifier(data: unknown): data is ActiveEffectModifier {
+    #isFlatModifier(data: unknown): data is ActiveEffectModifier {
         const dataIsModifier = (obj: {
             modifier?: unknown;
             type?: unknown;
@@ -17,11 +17,11 @@ export class Migration675FlatModifierAEsToREs extends MigrationBase {
         return typeof data === "object" && data !== null && dataIsModifier(data);
     }
 
-    private toRuleElement(aeValue: string): FlatModifierSource | null {
+    #toRuleElement(aeValue: string): FlatModifierSource | null {
         const aeModifier = ((): ActiveEffectModifier | null => {
             try {
                 const parsed = JSON.parse(aeValue);
-                return this.isFlatModifier(parsed) ? parsed : null;
+                return this.#isFlatModifier(parsed) ? parsed : null;
             } catch (error) {
                 console.warn(error);
                 return null;
@@ -30,6 +30,7 @@ export class Migration675FlatModifierAEsToREs extends MigrationBase {
         if (typeof aeModifier?.modifier === "string") {
             aeModifier.modifier.replace("@data.", "@");
         }
+
         return aeModifier && { key: "FlatModifier", type: aeModifier.type, value: aeModifier.modifier, selector: "hp" };
     }
 
@@ -44,7 +45,7 @@ export class Migration675FlatModifierAEsToREs extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         for (const effect of [...itemSource.effects]) {
             for (const change of effect.changes.filter((change) => change.key.endsWith(".modifiers"))) {
-                const reData = this.toRuleElement(change.value);
+                const reData = this.#toRuleElement(change.value);
                 if (reData) {
                     effect.changes.splice(effect.changes.indexOf(change), 1);
                     itemSource.system.rules.push(reData);
@@ -65,5 +66,6 @@ interface ActiveEffectModifier {
 }
 
 interface FlatModifierSource extends RuleElementSource {
+    selector: string;
     type?: ModifierType;
 }

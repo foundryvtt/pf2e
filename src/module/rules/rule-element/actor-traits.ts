@@ -17,8 +17,8 @@ export class ActorTraitsRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const traits: string[] = this.actor.system.traits.traits.value;
-        const newTraits = this.data.add.filter((trait) => !traits.includes(trait));
+        const traits: string[] = this.actor.system.traits.value;
+        const newTraits = this.data.add.filter((t) => !t.includes(t));
         for (const trait of newTraits) {
             traits.push(trait);
             this.actor.rollOptions.all[`self:trait:${trait}`] = true;

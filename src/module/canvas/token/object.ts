@@ -12,8 +12,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** The promise returned by the last call to `Token#draw()` */
-    private drawLock?: Promise<this>;
+    /** The promise returned by the last call to `Token#_draw()` */
+    private drawLock?: Promise<void>;
 
     /** Is this token currently animating? */
     get isAnimating(): boolean {
@@ -120,7 +120,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
-    /** Overrides _drawBar() to also draw pf2e variants of normal resource bars (such as temp health) */
+    /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (!canvas.dimensions) return;
 
@@ -176,12 +176,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Make the drawing promise accessible to `#redraw` */
-    override async draw(): Promise<this> {
+    protected override async _draw(): Promise<void> {
         this.auras.clear();
-        this.drawLock = super.draw();
+        this.drawLock = super._draw();
         await this.drawLock;
-
-        return this;
     }
 
     /** Draw auras along with effect icons */
@@ -208,9 +206,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Include actor overrides in the clone if it is a preview */
     override clone(): this {
         const clone = super.clone();
-        if (!clone.id) {
+        if (clone.isPreview) {
             clone.document.height = this.document.height;
             clone.document.width = this.document.width;
+            clone.document.texture.scaleX = this.document.texture.scaleX;
+            clone.document.texture.scaleY = this.document.texture.scaleY;
             clone.document.texture.src = this.document.texture.src;
         }
 

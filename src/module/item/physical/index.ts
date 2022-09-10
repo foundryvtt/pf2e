@@ -234,7 +234,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         super.prepareDerivedData();
 
         const systemData = this.system;
-        systemData.identification.identified = {
+        systemData.identification.identified ??= {
             name: this.name,
             img: this.img,
             data: {

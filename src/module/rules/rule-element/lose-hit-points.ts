@@ -17,8 +17,11 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
 
     constructor(data: LoseHitPointsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
+
         const valueIsValid = typeof data.value === "number" || typeof data.value === "string";
-        if (!valueIsValid) this.ignored = true;
+        if (!valueIsValid) {
+            this.failValidation("Missing numeric or string value");
+        }
         this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
     }
 
@@ -33,8 +36,10 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         if (!this.reevaluateOnUpdate || this.ignored) return;
         const previousValue = Math.abs(Number(this.resolveValue()) || 0);
         const newItem = this.item.clone(changes);
-        const rule = newItem.system.rules.find((r) => r.key === this.key);
-        const newValue = Math.abs(Number(this.resolveValue(rule?.value, 0, { resolvables: { item: newItem } })));
+        const rule = newItem.system.rules.find((r): r is LoseHitPointsSource => r.key === this.key);
+        const newValue = Math.abs(
+            Number(this.resolveValue(String(rule?.value), 0, { resolvables: { item: newItem } }))
+        );
         const valueChange = newValue - previousValue;
         if (valueChange > 0) {
             const currentHP = this.actor._source.system.attributes.hp.value;
@@ -47,6 +52,7 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
 }
 
 interface LoseHitPointsSource extends RuleElementSource {
+    value?: unknown;
     reevaluateOnUpdate?: unknown;
 }
 

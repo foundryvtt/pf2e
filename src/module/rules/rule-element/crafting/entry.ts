@@ -12,9 +12,9 @@ import { PredicatePF2e, RawPredicate } from "@system/predication";
 class CraftingEntryRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    name: string;
+    private name: string;
 
-    selector: string;
+    private selector: string;
 
     constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -53,8 +53,8 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             craftableItems: craftableItems,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
+            parentItem: this.item.id,
             preparedFormulaData: this.data.preparedFormulas,
-            parentItem: this.item,
         };
 
         this.actor.system.crafting.entries[this.selector] = data;
@@ -88,6 +88,7 @@ interface CraftingEntryRuleData extends RuleElementData {
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
+    selector?: unknown;
     name?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
@@ -105,4 +106,4 @@ interface PreparedFormulaData {
     isSignatureItem?: boolean;
 }
 
-export { CraftingEntryRuleElement };
+export { CraftingEntryRuleData, CraftingEntryRuleElement, CraftingEntryRuleSource };

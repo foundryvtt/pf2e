@@ -79,7 +79,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     get rulesBasedVision(): boolean {
-        return !!(this.sight.enabled && this.actor && this.scene?.rulesBasedVision);
+        return !!(this.sight.enabled && this.actor?.isOfType("character", "familiar") && this.scene?.rulesBasedVision);
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
@@ -193,20 +193,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Reset sight defaults if using rules-based vision */
     protected override _prepareDetectionModes(): void {
-        const baseDetection = { id: "basicSight", enabled: true, range: null };
-        this.detectionModes = [baseDetection];
+        if (!(this.initialized && this.actor && this.rulesBasedVision)) {
+            return super._prepareDetectionModes();
+        }
 
-        if (!this.initialized || !this.actor) return super._prepareDetectionModes();
-
-        if (this.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+        this.detectionModes = [{ id: "basicSight", enabled: true, range: null }];
+        if (["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
             this.sight.range = null;
             this.sight.saturation = 0;
             this.sight.visionMode = "basic";
-        } else {
-            super._prepareDetectionModes();
         }
     }
 
@@ -227,16 +225,15 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this, this.actor);
 
-        // Set vision mode and its defaults
-        if (this.rulesBasedVision && this.actor.type !== "npc") {
-            const isDark = this.scene.lightLevel <= LightLevels.DARKNESS;
-            const mode = this.hasDarkvision && isDark ? "darkvision" : "basic";
-            this.sight.visionMode = mode;
-            const { defaults } = CONFIG.Canvas.visionModes[mode].vision;
+        // Set vision and detection modes
+        if (this.rulesBasedVision) {
+            const visionMode = this.hasDarkvision ? "darkvision" : "basic";
+            this.sight.visionMode = visionMode;
+            const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
             this.sight.brightness = defaults.brightness;
             this.sight.saturation = defaults.saturation;
 
-            if (mode === "darkvision" || !isDark) {
+            if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
                 const basicDetection = this.detectionModes.at(0);
                 if (!basicDetection) return;
                 this.sight.range = basicDetection.range = defaults.range;
@@ -246,6 +243,17 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                     this.sight.saturation = 1;
                 }
             }
+
+            if (!this.actor.hasCondition("deafened")) {
+                this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
+            }
+        }
+
+        const canSeeInvisibility =
+            this.actor.isOfType("character") &&
+            this.actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
+        if (canSeeInvisibility) {
+            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
         }
     }
 
@@ -318,27 +326,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
-
-    /**
-     * Since token properties may be changed during data preparation, rendering called by the parent method must be
-     * based on the diff between pre- and post-data-preparation.
-     */
-    override _onUpdateBaseActor(
-        updates: DeepPartial<ActorSourcePF2e> = {},
-        options: DocumentModificationContext<ActorPF2e> = {}
-    ): void {
-        super._onUpdateBaseActor(updates, options);
-
-        if (this.isLinked) {
-            const preUpdate = this.toObject(false);
-            this.reset();
-            const postUpdate = this.toObject(false);
-            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            this._onUpdate(changed, options, game.user.id);
-        }
-    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
@@ -361,45 +350,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             ui.combat.render();
         }
 
-        if (this.isLinked || !this.actor) {
+        // Handle ephemeral changes from synthetic actor
+        if (this.actor && changed.actorData) {
             super._onUpdate(changed, options, userId);
-            if (!("x" in changed || "y" in changed) && ("height" in changed || "width" in changed)) {
-                this.scene?.reset();
+            const preUpdate = this.toObject(false);
+            this.reset();
+            const postUpdate = this.toObject(false);
+            const ephemeralChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+            if (Object.keys(ephemeralChanges).length > 0) {
+                this.object?._onUpdate(ephemeralChanges, options, userId);
             }
-            return;
-        }
-
-        // Completely override the parent class's method for unlinked tokens
-        if ("actorId" in changed || "actorLink" in changed) {
-            if (this._actor) {
-                for (const app of Object.values(this._actor.apps)) {
-                    app.close({ submit: false });
-                }
-            }
-            this._actor = null;
-        }
-
-        const preUpdateLight = this.light.toObject(false);
-        // If the Actor data override changed, simulate updating the synthetic Actor
-        if (changed.actorData) {
-            this._onUpdateTokenActor(changed.actorData, options, userId);
-        }
-        const postUpdateLight = this.light.toObject(false);
-
-        // From `ClientDocumentMixin#_onUpdate`
-        // Re-render associated applications
-        if (options.render ?? true) {
-            this.render(false, { action: "update", renderData: changed });
-        }
-        // Update global index
-        if ("name" in changed) game.documentIndex.replaceDocument(this);
-
-        const lightChanges = diffObject<DeepPartial<foundry.data.LightSource>>(preUpdateLight, postUpdateLight);
-        // From `CanvasDocumentMixin#_onUpdate`
-        if (this.rendered) {
-            const changedWithLight =
-                Object.keys(lightChanges).length > 0 ? mergeObject(changed, { light: lightChanges }) : changed;
-            this.object._onUpdate(changedWithLight, options, userId);
+        } else {
+            super._onUpdate(changed, options, userId);
         }
     }
 
@@ -410,6 +372,28 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         if (this.isLinked && !this.scene?.tokens.some((t) => t.actor === this.actor)) {
             this.actor?.checkAreaEffects();
         }
+    }
+
+    /**
+     * Since token properties may be changed during data preparation, rendering called by the parent method must be
+     * based on the diff between pre- and post-data-preparation.
+     */
+    override _onUpdateBaseActor(
+        updates: DeepPartial<ActorSourcePF2e> = {},
+        options: DocumentModificationContext<ActorPF2e> = {}
+    ): void {
+        if (this.isLinked) {
+            const preUpdate = this.toObject(false);
+            this.reset();
+            const postUpdate = this.toObject(false);
+            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+            if (Object.keys(changed).length > 0) {
+                this._onUpdate(changed, options, game.user.id);
+            }
+        }
+
+        // Parent method will perform effects redrawing
+        super._onUpdateBaseActor(updates, options);
     }
 }
 

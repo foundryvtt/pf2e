@@ -435,7 +435,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "bonds-of-iron",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "bonds-of-iron"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -893,7 +911,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40"
+                "value": 40
             }
         },
         "details": {
@@ -962,13 +980,10 @@
             "size": {
                 "value": "lg"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "hag",
-                    "humanoid"
-                ]
-            }
+            "value": [
+                "hag",
+                "humanoid"
+            ]
         }
     },
     "type": "npc"

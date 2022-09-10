@@ -191,7 +191,7 @@ declare global {
 
         override clear(): this;
 
-        override draw(): Promise<this>;
+        protected _draw(): Promise<void>;
 
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;

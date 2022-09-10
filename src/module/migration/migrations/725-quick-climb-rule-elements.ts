@@ -6,7 +6,7 @@ import { MigrationBase } from "../base";
 export class Migration725QuickClimbREs extends MigrationBase {
     static override version = 0.725;
 
-    private quickClimb: MaybeNote[] = [
+    private quickClimb: NoteOrBaseSpeed[] = [
         {
             key: "BaseSpeed",
             predicate: {
@@ -32,6 +32,7 @@ export class Migration725QuickClimbREs extends MigrationBase {
     }
 }
 
-interface MaybeNote extends RuleElementSource {
+interface NoteOrBaseSpeed extends RuleElementSource {
+    selector?: string;
     text?: string;
 }

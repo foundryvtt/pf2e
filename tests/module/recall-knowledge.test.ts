@@ -11,13 +11,11 @@ function createCreature(level: number, rarity: Rarity, traits: string[]): NPCPF2
                 },
             },
             traits: {
+                value: traits,
                 rarity,
-                traits: {
-                    value: traits,
-                },
             },
         },
-    } as NPCPF2e;
+    } as unknown as NPCPF2e;
 }
 
 describe("test recall knowledge on creatures", () => {

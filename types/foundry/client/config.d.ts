@@ -439,7 +439,8 @@ declare global {
                 feelTremor: DetectionModeTremor;
                 seeAll: DetectionModeAll;
                 senseAll: DetectionModeAll;
-                [key: string]: DetectionMode;
+            } & {
+                [K in string]?: DetectionMode;
             };
         };
 

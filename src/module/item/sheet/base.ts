@@ -1,7 +1,7 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -85,8 +85,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Activate rule element sub forms
         this.ruleElementForms = {};
         for (const [idx, rule] of rules.entries()) {
-            const FormClass = RULE_ELEMENT_FORMS[rule.key ?? ""] ?? RuleElementForm;
-            this.ruleElementForms[Number(idx)] = new FormClass(idx, rule);
+            const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
+            this.ruleElementForms[Number(idx)] = new FormClass(this, idx, rule);
         }
 
         return {
@@ -94,6 +94,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             showTraits: this.validTraits !== null,
             hasSidebar: this.item.isOfType("condition", "lore"),
             hasDetails: true,
+            sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
+                type: game.i18n.localize(`ITEM.Type${this.item.type.capitalize()}`),
+            }),
             cssClass: this.isEditable ? "editable" : "locked",
             editable: this.isEditable,
             document: this.item,
@@ -114,7 +117,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rules: {
                 labels: rules.map((ruleData: RuleElementSource) => {
                     const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                    const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
+                    const key = String(ruleData.key).replace(/^PF2E\.RuleElement\./, "");
                     const label = translations[key] ?? translations.Unrecognized;
                     const recognized = label !== translations.Unrecognized;
                     return { label, recognized };
@@ -350,6 +353,25 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             // If there are no traits, we still need to show elements like rarity
             tagElement.append(traitsPrepend.content);
         }
+
+        // Update Tab visibility (in case this is a tab without a sidebar)
+        this.updateSidebarVisibility(this._tabs[0].active);
+    }
+
+    /** When tabs are changed, change visibility of elements such as the sidebar */
+    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+        super._onChangeTab(event, tabs, active);
+        this.updateSidebarVisibility(active);
+    }
+
+    /** Internal function to update the sidebar visibility based on the current tab */
+    private updateSidebarVisibility(activeTab: string) {
+        const sidebarHeader = this.element[0]?.querySelector<HTMLElement>(".sidebar-summary");
+        const sidebar = this.element[0]?.querySelector<HTMLElement>(".sheet-sidebar");
+        if (sidebarHeader && sidebar) {
+            const display = activeTab === "rules" ? "none" : "block";
+            sidebarHeader.style.display = sidebar.style.display = display;
+        }
     }
 
     /** Ensure the source description is edited rather than a prepared one */
@@ -373,18 +395,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             : expandObject(fd.object);
 
         const flattenedData = flattenObject(data);
-
-        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
-        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-        for (const inputEl of Array.from(tagifyInputElements)) {
-            const path = inputEl.name;
-            const inputValue = flattenedData[path];
-            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
-            if (Array.isArray(selections)) {
-                flattenedData[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
-            }
-        }
-
+        processTagifyInSubmitData(this.form, flattenedData);
         return flattenedData;
     }
 
@@ -487,5 +498,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         return super._updateObject(event, flattenObject(expanded));
+    }
+
+    /** Overriden _render to maintain focus on tagify elements */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        await maintainTagifyFocusInRender(this, () => super._render(force, options));
     }
 }

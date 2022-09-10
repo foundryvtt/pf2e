@@ -38,7 +38,7 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     /** Clean the drawing data to constrain its allowed position */
     protected _cleanData(): void;

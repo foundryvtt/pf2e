@@ -101,8 +101,8 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { CharacterFeats } from "./feats";
-import { StrikeWeaponTraits } from "./strike-weapon-traits";
-import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
+import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
+import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -231,14 +231,6 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    /** @deprecated */
-    async insertFeat(feat: FeatPF2e, categoryId: string, slotId?: string): Promise<ItemPF2e[]> {
-        console.warn(
-            "CharacterPF2e#insertFeat(feat, categoryId, slotId) is deprecated: use CharacterPF2e#feats#insertFeat(feat, { categoryId, slotId })"
-        );
-        return this.feats.insertFeat(feat, { categoryId, slotId });
-    }
-
     /** If one exists, prepare this character's familiar */
     override prepareData(): void {
         super.prepareData();
@@ -337,7 +329,6 @@ class CharacterPF2e extends CreaturePF2e {
         const attributes: DeepPartial<CharacterAttributes> = this.system.attributes;
         attributes.ac = {};
         attributes.classDC = { rank: 0 };
-        attributes.dexCap = [{ value: Infinity, source: "" }];
         attributes.polymorphed = false;
         attributes.battleForm = false;
 
@@ -644,11 +635,14 @@ class CharacterPF2e extends CreaturePF2e {
         const { wornArmor, heldShield } = this;
         {
             const modifiers = [this.getShieldBonus() ?? []].flat();
-            const dexCapSources = systemData.attributes.dexCap;
+            const dexCapSources: DexterityModifierCapData[] = [
+                { value: Infinity, source: "" },
+                ...synthetics.dexterityModifierCaps,
+            ];
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
 
-            if (wornArmor && wornArmor.acBonus > 0) {
+            if (wornArmor) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
@@ -726,11 +720,8 @@ class CharacterPF2e extends CreaturePF2e {
         systemData.skills = this.prepareSkills();
 
         // Speeds
-        systemData.attributes.speed = this.prepareSpeed("land");
-        const { otherSpeeds } = systemData.attributes.speed;
-        for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
-        }
+        const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
+        speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         systemData.actions = this.prepareStrikes();
 
@@ -1026,12 +1017,12 @@ class CharacterPF2e extends CreaturePF2e {
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
-                if (["acr", "ath"].includes(shortForm)) {
+                if (["acrobatics", "athletics"].includes(longForm)) {
                     armorCheckPenalty.predicate.not.push(
                         "self:armor:strength-requirement-met",
                         "self:armor:trait:flexible"
                     );
-                } else if (shortForm === "ste" && wornArmor.traits.has("noisy")) {
+                } else if (longForm === "stealth" && wornArmor.traits.has("noisy")) {
                     armorCheckPenalty.predicate.not.push({
                         and: ["self:armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
                     });
@@ -1041,6 +1032,9 @@ class CharacterPF2e extends CreaturePF2e {
 
                 modifiers.push(armorCheckPenalty);
             }
+
+            // Add a penalty for attempting to Force Open without a crowbar or similar tool
+            if (longForm === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
 
             modifiers.push(...extractModifiers(synthetics, domains));
 
@@ -1190,9 +1184,9 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     override prepareSpeed(movementType: "land"): CreatureSpeeds;
-    override prepareSpeed(movementType: Exclude<MovementType, "land">): LabeledSpeed & StatisticModifier;
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
-    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+    override prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
+    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
+    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.value;
@@ -1220,6 +1214,7 @@ class CharacterPF2e extends CreaturePF2e {
             armorPenalty.test(this.getRollOptions(["speed", `${movementType}-speed`]));
             speedModifiers.push(() => armorPenalty);
         }
+
         return super.prepareSpeed(movementType);
     }
 
@@ -1626,6 +1621,7 @@ class CharacterPF2e extends CreaturePF2e {
             quantity: weapon.quantity,
             slug: weapon.slug,
             ready: weapon.isEquipped,
+            visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",
             item: weapon,
             type: "strike" as const,
@@ -1780,7 +1776,7 @@ class CharacterPF2e extends CreaturePF2e {
                         rollTwice,
                     };
 
-                    if (!this.consumeAmmo({ weapon: item, ...params })) return null;
+                    if (!this.consumeAmmo(item, params)) return null;
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(otherModifiers),
@@ -1904,19 +1900,17 @@ class CharacterPF2e extends CreaturePF2e {
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item);
-            const allAdjustments = this.synthetics.modifierAdjustments;
-            for (const modifier of fromTraits) {
-                modifier.adjustments = extractModifierAdjustments(allAdjustments, params.domains ?? [], modifier.slug);
-            }
-
+            const fromTraits = StrikeWeaponTraits.createAttackModifiers(
+                context.self.item as Embedded<WeaponPF2e>,
+                params.domains ?? []
+            );
             context.self.modifiers.push(...fromTraits);
         }
 
         return context;
     }
 
-    consumeAmmo({ weapon, ...params }: { weapon: WeaponPF2e } & RollParameters): boolean {
+    consumeAmmo(weapon: WeaponPF2e, params: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;
@@ -1985,15 +1979,11 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Add a proficiency in a weapon group or base weapon */
-    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
+    async addAttackProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         const currentProficiencies = this.system.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`system.martial.${key}`]: newProficiency });
-    }
-
-    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        await this.update({ [`system.martial.-=${key}`]: null });
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */

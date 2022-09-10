@@ -1,16 +1,30 @@
-import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/degree-of-success";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
+import { ItemPF2e } from "@item";
+import { CheckDCModifiers, DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { tupleHasValue } from "@util";
+import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 /**
  * @category RuleElement
  */
 class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
+    selector: string;
+
+    constructor(data: AdjustDegreeOfSuccessSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
+        if (typeof data.selector === "string") {
+            this.selector = data.selector;
+        } else {
+            this.failValidation("Missing string selector property");
+            this.selector = "";
+        }
+    }
+
     override afterPrepareData() {
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        const selector = this.resolveInjectedProperties(this.selector);
         const adjustment = this.data.adjustment;
 
         if (selector && adjustment && typeof adjustment === "object") {
@@ -87,6 +101,10 @@ interface AdjustDegreeOfSuccessRuleElement {
     };
 
     get actor(): CharacterPF2e | NPCPF2e;
+}
+
+interface AdjustDegreeOfSuccessSource extends RuleElementSource {
+    selector?: unknown;
 }
 
 export { AdjustDegreeOfSuccessRuleElement };

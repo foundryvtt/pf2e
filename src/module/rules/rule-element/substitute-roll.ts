@@ -58,6 +58,7 @@ interface SubstituteRollRuleElement extends RuleElementPF2e {
 }
 
 interface SubstituteRollSource extends RuleElementSource {
+    selector?: unknown;
     required?: unknown;
     effectType?: unknown;
 }

@@ -21,12 +21,18 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "onlyLevel1": true,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },

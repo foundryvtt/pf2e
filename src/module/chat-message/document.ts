@@ -8,6 +8,8 @@ import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/t
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
 import { ChatRollDetails } from "./chat-roll-details";
+import { htmlQuery } from "@util";
+import { StrikeData } from "@actor/data/base";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -32,11 +34,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
-        const isDamageRoll = !!this.flags.pf2e.damageRoll;
         const fromRollTable = !!this.flags.core.RollTable;
-        const isRoll = isDamageRoll || this.isRoll;
-        const isD20 = (isRoll && firstRoll.dice[0]?.faces === 20) || false;
-        return isRoll && !(isD20 || fromRollTable);
+        const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
+        return !(isD20 || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
@@ -115,6 +115,24 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
 
         return item;
+    }
+
+    /** If this message was for a strike, return the strike */
+    get strike(): StrikeData | null {
+        const actor = this.actor;
+        const altUsage = this.flags.pf2e.context?.altUsage ?? null;
+        if (!actor?.isOfType("character", "npc")) return null;
+
+        const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
+        const chatCard = htmlQuery(messageHTML, ".chat-card, .message-buttons");
+        if (!chatCard || chatCard.dataset.strikeIndex === undefined) return null;
+
+        const strikeIndex = Number(chatCard?.dataset.strikeIndex);
+        const action = actor.system.actions.at(strikeIndex) ?? null;
+
+        return altUsage
+            ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null
+            : action;
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */

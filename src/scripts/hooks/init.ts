@@ -10,15 +10,14 @@ import {
     TokenLayerPF2e,
     TokenPF2e,
 } from "@module/canvas";
-import { PlayerConfigPF2e } from "@module/user/player-config";
+import { setPerceptionModes } from "@module/canvas/perception/modes";
+import { PF2ECONFIG } from "@scripts/config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
-import { PF2ECONFIG } from "@scripts/config";
-import { setPerceptionModes } from "@module/canvas/perception/modes";
 
 export const Init = {
     listen: (): void => {
@@ -150,7 +149,6 @@ export const Init = {
             registerTemplates();
             registerHandlebarsHelpers();
 
-            PlayerConfigPF2e.hookOnRenderSettings();
             MystifiedTraits.compile();
 
             // Create and populate initial game.pf2e interface

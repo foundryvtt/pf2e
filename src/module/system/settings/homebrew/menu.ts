@@ -10,10 +10,10 @@ import { prepareCleanup } from "./cleanup-migration";
 import { isHomebrewFlagCategory } from "./helpers";
 import "@yaireo/tagify/src/tagify.scss";
 
-export type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
-export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
+type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
+type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
 
-export interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHomebrewRecord> {
+interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHomebrewRecord> {
     id: T extends "baseWeapons"
         ? BaseWeaponType
         : T extends Exclude<ConfigPF2eHomebrewRecord, "baseWeapons">
@@ -22,7 +22,7 @@ export interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHome
     value: string;
 }
 
-export class HomebrewElements extends SettingsMenuPF2e {
+class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
@@ -98,19 +98,18 @@ export class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 
-    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
-        updateData = super._getSubmitData(updateData);
+    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
+    protected override async _onSubmit(
+        event: Event,
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
+    ): Promise<Record<string, unknown>> {
+        this.form.querySelectorAll<HTMLInputElement>("tags ~ input").forEach((input) => {
+            if (input.value === "") {
+                input.value = "[]";
+            }
+        });
 
-        // Process tagify. Tagify has a convention (used in their codebase as well) where it prepends the input element
-        const tagifyInputElements = this.form.querySelectorAll<HTMLInputElement>("tags.tagify ~ input");
-        for (const inputEl of Array.from(tagifyInputElements)) {
-            const path = inputEl.name;
-            const inputValue = updateData[path];
-            const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
-            updateData[path] = Array.isArray(selections) ? selections : [];
-        }
-
-        return updateData;
+        return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
     protected override async _updateObject(
@@ -231,3 +230,9 @@ export class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 }
+
+interface HomebrewElements extends SettingsMenuPF2e {
+    constructor: typeof HomebrewElements;
+}
+
+export { ConfigPF2eHomebrewRecord, HomebrewElements, HomebrewSettingsKey, HomebrewTag };

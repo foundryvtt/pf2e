@@ -28,18 +28,23 @@ export class CreatureSensePF2e implements SenseData {
             const sense = game.i18n.localize(senses[type] ?? "") || type;
             const acuityLabel = acuity ? game.i18n.localize(CONFIG.PF2E.senseAcuity[acuity]) : null;
             return acuity && range
-                ? game.i18n.format("PF2E.Sense.WithAcuityAndRange", { sense, acuity: acuityLabel, range })
+                ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuityAndRange", {
+                      sense,
+                      acuity: acuityLabel,
+                      range,
+                  })
                 : acuity
-                ? game.i18n.format("PF2E.Sense.WithAcuity", { sense, acuity: acuityLabel })
+                ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuity", { sense, acuity: acuityLabel })
                 : sense;
         };
 
         const range = this.range < Infinity ? this.range : undefined;
         switch (this.type) {
-            case "lowLightVision":
             case "darkvision":
             case "greaterDarkvision":
-                // Low-light vision and darkvision are always acute with no range limit
+            case "lowLightVision":
+            case "seeInvisibility":
+                // Low-light vision, darkvision, and see invisibility are always precise with no range limit
                 return buildLabel(this.type);
             case "scent":
                 // Vague scent is assume and ommitted
@@ -62,12 +67,11 @@ export class CreatureSensePF2e implements SenseData {
 }
 
 export type SenseAcuity = typeof SENSE_ACUITIES[number];
-export type BasicSenseType = typeof BASIC_SENSE_TYPES[number];
-export type SenseType = typeof SENSE_TYPES[number];
+export type SenseType = SetElement<typeof SENSE_TYPES>;
 
 export const SENSE_ACUITIES = ["precise", "imprecise", "vague"];
 
-export const BASIC_SENSE_TYPES = [
+export const SENSE_TYPES = new Set([
     "darkvision",
     "echolocation",
     "greaterDarkvision",
@@ -75,8 +79,7 @@ export const BASIC_SENSE_TYPES = [
     "lowLightVision",
     "motionsense",
     "scent",
+    "seeInvisibility",
     "tremorsense",
     "wavesense",
-] as const;
-
-export const SENSE_TYPES = [...BASIC_SENSE_TYPES] as const;
+] as const);

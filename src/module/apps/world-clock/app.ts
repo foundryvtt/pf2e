@@ -1,5 +1,5 @@
 import { LocalizePF2e } from "@system/localize";
-import { ordinal, tupleHasValue } from "@util";
+import { ErrorPF2e, ordinal, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day";
@@ -163,9 +163,7 @@ export class WorldClock extends Application {
                       icon: "fas fa-cog",
                       onclick: (): void => {
                           const menu = game.settings.menus.get("pf2e.worldClock");
-                          if (menu === undefined) {
-                              throw Error("PF2e System | World Clock Settings application not found");
-                          }
+                          if (!menu) throw ErrorPF2e("PF2e System | World Clock Settings application not found");
                           const app = new menu.type();
                           app.render(true);
                       },
@@ -255,5 +253,28 @@ export class WorldClock extends Application {
     override async close(options?: { force?: boolean }): Promise<void> {
         $(document).off("keydown.pf2e.world-clock").off("keyup.pf2e.world-clock");
         await super.close(options);
+    }
+
+    /** Create a message informing the user that scene darkness is synced to world time */
+    static createSyncedMessage(): HTMLSpanElement {
+        const managedBy = document.createElement("span");
+        managedBy.classList.add("managed");
+        managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.WorldClock.SyncDarknessScene.ManagedBy"));
+        // Create a link to open world clock settings
+        const anchor = document.createElement("a");
+        const wtLink = managedBy.querySelector("wt");
+        anchor.innerText = wtLink?.innerHTML ?? "";
+        anchor.setAttribute("href", ""); // Pick up core Foundry styling
+        anchor.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const menu = game.settings.menus.get("pf2e.worldClock");
+            if (!menu) throw ErrorPF2e("World Clock Settings application not found");
+            const app = new menu.type();
+            app.render(true);
+        });
+        wtLink?.replaceWith(anchor);
+
+        return managedBy;
     }
 }

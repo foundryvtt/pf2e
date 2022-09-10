@@ -1,8 +1,7 @@
 import { ActorPF2e } from "@actor/base";
 import { UserFlagsPF2e } from "./data";
-import { PlayerConfigPF2e, UserSettingsPF2e } from "./player-config";
 
-export class UserPF2e extends User<ActorPF2e> {
+class UserPF2e extends User<ActorPF2e> {
     override prepareData(): void {
         super.prepareData();
         if (canvas.ready && canvas.tokens.controlled.length > 0) {
@@ -16,7 +15,11 @@ export class UserPF2e extends User<ActorPF2e> {
         this.flags = mergeObject(
             {
                 pf2e: {
-                    settings: deepClone(PlayerConfigPF2e.defaultSettings),
+                    settings: deepClone({
+                        showEffectPanel: true,
+                        showRollDialogs: true,
+                        searchPackContents: false,
+                    }),
                 },
             },
             this.flags
@@ -33,6 +36,14 @@ export class UserPF2e extends User<ActorPF2e> {
     }
 }
 
-export interface UserPF2e extends User<ActorPF2e> {
+interface UserPF2e extends User<ActorPF2e> {
     flags: UserFlagsPF2e;
 }
+
+interface UserSettingsPF2e {
+    showEffectPanel: boolean;
+    showRollDialogs: boolean;
+    searchPackContents: boolean;
+}
+
+export { UserPF2e, UserSettingsPF2e };
