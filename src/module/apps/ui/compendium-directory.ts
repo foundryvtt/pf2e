@@ -1,5 +1,5 @@
-import { fontAwesomeIcon } from "@util";
-import MiniSearch, { SearchResult } from "minisearch";
+import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll } from "@util";
+import MiniSearch from "minisearch";
 
 /** Extend CompendiumDirectory to support a search bar */
 export class CompendiumDirectoryPF2e extends CompendiumDirectory {
@@ -13,14 +13,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             idField: "_id",
             processTerm: (t) => (t.length > 1 ? t.toLocaleLowerCase(game.i18n.lang) : null),
             searchOptions: { combineWith: "AND", prefix: true },
-            storeFields: ["img", "name", "collection", "type"],
+            storeFields: ["img", "metadata", "name", "type"],
         });
         this.#compileSearchIndex();
-    }
-
-    /** Whether this application is in search mode */
-    private get searchMode(): boolean {
-        return game.user.settings.searchPackContents;
     }
 
     /** Include ability to search and drag document search results */
@@ -30,7 +25,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         return {
             ...options,
-            filters: [{ inputSelector: "input[name=search]", contentSelector: "ol.directory-list" }],
+            filters: [{ inputSelector: "input[type=search]", contentSelector: "ol.directory-list" }],
             template: "systems/pf2e/templates/sidebar/compendium-directory.html",
         };
     }
@@ -60,39 +55,10 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html.get(0)!;
 
         // Hook in the compendium browser
-        html.querySelector("footer > button")?.addEventListener("click", () => {
+        $html[0]!.querySelector("footer > button")?.addEventListener("click", () => {
             game.pf2e.compendiumBrowser.render(true);
-        });
-
-        html.querySelector("input[name=search]")?.setAttribute(
-            "placeholder",
-            game.i18n.localize(
-                game.user.settings.searchPackContents ? "COMPENDIUM.SearchContents.Placeholder" : "COMPENDIUM.Filter"
-            )
-        );
-
-        // Manage toggle for switching between compendium and compendium-content searching
-        const searchContent = html.querySelector<HTMLButtonElement>("button[data-action=toggle-search-contents]");
-        searchContent?.addEventListener("click", async () => {
-            const newValue = !game.user.settings.searchPackContents;
-            await game.user.update({ "flags.pf2e.settings.searchPackContents": newValue });
-
-            const input = html.querySelector("input[name=search]");
-
-            // Show the button as compressed or not
-            if (newValue) {
-                searchContent.classList.add("active");
-                input?.setAttribute("placeholder", game.i18n.localize("COMPENDIUM.SearchContents.Placeholder"));
-            } else {
-                searchContent.classList.remove("active");
-                input?.setAttribute("placeholder", game.i18n.localize("COMPENDIUM.Filter"));
-            }
-
-            // Trigger a new search
-            html.querySelector("input[name=search]")?.dispatchEvent(new KeyboardEvent("keyup"));
         });
     }
 
@@ -100,7 +66,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     protected override _contextMenu($html: JQuery): void {
         super._contextMenu($html);
 
-        ContextMenu.create(this, $html, "ul.doc-matches > li", [
+        ContextMenu.create(this, $html, "ol.doc-matches > li", [
             {
                 name: "COMPENDIUM.ImportEntry",
                 icon: fontAwesomeIcon("download").outerHTML,
@@ -130,16 +96,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** System compendium search */
     protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
-        const { searchMode } = this;
-        // Match documents within each compendium by name
-        const docMatches = searchMode && query.length > 0 ? this.searchEngine.search(query) : [];
-        const packsFromDocMatches = new Set<string>(docMatches.map((m: SearchResult) => m.collection));
-
-        // Match compendiums by name
-        const regexp = new RegExp(RegExp.escape(query), "i");
-
+        // Match compendiums by title
         const matchesQuery = (pack: CompendiumCollection): boolean => {
-            return regexp.test(pack.title) || (searchMode && packsFromDocMatches.has(pack.collection));
+            return pack.title.toLocaleLowerCase(game.i18n.lang).includes(query.toLocaleLowerCase(game.i18n.lang));
         };
         const filteredPacks = query.length > 0 ? game.packs.filter(matchesQuery) : game.packs.contents;
         const packRows = Array.from(
@@ -149,52 +108,10 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         // Display matching compendium rows along with any document matches within each compendium
         for (const pack of filteredPacks) {
             const packRow = packRows.find((r) => r.dataset.collection === pack.collection);
-            packRow?.querySelector("ul.doc-matches")?.remove();
             if (!packRow || (pack.private && !game.user.isGM)) {
                 continue;
             }
             packRow.style.display = "list-item";
-
-            const packDocMatches = docMatches.filter((m) => m.collection === packRow.dataset.collection);
-            if (packDocMatches.length === 0) continue;
-
-            // Create a list of matches
-            const matchList = document.createElement("ul");
-            matchList.className = "doc-matches";
-            for (const match of packDocMatches) {
-                const matchRow = ((): HTMLLIElement => {
-                    const li = document.createElement("li");
-                    li.dataset.collection = match.collection;
-                    li.dataset.documentId = match.id;
-                    const matchUUID = `Compendium.${match.collection}.${match.id}` as const;
-                    li.dataset.matchUuid = matchUUID;
-
-                    const anchor = document.createElement("a");
-                    anchor.innerText = match.name;
-
-                    // Show a thumbnail if available
-                    if (typeof match.img === "string") {
-                        const thumbnail = document.createElement("img");
-                        thumbnail.className = "thumbnail";
-                        thumbnail.src = match.img;
-                        li.append(thumbnail);
-                    }
-                    li.append(anchor);
-
-                    // Open compendium on result click
-                    li.addEventListener("click", async (event) => {
-                        event.stopPropagation();
-                        const doc = await fromUuid(matchUUID);
-                        await doc?.sheet?.render(true);
-                    });
-
-                    return li;
-                })();
-
-                matchList.append(matchRow);
-            }
-            packRow.append(matchList);
-
             for (const dragDrop of this._dragDrop) {
                 dragDrop.bind(packRow);
             }
@@ -207,7 +124,54 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 : [];
         for (const row of rowsToHide) {
             row.style.display = "none";
-            row.querySelector("ul.doc-matches")?.remove();
+        }
+
+        // Match documents within each compendium by name
+        const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
+        if (docMatches.length === 0) return;
+
+        // Create a list of document matches
+        const matchTemplate = document.querySelector<HTMLTemplateElement>("#compendium-search-match");
+        if (!matchTemplate) throw ErrorPF2e("Match template not found");
+
+        for (const compendiumTypeList of htmlQueryAll(this.element[0]!, "li.compendium-type")) {
+            const typedMatches = docMatches.filter((m) => m.metadata.type === compendiumTypeList.dataset.type);
+            const listElements = typedMatches.map((match): HTMLLIElement => {
+                const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+                const matchUUID = `Compendium.${match.metadata.id}.${match.id}`;
+                li.dataset.uuid = matchUUID;
+                li.dataset.score = match.score.toString();
+
+                // Show a thumbnail if available
+                if (typeof match.img === "string") {
+                    const thumbnail = li.querySelector("img")!;
+                    thumbnail.src = match.img;
+                }
+
+                // Open compendium on result click
+                li.addEventListener("click", async (event) => {
+                    event.stopPropagation();
+                    const doc = await fromUuid(matchUUID);
+                    await doc?.sheet?.render(true);
+                });
+
+                const anchor = li.querySelector("a")!;
+                anchor.innerText = match.name;
+                const details = li.querySelector("span")!;
+                const systemType =
+                    match.metadata.type === "Actor"
+                        ? game.i18n.localize(`ACTOR.Type${match.type.titleCase()}`)
+                        : match.metadata.type === "Item"
+                        ? game.i18n.localize(`ITEM.Type${match.type.titleCase()}`)
+                        : null;
+                details.innerText = systemType
+                    ? `${systemType} (${match.metadata.label})`
+                    : `(${match.metadata.label})`;
+
+                return li;
+            });
+
+            compendiumTypeList.querySelector("ol.document-matches")?.replaceChildren(...listElements);
         }
     }
 
@@ -255,7 +219,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
                 ...i,
-                collection: pack.collection,
+                metadata: pack.metadata,
             }));
             this.searchEngine.addAll(contents);
         }

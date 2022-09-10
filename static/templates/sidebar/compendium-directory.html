@@ -7,17 +7,14 @@
         </div>
         <div class="header-search flexrow">
             <i class="fas fa-search"></i>
-            <input type="search" name="search" autocomplete="off" spellcheck="false" />
-            <button class="search-contents{{#if searchContents}} active{{/if}}" data-action="toggle-search-contents" title="{{localize "COMPENDIUM.SearchContents.Hint"}}">
-                <i class="fas fa-file"></i>
-            </button>
+            <input type="search" name="search" autocomplete="off" spellcheck="false" placeholder="{{localize "COMPENDIUM.Search"}}" />
         </div>
     </header>
 
     <ol class="directory-list">
-        {{#each packs as |group label|}}
-            <li class="compendium-type">
-                <h3 class="noborder">{{label}}</h3>
+        {{#each packs as |group type|}}
+            <li class="compendium-type" data-type="{{type}}">
+                <h3 class="noborder">{{localize (concat "DOCUMENT." type)}}</h3>
                 <ol class="compendium-list">
                     {{#each group.packs as |pack|}}
                         <li class="compendium-pack directory-item" data-collection="{{pack.collection}}" data-pack="{{pack.collection}}" data-open="0">
@@ -34,6 +31,7 @@
                             </footer>
                         </li>
                     {{/each}}
+                    <ol class="document-matches"></ol>
                 </ol>
             </li>
         {{/each}}
@@ -42,4 +40,12 @@
     <footer class="directory-footer">
         <button type="button" class="compendium-browser-btn"><i class="fas fa-fire"></i> {{localize "PF2E.CompendiumBrowser.Title"}}</button>
     </footer>
+
+    <template id="compendium-search-match">
+        <li class="match" >
+            <div class="thumbnail"><img /></div>
+            <a class="name"></a>
+            <span class="details"></span>
+        </li>
+    </template>
 </section>
