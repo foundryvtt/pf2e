@@ -1621,6 +1621,7 @@ class CharacterPF2e extends CreaturePF2e {
             quantity: weapon.quantity,
             slug: weapon.slug,
             ready: weapon.isEquipped,
+            visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",
             item: weapon,
             type: "strike" as const,
