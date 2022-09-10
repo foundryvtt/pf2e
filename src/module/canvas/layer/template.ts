@@ -1,57 +1,8 @@
-import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { MeasuredTemplatePF2e } from "..";
 
 export class TemplateLayerPF2e<
     TTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e
 > extends TemplateLayer<TTemplate> {
-    /** Can be removed once https://gitlab.com/foundrynet/foundryvtt/-/issues/7132 is closed */
-    override async _onDragLeftStart(event: PlaceablesLayerEvent<TTemplate>): Promise<TTemplate | void> {
-        if (!canvas.dimensions) return;
-        if (!this.options.canDragCreate) {
-            delete event.data.createState;
-            return;
-        }
-        event.data.createState = 0;
-
-        // Clear any existing preview
-        if (this.preview) this.preview.removeChildren();
-        event.data.preview = null;
-
-        // Register the ongoing creation
-        event.data.createState = 1;
-
-        // Create the new preview template
-        const tool = game.activeTool as MeasuredTemplateType;
-        const { origin } = event.data;
-        const pos = canvas.grid.getSnappedPosition(origin.x, origin.y, this.gridPrecision);
-        origin.x = pos.x;
-        origin.y = pos.y;
-
-        // Create the template
-        const data: PreCreate<foundry.data.MeasuredTemplateSource> = {
-            user: game.user.id,
-            t: tool,
-            x: pos.x,
-            y: pos.y,
-            distance: canvas.dimensions.distance,
-            direction: 0,
-            fillColor: game.user.color || "#FF0000",
-        };
-
-        if (tool === "cone") {
-            data.angle = CONFIG.MeasuredTemplate.defaults.angle;
-        } else if (tool === "ray") {
-            data.width = canvas.dimensions.distance;
-        }
-
-        // Assign the template
-        const document = new MeasuredTemplateDocumentPF2e(data, { parent: canvas.scene });
-        const template = new MeasuredTemplatePF2e(document) as TTemplate;
-        event.data.preview = this.preview.addChild(template);
-
-        return template.draw();
-    }
-
     /** Originally by Furyspark for the PF1e system */
     protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void {
         if (!canvas.dimensions) return;
