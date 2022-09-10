@@ -1979,15 +1979,11 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Add a proficiency in a weapon group or base weapon */
-    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
+    async addAttackProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         const currentProficiencies = this.system.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`system.martial.${key}`]: newProficiency });
-    }
-
-    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        await this.update({ [`system.martial.-=${key}`]: null });
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */
