@@ -5,11 +5,10 @@
                 <img class="kit-item-image" src="{{item.img}}">
                 <input class="kit-item-quantity" value="{{item.quantity}}" name="{{@partial-block}}items.{{i}}.quantity" type="number" />
                 <div class="kit-item-name">{{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.KitWorldItem"}}"></i>{{/unless}}</div>
-                <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype='String'>
-                <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype='String'>
-                <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype='String'>
-                <input value="{{item.isContainer}}" name="{{@partial-block}}items.{{i}}.isContainer" type="hidden" data-dtype='Boolean'>
-                <a class="kit-item-remove" data-action='remove'><i class="fa fa-times"></i></a>
+                <input value="{{item.uuid}}" name="{{@partial-block}}items.{{i}}.uuid" type="hidden" data-dtype="String">
+                <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
+                <input value="{{item.isContainer}}" name="{{@partial-block}}items.{{i}}.isContainer" type="hidden" data-dtype="Boolean">
+                <a class="kit-item-remove" data-action="remove"><i class="fa fa-times"></i></a>
                 {{#if item.items}}
                     {{#> kitItems item}}{{@partial-block}}items.{{i}}.{{/kitItems}}
                 {{/if}}

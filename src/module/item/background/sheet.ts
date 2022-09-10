@@ -1,7 +1,6 @@
-import { ABCSheetPF2e } from "../abc/sheet";
+import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet";
 import { BackgroundPF2e } from "@item/background";
-import { BackgroundSheetData } from "../sheet/data-types";
-import { createSheetOptions } from "@module/sheet/helpers";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<BackgroundSheetData> {
@@ -16,4 +15,9 @@ export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
             ),
         };
     }
+}
+
+interface BackgroundSheetData extends ABCSheetData<BackgroundPF2e> {
+    trainedSkills: SheetOptions;
+    selectedBoosts: Record<string, Record<string, string>>;
 }
