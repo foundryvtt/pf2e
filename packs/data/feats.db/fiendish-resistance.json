@@ -24,7 +24,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    }
+                ],
+                "flag": "fiendishResistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.CelestialResistance.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.fiendishResistance}",
+                "value": 5
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

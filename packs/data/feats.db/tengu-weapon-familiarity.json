@@ -24,7 +24,225 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:trait:tengu",
+                        "weapon:category:advanced"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedTenguWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-tengu-weapons"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:trait:tengu",
+                        "weapon:category:martial"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialTenguWeapons",
+                "sameAs": "simple",
+                "slug": "martial-tengu-weapons"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.bastard-sword",
+                        "value": "bastard-sword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.exquisite-sword-cane",
+                        "value": "exquisite-sword-cane"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.falchion",
+                        "value": "falchion"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.greatsword",
+                        "value": "greatsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.longsword",
+                        "value": "longsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.machete",
+                        "value": "machete"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.rapier",
+                        "value": "rapier"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.scimitar",
+                        "value": "scimitar"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.shortsword",
+                        "value": "shortsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.katana",
+                        "value": "katana"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.temple-sword",
+                        "value": "temple-sword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.wakizashi",
+                        "value": "wakizashi"
+                    }
+                ],
+                "flag": "tenguWeaponFamiliarityFirst",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Tengu.TenguWeaponFamiliarity.Prompt",
+                "rollOption": "first-weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.bastard-sword",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:bastard-sword"
+                            ]
+                        },
+                        "value": "bastard-sword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.exquisite-sword-cane",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:exquisite-sword-cane"
+                            ]
+                        },
+                        "value": "exquisite-sword-cane"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.falchion",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:falchion"
+                            ]
+                        },
+                        "value": "falchion"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.greatsword",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:greatsword"
+                            ]
+                        },
+                        "value": "greatsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.longsword",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:longsword"
+                            ]
+                        },
+                        "value": "longsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.machete",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:machete"
+                            ]
+                        },
+                        "value": "machete"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.rapier",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:rapier"
+                            ]
+                        },
+                        "value": "rapier"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.scimitar",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:scimitar"
+                            ]
+                        },
+                        "value": "scimitar"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.shortsword",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:shortsword"
+                            ]
+                        },
+                        "value": "shortsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.katana",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:katana"
+                            ]
+                        },
+                        "value": "katana"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.temple-sword",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:temple-sword"
+                            ]
+                        },
+                        "value": "temple-sword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.wakizashi",
+                        "predicate": {
+                            "not": [
+                                "first-weapon:wakizashi"
+                            ]
+                        },
+                        "value": "wakizashi"
+                    }
+                ],
+                "flag": "tenguWeaponFamiliaritySecond",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Tengu.TenguWeaponFamiliarity.Prompt"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:base:{item|flags.pf2e.rulesSelections.tenguWeaponFamiliarityFirst}"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{item|flags.pf2e.rulesSelections.tenguWeaponFamiliarityFirst}",
+                "sameAs": "simple",
+                "slug": "familiar-tengu-weapon-one"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:base:{item|flags.pf2e.rulesSelections.tenguWeaponFamiliaritySecond}"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.Weapon.Base.{item|flags.pf2e.rulesSelections.tenguWeaponFamiliaritySecond}",
+                "sameAs": "simple",
+                "slug": "familiar-tengu-weapon-two"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
