@@ -638,10 +638,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             // ... an action?
             if (actionIndex) {
                 return {
-                    pf2e: {
-                        type: "Action",
-                        index: Number(actionIndex),
-                    },
+                    type: "Action",
+                    index: Number(actionIndex),
                 };
             }
 
