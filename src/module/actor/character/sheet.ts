@@ -11,7 +11,7 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, htmlQueryAll, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
@@ -967,8 +967,16 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
         const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData = JSON.parse(dataString ?? "");
-        if ("pf2e" in dropData && dropData.pf2e.type === "CraftingFormula") {
+        const dropData = ((): Record<string, unknown> | null => {
+            try {
+                return JSON.parse(dataString ?? "");
+            } catch {
+                return null;
+            }
+        })();
+        if (!dropData) return;
+
+        if (isObject<Record<string, unknown>>(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             // Prepare formula if dropped on a crafting entry.
             const $containerEl = $(event.target).closest(".item-container");
             const dropContainerType = $containerEl.attr("data-container-type");
@@ -979,7 +987,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 if (!craftingEntry) return;
 
                 const craftingFormulas = await this.actor.getCraftingFormulas();
-                const formula = craftingFormulas.find((f) => f.uuid === dropData.pf2e.itemUuid);
+                const uuid = dropData.pf2e.itemUuid;
+                const formula = craftingFormulas.find((f) => f.uuid === uuid);
 
                 if (formula) return craftingEntry.prepareFormula(formula);
             }
