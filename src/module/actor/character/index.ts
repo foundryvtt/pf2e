@@ -255,6 +255,7 @@ class CharacterPF2e extends CreaturePF2e {
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
+        flags.pf2e.quickTincture ??= false;
         flags.pf2e.sheetTabs = mergeObject(
             CHARACTER_SHEET_TABS.reduce(
                 (tabs, tab) => ({
@@ -387,8 +388,12 @@ class CharacterPF2e extends CreaturePF2e {
         resources.focus.max = 0;
         resources.focus.cap = 3;
 
-        resources.crafting = mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
+        resources.crafting = mergeObject(
+            { infusedReagents: { value: 0, max: 0 }, versatileVials: { value: 0, max: 0 } },
+            resources.crafting ?? {}
+        );
         resources.crafting.infusedReagents.max = 0;
+        resources.crafting.versatileVials.max = 0;
 
         // Size
         this.system.traits.size = new ActorSizePF2e({ value: "med" });
@@ -804,6 +809,7 @@ class CharacterPF2e extends CreaturePF2e {
         const { focus, crafting } = this.system.resources;
         focus.max = Math.clamped(focus.max, 0, focus.cap);
         crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
+        crafting.versatileVials.value = Math.clamped(crafting.versatileVials.value, 0, crafting.versatileVials.max);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
         if (focus.max === 0 && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
             focus.max = 1;

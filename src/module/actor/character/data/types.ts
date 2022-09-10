@@ -55,6 +55,8 @@ type CharacterFlags = ActorFlagsPF2e & {
         freeCrafting: boolean;
         /** Whether the alchemist's (and related dedications) Quick Alchemy ability is enabled */
         quickAlchemy: boolean;
+        /** Whether the investigator's Quick Tincture ability is enabled */
+        quickTincture: boolean;
         /** Whether ABP should be disabled despite it being on for the world */
         disableABP?: boolean;
         /** Which sheet tabs are displayed */
@@ -271,6 +273,7 @@ interface CharacterResources {
     investiture: { value: number; max: number };
     crafting: {
         infusedReagents: { value: number; max: number };
+        versatileVials: { value: number; max: number };
     };
 }
 

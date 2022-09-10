@@ -85,9 +85,18 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         // Restore reagents
         const resources = actor.system.resources;
         const reagents = resources.crafting.infusedReagents;
+        const vials = resources.crafting.versatileVials;
+
         if (reagents && reagents.value < reagents.max) {
-            actorUpdates.resources.crafting = { infusedReagents: { value: reagents.max } };
+            actorUpdates.resources.crafting ??= {};
+            actorUpdates.resources.crafting.infusedReagents = { value: reagents.max };
             statements.push(game.i18n.localize(translations.Message.InfusedReagents));
+        }
+
+        if (vials && vials.value < vials.max) {
+            actorUpdates.resources.crafting ??= {};
+            actorUpdates.resources.crafting.versatileVials = { value: vials.max };
+            statements.push(game.i18n.localize(translations.Message.VersatileVials));
         }
 
         // Spellcasting entries and focus points

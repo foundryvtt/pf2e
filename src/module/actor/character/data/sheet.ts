@@ -34,18 +34,25 @@ export interface CraftingEntriesSheetData {
     alchemical: {
         entries: CraftingEntry[];
         totalReagentCost: number;
-        infusedReagents: {
-            value: number;
-            max: number;
-        };
     };
 }
 
 interface CraftingSheetData {
     noCost: boolean;
     hasQuickAlchemy: boolean;
+    hasQuickTincture: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
     entries: CraftingEntriesSheetData;
+    resources: {
+        infusedReagents: {
+            value: number;
+            max: number;
+        };
+        versatileVials: {
+            value: number;
+            max: number;
+        };
+    };
 }
 
 type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;

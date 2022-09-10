@@ -22,6 +22,7 @@ import { Migration783RemoveClassSkillAELikes } from "@module/migration/migration
 import { Migration785ABCKitItemUUIDs } from "@module/migration/migrations/785-abc-kit-items";
 import { Migration787ResolvablesToSystem } from "@module/migration/migrations/787-resolvables-to-system";
 import { Migration788UpdateTanglefootBags } from "@module/migration/migrations/788-update-tanglefoot-bags";
+import { Migration785AddVersatileVialsRE } from "@module/migration/migrations/785-versatile-vials";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -46,6 +47,7 @@ const migrations: MigrationBase[] = [
     new Migration785ABCKitItemUUIDs(),
     new Migration787ResolvablesToSystem(),
     new Migration788UpdateTanglefootBags(),
+    new Migration785AddVersatileVialsRE(),
 ];
 
 global.deepClone = <T>(original: T): T => {

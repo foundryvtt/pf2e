@@ -141,11 +141,16 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
         const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
+        const hasQuickTincture = !!this.actor.rollOptions.all["feature:alchemical-sciences-methodology"];
+        const useQuickTincture = hasQuickTincture && flags.quickTincture;
+
         sheetData.crafting = {
-            noCost: flags.freeCrafting || useQuickAlchemy,
+            noCost: flags.freeCrafting || useQuickAlchemy || useQuickTincture,
             hasQuickAlchemy,
+            hasQuickTincture,
             knownFormulas: formulasByLevel,
             entries: await this.prepareCraftingEntries(),
+            resources: this.actor.system.resources.crafting,
         };
 
         this.knownFormulas = Object.values(formulasByLevel)
@@ -316,7 +321,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             alchemical: {
                 entries: [],
                 totalReagentCost: 0,
-                infusedReagents: this.actor.system.resources.crafting.infusedReagents,
             },
         };
 
@@ -597,6 +601,23 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
+        $craftingTab.find(".infused-reagents").on("change", async (event) => {
+            const change = Number($(event.target).val());
+            const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
+            const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
+            await this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
+            this.render(true);
+        });
+
+        $craftingTab.find(".versatile-vials").on("change", async (event) => {
+            const change = Number($(event.target).val());
+            const versatileVials = this.actor.system.resources.crafting.versatileVials;
+            const value = Math.clamped(change, 0, versatileVials?.max ?? 0);
+            console.log(value);
+            await this.actor.update({ "system.resources.crafting.versatileVials.value": value });
+            this.render(true);
+        });
+
         const $formulas = $craftingTab.find(".craftingEntry-list");
 
         $formulas.find("a[data-action=craft-item]").on("click", async (event) => {
@@ -627,6 +648,17 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     return;
                 }
                 await this.actor.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
+
+                return craftItem(formula.item, itemQuantity, this.actor, true);
+            }
+
+            if (this.actor.flags.pf2e.quickTincture) {
+                const vialsValue = this.actor.system.resources.crafting.versatileVials.value - itemQuantity;
+                if (vialsValue < 0) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingVials"));
+                    return;
+                }
+                await this.actor.update({ "system.resources.crafting.versatileVials.value": vialsValue });
 
                 return craftItem(formula.item, itemQuantity, this.actor, true);
             }
@@ -739,13 +771,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
             if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
             await craftingEntry.toggleSignatureItem(itemUUID);
-        });
-
-        $formulas.find(".infused-reagents").on("change", (event) => {
-            const change = Number($(event.target).val());
-            const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
-            const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
-            this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
         });
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());

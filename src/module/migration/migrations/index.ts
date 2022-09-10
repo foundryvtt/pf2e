@@ -186,3 +186,4 @@ export { Migration785ABCKitItemUUIDs } from "./785-abc-kit-items";
 export { Migration786RemoveIdentifiedData } from "./786-remove-identified-data";
 export { Migration787ResolvablesToSystem } from "./787-resolvables-to-system";
 export { Migration788UpdateTanglefootBags } from "./788-update-tanglefoot-bags";
+export { Migration785AddVersatileVialsRE } from "./785-versatile-vials";

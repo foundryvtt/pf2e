@@ -1,17 +1,33 @@
 <div class="tab crafting crafting-pane" data-group="primary" data-tab="crafting">
     <div class="crafting-options item-list">
-        <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+        <div class="crafting-option" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
             <label>
                 <input type="checkbox" name="flags.pf2e.freeCrafting" flag="freeCrafting" {{checked actor.flags.pf2e.freeCrafting}}>
                 <span>{{localize "PF2E.CraftingTab.ToggleFreeCrafting"}}</span>
             </label>
         </div>
         {{#if crafting.hasQuickAlchemy}}
-        <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+        <div class="crafting-option" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
             <label>
                 <input type="checkbox" name="flags.pf2e.quickAlchemy" flag="quickAlchemy" {{checked actor.flags.pf2e.quickAlchemy}}>
                 <span>{{localize "PF2E.CraftingTab.ToggleQuickAlchemy"}}</span>
             </label>
+            <div class="resource-tracking">
+                <input class="infused-reagents" type="number" data-selector="value" data-resource="infusedReagents" value="{{crafting.resources.infusedReagents.value}}" placeholder="0" data-dtype="Number"/>
+                <span>/ {{crafting.resources.infusedReagents.max}}</span>
+            </div>
+        </div>
+        {{/if}}
+        {{#if crafting.hasQuickTincture}}
+        <div class="crafting-option" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <label>
+                <input type="checkbox" name="flags.pf2e.quickTincture" flag="quickTincture" {{checked actor.flags.pf2e.quickTincture}}>
+                <span>{{localize "PF2E.CraftingTab.ToggleQuickTincture"}}</span>
+            </label>
+            <div class="resource-tracking">
+                <input class="versatile-vials" type="number" data-selector="value" data-resource="versatileVials" value="{{crafting.resources.versatileVials.value}}" placeholder="0" data-dtype="Number"/>
+                <span>/ {{crafting.resources.versatileVials.max}}</span>
+            </div>
         </div>
         {{/if}}
     </div>
