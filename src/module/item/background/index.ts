@@ -12,7 +12,7 @@ class BackgroundPF2e extends ABCItemPF2e {
 
         if (grantedSkillFeat) {
             this.system.items["GRANT"] = {
-                id: grantedSkillFeat.id,
+                uuid: grantedSkillFeat.sourceId ?? grantedSkillFeat.uuid,
                 img: grantedSkillFeat.img,
                 name: grantedSkillFeat.name,
                 level: 1,

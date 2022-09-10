@@ -4,6 +4,7 @@ import { ABCFeatureEntryData } from "@item/abc/data";
 import { CharacterPF2e } from "@actor/index";
 import type { FeatSource } from "@item/feat/data";
 import { ErrorPF2e, sluggify } from "@util";
+import { fromUUIDs } from "@util/from-uuids";
 
 export interface ABCManagerOptions {
     assurance?: string[];
@@ -117,27 +118,23 @@ export class AncestryBackgroundClassManager {
         const feats: FeatSource[] = [];
         if (entries.length > 0) {
             // Get feats from a compendium pack
-            const packEntries = entries.filter((entry) => !!entry.pack);
+            const packEntries = entries.filter((entry) => !!entry.uuid);
             if (packEntries.length > 0) {
                 const compendiumFeats = await this.getFromCompendium(packEntries);
                 feats.push(
                     ...compendiumFeats.map((feat) => {
-                        if (feat instanceof FeatPF2e) {
-                            const featSource = feat.toObject();
-                            featSource._id = randomID(16);
-                            featSource.system.location = locationId;
-                            return featSource;
-                        } else {
-                            throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
-                        }
+                        const featSource = feat.toObject();
+                        featSource._id = randomID(16);
+                        featSource.system.location = locationId;
+                        return featSource;
                     })
                 );
             }
             // Get feats from the game.items collection
-            const gameEntries = entries.filter((entry) => !entry.pack);
+            const worldEntries = entries.filter((e) => e.uuid.startsWith("Item."));
             feats.push(
-                ...gameEntries.map((entry) => {
-                    const item = game.items.get(entry.id);
+                ...worldEntries.map((entry) => {
+                    const item = fromUuidSync(entry.uuid);
                     if (item instanceof FeatPF2e) {
                         const source = item.toObject();
                         source._id = randomID(16);
@@ -152,29 +149,19 @@ export class AncestryBackgroundClassManager {
     }
 
     protected static async getFromCompendium(entries: ABCFeatureEntryData[]): Promise<FeatPF2e[]> {
-        const feats: FeatPF2e[] = [];
-        // Entries can be from different packs
-        const packs = new Set(entries.map((entry) => entry.pack!));
-        for await (const pack of packs) {
-            // Only fetch feats that are in this pack
-            const entryIds = entries.filter((entry) => entry.pack === pack).map((entry) => entry.id);
-            const features = (
-                await game.packs
-                    .get<CompendiumCollection<FeatPF2e>>(pack, { strict: true })
-                    // Use NeDB query to fetch all needed feats in one transaction
-                    .getDocuments({ _id: { $in: entryIds } })
-            ).map((f) => f.clone({}, { keepId: true }));
-            // For class features, set the level to the one prescribed in the class item
-            for (const feature of features) {
-                const entry = entries.find((e) => e.id === feature.id);
-                if (entry && feature.featType === "classfeature") {
-                    feature.updateSource({ "system.level.value": entry.level });
+        const items = (await fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
+        return items.flatMap((item): FeatPF2e | never[] => {
+            if (item instanceof FeatPF2e) {
+                if (item.featType === "classfeature") {
+                    const level = entries.find((e) => item.sourceId === e.uuid)?.level ?? item.level;
+                    item.updateSource({ "system.level.value": level });
                 }
+                return item;
+            } else {
+                console.error("PF2e System | Missing or invalid ABC item");
+                return [];
             }
-
-            feats.push(...features);
-        }
-        return feats;
+        });
     }
 
     protected static async addFeatures(

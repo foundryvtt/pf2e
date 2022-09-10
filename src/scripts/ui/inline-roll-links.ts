@@ -5,33 +5,41 @@ import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { objectHasKey, sluggify } from "@util";
+import { htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    injectRepostElement: ($links: JQuery): void => {
-        for (const link of $links) {
-            if (link.querySelector("i[data-pf2-repost]")) {
-                link.classList.add("with-repost");
+    injectRepostElement: (links: HTMLElement[], message?: ChatMessagePF2e | undefined): void => {
+        for (const link of links) {
+            link.classList.add("with-repost");
+
+            const repostButtons = htmlQueryAll(link, "i[data-pf2-repost]");
+            if (repostButtons.length > 0) {
+                if (message?.user.isGM && !game.user.isGM) {
+                    for (const button of repostButtons) {
+                        button.remove();
+                    }
+                    link.classList.remove("with-repost");
+                }
                 continue;
             }
 
             if (!game.user.isGM) continue;
 
-            link.classList.add("with-repost");
-            const child = document.createElement("i");
-            child.classList.add("fas", "fa-comment-alt");
-            child.setAttribute("data-pf2-repost", "");
-            child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
-            link.appendChild(child);
+            const newButton = document.createElement("i");
+            newButton.classList.add("fas", "fa-comment-alt");
+            newButton.setAttribute("data-pf2-repost", "");
+            newButton.setAttribute("title", game.i18n.localize("PF2E.Repost"));
+            link.appendChild(newButton);
         }
     },
 
-    listen: ($html: JQuery): void => {
-        const $links = $html.find("span").filter(inlineSelector);
-        InlineRollLinks.injectRepostElement($links);
+    listen: ($html: JQuery, message?: ChatMessagePF2e): void => {
+        const html = $html[0]!;
+        const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
+        InlineRollLinks.injectRepostElement(links, message);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | null => {
@@ -52,6 +60,7 @@ export const InlineRollLinks = {
             event.stopPropagation();
         });
 
+        const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
             const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc } = $target[0]?.dataset ?? {};
