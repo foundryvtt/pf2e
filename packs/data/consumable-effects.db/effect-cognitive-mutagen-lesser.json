@@ -1,0 +1,113 @@
+{
+    "_id": "jaBMZKdoywOTrQvP",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cognitive-mutagen.webp",
+    "name": "Effect: Cognitive Mutagen (Lesser)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Cognitive Mutagen (Lesser)]{Cognitive Mutagen (Lesser)}</p>\n<p><strong>Implemented effects</strong></p>\n<ul>\n<li>+1 item bonus to Arcana, Crafting, Occultism and Society checks</li>\n<li>+1 item bonus to all Recall Knowledge checks</li>\n<li>-2 penalty to to Athletics and Acrobatics checks</li>\n<li>-2 penalty to weapon and unarmed attacks</li>\n<li>+1 item bonus to Lore checks</li>\n<li>Treat Recall Knowledge critical failures as failures</li>\n</ul>\n<p><strong>Unimplemented effects</strong></p>\n<ul>\n<li>You can carry 2 less Bulk than normal before becoming encumbered</li>\n<li>The maximum Bulk you can carry is reduced by 4</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Cognitive Mutagen (Lesser)",
+                "selector": "arcana",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Cognitive Mutagen (Lesser)",
+                "selector": "crafting",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Cognitive Mutagen (Lesser)",
+                "selector": "occultism",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Cognitive Mutagen (Lesser)",
+                "selector": "society",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "acrobatics",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "mundane-attack",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Cognitive Mutagen (Recall knowledge)",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "lore-skill-check",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "skill"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

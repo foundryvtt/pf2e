@@ -1,0 +1,239 @@
+{
+    "_id": "pQ3EjUm1lZW9t3el",
+    "img": "systems/pf2e/icons/features/classes/battle-mystery.webp",
+    "name": "Effect: Battle Curse",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p><em>Note: The @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} condition is not applied for the major curse</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": {
+                            "all": [
+                                "feature:major-curse"
+                            ]
+                        },
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": {
+                            "all": [
+                                "feature:extreme-curse"
+                            ]
+                        },
+                        "value": "major"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:curse"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.OracleCurses.Battle.MadeAStrike",
+                "option": "battle-mystery",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
+                    "not": [
+                        "battle-mystery"
+                    ]
+                },
+                "selector": "ac",
+                "slug": "battle-curse-ac",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
+                    "not": [
+                        "battle-mystery"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "battle-curse-ac",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battle-mystery"
+                    ],
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
+                    "not": [
+                        "oracular-curse:minor"
+                    ]
+                },
+                "selector": "ac",
+                "slug": "battle-curse-ac-moderate",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battle-mystery"
+                    ],
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ],
+                    "not": [
+                        "oracular-curse:minor"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "battle-curse-ac-moderate",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "oracular-curse:moderate",
+                        "oracular-curse:major"
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "battle-curse-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FastHealing",
+                "predicate": {
+                    "all": [
+                        "encounter:non-trivial",
+                        "oracular-curse:moderate"
+                    ]
+                },
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "FastHealing",
+                "predicate": {
+                    "all": [
+                        "encounter:non-trivial",
+                        "oracular-curse:major"
+                    ]
+                },
+                "value": "@actor.level"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.OracleCurses.Battle.NonTrivialEncounter",
+                "option": "encounter:non-trivial",
+                "predicate": {
+                    "any": [
+                        "oracular-curse:moderate",
+                        "oracular-curse:major"
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": {
+                    "all": [
+                        "oracular-curse:major"
+                    ]
+                },
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "battle-curse-damage",
+                "value": 6
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "oracular-curse:major"
+                    ]
+                },
+                "selector": "attack",
+                "slug": "battle-curse-attack",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

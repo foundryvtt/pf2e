@@ -1,0 +1,152 @@
+{
+    "_id": "rwDsr5XsrYcH7oFT",
+    "img": "systems/pf2e/icons/features/classes/cosmos-mystery.webp",
+    "name": "Effect: Cosmos Curse",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": {
+                            "all": [
+                                "feature:major-curse"
+                            ]
+                        },
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": {
+                            "all": [
+                                "feature:extreme-curse"
+                            ]
+                        },
+                        "value": "major"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "self:curse"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:minor"
+                    ],
+                    "any": [
+                        "action:grapple",
+                        "action:shove",
+                        "forced-movement"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "curse-minor",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:moderate"
+                    ],
+                    "any": [
+                        "action:grapple",
+                        "action:shove",
+                        "forced-movement"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "curse-moderate",
+                "value": -3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        {
+                            "or": [
+                                "self:curse:moderate",
+                                "self:curse:major"
+                            ]
+                        }
+                    ],
+                    "any": [
+                        "action:trip"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "curse-moderate-trip",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:major"
+                    ],
+                    "any": [
+                        "action:grapple",
+                        "action:shove",
+                        "forced-movement"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "curse-major",
+                "value": -4
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

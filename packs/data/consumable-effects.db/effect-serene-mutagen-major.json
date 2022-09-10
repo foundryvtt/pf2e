@@ -1,0 +1,116 @@
+{
+    "_id": "t7VUJHSUT6bkVUjg",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/serene-mutagen.webp",
+    "name": "Effect: Serene Mutagen (Major)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Serene Mutagen (Major)]{Serene Mutagen (Major)}</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to Will saves</li>\n<li>+5 item bonus to Will saves against mental effects</li>\n<li>+4 item bonus to Perception checks</li>\n<li>+4 item bonus to Medicine, Nature, Religion and Survival checks</li>\n<li>-1 penalty to attack rolls</li>\n<li>Treat Fortitude success as critical success</li>\n<li>Treat Fortitude critical failure as a failure</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>-1 penalty to save DCs of offensive spells</li>\n<li>-1 penalty per damage die to all weapon, unarmed attack and spell damage rolls</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 17
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "will",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "perception",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "medicine",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "nature",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "religion",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "survival",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen (Major)",
+                "selector": "attack",
+                "type": "untyped",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Serene Mutagen, Major (vs. mental)",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "will",
+                "type": "item",
+                "value": 5
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,332 @@
+{
+    "_id": "V6lnFOq998B76Rr0",
+    "img": "systems/pf2e/icons/features/classes/ancestors-mystery.webp",
+    "name": "Effect: Ancestor Curse",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.MinorBattle",
+                        "value": "minor:battle"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.MinorSkillful",
+                        "value": "minor:skill"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.MinorSpellcasting",
+                        "value": "minor:spell"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.ModerateBattle",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate:battle"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.ModerateSkillful",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate:skill"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.ModerateSpellcasting",
+                        "predicate": {
+                            "all": [
+                                "class:oracle"
+                            ]
+                        },
+                        "value": "moderate:spell"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.MajorBattle",
+                        "predicate": {
+                            "all": [
+                                "feature:major-curse"
+                            ]
+                        },
+                        "value": "major:battle"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.MajorSkillful",
+                        "predicate": {
+                            "all": [
+                                "feature:major-curse"
+                            ]
+                        },
+                        "value": "major:skill"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.MajorSpellcasting",
+                        "predicate": {
+                            "all": [
+                                "feature:major-curse"
+                            ]
+                        },
+                        "value": "major:spell"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeBattle",
+                        "predicate": {
+                            "all": [
+                                "feature:extreme-curse"
+                            ]
+                        },
+                        "value": "major:battle"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSkillful",
+                        "predicate": {
+                            "all": [
+                                "feature:extreme-curse"
+                            ]
+                        },
+                        "value": "major:skill"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSpellcasting",
+                        "predicate": {
+                            "all": [
+                                "feature:extreme-curse"
+                            ]
+                        },
+                        "value": "major:spell"
+                    }
+                ],
+                "flag": "self:curse",
+                "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "class:oracle",
+                        "feat:first-revelation"
+                    ]
+                },
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "self:curse:minor:skill",
+                        "self:curse:minor:spell"
+                    ]
+                },
+                "selector": "attack",
+                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "self:curse:minor:battle",
+                        "self:curse:minor:spell"
+                    ]
+                },
+                "selector": "skill-check",
+                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "self:curse:moderate:skill",
+                        "self:curse:moderate:spell"
+                    ]
+                },
+                "selector": "attack",
+                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "self:curse:moderate:battle",
+                        "self:curse:moderate:spell"
+                    ]
+                },
+                "selector": "skill-check",
+                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "self:curse:major:skill",
+                        "self:curse:major:spell"
+                    ]
+                },
+                "selector": "attack",
+                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "self:curse:major:battle",
+                        "self:curse:major:spell"
+                    ]
+                },
+                "selector": "skill-check",
+                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "item:spell-slot",
+                        "item:duration:0",
+                        "damaging-effect",
+                        "self:curse:moderate:spell"
+                    ]
+                },
+                "selector": "spell-damage",
+                "slug": "moderate-spell",
+                "type": "status",
+                "value": "@spell.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "item:spell-slot",
+                        "item:duration:0",
+                        "damaging-effect",
+                        "self:curse:major:spell"
+                    ]
+                },
+                "selector": "spell-damage",
+                "slug": "major-spell",
+                "type": "status",
+                "value": "3+@spell.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "self:curse:moderate:battle",
+                        "self:curse:major:battle"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:moderate:battle"
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "curse-moderate-battle",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:major:battle"
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "curse-major-battle",
+                "type": "status",
+                "value": 6
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:moderate:skill"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "curse-moderate-skill",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:moderate:skill"
+                    ]
+                },
+                "selector": "perception",
+                "slug": "curse-moderate-perception",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:major:skill"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "curse-major-skill",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:curse:major:skill"
+                    ]
+                },
+                "selector": "perception",
+                "slug": "curse-major-perception",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
