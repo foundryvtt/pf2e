@@ -107,6 +107,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 
 * Dark Archive
     * Pathfinder Dark Archive © 2022, Paizo Inc.; Authors: James Case, Mikhail Rekun, Mark Seifter, Rigby Bendele, Logan Bonner, Dan Cascone, Jessica Catalan, Banana Chan, Kay Hashimoto, Sen H.H.S., Patrick Hurley, Joshua Kim, Avi Kool, Daniel Kwan, Kendra Leigh Speedling, Luis Loza, Ron Lundeen, Liane Merciel, Jacob W. Michaels, Andrew Mullen, Quinn Murphy, K. Tessa Newton, Patrick Renie, Solomon St. John, Michael Sayre, Shay Snow, Alex Speidel, Geoffrey Suthers, Ruvaid Virk, Jabari Weathers, and Isis Wozniakowska
+    * Pathfinder Dark Archive Web Supplement: In Darkness © 2022, Paizo Inc.; Author: James Case.
 
 
 * Adventures and Adventure Paths
