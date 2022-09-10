@@ -4,7 +4,7 @@
     "name": "Blade of Justice",
     "system": {
         "actionCategory": {
-            "value": ""
+            "value": "offensive"
         },
         "actionType": {
             "value": "action"
@@ -21,7 +21,6 @@
         "level": {
             "value": 12
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,17 +30,11 @@
         },
         "rules": [
             {
-                "domain": "damage-roll",
-                "key": "RollOption",
-                "option": "blade-justice",
-                "toggleable": true
-            },
-            {
                 "diceNumber": 2,
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
-                        "blade-justice"
+                        "target:trait:evil"
                     ]
                 },
                 "selector": "strike-damage"
