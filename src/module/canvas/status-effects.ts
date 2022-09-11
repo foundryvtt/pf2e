@@ -210,6 +210,7 @@ export class StatusEffects {
      * @param event The window click event
      */
     static async #setStatusValue(event: MouseEvent, token: TokenPF2e): Promise<void> {
+        event.preventDefault();
         event.stopImmediatePropagation();
 
         const icon = event.currentTarget;
