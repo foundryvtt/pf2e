@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 4.0.3
+
+### Bugfixes
+* (stwlam) Fix darkness adjuster rendering on scene view
+* (stwlam) Update in-Foundry changelog URL to point to V10 release branch
+
+### Data Updates
+* (SpartanCPA) Fill in (book) sources on items missing them
+* (TMun) Correct perception and missing darkvision on spellskein
+
 
 ## Version 4.0.2
 
