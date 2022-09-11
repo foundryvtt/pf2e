@@ -1,5 +1,41 @@
 # Changelog
 
+## Version 4.0.1
+
+### System Improvements
+* (stwlam) Add support for item drops on familiar tokens
+* (stwlam) Add a basic hearing detection mode
+* (stwlam) Only show repost buttons on chat messages to message owners
+* (stwlam) Consolidate shallow/deep search in compendium sidebar
+* (stwlam) Change default order-by for most compendium browser tabs to level
+
+### Bugfixes
+* (GravenImageRD) Show the correct item name in parentheses when mystified
+* (In3luki) Fix Compendium Browser pack selection not being saved
+* (stwlam) Fix removal of basic unarmed attack causing strike-index mismatching
+* (stwlam) Fix composite longbows/shortbows sometimes not being recognized as equivalent to standard longbows/shortbows
+* (stwlam) Fix strike drops on hotbar
+* (stwlam) Fix pair of rendering issues with darkness adjuster when viewed scene is changed
+* (stwlam) Fix showing limited NPCs with `actorLink`s in actor directory
+* (stwlam) Fix stack overflow sometimes triggered when closing token config
+* (stwlam) Fix add/remove attack proficiencies on PC sheet
+* (stwlam) Update Earn Income macro to function in V10
+* (stwlam) Fix grid highlighting of measured templates
+* (Supe) Fix ammo not getting consumed
+* (Supe) Fix display of repeating ammo on PC sheet
+* (Supe) Fix error sometimes thrown on NPCs with empty descriptions
+* (Supe) Fix hazard attack and damage rolls
+
+### Data Updates
+* (GravenImageRD) Add missing traits to Peachwood Talisman
+* (Kuroni) Fix source of Undead Scourge equipment
+* (Shandyan) Automate tengu feats
+* (SpartanCPA) Add references to Coerce and buttons to Intimidation Feats
+* (stwlam) Add REs to handle Flying Blade feat
+* (stwlam) Remove `applyMod` from two-action Harm spell variant
+* (Tikael) Fix localization of Sprite strikes
+* (Tikael) Add Dark Archive Web Supplement content
+
 ## Version 4.0.0 (Beta 3)
 
 ### System Improvements
