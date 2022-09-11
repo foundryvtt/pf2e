@@ -96,12 +96,14 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
               })()
             : null;
 
-        let $levelPriceLabel = $();
-        if (itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins") {
-            const price = item.price.value.toString();
-            const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-            $levelPriceLabel = $(`<p>${localize('Level')} ${item.level}<br/>${priceLabel}</p>`);
-        }
+        const $levelPriceLabel =
+            itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
+                ? (() => {
+                      const price = item.price.value.toString();
+                      const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
+                      return $(`<p>${localize("Level")} ${item.level}<br/>${priceLabel}</p>`);
+                  })()
+                : $();
 
         const properties =
             chatData.properties
