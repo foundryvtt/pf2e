@@ -236,12 +236,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     {
                         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
                         jitter: 0.25,
-                        textStyle: {
-                            fill: textColors[quantity < 0 ? "damage" : "healing"],
-                            fontSize: 16 + 32 * percent, // Range between [16, 48]
-                            stroke: 0x000000,
-                            strokeThickness: 4,
-                        },
+                        fill: textColors[quantity < 0 ? "damage" : "healing"],
+                        fontSize: 16 + 32 * percent, // Range between [16, 48]
+                        stroke: 0x000000,
+                        strokeThickness: 4,
                     },
                 ];
             } else {
@@ -255,15 +253,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     this.center,
                     content,
                     {
-                        anchor: change === "create" ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
-                        direction: isAdded ? 2 : 1,
+                        ...this._getTextStyle(),
+                        anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
+                        direction: isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
                         jitter: 0.25,
-                        textStyle: {
-                            fill: "white",
-                            fontSize: 28,
-                            stroke: 0x000000,
-                            strokeThickness: 4,
-                        },
                     },
                 ];
             }
