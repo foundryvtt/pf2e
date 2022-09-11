@@ -39,11 +39,11 @@ class HearingDetectionMode extends DetectionMode {
     }
 
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
-        const targetIsUndetected = () =>
+        const targetIsDetected = (): boolean =>
             target instanceof TokenPF2e &&
             !target.actor?.isOfType("loot") &&
-            target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
-        return !visionSource.object.actor?.hasCondition("deafened") && !targetIsUndetected();
+            !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
+        return !visionSource.object.actor?.hasCondition("deafened") && targetIsDetected();
     }
 }
 
