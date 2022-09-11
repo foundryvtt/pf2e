@@ -29,22 +29,9 @@ export const GetSceneControlButtons = {
             if (!(lightingControls && lightingTools && dayTool)) return;
 
             // Scene Darkness Adjuster
-            const onClick = (): void => {
-                const adjuster = SceneDarknessAdjuster.instance;
-                if (adjuster.rendered) {
-                    $("#darkness-adjuster").fadeOut(() => {
-                        adjuster.close({ force: true });
-                    });
-                } else {
-                    adjuster.render(true, {}).then(() => {
-                        $("#darkness-adjuster").hide().fadeIn();
-                    });
-                }
-            };
 
-            // The scene was changed: close the adjuster
             if (lightingControls.visible && SceneDarknessAdjuster.instance.rendered) {
-                onClick();
+                SceneDarknessAdjuster.instance.close({ force: true });
             }
 
             lightingTools.splice(lightingTools?.indexOf(dayTool), 0, {
@@ -53,7 +40,14 @@ export const GetSceneControlButtons = {
                 icon: "fas fa-adjust",
                 visible: game.user.isGM && game.settings.get("pf2e", "automation.rulesBasedVision"),
                 toggle: true,
-                onClick,
+                onClick: (): void => {
+                    const adjuster = SceneDarknessAdjuster.instance;
+                    if (adjuster.rendered) {
+                        adjuster.close({ force: true });
+                    } else {
+                        adjuster.render(true);
+                    }
+                },
             });
         });
     },

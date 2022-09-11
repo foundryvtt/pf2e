@@ -31,7 +31,7 @@ export class SceneDarknessAdjuster extends Application {
         };
     }
 
-    override async render(force = true, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): Promise<this> {
+    override async render(force = false, options: RenderOptions & { scenes?: ScenePF2e[] } = {}): Promise<this> {
         if (!game.scenes.viewed) return this;
 
         // Adjust position of this application's window
@@ -41,8 +41,21 @@ export class SceneDarknessAdjuster extends Application {
 
         options.left = bounds.right + 6;
         options.top = bounds.top - 3;
+        if (this.rendered) return super.render(force, options);
 
-        return super.render(force, options);
+        await super.render(force, options);
+        console.log(`Rendered?: ${this.rendered}`);
+        const $element = $("#darkness-adjuster");
+        await $element.hide(0).fadeIn().promise();
+
+        return this;
+    }
+
+    /** Fade out before closing */
+    override async close(options?: { force?: boolean } & Record<string, unknown>): Promise<void> {
+        if (!this.rendered) return super.close(options);
+        await $("#darkness-adjuster").fadeOut().promise();
+        return super.close(options);
     }
 
     override activateListeners($html: JQuery): void {
