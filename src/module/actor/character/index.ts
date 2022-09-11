@@ -1621,6 +1621,7 @@ class CharacterPF2e extends CreaturePF2e {
             quantity: weapon.quantity,
             slug: weapon.slug,
             ready: weapon.isEquipped,
+            visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",
             item: weapon,
             type: "strike" as const,
@@ -1775,7 +1776,7 @@ class CharacterPF2e extends CreaturePF2e {
                         rollTwice,
                     };
 
-                    if (!this.consumeAmmo({ weapon: item, ...params })) return null;
+                    if (!this.consumeAmmo(item, params)) return null;
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(otherModifiers),
@@ -1909,7 +1910,7 @@ class CharacterPF2e extends CreaturePF2e {
         return context;
     }
 
-    consumeAmmo({ weapon, ...params }: { weapon: WeaponPF2e } & RollParameters): boolean {
+    consumeAmmo(weapon: WeaponPF2e, params: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;
@@ -1978,15 +1979,11 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Add a proficiency in a weapon group or base weapon */
-    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
+    async addAttackProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
         const currentProficiencies = this.system.martial;
         if (key in currentProficiencies) return;
         const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`system.martial.${key}`]: newProficiency });
-    }
-
-    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void> {
-        await this.update({ [`system.martial.-=${key}`]: null });
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */

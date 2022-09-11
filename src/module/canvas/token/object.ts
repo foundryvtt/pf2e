@@ -12,8 +12,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** The promise returned by the last call to `Token#draw()` */
-    private drawLock?: Promise<this>;
+    /** The promise returned by the last call to `Token#_draw()` */
+    private drawLock?: Promise<void>;
 
     /** Is this token currently animating? */
     get isAnimating(): boolean {
@@ -120,7 +120,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
-    /** Overrides _drawBar() to also draw pf2e variants of normal resource bars (such as temp health) */
+    /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (!canvas.dimensions) return;
 
@@ -176,12 +176,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Make the drawing promise accessible to `#redraw` */
-    override async draw(): Promise<this> {
+    protected override async _draw(): Promise<void> {
         this.auras.clear();
-        this.drawLock = super.draw();
+        this.drawLock = super._draw();
         await this.drawLock;
-
-        return this;
     }
 
     /** Draw auras along with effect icons */
@@ -238,12 +236,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     {
                         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
                         jitter: 0.25,
-                        textStyle: {
-                            fill: textColors[quantity < 0 ? "damage" : "healing"],
-                            fontSize: 16 + 32 * percent, // Range between [16, 48]
-                            stroke: 0x000000,
-                            strokeThickness: 4,
-                        },
+                        fill: textColors[quantity < 0 ? "damage" : "healing"],
+                        fontSize: 16 + 32 * percent, // Range between [16, 48]
+                        stroke: 0x000000,
+                        strokeThickness: 4,
                     },
                 ];
             } else {
@@ -257,15 +253,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     this.center,
                     content,
                     {
-                        anchor: change === "create" ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
-                        direction: isAdded ? 2 : 1,
+                        ...this._getTextStyle(),
+                        anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
+                        direction: isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
                         jitter: 0.25,
-                        textStyle: {
-                            fill: "white",
-                            fontSize: 28,
-                            stroke: 0x000000,
-                            strokeThickness: 4,
-                        },
                     },
                 ];
             }

@@ -147,12 +147,19 @@ class WeaponPF2e extends PhysicalItemPF2e {
             actor.deity?.favoredWeapons.includes(this.baseType)
         );
         const thrownMelee = this.isThrown && this.altUsageType === "thrown";
+        // Some base weapons qualify as others for all rules purposes (e.g., a composite longbow is a longbow)
+        const baseTypeRollOptions = ((): Record<string, boolean> => {
+            const equivalentBases: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+            const baseTypes = [this.baseType ?? [], equivalentBases[this.baseType ?? ""] ?? []].flat();
+            return baseTypes.reduce((types, t) => ({ ...types, [`base:${t}`]: true }), {} as Record<string, boolean>);
+        })();
 
         return [
             super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
+                ...baseTypeRollOptions,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",

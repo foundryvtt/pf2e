@@ -29,7 +29,7 @@ declare class AmbientLight<
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     /** Draw the ControlIcon for the AmbientLight */
     protected _drawControlIcon(): ControlIcon;

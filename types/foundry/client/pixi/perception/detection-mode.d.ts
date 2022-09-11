@@ -12,6 +12,8 @@ declare global {
         walls: boolean;
         type: DetectionType;
 
+        constructor(params: DetectionModeConstructionParams, context?: DocumentConstructionContext);
+
         /** Get the detection filter pertaining to this mode. */
         static getDetectionFilter(): PIXI.Filter | undefined;
 
@@ -164,4 +166,14 @@ declare global {
     }
 
     type DetectionType = typeof DetectionMode.DETECTION_TYPES[keyof typeof DetectionMode.DETECTION_TYPES];
+}
+
+interface DetectionModeConstructionParams {
+    id: string;
+    label: string;
+    // If this DM is available in Token Config UI
+    tokenConfig?: boolean;
+    // If this DM is constrained by walls
+    walls?: boolean;
+    type?: DetectionType;
 }

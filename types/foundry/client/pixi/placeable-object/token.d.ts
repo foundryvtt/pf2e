@@ -191,7 +191,7 @@ declare global {
 
         override clear(): this;
 
-        override draw(): Promise<this>;
+        protected _draw(): Promise<void>;
 
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;
@@ -270,7 +270,7 @@ declare global {
         /** Return the text which should be displayed in a token's tooltip field */
         protected _getTooltipText(): string;
 
-        protected _getTextStyle(): PIXI.Text;
+        protected _getTextStyle(): PIXI.TextStyle;
 
         /** Draw the active effects and overlay effect icons which are present upon the Token */
         drawEffects(): Promise<void>;

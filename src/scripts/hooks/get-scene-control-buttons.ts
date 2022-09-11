@@ -4,6 +4,7 @@ import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
 export const GetSceneControlButtons = {
     listen: (): void => {
         Hooks.on("getSceneControlButtons", (controls) => {
+            // World Clock
             const tokenTools = controls.find((c) => c.name === "token")?.tools;
             tokenTools?.push({
                 name: "worldclock",
@@ -22,9 +23,29 @@ export const GetSceneControlButtons = {
                 },
             });
 
-            const lightingTools = controls.find((c) => c.name === "lighting")?.tools;
+            const lightingControls = controls.find((c) => c.name === "lighting");
+            const lightingTools = lightingControls?.tools;
             const dayTool = lightingTools?.find((tool) => tool.name === "day");
-            if (!(lightingTools && dayTool)) return;
+            if (!(lightingControls && lightingTools && dayTool)) return;
+
+            // Scene Darkness Adjuster
+            const onClick = (): void => {
+                const adjuster = SceneDarknessAdjuster.instance;
+                if (adjuster.rendered) {
+                    $("#darkness-adjuster").fadeOut(() => {
+                        adjuster.close({ force: true });
+                    });
+                } else {
+                    adjuster.render(true, {}).then(() => {
+                        $("#darkness-adjuster").hide().fadeIn();
+                    });
+                }
+            };
+
+            // The scene was changed: close the adjuster
+            if (lightingControls.visible && SceneDarknessAdjuster.instance.rendered) {
+                onClick();
+            }
 
             lightingTools.splice(lightingTools?.indexOf(dayTool), 0, {
                 name: "darkness-adjuster",
@@ -32,18 +53,7 @@ export const GetSceneControlButtons = {
                 icon: "fas fa-adjust",
                 visible: game.user.isGM && game.settings.get("pf2e", "automation.rulesBasedVision"),
                 toggle: true,
-                onClick: () => {
-                    const adjuster = SceneDarknessAdjuster.instance;
-                    if (adjuster.rendered) {
-                        $("#darkness-adjuster").fadeOut(() => {
-                            adjuster.close({ force: true });
-                        });
-                    } else {
-                        adjuster.render(true, {}).then(() => {
-                            $("#darkness-adjuster").hide().fadeIn();
-                        });
-                    }
-                },
+                onClick,
             });
         });
     },

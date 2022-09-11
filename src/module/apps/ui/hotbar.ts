@@ -17,36 +17,43 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         }
         if (Hooks.call("hotbarDrop", this, data, slot) === false) return;
 
-        if (data.type === "Item") {
-            const itemId = data.id ?? (isObject<{ _id?: unknown }>(data.data) ? data.data._id : null);
-            const uuid = data.uuid;
+        switch (data.type) {
+            case "Item": {
+                const itemId = data.id ?? (isObject<{ _id?: unknown }>(data.data) ? data.data._id : null);
+                const uuid = data.uuid;
 
-            const prefix =
-                typeof data.pack === "string"
-                    ? `Compendium.${data.pack}`
-                    : typeof data.actorId === "string"
-                    ? `Actor.${data.actorId}.Item`
-                    : "Item";
-            const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
+                const prefix =
+                    typeof data.pack === "string"
+                        ? `Compendium.${data.pack}`
+                        : typeof data.actorId === "string"
+                        ? `Actor.${data.actorId}.Item`
+                        : "Item";
+                const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
 
-            if (item instanceof EffectPF2e) {
-                return createToggleEffectMacro(item, slot);
-            } else if (item instanceof ItemPF2e) {
-                return createItemMacro(item.toObject(), slot);
+                if (item instanceof EffectPF2e) {
+                    return createToggleEffectMacro(item, slot);
+                } else if (item instanceof ItemPF2e) {
+                    return createItemMacro(item.toObject(), slot);
+                }
+                return;
             }
-        } else if (data.type === "RollOption" && this.hasRollOptionData(data)) {
-            return this.createRollOptionToggleMacro(data, slot);
-        } else if (data.type === "Skill" && data.actorId && setHasElement(SKILL_ABBREVIATIONS, data.skill)) {
-            const skillName = data.skillName ?? game.i18n.localize(CONFIG.PF2E.skills[data.skill]);
-            return createSkillMacro(data.skill, skillName, data.actorId, slot);
-        } else if (isObject(data.pf2e) && data.actorId) {
-            if (data.pf2e.type === "Action" && typeof data.pf2e.index === "number") {
-                return createActionMacro(data.pf2e.index, data.actorId, slot);
+            case "RollOption": {
+                if (!this.#hasRollOptionData(data)) return;
+                return this.#createRollOptionToggleMacro(data, slot);
+            }
+            case "Skill": {
+                if (!(data.actorId && setHasElement(SKILL_ABBREVIATIONS, data.skill))) return;
+                const skillName = data.skillName ?? game.i18n.localize(CONFIG.PF2E.skills[data.skill]);
+                return createSkillMacro(data.skill, skillName, data.actorId, slot);
+            }
+            case "Action": {
+                if (!(data.actorId && typeof data.index === "number")) return;
+                return createActionMacro(data.index, data.actorId, slot);
             }
         }
     }
 
-    private hasRollOptionData(data: Record<string, unknown>): data is RollOptionData {
+    #hasRollOptionData(data: Record<string, unknown>): data is RollOptionData {
         const { label, actorId, itemId, img, domain, option } = data;
         return (
             typeof label === "string" &&
@@ -63,7 +70,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         );
     }
 
-    private async createRollOptionToggleMacro(data: RollOptionData, slot: number): Promise<void> {
+    async #createRollOptionToggleMacro(data: RollOptionData, slot: number): Promise<void> {
         const name = game.i18n.format("PF2E.ToggleWithName", { property: data.label });
         const img = data.img ?? "icons/svg/d20-grey.svg";
 
@@ -88,10 +95,10 @@ type HotbarDropData = Partial<DropCanvasData> & {
     slot?: number;
     skill?: string;
     skillName?: string;
+    index?: number;
     pf2e?: {
         type: string;
         property: string;
-        index?: number;
         label: string;
     };
 };

@@ -1,9 +1,10 @@
 import { ActorSheetPF2e } from "@actor/sheet/base";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SAVE_TYPES } from "@actor/values";
-import { ConsumablePF2e, SpellPF2e } from "@item";
+import { MeleePF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { ErrorPF2e, tagify } from "@util";
+import { DicePF2e } from "@scripts/dice";
+import { htmlClosest, tagify } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
@@ -215,40 +216,22 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             event.preventDefault();
             event.stopPropagation();
 
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (!item) {
-                throw ErrorPF2e(`Item ${itemId} not found`);
-            }
-            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
+            const itemId = htmlClosest(event.currentTarget, ".item")?.dataset.itemId;
+            const item = this.actor.items.get(itemId ?? "", { strict: true });
+            if (!item.isOfType("melee")) return;
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
-                case "npcAttack":
-                    item.rollNPCAttack(event);
-                    break;
-                case "npcAttack2":
-                    item.rollNPCAttack(event, 2);
-                    break;
-                case "npcAttack3":
-                    item.rollNPCAttack(event, 3);
-                    break;
-                case "npcDamage":
-                    item.rollNPCDamage(event);
-                    break;
-                case "npcDamageCritical":
-                    item.rollNPCDamage(event, true);
-                    break;
-                case "spellAttack": {
-                    spell?.rollAttack(event);
+                case "attack": {
+                    const attackNumber = Number(event.currentTarget.dataset.attackNumber);
+                    this.rollAttack(event, item, attackNumber);
                     break;
                 }
-                case "spellDamage": {
-                    spell?.rollDamage(event);
+                case "damage":
+                    this.rollDamage(event, item);
                     break;
-                }
-                case "consume":
-                    if (item instanceof ConsumablePF2e) item.consume();
+                case "damageCritical":
+                    this.rollDamage(event, item, true);
                     break;
                 default:
                     throw new Error("Unknown action type");
@@ -259,6 +242,77 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         $html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
             this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
+        });
+    }
+
+    /** Temporary method to roll an attack from the hazard */
+    async rollAttack(event: JQuery.ClickEvent, item: Embedded<MeleePF2e>, attackNumber = 1): Promise<void> {
+        // Prepare roll data
+        const itemData = await item.getChatData();
+        const parts = ["@itemBonus"];
+        const title = `${item.name} - Attack Roll${attackNumber > 1 ? ` (MAP ${attackNumber})` : ""}`;
+
+        const rollData = item.getRollData();
+        rollData.itemBonus = Number(itemData.bonus.value) || 0;
+
+        if (attackNumber === 2) parts.push(itemData.map2);
+        else if (attackNumber === 3) parts.push(itemData.map3);
+
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            actor: this.actor,
+            data: rollData,
+            rollType: "attack-roll",
+            title,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            dialogOptions: {
+                width: 400,
+                top: event ? event.clientY - 80 : 400,
+                left: window.innerWidth - 710,
+            },
+        });
+    }
+
+    /** Temporary method to roll damage from the hazard */
+    rollDamage(event: JQuery.ClickEvent, item: Embedded<MeleePF2e>, critical = false): void {
+        // Get item and actor data and format it for the damage roll
+        const systemData = item.system;
+        let parts: (string | number)[] = [];
+        const partsType: string[] = [];
+
+        // If the NPC is using the updated NPC Attack data object
+        if (systemData.damageRolls && typeof systemData.damageRolls === "object") {
+            Object.keys(systemData.damageRolls).forEach((key) => {
+                if (systemData.damageRolls[key].damage) parts.push(systemData.damageRolls[key].damage);
+                partsType.push(`${systemData.damageRolls[key].damage} ${systemData.damageRolls[key].damageType}`);
+            });
+        }
+
+        // Set the title of the roll
+        const title = `${item.name}: ${partsType.join(", ")}`;
+
+        // do nothing if no parts are provided in the damage roll
+        if (parts.length === 0) {
+            console.warn("PF2e System | No damage parts provided in damage roll");
+            parts = ["0"];
+        }
+
+        // Call the roll helper utility
+        DicePF2e.damageRoll({
+            event,
+            parts,
+            critical,
+            actor: this.actor,
+            data: item.getRollData(),
+            title,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            dialogOptions: {
+                width: 400,
+                top: event.clientY - 80,
+                left: window.innerWidth - 710,
+            },
         });
     }
 }

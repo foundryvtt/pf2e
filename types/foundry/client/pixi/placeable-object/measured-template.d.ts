@@ -55,7 +55,7 @@ declare class MeasuredTemplate<
     /*  Rendering                                   */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     override destroy(options?: boolean | PIXI.IDestroyOptions): void;
 

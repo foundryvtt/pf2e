@@ -262,15 +262,14 @@
 </div>
 
 {{~#*inline "abcItem"~}}
-    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
         <div class="name">
-            {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
+            {{item.name}}{{#if item.isWorldItem}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/if}}
         </div>
         <input type="number" class="level" value="{{item.level}}" name="system.items.{{i}}.level" />
+        <input value="{{item.uuid}}" name="system.items.{{i}}.uuid" type="hidden" data-dtype="String" />
         <input value="{{item.name}}" name="system.items.{{i}}.name" type="hidden" data-dtype="String" />
-        <input value="{{item.pack}}" name="system.items.{{i}}.pack" type="hidden" data-dtype="String" />
-        <input value="{{item.id}}" name="system.items.{{i}}.id" type="hidden" data-dtype="String" />
         <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
