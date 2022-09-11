@@ -462,8 +462,8 @@ declare global {
          */
         WALL_SENSE_TYPES: {
             NONE: 0;
-            NORMAL: 1;
-            LIMITED: 2;
+            NORMAL: 10;
+            LIMITED: 20;
         };
 
         /** The supported file extensions for image-type files */
@@ -490,4 +490,5 @@ declare global {
     type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
     type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
     type WallRestrictionType = typeof CONST.WALL_RESTRICTION_TYPES[number];
+    type WallSenseType = typeof CONST.WALL_SENSE_TYPES[keyof typeof CONST.WALL_SENSE_TYPES];
 }

@@ -42,6 +42,7 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
+import "./core";
 import "./groups";
 import "./layers/effects/visibility";
 import "./perception";
