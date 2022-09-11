@@ -21,7 +21,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** Include ability to search and drag document search results */
     static override get defaultOptions(): ApplicationOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: "li[data-match-uuid]" });
+        options.dragDrop.push({ dragSelector: "li.match" });
 
         return {
             ...options,
@@ -112,9 +112,6 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 continue;
             }
             packRow.style.display = "list-item";
-            for (const dragDrop of this._dragDrop) {
-                dragDrop.bind(packRow);
-            }
         }
 
         // Hide the rest
@@ -171,7 +168,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 return li;
             });
 
-            compendiumTypeList.querySelector("ol.document-matches")?.replaceChildren(...listElements);
+            const matchesList = compendiumTypeList.querySelector<HTMLElement>("ol.document-matches")!;
+            matchesList.replaceChildren(...listElements);
+            for (const dragDrop of this._dragDrop) {
+                dragDrop.bind(matchesList);
+            }
         }
     }
 
@@ -183,11 +184,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
     protected override _onDragStart(event: ElementDragEvent): void {
         const dragElement = event.currentTarget;
-        const { collection, documentId } = dragElement.dataset;
-        if (!(collection && documentId)) return;
+        const { uuid } = dragElement.dataset;
+        if (!uuid) return;
 
-        const pack = game.packs.get(collection, { strict: true });
-        const indexEntry = pack?.index.get(documentId, { strict: true });
+        const indexEntry = fromUuidSync(uuid);
+        if (!indexEntry) throw ErrorPF2e("Unexpected error retrieving index data");
 
         // Clean up old drag preview
         document.querySelector("#pack-search-drag-preview")?.remove();
@@ -196,18 +197,18 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const dragPreview = this.#dragPreview.cloneNode(true) as HTMLElement;
         const [img, title] = Array.from(dragPreview.childNodes) as [HTMLImageElement, HTMLHeadingElement];
         title.innerText = indexEntry.name;
-        if (indexEntry.img) img.src = indexEntry.img;
+        if ("img" in indexEntry && indexEntry.img) img.src = indexEntry.img;
 
         document.body.appendChild(dragPreview);
+        const documentType = ((): string | null => {
+            if (indexEntry instanceof foundry.abstract.Document) return indexEntry.documentName;
+            const pack = game.packs.get(indexEntry.pack ?? "");
+            return pack?.documentName ?? null;
+        })();
+        if (!documentType) return;
 
         event.dataTransfer.setDragImage(dragPreview, 75, 25);
-        event.dataTransfer.setData(
-            "text/plain",
-            JSON.stringify({
-                type: pack.documentName,
-                uuid: `Compendium.${pack.collection}.${documentId}`,
-            })
-        );
+        event.dataTransfer.setData("text/plain", JSON.stringify({ type: documentType, uuid }));
     }
 
     #compileSearchIndex(): void {
