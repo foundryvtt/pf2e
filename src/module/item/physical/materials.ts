@@ -178,6 +178,40 @@ export const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "common",
         },
     },
+    "sisterstone-dusk": {
+        low: {
+            level: 3,
+            price: 70,
+            rarity: "rare",
+        },
+        standard: {
+            level: 11,
+            price: 1200,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "rare",
+        },
+    },
+    "sisterstone-scarlet": {
+        low: {
+            level: 3,
+            price: 70,
+            rarity: "rare",
+        },
+        standard: {
+            level: 11,
+            price: 1200,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 32000,
+            rarity: "rare",
+        },
+    },
     sovereignSteel: {
         low: null,
         standard: {
@@ -383,6 +417,40 @@ export const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 18,
             price: 20000,
             rarity: "common",
+        },
+    },
+    "sisterstone-dusk": {
+        low: {
+            level: 5,
+            price: 140,
+            rarity: "rare",
+        },
+        standard: {
+            level: 10,
+            price: 1000,
+            rarity: "rare",
+        },
+        high: {
+            level: 18,
+            price: 19500,
+            rarity: "rare",
+        },
+    },
+    "sisterstone-scarlet": {
+        low: {
+            level: 5,
+            price: 140,
+            rarity: "rare",
+        },
+        standard: {
+            level: 10,
+            price: 1000,
+            rarity: "rare",
+        },
+        high: {
+            level: 18,
+            price: 19500,
+            rarity: "rare",
         },
     },
     sovereignSteel: {
