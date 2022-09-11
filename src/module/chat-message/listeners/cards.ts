@@ -99,7 +99,7 @@ export const ChatCards = {
             } else if (actor.isOfType("character", "npc")) {
                 const strikeName = $card.attr("data-strike-name");
                 const altUsage = message.flags.pf2e.context?.altUsage;
-                const strikeAction = message.strike;
+                const strikeAction = message._strike;
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);

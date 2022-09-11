@@ -117,8 +117,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return item;
     }
 
-    /** If this message was for a strike, return the strike */
-    get strike(): StrikeData | null {
+    /** If this message was for a strike, return the strike. Strikes will change in a future release */
+    get _strike(): StrikeData | null {
         const actor = this.actor;
         const altUsage = this.flags.pf2e.context?.altUsage ?? null;
         if (!actor?.isOfType("character", "npc")) return null;
