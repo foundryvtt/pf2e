@@ -428,7 +428,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         this.preparePrototypeToken();
         if (this.initialized && canvas.ready) {
-            const thisTokenIsControlled = this.getActiveTokens().some((t) => !!t.controlled);
+            const thisTokenIsControlled = canvas.tokens.controlled.some((t) => t.actor === this);
             if (game.user.character === this || thisTokenIsControlled) {
                 game.pf2e.effectPanel.refresh();
             }
