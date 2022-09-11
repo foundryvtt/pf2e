@@ -80,7 +80,6 @@ import "./client/pixi/canvas";
 import "./client/pixi/canvas-layer/base";
 import "./client/pixi/canvas-layer/controls-layer";
 import "./client/pixi/canvas-layer/grid-layer";
-import "./client/pixi/core/interaction/canvas-animation";
 import "./client/pixi/grid";
 import "./client/pixi/helpers";
 import "./client/pixi/helpers/point-source";
