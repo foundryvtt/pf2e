@@ -142,12 +142,12 @@
                                 <div class="attack-body">
                                     <div class="flexrow">
                                         <div class="attacks sub-section">
-                                            <button type="button" class="btn attack-button" data-action="npcAttack" >Strike (+{{action.system.bonus.total}})</button>
-                                            <button type="button" class="btn attack-button" data-action="npcAttack2" >{{#unless action.system.isAgile}}-5{{else}}-4{{/unless}}</button>
-                                            <button type="button" class="btn attack-button" data-action="npcAttack3" >{{#unless action.system.isAgile}}-10{{else}}-8{{/unless}}</button>
+                                            <button type="button" class="btn attack-button" data-action="attack" data-attack-number="1">Strike (+{{action.system.bonus.total}})</button>
+                                            <button type="button" class="btn attack-button" data-action="attack" data-attack-number="2">{{#unless action.system.isAgile}}-5{{else}}-4{{/unless}}</button>
+                                            <button type="button" class="btn attack-button" data-action="attack" data-attack-number="3">{{#unless action.system.isAgile}}-10{{else}}-8{{/unless}}</button>
                                         </div>
                                         <div class="damage sub-section">
-                                            <button type="button" class="damage-button" data-action="npcDamage">
+                                            <button type="button" class="damage-button" data-action="damage">
                                                 {{localize "PF2E.DamageLabel"}} (
                                                     {{#if action.system.damageRolls}}
                                                         {{#each action.system.damageRolls as |dmg index|}}
@@ -156,7 +156,7 @@
                                                     {{/if}}
                                                     )
                                             </button>
-                                            <button class="critical-button" data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+                                            <button class="critical-button" data-action="damageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button>
                                         </div>
                                     </div>
                                     <div class="attack-detail sub-section expandable expanded">

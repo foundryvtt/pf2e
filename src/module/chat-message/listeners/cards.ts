@@ -1,5 +1,4 @@
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
-import { StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
@@ -33,37 +32,9 @@ export const ChatCards = {
 
             if (item && !action?.startsWith("strike-")) {
                 const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
-                const strikes: StrikeData[] = actor.isOfType("character", "npc") ? actor.system.actions : [];
-                const strike = strikes.find((a) => a.item.id === item.id && a.item.slug === item.slug) ?? null;
-                const rollOptions = actor.getRollOptions(["all", "attack-roll"]);
 
-                if (action === "weaponAttack") {
-                    if (strike && rollOptions) {
-                        strike.variants[0].roll({ event: event, options: rollOptions });
-                    }
-                } else if (action === "weaponAttack2") {
-                    if (strike && rollOptions) {
-                        strike.variants[1].roll({ event: event, options: rollOptions });
-                    }
-                } else if (action === "weaponAttack3") {
-                    if (strike && rollOptions) {
-                        strike.variants[2].roll({ event: event, options: rollOptions });
-                    }
-                } else if (action === "weaponDamage") {
-                    if (strike && rollOptions) {
-                        strike.damage?.({ event: event, options: rollOptions });
-                    }
-                } else if (action === "weaponDamageCritical" || action === "criticalDamage") {
-                    if (strike && rollOptions) {
-                        strike.critical?.({ event: event, options: rollOptions });
-                    }
-                } else if (action === "npcAttack" && item.isOfType("melee")) item.rollNPCAttack(event);
-                else if (action === "npcAttack2" && item.isOfType("melee")) item.rollNPCAttack(event, 2);
-                else if (action === "npcAttack3" && item.isOfType("melee")) item.rollNPCAttack(event, 3);
-                else if (action === "npcDamage" && item.isOfType("melee")) item.rollNPCDamage(event);
-                else if (action === "npcDamageCritical" && item.isOfType("melee")) item.rollNPCDamage(event, true);
                 // Spell actions
-                else if (action === "spellAttack") spell?.rollAttack(event);
+                if (action === "spellAttack") spell?.rollAttack(event);
                 else if (action === "spellAttack2") spell?.rollAttack(event, 2);
                 else if (action === "spellAttack3") spell?.rollAttack(event, 3);
                 else if (action === "spellDamage") spell?.rollDamage(event);
