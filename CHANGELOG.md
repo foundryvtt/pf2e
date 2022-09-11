@@ -1,5 +1,12 @@
 # Changelog
 
+
+## Version 4.0.2
+
+### Bugfixes
+* (stwlam) Work around upstream issue causing erratic canvas-rendering behavior
+
+
 ## Version 4.0.1
 
 ### System Improvements
