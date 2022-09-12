@@ -21,7 +21,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** Include ability to search and drag document search results */
     static override get defaultOptions(): ApplicationOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: "li.match" });
+        options.dragDrop.push({ dragSelector: "ol.document-matches > li.match" });
 
         return {
             ...options,
@@ -125,7 +125,6 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         // Match documents within each compendium by name
         const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
-        if (docMatches.length === 0) return;
 
         // Create a list of document matches
         const matchTemplate = document.querySelector<HTMLTemplateElement>("#compendium-search-match");
@@ -140,9 +139,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 li.dataset.score = match.score.toString();
 
                 // Show a thumbnail if available
+                const thumbnail = li.querySelector<HTMLImageElement>("img")!;
                 if (typeof match.img === "string") {
-                    const thumbnail = li.querySelector("img")!;
                     thumbnail.src = match.img;
+                } else if (compendiumTypeList.dataset.type === "JournalEntry") {
+                    thumbnail.src = "icons/svg/book.svg";
                 }
 
                 // Open compendium on result click
@@ -197,7 +198,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const dragPreview = this.#dragPreview.cloneNode(true) as HTMLElement;
         const [img, title] = Array.from(dragPreview.childNodes) as [HTMLImageElement, HTMLHeadingElement];
         title.innerText = indexEntry.name;
-        if ("img" in indexEntry && indexEntry.img) img.src = indexEntry.img;
+        img.src = "img" in indexEntry && indexEntry.img ? indexEntry.img : "icons/svg/book.svg";
 
         document.body.appendChild(dragPreview);
         const documentType = ((): string | null => {
@@ -213,9 +214,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     #compileSearchIndex(): void {
         console.debug("PF2e System | compiling search index");
-        const packs = game.packs.filter(
-            (p) => p.index.size > 0 && p.documentName !== "JournalEntry" && (game.user.isGM || !p.private)
-        );
+        const packs = game.packs.filter((p) => p.index.size > 0 && (game.user.isGM || !p.private));
 
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
