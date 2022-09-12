@@ -97,6 +97,8 @@ interface ModifierAdjustment {
 
 interface RawModifier extends BaseRawModifier {
     modifier: number;
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force?: boolean;
 }
 
 interface DeferredValueParams {
@@ -122,6 +124,7 @@ class ModifierPF2e implements RawModifier {
     type: ModifierType;
     ability: AbilityString | null;
     adjustments: ModifierAdjustment[];
+    force: boolean;
     enabled: boolean;
     ignored: boolean;
     source: string | null;
@@ -171,6 +174,7 @@ class ModifierPF2e implements RawModifier {
 
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
+        this.force = params.force ?? false;
         this.adjustments = deepClone(params.adjustments ?? []);
         this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
         this.damageCategory = params.damageCategory ?? null;
@@ -184,6 +188,10 @@ class ModifierPF2e implements RawModifier {
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
+
+        if (this.force && this.type === "untyped") {
+            throw ErrorPF2e("A forced modifier must have a type");
+        }
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -399,7 +407,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
         if (best === null) {
             return modifier;
         } else {
-            return modifier.modifier > best.modifier ? modifier : best;
+            return modifier.force ? modifier : best.force ? best : modifier.modifier > best.modifier ? modifier : best;
         }
     }, null);
     for (const modifier of abilityModifiers) {
