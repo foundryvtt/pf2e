@@ -1,4 +1,5 @@
 import { TokenDocumentPF2e } from "@module/scene";
+import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
@@ -248,14 +249,16 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const sign = isAdded ? "+ " : "- ";
                 const appendedNumber = details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
+                const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
+                const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
                     this.center,
                     content,
                     {
-                        ...this._getTextStyle(),
-                        anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
-                        direction: isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
+                        ...textStyle,
+                        anchor: anchorDirection,
+                        direction: anchorDirection,
                         jitter: 0.25,
                     },
                 ];
