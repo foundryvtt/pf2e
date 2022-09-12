@@ -32,6 +32,8 @@ const WEAPON_MATERIAL_EFFECTS = new Set([
     "noqual",
     "peachwood",
     "silver",
+    "sisterstone-dusk",
+    "sisterstone-scarlet",
     "sovereignSteel",
 ] as const);
 

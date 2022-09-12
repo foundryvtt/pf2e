@@ -35,6 +35,8 @@ export const DAMAGE_CATEGORIES = new Set([
     "salt",
     "salt-water",
     "silver",
+    "sisterstone-dusk",
+    "sisterstone-scarlet",
     "warpglass",
 ] as const);
 
