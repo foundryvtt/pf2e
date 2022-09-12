@@ -57,7 +57,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         buttons.unshift({
-            label: "",
+            label: game.i18n.format("PF2E.NPC.SendToChat"),
             class: "send-to-chat",
             icon: "fas fa-comment-alt",
             onclick: () => {},
