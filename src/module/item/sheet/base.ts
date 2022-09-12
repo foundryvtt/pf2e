@@ -87,7 +87,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         this.ruleElementForms = {};
         for (const [idx, rule] of rules.entries()) {
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            this.ruleElementForms[Number(idx)] = new FormClass(this, idx, rule);
+            this.ruleElementForms[Number(idx)] = new FormClass(this.item, idx, rule);
         }
 
         return {
