@@ -137,7 +137,9 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-interface WeaponSystemData extends Omit<WeaponSystemSource, "price" | "temporary">, Investable<PhysicalSystemData> {
+interface WeaponSystemData
+    extends Omit<WeaponSystemSource, "identification" | "price" | "temporary">,
+        Investable<PhysicalSystemData> {
     baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     maxRange: number | null;
