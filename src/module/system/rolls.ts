@@ -35,6 +35,7 @@ interface RollDataPF2e extends RollData {
     strike?: {
         actor: ActorUUID | TokenDocumentUUID;
         index: number;
+        damaging?: boolean;
         name: string;
     };
 }
@@ -258,6 +259,7 @@ class CheckPF2e {
                     data.strike = {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
+                        damaging: contextItem.isOfType("weapon") ? contextItem.dealsDamage : true,
                         name: strike.item.name,
                     };
                 }
