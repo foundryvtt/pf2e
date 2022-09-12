@@ -89,6 +89,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
+        // If this is a strike, we usually want the strike's item
+        const strike = this._strike;
+        if (strike?.item) return strike.item as Embedded<ItemPF2e>;
+
         const item = (() => {
             const domItem = this.getItemFromDOM();
             if (domItem) return domItem;
