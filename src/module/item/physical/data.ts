@@ -52,7 +52,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     };
     price: PartialPrice;
     equipped: EquippedData;
-    identification: IdentificationData;
+    identification: IdentificationSource;
     stackGroup: string | null;
     negateBulk: {
         value: string;
@@ -77,6 +77,7 @@ interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
     bulk: BulkData;
     traits: PhysicalItemTraits;
     temporary: boolean;
+    identification: IdentificationData;
     usage: UsageDetails;
 }
 
@@ -139,11 +140,14 @@ interface MystifiedData {
 
 type IdentifiedData = DeepPartial<MystifiedData>;
 
-interface IdentificationData {
+interface IdentificationSource {
     status: IdentificationStatus;
-    identified: MystifiedData;
     unidentified: MystifiedData;
     misidentified: {};
+}
+
+interface IdentificationData extends IdentificationSource {
+    identified: MystifiedData;
 }
 
 type EquippedData = {

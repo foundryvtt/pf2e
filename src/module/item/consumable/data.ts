@@ -49,11 +49,10 @@ interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectDa
     spell: SpellSource | null;
 }
 
-type ConsumableSystemData = Omit<ConsumableSystemSource, "price"> &
-    PhysicalSystemData & {
-        equipped: {
-            invested?: never;
-        };
-    };
+interface ConsumableSystemData
+    extends Omit<ConsumableSystemSource, "identification" | "price" | "temporary" | "usage">,
+        PhysicalSystemData {
+    traits: ConsumableTraits;
+}
 
 export { ConsumableData, ConsumableSource, ConsumableTrait, ConsumableType };
