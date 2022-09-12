@@ -30,7 +30,32 @@ export const ChatCards = {
             // Confirm roll permission
             if (!game.user.isGM && !actor.isOwner && action !== "save") return;
 
-            if (item && !action?.startsWith("strike-")) {
+            // Handle strikes
+            const strikeAction = message._strike;
+            if (strikeAction && action?.startsWith("strike-")) {
+                const altUsage = message.flags.pf2e.context?.altUsage;
+                const options = actor.getRollOptions(["all", "attack-roll"]);
+                switch (sluggify(action ?? "")) {
+                    case "strike-attack":
+                        strikeAction.variants[0].roll({ event, altUsage, options });
+                        return;
+                    case "strike-attack2":
+                        strikeAction.variants[1].roll({ event, altUsage, options });
+                        return;
+                    case "strike-attack3":
+                        strikeAction.variants[2].roll({ event, altUsage, options });
+                        return;
+                    case "strike-damage":
+                        strikeAction.damage?.({ event, altUsage, options });
+                        return;
+                    case "strike-critical":
+                        strikeAction.critical?.({ event, altUsage, options });
+                        return;
+                }
+            }
+
+            // Handle everything else
+            if (item) {
                 const spell = item.isOfType("spell") ? item : item.isOfType("consumable") ? item.embeddedSpell : null;
 
                 // Spell actions
@@ -97,30 +122,7 @@ export const ChatCards = {
                     ChatCards.rollActorSaves(event, item);
                 }
             } else if (actor.isOfType("character", "npc")) {
-                const strikeName = $card.attr("data-strike-name");
-                const altUsage = message.flags.pf2e.context?.altUsage;
-                const strikeAction = message._strike;
-
-                if (strikeAction && strikeAction.name === strikeName) {
-                    const options = actor.getRollOptions(["all", "attack-roll"]);
-                    switch (sluggify(action ?? "")) {
-                        case "strike-attack":
-                            strikeAction.variants[0].roll({ event, altUsage, options });
-                            break;
-                        case "strike-attack2":
-                            strikeAction.variants[1].roll({ event, altUsage, options });
-                            break;
-                        case "strike-attack3":
-                            strikeAction.variants[2].roll({ event, altUsage, options });
-                            break;
-                        case "strike-damage":
-                            strikeAction.damage?.({ event, altUsage, options });
-                            break;
-                        case "strike-critical":
-                            strikeAction.critical?.({ event, altUsage, options });
-                            break;
-                    }
-                } else if (action === "repair-item") {
+                if (action === "repair-item") {
                     await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
