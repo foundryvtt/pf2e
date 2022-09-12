@@ -148,4 +148,4 @@ interface FlatModifierSource extends RuleElementSource {
     fromEquipment?: unknown;
 }
 
-export { FlatModifierRuleElement };
+export { FlatModifierRuleElement, FlatModifierSource };
