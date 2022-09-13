@@ -113,8 +113,8 @@ const damageCategories: Record<DamageCategory, string> = {
     salt: "PF2E.TraitSalt",
     "salt-water": "PF2E.TraitSaltWater",
     silver: "PF2E.PreciousMaterialSilver",
-    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
-    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
