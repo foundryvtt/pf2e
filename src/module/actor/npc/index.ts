@@ -801,12 +801,12 @@ class NPCPF2e extends CreaturePF2e {
 
     protected async getAttackEffects(attack: MeleePF2e): Promise<RollNotePF2e[]> {
         const notes: RollNotePF2e[] = [];
-        const { description } = attack;
-        if (description) {
+        if (attack.description) {
             notes.push(
                 new RollNotePF2e({
                     selector: "all",
-                    text: `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`,
+                    visibility: "gm",
+                    text: attack.description,
                 })
             );
         }
@@ -816,29 +816,36 @@ class NPCPF2e extends CreaturePF2e {
             }
             return item.name;
         };
-        const formatNoteText = async (itemName: string, item: ItemPF2e) => {
+        const formatNoteText = (item: ItemPF2e): Promise<string> => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
-            const description = await TextEditor.enrichHTML(item.description, { rollData, async: true });
-
-            return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
+            return TextEditor.enrichHTML(item.description, { rollData, async: true });
         };
 
         for (const attackEffect of attack.attackEffects) {
             const item = this.items.find(
                 (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect)
             );
-            const note = new RollNotePF2e({ selector: "all", text: "" });
             if (item) {
                 // Get description from the actor item.
-                note.text = await formatNoteText(formatItemName(item), item);
+                const note = new RollNotePF2e({
+                    selector: "all",
+                    visibility: "gm",
+                    title: formatItemName(item),
+                    text: await formatNoteText(item),
+                });
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
                 const packItem = (await compendium.getDocuments({ "system.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
-                    note.text = await formatNoteText(formatItemName(packItem), packItem);
+                    const note = new RollNotePF2e({
+                        selector: "all",
+                        visibility: "gm",
+                        title: formatItemName(packItem),
+                        text: await formatNoteText(packItem),
+                    });
                     notes.push(note);
                 }
             }
