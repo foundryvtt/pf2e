@@ -25,7 +25,6 @@
 * (SpartanCPA) Add book source citations to more feats and effects missing them
 * (stwlam) Restore Fledgling Flight feat
 * (Tikael) Add missing Dread runes
-* (Tikael) Data Entry World fixes for September 3 2022
 * (Timingila) Updated Despair aura of Khisisi
 * (Xdy) Fix All-Around Vision on several NPCs
 
