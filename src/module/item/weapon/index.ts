@@ -113,6 +113,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return this.system.damage;
     }
 
+    /** Does this weapon deal damage? */
+    get dealsDamage(): boolean {
+        const { baseDamage } = this;
+        return baseDamage.dice > 0 || baseDamage.modifier > 0;
+    }
+
     override get material(): WeaponMaterialData {
         return this.system.material;
     }

@@ -21,6 +21,9 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     /** If this is an ability modifier, the ability score it modifies */
     ability: AbilityString | null = null;
 
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force: boolean;
+
     /** Hide this modifier from breakdown tooltips if it is disabled */
     hideIfDisabled: boolean;
 
@@ -40,9 +43,11 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.failValidation(`A flat modifier must have one of the following types: ${validTypes}`);
         }
 
+        this.force = !!data.force;
+
         this.selectors =
-            typeof this.data.selector === "string"
-                ? [this.data.selector]
+            typeof data.selector === "string"
+                ? [data.selector]
                 : Array.isArray(data.selector) && data.selector.every((s): s is string => typeof s === "string")
                 ? data.selector
                 : [];
@@ -59,8 +64,11 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 this.failValidation(
                     'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
                 );
-                return;
             }
+        }
+
+        if (this.force && this.type === "untyped") {
+            this.failValidation("A forced bonus or penalty must have a type");
         }
     }
 
@@ -105,6 +113,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     type: this.type,
                     ability: this.type === "ability" ? this.ability : null,
                     predicate: this.data.predicate,
+                    force: this.force,
                     damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                     damageCategory: this.data.damageCategory || undefined,
                     hideIfDisabled: this.hideIfDisabled,
@@ -128,7 +137,6 @@ interface FlatModifierRuleElement {
 }
 
 interface FlatModifierData extends RuleElementData {
-    selector: string | string[];
     min?: number;
     max?: number;
     damageType?: string;
@@ -142,10 +150,11 @@ interface FlatModifierSource extends RuleElementSource {
     max?: unknown;
     type?: unknown;
     ability?: unknown;
+    force?: unknown;
     damageType?: unknown;
     damageCategory?: unknown;
     hideIfDisabled?: unknown;
     fromEquipment?: unknown;
 }
 
-export { FlatModifierRuleElement };
+export { FlatModifierRuleElement, FlatModifierSource };

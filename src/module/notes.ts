@@ -2,11 +2,13 @@ import { UserVisibility } from "@scripts/ui/user-visibility";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 
-export class RollNotePF2e {
+class RollNotePF2e {
     /** The selector used to determine on which rolls the note will be shown for. */
     selector: string;
+    /** An optional title for the note */
+    #title: string | null;
     /** The text content of this note. */
-    text: string;
+    #text: string;
     /** If true, these dice are user-provided/custom. */
     predicate: PredicatePF2e;
     /** List of outcomes to show this note for; or all outcomes if none are specified */
@@ -14,49 +16,55 @@ export class RollNotePF2e {
     /** An optional visibility restriction for the note */
     visibility: UserVisibility | null;
 
-    constructor(params: RollNoteParams) {
+    constructor(params: RollNoteSource) {
         this.selector = params.selector;
         this.predicate = new PredicatePF2e(params.predicate ?? {});
         this.outcome = [...(params.outcome ?? [])];
         this.visibility = params.visibility ?? null;
-        this.text = this.#createText(params.title ?? null, params.text);
+        this.#title = params.title ?? null;
+        this.#text = params.text;
     }
 
-    #createText(title: string | null, text: string) {
-        const paragraph = document.createElement("p");
-        paragraph.className = "compact-text";
-        paragraph.innerHTML = game.i18n.localize(text);
+    get text(): string {
+        const section = document.createElement("section");
+        section.innerHTML = game.i18n.localize(this.#text);
         // Remove wrapping elements, such as from item descriptions
-        const { firstChild } = paragraph;
-        if (paragraph.childNodes.length === 1 && firstChild instanceof HTMLElement) {
-            paragraph.innerHTML = firstChild.innerHTML;
+        const { firstChild } = section;
+        if (section.childNodes.length === 1 && firstChild instanceof HTMLElement) {
+            section.innerHTML = firstChild.innerHTML;
         }
+        section.classList.add("roll-note");
 
         if (this.visibility) {
-            paragraph.dataset.visibility = this.visibility;
+            section.dataset.visibility = this.visibility;
         }
 
-        if (title) {
+        if (this.#title) {
             const strong = document.createElement("strong");
-            strong.innerHTML = game.i18n.localize(title);
-            paragraph.prepend(strong, " ");
+            strong.innerHTML = game.i18n.localize(this.#title);
+            section.prepend(strong, " ");
         }
 
-        return paragraph.outerHTML;
+        return section.outerHTML;
     }
 
     clone(): RollNotePF2e {
-        return new RollNotePF2e({
+        return new RollNotePF2e(this.toObject());
+    }
+
+    toObject(): RollNoteSource {
+        return {
             selector: this.selector,
-            text: this.text,
+            title: this.#title,
+            text: this.#text,
             predicate: this.predicate,
             outcome: this.outcome,
             visibility: this.visibility,
-        });
+        };
     }
 }
 
-interface RollNoteParams {
+interface RollNoteSource {
     selector: string;
     title?: string | null;
     text: string;
@@ -64,3 +72,5 @@ interface RollNoteParams {
     outcome?: DegreeOfSuccessString[];
     visibility?: UserVisibility | null;
 }
+
+export { RollNotePF2e, RollNoteSource };

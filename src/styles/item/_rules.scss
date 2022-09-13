@@ -1,6 +1,14 @@
 .item-rules {
     @include scrollbar;
 
+    select {
+        font-size: var(--font-size-12);
+        height: 1.36rem;
+        span {
+            padding: 0;
+        }
+    }
+
     .nerd-details {
         margin-bottom: 10px;
         .form-group {
@@ -103,6 +111,64 @@
             }
         }
 
+        .range {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            input {
+                width: 40px;
+            }
+        }
+
+        .attached-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+
+            .attachment {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 6px;
+                margin: 0;
+                line-height: unset;
+                flex: 0 0 auto;
+                width: auto;
+                min-width: 68px;
+
+                align-self: stretch;
+                border: 1px solid #aaa;
+                border-right: none;
+                border-radius: 3px 0 0 3px;
+            }
+            input, tags {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                margin: 0;
+                flex: 1;
+            }
+        }
+
+        // Main element for the value of a form group
+        // Flex row with gaps between items
+        .spaced-fields {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+
+            label {
+                font-weight: 500;
+                &:not(:first-child) {
+                    padding-left: 6px;
+                }
+            }
+        }
+
+        .brackets {
+            margin-left: 9em;
+        }
+
         &[data-key="Note"] {
             display: flex;
             flex-direction: column;
@@ -120,6 +186,12 @@
                     width: 16px;
                     height: 16px;
                 }
+            }
+        }
+
+        &[data-key="FlatModifier"] {
+            .type-input {
+                flex: 0;
             }
         }
     }

@@ -13,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is fleeing for 1 round.</p>"
+            "value": "<p>When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>"
         },
         "featType": {
             "value": "skill"
@@ -31,13 +31,22 @@
         "rules": [
             {
                 "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
                 "predicate": {
                     "all": [
-                        "action:demoralize"
+                        "action:demoralize",
+                        {
+                            "gt": [
+                                "self:level",
+                                "target:level"
+                            ]
+                        }
                     ]
                 },
                 "selector": "intimidation",
-                "text": "When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is fleeing for 1 round.",
+                "text": "{item|system.description.value}",
                 "title": "{item|name}"
             }
         ],

@@ -98,6 +98,9 @@ declare global {
         /** A singleton instance of the Video Helper class */
         video: VideoHelper;
 
+        /** A singleton instance of the TooltipManger class */
+        tooltip: TooltipManager;
+
         /** The global document index. */
         documentIndex: DocumentIndex;
 

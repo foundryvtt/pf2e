@@ -4,9 +4,10 @@ import { ItemSheetDataPF2e, MaterialSheetData, PhysicalItemSheetData } from "@it
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { CoinsPF2e } from "@item/physical/helpers";
-import { MaterialValuationData } from "./materials";
+import { MaterialGradeData, MaterialValuationData } from "./materials";
 import { PRECIOUS_MATERIAL_GRADES } from "./values";
 import { objectHasKey } from "@util";
+import { PreciousMaterialGrade } from "./types";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -122,7 +123,10 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         });
     }
 
-    protected prepareMaterials(valuationData: MaterialValuationData) {
+    protected prepareMaterials(valuationData: MaterialValuationData): {
+        value: string;
+        materials: Record<string, { label: string; grades: { [K in PreciousMaterialGrade]?: MaterialGradeData } }>;
+    } {
         const { material } = this.item;
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
         const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
@@ -145,14 +149,14 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             return result;
         }, {} as MaterialSheetData["materials"]);
 
-        const value = material.precious ? `${material.precious.type}-${material.precious.grade}` : "";
+        const value = material.precious ? `${material.precious.type}|${material.precious.grade}` : "";
         return { value, materials };
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Process precious-material selection
         if (typeof formData["preciousMaterial"] === "string") {
-            const typeGrade = formData["preciousMaterial"].split("-");
+            const typeGrade = formData["preciousMaterial"].split("|");
             const isValidSelection =
                 objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
                 objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");

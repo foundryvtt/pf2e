@@ -1801,6 +1801,12 @@ class CharacterPF2e extends CreaturePF2e {
                     viewOnly: params.getFormula ?? false,
                 });
 
+                if (!context.self.item.dealsDamage) {
+                    return params.getFormula
+                        ? ""
+                        : ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                }
+
                 // Set range-increment roll option
                 const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                 const incrementOption =
@@ -1824,7 +1830,7 @@ class CharacterPF2e extends CreaturePF2e {
                     synthetics.striking,
                     synthetics.strikeAdjustments
                 );
-                if (!damage) throw ErrorPF2e("This weapon deals no damage");
+                if (!damage) return;
 
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
 

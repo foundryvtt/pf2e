@@ -12,7 +12,6 @@ import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/util";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckType } from "@system/rolls";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
@@ -55,12 +54,11 @@ export class ActionMacroHelpers {
         translationKey?: string
     ): RollNotePF2e {
         const visibility = game.settings.get("pf2e", "metagame.showResults");
-        const translated = game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`);
+        const outcomes = visibility === "all" ? [outcome] : [];
         return new RollNotePF2e({
             selector,
-            text: `<p class="compact-text">${translated}</p>`,
-            predicate: new PredicatePF2e({}),
-            outcome: visibility === "all" ? [outcome] : [],
+            text: game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`),
+            outcome: outcomes,
         });
     }
 

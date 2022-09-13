@@ -210,6 +210,7 @@ export class StatusEffects {
      * @param event The window click event
      */
     static async #setStatusValue(event: MouseEvent, token: TokenPF2e): Promise<void> {
+        event.preventDefault();
         event.stopImmediatePropagation();
 
         const icon = event.currentTarget;
@@ -291,7 +292,7 @@ export class StatusEffects {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
             const conditionValue = condition.value ?? "";
-            const iconPath = `${iconFolder}${condition.system.hud.statusName}.webp`;
+            const iconPath = `${iconFolder}${condition.slug}.webp`;
             return `
                 <li><img src="${iconPath}" title="${summary}">
                     <span class="statuseffect-li">

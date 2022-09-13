@@ -58,10 +58,9 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
 }
 
 interface ArmorSystemData
-    extends Omit<ArmorSystemSource, "price" | "temporary" | "usage">,
-        Investable<PhysicalSystemData> {
+    extends Omit<ArmorSystemSource, "identification" | "price" | "temporary" | "usage">,
+        Omit<Investable<PhysicalSystemData>, "traits"> {
     baseItem: BaseArmorType;
-    traits: ArmorTraits;
     runes: {
         potency: number;
         resilient: ZeroToThree;

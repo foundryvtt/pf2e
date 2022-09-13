@@ -28,7 +28,17 @@ type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisanti
 
 type WeaponMaterialEffect = Extract<
     WeaponMaterialType,
-    "abysium" | "adamantine" | "coldIron" | "djezet" | "mithral" | "noqual" | "peachwood" | "silver" | "sovereignSteel"
+    | "abysium"
+    | "adamantine"
+    | "coldIron"
+    | "djezet"
+    | "mithral"
+    | "noqual"
+    | "peachwood"
+    | "silver"
+    | "sisterstone-dusk"
+    | "sisterstone-scarlet"
+    | "sovereignSteel"
 >;
 
 export {
