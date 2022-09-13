@@ -185,3 +185,4 @@ export { Migration784CompBrowserPackSetting } from "./784-comp-browser-pack-sett
 export { Migration785ABCKitItemUUIDs } from "./785-abc-kit-items";
 export { Migration786RemoveIdentifiedData } from "./786-remove-identified-data";
 export { Migration787ResolvablesToSystem } from "./787-resolvables-to-system";
+export { Migration788UpdateTanglefootBags } from "./788-update-tanglefoot-bags";
