@@ -495,6 +495,8 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     peachwood: "PF2E.PreciousMaterialPeachwood",
     siccatite: "PF2E.PreciousMaterialSiccatite",
     silver: "PF2E.PreciousMaterialSilver",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };

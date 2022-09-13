@@ -113,6 +113,8 @@ const damageCategories: Record<DamageCategory, string> = {
     salt: "PF2E.TraitSalt",
     "salt-water": "PF2E.TraitSaltWater",
     silver: "PF2E.PreciousMaterialSilver",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
@@ -298,6 +300,8 @@ const preciousMaterialDescriptions = {
     orichalcum: "PF2E.PreciousMaterialOrichalcumDescription",
     siccatite: "PF2E.PreciousMaterialSiccatiteDescription",
     silver: "PF2E.PreciousMaterialSilverDescription",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
@@ -887,6 +891,7 @@ export const PF2ECONFIG = {
         greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
         invisibility: "PF2E.ArmorPropertyRuneInvisibility",
         sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
+        greaterDread: "PF2E.ArmorPropertyRuneGreaterDread",
         greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",
         greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
         greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
@@ -902,6 +907,7 @@ export const PF2ECONFIG = {
         majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
         ethereal: "PF2E.ArmorPropertyRuneEthereal",
         majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
+        moderateDread: "PF2E.ArmorPropertyRuneModerateDread",
         greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
         greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
         deathless: "PF2E.ArmorPropertyRuneDeathless",

@@ -10,6 +10,7 @@ import { CheckRoll } from "@system/check/roll";
 import { ChatRollDetails } from "./chat-roll-details";
 import { htmlQuery } from "@util";
 import { StrikeData } from "@actor/data/base";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -89,6 +90,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
+        // If this is a strike, we usually want the strike's item
+        const strike = this._strike;
+        if (strike?.item) return strike.item as Embedded<ItemPF2e>;
+
         const item = (() => {
             const domItem = this.getItemFromDOM();
             if (domItem) return domItem;
@@ -170,15 +175,18 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (this.isContentVisible) {
             const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
             this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
-        } else {
-            // This makes the flavor fall back to "privately rolled some dice"
-            this.flavor = "";
         }
 
         const $html = await super.getHTML();
-        $html.on("mouseenter", () => this.onHoverIn());
-        $html.on("mouseleave", () => this.onHoverOut());
-        $html.find(".message-sender").on("click", this.onClick.bind(this));
+        const html = $html[0]!;
+        html.addEventListener("mouseenter", () => this.onHoverIn());
+        html.addEventListener("mouseleave", () => this.onHoverOut());
+
+        const sender = html.querySelector<HTMLElement>(".message-sender");
+        sender?.addEventListener("click", this.onClickSender.bind(this));
+        sender?.addEventListener("dblclick", this.onClickSender.bind(this));
+
+        UserVisibilityPF2e.processMessageSender(this, html);
 
         return $html;
     }
@@ -195,11 +203,16 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (canvas.ready) this.token?.object?.emitHoverOut();
     }
 
-    private onClick(event: JQuery.ClickEvent): void {
-        event.preventDefault();
+    private onClickSender(event: MouseEvent): void {
+        if (!canvas) return;
         const token = this.token?.object;
-        if (token?.isVisible) {
+        if (token?.isVisible && token.isOwner) {
             token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            // If a double click, also pan to the token
+            if (event.type === "dblclick") {
+                const scale = Math.max(1, canvas.stage.scale.x);
+                canvas.animatePan({ ...token.center, scale, duration: 1000 });
+            }
         }
     }
 

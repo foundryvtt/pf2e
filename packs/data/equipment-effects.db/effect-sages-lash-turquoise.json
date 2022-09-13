@@ -1,11 +1,11 @@
 {
-    "_id": "6dsPjRKjCPd9BWPt",
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/skinitch-salve.webp",
-    "name": "Equipment Effect: Greater Healer's Gel",
+    "_id": "K21XQMoDVSPqzRla",
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/sages-lash.webp",
+    "name": "Effect: Sage's Lash (Turquoise)",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Adding this material component to a heal spell bestows an additional 15 temporary Hit Points to one target healed by the spell. These temporary Hit Points last for 1 minute.</p>"
+            "value": "<p>Speak “clarity” to grant all affected a +2 status bonus to their next Will save for 1 minute.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,12 +14,14 @@
             "value": 1
         },
         "level": {
-            "value": 13
+            "value": 1
         },
         "rules": [
             {
-                "key": "TempHP",
-                "value": 15
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "status",
+                "value": 2
             }
         ],
         "source": {

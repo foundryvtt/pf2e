@@ -79,7 +79,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
             if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
             const each = playerCount > 1 ? "each " : "";
             message += `${each}from ${thisActor.name} to `;
-            for await (const actor of selectedActors) {
+            for (const actor of selectedActors) {
                 await actor.inventory.addCoins(coinShare);
                 const index = selectedActors.indexOf(actor);
                 if (index === 0) message += `${actor.name}`;
@@ -108,7 +108,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
 
     override async getData(): Promise<PopupData> {
         const sheetData: PopupData = await super.getData();
-        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof CharacterPF2e);
+        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.isOfType("character"));
         sheetData.actorInfo = playerActors.map((actor) => ({
             id: actor.id,
             name: actor.name,

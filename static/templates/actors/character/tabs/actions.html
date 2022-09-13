@@ -36,7 +36,7 @@
                                         <div class="action-name">
                                             <h4>
                                                 {{action.name}}
-                                                {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
+                                                {{#if action.item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
                                             </h4>
                                             {{#if action.item}}
                                                 <div class="action-options" data-item-id="{{action.item.id}}">
@@ -231,12 +231,14 @@
                 {{variant.label}}
             </button>
         {{/each}}
-        <button type="button" class="tag damage" data-action="strike-damage"
-            {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-        >{{localize "PF2E.DamageLabel"}}</button>
-        <button type="button" class="tag damage" data-action="strike-critical"
-            {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-        >{{localize "PF2E.CriticalDamageLabel"}}</button>
+        {{#if item.dealsDamage}}
+            <button type="button" class="tag damage" data-action="strike-damage"
+                {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                >{{localize "PF2E.DamageLabel"}}</button>
+            <button type="button" class="tag damage" data-action="strike-critical"
+                {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+            >{{localize "PF2E.CriticalDamageLabel"}}</button>
+        {{/if}}
         {{#if ammunition}}
             <select name="ammo-used"{{#if ammunition.selected}} data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
                 {{#select ammunition.selected.id}}

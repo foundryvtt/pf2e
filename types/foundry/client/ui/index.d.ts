@@ -4,6 +4,7 @@ import "./drag-drop";
 import "./filepicker";
 import "./notifications";
 import "./tabs";
+import "./tooltip";
 
 declare global {
     interface FoundryUI<

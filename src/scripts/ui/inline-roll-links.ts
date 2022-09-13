@@ -36,8 +36,10 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: ($html: JQuery, message?: ChatMessagePF2e): void => {
-        const html = $html[0]!;
+    listen: ($html: HTMLElement | JQuery, message?: ChatMessagePF2e): void => {
+        const html = $html instanceof HTMLElement ? $html : $html[0]!;
+        if ($html instanceof HTMLElement) $html = $($html);
+
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
         InlineRollLinks.injectRepostElement(links, message);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);

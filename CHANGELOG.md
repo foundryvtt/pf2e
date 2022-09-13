@@ -1,5 +1,43 @@
 # Changelog
 
+## Version 4.0.4
+
+### System Improvements
+* (stwlam) Hide damage buttons for not-damaging weapons (e.g., Tanglefoot Bag)
+* (Supe) Have ChatMessage#item return the strike weapon if available (for module usage)
+
+### Bugfixes
+* (In3luki) Fix distribute coin popup
+* (stwlam) Prevent context menu from appearing on right click in status effects menu for some OS/browser combinations
+* (stwlam) Include journal entries in compendium search
+* (stwlam) Fix issue causing post-to-chat button to not appear for @Check expressions in journal entry pages
+* (stwlam) Migrate weapon and spell resolvables in rule elements for V10 compatibility
+* (stwlam) Fix persistent damage icon path
+* (stwlam) Fix multiple issues causing roll notes to display with superfluous line breaks
+* (stwlam) Fix obscuring sender names on chat messages when feature is enabled
+* (stwlam) Fix functionality of greater darkvision with no standard darkvision
+
+### Data Updates
+* (avagdu) Update Advanced Synergy to be takable multiple times
+* (Dods) Add rule elements to Skill Mastery (Rogue archetype)
+* (Friz) Brushup Doblagub
+* (Friz) Fix rule elements on Terrified Retreat, Feverish Enzymes, and Hellknight Dedication feats
+* (SpartanCPA) Add book source citations to more feats and effects missing them
+* (stwlam) Restore Fledgling Flight feat
+* (Tikael) Add missing Dread runes
+* (Timingila) Updated Despair aura of Khisisi
+* (Xdy) Fix All-Around Vision on several NPCs
+
+## Version 4.0.3
+
+### Bugfixes
+* (stwlam) Fix darkness adjuster rendering on scene view
+* (stwlam) Update in-Foundry changelog URL to point to V10 release branch
+
+### Data Updates
+* (SpartanCPA) Fill in (book) sources on items missing them
+* (TMun) Correct perception and missing darkvision on spellskein
+
 
 ## Version 4.0.2
 

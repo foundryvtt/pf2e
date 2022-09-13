@@ -2,9 +2,9 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { CreatureSensePF2e, SenseAcuity, SenseType, SENSE_TYPES } from "@actor/creature/sense";
+import { CreatureSensePF2e, SenseAcuity, SenseType, SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense";
 import { RuleElementOptions } from "./base";
-import { setHasElement } from "@util";
+import { setHasElement, tupleHasValue } from "@util";
 
 /**
  * @category RuleElement
@@ -13,6 +13,8 @@ export class SenseRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar"];
 
     private selector: SenseType;
+
+    private acuity: SenseAcuity;
 
     constructor(data: SenseRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.force ??= false;
@@ -26,8 +28,17 @@ export class SenseRuleElement extends RuleElementPF2e {
         if (setHasElement(SENSE_TYPES, data.selector)) {
             this.selector = data.selector;
         } else {
-            this.failValidation("Missing string selector property");
+            this.failValidation("Missing or unrecognized string selector property");
             this.selector = "scent";
+        }
+
+        if (tupleHasValue(SENSE_ACUITIES, data.acuity)) {
+            this.acuity = data.acuity;
+        } else {
+            this.failValidation(
+                'Unrecognized acuity property: must be one of "precise", "imprecise", "vague", or omitted.'
+            );
+            this.acuity = "vague";
         }
     }
 
@@ -35,10 +46,10 @@ export class SenseRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         const range = this.resolveValue(this.data.range, "");
-        if (this.data.selector) {
+        if (this.selector) {
             const newSense = new CreatureSensePF2e({
                 type: this.selector,
-                acuity: this.data.acuity,
+                acuity: this.acuity,
                 value: String(range),
                 source: this.item.name,
             });
@@ -59,7 +70,6 @@ export interface SenseRuleElement {
 }
 
 interface SenseRuleElementData extends RuleElementData {
-    selector: SenseType;
     label: string;
     force: boolean;
     acuity: SenseAcuity;

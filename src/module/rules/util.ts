@@ -1,6 +1,8 @@
 import { DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { RollTwiceOption } from "@system/rolls";
+import { isObject } from "@util";
+import { BracketedValue } from "./rule-element/data";
 import { RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
@@ -58,4 +60,15 @@ function extractRollSubstitutions(
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
-export { extractModifierAdjustments, extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice };
+function isBracketedValue(value: unknown): value is BracketedValue {
+    return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
+}
+
+export {
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollSubstitutions,
+    extractRollTwice,
+    isBracketedValue,
+};

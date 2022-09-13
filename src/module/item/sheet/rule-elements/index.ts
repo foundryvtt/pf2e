@@ -2,6 +2,7 @@ import { GrantItemSource } from "@module/rules/rule-element/grant-item/base";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { tagify } from "@util";
 import { RuleElementForm } from "./base";
+import { FlatModifierForm } from "./flat-modifier";
 
 /** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm {
@@ -71,5 +72,9 @@ const RULE_ELEMENT_FORMS: Partial<Record<string, ConstructorOf<RuleElementForm>>
     Note: RollNoteForm,
     GrantItem: GrantItemForm,
 };
+
+if (BUILD_MODE === "development") {
+    RULE_ELEMENT_FORMS.FlatModifier = FlatModifierForm;
+}
 
 export { RuleElementForm, RULE_ELEMENT_FORMS };
