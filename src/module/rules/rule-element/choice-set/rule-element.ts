@@ -326,7 +326,16 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
     private setRollOption(selection: string): void {
         if (!this.rollOption) throw ErrorPF2e("There is no roll option to set");
-        this.actor.rollOptions.all[`${this.rollOption}:${selection}`] = true;
+        const value = this.resolveOption(selection);
+        this.actor.rollOptions.all[`${this.rollOption}:${value}`] = true;
+    }
+
+    private resolveOption(option: string): string {
+        return this.resolveInjectedProperties(option)
+            .replace(/[^-:\w]/g, "")
+            .replace(/:+/g, ":")
+            .replace(/-+/g, "-")
+            .trim();
     }
 }
 

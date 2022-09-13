@@ -169,11 +169,22 @@ class CharacterPF2e extends CreaturePF2e {
         const items: unknown[] = await fromUUIDs(formulas.map((data) => data.uuid));
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
 
+        const hasPerpetualInfusion = this.getRollOptions(["all"]).includes("feature:perpetual-infusions");
+
         return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
+                const rollOptions = this.getRollOptions(["crafting"]);
+                const uuidOption = item.uuid
+                    .replace(/[^-:\w]/g, "")
+                    .replace(/:+/g, ":")
+                    .replace(/-+/g, "-")
+                    .trim();
+                const perpetual = hasPerpetualInfusion
+                    ? rollOptions.includes(`perpetual-infusion:${uuidOption}`)
+                    : false;
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable });
+                return new CraftingFormula(item, { dc, batchSize, deletable, perpetual });
             });
     }
 

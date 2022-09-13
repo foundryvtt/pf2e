@@ -22,6 +22,7 @@ import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { ChatMessagePF2e } from "@module/chat-message";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -621,7 +622,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             if (this.actor.flags.pf2e.quickAlchemy) {
-                const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - itemQuantity;
+                const reagentCost = formula.perpetual ? 0 : 1;
+                const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - reagentCost;
                 if (reagentValue < 0) {
                     ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
                     return;
@@ -654,6 +656,17 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 event,
                 actors: this.actor,
                 free: free === "true",
+            });
+        });
+
+        $formulas.find(".item-image").on("click", async (event) => {
+            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
+            const item = await fromUuid(itemId as ItemUUID);
+            if (!item) return;
+            await ChatMessagePF2e.create({
+                user: game.user.id,
+                content: await game.pf2e.TextEditor.enrichHTML(item.link, { async: true }),
+                speaker: { alias: this.actor.name },
             });
         });
 

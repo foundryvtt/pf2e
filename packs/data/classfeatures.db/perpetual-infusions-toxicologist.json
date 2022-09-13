@@ -24,7 +24,51 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:level:1",
+                        "item:trait:alchemical",
+                        "item:trait:poison"
+                    ],
+                    "label": "Allowed Drops"
+                },
+                "choices": {
+                    "itemType": "consumable",
+                    "pack": "pf2e.equipment-srd",
+                    "query": "{\"system.level.value\":1,\"system.traits.rarity\":\"common\",\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"alchemical\"}},{\"system.traits.value\":{\"$elemMatch\":\"poison\"}}]}"
+                },
+                "flag": "item1",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.PerpetualInfusion"
+            },
+            {
+                "domain": "crafting",
+                "key": "RollOption",
+                "option": "perpetual-infusion:{item|flags.pf2e.rulesSelections.item1}"
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:level:1",
+                        "item:trait:alchemical",
+                        "item:trait:poison"
+                    ],
+                    "label": "Allowed Drops"
+                },
+                "choices": {
+                    "itemType": "consumable",
+                    "pack": "pf2e.equipment-srd",
+                    "query": "{\"system.level.value\":1,\"system.traits.rarity\":\"common\",\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"alchemical\"}},{\"system.traits.value\":{\"$elemMatch\":\"poison\"}}], \"$not\":{\"flags.core.sourceId\":\"{item|flags.pf2e.rulesSelections.item1}\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.PerpetualInfusion",
+                "rollOption": "perpetual-infusion"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

@@ -15,9 +15,17 @@ export class CraftingFormula implements CraftingFormulaData {
     /** Whether or not this formula is saved directly on the actor and can be deleted */
     deletable: boolean;
 
+    /** Whether or not this formula is a perpetual infusion for the owning Alchemist */
+    perpetual: boolean;
+
     constructor(
         public item: PhysicalItemPF2e,
-        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
+        {
+            dc,
+            batchSize,
+            deletable = false,
+            perpetual,
+        }: { dc?: number; batchSize?: number; deletable?: boolean; perpetual?: boolean } = {}
     ) {
         this.dc =
             dc ??
@@ -31,6 +39,8 @@ export class CraftingFormula implements CraftingFormulaData {
 
         /** Is the formula on the actor and therefore deletable? */
         this.deletable = deletable;
+
+        this.perpetual = !!perpetual;
     }
 
     get uuid(): ItemUUID {
@@ -85,4 +95,5 @@ export interface CraftingFormulaData {
     dc?: number;
     batchSize?: number;
     deletable?: boolean;
+    perpetual?: boolean;
 }
