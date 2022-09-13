@@ -2,9 +2,9 @@ import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { objectHasKey } from "@util";
 
-const UserVisibilityPF2e = {
+class UserVisibilityPF2e {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    process: ($html: JQuery, options: ProcessOptions = {}) => {
+    static process($html: JQuery, options: ProcessOptions = {}): void {
         const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
 
         // Remove all visibility=none elements
@@ -68,23 +68,26 @@ const UserVisibilityPF2e = {
                 element.remove();
             }
         }
+    }
 
+    static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void {
         // Hide the sender name from the card if it can't be seen from the canvas
         const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
-        if (message?.token && tokenSetsNameVisibility) {
-            const $sender = $html.find("h4.message-sender");
-            const nameToHide = message.token.name.trim();
-            const shouldHideName = !message.token.playersCanSeeName && $sender.text().trim() === nameToHide;
-            if (shouldHideName) {
+        const token = message?.token;
+        if (token && tokenSetsNameVisibility) {
+            const sender = html.querySelector<HTMLElement>("h4.message-sender");
+            const nameToHide = token.name.trim();
+            const shouldHideName = !token.playersCanSeeName && sender?.innerText.trim() === nameToHide;
+            if (sender && shouldHideName) {
                 if (game.user.isGM) {
-                    $sender.attr({ "data-visibility": "gm" });
+                    sender.dataset.visibility = "gm";
                 } else {
-                    $sender.text(message.user?.name ?? "Gamemaster");
+                    sender.innerText = message.user?.name ?? "Gamemaster";
                 }
             }
         }
-    },
-};
+    }
+}
 
 type UserVisibility = "all" | "owner" | "gm" | "none";
 
