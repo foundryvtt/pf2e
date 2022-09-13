@@ -139,14 +139,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const senses = this.system.traits.senses;
         if (!Array.isArray(senses)) return VisionLevels.NORMAL;
 
-        const senseTypes = senses
-            .map((sense) => sense.type)
-            .filter((senseType) => ["lowLightVision", "darkvision"].includes(senseType));
+        const senseTypes = new Set(senses.map((sense) => sense.type));
+
         return this.getCondition("blinded")
             ? VisionLevels.BLINDED
-            : senseTypes.includes("darkvision")
+            : senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")
             ? VisionLevels.DARKVISION
-            : senseTypes.includes("lowLightVision")
+            : senseTypes.has("lowLightVision")
             ? VisionLevels.LOWLIGHT
             : VisionLevels.NORMAL;
     }
