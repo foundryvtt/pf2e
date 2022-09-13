@@ -318,11 +318,10 @@ class CheckPF2e {
             const header = document.createElement("h4");
             header.classList.add("action");
             header.innerHTML = check.name;
-            const flavor = [header, result ?? [], tags, notes, incapacitation]
+            return [header, result ?? [], tags, notes, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
-            return TextEditor.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
         const secret = context.secret ?? rollOptions.has("secret");
