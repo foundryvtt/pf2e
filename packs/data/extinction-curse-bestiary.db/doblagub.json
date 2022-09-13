@@ -112,96 +112,15 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "3VOyDvwPYul2WbJk",
-            "img": "systems/pf2e/icons/default-icons/spell.svg",
-            "name": "crushing despair",
-            "sort": 200000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": ""
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "1ezhm0ODqaxXqUZb"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": ""
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": ""
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
+            "_id": "v2ov1hPXLNCnQj1i",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OsOhx3TGIZ7AhD0P"
                 }
             },
-            "type": "spell"
-        },
-        {
-            "_id": "i9Ykaw2pgNFhj9KD",
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "ability": {
                     "value": ""
@@ -209,6 +128,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -226,7 +148,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened</strong> The duration is unlimited."
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @Compendium[pf2e.conditionitems.Controlled]{Controlled} condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -238,6 +160,7 @@
                     "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "1ezhm0ODqaxXqUZb"
                 },
                 "materials": {
@@ -246,20 +169,29 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dominate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -281,7 +213,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
+                    "rarity": "uncommon",
                     "value": [
                         "incapacitation",
                         "mental"
@@ -293,15 +225,15 @@
         {
             "_id": "KMxn9xEYN5pNubae",
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing",
-            "sort": 400000,
+            "name": "True Seeing (Constant)",
+            "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -352,7 +284,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
                 },
                 "spellType": {
                     "value": "utility"
@@ -385,17 +317,25 @@
             "type": "spell"
         },
         {
-            "_id": "gxUs6AfvKjmNj0Qg",
-            "img": "systems/pf2e/icons/spells/confusion.webp",
-            "name": "Confusion",
-            "sort": 500000,
+            "_id": "mXLezV2TkqKWq5HZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.GaRQlC9Yw1BGKHfN"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/chrusing-dispair.webp",
+            "name": "Crushing Despair",
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "cone",
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot cone"
                 },
                 "category": {
                     "value": "spell"
@@ -413,18 +353,30 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute, with no save to end early.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
                 },
                 "duration": {
-                    "value": "1 minute"
+                    "value": "1 or more rounds"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "area": {
+                                "areaType": "cone",
+                                "value": "60"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "1ezhm0ODqaxXqUZb"
                 },
                 "materials": {
@@ -433,20 +385,29 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": ""
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "crushing-despair",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -455,7 +416,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -481,7 +442,7 @@
             "_id": "ujsPTlxDIf6lMOZJ",
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
@@ -543,7 +504,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=104"
                 },
                 "spellType": {
                     "value": "save"
@@ -577,15 +538,15 @@
         {
             "_id": "9XUmZ4qUBFoJyfKI",
             "img": "systems/pf2e/icons/spells/illusory-scene.webp",
-            "name": "Illusory Scene",
-            "sort": 700000,
+            "name": "Illusory Scene (At Will)",
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -636,7 +597,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=161"
                 },
                 "spellType": {
                     "value": "utility"
@@ -671,7 +632,7 @@
             "_id": "DGtPOc7CvdFtr0Zr",
             "img": "systems/pf2e/icons/spells/wall-of-stone.webp",
             "name": "Wall of Stone",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -729,7 +690,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=365"
                 },
                 "spellType": {
                     "value": "utility"
@@ -763,7 +724,7 @@
             "_id": "PYLFUNANlbVoDKAu",
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -821,7 +782,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
                 },
                 "spellType": {
                     "value": "save"
@@ -848,6 +809,127 @@
                     "value": [
                         "emotion",
                         "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "cQkF5yxLrCq2AsAz",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.LiGbewa9pO0yjbsY"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/confusion.webp",
+            "name": "Confusion",
+            "sort": 900000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 5,
+                    "value": "1ezhm0ODqaxXqUZb"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "confusion",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
                         "mental"
                     ]
                 }
@@ -928,7 +1010,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=172"
                 },
                 "spellType": {
                     "value": "save"
@@ -1024,7 +1106,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=213"
                 },
                 "spellType": {
                     "value": "save"
@@ -1098,7 +1180,7 @@
                 "location": {
                     "uses": {
                         "max": 2,
-                        "value": 2
+                        "value": 1
                     },
                     "value": "1ezhm0ODqaxXqUZb"
                 },
@@ -1121,7 +1203,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=107"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1155,7 +1237,7 @@
         {
             "_id": "PkPRBpSthtQAaHeA",
             "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
+            "name": "Fear (At Will)",
             "sort": 1300000,
             "system": {
                 "ability": {
@@ -1163,7 +1245,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1193,6 +1275,9 @@
                     "value": 3
                 },
                 "location": {
+                    "uses": {
+                        "value": 1
+                    },
                     "value": "1ezhm0ODqaxXqUZb"
                 },
                 "materials": {
@@ -1214,7 +1299,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
                 },
                 "spellType": {
                     "value": "save"
@@ -1289,6 +1374,9 @@
                     "value": 3
                 },
                 "location": {
+                    "uses": {
+                        "value": 1
+                    },
                     "value": "1ezhm0ODqaxXqUZb"
                 },
                 "materials": {
@@ -1310,7 +1398,7 @@
                 },
                 "slug": null,
                 "source": {
-                    "value": ""
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=150"
                 },
                 "spellType": {
                     "value": "save"
@@ -1582,7 +1670,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "reach-10"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1600,8 +1690,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "grab"
+                        "grab",
+                        "magical-tongue"
                     ]
                 },
                 "bonus": {
@@ -1610,11 +1702,11 @@
                 "damageRolls": {
                     "unnje74zfapu55tanl47": {
                         "damage": "",
-                        "damageType": "Pull10feet"
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Grab and Pull 10ft.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -1624,7 +1716,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "reach-15"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1648,7 +1742,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>40 feet.</p>\n<p><strong>Requirements</strong> A doblagub has bonded with their current location by being called there via a ritual or by remaining in one place for 10 years</p>\n<hr />\n<p><strong>Effect</strong> The doblagub grows etheric fibers that they can use to psychically keep prey close. Any time a creature tries to move within this aura, it must succeed at a @Check[type:will|dc:30] save or the movement fails and the action is wasted.</p>"
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p><strong>Requirements</strong> A doblagub has bonded with their current location by being called there via a ritual or by remaining in one place for 10 years</p>\n<hr />\n<p><strong>Effect</strong> The doblagub grows etheric fibers that they can use to psychically keep prey close. Any time a creature tries to move within this aura, it must succeed at a @Check[type:will|dc:30] save or the movement fails and the action is wasted.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1772,7 +1866,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Medium, 4d10+8 bludgeoning, Rupture 24</p>"
+                    "value": "<p>Medium, [[/r {4d10+8}[bludgeoning]]]{2d8+3 bludgeoning damage }, Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1799,10 +1893,47 @@
             "type": "action"
         },
         {
+            "_id": "ID4UBMeCzdTYwZJd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 2300000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": "Extinction Curse"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "UktcRGjrWtYFVDQY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1830,7 +1961,7 @@
             "_id": "54pGOqizDlhMpPWD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1858,7 +1989,7 @@
             "_id": "SWxbeT0zKTRtc78B",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1886,7 +2017,7 @@
             "_id": "HGXRG7brWPJLrnbO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2600000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1914,7 +2045,7 @@
             "_id": "TBmAFeGhZvwezm9a",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2700000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
