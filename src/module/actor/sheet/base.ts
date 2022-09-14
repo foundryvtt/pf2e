@@ -205,7 +205,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html);
+        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
 
         $html.find("[data-action=show-image]").on("click", () => {
             const actor = this.actor;

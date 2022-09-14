@@ -340,7 +340,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         }
 
-        InlineRollLinks.listen($html);
+        InlineRollLinks.listen(html, this.item);
 
         // Set up traits selection in the header
         const { validTraits } = this;

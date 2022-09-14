@@ -11,13 +11,13 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    injectRepostElement: (links: HTMLElement[], message?: ChatMessagePF2e | undefined): void => {
+    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
         for (const link of links) {
             link.classList.add("with-repost");
 
             const repostButtons = htmlQueryAll(link, "i[data-pf2-repost]");
             if (repostButtons.length > 0) {
-                if (message?.user.isGM && !game.user.isGM) {
+                if (foundryDoc && !foundryDoc.isOwner) {
                     for (const button of repostButtons) {
                         button.remove();
                     }
@@ -26,7 +26,7 @@ export const InlineRollLinks = {
                 continue;
             }
 
-            if (!game.user.isGM) continue;
+            if (foundryDoc && !foundryDoc.isOwner) continue;
 
             const newButton = document.createElement("i");
             newButton.classList.add("fas", "fa-comment-alt");
@@ -36,12 +36,12 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: ($html: HTMLElement | JQuery, message?: ChatMessagePF2e): void => {
+    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
         if ($html instanceof HTMLElement) $html = $($html);
 
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
-        InlineRollLinks.injectRepostElement(links, message);
+        InlineRollLinks.injectRepostElement(links, foundryDoc);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | null => {

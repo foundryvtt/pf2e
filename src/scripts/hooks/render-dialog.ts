@@ -6,6 +6,7 @@ import { LocalizePF2e } from "@system/localize";
 export const RenderDialog = {
     listen: () => {
         Hooks.on("renderDialog", (_dialog, $html) => {
+            // For macros and modules
             InlineRollLinks.listen($html);
 
             // Break up the item document dialog into option groups
