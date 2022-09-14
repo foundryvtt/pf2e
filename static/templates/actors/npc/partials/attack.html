@@ -28,10 +28,12 @@
                     <button type="button" class="btn attack-button" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
                 {{/each}}
             </div>
-            <div class="damage sub-section">
-                <button type="button" class="damage-button" data-action="strike-damage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
-                <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
-            </div>
+            {{#if action.item.dealsDamage}}
+                <div class="damage sub-section">
+                    <button type="button" class="damage-button" data-action="strike-damage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
+                    <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+                </div>
+            {{/if}}
         </div>
         <div class="attack-detail sub-section expandable expanded">
             <div class="attack-description">

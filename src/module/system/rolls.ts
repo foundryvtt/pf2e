@@ -260,7 +260,7 @@ class CheckPF2e {
                     data.strike = {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
-                        damaging: contextItem.isOfType("weapon") ? contextItem.dealsDamage : true,
+                        damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
                         name: strike.item.name,
                     };
                 }

@@ -70,6 +70,11 @@ export class MeleePF2e extends ItemPF2e {
         return WeaponDamagePF2e.npcDamageToWeaponDamage(instance);
     }
 
+    get dealsDamage(): boolean {
+        const { baseDamage } = this;
+        return baseDamage.dice > 0 || baseDamage.modifier > 0;
+    }
+
     /** Additional effects that are part of this attack */
     get attackEffects(): string[] {
         return this.system.attackEffects.value;
