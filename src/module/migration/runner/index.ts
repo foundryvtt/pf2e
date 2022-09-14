@@ -346,7 +346,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     /** Temporary solution to upstream bug that leaves synthetic actors' item data unmigrated */
     async #migrateTokenActorData(scene: ScenePF2e): Promise<void> {
-        if (!("game" in globalThis && game.release.build === 10.285)) return;
+        if (!("game" in globalThis && game.release.build === 285)) return;
 
         const unlinkedTokens = scene.tokens.filter((t) => !!t.actor && !t.actorLink).map((t) => t.toObject());
         const updates = unlinkedTokens.flatMap(
@@ -358,7 +358,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                     (i: ItemSource & { data?: object }): i is ItemSource & { data?: object } => isObject(i.data)
                 );
                 for (const item of items) {
-                    item.system = item.data!;
+                    item.system ??= item.data!;
                     delete item.data;
                 }
 
