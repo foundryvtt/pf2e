@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 4.0.5
+
+### Bugfixes
+* (In3luki) Fix metagame information being stripped from message flavor before the chat message is created
+* (stwlam) Work around upstream issue affecting Foundry users upgrading from V9 to 10.285
+* (stwlam) Fix issue causing inline rollable links to wrongly omit repost buttons
+* (stwlam) Restore aura rechecking on embedded item changes
+
+### Data Updates
+* (LebombJames) Remove outdated critical text from Wounding rune
+
+
 ## Version 4.0.4
 
 ### System Improvements
