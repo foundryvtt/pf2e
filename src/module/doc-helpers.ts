@@ -7,9 +7,12 @@ import { MigrationRunnerBase } from "./migration/runner/base";
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
 async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: string): Promise<string | null> {
     const source: unknown = JSON.parse(json);
-    if (!(isObject<T["_source"]>(source) && isObject(source.system))) {
-        return null;
+    if (!isObject<T["_source"] & { data?: unknown }>(source)) return null;
+    if ("data" in source) {
+        const migrateToV10 = "items" in source ? ActorPF2e.migrateData : ItemPF2e.migrateData;
+        migrateToV10(source);
     }
+    if (!isObject(source.system)) return null;
 
     const sourceSchemaVersion = Number(source.system?.schema?.version) || 0;
     const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
