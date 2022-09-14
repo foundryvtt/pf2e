@@ -384,11 +384,22 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     ): void {
         if (this.isLinked) {
             const preUpdate = this.toObject(false);
+            const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
             this.reset();
             const postUpdate = this.toObject(false);
-            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            if (Object.keys(changed).length > 0) {
-                this._onUpdate(changed, options, game.user.id);
+            const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+            const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+            const auraChanges = mergeObject(
+                diffObject(preUpdateAuras, postUpdateAuras),
+                diffObject(postUpdateAuras, preUpdateAuras)
+            );
+
+            if (Object.keys(changes).length > 0) {
+                this._onUpdate(changes, options, game.user.id);
+            }
+
+            if (Object.keys(auraChanges).length > 0) {
+                this.scene?.checkAuras();
             }
         }
 
