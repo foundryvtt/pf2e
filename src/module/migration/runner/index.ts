@@ -7,6 +7,8 @@ import type { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ItemSourcePF2e } from "@item/data";
 import { ActorSourcePF2e } from "@actor/data";
+import { ScenePF2e } from "@scene";
+import { isObject, pick } from "@util";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -282,6 +284,8 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Migrate tokens and synthetic actors
         for (const scene of game.scenes) {
+            await this.#migrateTokenActorData(scene);
+
             for (const token of scene.tokens) {
                 const actor = token.actor;
                 if (actor) {
@@ -338,5 +342,32 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
 
         await game.settings.set("pf2e", "worldSchemaVersion", schemaVersion.latest);
+    }
+
+    /** Temporary solution to upstream bug that leaves synthetic actors' item data unmigrated */
+    async #migrateTokenActorData(scene: ScenePF2e): Promise<void> {
+        if (!("game" in globalThis && game.release.build === 10.285)) return;
+
+        const unlinkedTokens = scene.tokens.filter((t) => !!t.actor && !t.actorLink).map((t) => t.toObject());
+        const updates = unlinkedTokens.flatMap(
+            (source): Pick<foundry.data.TokenSource, "_id" | "actorData"> | never[] => {
+                if (!Array.isArray(source.actorData.items)) return [];
+
+                type ItemSource = foundry.data.ItemSource;
+                const items = (source.actorData.items as ItemSource[]).filter(
+                    (i: ItemSource & { data?: object }): i is ItemSource & { data?: object } => isObject(i.data)
+                );
+                for (const item of items) {
+                    item.system = item.data!;
+                    delete item.data;
+                }
+
+                return items.length > 0 ? pick(source, ["_id", "actorData"]) : [];
+            }
+        );
+
+        if (updates.length > 0) {
+            await scene.updateEmbeddedDocuments("Token", updates);
+        }
     }
 }
