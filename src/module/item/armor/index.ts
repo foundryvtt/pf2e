@@ -57,7 +57,19 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get hitPoints(): PhysicalItemHitPoints {
-        return deepClone(this.system.hp);
+        const hitPoints = deepClone(this.system.hp);
+
+        // If a rules element has set a different broken theshold, defer to that
+        const brokenThreshold = ((): number => {
+            const baseBrokenThreshold = hitPoints.brokenThreshold;
+            if (this.isShield && this.actor?.isOfType("character", "npc") && this.actor.heldShield === this) {
+                return this.actor.system.attributes.shield.brokenThreshold || baseBrokenThreshold;
+            }
+            return baseBrokenThreshold;
+        })();
+        hitPoints.brokenThreshold = brokenThreshold;
+
+        return hitPoints;
     }
 
     get hardness(): number {

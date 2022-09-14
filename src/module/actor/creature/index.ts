@@ -208,6 +208,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** Get the held shield of most use to the wielder */
     override get heldShield(): Embedded<ArmorPF2e> | null {
+        if (!this.isOfType("character", "npc")) return null;
+
         const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
         return heldShields.length === 0
             ? null
@@ -400,6 +402,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 status.max -= attributes.doomed.value;
             }
             status.value = Math.min(condition?.value ?? 0, status.max);
+        }
+
+        // Set broken and destroyed according to possibly RE-modified broken threshold
+        if (this.isOfType("character", "npc")) {
+            const { heldShield } = this;
+            this.system.attributes.shield.broken = heldShield?.isBroken ?? false;
+            this.system.attributes.shield.destroyed = heldShield?.isDestroyed ?? false;
         }
     }
 
