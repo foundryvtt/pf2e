@@ -654,6 +654,10 @@ class NPCPF2e extends CreaturePF2e {
                             ...context.self.item.getRollOptions("weapon"),
                         ]);
 
+                        if (!context.self.item.dealsDamage) {
+                            return ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                        }
+
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
                             context.self.item,
                             context.self.actor,

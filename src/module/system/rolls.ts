@@ -260,7 +260,7 @@ class CheckPF2e {
                     data.strike = {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
-                        damaging: contextItem.isOfType("weapon") ? contextItem.dealsDamage : true,
+                        damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
                         name: strike.item.name,
                     };
                 }
@@ -318,11 +318,10 @@ class CheckPF2e {
             const header = document.createElement("h4");
             header.classList.add("action");
             header.innerHTML = check.name;
-            const flavor = [header, result ?? [], tags, notes, incapacitation]
+            return [header, result ?? [], tags, notes, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
-            return TextEditor.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
         const secret = context.secret ?? rollOptions.has("secret");
