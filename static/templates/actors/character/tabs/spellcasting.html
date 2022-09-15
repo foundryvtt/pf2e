@@ -1,7 +1,7 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
     <ol class="spellcastingEntry-list directory-list">
         {{#each spellcastingEntries as |entry eid|}}
-            <li class="item item-container spellcasting-entry" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+            <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
                     <a class="drag-handle"><i class="fas fa-bars"></i></a>
 
@@ -63,8 +63,9 @@
                         </li>
                     </ol>
                 {{/unless}}
-
-                {{> "systems/pf2e/templates/actors/spellcasting-spell-list.html" entry=entry}}
+                {{#if entry.hasCollection}}
+                    {{> "systems/pf2e/templates/actors/spellcasting-spell-list.html" entry=entry}}
+                {{/if}}
             </li>
         {{/each}}
 

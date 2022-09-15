@@ -58,7 +58,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
 
         const itemUpdates = this.contents.flatMap((entry): SpellcastingUpdate => {
             if (!(entry instanceof SpellcastingEntryPF2e)) return [];
-            if (entry.isFocusPool) return [];
+            if (entry.isFocusPool || !entry.spells) return [];
 
             // Innate spells should refresh uses instead
             if (entry.isInnate) {
