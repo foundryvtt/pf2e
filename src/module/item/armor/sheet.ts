@@ -1,12 +1,17 @@
-import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
+import {
+    ARMOR_MATERIAL_VALUATION_DATA,
+    getPropertySlots,
+    PhysicalItemSheetData,
+    PhysicalItemSheetPF2e,
+    PreparedMaterials,
+} from "@item/physical";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { LocalizePF2e } from "@system/localize";
-import { getPropertySlots } from "../runes";
 import { ArmorPF2e } from ".";
-import { createSheetTags } from "@module/sheet/helpers";
-import { ARMOR_MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types";
 
-export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>) {
+class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
         const sheetData = await super.getData(options);
 
         // Armor property runes
@@ -45,3 +50,17 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         return super._updateObject(event, formData);
     }
 }
+
+interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
+    armorPotencyRunes: ConfigPF2e["PF2E"]["armorPotencyRunes"];
+    armorResiliencyRunes: ConfigPF2e["PF2E"]["armorResiliencyRunes"];
+    armorPropertyRunes: ConfigPF2e["PF2E"]["armorPropertyRunes"];
+    categories: Record<ArmorCategory, string>;
+    groups: Record<ArmorGroup, string>;
+    baseTypes: Record<BaseArmorType, string>;
+    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
+    preciousMaterials: PreparedMaterials;
+    otherTags: SheetOptions;
+}
+
+export { ArmorSheetPF2e };

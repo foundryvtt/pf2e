@@ -1,13 +1,13 @@
 import { DiceModifierPF2e } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
+import type { ResilientRuneType } from "@item/armor/types";
+import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DamageType } from "@system/damage";
 import { DamageDieSize } from "@system/damage/damage";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
-import type { ResilientRuneType } from "./armor/data";
-import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "./weapon/types";
 
 export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     let slots = 0;

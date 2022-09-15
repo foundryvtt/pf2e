@@ -3,20 +3,22 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data";
 import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
-import { Bulk } from "@item/physical/bulk";
-import { IdentificationStatus, MystifiedData } from "@item/physical/data";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { MaterialGradeData, WEAPON_MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import {
+    Bulk,
+    CoinsPF2e,
+    getStrikingDice,
+    IdentificationStatus,
+    MaterialGradeData,
+    MystifiedData,
+    RuneValuationData,
+    WeaponPropertyRuneData,
+    WEAPON_MATERIAL_VALUATION_DATA,
+    WEAPON_PROPERTY_RUNES,
+    WEAPON_VALUATION_DATA,
+} from "@item/physical";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
-import {
-    getStrikingDice,
-    RuneValuationData,
-    WeaponPropertyRuneData,
-    WEAPON_PROPERTY_RUNES,
-    WEAPON_VALUATION_DATA,
-} from "../runes";
 import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,

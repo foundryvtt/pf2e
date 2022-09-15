@@ -2,7 +2,7 @@ import { FeatSlotLevel } from "@actor/character/feats";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
-import { ARMOR_CATEGORIES } from "@item/armor/data";
+import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { setHasElement, sluggify } from "@util";
