@@ -1,12 +1,11 @@
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { ItemSummaryData } from "@item/data";
-import { PhysicalItemHitPoints } from "@item/physical/data";
+import { getResiliencyBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement } from "@util";
-import { PhysicalItemPF2e } from "../physical";
-import { getResiliencyBonus } from "../runes";
-import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
+import { ArmorData } from "./data";
+import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types";
 
 class ArmorPF2e extends PhysicalItemPF2e {
     override isStackableWith(item: PhysicalItemPF2e): boolean {

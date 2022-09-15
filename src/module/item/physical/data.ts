@@ -1,5 +1,5 @@
 import { ActionTrait } from "@item/action/data";
-import { ArmorTrait } from "@item/armor/data";
+import { ArmorTrait } from "@item/armor/types";
 import { ConsumableTrait } from "@item/consumable/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import type { PhysicalItemPF2e } from "@item/physical";

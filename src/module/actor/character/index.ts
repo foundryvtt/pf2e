@@ -43,10 +43,9 @@ import {
 } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
-import { ARMOR_CATEGORIES } from "@item/armor/data";
+import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ItemCarryType } from "@item/physical/data";
-import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
+import { getPropertyRunes, getPropertySlots, getResiliencyBonus, ItemCarryType } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
 import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
@@ -64,8 +63,7 @@ import {
 } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
-import { DamageRollContext } from "@system/damage/damage";
-import { WeaponDamagePF2e } from "@system/damage/weapon";
+import { DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";

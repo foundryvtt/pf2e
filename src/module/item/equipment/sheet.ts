@@ -1,5 +1,4 @@
-import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
-import { PhysicalItemSheetData } from "@item/sheet/data-types";
+import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { EquipmentPF2e } from ".";
 
