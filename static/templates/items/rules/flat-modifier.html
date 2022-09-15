@@ -16,7 +16,7 @@
             {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
         </button>
         {{#if selectorIsArray}}
-            <input type="text" class="item-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON"/>
+            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON"/>
         {{else}}
             <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
         {{/if}}
@@ -87,7 +87,7 @@
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.DamageType"}}</label>
     <div class="spaced-fields details-container-flex-row">
-        <input type="text" class="item-tagify damage-type" name="system.rules.{{index}}.damageType" value="{{rule.damageType}}"/>
+        <input type="text" class="pf2e-tagify damage-type" name="system.rules.{{index}}.damageType" value="{{rule.damageType}}"/>
         <select name="system.rules.{{index}}.damageCategory">
             <option value=""></option>
             {{#select rule.damageCategory}}

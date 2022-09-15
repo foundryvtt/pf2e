@@ -1,14 +1,4 @@
-tags.tagify {
-    &.tagify--hasMaxTags > span {
-        display: none;
-    }
-
-    &:not(.tagify--select) > span {
-        min-width: 20px;
-    }
-}
-
-tags.tagify.item-tagify {
+tags.tagify.pf2e-tagify {
     --tag-bg: var(--color-text-light-3);
     --tags-border-color: var(--color-text-light-5);
     --tags-hover-border-color: var(--color-text-light-5);
@@ -45,5 +35,16 @@ tags.tagify.item-tagify {
 
     .tagify__input {
         margin: 0;
+    }
+}
+
+// Prevents early word wrap on certain forms
+tags.pf2e-tagify, tags.tags.paizo-style {
+    &.tagify--hasMaxTags > span {
+        display: none;
+    }
+
+    &:not(.tagify--select) > span {
+        min-width: 20px;
     }
 }
