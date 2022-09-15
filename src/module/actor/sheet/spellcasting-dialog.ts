@@ -119,10 +119,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<E
     abilities: ConfigPF2e["PF2E"]["abilities"];
 }
 
-export async function createSpellcastingDialog(
-    event: JQuery.ClickEvent,
-    object: ActorPF2e | Embedded<SpellcastingEntryPF2e>
-) {
+export async function createSpellcastingDialog(event: MouseEvent, object: ActorPF2e | Embedded<SpellcastingEntryPF2e>) {
     const dialog = new SpellcastingCreateAndEditDialog(object, {
         top: event.clientY - 80,
         left: window.innerWidth - 710,
