@@ -261,6 +261,12 @@
     </ul>
 </div>
 
+<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
+    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
+    {{#> abcItems}}{{/abcItems}}
+    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+</div>
+
 {{~#*inline "abcItem"~}}
     <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
@@ -279,14 +285,8 @@
 
 {{~#*inline "abcItems"~}}
 <ul class="item-refs">
-    {{#each items}}
+    {{#each features}}
         {{#> abcItem item=this.item i=this.key}}{{@partial-block}}{{/abcItem}}
     {{/each}}
 </ul>
 {{~/inline~}}
-
-<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
-    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
-    {{#> abcItems}}{{/abcItems}}
-    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
-</div>
