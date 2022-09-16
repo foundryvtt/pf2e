@@ -10,7 +10,7 @@ function createEmptySpellcastingEntry(actor: ActorPF2e): Embedded<SpellcastingEn
             type: "spellcastingEntry",
             system: {
                 ability: { value: "cha" },
-                spelldc: { value: 0, dc: 0, mod: 0 },
+                spelldc: { value: 0, dc: 0 },
                 tradition: { value: "arcane" },
                 prepared: { value: "innate" },
             },

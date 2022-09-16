@@ -159,24 +159,16 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         if (!spell) return;
         const actor = this.actor;
 
-        // Filter to only spellcasting entries that are eligible to cast this consumable
+        // Find the best spellcasting entry to cast this consumable
         const entry = (() => {
             if (trickMagicItemData) return trickMagicItemData;
-
-            const spellcastingEntries = actor.spellcasting.spellcastingFeatures.filter((entry) =>
-                entry.canCastSpell(spell)
-            );
-
-            let maxBonus = 0;
-            let bestEntry = 0;
-            for (let i = 0; i < spellcastingEntries.length; i++) {
-                if (spellcastingEntries[i].system.spelldc.value > maxBonus) {
-                    maxBonus = spellcastingEntries[i].system.spelldc.value;
-                    bestEntry = i;
-                }
-            }
-
-            return spellcastingEntries[bestEntry];
+            return actor.spellcasting.spellcastingFeatures
+                .filter((entry) => entry.canCastSpell(spell))
+                .reduce((previous, current) => {
+                    const previousDC = previous.statistic.dc.value;
+                    const currentDC = current.statistic.dc.value;
+                    return currentDC > previousDC ? current : previous;
+                });
         })();
 
         if (entry) {

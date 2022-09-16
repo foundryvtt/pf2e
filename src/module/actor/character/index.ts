@@ -763,8 +763,6 @@ class CharacterPF2e extends CreaturePF2e {
                     domains: saveSelectors,
                 },
             });
-
-            entry.system.statisticData = entry.statistic.getChatData();
         }
 
         // Expose best spellcasting DC to character attributes
