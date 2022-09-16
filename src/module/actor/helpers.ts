@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { extractModifierAdjustments } from "@module/rules/util";
+import { AttackItem } from "./creature/types";
 import { ModifierPF2e, MODIFIER_TYPE } from "./modifiers";
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -45,6 +46,15 @@ function calculateBaseMAP(item: ItemPF2e): MAPData {
     return { label: "PF2E.MultipleAttackPenalty", map1: -5, map2: -10 };
 }
 
+/** Get the range increment of a target for a given weapon */
+function getRangeIncrement(attackItem: AttackItem, distance: number | null): number | null {
+    if (attackItem.isOfType("spell")) return null;
+
+    return attackItem.rangeIncrement && typeof distance === "number"
+        ? Math.max(Math.ceil(distance / attackItem.rangeIncrement), 1)
+        : null;
+}
+
 /** Determine range penalty for a ranged attack roll */
 function calculateRangePenalty(
     actor: ActorPF2e,
@@ -72,4 +82,4 @@ interface MAPData {
     map2: number;
 }
 
-export { calculateMAPs, calculateRangePenalty };
+export { calculateMAPs, calculateRangePenalty, getRangeIncrement };

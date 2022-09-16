@@ -10,7 +10,7 @@ import {
 import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
+import { calculateMAPs } from "@actor/helpers";
 import {
     CheckModifier,
     createAbilityModifier,
@@ -1693,11 +1693,6 @@ class CharacterPF2e extends CreaturePF2e {
                 ]),
         ];
 
-        const getRangeIncrement = (distance: number | null): number | null =>
-            weapon.rangeIncrement && typeof distance === "number"
-                ? Math.max(Math.ceil(distance / weapon.rangeIncrement), 1)
-                : null;
-
         action.variants = [0, 1, 2]
             .map((index): [string, (otherModifiers: ModifierPF2e[]) => CheckModifier] => [
                 labels[index],
@@ -1713,9 +1708,11 @@ class CharacterPF2e extends CreaturePF2e {
                         return null;
                     }
 
+                    params.options ??= [];
                     const context = this.getAttackRollContext({
-                        domains: [],
                         item: weapon,
+                        domains: selectors,
+                        options: new Set([...baseOptions, ...params.options, ...action.options]),
                         viewOnly: params.getFormula ?? false,
                     });
 
@@ -1728,27 +1725,10 @@ class CharacterPF2e extends CreaturePF2e {
                         }
                     }
 
-                    // Set range-increment roll option and penalty
-                    const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                    if (rangeIncrement) context.options.add(`target:range-increment:${rangeIncrement}`);
-                    const otherModifiers = [
-                        calculateRangePenalty(this, rangeIncrement, selectors, baseOptions) ?? [],
-                        context.self.modifiers,
-                    ].flat();
-
-                    // Collect roll options from all sources
-                    const options = new Set([
-                        ...(params.options ?? []),
-                        ...baseOptions,
-                        ...action.options,
-                        ...context.options,
-                    ]);
-
                     // Get just-in-time roll options from rule elements
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        rule.beforeRoll?.(selectors, options);
+                        rule.beforeRoll?.(selectors, context.options);
                     }
-                    const finalRollOptions = new Set(options);
 
                     const dc = params.dc ?? context.dc;
                     if (dc && action.adjustments) {
@@ -1757,7 +1737,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                     const item = context.self.item;
                     const rollTwice =
-                        params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
+                        params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, context.options);
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
@@ -1765,7 +1745,7 @@ class CharacterPF2e extends CreaturePF2e {
                         item,
                         type: "attack-roll",
                         altUsage: params.altUsage ?? null,
-                        options: finalRollOptions,
+                        options: context.options,
                         notes: attackRollNotes,
                         dc,
                         traits: context.traits,
@@ -1775,14 +1755,14 @@ class CharacterPF2e extends CreaturePF2e {
                     if (!this.consumeAmmo(item, params)) return null;
 
                     const roll = await CheckPF2e.roll(
-                        constructModifier(otherModifiers),
+                        constructModifier(context.self.modifiers),
                         checkContext,
                         params.event,
                         params.callback
                     );
 
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: finalRollOptions });
+                        await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: context.options });
                     }
 
                     return roll;
@@ -1792,9 +1772,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
+                params.options ??= [];
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
+                    domains: ["all", "strike-damage", "damage-roll"],
+                    options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
 
                 if (!context.self.item.dealsDamage) {
@@ -1802,15 +1785,6 @@ class CharacterPF2e extends CreaturePF2e {
                         ? ""
                         : ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                 }
-
-                // Set range-increment roll option
-                const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                const incrementOption =
-                    typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
-                params.options ??= [];
-                const options = new Set(
-                    [...params.options, ...context.options, action.options, ...baseOptions, incrementOption].flat()
-                );
 
                 const damage = WeaponDamagePF2e.calculate(
                     context.self.item,
@@ -1820,7 +1794,7 @@ class CharacterPF2e extends CreaturePF2e {
                     synthetics.modifierAdjustments,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
-                    options,
+                    context.options,
                     this.cloneSyntheticsRecord(rollNotes),
                     weaponPotency,
                     synthetics.striking,
@@ -1836,10 +1810,10 @@ class CharacterPF2e extends CreaturePF2e {
                     // If an alternate critical specialization effect is available, apply it only if there is also a
                     // qualifying non-alternate
                     const standard = critSpecs.standard
-                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, context.options) ?? [])
                         .pop();
                     const alternate = critSpecs.alternate
-                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, options) ?? [])
+                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, context.options) ?? [])
                         .pop();
                     const note = standard ? alternate ?? standard : null;
 
@@ -1902,10 +1876,7 @@ class CharacterPF2e extends CreaturePF2e {
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            const fromTraits = StrikeWeaponTraits.createAttackModifiers(
-                context.self.item as Embedded<WeaponPF2e>,
-                params.domains ?? []
-            );
+            const fromTraits = StrikeWeaponTraits.createAttackModifiers(context.self.item, params.domains);
             context.self.modifiers.push(...fromTraits);
         }
 
