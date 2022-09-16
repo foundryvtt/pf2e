@@ -51,11 +51,12 @@ export const Ready = {
                 const subV9Modules = Array.from(game.modules.values()).filter(
                     (m) =>
                         m.active &&
-                        // Foundry does not enforce the presence of `ModuleData#compatibleCoreVersion`, but modules
+                        (m.esmodules.size > 0 || m.scripts.size > 0) &&
+                        // Foundry does not enforce the presence of `Module#compatibility.verified`, but modules
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
-                        (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.compatibility.verified ?? 9, "0.8.9"))
+                        !!m.compatibility.verified &&
+                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "0.8.9"))
                 );
 
                 for (const badModule of subV9Modules) {
