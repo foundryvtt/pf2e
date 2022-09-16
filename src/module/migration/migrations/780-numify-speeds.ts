@@ -12,6 +12,7 @@ export class Migration780NumifySpeeds extends MigrationBase {
 
         const speeds = source.system.attributes.speed;
         speeds.value = this.#updateSpeed(speeds.value);
+        if (!Array.isArray(speeds.otherSpeeds)) speeds.otherSpeeds = [];
         for (const movementType of speeds.otherSpeeds) {
             movementType.value = this.#updateSpeed(movementType.value);
         }
