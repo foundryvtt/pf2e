@@ -13,6 +13,7 @@ import {
 import { setPerceptionModes } from "@module/canvas/perception/modes";
 import { PF2ECONFIG } from "@scripts/config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { registerFonts } from "@scripts/register-fonts";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
@@ -144,10 +145,11 @@ export const Init = {
             // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             // Register stuff with the Foundry client
-            registerSettings();
-            registerKeybindings();
-            registerTemplates();
+            registerFonts();
             registerHandlebarsHelpers();
+            registerKeybindings();
+            registerSettings();
+            registerTemplates();
 
             MystifiedTraits.compile();
 
