@@ -744,8 +744,6 @@ class NPCPF2e extends CreaturePF2e {
                     domains: saveSelectors,
                 },
             });
-
-            entry.system.statisticData = entry.statistic.getChatData();
         }
 
         // Initiative

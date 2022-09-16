@@ -5,7 +5,7 @@ import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data
 import { MagicTradition } from "@item/spell/types";
 import { OneToFour, OneToTen, ZeroToEleven } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { Statistic, StatisticChatData } from "@system/statistic";
+import { Statistic } from "@system/statistic";
 import { SpellcastingEntryPF2e } from "..";
 
 interface BaseSpellcastingEntry {
@@ -67,9 +67,7 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
     spelldc: {
         value: number;
         dc: number;
-        mod: number;
     };
-    statisticData?: StatisticChatData;
     tradition: {
         value: MagicTradition | "";
     };
