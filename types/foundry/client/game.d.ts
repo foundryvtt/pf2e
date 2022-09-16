@@ -59,6 +59,8 @@ declare global {
             {
                 id: string;
                 active: boolean;
+                esmodules: Set<string>;
+                scripts: Set<string>;
                 flags: Record<string, Record<string, unknown>>;
                 title: string;
                 compatibility: {
