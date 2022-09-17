@@ -247,6 +247,13 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             if (!this.actor.hasCondition("deafened")) {
                 this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
             }
+
+            const tremorsense = this.actor.isOfType("character")
+                ? this.actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
+                : null;
+            if (tremorsense) {
+                this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+            }
         }
 
         const canSeeInvisibility =

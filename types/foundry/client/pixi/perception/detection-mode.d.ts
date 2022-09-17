@@ -141,7 +141,7 @@ declare global {
      * Detection mode that see creatures in contact with the ground.
      */
     class DetectionModeTremor extends DetectionMode {
-        static override getDetectionFilter(): PIXI.Filter;
+        static override getDetectionFilter(): OutlineOverlayFilter;
 
         protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
     }
