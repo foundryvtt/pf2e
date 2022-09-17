@@ -664,7 +664,7 @@ class NPCPF2e extends CreaturePF2e {
                             [attackTrait],
                             deepClone(statisticsModifiers),
                             deepClone(modifierAdjustments),
-                            this.cloneSyntheticsRecord(damageDice),
+                            deepClone(damageDice),
                             1,
                             options,
                             rollNotes,

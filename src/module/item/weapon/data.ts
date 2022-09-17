@@ -12,6 +12,7 @@ import {
 } from "@item/physical";
 import { OneToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize, DamageType } from "@system/damage";
+import { type WeaponPF2e } from "./document";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -24,8 +25,7 @@ import {
     WeaponRangeIncrement,
     WeaponReloadTime,
     WeaponTrait,
-    type WeaponPF2e,
-} from ".";
+} from "./types";
 
 type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;

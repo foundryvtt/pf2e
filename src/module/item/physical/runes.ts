@@ -4,8 +4,7 @@ import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNoteSource } from "@module/notes";
-import { DamageType } from "@system/damage";
-import { DamageDieSize } from "@system/damage/damage";
+import { DamageDieSize, DamageType } from "@system/damage/types";
 import { RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 

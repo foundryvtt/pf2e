@@ -19,23 +19,18 @@ import {
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
-    CROSSBOW_WEAPONS,
-    MANDATORY_RANGED_GROUPS,
     OtherWeaponTag,
-    THROWN_RANGES,
     WeaponCategory,
-    WeaponDamage,
-    WeaponData,
     WeaponGroup,
-    WeaponMaterialData,
     WeaponPropertyRuneType,
     WeaponRangeIncrement,
     WeaponReloadTime,
-    WeaponSource,
     WeaponTrait,
-} from ".";
+} from "./types";
+import { CROSSBOW_WEAPONS, MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values";
 
 class WeaponPF2e extends PhysicalItemPF2e {
     /** Given this weapon is an alternative usage, whether it is melee or thrown */

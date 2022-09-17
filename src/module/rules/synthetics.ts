@@ -13,7 +13,7 @@ interface RuleElementSynthetics {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
     };
-    damageDice: Record<string, DamageDicePF2e[]>;
+    damageDice: Record<string, DeferredDamageDice[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     movementTypes: { [K in BaseSpeedType]?: DeferredMovementType[] };
@@ -38,7 +38,8 @@ interface RuleElementSynthetics {
 
 type CritSpecSynthetic = (weapon: Embedded<WeaponPF2e>, options: Set<string>) => RollNotePF2e | null;
 
-type DeferredModifier = DeferredValue<ModifierPF2e | null>;
+type DeferredModifier = DeferredValue<ModifierPF2e>;
+type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
 
 type BaseSpeedType = Exclude<MovementType, "land">;
 type DeferredMovementType = DeferredValue<{ type: BaseSpeedType; value: number } | null>;
@@ -93,6 +94,7 @@ interface PotencySynthetic {
 }
 
 export {
+    DeferredDamageDice,
     DeferredModifier,
     DeferredMovementType,
     MAPSynthetic,
