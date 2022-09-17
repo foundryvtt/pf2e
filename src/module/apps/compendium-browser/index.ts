@@ -16,6 +16,7 @@ import {
     InitialHazardFilters,
     InitialSpellFilters,
     RangesData,
+    RenderResultListOptions,
 } from "./tabs/data";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import noUiSlider from "nouislider";
@@ -504,9 +505,10 @@ class CompendiumBrowser extends Application {
         // Search field
         const search = controlArea.querySelector<HTMLInputElement>("input[name=textFilter]");
         if (search) {
-            search.addEventListener("change", () => {
+            search.addEventListener("input", () => {
                 currentTab.filterData.search.text = search.value;
-                this.clearScrollLimit(true);
+                this.clearScrollLimit();
+                this.renderResultList({ replace: true });
             });
         }
 
@@ -737,24 +739,32 @@ class CompendiumBrowser extends Application {
                 const maxValue = currentTab.totalItemCount ?? 0;
                 if (currentValue < maxValue) {
                     currentTab.scrollLimit = Math.clamped(currentValue + 100, 100, maxValue);
-                    this.renderResultList(html, list, currentValue);
+                    this.renderResultList({ list, start: currentValue });
                 }
             }
         });
 
         // Initial result list render
-        this.renderResultList(html, list);
+        this.renderResultList({ list });
     }
 
     /**
      * Append new results to the result list
-     * @param html The Compendium Browser app HTML
-     * @param list The result list HTML element
-     * @param start The index position to start from
+     * @param options Render options
+     * @param options.list The result list HTML element
+     * @param options.start The index position to start from
+     * @param options.replace Replace the current list with the new results?
      */
-    private async renderResultList(html: HTMLElement, list: HTMLUListElement, start = 0): Promise<void> {
+    private async renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
         const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
+        const html = this.element[0];
         if (!currentTab) return;
+
+        if (!list) {
+            const listElement = html.querySelector<HTMLUListElement>(".tab.active ul.item-list");
+            if (!listElement) return;
+            list = listElement;
+        }
 
         // Get new results from index
         const newResults = await currentTab.renderResults(start);
@@ -763,7 +773,11 @@ class CompendiumBrowser extends Application {
         // Add the results to the DOM
         const fragment = document.createDocumentFragment();
         fragment.append(...newResults);
-        list.append(fragment);
+        if (replace) {
+            list.replaceChildren(fragment);
+        } else {
+            list.append(fragment);
+        }
         // Re-apply drag drop handler
         for (const dragDropHandler of this._dragDrop) {
             dragDropHandler.bind(html);
@@ -980,7 +994,7 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    private clearScrollLimit(render = true) {
+    private clearScrollLimit(render = false) {
         const tab = this.activeTab;
         if (tab === "settings") return;
 

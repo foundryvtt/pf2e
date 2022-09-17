@@ -1,6 +1,7 @@
 import { FeatTrait } from "@item/feat/data";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { CommonSortByOption, SortByOption, SortDirection } from "../data";
+import type { SearchResult } from "minisearch";
 
 type CheckboxOptions = Record<string, { label: string; selected: boolean }>;
 interface CheckboxData {
@@ -100,6 +101,14 @@ interface SpellFilters extends BaseFilterData {
     selects: Record<"timefilter", SelectData>;
 }
 
+type CompendiumBrowserIndexData = Omit<CompendiumIndexData, "_id"> & Partial<SearchResult>;
+
+interface RenderResultListOptions {
+    list?: HTMLUListElement;
+    start?: number;
+    replace?: boolean;
+}
+
 // Models used for initializing filters
 interface BaseInitialFilters {
     searchText?: string;
@@ -181,11 +190,13 @@ export {
     BestiaryFilters,
     CheckboxData,
     CheckboxOptions,
+    CompendiumBrowserIndexData,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
     MultiselectData,
     RangesData,
+    RenderResultListOptions,
     SpellFilters,
     InitialFilters,
     InitialActionFilters,

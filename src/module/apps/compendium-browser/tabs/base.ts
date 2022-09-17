@@ -1,7 +1,8 @@
 import { CompendiumBrowser } from "..";
-import { BaseFilterData, CheckboxOptions, RangesData } from "./data";
+import { BaseFilterData, CheckboxOptions, CompendiumBrowserIndexData, RangesData } from "./data";
 import { ErrorPF2e, sluggify } from "@util";
 import { TabName } from "../data";
+import MiniSearch from "minisearch";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
@@ -9,7 +10,7 @@ export abstract class CompendiumBrowserTab {
     /** An unmodified copy of this.filterData */
     defaultFilterData!: BaseFilterData;
     /** The full CompendiumIndex of this tab */
-    protected indexData: CompendiumIndexData[] = [];
+    protected indexData: CompendiumBrowserIndexData[] = [];
     /** Is this tab initialized? */
     isInitialized = false;
     /** The filter schema for this tab; The tabs filters are rendered based on this.*/
@@ -20,8 +21,17 @@ export abstract class CompendiumBrowserTab {
     scrollLimit = 100;
     /** The name of this tab */
     tabName: Exclude<TabName, "settings">;
+    /** A DOMParser instance */
+    #domParser = new DOMParser();
     /** The path to the result list template of this tab */
     abstract templatePath: string;
+    /** Minisearch */
+    searchEngine!: MiniSearch;
+    /** Names of the document fields to be indexed. */
+    searchFields: string[] = [];
+    /** Names of fields to store, so that search results would include them.
+     *  By default none, so resuts would only contain the id field. */
+    storeFields: string[] = [];
 
     constructor(browser: CompendiumBrowser, tabName: Exclude<TabName, "settings">) {
         this.browser = browser;
@@ -32,6 +42,14 @@ export abstract class CompendiumBrowserTab {
     async init(): Promise<void> {
         // Load the index and populate filter data
         await this.loadData();
+        // Initialize MiniSearch
+        this.searchEngine = new MiniSearch({
+            fields: this.searchFields,
+            idField: "uuid",
+            storeFields: this.storeFields,
+            searchOptions: { combineWith: "AND", prefix: true },
+        });
+        this.searchEngine.addAll(this.indexData);
         // Set defaultFilterData for resets
         this.defaultFilterData = deepClone(this.filterData);
         // Initialization complete
@@ -39,8 +57,19 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Filter indexData and return slice based on current scrollLimit */
-    getIndexData(start: number): CompendiumIndexData[] {
-        const currentIndex = this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
+    getIndexData(start: number): CompendiumBrowserIndexData[] {
+        if (!this.isInitialized) {
+            throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
+        }
+
+        const currentIndex = (() => {
+            const searchText = this.filterData.search.text;
+            if (searchText) {
+                const searchResult = this.searchEngine.search(searchText) as CompendiumBrowserIndexData[];
+                return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
+            }
+            return this.sortResult(this.indexData.filter(this.filterIndexData.bind(this)));
+        })();
         this.totalItemCount = currentIndex.length;
         return currentIndex.slice(start, this.scrollLimit);
     }
@@ -57,7 +86,7 @@ export abstract class CompendiumBrowserTab {
     protected prepareFilterData(): void {}
 
     /** Filter indexData */
-    protected filterIndexData(_entry: CompendiumIndexData): boolean {
+    protected filterIndexData(_entry: CompendiumBrowserIndexData): boolean {
         return true;
     }
 
@@ -66,21 +95,20 @@ export abstract class CompendiumBrowserTab {
             throw ErrorPF2e(`Tab "${this.tabName}" has no valid template path.`);
         }
         const indexData = this.getIndexData(start);
-        const domParser = new DOMParser();
         const liElements: HTMLLIElement[] = [];
         for (const entry of indexData) {
             const htmlString = await renderTemplate(this.templatePath, {
                 entry,
                 filterData: this.filterData,
             });
-            const html = domParser.parseFromString(htmlString, "text/html");
+            const html = this.#domParser.parseFromString(htmlString, "text/html");
             liElements.push(html.body.firstElementChild as HTMLLIElement);
         }
         return liElements;
     }
 
     /** Sort result array by name, level or price */
-    protected sortResult(result: CompendiumIndexData[]): CompendiumIndexData[] {
+    protected sortResult(result: CompendiumBrowserIndexData[]): CompendiumBrowserIndexData[] {
         const { order } = this.filterData;
         const lang = game.i18n.lang;
         const sorted = result.sort((entryA, entryB) => {
