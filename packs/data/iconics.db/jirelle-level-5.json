@@ -365,17 +365,35 @@
                 },
                 "rules": [
                     {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.PreciseStrike.Finisher",
+                        "option": "finisher",
+                        "toggleable": true
+                    },
+                    {
                         "damageCategory": "precision",
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "panache",
-                                "melee"
+                                "class:swashbuckler",
+                                "self:effect:panache",
+                                {
+                                    "or": [
+                                        "weapon:melee",
+                                        {
+                                            "and": [
+                                                "feat:flying-blade",
+                                                "weapon:thrown",
+                                                "target:range-increment:1"
+                                            ]
+                                        }
+                                    ]
+                                }
                             ],
                             "any": [
-                                "finesse",
-                                "agile",
-                                "class:swashbuckler"
+                                "weapon:trait:agile",
+                                "weapon:trait:finesse"
                             ],
                             "not": [
                                 "finisher"
@@ -417,14 +435,25 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
+                                "class:swashbuckler",
+                                "self:effect:panache",
                                 "finisher",
-                                "panache",
-                                "melee"
+                                {
+                                    "or": [
+                                        "weapon:melee",
+                                        {
+                                            "and": [
+                                                "feat:flying-blade",
+                                                "weapon:thrown",
+                                                "target:range-increment:1"
+                                            ]
+                                        }
+                                    ]
+                                }
                             ],
                             "any": [
-                                "finesse",
-                                "agile",
-                                "class:swashbuckler"
+                                "weapon:trait:agile",
+                                "weapon:trait:finesse"
                             ]
                         },
                         "selector": "strike-damage",
@@ -466,13 +495,6 @@
                                 }
                             ]
                         }
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Finisher",
-                        "option": "finisher",
-                        "toggleable": true
                     }
                 ],
                 "slug": "precise-strike",

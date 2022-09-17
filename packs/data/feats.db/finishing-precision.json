@@ -42,20 +42,30 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "panache",
-                        "melee"
+                        "self:effect:panache",
+                        {
+                            "or": [
+                                "weapon:melee",
+                                {
+                                    "and": [
+                                        "feat:flying-blade",
+                                        "weapon:thrown",
+                                        "target:range-increment:1"
+                                    ]
+                                }
+                            ]
+                        }
                     ],
                     "any": [
-                        "finesse",
-                        "agile"
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse"
                     ],
                     "not": [
-                        "finisher",
-                        "class:swashbuckler"
+                        "finisher"
                     ]
                 },
                 "selector": "strike-damage",
-                "slug": "dedication-precise-strike",
+                "slug": "finishing-precision",
                 "value": 1
             },
             {
@@ -65,20 +75,28 @@
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
+                        "self:effect:panache",
                         "finisher",
-                        "panache",
-                        "melee"
+                        {
+                            "or": [
+                                "weapon:melee",
+                                {
+                                    "and": [
+                                        "feat:flying-blade",
+                                        "weapon:thrown",
+                                        "target:range-increment:1"
+                                    ]
+                                }
+                            ]
+                        }
                     ],
                     "any": [
-                        "finesse",
-                        "agile"
-                    ],
-                    "not": [
-                        "class:swashbuckler"
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse"
                     ]
                 },
                 "selector": "strike-damage",
-                "slug": "dedication-finisher"
+                "slug": "finishing-precision"
             }
         ],
         "source": {
