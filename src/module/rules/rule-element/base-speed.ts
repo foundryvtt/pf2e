@@ -41,7 +41,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
 
     #createMovementType(): DeferredMovementType {
         return () => {
-            if (!this.test()) null;
+            if (!this.test()) return null;
 
             const value = this.resolveValue(this.data.value);
             if (!(typeof value === "number" && Number.isInteger(value) && value > 0)) {

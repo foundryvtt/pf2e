@@ -2,9 +2,13 @@ import { ActorPF2e } from "@actor";
 import { ItemSummaryRendererPF2e } from "@actor/sheet/item-summary-renderer";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
-import { SpellcastingEntryPF2e } from ".";
-import { SpellcastingEntryListData } from "./data";
+import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
+import { SpellcastingEntryPF2e } from "../../item/spellcasting-entry";
 
+/**
+ * Sheet used to render the the spell list for prepared casting.
+ * It overrides the actor sheet to inherit important drag/drop behavior for actor items (the spells).
+ */
 class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRendererPF2e<ActorPF2e> = new ItemSummaryRendererPF2e(this);
@@ -15,7 +19,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.classes = ["default", "sheet", "spellcasting-entry"];
+        options.classes = ["default", "sheet", "spellcasting-entry", "preparation"];
         options.width = 480;
         options.height = 600;
         options.template = "systems/pf2e/templates/actors/spellcasting-prep-sheet.html";
@@ -131,7 +135,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 
         const spell = this.actor.items.get(itemData._id);
         if (itemData.system.location.value !== this.item.id && spell?.isOfType("spell")) {
-            const addedSpell = await this.item.spells.addSpell(spell);
+            const addedSpell = await this.item.spells?.addSpell(spell);
             return [addedSpell ?? []].flat();
         }
 
@@ -149,7 +153,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 interface SpellPreparationSheetData extends ActorSheetData<ActorPF2e> {
     actor: ActorPF2e;
     owner: boolean;
-    entry: SpellcastingEntryListData;
+    entry: SpellcastingAbilityData;
 }
 
 export { SpellPreparationSheet };

@@ -1,3 +1,5 @@
+// Note: tags html element is tagify, and .tags is paizo tag/traits styling. They are not mutually exclusive.
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -91,28 +93,23 @@
     }
 }
 
-tags.tags.paizo-style {
-    background-color: rgba(0, 0, 0, 0.05);
+li.chat-message .tags .tag {
+    height: unset;
+    line-height: 1.65em;
+    min-height: 1em;
+
+    &_transparent {
+        line-height: 1.25em;
+        padding: 0.1em 0.25em;
+    }
 }
 
+// Tagify and non-tagify paizo style main traits row
 .tags.paizo-style {
-    --tag-bg: var(--primary);
-    --tag-hover: var(--primary);
-    --tag-remove-btn-color: var(--color-text-trait);
-    --tag-text-color: var(--color-text-trait);
-    --tags-border-color: var(--color-border-light-tertiary);
-    --tags-focus-border-color: var(--color-border-light-tertiary);
-    --tags-hover-border-color: var(--color-border-light-tertiary);
-
     align-items: center;
     border-radius: 3px;
     padding: 0.05em;
     gap: 0;
-
-    .tagify__input {
-        margin: 0;
-        padding: 0.1em 0.5em;
-    }
 
     tag, .tag, select.tag {
         border: 2px solid var(--color-border-trait);
@@ -158,14 +155,70 @@ tags.tags.paizo-style {
     }
 }
 
-li.chat-message .tags .tag {
-    height: unset;
-    line-height: 1.65em;
-    min-height: 1em;
+tags.tags.paizo-style {
+    background-color: rgba(0, 0, 0, 0.05);
+    --tag-bg: var(--primary);
+    --tag-hover: var(--primary);
+    --tag-remove-btn-color: var(--color-text-trait);
+    --tag-text-color: var(--color-text-trait);
+    --tags-border-color: var(--color-border-light-tertiary);
+    --tags-focus-border-color: var(--color-border-light-tertiary);
+    --tags-hover-border-color: var(--color-border-light-tertiary);
 
-    &_transparent {
-        line-height: 1.25em;
-        padding: 0.1em 0.25em;
+    .tagify__input {
+        margin: 0;
+        padding: 0.1em 0.5em;
+    }
+}
+
+tags.tagify.pf2e-tagify {
+    --tag-bg: var(--color-text-light-3);
+    --tags-border-color: var(--color-text-light-5);
+    --tags-hover-border-color: var(--color-text-light-5);
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    gap: 3px;
+    padding: 2px;
+
+    &:hover {
+        box-shadow: 0 0 10px #00005a
+    }
+
+    tag {
+        margin: 0;
+        padding: 1px;
+
+        x {
+            margin: 0;
+        }
+
+        > div {
+            padding: 2px;
+
+            .tagify__tag-text {
+                font-weight: normal;
+            }
+        }
+
+        .tagify__tag__removeBtn {
+            align-items: baseline;
+        }
+    }
+
+    .tagify__input {
+        margin: 0;
+    }
+}
+
+// Prevents early word wrap on certain forms
+tags.pf2e-tagify, tags.tags.paizo-style {
+    &.tagify--hasMaxTags > span {
+        display: none;
+    }
+
+    &:not(.tagify--select) > span {
+        min-width: 20px;
     }
 }
 

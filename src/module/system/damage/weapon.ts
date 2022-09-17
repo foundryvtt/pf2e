@@ -13,7 +13,7 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneModifiers } from "@item/runes";
+import { getPropertyRuneModifiers } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
@@ -265,20 +265,6 @@ class WeaponDamagePF2e {
         const propertyRunes = weaponPotency?.property ?? [];
         diceModifiers.push(...getPropertyRuneModifiers(propertyRunes));
 
-        const runeNotes = propertyRunes.flatMap((r) => {
-            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
-            return data.map(
-                (d) =>
-                    new RollNotePF2e({
-                        selector: "strike-damage",
-                        text: d.text,
-                        predicate: d.predicate,
-                        outcome: d.outcome,
-                    })
-            );
-        });
-        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
-
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
             diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
@@ -357,11 +343,15 @@ class WeaponDamagePF2e {
         const syntheticModifiers = extractModifiers(synthetics, selectors, { resolvables, injectables });
         numericModifiers.push(...new StatisticModifier("", syntheticModifiers, options).modifiers);
 
+        // Roll notes
+        const runeNotes = propertyRunes.flatMap((r) => {
+            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
+        });
+
+        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
         const notes = selectors.flatMap(
-            (s) =>
-                rollNotes[s]
-                    ?.map((note) => duplicate(note))
-                    .filter((note) => PredicatePF2e.test(note.predicate, options)) ?? []
+            (s) => rollNotes[s]?.map((n) => n.clone()).filter((n) => n.predicate.test(options)) ?? []
         );
 
         // Accumulate damage-affecting precious materials

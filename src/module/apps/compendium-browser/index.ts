@@ -307,8 +307,9 @@ class CompendiumBrowser extends Application {
         }
 
         // Sorting
-        currentTab.filterData.order.by = this.initialFilter.orderBy ?? "name";
-        currentTab.filterData.order.direction = this.initialFilter.orderDirection ?? "asc";
+        currentTab.filterData.order.by = this.initialFilter.orderBy ?? currentTab.filterData.order.by;
+        currentTab.filterData.order.direction =
+            this.initialFilter.orderDirection ?? currentTab.filterData.order.direction;
 
         for (const [filterType, filterValue] of Object.entries(this.initialFilter)) {
             const mappedFilterType = (() => {

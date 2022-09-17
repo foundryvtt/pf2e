@@ -23,7 +23,7 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
-import { WEAPON_PROPERTY_RUNES } from "@item/runes";
+import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
 import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";

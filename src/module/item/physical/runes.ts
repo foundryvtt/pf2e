@@ -1,13 +1,13 @@
 import { DiceModifierPF2e } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
+import type { ResilientRuneType } from "@item/armor/types";
+import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
+import { RollNoteSource } from "@module/notes";
 import { DamageType } from "@system/damage";
 import { DamageDieSize } from "@system/damage/damage";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
-import type { ResilientRuneType } from "./armor/data";
-import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "./weapon/types";
 
 export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     let slots = 0;
@@ -78,15 +78,9 @@ function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): Di
     });
 }
 
-interface RollNoteData {
-    outcome?: DegreeOfSuccessString[];
-    predicate?: RawPredicate;
-    text: string;
-}
-
 export interface WeaponPropertyRuneData {
     attack?: {
-        notes?: RollNoteData[];
+        notes?: RuneNoteData[];
     };
     damage?: {
         dice?: {
@@ -95,7 +89,7 @@ export interface WeaponPropertyRuneData {
             dieSize?: DamageDieSize;
             predicate?: RawPredicate;
         }[];
-        notes?: RollNoteData[];
+        notes?: RuneNoteData[];
     };
     level: number;
     name: string;
@@ -104,6 +98,12 @@ export interface WeaponPropertyRuneData {
     slug: string;
     traits: WeaponTrait[];
     otherTags?: OtherWeaponTag[];
+}
+
+/** Title and text are mandatory for these notes */
+interface RuneNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "title" | "text"> {
+    title: string;
+    text: string;
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
@@ -117,13 +117,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["target:trait:lawful"] },
+                    title: "PF2E.WeaponPropertyRune.anarchic.Name",
                     text: "PF2E.WeaponPropertyRune.anarchic.Note.criticalSuccess",
                 },
             ],
         },
         level: 11,
-        // name: "PF2E.WeaponPropertyRune.anarchic.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneAnarchic",
+        name: "PF2E.WeaponPropertyRune.anarchic.Name",
         price: 1_400,
         rarity: "common",
         slug: "anarchic",
@@ -131,8 +131,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     ancestralEchoing: {
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.ancestralEchoing.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneAncestralEchoing",
+        name: "PF2E.WeaponPropertyRune.ancestralEchoing.Name",
         price: 9_500,
         rarity: "rare",
         slug: "ancestralEchoing",
@@ -140,11 +139,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     anchoring: {
         damage: {
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.anchoring.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.anchoring.Name",
+                    text: "PF2E.WeaponPropertyRune.anchoring.Note.criticalSuccess",
+                },
+            ],
         },
         level: 10,
-        // name: "PF2E.WeaponPropertyRune.anchoring.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneAnchoring",
+        name: "PF2E.WeaponPropertyRune.anchoring.Name",
         price: 900,
         rarity: "uncommon",
         slug: "anchoring",
@@ -159,13 +163,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["target:trait:chaotic"] },
+                    title: "PF2E.WeaponPropertyRune.axiomatic.Name",
                     text: "PF2E.WeaponPropertyRune.axiomatic.Note.criticalSuccess",
                 },
             ],
         },
         level: 11,
-        // name: "PF2E.WeaponPropertyRune.axiomatic.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneAxiomatic",
+        name: "PF2E.WeaponPropertyRune.axiomatic.Name",
         price: 1_400,
         rarity: "common",
         slug: "axiomatic",
@@ -173,8 +177,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     bane: {
         level: 4,
-        // name: "PF2E.WeaponPropertyRune.bane.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneBane",
+        name: "PF2E.WeaponPropertyRune.bane.Name",
         price: 100,
         rarity: "uncommon",
         slug: "bane",
@@ -182,8 +185,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     bloodbane: {
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.bloodbane.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneBloodbane",
+        name: "PF2E.WeaponPropertyRune.bloodbane.Name",
         price: 475,
         rarity: "uncommon",
         slug: "bloodbane",
@@ -192,12 +194,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     bloodthirsty: {
         damage: {
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.bloodthirsty.Note.criticalSuccess" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.bloodbane.Name",
+                    text: "PF2E.WeaponPropertyRune.bloodthirsty.Note.criticalSuccess",
+                },
             ],
         },
         level: 16,
-        // name: "PF2E.WeaponPropertyRune.bloodthirsty.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneBloodthirsty",
+        name: "PF2E.WeaponPropertyRune.bloodthirsty.Name",
         price: 8_500,
         rarity: "uncommon",
         slug: "bloodthirsty",
@@ -215,11 +220,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     predicate: { any: ["target:trait:undead", "target:negative-healing"] },
                 },
             ],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.brilliant.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.brilliant.Name",
+                    text: "PF2E.WeaponPropertyRune.brilliant.Note.criticalSuccess",
+                },
+            ],
         },
         level: 12,
-        // name: "PF2E.WeaponPropertyRune.brilliant.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneBrilliant",
+        name: "PF2E.WeaponPropertyRune.brilliant.Name",
         price: 2_000,
         rarity: "common",
         slug: "brilliant",
@@ -227,8 +237,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     conducting: {
         level: 7,
-        // name: "PF2E.WeaponPropertyRune.conducting.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneConducting",
+        name: "PF2E.WeaponPropertyRune.conducting.Name",
         price: 300,
         rarity: "common",
         slug: "conducting",
@@ -237,11 +246,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     corrosive: {
         damage: {
             dice: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.corrosive.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.corrosive.Name",
+                    text: "PF2E.WeaponPropertyRune.corrosive.Note.criticalSuccess",
+                },
+            ],
         },
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.corrosive.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneCorrosive",
+        name: "PF2E.WeaponPropertyRune.corrosive.Name",
         price: 500,
         rarity: "common",
         slug: "corrosive",
@@ -249,11 +263,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     crushing: {
         damage: {
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.crushing.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.crushing.Name",
+                    text: "PF2E.WeaponPropertyRune.crushing.Note.criticalSuccess",
+                },
+            ],
         },
         level: 3,
-        // name: "PF2E.WeaponPropertyRune.crushing.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneCrushing",
+        name: "PF2E.WeaponPropertyRune.crushing.Name",
         price: 50,
         rarity: "uncommon",
         slug: "crushing",
@@ -261,8 +280,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     cunning: {
         level: 5,
-        // name: "PF2E.WeaponPropertyRune.cunning.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneCunning",
+        name: "PF2E.WeaponPropertyRune.cunning.Name",
         price: 140,
         rarity: "common",
         slug: "cunning",
@@ -270,8 +288,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     dancing: {
         level: 13,
-        // name: "PF2E.WeaponPropertyRune.dancing.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneDancing",
+        name: "PF2E.WeaponPropertyRune.dancing.Name",
         price: 2_700,
         rarity: "uncommon",
         slug: "dancing",
@@ -291,13 +308,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
                 },
             ],
         },
         level: 5,
-        // name: "PF2E.WeaponPropertyRune.disrupting.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneDisrupting",
+        name: "PF2E.WeaponPropertyRune.disrupting.Name",
         price: 150,
         rarity: "common",
         slug: "disrupting",
@@ -305,8 +322,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     energizing: {
         level: 6,
-        // name: "PF2E.WeaponPropertyRune.energizing.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneEnergizing",
+        name: "PF2E.WeaponPropertyRune.energizing.Name",
         price: 250,
         rarity: "uncommon",
         slug: "energizing",
@@ -314,8 +330,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     extending: {
         level: 7,
-        // name: "PF2E.WeaponPropertyRune.extending.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneExtending",
+        name: "PF2E.WeaponPropertyRune.extending.Name",
         price: 700,
         rarity: "common",
         slug: "extending",
@@ -323,8 +338,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     fanged: {
         level: 2,
-        // name: "PF2E.WeaponPropertyRune.fanged.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneFanged",
+        name: "PF2E.WeaponPropertyRune.fanged.Name",
         price: 30,
         rarity: "uncommon",
         slug: "fanged",
@@ -332,11 +346,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     fearsome: {
         damage: {
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.extending.Name",
+                    text: "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess",
+                },
+            ],
         },
         level: 5,
-        // name: "PF2E.WeaponPropertyRune.fearsome.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneFearsome",
+        name: "PF2E.WeaponPropertyRune.fearsome.Name",
         price: 160,
         rarity: "common",
         slug: "fearsome",
@@ -345,11 +364,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     flaming: {
         damage: {
             dice: [{ damageType: "fire", diceNumber: 1, dieSize: "d6" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.flaming.Name",
+                    text: "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
+                },
+            ],
         },
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.flaming.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneFlaming",
+        name: "PF2E.WeaponPropertyRune.flaming.Name",
         price: 500,
         rarity: "common",
         slug: "flaming",
@@ -358,11 +382,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     frost: {
         damage: {
             dice: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.frost.Name",
+                    text: "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess",
+                },
+            ],
         },
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.frost.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneFrost",
+        name: "PF2E.WeaponPropertyRune.frost.Name",
         price: 500,
         rarity: "common",
         slug: "frost",
@@ -371,12 +400,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     ghostTouch: {
         damage: {
             notes: [
-                { predicate: { all: ["target:trait:incorporeal"] }, text: "PF2E.WeaponPropertyRune.ghostTouch.Note" },
+                {
+                    predicate: { all: ["target:trait:incorporeal"] },
+                    title: "PF2E.WeaponPropertyRune.ghostTouch.Name",
+                    text: "PF2E.WeaponPropertyRune.ghostTouch.Note",
+                },
             ],
         },
         level: 4,
-        // name: "PF2E.WeaponPropertyRune.ghostTouch.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGhostTouch",
+        name: "PF2E.WeaponPropertyRune.ghostTouch.Name",
         price: 75,
         rarity: "common",
         slug: "ghostTouch",
@@ -385,13 +417,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     greaterAnchoring: {
         damage: {
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterAnchoring.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterAnchoring.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterAnchoring.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterAnchoring.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterAnchoring.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterAnchoring.Note.success",
+                },
             ],
         },
         level: 18,
-        // name: "PF2E.WeaponPropertyRune.greaterAnchoring.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterAnchoring",
+        name: "PF2E.WeaponPropertyRune.greaterAnchoring.Name",
         price: 22_000,
         rarity: "uncommon",
         slug: "greaterAnchoring",
@@ -399,8 +438,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     greaterBloodbane: {
         level: 13,
-        // name: "PF2E.WeaponPropertyRune.greaterBloodbane.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterBloodbane",
+        name: "PF2E.WeaponPropertyRune.greaterBloodbane.Name",
         price: 2_800,
         rarity: "uncommon",
         slug: "greaterBloodbane",
@@ -419,13 +457,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 },
             ],
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.success",
+                },
             ],
         },
         level: 18,
-        // name: "PF2E.WeaponPropertyRune.greaterBrilliant.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterBrilliant",
+        name: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
         price: 24_000,
         rarity: "common",
         slug: "greaterBrilliant",
@@ -435,13 +480,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.success",
+                },
             ],
         },
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.greaterCorrosive.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterCorrosive",
+        name: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
         price: 6_500,
         rarity: "common",
         slug: "greaterCorrosive",
@@ -450,12 +502,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     greaterCrushing: {
         damage: {
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterCrushing.Note.criticalSuccess" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterCrushing.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterCrushing.Note.criticalSuccess",
+                },
             ],
         },
         level: 9,
-        // name: "PF2E.WeaponPropertyRune.greaterCrushing.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterCrushing",
+        name: "PF2E.WeaponPropertyRune.greaterCrushing.Name",
         price: 650,
         rarity: "uncommon",
         slug: "greaterCrushing",
@@ -475,13 +530,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
                 },
             ],
         },
         level: 14,
-        // name: "PF2E.WeaponPropertyRune.greaterDisrupting.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterDisrupting",
+        name: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
         price: 4_300,
         rarity: "uncommon",
         slug: "greaterDisrupting",
@@ -489,8 +544,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     greaterExtending: {
         level: 13,
-        // name: "PF2E.WeaponPropertyRune.greaterExtending.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterExtending",
+        name: "PF2E.WeaponPropertyRune.greaterExtending.Name",
         price: 3_000,
         rarity: "common",
         slug: "greaterExtending",
@@ -498,8 +552,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     greaterFanged: {
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.greaterFanged.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterFanged",
+        name: "PF2E.WeaponPropertyRune.greaterExtending.Name",
         price: 425,
         rarity: "uncommon",
         slug: "greaterFanged",
@@ -508,12 +561,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     greaterFearsome: {
         damage: {
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterFearsome.Note.criticalSuccess" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterFearsome.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFearsome.Note.criticalSuccess",
+                },
             ],
         },
         level: 12,
-        // name: "PF2E.WeaponPropertyRune.greaterFearsome.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterFearsome",
+        name: "PF2E.WeaponPropertyRune.greaterFearsome.Name",
         price: 2_000,
         rarity: "common",
         slug: "greaterFearsome",
@@ -523,13 +579,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [{ damageType: "fire", diceNumber: 1, dieSize: "d6" }],
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
+                },
             ],
         },
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.greaterFlaming.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterFlaming",
+        name: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
         price: 6_500,
         rarity: "common",
         slug: "greaterFlaming",
@@ -539,13 +602,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterFrost.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterFrost.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterFrost.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFrost.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterFrost.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFrost.Note.success",
+                },
             ],
         },
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.greaterFrost.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterFrost",
+        name: "PF2E.WeaponPropertyRune.greaterFrost.Name",
         price: 6_500,
         rarity: "common",
         slug: "greaterFrost",
@@ -553,8 +623,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     greaterHauling: {
         level: 11,
-        // name: "PF2E.WeaponPropertyRune.greaterHauling.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterHauling",
+        name: "PF2E.WeaponPropertyRune.greaterHauling.Name",
         price: 1_300,
         rarity: "uncommon",
         slug: "greaterHauling",
@@ -564,12 +633,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterImpactful.Note.criticalSuccess" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterImpactful.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterImpactful.Note.criticalSuccess",
+                },
             ],
         },
         level: 17,
-        // name: "PF2E.WeaponPropertyRune.greaterImpactful.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterImpactful",
+        name: "PF2E.WeaponPropertyRune.greaterImpactful.Name",
         price: 15_000,
         rarity: "common",
         slug: "greaterImpactful",
@@ -579,13 +651,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.greaterShock.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterShock.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterShock.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterShock.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterShock.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterShock.Note.success",
+                },
             ],
         },
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.greaterShock.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterShock",
+        name: "PF2E.WeaponPropertyRune.greaterShock.Name",
         price: 6_500,
         rarity: "common",
         slug: "greaterShock",
@@ -597,14 +676,18 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
             notes: [
                 {
                     outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterThundering.Name",
                     text: "PF2E.WeaponPropertyRune.greaterThundering.Note.criticalSuccess",
                 },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.greaterThundering.Note.success" },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterThundering.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterThundering.Note.success",
+                },
             ],
         },
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.greaterThundering.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGreaterThundering",
+        name: "PF2E.WeaponPropertyRune.greaterThundering.Name",
         price: 6_500,
         rarity: "common",
         slug: "greaterThundering",
@@ -616,73 +699,85 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:axe"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Axe",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:brawling"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Brawling",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:club"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Club",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:dart"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Dart",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:flail"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Flail",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:hammer"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Hammer",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:knife"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Knife",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:pick"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Pick",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:polearm"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Polearm",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:shield"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Shield",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:sling"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Sling",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:spear"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Spear",
                 },
                 {
                     outcome: ["criticalSuccess"],
                     predicate: { all: ["weapon:group:sword"] },
+                    title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Sword",
                 },
             ],
         },
         level: 9,
-        // name: "PF2E.WeaponPropertyRune.grievous.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneGrievous",
+        name: "PF2E.WeaponPropertyRune.grievous.Name",
         price: 700,
         rarity: "common",
         slug: "grievous",
@@ -690,8 +785,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     hauling: {
         level: 6,
-        // name: "PF2E.WeaponPropertyRune.hauling.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneHauling",
+        name: "PF2E.WeaponPropertyRune.hauling.Name",
         price: 225,
         rarity: "uncommon",
         slug: "hauling",
@@ -702,8 +796,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
             dice: [{ damageType: "good", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:evil"] } }],
         },
         level: 11,
-        // name: "PF2E.WeaponPropertyRune.holy.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneHoly",
+        name: "PF2E.WeaponPropertyRune.holy.Name",
         price: 1_400,
         rarity: "common",
         slug: "holy",
@@ -711,11 +804,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     hopeful: {
         attack: {
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.hopeful.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.hopeful.Name",
+                    text: "PF2E.WeaponPropertyRune.hopeful.Note.criticalSuccess",
+                },
+            ],
         },
         level: 11,
-        // name: "PF2E.WeaponPropertyRune.hopeful.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneHopeful",
+        name: "PF2E.WeaponPropertyRune.hopeful.Name",
         price: 1_200,
         rarity: "uncommon",
         slug: "hopeful",
@@ -724,11 +822,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     impactful: {
         damage: {
             dice: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.impactful.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.impactful.Name",
+                    text: "PF2E.WeaponPropertyRune.impactful.Note.criticalSuccess",
+                },
+            ],
         },
         level: 10,
-        // name: "PF2E.WeaponPropertyRune.impactful.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneImpactful",
+        name: "PF2E.WeaponPropertyRune.impactful.Name",
         price: 1_000,
         rarity: "common",
         slug: "impactful",
@@ -736,11 +839,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     keen: {
         attack: {
-            notes: [{ text: "PF2E.WeaponPropertyRune.keen.Note" }],
+            notes: [
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.keen.Name",
+                    text: "PF2E.WeaponPropertyRune.keen.Note",
+                },
+            ],
         },
         level: 13,
-        // name: "PF2E.WeaponPropertyRune.keen.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneKeen",
+        name: "PF2E.WeaponPropertyRune.keen.Name",
         price: 3_000,
         rarity: "uncommon",
         slug: "keen",
@@ -748,8 +856,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     kinWarding: {
         level: 3,
-        // name: "PF2E.WeaponPropertyRune.kinWarding.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneKinWarding",
+        name: "PF2E.WeaponPropertyRune.kinWarding.Name",
         price: 52,
         rarity: "uncommon",
         slug: "kinWarding",
@@ -757,8 +864,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     majorFanged: {
         level: 15,
-        // name: "PF2E.WeaponPropertyRune.majorFanged.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneMajorFanged",
+        name: "PF2E.WeaponPropertyRune.majorFanged.Name",
         price: 6_000,
         rarity: "uncommon",
         slug: "majorFanged",
@@ -766,8 +872,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     pacifying: {
         level: 5,
-        // name: "PF2E.WeaponPropertyRune.pacifying.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRunePacifying",
+        name: "PF2E.WeaponPropertyRune.pacifying.Name",
         price: 150,
         rarity: "uncommon",
         slug: "pacifying",
@@ -775,11 +880,12 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     returning: {
         attack: {
-            notes: [{ text: "PF2E.WeaponPropertyRune.returning.Note" }],
+            notes: [
+                { title: "PF2E.WeaponPropertyRune.returning.Name", text: "PF2E.WeaponPropertyRune.returning.Note" },
+            ],
         },
         level: 3,
-        // name: "PF2E.WeaponPropertyRune.returning.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneReturning",
+        name: "PF2E.WeaponPropertyRune.returning.Name",
         price: 55,
         rarity: "common",
         slug: "returning",
@@ -788,11 +894,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     serrating: {
         damage: {
             dice: [{ damageType: "slashing", diceNumber: 1, dieSize: "d4" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.serrating.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.serrating.Name",
+                    text: "PF2E.WeaponPropertyRune.serrating.Note.criticalSuccess",
+                },
+            ],
         },
         level: 10,
-        // name: "PF2E.WeaponPropertyRune.serrating.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneSerrating",
+        name: "PF2E.WeaponPropertyRune.serrating.Name",
         price: 1_000,
         rarity: "uncommon",
         slug: "serrating",
@@ -800,8 +911,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     shifting: {
         level: 6,
-        // name: "PF2E.WeaponPropertyRune.shifting.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneShifting",
+        name: "PF2E.WeaponPropertyRune.shifting.Name",
         price: 225,
         rarity: "common",
         slug: "shifting",
@@ -810,11 +920,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     shock: {
         damage: {
             dice: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.shock.Name",
+                    text: "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess",
+                },
+            ],
         },
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.shock.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneShock",
+        name: "PF2E.WeaponPropertyRune.shock.Name",
         price: 500,
         rarity: "common",
         slug: "shock",
@@ -822,8 +937,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     speed: {
         level: 16,
-        // name: "PF2E.WeaponPropertyRune.speed.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneSpeed",
+        name: "PF2E.WeaponPropertyRune.speed.Name",
         price: 10_000,
         rarity: "rare",
         slug: "speed",
@@ -831,8 +945,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     spellStoring: {
         level: 13,
-        // name: "PF2E.WeaponPropertyRune.spellStoring.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneSpellStoring",
+        name: "PF2E.WeaponPropertyRune.spellStoring.Name",
         price: 2_700,
         rarity: "uncommon",
         slug: "spellStoring",
@@ -841,11 +954,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     thundering: {
         damage: {
             dice: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
-            notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.thundering.Note.criticalSuccess" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.thundering.Name",
+                    text: "PF2E.WeaponPropertyRune.thundering.Note.criticalSuccess",
+                },
+            ],
         },
         level: 8,
-        // name: "PF2E.WeaponPropertyRune.thundering.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneThundering",
+        name: "PF2E.WeaponPropertyRune.thundering.Name",
         price: 500,
         rarity: "common",
         slug: "thundering",
@@ -856,8 +974,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
             dice: [{ damageType: "evil", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:good"] } }],
         },
         level: 11,
-        // name: "PF2E.WeaponPropertyRune.unholy.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneUnholy",
+        name: "PF2E.WeaponPropertyRune.unholy.Name",
         price: 1_400,
         rarity: "common",
         slug: "unholy",
@@ -865,8 +982,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     vorpal: {
         level: 17,
-        // name: "PF2E.WeaponPropertyRune.vorpal.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneVorpal",
+        name: "PF2E.WeaponPropertyRune.vorpal.Name",
         price: 15_000,
         rarity: "rare",
         slug: "vorpal",
@@ -875,13 +991,20 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     wounding: {
         damage: {
             notes: [
-                { outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.wounding.Note.criticalSuccess" },
-                { outcome: ["success"], text: "PF2E.WeaponPropertyRune.wounding.Note.success" },
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.wounding.Name",
+                    text: "PF2E.WeaponPropertyRune.wounding.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.wounding.Name",
+                    text: "PF2E.WeaponPropertyRune.wounding.Note.success",
+                },
             ],
         },
         level: 7,
-        // name: "PF2E.WeaponPropertyRune.wounding.Name", // wait for translations to catch up
-        name: "PF2E.WeaponPropertyRuneWounding",
+        name: "PF2E.WeaponPropertyRune.wounding.Name",
         price: 340,
         rarity: "common",
         slug: "wounding",

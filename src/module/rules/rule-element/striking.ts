@@ -1,6 +1,6 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { getStrikingDice } from "@item/runes";
+import { getStrikingDice } from "@item/physical/runes";
 import { StrikingSynthetic } from "../synthetics";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 

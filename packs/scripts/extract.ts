@@ -165,15 +165,13 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
 
-                    (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
-                        texture: {
-                            src: docSource.prototypeToken.texture.src.replace(
-                                "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                                "systems/pf2e/"
-                            ) as ImagePath | VideoPath,
-                        },
-                        name: docSource.prototypeToken.name,
-                    };
+                    if (docSource.prototypeToken.name === docSource.name) {
+                        delete (docSource as { prototypeToken?: unknown }).prototypeToken;
+                    } else {
+                        (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
+                            name: docSource.prototypeToken.name,
+                        };
+                    }
 
                     if (docSource.type === "npc") {
                         const { source } = docSource.system.details;

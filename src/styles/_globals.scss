@@ -1,5 +1,5 @@
 /* ----------------------------------------- */
-/* Global Settings                           */
+/* Animation                                 */
 /* ----------------------------------------- */
 
 :root {
@@ -11,18 +11,6 @@
 /* ----------------------------------------- */
 /* Layout                                    */
 /* ----------------------------------------- */
-
-$padding: 0.5em;
-$margin: 0.5em;
-
-.grid {
-    display: grid;
-    grid-template-rows: 1fr;
-}
-
-.flex {
-    display: flex;
-}
 
 /** A vertical rule in a flexbox */
 .vr {
@@ -127,7 +115,7 @@ a.foundry-href {
     cursor: pointer;
     font-weight: 500;
     line-height: 1.5em;
-    padding: 1px 0.2em;
+    padding: 1px 0.2em 0;
     white-space: nowrap;
     word-break: break-all;
 
@@ -265,8 +253,11 @@ i[data-pf2-repost] {
     background: var(--inline-repost-bg);
     border: 2px outset var(--color-text-light-7);
     color: var(--color-text-dark-inactive);
+    font-size: 0.833em;
     margin-left: 0.25em;
-    padding: 0.08em;
+    padding: 0.167em;
+    position: relative;
+    top: -0.125em; // Cover top border
 
     &:hover {
         color: var(--color-text-light-7);

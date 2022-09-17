@@ -1,4 +1,5 @@
-import { ArmorCategory, ArmorGroup, ArmorSystemSource } from "@item/armor/data";
+import { ArmorSystemSource } from "@item/armor/data";
+import { ArmorCategory, ArmorGroup } from "@item/armor/types";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 

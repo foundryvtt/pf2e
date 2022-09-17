@@ -27,7 +27,7 @@ import {
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
-import { ArmorCategory } from "@item/armor/data";
+import { ArmorCategory } from "@item/armor/types";
 import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
 import { DeityDomain } from "@item/deity/types";

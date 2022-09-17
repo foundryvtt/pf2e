@@ -2,16 +2,28 @@ import { CreaturePF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
+import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { AbstractEffectPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    fontAwesomeIcon,
+    htmlClosest,
+    htmlQueryAll,
+    objectHasKey,
+    setHasElement,
+    tupleHasValue,
+} from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
 import { SkillData } from "./data";
+import { SpellPreparationSheet } from "./spell-preparation-sheet";
 import { CreatureSheetData, SpellcastingSheetData } from "./types";
 
 /**
@@ -124,6 +136,17 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         };
     }
 
+    /** Opens the spell preparation sheet, but only if its a prepared entry */
+    openSpellPreparationSheet(entryId: string) {
+        const entry = this.actor.items.get(entryId);
+        if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
+            const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
+            const offset = $book.offset() ?? { left: 0, top: 0 };
+            const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
+            sheet.render(true);
+        }
+    }
+
     protected async prepareSpellcasting(): Promise<SpellcastingSheetData[]> {
         const entries = await Promise.all(
             this.actor.spellcasting.map(async (entry) => {
@@ -157,6 +180,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
@@ -279,6 +303,62 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
+        // Adding/Editing/Removing Spellcasting entries
+        for (const section of htmlQueryAll(html, ".tab.spellcasting, .tab.spells") ?? []) {
+            for (const element of htmlQueryAll(section, "[data-action=spellcasting-create]") ?? []) {
+                element.addEventListener("click", (event) => {
+                    createSpellcastingDialog(event, this.actor);
+                });
+            }
+
+            for (const element of htmlQueryAll(section, "[data-action=spellcasting-edit]") ?? []) {
+                element.addEventListener("click", (event) => {
+                    const containerId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
+                    const entry = this.actor.spellcasting.get(containerId, { strict: true });
+                    createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
+                });
+            }
+
+            for (const element of htmlQueryAll(section, "[data-action=spellcasting-remove]") ?? []) {
+                element.addEventListener("click", (event) => {
+                    const itemId = htmlClosest(event.currentTarget, "[data-container-id]")?.dataset.itemId;
+                    const item = this.actor.items.get(itemId, { strict: true });
+
+                    // Render confirmation modal dialog
+                    renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.html").then((html) => {
+                        new Dialog({
+                            title: "Delete Confirmation",
+                            content: html,
+                            buttons: {
+                                Yes: {
+                                    icon: '<i class="fa fa-check"></i>',
+                                    label: "Yes",
+                                    callback: async () => {
+                                        console.debug("PF2e System | Deleting Spell Container: ", item.name);
+                                        // Delete all child objects
+                                        const itemsToDelete: string[] = [];
+                                        for (const item of this.actor.itemTypes.spell) {
+                                            if (item.system.location.value === itemId) {
+                                                itemsToDelete.push(item.id);
+                                            }
+                                        }
+                                        // Delete item container
+                                        itemsToDelete.push(item.id);
+                                        await this.actor.deleteEmbeddedDocuments("Item", itemsToDelete);
+                                    },
+                                },
+                                cancel: {
+                                    icon: '<i class="fas fa-times"></i>',
+                                    label: "Cancel",
+                                },
+                            },
+                            default: "Yes",
+                        }).render(true);
+                    });
+                });
+            }
+        }
+
         $html.find(".spell-attack").on("click", async (event) => {
             if (!this.actor.isOfType("character")) {
                 throw ErrorPF2e("This sheet only works for characters");
@@ -290,13 +370,37 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
         });
 
+        $html.find(".prepared-toggle").on("click", async (event) => {
+            event.preventDefault();
+            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
+            this.openSpellPreparationSheet(itemId);
+        });
+
+        // Update max slots for Spell Items
+        $html.find(".slotless-level-toggle").on("click", async (event) => {
+            event.preventDefault();
+
+            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
+            const itemToEdit = this.actor.items.get(itemId);
+            if (!itemToEdit?.isOfType("spellcastingEntry"))
+                throw new Error("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
+            const bool = !(itemToEdit.system.showSlotlessLevels || {}).value;
+
+            await this.actor.updateEmbeddedDocuments("Item", [
+                {
+                    _id: itemId ?? "",
+                    "system.showSlotlessLevels.value": bool,
+                },
+            ]);
+        });
+
         // Casting spells and consuming slots
         $html.find("button[data-action=cast-spell]").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");
             const { itemId, slotLevel, slotId, entryId } = $spellEl.data();
-            const entry = this.actor.spellcasting.get(entryId, { strict: true });
-            const spell = entry.spells.get(itemId, { strict: true });
-            entry.cast(spell, { slot: slotId, level: slotLevel });
+            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const spell = collection.get(itemId, { strict: true });
+            collection.entry.cast(spell, { slot: slotId, level: slotLevel });
         });
 
         // Regenerating spell slots and spell uses
@@ -373,6 +477,107 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 await effect.increase();
             }
         });
+    }
+
+    /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
+    protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        const $dropItemEl = $(event.target).closest(".item");
+        const $dropContainerEl = $(event.target).closest(".item-container");
+
+        const dropSlotType = $dropItemEl.attr("data-item-type");
+        const dropContainerType = $dropContainerEl.attr("data-container-type");
+
+        const item = this.actor.items.get(itemSource._id);
+        if (!item) return [];
+
+        // if they are dragging onto another spell, it's just sorting the spells
+        // or moving it from one spellcastingEntry to another
+        if (item.isOfType("spell")) {
+            const targetLocation = $dropContainerEl.attr("data-container-id") ?? "";
+            const collection = this.actor.spellcasting.collections.get(targetLocation, { strict: true });
+
+            if (dropSlotType === "spellLevel") {
+                const { level } = $dropItemEl.data();
+                const spell = await collection.addSpell(item, { slotLevel: Number(level) });
+                this.openSpellPreparationSheet(collection.id);
+                return [spell ?? []].flat();
+            } else if ($dropItemEl.attr("data-slot-id")) {
+                const dropId = Number($dropItemEl.attr("data-slot-id"));
+                const slotLevel = Number($dropItemEl.attr("data-slot-level"));
+
+                if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
+                    const allocated = await collection.prepareSpell(item, slotLevel, dropId);
+                    if (allocated) return [allocated];
+                }
+            } else if (dropSlotType === "spell") {
+                const dropId = $dropItemEl.attr("data-item-id") ?? "";
+                const target = this.actor.items.get(dropId);
+                if (target?.isOfType("spell") && item.id !== dropId) {
+                    const sourceLocation = item.system.location.value;
+
+                    // Inner helper to test if two spells are siblings
+                    const testSibling = (item: SpellPF2e, test: SpellPF2e) => {
+                        if (item.isCantrip !== test.isCantrip) return false;
+                        if (item.isCantrip && test.isCantrip) return true;
+                        if (item.isFocusSpell && test.isFocusSpell) return true;
+                        if (item.level === test.level) return true;
+                        return false;
+                    };
+
+                    if (sourceLocation === targetLocation && testSibling(item, target)) {
+                        const siblings = collection.filter((spell) => testSibling(item, spell));
+                        await item.sortRelative({ target, siblings });
+                        return [target];
+                    } else {
+                        const spell = await collection.addSpell(item, { slotLevel: target.level });
+                        this.openSpellPreparationSheet(collection.id);
+                        return [spell ?? []].flat();
+                    }
+                }
+            } else if (dropContainerType === "spellcastingEntry") {
+                // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
+                // if the dragged item is a spell and is from the same actor
+                if (CONFIG.debug.hooks)
+                    console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
+
+                const dropId = $(event.target).parents(".item-container").attr("data-container-id");
+                return dropId ? [await item.update({ "system.location.value": dropId })] : [];
+            }
+        } else if (item.isOfType("spellcastingEntry")) {
+            // target and source are spellcastingEntries and need to be sorted
+            if (dropContainerType === "spellcastingEntry") {
+                const sourceId = item.id;
+                const dropId = $dropContainerEl.attr("data-container-id") ?? "";
+                const source = this.actor.items.get(sourceId);
+                const target = this.actor.items.get(dropId);
+
+                if (source && target && source.id !== target.id) {
+                    const siblings = this.actor.spellcasting.contents;
+                    source.sortRelative({ target, siblings });
+                    return [target];
+                }
+            }
+        }
+
+        return super._onSortItem(event, itemSource);
+    }
+
+    /** Handle dragging spells onto spell slots. */
+    protected override async _handleDroppedItem(
+        event: ElementDragEvent,
+        item: ItemPF2e,
+        data: DropCanvasItemDataPF2e
+    ): Promise<ItemPF2e[]> {
+        const containerEl = htmlClosest(event.target, ".item-container");
+        if (item.isOfType("spell") && containerEl?.dataset.containerType === "spellcastingEntry") {
+            const entryId = containerEl.dataset.containerId;
+            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);
+            this.openSpellPreparationSheet(collection.id);
+            return [(await collection.addSpell(item, { slotLevel: Math.max(slotLevel, item.baseLevel) })) ?? []].flat();
+        }
+
+        return super._handleDroppedItem(event, item, data);
     }
 
     /** Replace sheet config with a special PC config form application */

@@ -15,7 +15,7 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         return {
             ...sheetData,
             hasSidebar: true,
-            itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "ITEM.TypeFeat"),
+            itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "PF2E.Item.Feat.LevelLabel"),
             featTypes: CONFIG.PF2E.featTypes,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
