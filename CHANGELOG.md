@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 4.0.6
+
+### System Improvements
+* (stwlam) Skip module nags for modules with no `esmodules` or `scripts`
+
+### Bugfixes
+* (In3luki) Fix Compendium Browser order-by values getting defaulted to name
+* (In3luki) Fix display of class features in the class item sheet details tab
+* (stwlam) Fix issue causing predicated new movement types to always be applied to a PC
+* (stwlam) Fix damage roll notes getting dropped from chat cards
+* (stwlam) Fix item-drop handling on kit sheets
+* (stwlam) Fix issue preventing JSON imports from V9 actors
+
+### Data Updates
+* (LebombJames) Brushup witch features and feats
+* (LebombJames) Correct "Feat/Feature" in Feat Sheet Header
+* (Shandyan) Automate tiefling feats
+* (Shandyan) Correct Crunch feat, Runelord Specialization and remove Form of the Fiend variants
+* (SkepticRobot) Add missing Dark Archive backgrounds
+* (Tikael) Fix Cover effect
+
+
 ## Version 4.0.5
 
 ### Bugfixes
