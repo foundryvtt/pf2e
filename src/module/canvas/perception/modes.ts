@@ -47,6 +47,32 @@ class HearingDetectionMode extends DetectionMode {
     }
 }
 
+class DetectionModeTremorPF2e extends DetectionModeTremor {
+    constructor() {
+        super({
+            id: "feelTremor",
+            label: "DETECTION.FeelTremor",
+            walls: false,
+            type: DetectionMode.DETECTION_TYPES.MOVE,
+        });
+    }
+
+    static override getDetectionFilter(): OutlineOverlayFilter {
+        const filter = super.getDetectionFilter();
+        filter.thickness = 1;
+        return filter;
+    }
+
+    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+        return (
+            super._canDetect(visionSource, target) &&
+            target instanceof TokenPF2e &&
+            !target.actor?.isOfType("loot") &&
+            !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))
+        );
+    }
+}
+
 declare namespace HearingDetectionMode {
     // eslint-disable-next-line no-var
     var _detectionFilter: OutlineOverlayFilter | undefined;
@@ -55,6 +81,7 @@ declare namespace HearingDetectionMode {
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
+    CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }
 
 export { setPerceptionModes };
