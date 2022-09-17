@@ -1,12 +1,11 @@
-import { KitPF2e } from "@item/kit";
-import { PhysicalItemPF2e } from "@item/physical";
-import { CoinsPF2e } from "@item/physical/helpers";
+import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { htmlClosest, htmlQueryAll } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
+import { KitEntryData } from "./data";
+import { KitPF2e } from "./index";
 
-/**
- * @category Other
- */
-export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
+class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -15,11 +14,18 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>) {
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<KitSheetData> {
+        const items = Object.fromEntries(
+            Object.entries(this.item.system.items).map(([key, ref]): [string, KitEntrySheetData] => [
+                key,
+                { ...ref, fromWorld: ref.uuid.startsWith("Item.") },
+            ])
+        );
+
         return {
             ...(await super.getData(options)),
-            type: "kit",
             priceString: this.item.price.value,
+            items,
             hasSidebar: true,
             hasDetails: true,
         };
@@ -27,25 +33,21 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
     protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
-        const dropTarget = $(event.target);
         const dragData = event.dataTransfer?.getData("text/plain");
         const dragItem = JSON.parse(dragData ?? "");
         const containerId =
-            dropTarget.data("containerId") ?? dropTarget.parents("[data-container-id]").data("containerId");
+            event.target.dataset.containerId ??
+            event.target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
 
         if (dragItem.type !== "Item") return;
 
-        const item = dragItem.pack
-            ? await game.packs.get(dragItem.pack)?.getDocument(dragItem.id)
-            : game.items.get(dragItem.id);
-
+        const item = await fromUuid(dragItem.uuid ?? "");
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             return;
         }
 
         const entry = {
-            pack: dragItem.pack,
-            id: dragItem.id,
+            uuid: item.uuid,
             img: item.img,
             quantity: 1,
             name: item.name,
@@ -68,21 +70,26 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    removeItem(event: JQuery.ClickEvent): Promise<KitPF2e> {
-        event.preventDefault();
-        const target = $(event.target).parents("li");
-        const containerId = target.parents("[data-container-id]").data("containerId");
-        let path = `-=${target.data("index")}`;
-        if (containerId) {
-            path = `${containerId}.items.${path}`;
-        }
+    async removeItem(event: MouseEvent): Promise<KitPF2e> {
+        const target = htmlClosest(event.currentTarget ?? null, "li");
+        const index = target?.dataset.index;
+        if (!index) return this.item;
+
+        const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
+        const path = containerId ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
 
         return this.item.update({ [`system.items.${path}`]: null });
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        $html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
+        const html = $html[0]!;
+
+        for (const link of htmlQueryAll(html, "[data-action=remove]")) {
+            link.addEventListener("click", (event) => {
+                this.removeItem(event);
+            });
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -94,3 +101,14 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         return super._updateObject(event, formData);
     }
 }
+
+interface KitSheetData extends ItemSheetDataPF2e<KitPF2e> {
+    priceString: CoinsPF2e;
+    items: Record<string, KitEntrySheetData>;
+}
+
+interface KitEntrySheetData extends KitEntryData {
+    fromWorld: boolean;
+}
+
+export { KitSheetPF2e };
