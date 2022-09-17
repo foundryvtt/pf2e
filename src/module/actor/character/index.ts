@@ -43,13 +43,19 @@ import {
 } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
-import { ARMOR_CATEGORIES } from "@item/armor/values";
+import { ARMOR_CATEGORIES } from "@item/armor";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus, ItemCarryType } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
-import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
-import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
+import {
+    WeaponCategory,
+    WeaponDamage,
+    WeaponPropertyRuneType,
+    WeaponSource,
+    WeaponSystemSource,
+    WEAPON_CATEGORIES,
+    WEAPON_PROPERTY_RUNE_TYPES,
+} from "@item/weapon";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
