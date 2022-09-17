@@ -287,7 +287,11 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             token.height = size;
 
             if (game.settings.get("pf2e", "tokens.autoscale") && token.flags.pf2e.autoscale !== false) {
-                token.texture.scaleX = token.texture.scaleY = actor.size === "sm" ? 0.8 : 1;
+                const absoluteScale = actor.size === "sm" ? 0.8 : 1;
+                const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
+                token.texture.scaleX = mirrorX * absoluteScale;
+                const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
+                token.texture.scaleY = mirrorY * absoluteScale;
             }
         }
     }
