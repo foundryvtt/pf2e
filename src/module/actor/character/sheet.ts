@@ -647,6 +647,20 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 scope: "check",
             };
 
+            const skill = () => {
+                const rollOptions = this.actor.getRollOptions(["all"]);
+                if (rollOptions.includes("feat:herbalist-dedication")) {
+                    if (
+                        formula.item.isAlchemical &&
+                        formula.item.traits.has("healing") &&
+                        this.actor.skills.nature.check.mod >= this.actor.skills.crafting.check.mod
+                    ) {
+                        return "nature";
+                    }
+                }
+                return "crafting";
+            };
+
             craft({
                 difficultyClass,
                 item: formula.item,
@@ -654,6 +668,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 event,
                 actors: this.actor,
                 free: free === "true",
+                skill: skill(),
             });
         });
 
