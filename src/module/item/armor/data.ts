@@ -5,10 +5,17 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-} from "@item/physical/data";
+} from "@item/physical";
 import { OneToFour, ZeroToThree } from "@module/data";
-import type { ArmorPF2e } from ".";
-import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType, OtherArmorTag, ResilientRuneType } from "./types";
+import {
+    ArmorCategory,
+    ArmorGroup,
+    ArmorTrait,
+    BaseArmorType,
+    OtherArmorTag,
+    ResilientRuneType,
+    type ArmorPF2e,
+} from ".";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 

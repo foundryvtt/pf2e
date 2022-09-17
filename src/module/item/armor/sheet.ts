@@ -7,8 +7,7 @@ import {
 } from "@item/physical";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { LocalizePF2e } from "@system/localize";
-import { ArmorPF2e } from ".";
-import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types";
+import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from ".";
 
 class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
