@@ -4,7 +4,7 @@ import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
 import { isObject, pick } from "@util";
 import { BracketedValue } from "./rule-element/data";
-import { DeferredDamageDice, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
+import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -24,7 +24,7 @@ function extractModifiers(
 }
 
 function extractModifierAdjustments(
-    adjustmentsRecord: Record<string, ModifierAdjustment[]>,
+    adjustmentsRecord: RuleElementSynthetics["modifierAdjustments"],
     selectors: string[],
     slug: string
 ): ModifierAdjustment[] {
@@ -38,7 +38,7 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 }
 
 function extractDamageDice(
-    deferredDice: { [K in string]?: DeferredDamageDice[] },
+    deferredDice: DamageDiceSynthetics,
     selectors: string[],
     options: DeferredValueParams = {}
 ): DamageDicePF2e[] {
