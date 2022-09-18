@@ -193,6 +193,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     docSource.system.description = { value: docSource.system.description.value };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
+                        if (docSource.system.traits.otherTags?.length === 0) {
+                            delete (docSource.system.traits as { otherTags?: unknown }).otherTags;
+                        }
                         if (docSource.type === "consumable" && !docSource.system.spell) {
                             delete (docSource.system as { spell?: unknown }).spell;
                         }
