@@ -165,9 +165,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
 
-                    if (docSource.prototypeToken.name === docSource.name) {
+                    if (docSource.prototypeToken?.name === docSource.name) {
                         delete (docSource as { prototypeToken?: unknown }).prototypeToken;
-                    } else {
+                    } else if (docSource.prototypeToken) {
                         (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
                             name: docSource.prototypeToken.name,
                         };
