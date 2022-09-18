@@ -16,6 +16,7 @@ import { CheckPF2e, CheckType } from "@system/rolls";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { SimpleRollActionCheckOptions } from "./types";
+import { getRangeIncrement } from "@actor/helpers";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -186,9 +187,11 @@ export class ActionMacroHelpers {
                     ? selfToken.object.distanceTo(target.object, { reach })
                     : null;
             })();
+            const rangeIncrement = weapon && typeof distance === "number" ? getRangeIncrement(weapon, distance) : null;
+
             const targetInfo =
                 target && targetActor && typeof distance === "number"
-                    ? { token: target, actor: targetActor, distance }
+                    ? { token: target, actor: targetActor, distance, rangeIncrement }
                     : null;
             const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
             const substitutions = extractRollSubstitutions(

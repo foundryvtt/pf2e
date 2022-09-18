@@ -298,7 +298,7 @@ class StatisticCheck {
             const isCreature = actor.isOfType("creature");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
             if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(data.check.type)) {
-                return actor.getAttackRollContext({ domains, item });
+                return actor.getAttackRollContext({ item, domains, options: new Set() });
             }
 
             return null;
@@ -317,7 +317,11 @@ class StatisticCheck {
                 .find((a) => a.isOfType("creature"));
 
         const extraModifiers = [...(args?.modifiers ?? [])];
-        const options = this.createRollOptions({ ...args, target });
+        const options = this.createRollOptions({
+            ...args,
+            target,
+            extraRollOptions: Array.from(rollContext?.options ?? []),
+        });
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
