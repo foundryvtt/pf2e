@@ -272,7 +272,7 @@ class WeaponDamagePF2e {
 
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
-            diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
+            diceModifiers.push(new DiceModifierPF2e({ label: CONFIG.PF2E.weaponPropertyRunes.ghostTouch }));
         }
 
         // Backstabber trait
