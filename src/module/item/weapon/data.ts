@@ -42,10 +42,9 @@ type WeaponFlags = ItemFlagsPF2e & {
     };
 };
 
-interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
-    otherTags?: OtherWeaponTag[];
+interface WeaponTraits extends PhysicalItemTraits<WeaponTrait> {
+    otherTags: OtherWeaponTag[];
 }
-type WeaponTraits = Required<WeaponSourceTraits>;
 
 interface WeaponDamage {
     value?: string;
@@ -81,7 +80,7 @@ interface WeaponPropertyRuneSlot {
 }
 
 interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
-    traits: WeaponSourceTraits;
+    traits: WeaponTraits;
     category: WeaponCategory;
     group: WeaponGroup | null;
     baseItem: BaseWeaponType | null;
@@ -140,9 +139,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 
 interface WeaponSystemData
     extends Omit<WeaponSystemSource, "identification" | "price" | "temporary">,
-        Investable<PhysicalSystemData> {
+        Omit<Investable<PhysicalSystemData>, "traits"> {
     baseItem: BaseWeaponType | null;
-    traits: WeaponTraits;
     maxRange: number | null;
     reload: {
         value: WeaponReloadTime | null;

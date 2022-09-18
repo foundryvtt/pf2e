@@ -74,10 +74,8 @@ interface ArmorSystemData
     };
 }
 
-interface ArmorTraitsSource extends PhysicalItemTraits<ArmorTrait> {
-    otherTags?: OtherArmorTag[];
+interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
+    otherTags: OtherArmorTag[];
 }
-
-type ArmorTraits = Required<ArmorTraitsSource>;
 
 export { ArmorData, ArmorSource, ArmorSystemData, ArmorSystemSource };
