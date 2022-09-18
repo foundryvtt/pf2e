@@ -95,11 +95,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         if (typeof data.rank === "number") {
             this.rank = data.rank;
-            this.proficient = this.rank > 0;
             this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
-        } else {
-            this.proficient = data.proficient === undefined ? true : !!data.proficient;
+        } else if (data.rank === "untrained-level") {
+            this.rank = 0;
+            this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
         }
+
+        // Check rank and data to assign proficient, but default to true
+        this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
 
         if (actor.isOfType("character") && this.ability) {
             this.abilityModifier = createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });

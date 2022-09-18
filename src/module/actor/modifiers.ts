@@ -278,58 +278,6 @@ interface CreateAbilityModifierParams {
     domains: string[];
 }
 
-// proficiency ranks
-const UNTRAINED = {
-    atLevel: (_level: number) => {
-        const modifier = (game.settings.get("pf2e", "proficiencyUntrainedModifier") as number | null) ?? 0;
-        return new ModifierPF2e("PF2E.ProficiencyLevel0", modifier, MODIFIER_TYPE.PROFICIENCY);
-    },
-};
-
-const TRAINED = {
-    atLevel: (level: number) => {
-        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
-        let modifier = game.settings.get("pf2e", "proficiencyTrainedModifier") ?? 2;
-        if (rule === "ProficiencyWithLevel") {
-            modifier += level;
-        }
-        return new ModifierPF2e("PF2E.ProficiencyLevel1", modifier, MODIFIER_TYPE.PROFICIENCY);
-    },
-};
-
-const EXPERT = {
-    atLevel: (level: number) => {
-        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
-        let modifier = game.settings.get("pf2e", "proficiencyExpertModifier") ?? 4;
-        if (rule === "ProficiencyWithLevel") {
-            modifier += level;
-        }
-        return new ModifierPF2e("PF2E.ProficiencyLevel2", modifier, MODIFIER_TYPE.PROFICIENCY);
-    },
-};
-
-const MASTER = {
-    atLevel: (level: number) => {
-        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
-        let modifier = game.settings.get("pf2e", "proficiencyMasterModifier") ?? 6;
-        if (rule === "ProficiencyWithLevel") {
-            modifier += level;
-        }
-        return new ModifierPF2e("PF2E.ProficiencyLevel3", modifier, MODIFIER_TYPE.PROFICIENCY);
-    },
-};
-
-const LEGENDARY = {
-    atLevel: (level: number) => {
-        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
-        let modifier = game.settings.get("pf2e", "proficiencyLegendaryModifier") ?? 8;
-        if (rule === "ProficiencyWithLevel") {
-            modifier += level;
-        }
-        return new ModifierPF2e("PF2E.ProficiencyLevel4", modifier, MODIFIER_TYPE.PROFICIENCY);
-    },
-};
-
 const ProficiencyModifier = {
     /**
      * Create a modifier for a given proficiency level of some ability.
@@ -337,21 +285,21 @@ const ProficiencyModifier = {
      * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
      * @returns The modifier for the given proficiency rank and character level.
      */
-    fromLevelAndRank: (level: number, rank: number): ModifierPF2e => {
-        switch (rank || 0) {
-            case 0:
-                return UNTRAINED.atLevel(level);
-            case 1:
-                return TRAINED.atLevel(level);
-            case 2:
-                return EXPERT.atLevel(level);
-            case 3:
-                return MASTER.atLevel(level);
-            case 4:
-                return LEGENDARY.atLevel(level);
-            default:
-                return rank >= 5 ? LEGENDARY.atLevel(level) : UNTRAINED.atLevel(level);
-        }
+    fromLevelAndRank: (level: number, rank: number, options: { addLevel?: boolean } = {}): ModifierPF2e => {
+        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
+        const addLevel = (options.addLevel ?? rank > 0) && rule === "ProficiencyWithLevel";
+        rank = Math.clamped(rank, 0, 4);
+
+        const modifier =
+            [
+                0,
+                game.settings.get("pf2e", "proficiencyTrainedModifier") ?? 2,
+                game.settings.get("pf2e", "proficiencyExpertModifier") ?? 4,
+                game.settings.get("pf2e", "proficiencyMasterModifier") ?? 6,
+                game.settings.get("pf2e", "proficiencyLegendaryModifier") ?? 8,
+            ][rank] + (addLevel ? level : 0);
+
+        return new ModifierPF2e(`PF2E.ProficiencyLevel${rank}`, modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 };
 

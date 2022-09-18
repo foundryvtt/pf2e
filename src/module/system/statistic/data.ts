@@ -25,9 +25,9 @@ export interface BaseStatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
     ability?: AbilityString;
-    rank?: ZeroToFour;
+    rank?: ZeroToFour | "untrained-level";
     label: string;
-    /** If given and rank is omitted, declares if the statistic is with proficiency */
+    /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
