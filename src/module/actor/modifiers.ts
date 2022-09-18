@@ -574,7 +574,7 @@ class DiceModifierPF2e implements BaseRawModifier {
      * True means the dice are added to critical without doubling; false means the dice are never added to critical
      * damage; omitted means add to normal damage and double on critical damage.
      */
-    critical?: boolean;
+    critical: boolean | null;
     /** The damage category of these dice. */
     category: string | null;
     damageType: string | null;
@@ -594,7 +594,7 @@ class DiceModifierPF2e implements BaseRawModifier {
 
         this.diceNumber = param.diceNumber ?? 0;
         this.dieSize = param.dieSize ?? null;
-        this.critical = param.critical;
+        this.critical = param.critical ?? null;
         this.damageType = param.damageType ?? null;
         this.category = param.category ?? null;
         this.override = param.override ?? null;
