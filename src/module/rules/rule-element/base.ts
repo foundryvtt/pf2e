@@ -120,7 +120,10 @@ abstract class RuleElementPF2e {
         if (this.data.ignored) return false;
         if (!this.data.predicate) return true;
 
-        return this.resolveInjectedProperties(this.data.predicate).test(rollOptions ?? this.actor.getRollOptions());
+        const optionSet =
+            rollOptions instanceof Set ? rollOptions : new Set(rollOptions ?? this.actor.getRollOptions());
+
+        return this.resolveInjectedProperties(this.data.predicate).test(optionSet);
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
@@ -158,10 +161,8 @@ abstract class RuleElementPF2e {
      * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties<T extends object>(source: T): T;
-    resolveInjectedProperties(source?: string): string;
-    resolveInjectedProperties(source: string | object): string | object;
-    resolveInjectedProperties(source: string | object = ""): string | object {
+    resolveInjectedProperties<T extends string | object | null | undefined>(source: T): T;
+    resolveInjectedProperties(source: string | object | undefined): string | object | undefined {
         if (typeof source === "string" && !source.includes("{")) return source;
 
         // Walk the object tree and resolve any string values found
@@ -286,8 +287,12 @@ abstract class RuleElementPF2e {
             : value;
     }
 
-    private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {
-        return value instanceof Object && "brackets" in value && Array.isArray(value.brackets);
+    protected isBracketedValue(value: unknown): value is BracketedValue {
+        return (
+            isObject<BracketedValue>(value) &&
+            Array.isArray(value.brackets) &&
+            (typeof value.field === "string" || !("fields" in value))
+        );
     }
 }
 

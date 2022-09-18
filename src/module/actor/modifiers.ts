@@ -2,7 +2,9 @@ import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifierAdjustments } from "@module/rules/util";
-import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "@system/damage";
+import { DamageDieSize, DamageType } from "@system/damage/types";
+import { DamageCategorization } from "@system/damage/helpers";
+import { DAMAGE_TYPES } from "@system/damage/values";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
@@ -109,7 +111,7 @@ interface DeferredValueParams {
     /** Roll Options to get against a predicate (if available) */
     test?: string[] | Set<string>;
 }
-type DeferredValue<T> = (options?: DeferredValueParams) => T;
+type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 class ModifierPF2e implements RawModifier {
@@ -615,44 +617,39 @@ interface DamageDiceOverride {
  */
 class DiceModifierPF2e implements BaseRawModifier {
     slug: string;
-    /**
-     * Formerly both a slug and label; should prefer separately set slugs and labels
-     * @deprecated
-     */
-    name?: string;
     label: string;
     /** The number of dice to add. */
     diceNumber: number;
     /** The size of the dice to add. */
-    dieSize?: DamageDieSize;
+    dieSize: DamageDieSize | null;
     /**
      * True means the dice are added to critical without doubling; false means the dice are never added to critical
      * damage; omitted means add to normal damage and double on critical damage.
      */
     critical?: boolean;
     /** The damage category of these dice. */
-    category?: string;
-    damageType?: string | null;
+    category: string | null;
+    damageType: string | null;
     /** If true, these dice overide the base damage dice of the weapon. */
-    override?: DamageDiceOverride;
+    override: DamageDiceOverride | null;
     ignored: boolean;
     enabled: boolean;
     custom: boolean;
     predicate: PredicatePF2e;
 
     constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
-        this.label = game.i18n.localize(param.label ?? param.name ?? "");
+        this.label = game.i18n.localize(param.label ?? "");
         this.slug = sluggify(param.slug ?? this.label);
         if (!this.slug) {
             throw ErrorPF2e("A DiceModifier must have a slug");
         }
 
-        this.diceNumber = param.diceNumber ?? 0; // zero dice is allowed
-        this.dieSize = param.dieSize;
+        this.diceNumber = param.diceNumber ?? 0;
+        this.dieSize = param.dieSize ?? null;
         this.critical = param.critical;
-        this.damageType = param.damageType;
-        this.category = param.category;
-        this.override = param.override;
+        this.damageType = param.damageType ?? null;
+        this.category = param.category ?? null;
+        this.override = param.override ?? null;
         this.custom = param.custom ?? false;
 
         if (this.damageType) {

@@ -1,9 +1,9 @@
-import { DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { RollTwiceOption } from "@system/rolls";
 import { isObject } from "@util";
 import { BracketedValue } from "./rule-element/data";
-import { RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
+import { DeferredDamageDice, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -36,6 +36,14 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
 }
 
+function extractDamageDice(
+    deferredDice: { [K in string]?: DeferredDamageDice[] },
+    selectors: string[],
+    options: DeferredValueParams = {}
+): DamageDicePF2e[] {
+    return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
+}
+
 function extractRollTwice(
     rollTwices: Record<string, RollTwiceSynthetic[]>,
     selectors: string[],
@@ -65,6 +73,7 @@ function isBracketedValue(value: unknown): value is BracketedValue {
 }
 
 export {
+    extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
