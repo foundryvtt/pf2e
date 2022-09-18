@@ -15,17 +15,17 @@ interface RuleElementSynthetics {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
     };
-    damageDice: Record<string, DeferredDamageDice[]>;
+    damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
-    modifierAdjustments: Record<string, ModifierAdjustment[]>;
+    modifierAdjustments: ModifierAdjustmentSynthetics;
     movementTypes: { [K in BaseSpeedType]?: DeferredMovementType[] };
     multipleAttackPenalties: Record<string, MAPSynthetic[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     rollSubstitutions: Record<string, RollSubstitution[]>;
     rollTwice: Record<string, RollTwiceSynthetic[]>;
     senses: SenseSynthetic[];
-    statisticsModifiers: Record<string, DeferredModifier[]>;
+    statisticsModifiers: ModifierSynthetics;
     strikeAdjustments: StrikeAdjustment[];
     strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
@@ -40,7 +40,11 @@ interface RuleElementSynthetics {
 }
 
 type CritSpecSynthetic = (weapon: Embedded<WeaponPF2e>, options: Set<string>) => RollNotePF2e | null;
-
+type DamageDiceSynthetics = { damage: DeferredDamageDice[] } & { [K in string]?: DeferredDamageDice[] };
+type ModifierSynthetics = Record<"all" | "damage", DeferredModifier[]> & { [K in string]?: DeferredModifier[] };
+type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: ModifierAdjustment[] } & {
+    [K in string]?: ModifierAdjustment[];
+};
 type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
 
@@ -97,10 +101,13 @@ interface PotencySynthetic {
 }
 
 export {
+    DamageDiceSynthetics,
     DeferredDamageDice,
     DeferredModifier,
     DeferredMovementType,
     MAPSynthetic,
+    ModifierAdjustmentSynthetics,
+    ModifierSynthetics,
     PotencySynthetic,
     RollSubstitution,
     RollTwiceSynthetic,
