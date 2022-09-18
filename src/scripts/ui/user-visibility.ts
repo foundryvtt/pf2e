@@ -68,6 +68,12 @@ class UserVisibilityPF2e {
                 element.remove();
             }
         }
+        // Remove visibility=owner elements if the user is not the owner
+        if (!hasOwnership) {
+            for (const element of visibilityElements.filter((e) => e.dataset.visibility === "owner")) {
+                element.remove();
+            }
+        }
     }
 
     static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void {
