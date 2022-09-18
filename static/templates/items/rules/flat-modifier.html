@@ -89,11 +89,9 @@
     <div class="spaced-fields details-container-flex-row">
         <input type="text" class="pf2e-tagify damage-type" name="system.rules.{{index}}.damageType" value="{{rule.damageType}}"/>
         <select name="system.rules.{{index}}.damageCategory">
-            <option value=""></option>
             {{#select rule.damageCategory}}
-                {{#each damageCategories as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
+                <option value=""></option>
+                <option value="precision">{{localize "PF2E.TraitPrecision"}}</option>
             {{/select}}
         </select>
         <label>Value Range</label>
