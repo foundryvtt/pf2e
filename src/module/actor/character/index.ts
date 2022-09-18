@@ -856,7 +856,9 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics if not using manual changes
         for (const ability of Object.values(this.system.abilities)) {
-            if (!this.system.build.abilities.manual) {
+            if (this.system.build.abilities.manual) {
+                ability.value = Math.clamped(ability.value, 1, 99);
+            } else {
                 ability.value = Math.clamped(ability.value, 8, 30);
             }
             // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
