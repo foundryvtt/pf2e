@@ -11,7 +11,7 @@ import {
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
-import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import { extractNotes, extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
@@ -133,7 +133,6 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             check: { adjustments: stat.adjustments, type },
             dc: {},
             modifiers: [...stat.modifiers],
-            notes: stat.notes,
         });
     }
 
@@ -344,7 +343,7 @@ class StatisticCheck {
             domains,
             target: rollContext?.target ?? null,
             dc: args.dc ?? rollContext?.dc,
-            notes: data.notes,
+            notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
             type: data.check.type,
             secret,

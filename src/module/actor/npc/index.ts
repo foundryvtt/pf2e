@@ -731,7 +731,6 @@ class NPCPF2e extends CreaturePF2e {
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
                 label: CONFIG.PF2E.magicTraditions[tradition],
-                notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
@@ -762,7 +761,7 @@ class NPCPF2e extends CreaturePF2e {
 
     prepareSaves(): void {
         const systemData = this.system;
-        const { modifierAdjustments, rollNotes } = this.synthetics;
+        const { modifierAdjustments } = this.synthetics;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -776,7 +775,6 @@ class NPCPF2e extends CreaturePF2e {
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                notes: extractNotes(rollNotes, domains),
                 domains: domains,
                 modifiers: [
                     new ModifierPF2e({

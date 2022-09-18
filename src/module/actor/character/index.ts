@@ -756,7 +756,6 @@ class CharacterPF2e extends CreaturePF2e {
                 ability: entry.ability,
                 rank,
                 modifiers: extractModifiers(synthetics, baseSelectors),
-                notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
@@ -911,7 +910,6 @@ class CharacterPF2e extends CreaturePF2e {
     private prepareSaves(): void {
         const systemData = this.system;
         const { wornArmor } = this;
-        const { rollNotes } = this.synthetics;
 
         // Saves
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -959,7 +957,6 @@ class CharacterPF2e extends CreaturePF2e {
                 label: saveName,
                 ability: save.ability,
                 rank: save.rank,
-                notes: extractNotes(rollNotes, selectors),
                 modifiers,
                 domains: selectors,
                 check: {
