@@ -97,7 +97,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             const diceNumber =
                 typeof this.diceNumber === "string" ? Number(this.resolveValue(this.diceNumber)) || 0 : this.diceNumber;
 
-            const resolvedBrackets = this.resolveValue(this.brackets) ?? {};
+            const resolvedBrackets = this.resolveValue(this.brackets, {});
             if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
                 this.failValidation("Brackets failed to validate");
                 return null;
