@@ -1,4 +1,4 @@
-import { DamageCategorization } from "./damage";
+import { DamageCategory } from "./types";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const LIFE_ENERGY_DAMAGE_TYPES = ["positive", "negative"] as const;
@@ -46,27 +46,27 @@ const DAMAGE_TYPES = new Set([
 ] as const);
 
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */
-const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> = {
+const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, DamageCategory>> = {
     // The three default physical damage types.
-    bludgeoning: DamageCategorization.PHYSICAL,
-    piercing: DamageCategorization.PHYSICAL,
-    slashing: DamageCategorization.PHYSICAL,
+    bludgeoning: "physical",
+    piercing: "physical",
+    slashing: "physical",
 
     // The default energy types.
-    acid: DamageCategorization.ENERGY,
-    cold: DamageCategorization.ENERGY,
-    electricity: DamageCategorization.ENERGY,
-    fire: DamageCategorization.ENERGY,
-    sonic: DamageCategorization.ENERGY,
-    positive: DamageCategorization.ENERGY,
-    negative: DamageCategorization.ENERGY,
-    force: DamageCategorization.ENERGY,
+    acid: "energy",
+    cold: "energy",
+    electricity: "energy",
+    fire: "energy",
+    sonic: "energy",
+    positive: "energy",
+    negative: "energy",
+    force: "energy",
 
     // The default alignment types.
-    chaotic: DamageCategorization.ALIGNMENT,
-    evil: DamageCategorization.ALIGNMENT,
-    good: DamageCategorization.ALIGNMENT,
-    lawful: DamageCategorization.ALIGNMENT,
+    chaotic: "alignment",
+    evil: "alignment",
+    good: "alignment",
+    lawful: "alignment",
 } as const;
 
 export {

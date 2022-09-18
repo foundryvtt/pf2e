@@ -14,21 +14,6 @@ function nextDamageDieSize(next: { upgrade: DamageDieSize } | { downgrade: Damag
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
 const DamageCategorization = {
     /**
-     * Physical damage; one of bludgeoning, piercing, or slashing, and usually caused by a physical object hitting you.
-     */
-    PHYSICAL: "physical",
-    /**
-     * Energy damage; one of acid, cold, electricity, fire, or sonic. Generally caused by either magic or strong natural
-     * phenomena (like storms, harsh weather, etc).
-     */
-    ENERGY: "energy",
-    /**
-     * Alignment damage; one of chaotic, evil, good, or lawful. Generally caused by special magic weapons and by some
-     * extraplanar creatures.
-     */
-    ALIGNMENT: "alignment",
-
-    /**
      * Map a damage type to it's corresponding damage category. If the type has no category, the type itself will be
      * returned.
      */
@@ -61,4 +46,4 @@ interface DamageRollContext extends BaseRollContext {
     secret?: boolean;
 }
 
-export { BASE_DAMAGE_TYPES_TO_CATEGORIES, DamageCategorization, DamageRollContext, nextDamageDieSize };
+export { DamageCategorization, DamageRollContext, nextDamageDieSize };

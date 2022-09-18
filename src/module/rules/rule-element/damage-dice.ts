@@ -1,7 +1,8 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e } from "@item";
 import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers";
-import { DamageDieSize, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage";
+import { ItemPF2e } from "@item";
+import { DamageDieSize } from "@system/damage/types";
+import { DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage/values";
 import { isObject, setHasElement, sluggify } from "@util";
 import { RuleElementData, RuleElementPF2e } from "./";
 import { BracketedValue, RuleElementSource } from "./data";
@@ -108,10 +109,6 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType);
                 this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize);
             }
-
-            // damageType?: string;
-            // override?: DamageDiceOverride;
-            // diceNumber?: number;
 
             return new DamageDicePF2e({
                 selector,
