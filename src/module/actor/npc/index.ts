@@ -9,7 +9,13 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "
 import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments, extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
+import {
+    extractDegreeOfSuccessAdjustments,
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollTwice,
+} from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
 import { CheckRoll } from "@system/check/roll";
@@ -273,6 +279,7 @@ class NPCPF2e extends CreaturePF2e {
                 system.attributes.perception,
                 { overwrite: false }
             );
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.base = base;
             stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
@@ -367,6 +374,7 @@ class NPCPF2e extends CreaturePF2e {
                 },
                 { overwrite: false }
             );
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -411,6 +419,7 @@ class NPCPF2e extends CreaturePF2e {
                     system.skills[shortform],
                     { overwrite: false }
                 );
+                stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
                 stat.notes = extractNotes(rollNotes, domains);
                 stat.itemID = item.id;
                 stat.base = base;
@@ -521,7 +530,7 @@ class NPCPF2e extends CreaturePF2e {
                 }
 
                 const statistic = new StatisticModifier(item.name, modifiers, baseOptions);
-
+                statistic.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
                 const traitObjects = Array.from(traits).map(
                     (t): TraitViewData => ({
                         name: t,

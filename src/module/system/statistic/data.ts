@@ -1,13 +1,11 @@
 import { ModifierPF2e, RawModifier } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ZeroToFour } from "@module/data";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CheckType } from "@system/rolls";
 
 export interface StatisticCheckData {
     type: CheckType;
     label?: string;
-    adjustments?: DegreeOfSuccessAdjustment[];
     modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];

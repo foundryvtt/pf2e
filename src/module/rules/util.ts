@@ -1,7 +1,8 @@
 import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
-import { isObject } from "@util";
+import { isObject, pick } from "@util";
 import { BracketedValue } from "./rule-element/data";
 import { DeferredDamageDice, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
@@ -68,12 +69,20 @@ function extractRollSubstitutions(
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
+function extractDegreeOfSuccessAdjustments(
+    synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
+    selectors: string[]
+): DegreeOfSuccessAdjustment[] {
+    return Object.values(pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
+}
+
 function isBracketedValue(value: unknown): value is BracketedValue {
     return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
 }
 
 export {
     extractDamageDice,
+    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
