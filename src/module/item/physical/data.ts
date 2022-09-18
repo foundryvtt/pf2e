@@ -158,7 +158,9 @@ type EquippedData = {
 };
 
 type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
-type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
+interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends ItemTraits<T> {
+    otherTags: string[];
+}
 
 interface ItemActivation {
     id: string;
