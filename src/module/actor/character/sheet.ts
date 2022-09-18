@@ -17,7 +17,12 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
+import {
+    CharacterSheetData,
+    CraftingEntriesSheetData,
+    FeatCategorySheetData,
+    QuickCraftingOptionsSheetData,
+} from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
@@ -138,16 +143,27 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.flags.pf2e;
-        const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
-        const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
-        const hasQuickTincture = !!this.actor.rollOptions.all["feature:alchemical-sciences-methodology"];
-        const useQuickTincture = hasQuickTincture && flags.quickTincture;
+        const quickCraftingOptions: Record<string, QuickCraftingOptionsSheetData> = {};
+
+        for (const selector in this.actor.system.crafting.quickCraftingOptions) {
+            const option = this.actor.system.crafting.quickCraftingOptions[selector];
+            const resource =
+                option.resource === "infusedReagents" || option.resource === "versatileVials"
+                    ? this.actor.system.resources.crafting[option.resource]
+                    : undefined;
+            quickCraftingOptions[selector] = {
+                ...option,
+                enabled: !!flags[selector],
+                resourceData: resource,
+            };
+        }
+
+        const noCost = flags.freeCrafting || Object.values(quickCraftingOptions).findIndex((o) => o.enabled) >= 0;
 
         sheetData.crafting = {
-            noCost: flags.freeCrafting || useQuickAlchemy || useQuickTincture,
-            hasQuickAlchemy,
-            hasQuickTincture,
+            noCost: noCost,
+            quickCraftingOptions: quickCraftingOptions,
             knownFormulas: formulasByLevel,
             entries: await this.prepareCraftingEntries(),
             resources: this.actor.system.resources.crafting,
@@ -601,21 +617,15 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        $craftingTab.find(".infused-reagents").on("change", async (event) => {
+        $craftingTab.find(".crafting-resource").on("change", async (event) => {
             const change = Number($(event.target).val());
-            const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
-            const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
-            await this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
-            this.render(true);
-        });
-
-        $craftingTab.find(".versatile-vials").on("change", async (event) => {
-            const change = Number($(event.target).val());
-            const versatileVials = this.actor.system.resources.crafting.versatileVials;
-            const value = Math.clamped(change, 0, versatileVials?.max ?? 0);
-            console.log(value);
-            await this.actor.update({ "system.resources.crafting.versatileVials.value": value });
-            this.render(true);
+            const { resource } = event.currentTarget.dataset;
+            if (resource === "infusedReagents" || resource === "versatileVials") {
+                const resourceData = this.actor.system.resources.crafting[resource];
+                const value = Math.clamped(change, 0, resourceData?.max ?? 0);
+                await this.actor.update({ [`system.resources.crafting.${resource}.value`]: value });
+                this.render(true);
+            }
         });
 
         const $formulas = $craftingTab.find(".craftingEntry-list");
@@ -641,26 +651,23 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 await craftingEntry.toggleFormulaExpended(Number(index), itemUuid);
             }
 
-            if (this.actor.flags.pf2e.quickAlchemy) {
-                const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - itemQuantity;
-                if (reagentValue < 0) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
-                    return;
+            const quickCraftingOptions = this.actor.system.crafting.quickCraftingOptions || {};
+
+            for (const selector in this.actor.system.crafting.quickCraftingOptions) {
+                const option = quickCraftingOptions[selector];
+                if (this.actor.flags.pf2e[selector]) {
+                    if (option.resource === "infusedReagents" || option.resource === "versatileVials") {
+                        const resource = this.actor.system.resources.crafting[option.resource];
+                        const newValue = resource.value - itemQuantity;
+                        if (newValue < 0) {
+                            const label = option.resource === "infusedReagents" ? "Reagents" : "Vials";
+                            ui.notifications.warn(game.i18n.localize(`PF2E.CraftingTab.Alerts.Missing${label}`));
+                            return;
+                        }
+                        await this.actor.update({ [`system.resources.crafting.${option.resource}.value`]: newValue });
+                    }
+                    return craftItem(formula.item, itemQuantity, this.actor, !!option.infused);
                 }
-                await this.actor.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
-
-                return craftItem(formula.item, itemQuantity, this.actor, true);
-            }
-
-            if (this.actor.flags.pf2e.quickTincture) {
-                const vialsValue = this.actor.system.resources.crafting.versatileVials.value - itemQuantity;
-                if (vialsValue < 0) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingVials"));
-                    return;
-                }
-                await this.actor.update({ "system.resources.crafting.versatileVials.value": vialsValue });
-
-                return craftItem(formula.item, itemQuantity, this.actor, true);
             }
 
             if (this.actor.flags.pf2e.freeCrafting) {

@@ -4,7 +4,7 @@ import { MagicTradition } from "@item/spell/types";
 import { CraftingEntry } from "@actor/character/crafting/entry";
 import { CraftingFormula } from "@actor/character/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
-import { BonusFeat, CharacterSystemData, SlottedFeat } from ".";
+import { BonusFeat, CharacterSystemData, QuickCraftingData, SlottedFeat } from ".";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { CHARACTER_SHEET_TABS } from "./values";
 
@@ -28,7 +28,7 @@ type CharacterSystemSheetData = CharacterSystemData & {
     };
 };
 
-export interface CraftingEntriesSheetData {
+interface CraftingEntriesSheetData {
     dailyCrafting: boolean;
     other: CraftingEntry[];
     alchemical: {
@@ -37,10 +37,17 @@ export interface CraftingEntriesSheetData {
     };
 }
 
+interface QuickCraftingOptionsSheetData extends QuickCraftingData {
+    enabled: boolean;
+    resourceData?: {
+        value: number;
+        max: number;
+    };
+}
+
 interface CraftingSheetData {
     noCost: boolean;
-    hasQuickAlchemy: boolean;
-    hasQuickTincture: boolean;
+    quickCraftingOptions: Record<string, QuickCraftingOptionsSheetData>;
     knownFormulas: Record<number, CraftingFormula[]>;
     entries: CraftingEntriesSheetData;
     resources: {
@@ -88,4 +95,10 @@ interface FeatCategorySheetData {
     featFilter?: string | null;
 }
 
-export { CharacterSheetData, CharacterSheetTabVisibility, FeatCategorySheetData };
+export {
+    CharacterSheetData,
+    CharacterSheetTabVisibility,
+    CraftingEntriesSheetData,
+    FeatCategorySheetData,
+    QuickCraftingOptionsSheetData,
+};

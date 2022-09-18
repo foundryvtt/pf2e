@@ -254,8 +254,6 @@ class CharacterPF2e extends CreaturePF2e {
         const { flags } = this;
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
-        flags.pf2e.quickAlchemy ??= false;
-        flags.pf2e.quickTincture ??= false;
         flags.pf2e.sheetTabs = mergeObject(
             CHARACTER_SHEET_TABS.reduce(
                 (tabs, tab) => ({

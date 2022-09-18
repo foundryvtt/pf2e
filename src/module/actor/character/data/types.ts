@@ -53,10 +53,6 @@ type CharacterFlags = ActorFlagsPF2e & {
         favoredWeaponRank: number;
         /** Whether items are crafted without consuming resources */
         freeCrafting: boolean;
-        /** Whether the alchemist's (and related dedications) Quick Alchemy ability is enabled */
-        quickAlchemy: boolean;
-        /** Whether the investigator's Quick Tincture ability is enabled */
-        quickTincture: boolean;
         /** Whether ABP should be disabled despite it being on for the world */
         disableABP?: boolean;
         /** Which sheet tabs are displayed */
@@ -149,6 +145,7 @@ interface CharacterSystemData extends CreatureSystemData {
     crafting: {
         formulas: CraftingFormulaData[];
         entries: Record<string, Partial<CraftingEntryData>>;
+        quickCraftingOptions?: Record<string, QuickCraftingData>;
     };
 }
 
@@ -438,6 +435,12 @@ interface BonusFeat {
     grants: GrantedFeat[];
 }
 
+interface QuickCraftingData {
+    label: string;
+    resource?: string;
+    infused?: boolean;
+}
+
 export {
     AuxiliaryAction,
     BaseWeaponProficiencyKey,
@@ -462,6 +465,7 @@ export {
     MartialProficiencies,
     MartialProficiency,
     MartialProficiencyKey,
+    QuickCraftingData,
     SlottedFeat,
     WeaponGroupProficiencyKey,
 };
