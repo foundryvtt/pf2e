@@ -12,7 +12,7 @@ import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
-import { extractModifiers } from "@module/rules/util";
+import { extractDamageDice, extractModifiers } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { combineTerms, DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -33,6 +33,7 @@ import {
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 import { SpellOverlayCollection } from "./overlay";
 import { ActionTrait } from "@item/action/data";
+import { applyDamageDice } from "./helpers";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -233,8 +234,6 @@ class SpellPF2e extends ItemPF2e {
             }
             categories.push(...(damage.type.categories ?? []), damage.type.value);
 
-            // Return the final result, but turn all "+ -" into just "-"
-            // These must be padded to support - or roll parsing will fail (Foundry 0.8)
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
             const formula = combineTerms(baseFormulaFixed).formula;
@@ -248,13 +247,22 @@ class SpellPF2e extends ItemPF2e {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "system.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
+
             const rollOptions = new Set([
                 ...actor.getRollOptions(domains),
                 ...this.getRollOptions("item"),
                 ...this.traits,
             ]);
+
+            const damageDice = extractDamageDice(actor.synthetics.damageDice, domains, {
+                test: rollOptions,
+                resolvables: { spell: heightened },
+            });
+            const adjusted = applyDamageDice(formulas, damageDice);
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
-            if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
+            if (damageModifier.totalModifier) adjusted.push(`${damageModifier.totalModifier}`);
+
+            return adjusted.join(" + ");
         }
 
         return formulas.join(" + ");
