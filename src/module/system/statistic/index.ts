@@ -316,12 +316,9 @@ class StatisticCheck {
                 .flatMap((t) => t.actor ?? [])
                 .find((a) => a.isOfType("creature"));
 
-        const extraModifiers = [...(args?.modifiers ?? [])];
-        const options = this.createRollOptions({
-            ...args,
-            target,
-            extraRollOptions: Array.from(rollContext?.options ?? []),
-        });
+        const extraModifiers = [...(args.modifiers ?? [])];
+        const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
+        const options = this.createRollOptions({ ...args, target, extraRollOptions });
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
