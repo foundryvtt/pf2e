@@ -1,11 +1,27 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { SpellFilters } from "./data";
+import { CompendiumBrowserIndexData, SpellFilters } from "./data";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     override filterData!: SpellFilters;
     override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = [
+        "type",
+        "name",
+        "img",
+        "uuid",
+        "level",
+        "time",
+        "category",
+        "school",
+        "traditions",
+        "traits",
+        "rarity",
+        "source",
+    ];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "spell");
@@ -17,7 +33,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading spells");
 
-        const spells: CompendiumIndexData[] = [];
+        const spells: CompendiumBrowserIndexData[] = [];
         const times: Set<string> = new Set();
         const sources: Set<string> = new Set();
         const indexFields = [
@@ -78,11 +94,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     }
 
                     spells.push({
-                        _id: spellData._id,
                         type: spellData.type,
                         name: spellData.name,
                         img: spellData.img,
-                        compendium: pack.collection,
+                        uuid: `Compendium.${pack.collection}.${spellData._id}`,
                         level: spellData.system.level.value,
                         time: spellData.system.time,
                         category: spellData.system.category.value,
@@ -129,14 +144,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading spells");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, selects, search } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, selects } = this.filterData;
 
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Level
         if (checkboxes.level.selected.length) {
             const levels = checkboxes.level.selected.map((level) => Number(level));
