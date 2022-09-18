@@ -78,7 +78,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 check: { adjustments: skill.adjustments, type: "skill-check" },
                 dc: {},
                 modifiers: [...skill.modifiers],
-                notes: skill.notes,
             });
 
             if (shortForm !== longForm) {

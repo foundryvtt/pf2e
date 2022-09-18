@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { objectHasKey, sluggify } from "@util";
 import { Statistic } from "./statistic";
@@ -341,12 +341,10 @@ function getCheckDC(
         const getStatisticValue = (selectors: string[]): string => {
             if (item?.isOwned && params.immutable !== "true") {
                 const actor = item.actor!;
-                const { rollNotes } = actor.synthetics;
 
                 const stat = new Statistic(actor, {
                     slug: type,
                     label: name,
-                    notes: extractNotes(rollNotes, selectors),
                     domains: selectors,
                     modifiers: [...extractModifiers(actor.synthetics, selectors)],
                     dc: {
