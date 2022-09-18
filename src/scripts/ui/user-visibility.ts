@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { objectHasKey } from "@util";
 
@@ -31,7 +32,8 @@ class UserVisibilityPF2e {
         }
 
         const { journalEntry } = options;
-        const hasOwnership = document?.isOwner ?? journalEntry?.isOwner ?? game.user.isGM;
+        const { item } = options;
+        const hasOwnership = document?.isOwner ?? journalEntry?.isOwner ?? item?.isOwner ?? game.user.isGM;
         // Hide DC for explicit save buttons (such as in spell cards)
         const dcSetting = game.settings.get("pf2e", "metagame.showDC");
         const $saveButtons = $html.find("button[data-action=save]");
@@ -102,6 +104,7 @@ interface ProcessOptions {
     message?: ChatMessagePF2e;
     actor?: ActorPF2e | null;
     journalEntry?: JournalEntryPage | null;
+    item?: ItemPF2e | null;
 }
 
 export { UserVisibilityPF2e, UserVisibility };
