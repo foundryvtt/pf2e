@@ -436,10 +436,12 @@ class SpellPF2e extends ItemPF2e {
         const messageSource = message.toObject();
         const entry = this.trickMagicEntry ?? this.spellcasting;
         if (entry) {
+            // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
+            const tradition = Array.from(this.traditions).at(0);
             messageSource.flags.pf2e.casting = {
                 id: entry.id,
                 level: data.castLevel ?? this.level,
-                tradition: entry.tradition,
+                tradition: entry.tradition ?? tradition ?? "arcane",
             };
         }
 

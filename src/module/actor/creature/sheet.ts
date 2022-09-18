@@ -313,7 +313,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-edit]") ?? []) {
                 element.addEventListener("click", (event) => {
-                    const containerId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
+                    const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                     const entry = this.actor.spellcasting.get(containerId, { strict: true });
                     createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
                 });
@@ -321,7 +321,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-remove]") ?? []) {
                 element.addEventListener("click", (event) => {
-                    const itemId = htmlClosest(event.currentTarget, "[data-container-id]")?.dataset.itemId;
+                    const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                     const item = this.actor.items.get(itemId, { strict: true });
 
                     // Render confirmation modal dialog

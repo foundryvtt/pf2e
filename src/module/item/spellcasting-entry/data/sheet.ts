@@ -9,7 +9,7 @@ export interface SpellcastingAbilityData {
     id: string;
     name: string;
     statistic: StatisticChatData;
-    tradition: MagicTradition;
+    tradition: MagicTradition | null;
     castingType: PreparationType;
     isPrepared?: boolean;
     isSpontaneous?: boolean;

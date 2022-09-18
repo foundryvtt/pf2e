@@ -1,12 +1,12 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
-import { ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
 import { SpellcastingAbilityData, SpellcastingEntry, SpellcastingEntryData, SpellcastingEntryListData } from "./data";
 
@@ -20,10 +20,11 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this.system.ability.value || "int";
     }
 
-    /** This entry's magic tradition, defaulting to arcane if unset or invalid */
-    get tradition(): MagicTradition {
-        const tradition = this.system.tradition.value || "arcane";
-        return MAGIC_TRADITIONS.has(tradition) ? tradition : "arcane";
+    /** This entry's magic tradition, null if the spell's tradition should be used instead */
+    get tradition(): MagicTradition | null {
+        const defaultTradition = this.system.prepared.value === "items" ? null : "arcane";
+        const tradition = this.system.tradition.value;
+        return setHasElement(MAGIC_TRADITIONS, tradition) ? tradition : defaultTradition;
     }
 
     /**
@@ -79,7 +80,9 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     override prepareSiblingData(): void {
-        if (this.actor) {
+        if (!this.actor || this.system.prepared.value === "items") {
+            this.spells = null;
+        } else {
             this.spells = new SpellCollection(this as Embedded<SpellcastingEntryPF2e>);
             const spells = this.actor.itemTypes.spell.filter((i) => i.system.location.value === this.id);
             for (const spell of spells) {
@@ -91,25 +94,39 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
-        // Upgrade the actor proficiency using the internal ones
         const actor = this.actor;
+
+        // Upgrade the actor proficiency using the internal ones
         // Innate spellcasting will always be elevated by other spellcasting proficiencies but never do
         // the elevating itself
-        if (actor instanceof CharacterPF2e && !this.isInnate) {
-            const { traditions } = actor.system.proficiencies;
-            const tradition = traditions[this.tradition];
+        const tradition = this.tradition;
+        if (actor.isOfType("character") && !this.isInnate && tradition) {
+            const proficiency = actor.system.proficiencies.traditions[tradition];
             const rank = this.system.proficiency.value;
-            tradition.rank = Math.max(rank, tradition.rank) as OneToFour;
+            proficiency.rank = Math.max(rank, proficiency.rank) as OneToFour;
         }
     }
 
     /** Returns if the spell is valid to cast by this spellcasting entry */
-    canCastSpell(spell: SpellPF2e): boolean {
-        if (spell.traditions.has(this.tradition)) {
-            return true;
+    canCastSpell(spell: SpellPF2e, options: { origin?: PhysicalItemPF2e } = {}): boolean {
+        // For certain collection-less modes, the spell must come from an item
+        if (this.system.prepared.value === "items") {
+            return !!options.origin;
         }
 
-        return this.collection.some((s) => s.slug === spell.slug);
+        // Only prepared/spontaneous casting count as a "spellcasting class feature"
+        // for the purpose of using the "Cast a Spell" activation component
+        const isSpellcastingFeature = this.isPrepared || this.isSpontaneous;
+        if (options.origin && !isSpellcastingFeature) {
+            return false;
+        }
+
+        // Past here, a spell collection is required
+        if (!this.spells) return false;
+
+        const matchesTradition = this.tradition && spell.traditions.has(this.tradition);
+        const isInSpellList = this.spells.some((s) => s.slug === spell.slug);
+        return matchesTradition || isInSpellList;
     }
 
     /** Casts the given spell as if it was part of this spellcasting entry */
@@ -233,6 +250,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
+        const spellCollectionData = await this.spells?.getSpellData();
+
         return {
             id: this.id,
             name: this.name,
@@ -246,7 +265,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
             hasCollection: !!this.spells,
-            ...(await this.spells?.getSpellData()),
+            ...(spellCollectionData ?? { levels: [] }),
         };
     }
 

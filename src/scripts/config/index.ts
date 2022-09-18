@@ -1201,6 +1201,7 @@ export const PF2ECONFIG = {
         innate: "PF2E.PreparationTypeInnate",
         focus: "PF2E.SpellCategoryFocus",
         ritual: "PF2E.SpellCategoryRitual",
+        items: "PF2E.PreparationTypeItems",
     },
 
     areaTypes: {

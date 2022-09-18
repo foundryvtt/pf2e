@@ -734,7 +734,7 @@ class NPCPF2e extends CreaturePF2e {
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
-                label: CONFIG.PF2E.magicTraditions[tradition],
+                label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
