@@ -6,14 +6,17 @@ import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { WeaponMaterialEffect, WeaponPropertyRuneType } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 
+/** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
     criticalSpecalizations: {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
     };
     damageDice: Record<string, DeferredDamageDice[]>;
+    degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     movementTypes: { [K in BaseSpeedType]?: DeferredMovementType[] };
@@ -29,7 +32,7 @@ interface RuleElementSynthetics {
     tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name" | "texture">>;
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
-        /** Adds a new preparation warning to be printed when flushed */
+        /** Adds a new preparation warning to be printed when flushed. These warnings are de-duped. */
         add: (warning: string) => void;
         /** Prints all preparation warnings, but this printout is debounced to handle prep and off-prep cycles */
         flush: () => void;

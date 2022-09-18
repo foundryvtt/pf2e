@@ -61,6 +61,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
 import {
+    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
@@ -557,6 +558,7 @@ class CharacterPF2e extends CreaturePF2e {
                 systemData.attributes.perception,
                 { overwrite: false }
             );
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
@@ -1040,6 +1042,7 @@ class CharacterPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
                 overwrite: false,
             });
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.breakdown = stat.modifiers
                 .filter((modifier) => modifier.enabled)
                 .map((modifier) => {
@@ -1124,6 +1127,7 @@ class CharacterPF2e extends CreaturePF2e {
                 loreSkill,
                 { overwrite: false }
             );
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.label = loreItem.name;
             stat.ability = "int";
             stat.itemID = loreItem.id;
@@ -1614,6 +1618,7 @@ class CharacterPF2e extends CreaturePF2e {
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
+        strikeStat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, selectors);
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
