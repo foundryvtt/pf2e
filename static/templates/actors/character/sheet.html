@@ -1,12 +1,6 @@
 <form class="{{cssClass}} crb-style{{#if isProficiencyLocked}} proficiency-lock{{/if}}" autocomplete="off">
     <aside>
-        <img
-            class="logo"
-            src="systems/pf2e/assets/pathfinder_logo.webp"
-            height="56"
-            alt=""
-            srcset=""
-        />
+        <img class="logo" src="systems/pf2e/assets/pathfinder_logo.webp" height="56" alt="" srcset="" />
         <div class="sidebar" data-group="dashboard" data-tab="sidebar">
             <!-- HEALTH -->
             {{> "systems/pf2e/templates/actors/character/sidebar/health.html"}}
@@ -47,7 +41,7 @@
         </a>
 
         <a class="item{{#unless tabVisibility.actions}} hidden{{/unless}}" data-tab="actions" title="{{localize "PF2E.TabActionsLabel"}}">
-            <span class="activity-icon" style="font-size: 23px;">A</span>
+            <span class="action-icon">A</span>
         </a>
 
         <a class="item{{#unless tabVisibility.inventory}} hidden{{/unless}}" data-tab="inventory" title="{{localize "PF2E.TabInventoryLabel"}}">
@@ -79,7 +73,7 @@
         </a>
 
         <a class="item{{#unless tabVisibility.pfs}} hidden{{/unless}}" data-tab="pfs" title="{{localize "PF2E.TabPathfinderSociety"}}">
-            {{> systems/pf2e/templates/actors/character/icons/pfs.html}}
+            {{> "systems/pf2e/templates/actors/character/icons/pfs.html"}}
         </a>
 
         <a class="manage-tabs" data-action="manage-tabs" title="{{localize "PF2E.TabManageTabsLabel"}}">
