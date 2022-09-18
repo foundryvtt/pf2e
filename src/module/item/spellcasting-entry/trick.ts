@@ -59,11 +59,14 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
         ];
         const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
+        const skillRank = actor.skills[skill].rank;
+        const trickRank = skillRank === 4 ? 2 : skillRank === 3 ? 1 : 0;
+
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
             ability,
-            rank: actor.skills[skill].rank,
+            rank: trickRank || "untrained-level",
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
             check: {
