@@ -30,7 +30,8 @@ class UserVisibilityPF2e {
             }
         }
 
-        const hasOwnership = document?.isOwner ?? game.user.isGM;
+        const { journalEntry } = options;
+        const hasOwnership = document?.isOwner ?? journalEntry?.isOwner ?? game.user.isGM;
         // Hide DC for explicit save buttons (such as in spell cards)
         const dcSetting = game.settings.get("pf2e", "metagame.showDC");
         const $saveButtons = $html.find("button[data-action=save]");
@@ -100,6 +101,7 @@ type UserVisibility = "all" | "owner" | "gm" | "none";
 interface ProcessOptions {
     message?: ChatMessagePF2e;
     actor?: ActorPF2e | null;
+    journalEntry?: JournalEntryPage | null;
 }
 
 export { UserVisibilityPF2e, UserVisibility };

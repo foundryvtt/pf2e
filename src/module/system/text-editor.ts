@@ -37,7 +37,8 @@ class TextEditorPF2e extends TextEditor {
     static processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
         const $html = $("<div>").html(content);
         const actor = options.rollData?.actor ?? null;
-        UserVisibilityPF2e.process($html, { actor });
+        const journalEntry = options.relativeTo ?? null;
+        UserVisibilityPF2e.process($html, { actor, journalEntry });
 
         return $html.html();
     }
@@ -389,6 +390,7 @@ interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
         mod?: number;
         [key: string]: unknown;
     };
+    relativeTo?: JournalEntryPage;
 }
 
 interface ConvertXMLNodeOptions {
