@@ -854,9 +854,9 @@ class CharacterPF2e extends CreaturePF2e {
             details.keyability.value = build.abilities.boosts.class ?? "str";
         }
 
-        // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics
+        // Enforce a minimum of 1 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
         for (const ability of Object.values(this.system.abilities)) {
-            ability.value = Math.clamped(ability.value, 8, 30);
+            ability.value = Math.clamped(ability.value, 1, 30);
             // Record base values: same as stored value if in manual mode, and prior to RE modifications otherwise
             ability.base = ability.value;
         }
