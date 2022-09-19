@@ -175,6 +175,7 @@ const tokenHUDConditions = {
     stunned: "PF2E.ConditionTypeStunned",
     stupefied: "PF2E.ConditionTypeStupefied",
     unconscious: "PF2E.ConditionTypeUnconscious",
+    undetected: "PF2E.ConditionTypeUndetected",
     wounded: "PF2E.ConditionTypeWounded",
 };
 
@@ -186,7 +187,6 @@ const conditionTypes: Record<ConditionSlug, string> = {
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
     observed: "PF2E.ConditionTypeObserved",
-    undetected: "PF2E.ConditionTypeUndetected",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
