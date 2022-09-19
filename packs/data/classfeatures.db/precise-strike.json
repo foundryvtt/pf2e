@@ -26,6 +26,13 @@
         },
         "rules": [
             {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PreciseStrike.Finisher",
+                "option": "finisher",
+                "toggleable": true
+            },
+            {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": {
@@ -46,8 +53,8 @@
                         }
                     ],
                     "any": [
-                        "weapon:trait:finesse",
-                        "weapon:trait:agile"
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse"
                     ],
                     "not": [
                         "finisher"
@@ -91,6 +98,7 @@
                     "all": [
                         "class:swashbuckler",
                         "self:effect:panache",
+                        "finisher",
                         {
                             "or": [
                                 "weapon:melee",
@@ -105,8 +113,8 @@
                         }
                     ],
                     "any": [
-                        "weapon:trait:finesse",
-                        "weapon:trait:agile"
+                        "weapon:trait:agile",
+                        "weapon:trait:finesse"
                     ]
                 },
                 "selector": "strike-damage",
@@ -148,13 +156,6 @@
                         }
                     ]
                 }
-            },
-            {
-                "domain": "damage-roll",
-                "key": "RollOption",
-                "label": "Finisher",
-                "option": "finisher",
-                "toggleable": true
             }
         ],
         "source": {
