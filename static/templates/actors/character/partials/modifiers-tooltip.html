@@ -1,4 +1,4 @@
-<div class="hover-content" id="{{@root.options.id}}-{{name}}-modifiers">
+<div class="hover-content" id="{{@root.options.id}}-{{slug}}-modifiers">
     <div class="sidebar_title">
         <h2>{{localize title}}</h2>
     </div>
@@ -12,7 +12,7 @@
                     <span class="label">{{modifier.label}}</span>
                     <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                     {{#if modifier.custom}}
-                        <i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
+                        <i class="far fa-times-circle remove-modifier" data-stat="{{../slug}}" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
                     {{/if}}
                 </li>
             {{/if}}
@@ -37,7 +37,7 @@
                 <option value="untyped">{{localize "PF2E.ModifierType.untyped"}}</option>
             </select>
 
-            <button type="button" class="add-modifier-submit" data-stat="{{name}}">{{localize "PF2E.AddModifierTitle"}}</button>
+            <button type="button" class="add-modifier-submit" data-stat="{{slug}}">{{localize "PF2E.AddModifierTitle"}}</button>
         </li>
     </ul>
 </div>

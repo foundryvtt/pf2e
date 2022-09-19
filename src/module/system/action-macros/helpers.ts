@@ -121,7 +121,7 @@ export class ActionMacroHelpers {
 
             const stat = getProperty(selfActor, options.statName) as StatisticModifier;
             const itemBonus =
-                weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.name) : null;
+                weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.slug) : null;
 
             const modifiers =
                 (typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers) ?? [];
@@ -196,7 +196,7 @@ export class ActionMacroHelpers {
             const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
             const substitutions = extractRollSubstitutions(
                 actor.synthetics.rollSubstitutions,
-                [stat.name],
+                [stat.slug],
                 finalOptions
             );
 

@@ -67,8 +67,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     get skills(): CreatureSkills {
         return Object.entries(this.system.skills).reduce((current, [shortForm, skill]) => {
             if (!objectHasKey(this.system.skills, shortForm)) return current;
-            const longForm = skill.name;
-            const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
+            const longForm = skill.slug;
+            const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.slug;
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
             current[longForm] = new Statistic(this, {
@@ -575,42 +575,46 @@ export abstract class CreaturePF2e extends ActorPF2e {
      */
     async addCustomModifier(
         stat: string,
-        name: string,
+        label: string,
         value: number,
         type: string,
-        predicate?: RawPredicate,
+        predicate: RawPredicate = {},
         damageType?: DamageType,
         damageCategory?: string
     ): Promise<void> {
-        const customModifiers = duplicate(this.system.customModifiers ?? {});
-        if (!(customModifiers[stat] ?? []).find((m) => m.label === name)) {
-            const modifier = new ModifierPF2e({ label: name, modifier: value, type });
+        if (!this.isOfType("character", "npc")) return;
+        if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
+        if (label.length === 0) throw ErrorPF2e("A custom modifier's label must be a non-empty string");
+
+        const customModifiers = this.toObject().system.customModifiers ?? {};
+        const modifiers = customModifiers[stat] ?? [];
+        if (!modifiers.some((m) => m.label === label)) {
+            const modifier = new ModifierPF2e({ label, modifier: value, type, predicate, custom: true }).toObject();
             if (damageType) {
                 modifier.damageType = damageType;
             }
             if (damageCategory) {
                 modifier.damageCategory = damageCategory;
             }
-            modifier.custom = true;
 
-            // modifier predicate
-            modifier.predicate = predicate instanceof PredicatePF2e ? predicate : new PredicatePF2e(predicate);
-            modifier.ignored = !modifier.predicate.test([]);
-
-            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-            await this.update({ "system.customModifiers": customModifiers });
+            await this.update({ [`system.customModifiers.${stat}`]: [...modifiers, modifier] });
         }
     }
 
     /** Removes a custom modifier by slug */
     async removeCustomModifier(stat: string, modifier: number | string): Promise<void> {
-        const customModifiers = duplicate(this.system.customModifiers ?? {});
-        if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
-            customModifiers[stat].splice(modifier, 1);
-            await this.update({ "system.customModifiers": customModifiers });
-        } else if (typeof modifier === "string" && customModifiers[stat]) {
-            customModifiers[stat] = customModifiers[stat].filter((m) => m.slug !== modifier);
-            await this.update({ "system.customModifiers": customModifiers });
+        if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
+
+        const customModifiers = this.toObject().system.customModifiers ?? {};
+        const modifiers = customModifiers[stat] ?? [];
+        if (modifiers.length === 0) return;
+
+        if (typeof modifier === "number" && modifiers.length > modifier) {
+            modifiers.splice(modifier, 1);
+            await this.update({ [`system.customModifiers.${stat}`]: modifiers });
+        } else if (typeof modifier === "string") {
+            const withRemoved = modifiers.filter((m) => m.label === modifier);
+            await this.update({ [`system.customModifiers.${stat}`]: withRemoved });
         } else {
             throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
         }
