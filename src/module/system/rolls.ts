@@ -317,7 +317,7 @@ class CheckPF2e {
 
             const header = document.createElement("h4");
             header.classList.add("action");
-            header.innerHTML = check.name;
+            header.innerHTML = check.slug;
             return [header, result ?? [], tags, notes, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
@@ -360,7 +360,7 @@ class CheckPF2e {
                 pf2e: {
                     context: contextFlag,
                     unsafe: flavor,
-                    modifierName: check.name,
+                    modifierName: check.slug,
                     modifiers: check.modifiers,
                     origin,
                 },

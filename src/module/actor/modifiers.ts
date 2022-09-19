@@ -395,8 +395,9 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
  * of each type is applied to the total modifier.
  */
 class StatisticModifier {
-    /** The name of this collection of modifiers for a statistic. */
-    name: string;
+    name?: never;
+    /** The slug of this collection of modifiers for a statistic. */
+    slug: string;
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
@@ -410,13 +411,13 @@ class StatisticModifier {
     [key: string]: any;
 
     /**
-     * @param name The name of this collection of statistic modifiers.
+     * @param slug The name of this collection of statistic modifiers.
      * @param modifiers All relevant modifiers for this statistic.
      * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions: string[] | Set<string> = new Set()) {
+    constructor(slug: string, modifiers: ModifierPF2e[] = [], rollOptions: string[] | Set<string> = new Set()) {
         rollOptions = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
-        this.name = name;
+        this.slug = slug;
 
         // De-duplication
         const seen: ModifierPF2e[] = [];
@@ -455,11 +456,11 @@ class StatisticModifier {
     }
 
     /** Delete a modifier from this collection by name or reference */
-    delete(modifierName: string | ModifierPF2e): boolean {
+    delete(modifierSlug: string | ModifierPF2e): boolean {
         const toDelete =
-            typeof modifierName === "object"
-                ? modifierName
-                : this._modifiers.find((modifier) => modifier.slug === modifierName);
+            typeof modifierSlug === "object"
+                ? modifierSlug
+                : this._modifiers.find((modifier) => modifier.slug === modifierSlug);
         const wasDeleted =
             toDelete && this._modifiers.includes(toDelete)
                 ? !!this._modifiers.findSplice((modifier) => modifier === toDelete)
@@ -528,17 +529,17 @@ class StatisticModifier {
  */
 class CheckModifier extends StatisticModifier {
     /**
-     * @param name The name of this check modifier.
-     * @param statistic The statistic modifier to copy fields from.
-     * @param modifiers Additional modifiers to add to this check.
+     * @param slug The unique slug of this check modifier
+     * @param statistic The statistic modifier to copy fields from
+     * @param modifiers Additional modifiers to add to this check
      */
     constructor(
-        name: string,
+        slug: string,
         statistic: StatisticModifier,
         modifiers: ModifierPF2e[] = [],
         rollOptions: string[] = []
     ) {
-        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), rollOptions);
+        super(slug, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), rollOptions);
     }
 }
 

@@ -138,7 +138,7 @@ function getSkills(actor: CharacterPF2e): SkillBrief[] {
             .map(([acronym, value]) => {
                 return {
                     acronym: acronym as SkillAbbreviation,
-                    name: value.name.capitalize(),
+                    name: value.slug.capitalize(),
                     isLore: value.lore === true,
                     proficiency: rankToProficiency(value.rank),
                     rank: value.rank,

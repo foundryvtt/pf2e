@@ -97,6 +97,7 @@ import {
     CharacterSkillData,
     CharacterStrike,
     CharacterSystemData,
+    ClassDCData,
     LinkedProficiency,
     MagicTraditionProficiencies,
     MartialProficiencies,
@@ -333,7 +334,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.system.attributes;
         attributes.ac = {};
-        attributes.classDC = { rank: 0 };
+        attributes.classDC = null;
         attributes.polymorphed = false;
         attributes.battleForm = false;
 
@@ -369,6 +370,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting-tradition proficiencies
         systemData.proficiencies = {
+            classDCs: {},
             traditions: Array.from(MAGIC_TRADITIONS).reduce(
                 (accumulated: DeepPartial<MagicTraditionProficiencies>, t) => ({
                     ...accumulated,
@@ -609,33 +611,10 @@ class CharacterPF2e extends CreaturePF2e {
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Class DC
-        {
-            const ability = systemData.details.keyability.value;
-            const domains = ["class", `${ability}-based`, "all"];
-            const modifiers = [
-                createAbilityModifier({ actor: this, ability, domains }),
-                ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
-                ...extractModifiers(synthetics, domains),
-            ];
-
-            const stat = mergeObject(
-                new StatisticModifier("class", modifiers, this.getRollOptions(domains)),
-                systemData.attributes.classDC,
-                { overwrite: false }
-            );
-            stat.notes = extractNotes(rollNotes, domains);
-            stat.value = 10 + stat.totalModifier;
-            stat.ability = systemData.details.keyability.value;
-            stat.breakdown = [game.i18n.localize("PF2E.ClassDCBase")]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-
-            systemData.attributes.classDC = stat;
+        for (const [slug, classDC] of Object.entries(systemData.proficiencies.classDCs)) {
+            systemData.proficiencies.classDCs[slug] = this.prepareClassDC(slug, classDC);
         }
+        systemData.attributes.classDC = Object.values(systemData.proficiencies.classDCs).find((c) => c.primary) ?? null;
 
         // Armor Class
         const { wornArmor, heldShield } = this;
@@ -782,9 +761,14 @@ class CharacterPF2e extends CreaturePF2e {
             this.system.attributes.spellDC = null;
         }
 
-        // Expose the higher between highest spellcasting DC and (if present) class DC
+        // Expose the higher between highest spellcasting DC and (if present) best class DC
         this.system.attributes.classOrSpellDC = ((): { rank: number; value: number } => {
-            const classDC = this.system.attributes.classDC.rank > 0 ? this.system.attributes.classDC : null;
+            const classDC = Object.values(this.system.proficiencies.classDCs).reduce(
+                (best: ClassDCData | null, classDC) =>
+                    best === null ? classDC : classDC.totalModifier > best.totalModifier ? classDC : best,
+                null
+            );
+
             const spellDC = this.system.attributes.spellDC;
             return spellDC && classDC
                 ? spellDC.value > classDC.value
@@ -1244,6 +1228,37 @@ class CharacterPF2e extends CreaturePF2e {
                 this.deityBoonsCurses.push(feat);
             }
         }
+    }
+
+    prepareClassDC(slug: string, classDC: Pick<ClassDCData, "label" | "ability" | "rank" | "primary">): ClassDCData {
+        classDC.ability ??= "str";
+        classDC.rank ??= 0;
+        classDC.primary ??= false;
+
+        const { ability } = classDC;
+        const domains = ["class", slug, `${ability}-based`, "all"];
+        const modifiers = [
+            createAbilityModifier({ actor: this, ability, domains }),
+            ProficiencyModifier.fromLevelAndRank(this.level, classDC.rank ?? 0),
+            ...extractModifiers(this.synthetics, domains),
+        ];
+        const statistic = new StatisticModifier(slug, modifiers, this.getRollOptions(domains));
+
+        return mergeObject(
+            statistic,
+            {
+                ...classDC,
+                ability,
+                value: 10 + statistic.totalModifier,
+                notes: extractNotes(this.synthetics.rollNotes, domains),
+                breakdown: [
+                    ...statistic.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                ].join(", "),
+            },
+            { overwrite: false }
+        );
     }
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */

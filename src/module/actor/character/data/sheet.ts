@@ -7,6 +7,7 @@ import { FlattenedCondition } from "@system/conditions";
 import { BonusFeat, CharacterSystemData, SlottedFeat } from ".";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { ClassDCData } from "./types";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
@@ -58,6 +59,13 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
     class: Embedded<ClassPF2e> | null;
+    classDCs: {
+        dcs: ClassDCSheetData[];
+        /** The slug of the character's primary class DC */
+        primary: string | null;
+        /** Show class label and individual modifier lists for each class DC */
+        perDCDetails: boolean;
+    };
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: Embedded<DeityPF2e> | null;
@@ -73,6 +81,12 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     feats: FeatCategorySheetData[];
 }
 
+interface ClassDCSheetData extends ClassDCData {
+    icon?: string;
+    hover?: string;
+    rankName?: string;
+}
+
 interface FeatCategorySheetData {
     id: string;
     label: string;
@@ -81,4 +95,4 @@ interface FeatCategorySheetData {
     featFilter?: string | null;
 }
 
-export { CharacterSheetData, CharacterSheetTabVisibility, FeatCategorySheetData };
+export { CharacterSheetData, CharacterSheetTabVisibility, ClassDCSheetData, FeatCategorySheetData };
