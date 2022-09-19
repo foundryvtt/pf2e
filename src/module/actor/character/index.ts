@@ -106,7 +106,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { CharacterFeats } from "./feats";
-import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
+import { createForceOpenPenalty, getStrikeDescription, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -538,9 +538,9 @@ class CharacterPF2e extends CreaturePF2e {
             this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
         }
 
-        this.prepareFeats();
-        this.prepareSaves();
-        this.prepareMartialProficiencies();
+        this.#prepareFeats();
+        this.#prepareSaves();
+        this.#prepareMartialProficiencies();
 
         // Perception
         {
@@ -723,7 +723,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Skills
-        systemData.skills = this.prepareSkills();
+        systemData.skills = this.#prepareSkills();
 
         // Speeds
         const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
@@ -825,7 +825,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    private setAbilityScores(): void {
+    setAbilityScores(): void {
         const { build, details } = this.system;
 
         if (!build.abilities.manual) {
@@ -909,7 +909,7 @@ class CharacterPF2e extends CreaturePF2e {
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
-    private prepareSaves(): void {
+    #prepareSaves(): void {
         const systemData = this.system;
         const { wornArmor } = this;
 
@@ -974,7 +974,7 @@ class CharacterPF2e extends CreaturePF2e {
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
-    private prepareSkills(): Record<SkillAbbreviation, CharacterSkillData> {
+    #prepareSkills(): Record<SkillAbbreviation, CharacterSkillData> {
         const systemData = this.system;
 
         // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
@@ -1221,7 +1221,7 @@ class CharacterPF2e extends CreaturePF2e {
         return super.prepareSpeed(movementType);
     }
 
-    prepareFeats(): void {
+    #prepareFeats(): void {
         this.pfsBoons = [];
         this.deityBoonsCurses = [];
         this.feats = new CharacterFeats(this);
@@ -1247,7 +1247,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */
-    createAuxAction({ weapon, action, purpose, hands }: CreateAuxiliaryParams): AuxiliaryAction {
+    #createAuxAction({ weapon, action, purpose, hands }: CreateAuxiliaryParams): AuxiliaryAction {
         // A variant title reflects the options to draw, pick up, or retrieve a weapon with one or two hands */
         const [actions, carryType, fullPurpose] = ((): [ZeroToThree, ItemCarryType, string] => {
             switch (purpose) {
@@ -1393,11 +1393,11 @@ class CharacterPF2e extends CreaturePF2e {
             basicUnarmed ?? [],
         ].flat();
 
-        return weapons.map((w) => this.prepareStrike(w, { categories: offensiveCategories, ammos }));
+        return weapons.map((w) => this.#prepareStrike(w, { categories: offensiveCategories, ammos }));
     }
 
     /** Prepare a strike action from a weapon */
-    private prepareStrike(
+    #prepareStrike(
         weapon: Embedded<WeaponPF2e>,
         options: {
             categories: WeaponCategory[];
@@ -1568,56 +1568,56 @@ class CharacterPF2e extends CreaturePF2e {
                 case "held": {
                     if (weapon.handsHeld === 2) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Release", purpose: "Grip", hands: 1 })
+                            this.#createAuxAction({ weapon, action: "Release", purpose: "Grip", hands: 1 })
                         );
                     } else if (weapon.handsHeld === 1 && canWield2H) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 })
+                            this.#createAuxAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 })
                         );
                     }
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 })
+                        this.#createAuxAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 })
                     );
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Release", purpose: "Drop", hands: 0 })
+                        this.#createAuxAction({ weapon, action: "Release", purpose: "Drop", hands: 0 })
                     );
                     break;
                 }
                 case "worn": {
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 })
+                            this.#createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 })
                         );
                     }
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 })
+                        this.#createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 })
                     );
                     break;
                 }
                 case "stowed": {
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 })
+                        this.#createAuxAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 })
                     );
                     break;
                 }
                 case "dropped": {
                     if (canWield2H) {
                         auxiliaryActions.push(
-                            this.createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 })
+                            this.#createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 })
                         );
                     }
                     auxiliaryActions.push(
-                        this.createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 })
+                        this.#createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 })
                     );
                     break;
                 }
             }
         }
 
-        const flavor = this.getStrikeDescription(weapon);
+        const flavor = getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
-        const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
+        const altUsages = weapon.getAltUsages().map((w) => this.#prepareStrike(w, { categories }));
         strikeStat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, selectors);
 
         const action: CharacterStrike = mergeObject(strikeStat, {
@@ -1843,29 +1843,6 @@ class CharacterPF2e extends CreaturePF2e {
         return action;
     }
 
-    getStrikeDescription(weapon: WeaponPF2e): { description: string; criticalSuccess: string; success: string } {
-        const flavor = {
-            description: "PF2E.Strike.Default.Description",
-            criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
-            success: "PF2E.Strike.Default.Success",
-        };
-        const traits = weapon.traits;
-        if (traits.has("unarmed")) {
-            flavor.description = "PF2E.Strike.Unarmed.Description";
-            flavor.success = "PF2E.Strike.Unarmed.Success";
-        } else if ([...traits].some((trait) => trait.startsWith("thrown-") || trait === "combination")) {
-            flavor.description = "PF2E.Strike.Combined.Description";
-            flavor.success = "PF2E.Strike.Combined.Success";
-        } else if (weapon.isMelee) {
-            flavor.description = "PF2E.Strike.Melee.Description";
-            flavor.success = "PF2E.Strike.Melee.Success";
-        } else {
-            flavor.description = "PF2E.Strike.Ranged.Description";
-            flavor.success = "PF2E.Strike.Ranged.Success";
-        }
-        return flavor;
-    }
-
     /** Possibly modify this weapon depending on its */
     protected override getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
@@ -1909,7 +1886,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Prepare stored and synthetic martial proficiencies */
-    prepareMartialProficiencies(): void {
+    #prepareMartialProficiencies(): void {
         const systemData = this.system;
 
         // Set ranks of linked proficiencies to their respective categories
