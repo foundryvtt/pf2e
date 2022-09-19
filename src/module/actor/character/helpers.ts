@@ -133,27 +133,4 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
     });
 }
 
-function getStrikeDescription(weapon: WeaponPF2e): { description: string; criticalSuccess: string; success: string } {
-    const flavor = {
-        description: "PF2E.Strike.Default.Description",
-        criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
-        success: "PF2E.Strike.Default.Success",
-    };
-    const traits = weapon.traits;
-    if (traits.has("unarmed")) {
-        flavor.description = "PF2E.Strike.Unarmed.Description";
-        flavor.success = "PF2E.Strike.Unarmed.Success";
-    } else if ([...traits].some((t) => t.startsWith("thrown-") || t === "combination")) {
-        flavor.description = "PF2E.Strike.Combined.Description";
-        flavor.success = "PF2E.Strike.Combined.Success";
-    } else if (weapon.isMelee) {
-        flavor.description = "PF2E.Strike.Melee.Description";
-        flavor.success = "PF2E.Strike.Melee.Success";
-    } else {
-        flavor.description = "PF2E.Strike.Ranged.Description";
-        flavor.success = "PF2E.Strike.Ranged.Success";
-    }
-    return flavor;
-}
-
-export { createForceOpenPenalty, getStrikeDescription, StrikeWeaponTraits };
+export { createForceOpenPenalty, StrikeWeaponTraits };
