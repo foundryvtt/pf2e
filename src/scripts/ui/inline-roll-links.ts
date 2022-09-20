@@ -13,7 +13,7 @@ const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword
 export const InlineRollLinks = {
     injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
         for (const link of links) {
-            link.classList.add("with-repost");
+            if (!foundryDoc || foundryDoc.isOwner) link.classList.add("with-repost");
 
             const repostButtons = htmlQueryAll(link, "i[data-pf2-repost]");
             if (repostButtons.length > 0) {
