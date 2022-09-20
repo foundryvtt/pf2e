@@ -20,6 +20,24 @@ const darkvision = new VisionMode({
     },
 });
 
+class VisionDetectionMode extends DetectionModeBasicSight {
+    constructor() {
+        super({
+            id: "basicSight",
+            label: "DETECTION.BasicSight",
+            type: DetectionMode.DETECTION_TYPES.SIGHT,
+        });
+    }
+
+    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+        if (!super._canDetect(visionSource, target)) return false;
+        const targetIsUndetected =
+            target instanceof TokenPF2e &&
+            !!target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
+        return !targetIsUndetected;
+    }
+}
+
 class HearingDetectionMode extends DetectionMode {
     constructor() {
         super({
@@ -80,6 +98,7 @@ declare namespace HearingDetectionMode {
 
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
+    CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }

@@ -20,6 +20,9 @@ declare global {
         /** Track the set of User entities which are currently targeting this Token */
         targeted: Set<User>;
 
+        /** A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup. */
+        mesh: PIXI.DisplayObject & { refresh(): void };
+
         /** A reference to the PointSource object which defines this vision source area of effect */
         vision: VisionSource<this>;
 
