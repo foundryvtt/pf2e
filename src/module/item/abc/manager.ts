@@ -5,6 +5,7 @@ import { CharacterPF2e } from "@actor/index";
 import type { FeatSource } from "@item/feat/data";
 import { ErrorPF2e, sluggify } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
+import { MigrationList, MigrationRunner } from "@module/migration";
 
 export interface ABCManagerOptions {
     assurance?: string[];
@@ -16,6 +17,10 @@ export class AncestryBackgroundClassManager {
         actor: CharacterPF2e,
         options?: ABCManagerOptions
     ): Promise<ItemPF2e[]> {
+        const tempItem = new CONFIG.PF2E.Item.documentClasses[source.type](source);
+        await MigrationRunner.ensureSchemaVersion(tempItem, MigrationList.constructFromVersion(tempItem.schemaVersion));
+        source = tempItem.toObject();
+
         switch (source.type) {
             case "ancestry": {
                 await actor.ancestry?.delete({ render: false });
@@ -150,6 +155,12 @@ export class AncestryBackgroundClassManager {
 
     protected static async getFromCompendium(entries: ABCFeatureEntryData[]): Promise<FeatPF2e[]> {
         const items = (await fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
+        for (const item of items) {
+            if (item instanceof ItemPF2e) {
+                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
+            }
+        }
+
         return items.flatMap((item): FeatPF2e | never[] => {
             if (item instanceof FeatPF2e) {
                 if (item.featType === "classfeature") {
