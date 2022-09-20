@@ -188,3 +188,4 @@ export { Migration787ResolvablesToSystem } from "./787-resolvables-to-system";
 export { Migration788UpdateTanglefootBags } from "./788-update-tanglefoot-bags";
 export { Migration789UpdatePreciseStrike } from "./789-update-precise-strike";
 export { Migration790MultipleClassDCs } from "./790-multiple-class-dcs";
+export { Migration791RuffianHands } from "./791-ruffian-hands";
