@@ -5955,7 +5955,20 @@
                         }
                     ]
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": {
+                            "all": [
+                                "item:slug:harm"
+                            ]
+                        },
+                        "selector": "spell-damage"
+                    }
+                ],
                 "slug": "harming-hands",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
