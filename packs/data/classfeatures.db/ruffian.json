@@ -93,6 +93,21 @@
                 "mode": "upgrade",
                 "path": "system.skills.itm.rank",
                 "value": 1
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": {
+                    "all": [
+                        "target:condition:flat-footed",
+                        "weapon:category:simple",
+                        {
+                            "lte": [
+                                "weapon:damage:die:faces",
+                                8
+                            ]
+                        }
+                    ]
+                }
             }
         ],
         "source": {
