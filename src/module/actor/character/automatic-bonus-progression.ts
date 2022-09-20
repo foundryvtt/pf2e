@@ -2,6 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 import { PotencySynthetic, RuleElementSynthetics, StrikingSynthetic } from "@module/rules/synthetics";
+import { PredicatePF2e } from "@system/predication";
 
 export class AutomaticBonusProgression {
     static get isEnabled(): boolean {
@@ -99,6 +100,7 @@ export class AutomaticBonusProgression {
                 const s: StrikingSynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                     bonus: damage,
+                    predicate: new PredicatePF2e(),
                 };
                 (synthetics.striking["strike-damage"] ??= []).push(s);
             }
@@ -107,6 +109,7 @@ export class AutomaticBonusProgression {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
                     type: MODIFIER_TYPE.POTENCY,
                     bonus: attack,
+                    predicate: new PredicatePF2e(),
                 };
                 synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
                     potency

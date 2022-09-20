@@ -71,7 +71,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
         if (statistic) {
             const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);
             for (const modifier of toIgnore) {
-                modifier.predicate = new PredicatePF2e({ all: [`overridden-by-${this.slug}`] });
+                modifier.predicate = new PredicatePF2e(`overridden-by-${this.slug}`);
             }
 
             // Only AC will be a `StatisticModifier`

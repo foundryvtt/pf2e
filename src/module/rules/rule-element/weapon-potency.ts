@@ -35,11 +35,9 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
             const label = this.data.label.includes(":")
                 ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
                 : this.data.label;
-            const potency: PotencySynthetic = { label, bonus: value, type: bonusType };
-            if (this.data.predicate) {
-                potency.predicate = this.data.predicate;
-            }
-            weaponPotency[selector] = (weaponPotency[selector] || []).concat(potency);
+            const potency: PotencySynthetic = { label, bonus: value, type: bonusType, predicate: this.predicate };
+            const synthetics = (weaponPotency[selector] ??= []);
+            synthetics.push(potency);
         } else {
             this.failValidation("Weapon potency requires at least a selector field and a non-empty value field");
         }

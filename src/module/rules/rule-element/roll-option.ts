@@ -44,8 +44,8 @@ class RollOptionRuleElement extends RuleElementPF2e {
         this.option = String(data.option).trim();
         this.toggleable = !!data.toggleable;
         this.value = typeof data.value === "string" ? data.value : !!(data.value ?? !this.toggleable);
-        if (this.toggleable && data.disabledIf instanceof Object) {
-            this.disabledIf = new PredicatePF2e(data.disabledIf);
+        if (this.toggleable && Array.isArray(data.disabledIf)) {
+            this.disabledIf = new PredicatePF2e(...data.disabledIf);
             this.disabledValue =
                 data.disabledValue === null || typeof data.disabledValue === "boolean" ? data.disabledValue : false;
         }

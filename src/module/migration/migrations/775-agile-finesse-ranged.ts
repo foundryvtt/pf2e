@@ -1,6 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { PredicateStatement } from "@system/predication";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 /** Update features that require agile, finesse or ranged weapons to reflect current melee/ranged classification */
@@ -17,7 +18,12 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
                 if (source.system.slug === "sneak-attack") {
                     const damageDiceRE = this.#findDamageDiceRE(source);
                     // Skip NPCs with PFS's simplified sneak attack rule
-                    if (damageDiceRE && damageDiceRE.predicate?.all?.some((s) => s instanceof Object && "or" in s)) {
+                    if (
+                        isObject<{ predicate: OldRawPredicate }>(damageDiceRE) &&
+                        damageDiceRE.predicate &&
+                        Array.isArray(damageDiceRE.predicate.all) &&
+                        damageDiceRE.predicate.all.some((s) => s instanceof Object && "or" in s)
+                    ) {
                         damageDiceRE.predicate = this.#sneakAttackPredicate;
                     }
                 }
@@ -105,7 +111,7 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
         };
     }
 
-    get #ruffianPredicate(): RawPredicate {
+    get #ruffianPredicate(): OldRawPredicate {
         return {
             all: [
                 "target:condition:flat-footed",
@@ -121,7 +127,7 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
         };
     }
 
-    get #sneakAttackPredicate(): RawPredicate {
+    get #sneakAttackPredicate(): OldRawPredicate {
         return {
             all: ["target:condition:flat-footed"],
             any: [
@@ -134,3 +140,9 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
 }
 
 type BaseREWithOtherStuff = RuleElementSource & Record<string, unknown>;
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
+}

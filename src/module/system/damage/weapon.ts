@@ -248,7 +248,11 @@ class WeaponDamagePF2e {
             // find best striking source
             const strikingRune = weapon.isOfType("weapon") ? weapon.system.runes.striking : null;
             if (strikingRune) {
-                strikingList.push({ label: "PF2E.StrikingRuneLabel", bonus: strikingRune });
+                strikingList.push({
+                    label: "PF2E.StrikingRuneLabel",
+                    bonus: strikingRune,
+                    predicate: new PredicatePF2e(),
+                });
             }
             if (strikingList.length > 0) {
                 const s = strikingList.reduce(
@@ -421,7 +425,7 @@ class WeaponDamagePF2e {
             ) {
                 dice.label += ` ${dice.category}`;
             }
-            dice.enabled = new PredicatePF2e(dice.predicate ?? {}).test(options);
+            dice.enabled = dice.predicate.test(options);
             dice.ignored = !dice.enabled;
         }
 
@@ -668,7 +672,7 @@ class WeaponDamagePF2e {
             rule.applyDamageExclusion?.(weapon, notIgnored);
         }
         for (const modifier of notIgnored) {
-            modifier.ignored = !new PredicatePF2e(modifier.predicate ?? {}).test(options);
+            modifier.ignored = !modifier.predicate.test(options);
         }
     }
 

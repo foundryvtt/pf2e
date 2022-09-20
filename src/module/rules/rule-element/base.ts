@@ -33,6 +33,9 @@ abstract class RuleElementPF2e {
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
 
+    /** A test of whether the rules element is to be applied */
+    readonly predicate: PredicatePF2e;
+
     /**
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
@@ -54,14 +57,17 @@ abstract class RuleElementPF2e {
         this.data = {
             priority: 100,
             ...data,
-            predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
+            key: this.key,
+            predicate: Array.isArray(data.predicate) ? data.predicate : undefined,
             label: game.i18n.localize(this.resolveInjectedProperties(label)),
             ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
 
-        if (this.data.predicate && !this.data.predicate.isValid) {
-            console.debug(`Invalid predicate on ${this.item.name} (${this.item.uuid})`);
+        this.predicate = new PredicatePF2e(...(this.data.predicate ?? []));
+
+        if (!this.predicate.isValid) {
+            this.failValidation(`Malformed predicate: must be an array of predication statements`);
         }
 
         if (item instanceof PhysicalItemPF2e) {
@@ -86,10 +92,6 @@ abstract class RuleElementPF2e {
 
     get label(): string {
         return this.data.label;
-    }
-
-    get predicate(): this["data"]["predicate"] {
-        return this.data.predicate;
     }
 
     /** The place in order of application (ascending), among an actor's list of rule elements */
@@ -120,7 +122,7 @@ abstract class RuleElementPF2e {
         const optionSet =
             rollOptions instanceof Set ? rollOptions : new Set(rollOptions ?? this.actor.getRollOptions());
 
-        return this.resolveInjectedProperties(this.data.predicate).test(optionSet);
+        return this.resolveInjectedProperties(this.predicate).test(optionSet);
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
@@ -163,13 +165,13 @@ abstract class RuleElementPF2e {
         if (typeof source === "string" && !source.includes("{")) return source;
 
         // Walk the object tree and resolve any string values found
-        if (isObject<Record<string, unknown>>(source)) {
+        if (Array.isArray(source)) {
+            for (let i = 0; i < source.length; i++) {
+                source[i] = this.resolveInjectedProperties(source[i]);
+            }
+        } else if (isObject<Record<string, unknown>>(source)) {
             for (const [key, value] of Object.entries(source)) {
-                if (Array.isArray(value)) {
-                    source[key] = value.map((e: unknown) =>
-                        typeof e === "string" || isObject(e) ? this.resolveInjectedProperties(e) : e
-                    );
-                } else if (typeof value === "string" || isObject(value)) {
+                if (typeof value === "string" || isObject(value)) {
                     source[key] = this.resolveInjectedProperties(value);
                 }
             }

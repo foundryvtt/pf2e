@@ -69,7 +69,7 @@ function calculateRangePenalty(
         slug,
         type: MODIFIER_TYPE.UNTYPED,
         modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
-        predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
+        predicate: [{ nor: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] }],
         adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, slug),
     });
     modifier.test(rollOptions);

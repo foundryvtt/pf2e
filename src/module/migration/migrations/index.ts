@@ -190,3 +190,4 @@ export { Migration789UpdatePreciseStrike } from "./789-update-precise-strike";
 export { Migration790MultipleClassDCs } from "./790-multiple-class-dcs";
 export { Migration791RuffianHands } from "./791-ruffian-hands";
 export { Migration792RemoveTokenAELikes } from "./792-remove-token-ae-likes";
+export { Migration793MakePredicatesArrays } from "./793-make-predicates-arrays";
