@@ -50,13 +50,19 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
             try {
-                return await fromUuid(uuid);
+                return (await fromUuid(uuid))?.clone() ?? null;
             } catch (error) {
                 console.error(error);
                 return null;
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
+
+        // The grant may have come from a non-system compendium, so make sure it's fully migrated
+        const migrations = MigrationList.constructFromVersion(grantedItem.schemaVersion);
+        if (migrations.length > 0) {
+            await MigrationRunner.ensureSchemaVersion(grantedItem, migrations);
+        }
 
         // If we shouldn't allow duplicates, check for an existing item with this source ID
         if (!this.allowDuplicate && this.actor.items.some((i) => i.sourceId === uuid)) {
@@ -79,17 +85,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
-
-        // The grant may have come from a non-system compendium, so make sure it's fully migrated
-        const migrations = MigrationList.constructFromVersion(grantedSource.system.schema.version ?? 0);
-        if (migrations.length > 0) {
-            const actorWithNewItem = this.actor.toObject();
-            actorWithNewItem.items.push(grantedSource);
-            for (const migration of migrations) {
-                await migration.updateItem?.(grantedSource, actorWithNewItem);
-            }
-            grantedSource.system.schema.version = MigrationRunner.LATEST_SCHEMA_VERSION;
-        }
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
