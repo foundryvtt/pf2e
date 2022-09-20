@@ -166,7 +166,6 @@
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "-=inSlot": null,
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
@@ -300,7 +299,6 @@
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "-=inSlot": null,
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
@@ -937,7 +935,7 @@
                         "predicate": {
                             "all": [
                                 "agile",
-                                "huntedPrey"
+                                "hunted-prey"
                             ]
                         },
                         "selector": "attack",
@@ -947,7 +945,7 @@
                         "key": "MultipleAttackPenalty",
                         "predicate": {
                             "all": [
-                                "huntedPrey"
+                                "hunted-prey"
                             ],
                             "not": [
                                 "agile"
@@ -1001,7 +999,7 @@
                         "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                        "option": "huntedPrey",
+                        "option": "hunted-prey",
                         "toggleable": true
                     },
                     {
@@ -1010,7 +1008,7 @@
                         "predicate": {
                             "all": [
                                 "action:seek",
-                                "huntedPrey"
+                                "hunted-prey"
                             ]
                         },
                         "selector": "perception",
@@ -1023,7 +1021,7 @@
                         "predicate": {
                             "all": [
                                 "action:track",
-                                "huntedPrey"
+                                "hunted-prey"
                             ]
                         },
                         "selector": "survival",
@@ -1036,7 +1034,7 @@
                         "option": "ignore-range-penalty:2",
                         "predicate": {
                             "all": [
-                                "huntedPrey"
+                                "hunted-prey"
                             ]
                         }
                     }
