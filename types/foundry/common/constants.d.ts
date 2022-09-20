@@ -462,8 +462,8 @@ declare global {
          */
         WALL_SENSE_TYPES: {
             NONE: 0;
-            NORMAL: 10;
-            LIMITED: 20;
+            LIMITED: 10;
+            NORMAL: 20;
         };
 
         /** The supported file extensions for image-type files */

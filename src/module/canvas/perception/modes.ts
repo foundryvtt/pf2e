@@ -63,6 +63,16 @@ class HearingDetectionMode extends DetectionMode {
             !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
         return !visionSource.object.actor?.hasCondition("deafened") && targetIsDetected();
     }
+
+    protected override _testLOS(
+        visionSource: VisionSource<TokenPF2e>,
+        _mode: TokenDetectionMode,
+        target: PlaceableObject
+    ): boolean {
+        return visionSource.object
+            .checkCollision(target.center, { mode: "all" })
+            .every((c) => Array.from(c.edges).every((e) => e.wall.document.sound === CONST.WALL_SENSE_TYPES.NONE));
+    }
 }
 
 class DetectionModeTremorPF2e extends DetectionModeTremor {
