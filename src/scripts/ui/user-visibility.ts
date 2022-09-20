@@ -1,11 +1,13 @@
-import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { objectHasKey } from "@util";
+import { htmlQueryAll, objectHasKey } from "@util";
 
 class UserVisibilityPF2e {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    static process($html: JQuery, options: ProcessOptions = {}): void {
-        const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
+    static process($html: HTMLElement | JQuery, options: ProcessOptions = {}): void {
+        const html = $html instanceof HTMLElement ? $html : $html[0]!;
+        if ($html instanceof HTMLElement) $html = $($html);
+
+        const visibilityElements = htmlQueryAll(html, "[data-visibility]");
 
         // Remove all visibility=none elements
         for (const element of visibilityElements.filter((e) => e.dataset.visibility === "none")) {
@@ -14,7 +16,7 @@ class UserVisibilityPF2e {
 
         // Process all other visibility elements according to originating document ownership
         const { message } = options;
-        const document = options.actor ?? message?.actor ?? message?.journalEntry ?? null;
+        const document = options.document ?? message?.actor ?? message?.journalEntry ?? message ?? null;
         if (document) {
             const elements = visibilityElements.filter((e) => e.dataset.visibility === "owner");
             for (const element of elements) {
@@ -92,8 +94,8 @@ class UserVisibilityPF2e {
 type UserVisibility = "all" | "owner" | "gm" | "none";
 
 interface ProcessOptions {
+    document?: ClientDocument | null;
     message?: ChatMessagePF2e;
-    actor?: ActorPF2e | null;
 }
 
 export { UserVisibilityPF2e, UserVisibility };
