@@ -343,9 +343,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         $html.find(".item-edit").on("click", (event) => {
             const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
             const item = this.actor.items.get(itemId ?? "");
-            if (item) {
-                item.sheet.render(true);
-            }
+            item?.sheet.render(true, { focus: true });
         });
 
         // Toggle identified
