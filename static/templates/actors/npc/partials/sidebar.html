@@ -188,8 +188,8 @@
         </div>
         <div class="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
-                {{#if speed.value }}
-                    <div class="tag-legacy speed" data-speed="{{localize speed.type}}">
+                {{#if speed.value}}
+                    <div class="tag-legacy speed" data-speed="{{speed.type}}">
                         {{localize speed.label}} {{speed.value}}
                     </div>
                 {{/if}}
