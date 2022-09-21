@@ -102,7 +102,7 @@ class CompendiumBrowser extends Application {
 
         this.loadSettings();
         this.initCompendiumList();
-        this.injectActorDirectory(ui.actors.element);
+        this.injectActorDirectory();
         this.hookTab();
     }
 
@@ -929,8 +929,8 @@ class CompendiumBrowser extends Application {
         this.element.css({ pointerEvents: "none" });
     }
 
-    injectActorDirectory(actorDirectory: JQuery<HTMLElement>) {
-        const $html = actorDirectory;
+    injectActorDirectory() {
+        const $html = ui.actors.element;
         if ($html.find(".bestiary-browser-btn").length > 0) return;
 
         // Bestiary Browser Buttons
@@ -948,13 +948,6 @@ class CompendiumBrowser extends Application {
         bestiaryImportButton.on("click", (ev) => {
             ev.preventDefault();
             this.openTab("bestiary");
-        });
-
-        // Add levels to actors.
-        $html.find(".actor").each((_, actor) => {
-            const documentId = $(actor).attr("data-document-id");
-            const level = ui.actors.documents.find((actorDoc) => actorDoc.id === documentId)?.level;
-            if (level) $(actor).find(".document-name").append(`<span class="actor-level">Level ${level}</span>`);
         });
     }
 
