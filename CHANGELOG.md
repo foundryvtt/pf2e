@@ -1,5 +1,35 @@
 # Changelog
 
+## Version 4.1.0
+
+### System Improvements
+* (In3luki) Update Compendium Browser text search to utilize `MiniSearch`
+* (sturteva) Add spiritsense to available creature sense types
+* (stwlam) Add limited support for DamageDice REs in spells (reflected in Healing/Harming Hands feats)
+* (stwlam) Add support for hearing through walls that don't block sound (thanks to dev8675309 for assistance!)
+* (stwlam) Incorporate V10 tremorsense detection mode
+* (stwlam) Add undetected condition to token HUD
+* (stwlam) Lower enforced PC ability score cap to 1 while in manual-entry mode
+* (Supe) Add structured form for editing FlatModifier rule elements
+
+### Bugfixes
+* (stwlam) Fix token mirroring when scale is locked
+* (stwlam) Fix issue causing secret text in journal entry text pages to become visible to players
+
+### Data Updates
+* (InfamousSky) Add Glass Skin feat
+* (InfamousSky) Add cauldron of flying
+* (itamarcu) Fix Blaze effect
+* (SpartanCPA) Add a rollable save to Dragon's Rage Breath
+* (SpartanCPA) Audit Age of Ashes book 1
+* (SpartanCPA) Audit Doblagub (Extinction Curse)
+* (SpartanCPA) Fix name of Legacy of the Hammer background
+* (stwlam) Add critical specialization to Ruffian class feature
+* (stwlam) Fix description of Fatal Aim trait
+* (stwlam) Fix predicate on Precise Strike's damage dice RE
+* (Supe) Add Scroll Trickster bonus to trick magic item
+
+
 ## Version 4.0.6
 
 ### System Improvements
