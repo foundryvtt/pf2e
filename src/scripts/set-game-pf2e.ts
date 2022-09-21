@@ -25,6 +25,7 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import { registerModuleArt } from "./register-module-art";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -60,7 +61,7 @@ export const SetGamePF2e = {
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,
-            system: { moduleArt: new Map(), remigrate, sluggify },
+            system: { moduleArt: { map: new Map(), refresh: registerModuleArt }, remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
 
