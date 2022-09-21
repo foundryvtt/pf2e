@@ -24,7 +24,9 @@ export class EffectsPanel extends Application {
 
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
-        if (!actor) return { conditions: [], effects: [], actor: null };
+        if (!actor || !game.user.settings.showEffectPanel) {
+            return { conditions: [], effects: [], actor: null };
+        }
 
         const effects =
             actor.itemTypes.effect.map((effect) => {
