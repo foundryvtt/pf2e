@@ -1,44 +1,12 @@
 import { Alignment, ModeOfBeing } from "@actor/creature/types";
 import { isChaotic, isEvil, isGood, isLawful } from "@system/alignment";
-import { groupBy, sum } from "@util";
-
-const physicalDamageTypes = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
-const lifeEnergyDamageTypes = ["positive", "negative"] as const;
-const energyDamageTypes = ["acid", "cold", "electricity", "fire", "sonic", "force", ...lifeEnergyDamageTypes] as const;
-const alignmentDamageTypes = ["chaotic", "lawful", "good", "evil"] as const;
-export const DAMAGE_TYPES = new Set([
-    ...physicalDamageTypes,
-    ...energyDamageTypes,
-    ...alignmentDamageTypes,
-    "mental",
-    "poison",
-    "untyped", // see https://2e.aonprd.com/Spells.aspx?ID=162
-] as const);
-
-export type DamageType = SetElement<typeof DAMAGE_TYPES>;
+import { groupBy, setHasElement, sum } from "@util";
+import { DamageType } from "./types";
+import { DAMAGE_CATEGORIES, DAMAGE_TYPES, ENERGY_DAMAGE_TYPES, PHYSICAL_DAMAGE_TYPES } from "./values";
 
 export function isDamageType(value: string): value is DamageType {
-    return DAMAGE_TYPES.has(value as DamageType);
+    return setHasElement(DAMAGE_TYPES, value);
 }
-
-export const DAMAGE_CATEGORIES = new Set([
-    "adamantine",
-    "alignment",
-    "coldiron",
-    "darkwood",
-    "energy",
-    "ghostTouch",
-    "mithral",
-    "orichalcum",
-    "physical",
-    "precision",
-    "salt",
-    "salt-water",
-    "silver",
-    "sisterstone-dusk",
-    "sisterstone-scarlet",
-    "warpglass",
-] as const);
 
 export const DAMAGE_TRAITS = new Set(["air", "earth", "light", "magical", "unarmed", "water"] as const);
 
@@ -52,7 +20,6 @@ export const ATTACK_TYPES = new Set([
 ] as const);
 
 export type AttackType = SetElement<typeof ATTACK_TYPES>;
-export type DamageCategory = SetElement<typeof DAMAGE_CATEGORIES>;
 export type DamageTrait = SetElement<typeof DAMAGE_TRAITS> | DamageType;
 
 export function isAttackTrait(trait: string): trait is AttackType {
@@ -307,10 +274,10 @@ export class Resistance extends IWRAttribute implements HasValue {
 function denormalizeTraits(traits: Set<CombinedTrait>): Set<CombinedTrait> {
     const result: Set<CombinedTrait> = new Set();
     result.add("all");
-    if ([...physicalDamageTypes].some((damageType) => traits.has(damageType))) {
+    if (PHYSICAL_DAMAGE_TYPES.some((damageType) => traits.has(damageType))) {
         result.add("physical");
     }
-    if ([...energyDamageTypes].some((damageType) => traits.has(damageType))) {
+    if (ENERGY_DAMAGE_TYPES.some((damageType) => traits.has(damageType))) {
         result.add("energy");
     }
     if (traits.has("salt-water")) {

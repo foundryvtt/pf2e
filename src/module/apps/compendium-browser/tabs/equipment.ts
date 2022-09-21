@@ -3,11 +3,27 @@ import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { EquipmentFilters, RangesData } from "./data";
+import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     override filterData!: EquipmentFilters;
     override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = [
+        "type",
+        "name",
+        "img",
+        "uuid",
+        "level",
+        "category",
+        "group",
+        "price",
+        "priceInCopper",
+        "traits",
+        "rarity",
+        "source",
+    ];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "equipment");
@@ -19,7 +35,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
-        const inventoryItems: CompendiumIndexData[] = [];
+        const inventoryItems: CompendiumBrowserIndexData[] = [];
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
         const kitFields = ["img", "system.price", "system.traits"];
@@ -78,11 +94,10 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     }
 
                     inventoryItems.push({
-                        _id: itemData._id,
                         type: itemData.type,
                         name: itemData.name,
                         img: itemData.img,
-                        compendium: pack.collection,
+                        uuid: `Compendium.${pack.collection}.${itemData._id}`,
                         level: itemData.system.level?.value ?? 0,
                         category: itemData.system.category ?? "",
                         group: itemData.system.group ?? "",
@@ -133,19 +148,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, multiselects, ranges, search, sliders } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, multiselects, ranges, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
         // Price
         if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
             return false;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Item type
         if (checkboxes.itemtypes.selected.length > 0 && !checkboxes.itemtypes.selected.includes(entry.type)) {
             return false;

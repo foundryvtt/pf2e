@@ -459,6 +459,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.synthetics = {
             criticalSpecalizations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
+            degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
             movementTypes: {},

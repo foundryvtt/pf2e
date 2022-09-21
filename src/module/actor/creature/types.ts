@@ -33,6 +33,7 @@ interface AttackTarget {
     actor: ActorPF2e;
     token: TokenDocumentPF2e;
     distance: number;
+    rangeIncrement: number | null;
 }
 
 /** Context for the attack or damage roll of a strike */
@@ -47,7 +48,9 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
 interface StrikeRollContextParams<T extends AttackItem> {
     item: T;
     /** Domains from which to draw roll options */
-    domains?: string[];
+    domains: string[];
+    /** Initial roll options for the strike */
+    options: Set<string>;
     /** Whether the request is for display in a sheet view. If so, targets are not considered */
     viewOnly?: boolean;
 }

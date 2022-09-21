@@ -70,6 +70,10 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         if (this.force && this.type === "untyped") {
             this.failValidation("A forced bonus or penalty must have a type");
         }
+
+        if (data.damageCategory && data.damageCategory !== "precision") {
+            this.failValidation('category must be "precision" or omitted');
+        }
     }
 
     override beforePrepareData(): void {

@@ -2,14 +2,20 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { RollFunction, TraitViewData } from "@actor/data/base";
-import { calculateMAPs, calculateRangePenalty } from "@actor/helpers";
+import { calculateMAPs } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments, extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
+import {
+    extractDegreeOfSuccessAdjustments,
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollTwice,
+} from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
 import { CheckRoll } from "@system/check/roll";
@@ -273,6 +279,7 @@ class NPCPF2e extends CreaturePF2e {
                 system.attributes.perception,
                 { overwrite: false }
             );
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.base = base;
             stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
@@ -367,6 +374,7 @@ class NPCPF2e extends CreaturePF2e {
                 },
                 { overwrite: false }
             );
+            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -411,6 +419,7 @@ class NPCPF2e extends CreaturePF2e {
                     system.skills[shortform],
                     { overwrite: false }
                 );
+                stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
                 stat.notes = extractNotes(rollNotes, domains);
                 stat.itemID = item.id;
                 stat.base = base;
@@ -520,8 +529,8 @@ class NPCPF2e extends CreaturePF2e {
                     baseOptions.push("ranged");
                 }
 
-                const statistic = new StatisticModifier(item.name, modifiers, baseOptions);
-
+                const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
+                statistic.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
                 const traitObjects = Array.from(traits).map(
                     (t): TraitViewData => ({
                         name: t,
@@ -531,6 +540,7 @@ class NPCPF2e extends CreaturePF2e {
                 );
 
                 const action: NPCStrike = mergeObject(statistic, {
+                    label: item.name,
                     type: "strike" as const,
                     glyph: actionGlyph,
                     description: item.description,
@@ -559,13 +569,6 @@ class NPCPF2e extends CreaturePF2e {
                     return [`${roll.damage} ${damageType}`];
                 });
 
-                const getRangeIncrement = (distance: number | null): number | null => {
-                    const weaponIncrement = item.rangeIncrement;
-                    return typeof distance === "number" && typeof weaponIncrement === "number"
-                        ? Math.max(Math.ceil(distance / weaponIncrement), 1)
-                        : null;
-                };
-
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
                 const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
                 const sign = action.totalModifier < 0 ? "" : "+";
@@ -588,14 +591,15 @@ class NPCPF2e extends CreaturePF2e {
                         roll: async (params: RollParameters = {}): Promise<Rolled<CheckRoll> | null> => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
-                            const context = this.getAttackRollContext({ item, viewOnly: false });
+
+                            params.options ??= [];
                             // Always add all weapon traits as options
-                            const rollOptions = new Set([
-                                ...(params.options ?? []),
-                                ...context.options,
-                                ...traits,
-                                ...context.self.item.getRollOptions("weapon"),
-                            ]);
+                            const context = this.getAttackRollContext({
+                                item,
+                                viewOnly: false,
+                                domains,
+                                options: new Set([...baseOptions, ...params.options, ...traits]),
+                            });
 
                             // Check whether target is out of maximum range; abort early if so
                             if (context.self.item.isRanged && typeof context.target?.distance === "number") {
@@ -606,11 +610,7 @@ class NPCPF2e extends CreaturePF2e {
                                 }
                             }
 
-                            const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
-                            if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
-
-                            const rangePenalty = calculateRangePenalty(this, rangeIncrement, domains, rollOptions);
-                            const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
+                            const otherModifiers = [map ?? [], context.self.modifiers].flat();
                             const checkName = game.i18n.format(
                                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                                 { weapon: item.name }
@@ -623,17 +623,22 @@ class NPCPF2e extends CreaturePF2e {
                                     item: context.self.item,
                                     target: context.target,
                                     type: "attack-roll",
-                                    options: rollOptions,
+                                    options: context.options,
                                     notes: rollNotes,
                                     dc: params.dc ?? context.dc,
-                                    rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, rollOptions),
+                                    rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, context.options),
                                     traits: [attackTrait],
                                 },
                                 params.event
                             );
 
                             for (const rule of this.rules.filter((r) => !r.ignored)) {
-                                await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                                await rule.afterRoll?.({
+                                    roll,
+                                    selectors: domains,
+                                    domains,
+                                    rollOptions: context.options,
+                                });
                             }
 
                             return roll;
@@ -645,10 +650,15 @@ class NPCPF2e extends CreaturePF2e {
                 const damageRoll =
                     (outcome: "success" | "criticalSuccess"): RollFunction =>
                     async (params: RollParameters = {}) => {
-                        const context = this.getDamageRollContext({ item, viewOnly: false });
+                        const domains = ["all", "strike-damage", "damage-roll"];
+                        const context = this.getDamageRollContext({
+                            item,
+                            viewOnly: false,
+                            domains,
+                            options: new Set(params.options ?? []),
+                        });
                         // always add all weapon traits as options
                         const options = new Set([
-                            ...(params.options ?? []),
                             ...context.options,
                             ...traits,
                             ...context.self.item.getRollOptions("weapon"),
@@ -664,7 +674,7 @@ class NPCPF2e extends CreaturePF2e {
                             [attackTrait],
                             deepClone(statisticsModifiers),
                             deepClone(modifierAdjustments),
-                            this.cloneSyntheticsRecord(damageDice),
+                            deepClone(damageDice),
                             1,
                             options,
                             rollNotes,
@@ -731,7 +741,6 @@ class NPCPF2e extends CreaturePF2e {
             entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
                 label: CONFIG.PF2E.magicTraditions[tradition],
-                notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
@@ -762,7 +771,7 @@ class NPCPF2e extends CreaturePF2e {
 
     prepareSaves(): void {
         const systemData = this.system;
-        const { modifierAdjustments, rollNotes } = this.synthetics;
+        const { modifierAdjustments } = this.synthetics;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -776,7 +785,6 @@ class NPCPF2e extends CreaturePF2e {
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                notes: extractNotes(rollNotes, domains),
                 domains: domains,
                 modifiers: [
                     new ModifierPF2e({

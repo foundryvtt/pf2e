@@ -8,8 +8,8 @@ import { OneToFour, OneToThree } from "@module/data";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { setHasElement } from "@util";
-import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";
+import { type WeaponPF2e } from "./document";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {

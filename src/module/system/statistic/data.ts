@@ -1,14 +1,11 @@
 import { ModifierPF2e, RawModifier } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ZeroToFour } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CheckType } from "@system/rolls";
 
 export interface StatisticCheckData {
     type: CheckType;
     label?: string;
-    adjustments?: DegreeOfSuccessAdjustment[];
     modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];
@@ -23,21 +20,18 @@ export interface StatisticDifficultyClassData {
 
 /**
  * The base type for statistic data, which is used to build the actual statistic object.
- * In general, the statistic data should be available in document data, but the actual statistic object
- * does not have to be.
  */
 export interface BaseStatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
     ability?: AbilityString;
-    rank?: ZeroToFour;
+    rank?: ZeroToFour | "untrained-level";
     label: string;
-    /** If given and rank is omitted, declares if the statistic is with proficiency */
+    /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];
-    notes?: RollNotePF2e[];
     /** Base domains for fetching actor roll options */
     domains?: string[];
     /**

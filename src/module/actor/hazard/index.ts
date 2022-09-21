@@ -4,7 +4,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemType } from "@item/data";
 import { Rarity } from "@module/data";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { HazardData } from "./data";
 
@@ -72,7 +72,6 @@ export class HazardPF2e extends ActorPF2e {
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
         const { system } = this;
-        const { rollNotes } = this.synthetics;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
@@ -89,7 +88,6 @@ export class HazardPF2e extends ActorPF2e {
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),

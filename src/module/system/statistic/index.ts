@@ -11,7 +11,12 @@ import {
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
-import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
+import {
+    extractDegreeOfSuccessAdjustments,
+    extractNotes,
+    extractRollSubstitutions,
+    extractRollTwice,
+} from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
@@ -60,16 +65,11 @@ interface RollOptionParameters {
 type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : null;
 type DCValue<T extends BaseStatisticData> = T["dc"] extends object ? StatisticDifficultyClass : null;
 
-function hasCheck(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithCheck> {
-    return !!statistic.data.check;
-}
-
-function hasDC(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithDC> {
-    return !!statistic.data.dc;
-}
-
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
+    /** Source of truth of all statistic data and the params used to create it. Necessary for cloning. */
+    #data: T;
+
     ability: AbilityString | null = null;
 
     abilityModifier: ModifierPF2e | null = null;
@@ -84,7 +84,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     label: string;
 
-    constructor(public actor: ActorPF2e, public readonly data: T, public options?: RollOptionParameters) {
+    constructor(public actor: ActorPF2e, data: T, public options?: RollOptionParameters) {
+        this.#data = data;
         this.slug = data.slug;
         this.ability = data.ability ?? null;
         this.label = game.i18n.localize(data.label);
@@ -94,11 +95,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         if (typeof data.rank === "number") {
             this.rank = data.rank;
-            this.proficient = this.rank > 0;
             this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
-        } else {
-            this.proficient = data.proficient === undefined ? true : !!data.proficient;
+        } else if (data.rank === "untrained-level") {
+            this.rank = 0;
+            this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
         }
+
+        // Check rank and data to assign proficient, but default to true
+        this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
 
         if (actor.isOfType("character") && this.ability) {
             this.abilityModifier = createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });
@@ -133,7 +137,6 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             check: { adjustments: stat.adjustments, type },
             dc: {},
             modifiers: [...stat.modifiers],
-            notes: stat.notes,
         });
     }
 
@@ -145,12 +148,12 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             rollOptions.push(...this.actor.getRollOptions(domains), ...this.actor.getSelfRollOptions());
         }
 
-        if (typeof this.data.rank !== "undefined") {
-            rollOptions.push(PROFICIENCY_RANK_OPTION[this.data.rank]);
+        if (typeof this.rank === "number") {
+            rollOptions.push(PROFICIENCY_RANK_OPTION[this.rank]);
         }
 
-        if (this.data.rollOptions) {
-            rollOptions.push(...this.data.rollOptions);
+        if (this.#data.rollOptions) {
+            rollOptions.push(...this.#data.rollOptions);
         }
 
         if (item) {
@@ -180,13 +183,17 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     withRollOptions(options?: RollOptionParameters): Statistic<T> {
         const newOptions = mergeObject(this.options ?? {}, options ?? {}, { inplace: false });
-        return new Statistic(this.actor, deepClone(this.data), newOptions);
+        return new Statistic(this.actor, deepClone(this.#data), newOptions);
     }
 
     /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
     get check(): CheckValue<T> {
+        function hasCheck(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithCheck> {
+            return !!statistic.#data.check;
+        }
+
         if (hasCheck(this)) {
-            return new StatisticCheck(this, this.options) as CheckValue<T>;
+            return new StatisticCheck(this, this.#data, this.options) as CheckValue<T>;
         }
 
         return null as CheckValue<T>;
@@ -194,8 +201,12 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
     get dc(): DCValue<T> {
+        function hasDC(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithDC> {
+            return !!statistic.#data.dc;
+        }
+
         if (hasDC(this)) {
-            return new StatisticDifficultyClass(this, this.options) as DCValue<T>;
+            return new StatisticDifficultyClass(this, this.#data, this.options) as DCValue<T>;
         }
 
         return null as DCValue<T>;
@@ -239,15 +250,22 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 }
 
 class StatisticCheck {
+    type: CheckType;
+    label: string;
     domains: string[];
     mod: number;
     modifiers: ModifierPF2e[];
 
     #stat: StatisticModifier;
 
-    constructor(private parent: Statistic<StatisticDataWithCheck>, options?: RollOptionParameters) {
-        const data = parent.data;
-        this.domains = (parent.data.domains ?? []).concat(data.check.domains ?? []);
+    constructor(
+        private parent: Statistic<StatisticDataWithCheck>,
+        data: StatisticDataWithCheck,
+        options?: RollOptionParameters
+    ) {
+        this.type = data.check.type;
+        this.label = this.#calculateLabel(data);
+        this.domains = (data.domains ?? []).concat(data.check.domains ?? []);
         this.modifiers = parent.modifiers.concat(data.check.modifiers ?? []);
 
         const rollOptions = parent.createRollOptions(this.domains, options);
@@ -255,12 +273,11 @@ class StatisticCheck {
         this.mod = this.#stat.totalModifier;
     }
 
-    get label() {
+    #calculateLabel(data: StatisticDataWithCheck) {
         const parentLabel = this.parent.label;
-        const data = this.parent.data;
         if (data.check.label) return game.i18n.localize(data.check.label);
 
-        switch (data.check.type) {
+        switch (this.type) {
             case "skill-check":
                 return game.i18n.format("PF2E.SkillCheckWithName", { skillName: parentLabel });
             case "saving-throw":
@@ -289,7 +306,6 @@ class StatisticCheck {
             return args;
         })();
 
-        const data = this.parent.data;
         const actor = this.parent.actor;
         const item = args.item ?? null;
         const domains = this.domains;
@@ -298,16 +314,17 @@ class StatisticCheck {
         const rollContext = (() => {
             const isCreature = actor.isOfType("creature");
             const isAttackItem = item?.isOfType("weapon", "melee", "spell");
-            if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(data.check.type)) {
-                return actor.getAttackRollContext({ domains, item });
+            if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(this.type)) {
+                return actor.getAttackRollContext({ item, domains, options: new Set() });
             }
 
             return null;
         })();
 
-        if (args.dc && data.check.adjustments && data.check.adjustments.length) {
+        // Add any degree of success adjustments if we are rolling against a DC
+        if (args.dc) {
             args.dc.adjustments ??= [];
-            args.dc.adjustments.push(...data.check.adjustments);
+            args.dc.adjustments.push(...extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains));
         }
 
         const target =
@@ -317,8 +334,9 @@ class StatisticCheck {
                 .flatMap((t) => t.actor ?? [])
                 .find((a) => a.isOfType("creature"));
 
-        const extraModifiers = [...(args?.modifiers ?? [])];
-        const options = this.createRollOptions({ ...args, target });
+        const extraModifiers = [...(args.modifiers ?? [])];
+        const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
+        const options = this.createRollOptions({ ...args, target, extraRollOptions });
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -344,9 +362,9 @@ class StatisticCheck {
             domains,
             target: rollContext?.target ?? null,
             dc: args.dc ?? rollContext?.dc,
-            notes: data.notes,
+            notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
-            type: data.check.type,
+            type: this.type,
             secret,
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
@@ -380,8 +398,11 @@ class StatisticDifficultyClass {
     value: number;
     modifiers: ModifierPF2e[];
 
-    constructor(private parent: Statistic<StatisticDataWithDC>, options: RollOptionParameters = {}) {
-        const data = parent.data;
+    constructor(
+        private parent: Statistic<StatisticDataWithDC>,
+        data: StatisticDataWithDC,
+        options: RollOptionParameters = {}
+    ) {
         this.domains = (data.domains ?? []).concat(data.dc.domains ?? []);
         const rollOptions = parent.createRollOptions(this.domains, options);
 

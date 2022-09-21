@@ -1,10 +1,10 @@
-<li class="item attack flexrow" data-action-index="{{actionId}}" data-item-name="{{action.name}}" data-item-id="{{action.sourceId}}">
+<li class="item attack flexrow" data-action-index="{{actionId}}" data-item-name="{{action.item.name}}" data-item-id="{{action.sourceId}}">
     <div class="attack-header">
         <h4 class="attack-name tags">
             <span>
                 <strong>{{localize action.attackRollType}}</strong>
                 <span class="activity-icon">{{action.glyph}}</span>
-                {{action.name}}
+                {{action.label}}
             </span>
             {{#each traits as |trait|}}
                 <div class="tag tag_transparent" title="{{localize trait.description}}">{{localize trait.label}}</div>

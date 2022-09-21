@@ -33,11 +33,13 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema" | "tr
         ability: AbilityString | null;
     };
 
+    customModifiers?: never;
+
     resources?: never;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles">, CreatureSystemData {
+interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles" | "customModifiers">, CreatureSystemData {
     details: CreatureSystemData["details"] & {
         creature: {
             value: string;

@@ -184,9 +184,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Draw auras along with effect icons */
-    override drawEffects(): Promise<void> {
+    override async drawEffects(): Promise<void> {
+        await super.drawEffects();
+        await this._animation;
         this.auras.draw();
-        return super.drawEffects();
     }
 
     emitHoverIn() {
@@ -344,7 +345,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     /** Refresh vision and the `EffectsPanel` */
@@ -409,6 +410,16 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     private async onFinishAnimation(): Promise<void> {
         await this._animation;
         this.auras.refresh();
+    }
+
+    /** Handle system-specific status effects (upstream handles invisible and blinded) */
+    override _onApplyStatusEffect(statusId: string, active: boolean): void {
+        super._onApplyStatusEffect(statusId, active);
+
+        if (["undetected", "unnoticed"].includes(statusId)) {
+            canvas.perception.update({ refreshVision: true, refreshLighting: true }, true);
+            this.mesh.refresh();
+        }
     }
 }
 

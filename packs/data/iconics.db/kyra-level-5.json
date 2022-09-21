@@ -3179,7 +3179,20 @@
                         }
                     ]
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": {
+                            "all": [
+                                "item:slug:heal"
+                            ]
+                        },
+                        "selector": "spell-damage"
+                    }
+                ],
                 "slug": "healing-hands",
                 "source": {
                     "value": ""
@@ -6277,10 +6290,7 @@
     ],
     "name": "Kyra (Level 5)",
     "prototypeToken": {
-        "name": "Kyra",
-        "texture": {
-            "src": "systems/pf2e/icons/iconics/Kyra.webp"
-        }
+        "name": "Kyra"
     },
     "system": {
         "abilities": {},

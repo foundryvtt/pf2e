@@ -20,6 +20,9 @@ declare global {
         /** Track the set of User entities which are currently targeting this Token */
         targeted: Set<User>;
 
+        /** A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup. */
+        mesh: PIXI.DisplayObject & { refresh(): void };
+
         /** A reference to the PointSource object which defines this vision source area of effect */
         vision: VisionSource<this>;
 
@@ -320,10 +323,27 @@ declare global {
 
         /**
          * Check for collision when attempting a move to a new position
-         * @param destination The destination point of the attempted movement
-         * @return A true/false indicator for whether the attempted movement caused a collision
+         * @param destination  The central destination point of the attempted movement
+         * @param [options={}] Additional options forwarded to WallsLayer#checkCollision
+         * @returns The result of the WallsLayer#checkCollision test
          */
-        checkCollision(destination: Point): boolean;
+        checkCollision(
+            destination: Point,
+            { type, mode }: { type?: WallRestrictionType; mode: "closest" }
+        ): PolygonVertex;
+        checkCollision(destination: Point, { type, mode }: { type?: WallRestrictionType; mode: "any" }): boolean;
+        checkCollision(
+            destination: Point,
+            { type, mode }: { type?: WallRestrictionType; mode: "all" }
+        ): PolygonVertex[];
+        checkCollision(
+            destination: Point,
+            { type, mode }?: { type?: WallRestrictionType; mode?: undefined }
+        ): PolygonVertex[];
+        checkCollision(
+            destination: Point,
+            { type, mode }?: { type?: WallRestrictionType; mode?: WallMode }
+        ): boolean | PolygonVertex | PolygonVertex[];
 
         /**
          * Handle changes to Token behavior when a significant status effect is applied

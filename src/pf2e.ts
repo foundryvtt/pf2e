@@ -1,5 +1,4 @@
 import { HooksPF2e } from "@scripts/hooks";
-
 import { TemplatePreloader } from "@util/template-preloader";
 import "./styles/main.scss";
 

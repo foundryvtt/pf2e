@@ -80,6 +80,7 @@ export const SENSE_TYPES = new Set([
     "motionsense",
     "scent",
     "seeInvisibility",
+    "spiritsense",
     "tremorsense",
     "wavesense",
 ] as const);

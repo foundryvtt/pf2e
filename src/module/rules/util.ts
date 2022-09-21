@@ -1,9 +1,10 @@
-import { DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
-import { isObject } from "@util";
+import { isObject, pick } from "@util";
 import { BracketedValue } from "./rule-element/data";
-import { RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
+import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -23,7 +24,7 @@ function extractModifiers(
 }
 
 function extractModifierAdjustments(
-    adjustmentsRecord: Record<string, ModifierAdjustment[]>,
+    adjustmentsRecord: RuleElementSynthetics["modifierAdjustments"],
     selectors: string[],
     slug: string
 ): ModifierAdjustment[] {
@@ -34,6 +35,14 @@ function extractModifierAdjustments(
 /** Extracts a list of all cloned notes across all given keys in a single list. */
 function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: string[]) {
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
+}
+
+function extractDamageDice(
+    deferredDice: DamageDiceSynthetics,
+    selectors: string[],
+    options: DeferredValueParams = {}
+): DamageDicePF2e[] {
+    return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
 }
 
 function extractRollTwice(
@@ -60,11 +69,20 @@ function extractRollSubstitutions(
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
+function extractDegreeOfSuccessAdjustments(
+    synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
+    selectors: string[]
+): DegreeOfSuccessAdjustment[] {
+    return Object.values(pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
+}
+
 function isBracketedValue(value: unknown): value is BracketedValue {
     return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
 }
 
 export {
+    extractDamageDice,
+    extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,

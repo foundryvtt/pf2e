@@ -84,7 +84,6 @@ import "./client/pixi/canvas-layer/grid-layer";
 import "./client/pixi/grid";
 import "./client/pixi/helpers";
 import "./client/pixi/helpers/point-source";
-import "./client/pixi/helpers/point-source-polygon";
 import "./client/pixi/mouse-interaction-manager";
 import "./client/pixi/placeable-object/ambient-light";
 import "./client/pixi/placeable-object/ambient-sound";

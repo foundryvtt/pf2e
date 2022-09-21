@@ -2,9 +2,9 @@ import { WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
-import { DAMAGE_DIE_FACES } from "@system/damage";
+import { DAMAGE_DIE_FACES } from "@system/damage/values";
 import { extractModifierAdjustments } from "@module/rules/util";
-import { CharacterPF2e } from ".";
+import { type CharacterPF2e } from ".";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class StrikeWeaponTraits {

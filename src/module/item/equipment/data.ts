@@ -15,18 +15,15 @@ type EquipmentData = Omit<EquipmentSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<EquipmentPF2e, "equipment", EquipmentSystemData, EquipmentSource>;
 
 interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
-    traits: EquipmentTraitsSource;
+    traits: EquipmentTraits;
 }
 
 interface EquipmentSystemData
     extends Omit<EquipmentSystemSource, "identification" | "price" | "temporary" | "usage">,
-        Investable<PhysicalSystemData> {
-    traits: EquipmentTraits;
-}
-interface EquipmentTraitsSource extends PhysicalItemTraits<EquipmentTrait> {
-    otherTags?: OtherEquipmentTag[];
-}
+        Omit<Investable<PhysicalSystemData>, "traits"> {}
 
-type EquipmentTraits = Required<EquipmentTraitsSource>;
+interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {
+    otherTags: OtherEquipmentTag[];
+}
 
 export { EquipmentData, EquipmentSource, EquipmentSystemData, EquipmentSystemSource, EquipmentTrait };

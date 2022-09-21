@@ -5,7 +5,7 @@
             <!-- Core Skills -->
             {{#each data.skills as |skill key|}}
                 {{#unless skill.lore}}
-                    <li class="skill" data-skill="{{key}}">
+                    <li class="skill" data-skill="{{skill.slug}}">
                         <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
                         <h4 class="skill-name rollable">{{localize skill.label}}</h4>
                         <div class="skill-prof button-group">
@@ -13,7 +13,7 @@
                                 {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
                             </select>
                             <div class="hover-container">
-                                <h6 class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.name}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
+                                <h6 class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
                             </div>
                         </div>
                         {{#with skill}}

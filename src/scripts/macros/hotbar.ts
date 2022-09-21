@@ -49,8 +49,8 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     const actor = game.actors.get(actorId, { strict: true });
     const action = actor.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
-    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
-    const actionName = JSON.stringify(action.name);
+    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.slug}`;
+    const actionName = JSON.stringify(action.slug);
     const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
@@ -71,7 +71,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
     const actor = game.actors.get(actorId);
     if (actor?.isOfType("character", "npc")) {
         const action = actor.system.actions.at(actionIndex);
-        if (action?.name === actionName) {
+        if (action?.slug === actionName) {
             if (action.type === "strike") {
                 const templateData = {
                     actor,
