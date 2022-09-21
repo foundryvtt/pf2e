@@ -8,11 +8,12 @@ import "./tabs";
 declare global {
     interface FoundryUI<
         TActor extends Actor,
+        TActorDirectory extends ActorDirectory<TActor>,
         TItem extends Item,
         TChatLog extends ChatLog,
         TCompendiumDirectory extends CompendiumDirectory
     > {
-        actors: ActorDirectory<TActor>;
+        actors: TActorDirectory;
         chat: TChatLog;
         combat: CombatTracker<Combat>;
         compendium: TCompendiumDirectory;
