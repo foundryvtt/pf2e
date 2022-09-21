@@ -362,18 +362,15 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Handle ephemeral changes from synthetic actor
-        if (this.actor && changed.actorData) {
-            super._onUpdate(changed, options, userId);
-            const preUpdate = this.toObject(false);
+        if (!this.actorLink && this.parent && changed.actorData) {
+            // If the Actor data override changed, simulate updating the synthetic Actor
+            this._onUpdateTokenActor(changed.actorData, options, userId);
             this.reset();
-            const postUpdate = this.toObject(false);
-            const ephemeralChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            if (Object.keys(ephemeralChanges).length > 0) {
-                this.object?._onUpdate(ephemeralChanges, options, userId);
-            }
-        } else {
-            super._onUpdate(changed, options, userId);
+            changed.light = {} as foundry.data.LightSource;
+            delete changed.actorData; // Prevent upstream from doing so a second time
         }
+
+        return super._onUpdate(changed, options, userId);
     }
 
     /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
