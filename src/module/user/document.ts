@@ -34,6 +34,17 @@ class UserPF2e extends User<ActorPF2e> {
     clearTargets(): void {
         this.updateTokenTargets();
     }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        if (game.user.id === userId && Object.keys(changed).some((c) => c.includes("showEffectPanel"))) {
+            game.pf2e.effectPanel.refresh();
+        }
+    }
 }
 
 interface UserPF2e extends User<ActorPF2e> {
