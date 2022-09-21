@@ -25,7 +25,7 @@ async function registerModuleArt(): Promise<void> {
                 if (!record) continue;
 
                 record.img = paths.actor;
-                game.pf2e.system.moduleArt.set(`Compendium.pf2e.${packName}.${actorId}`, paths);
+                game.pf2e.system.moduleArt.map.set(`Compendium.pf2e.${packName}.${actorId}`, paths);
             }
         }
     }

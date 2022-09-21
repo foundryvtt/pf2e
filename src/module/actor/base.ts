@@ -65,7 +65,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (context.pf2e?.ready) {
             // Set module art if available
             if (context.pack && data._id) {
-                const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
+                const art = game.pf2e.system.moduleArt.map.get(`Compendium.${context.pack}.${data._id}`);
                 if (art) {
                     data.img = art.actor;
                     const tokenArt =
