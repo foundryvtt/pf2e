@@ -5,7 +5,9 @@ import { isObject } from "@util";
  * prototype tokens
  */
 async function registerModuleArt(): Promise<void> {
+    game.pf2e.system.moduleArt.map.clear();
     const activeModules = [...game.modules.entries()].filter(([_key, m]) => m.active);
+
     for (const [moduleKey, foundryModule] of activeModules) {
         const moduleArt = await getArtMap(foundryModule.flags?.[moduleKey]?.["pf2e-art"]);
         if (!moduleArt) continue;
