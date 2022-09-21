@@ -184,9 +184,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Draw auras along with effect icons */
-    override drawEffects(): Promise<void> {
+    override async drawEffects(): Promise<void> {
+        await super.drawEffects();
+        await this._animation;
         this.auras.draw();
-        return super.drawEffects();
     }
 
     emitHoverIn() {
