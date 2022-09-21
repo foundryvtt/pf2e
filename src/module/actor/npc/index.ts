@@ -529,7 +529,7 @@ class NPCPF2e extends CreaturePF2e {
                     baseOptions.push("ranged");
                 }
 
-                const statistic = new StatisticModifier(item.name, modifiers, baseOptions);
+                const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
                 statistic.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
                 const traitObjects = Array.from(traits).map(
                     (t): TraitViewData => ({
@@ -540,6 +540,7 @@ class NPCPF2e extends CreaturePF2e {
                 );
 
                 const action: NPCStrike = mergeObject(statistic, {
+                    label: item.name,
                     type: "strike" as const,
                     glyph: actionGlyph,
                     description: item.description,
