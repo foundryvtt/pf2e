@@ -168,9 +168,15 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     if (docSource.prototypeToken?.name === docSource.name) {
                         delete (docSource as { prototypeToken?: unknown }).prototypeToken;
                     } else if (docSource.prototypeToken) {
-                        (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
-                            name: docSource.prototypeToken.name,
-                        };
+                        const withToken: {
+                            img: ImagePath;
+                            prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
+                        } = docSource;
+                        withToken.prototypeToken = { name: docSource.prototypeToken.name };
+                        // Iconics have special tokens
+                        if (withToken.img?.includes("iconics")) {
+                            withToken.prototypeToken.texture = { src: withToken.img.replace("Full", "") as ImagePath };
+                        }
                     }
 
                     if (docSource.type === "npc") {
