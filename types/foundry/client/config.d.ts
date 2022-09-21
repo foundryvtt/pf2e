@@ -329,9 +329,13 @@ declare global {
             };
             lightLevels: {
                 dark: number;
+                halfdark: number;
                 dim: number;
                 bright: number;
             };
+
+            losBackend: typeof ClockwiseSweepPolygon;
+
             normalLightColor: number;
             maxZoom: number;
             objectBorderThickness: number;

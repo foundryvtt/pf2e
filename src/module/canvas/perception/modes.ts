@@ -1,3 +1,4 @@
+import { pick } from "@util";
 import { TokenPF2e } from "../token";
 
 const darkvision = new VisionMode({
@@ -67,12 +68,30 @@ class HearingDetectionMode extends DetectionMode {
     protected override _testLOS(
         visionSource: VisionSource<TokenPF2e>,
         _mode: TokenDetectionMode,
-        target: PlaceableObject
+        _target: PlaceableObject,
+        test: CanvasVisibilityTestPF2e
     ): boolean {
-        return visionSource.object
-            .checkCollision(target.center, { mode: "all" })
-            .every((c) => Array.from(c.edges).every((e) => e.wall.document.sound === CONST.WALL_SENSE_TYPES.NONE));
+        test.loh ??= new Map();
+        const hasLOH =
+            test.loh.get(visionSource) ??
+            !CONFIG.Canvas.losBackend.testCollision(pick(visionSource, ["x", "y"]), test.point, {
+                type: "sound",
+                mode: "any",
+                source: visionSource,
+            });
+        test.loh.set(visionSource, hasLOH);
+
+        return hasLOH;
     }
+}
+
+declare namespace HearingDetectionMode {
+    // eslint-disable-next-line no-var
+    var _detectionFilter: OutlineOverlayFilter | undefined;
+}
+
+interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
+    loh?: Map<VisionSource<TokenPF2e>, boolean>;
 }
 
 class DetectionModeTremorPF2e extends DetectionModeTremor {
@@ -99,11 +118,6 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
             !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))
         );
     }
-}
-
-declare namespace HearingDetectionMode {
-    // eslint-disable-next-line no-var
-    var _detectionFilter: OutlineOverlayFilter | undefined;
 }
 
 function setPerceptionModes(): void {
