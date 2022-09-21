@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 4.1.1
+
+### Bugfixes
+* (stwlam) Fix extraction of predicated damage dice
+* (stwlam) Fix localization of non-land speeds
+* (Supe) Fix detection of highest level for spell collection
+
+### Data Updates
+* (stwlam) Restore iconics' prototype tokens
+* (stwlam) Fix language known by Uthuls (bestiary 1)
+
+
 ## Version 4.1.0
 
 ### System Improvements
