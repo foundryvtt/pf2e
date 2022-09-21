@@ -1631,11 +1631,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
-        const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
+        const strikeStat = new StatisticModifier(`${slug}-strike`, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
         strikeStat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, selectors);
 
         const action: CharacterStrike = mergeObject(strikeStat, {
+            label: weapon.name,
             imageUrl: weapon.img,
             quantity: weapon.quantity,
             slug: weapon.slug,
