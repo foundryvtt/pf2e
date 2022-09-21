@@ -70,8 +70,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     get highestLevel(): number {
-        const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
-        return Math.min(10, Math.max(this.spells?.highestLevel ?? 1, actorSpellLevel));
+        return this.spells?.highestLevel ?? 0;
     }
 
     override prepareBaseData(): void {
