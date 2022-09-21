@@ -396,7 +396,11 @@ class WeaponDamagePF2e {
 
         // Damage dice from synthetics
         diceModifiers.push(
-            ...extractDamageDice(damageDice, selectors, { resolvables: { weapon }, injectables: { weapon } })
+            ...extractDamageDice(damageDice, selectors, {
+                test: options,
+                resolvables: { weapon },
+                injectables: { weapon },
+            })
         );
 
         // include dice number and size in damage tag
