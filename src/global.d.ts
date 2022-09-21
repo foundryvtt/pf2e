@@ -30,7 +30,7 @@ import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
-import { ModuleArt } from "@scripts/register-module-art";
+import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { EffectTracker } from "@system/effect-tracker";
@@ -58,7 +58,10 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
             };
             system: {
-                moduleArt: Map<ActorUUID, ModuleArt>;
+                moduleArt: {
+                    map: Map<ActorUUID, ModuleArt>;
+                    refresh: typeof registerModuleArt;
+                };
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
             };

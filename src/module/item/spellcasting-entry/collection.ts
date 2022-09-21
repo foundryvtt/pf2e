@@ -18,7 +18,9 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     }
 
     get highestLevel(): number {
-        return Math.max(...this.map((s) => s.level)) ?? 1;
+        const highestSpell = Math.max(...this.map((s) => s.level));
+        const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
+        return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
 
     /**

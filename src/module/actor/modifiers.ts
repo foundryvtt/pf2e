@@ -395,9 +395,10 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
  * of each type is applied to the total modifier.
  */
 class StatisticModifier {
-    name?: never;
     /** The slug of this collection of modifiers for a statistic. */
     slug: string;
+    /** The display label of this statistic */
+    label?: string;
     /** The list of modifiers which affect the statistic. */
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
@@ -406,6 +407,7 @@ class StatisticModifier {
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
+
     adjustments?: DegreeOfSuccessAdjustment[];
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
@@ -428,6 +430,16 @@ class StatisticModifier {
         this._modifiers = seen;
 
         this.calculateTotal(rollOptions);
+    }
+
+    /** @deprecated */
+    get name(): string {
+        foundry.utils.logCompatibilityWarning("StatisticModifier#name has been split into #slug and #label", {
+            mode: CONST.COMPATIBILITY_MODES.WARNING,
+            since: "4.1.0",
+            until: "4.5.0",
+        });
+        return this.label ?? this.slug;
     }
 
     /** Get the list of all modifiers in this collection (as a read-only list). */

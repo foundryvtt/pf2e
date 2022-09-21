@@ -54,6 +54,13 @@ declare global {
             "User"
         ];
 
+        COMPATIBILITY_MODES: {
+            SILENT: 0;
+            WARNING: 1;
+            ERROR: 2;
+            FAILURE: 3;
+        };
+
         /** The allowed Document types which may exist within a Compendium pack. */
         COMPENDIUM_DOCUMENT_TYPES: [
             "Actor",
@@ -478,6 +485,7 @@ declare global {
 
     type AudioFileExtension = typeof CONST.AUDIO_FILE_EXTENSIONS[number];
     type CanvasPerformanceMode = typeof CONST.CANVAS_PERFORMANCE_MODES[keyof typeof CONST.CANVAS_PERFORMANCE_MODES];
+    type CompatibilityMode = typeof CONST.COMPATIBILITY_MODES[keyof typeof CONST.COMPATIBILITY_MODES];
     type DocumentPermission = keyof typeof CONST.DOCUMENT_PERMISSION_LEVELS;
     type DocumentPermissionNumber = typeof CONST.DOCUMENT_PERMISSION_LEVELS[DocumentPermission];
     type GridType = typeof CONST.GRID_TYPES[keyof typeof CONST.GRID_TYPES];

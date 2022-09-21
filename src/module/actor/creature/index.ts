@@ -731,7 +731,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 .reduce((best, speed) => (Number(speed?.value) > best ? Number(speed?.value) : best), 0);
             if (!bestValue) return null;
 
-            const label = game.i18n.format("PF2E.SpeedLabel", { type: movementType });
+            const label = game.i18n.format("PF2E.SpeedLabel", {
+                type: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
+            });
             const speed =
                 existing?.value === bestValue
                     ? { ...existing, type: movementType, value: existing.value, label }
