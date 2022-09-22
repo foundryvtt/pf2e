@@ -28,6 +28,20 @@
                 {{/select}}
                 </select>
             </div>
+            {{#if (eq actor.type "character")}}
+                <div class="form-group">
+                    <label>{{localize "PF2E.ProficiencyLabel"}}</label>
+                    <select name="system.proficiency.slug">
+                    {{#select data.proficiency.slug}}
+                        <option value="">{{localize "PF2E.MagicTraditionLabel"}}</option>
+                        <option value="classDC">{{localize "PF2E.Actor.Character.ClassDC.Label"}}</option>
+                        {{#each actor.classDCs as |classDC|}}
+                            <option value="{{classDC.slug}}">{{classDC.label}}</option>
+                        {{/each}}
+                    {{/select}}
+                    </select>
+                </div>
+            {{/if}}
             <div class="form-group">
                 <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
                 <select name="system.ability.value">

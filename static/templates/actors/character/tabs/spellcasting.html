@@ -58,10 +58,10 @@
                         {{/if}}
 
                         <section class="spell-ability">
-                            <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
+                            <span class="spell-tradition">{{localize entry.statistic.label}}</span>
                             <div class="spellcasting-prof button-group">
-                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" value="{{entry.system.proficiency.value}}">
-                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.system.proficiency.value}}
+                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" value="{{entry.statistic.rank}}">
+                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.statistic.rank}}
                                 </select>
                             </div>
                         </section>

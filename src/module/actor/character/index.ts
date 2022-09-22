@@ -46,6 +46,7 @@ import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus, ItemCarryType } from "@item/physical";
+import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import {
     WeaponCategory,
@@ -124,6 +125,14 @@ class CharacterPF2e extends CreaturePF2e {
     feats!: CharacterFeats;
     pfsBoons!: FeatPF2e[];
     deityBoonsCurses!: FeatPF2e[];
+
+    /** All base casting tradition proficiences, which spellcasting build off of */
+    traditions!: Record<MagicTradition, Statistic>;
+
+    /** The primary class DC */
+    classDC!: Statistic | null;
+    /** All class DCs regardless of whether or not its the primary */
+    classDCs!: Record<string, Statistic>;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
@@ -610,9 +619,35 @@ class CharacterPF2e extends CreaturePF2e {
         // Senses
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
+        // Magic Traditions Proficiencies (for spell attacks and counteract checks)
+        this.traditions = Array.from(MAGIC_TRADITIONS).reduce((traditions, tradition) => {
+            traditions[tradition] = new Statistic(this, {
+                slug: tradition,
+                label: CONFIG.PF2E.magicTraditions[tradition],
+                rank: systemData.proficiencies.traditions[tradition].rank,
+                domains: ["all", "spell-attack-dc"],
+                check: {
+                    type: "check",
+                    domains: [`${tradition}-spell-attack`],
+                },
+                dc: {
+                    domains: [`${tradition}-spell-dc`],
+                },
+            });
+
+            return traditions;
+        }, {} as Record<MagicTradition, Statistic>);
+
         // Class DC
+        this.classDC = null;
+        this.classDCs = {};
         for (const [slug, classDC] of Object.entries(systemData.proficiencies.classDCs)) {
-            systemData.proficiencies.classDCs[slug] = this.prepareClassDC(slug, classDC);
+            const statistic = this.prepareClassDC(slug, classDC);
+            systemData.proficiencies.classDCs[slug] = mergeObject(classDC, statistic.getTraceData());
+            this.classDCs[slug] = statistic;
+            if (classDC.primary) {
+                this.classDC = statistic;
+            }
         }
         systemData.attributes.classDC = Object.values(systemData.proficiencies.classDCs).find((c) => c.primary) ?? null;
 
@@ -717,37 +752,27 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const { ability, tradition } = entry;
-            const rank = (entry.system.proficiency.value = entry.rank);
+            if (entry.isInnate) {
+                const allRanks = Object.values(this.traditions).map((t) => t.rank ?? 0);
+                entry.system.proficiency.value = Math.max(1, entry.rank, ...allRanks) as ZeroToFour;
+            }
 
-            const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
-            const attackSelectors = [
-                `${tradition}-spell-attack`,
-                "spell-attack",
-                "spell-attack-roll",
-                "attack",
-                "attack-roll",
-            ];
-            const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
+            // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
+            const stat = this.getProficiencyStatistic(entry.system.proficiency.slug);
+            if (!stat) continue;
 
-            // assign statistic data to the spellcasting entry
-            entry.statistic = new Statistic(this, {
-                slug: sluggify(entry.name),
-                label: CONFIG.PF2E.magicTraditions[tradition],
+            entry.system.proficiency.value = Math.max(entry.rank, stat.rank ?? 0) as ZeroToFour;
+            entry.statistic = stat.extend({
+                slug: entry.slug ?? sluggify(entry.name),
                 ability: entry.ability,
-                rank,
-                modifiers: extractModifiers(synthetics, baseSelectors),
-                domains: baseSelectors,
+                rank: entry.rank,
                 rollOptions: entry.getRollOptions("spellcasting"),
+                domains: ["spell-attack-dc"],
                 check: {
                     type: "spell-attack-roll",
-                    modifiers: extractModifiers(synthetics, attackSelectors),
-                    domains: attackSelectors,
+                    domains: ["spell-attack", "spell-attack-roll", "attack", "attack-roll"],
                 },
-                dc: {
-                    modifiers: extractModifiers(synthetics, saveSelectors),
-                    domains: saveSelectors,
-                },
+                dc: { domains: ["spell-dc"] },
             });
         }
 
@@ -807,6 +832,13 @@ class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
+    }
+
+    /** Using a string, attempts to retrieve a statistic proficiency */
+    getProficiencyStatistic(slug: string): Statistic | null {
+        if (slug === "classDC") return this.classDC;
+        if (objectHasKey(this.traditions, slug)) return this.traditions[slug];
+        return this.classDCs[slug] ?? this.skills[slug] ?? null;
     }
 
     private setAbilityScores(): void {
@@ -1229,35 +1261,18 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    prepareClassDC(slug: string, classDC: Pick<ClassDCData, "label" | "ability" | "rank" | "primary">): ClassDCData {
+    prepareClassDC(slug: string, classDC: Pick<ClassDCData, "label" | "ability" | "rank" | "primary">): Statistic {
         classDC.ability ??= "str";
         classDC.rank ??= 0;
         classDC.primary ??= false;
-
-        const { ability } = classDC;
-        const domains = ["class", slug, `${ability}-based`, "all"];
-        const modifiers = [
-            createAbilityModifier({ actor: this, ability, domains }),
-            ProficiencyModifier.fromLevelAndRank(this.level, classDC.rank ?? 0),
-            ...extractModifiers(this.synthetics, domains),
-        ];
-        const statistic = new StatisticModifier(slug, modifiers, this.getRollOptions(domains));
-
-        return mergeObject(
-            statistic,
-            {
-                ...classDC,
-                ability,
-                value: 10 + statistic.totalModifier,
-                notes: extractNotes(this.synthetics.rollNotes, domains),
-                breakdown: [
-                    ...statistic.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
-                ].join(", "),
-            },
-            { overwrite: false }
-        );
+        return new Statistic(this, {
+            slug,
+            label: classDC.label,
+            ability: classDC.ability,
+            rank: classDC.rank,
+            domains: ["class", slug, `${classDC.ability}-based`, "all"],
+            check: { type: "check" },
+        });
     }
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */

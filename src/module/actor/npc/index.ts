@@ -725,17 +725,11 @@ class NPCPF2e extends CreaturePF2e {
 
             // Check Modifiers, calculate using the user configured value
             const baseMod = Number(entry.system?.spelldc?.value ?? 0);
-            const attackModifiers = [
-                new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED),
-                ...extractModifiers(this.synthetics, [...baseSelectors, ...attackSelectors]),
-            ];
+            const attackModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseMod, MODIFIER_TYPE.UNTYPED)];
 
             // Save Modifiers, reverse engineer using the user configured value - 10
             const baseDC = Number(entry.system?.spelldc?.dc ?? 0);
-            const saveModifiers = [
-                new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, MODIFIER_TYPE.UNTYPED),
-                ...extractModifiers(this.synthetics, [...baseSelectors, ...saveSelectors]),
-            ];
+            const saveModifiers = [new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, MODIFIER_TYPE.UNTYPED)];
 
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {

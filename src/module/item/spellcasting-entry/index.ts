@@ -3,10 +3,10 @@ import { AbilityString } from "@actor/types";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { goesToEleven, OneToFour, OneToTen } from "@module/data";
+import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import { SpellCollection } from "./collection";
 import { SpellcastingAbilityData, SpellcastingEntry, SpellcastingEntryData, SpellcastingEntryListData } from "./data";
 
@@ -30,18 +30,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
      * Returns the proficiency used for calculations.
      * For innate spells, this is the highest spell proficiency (min trained)
      */
-    get rank(): OneToFour {
-        const actor = this.actor;
-        if (actor instanceof CharacterPF2e) {
-            const traditions = actor.system.proficiencies.traditions;
-            if (this.isInnate) {
-                const allRanks = Array.from(MAGIC_TRADITIONS).map((t) => traditions[t].rank);
-                return Math.max(1, this.system.proficiency.value ?? 1, ...allRanks) as OneToFour;
-            } else {
-                return Math.max(this.system.proficiency.value, traditions[this.tradition].rank) as OneToFour;
-            }
-        }
-
+    get rank(): ZeroToFour {
         return this.system.proficiency.value ?? 0;
     }
 
@@ -75,8 +64,18 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+        this.system.proficiency.slug ||= this.system.tradition.value;
         // Spellcasting abilities are always at least trained
         this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
+
+        // Assign a default "invalid" statistic in case something goes wrong
+        if (this.actor) {
+            this.statistic = new Statistic(this.actor, {
+                slug: this.slug ?? sluggify(this.name),
+                label: "PF2E.Actor.Creature.Spellcasting.InvalidProficiency",
+                check: { type: "check" },
+            });
+        }
     }
 
     override prepareSiblingData(): void {
