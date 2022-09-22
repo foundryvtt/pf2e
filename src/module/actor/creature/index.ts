@@ -44,6 +44,7 @@ import {
     LabeledSpeed,
     MovementType,
     SenseData,
+    UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
 } from "./data";
@@ -723,18 +724,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
             return stat;
         } else {
             const speeds = systemData.attributes.speed;
-            const otherSpeeds: { value: number; type: string }[] = speeds.otherSpeeds;
-            const existing = otherSpeeds.find((s) => s.type === movementType);
-            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d());
-            const bestValue = [existing ?? [], fromSynthetics]
+            const { otherSpeeds } = speeds;
+            const existing = otherSpeeds.find((s) => s.type === movementType) ?? [];
+            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
+            const fastest: UnlabeledSpeed | null = [existing, fromSynthetics]
                 .flat()
-                .reduce((best, speed) => (Number(speed?.value) > best ? Number(speed?.value) : best), 0);
-            if (!bestValue) return null;
+                .reduce(
+                    (best: UnlabeledSpeed | null, speed) => (!best ? speed : speed?.value > best.value ? speed : best),
+                    null
+                );
+            if (!fastest) return null;
 
             const label = game.i18n.format("PF2E.SpeedLabel", {
                 type: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
             });
-            const speed = { type: movementType, label, value: bestValue };
+            const speed: LabeledSpeed = { type: movementType, label, value: fastest.value };
+            if (fastest.source) speed.source = fastest.source;
+
             const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, selectors);
             const stat = mergeObject(new StatisticModifier(movementType, modifiers, rollOptions), speed, {
