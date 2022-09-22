@@ -31,105 +31,99 @@
             }
         }
 
-        .skills-list {
-            @include p-reset;
+        .rollable {
+            .d20-svg {
+                width: var(--font-size-14);
+                height: var(--font-size-14);
+                path {
+                    fill: black;
+                }
+            }
+
+            &:hover svg {
+                @include rotate;
+            }
+        }
+
+        .spell-ability-data {
             align-items: center;
             display: flex;
             flex: 1;
-            justify-content: space-between;
-            margin: 0.25em 0;
+            gap: 1rem;
+            margin: 0.5em 0.25rem;
 
-            .skill-grid {
-                @include flex-center;
-                gap: 0.8em;
+            section {
+                display: flex;
+                align-items: center;
+            }
 
-                .skill-data, .focus-pool {
-                    @include flex-center;
+            .rollable {
+                cursor: pointer;
+            }
+
+            button {
+                width: auto;
+                line-height: 1.5em;
+                i {
+                    font-size: 0.9em;
                 }
 
-                .focus-pool {
-                    gap: 0.25em;
+                // hardcoded alignment adjustments due to annoying font centering
+                padding-top: 1px;
+                margin-bottom: 1px;
+            }
 
-                    .pips {
-                        cursor: pointer;
-                        display: flex;
-                        font-size: var(--font-size-10);
-                        gap: 1px;
-                        padding-bottom: 0.1em;
-                    }
+            .skill-score {
+                font-family: var(--serif);
+                font-weight: bold;
+                font-size: 1rem;
+                letter-spacing: -1px;
+                line-height: 1;
+                color: var(--secondary);
+            }
 
-                    h4 {
-                        white-space: nowrap;
-                    }
-                }
+            .statistic-values {
+                display: flex;
+                gap: 0.5rem;
 
-
-                .rollable {
-                    cursor: pointer;
-                }
-
-                h4.rollable {
-                    margin-right: 1em;
-                }
-
-                .skill-score {
-                    font-family: var(--serif);
-                    font-weight: bold;
-                    font-size: 1rem;
-                    letter-spacing: -1px;
-                    line-height: 1;
-                    color: var(--secondary);
-                }
-
-                .skill-name {
-                    margin: 0 0.3em;
+                .skill-data {
+                    display: flex;
+                    gap: 0.25rem;
                     white-space: nowrap;
                 }
 
-                .skill-container {
-                    display: flex;
-                    flex-direction: column;
+                h4 {
+                    white-space: nowrap;
+                }
 
-                    h4 {
-                        @include micro;
-                        color: var(--secondary);
-                        font-weight: 800;
-                    }
-                    .item-value-input {
-                        input {
-                            width: 20px;
-                            text-align: center;
-                            font-family: var(--serif);
-                            font-weight: 500;
-                            font-size: var(--font-size-18);
-                        }
-                    }
-
-                    &.skill-proficiency,
-                    &.item-modifier {
-                        margin: 0 4px;
-                        margin-bottom: 3px;
-                    }
-
-                    &.item-modifier {
-                        h4 {
-                            margin-bottom: 1px;
-                        }
-                        input {
-                            font-size: var(--font-size-12);
-                            height: 18px;
-                            border: 1px solid var(--alt);
-                        }
-                    }
+                .spell-attack {
+                    cursor: pointer;
+                    gap: 0.1rem;
                 }
             }
 
             .focus-pool {
+                cursor: pointer;
+                gap: 0.25em;
                 position: relative;
                 img.pool-size {
                     border: none;
                     width: 34px;
                     height: 32px;
+                }
+
+                .pips {
+                    display: flex;
+                    font-size: var(--font-size-10);
+                    gap: 1px;
+
+                    i {
+                        padding-bottom: 0.08rem;
+                    }
+                }
+
+                h4 {
+                    white-space: nowrap;
                 }
 
                 .focus-pool-text {
@@ -154,18 +148,17 @@
             }
 
             .spell-ability {
-                display: flex;
-                align-items: center;
                 gap: 0.5em;
-
-                h4 {
-                    margin-bottom: 2px;
-                }
+                margin-left: auto;
 
                 .spell-tradition {
                     font-family: var(--body-serif);
                     font-weight: 600;
                 }
+            }
+
+            .pf-rank {
+                margin-bottom: 0.13rem;
             }
         }
     }

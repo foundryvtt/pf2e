@@ -567,7 +567,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // SPELLCASTING
         const $castingTab = $html.find(".tab.spellcasting");
 
-        $castingTab.find(".focus-pool .pips").on("click contextmenu", (event) => {
+        $castingTab.find(".focus-pool").on("click contextmenu", (event) => {
             const change = event.type === "click" ? 1 : -1;
             const points = (this.actor.system.resources.focus?.value ?? 0) + change;
             this.actor.update({ "system.resources.focus.value": points });

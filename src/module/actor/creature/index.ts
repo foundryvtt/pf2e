@@ -724,7 +724,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         } else {
             const speeds = systemData.attributes.speed;
             const otherSpeeds: { value: number; type: string }[] = speeds.otherSpeeds;
-            const existing = otherSpeeds.find((speed) => speed.type === movementType);
+            const existing = otherSpeeds.find((s) => s.type === movementType);
             const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d());
             const bestValue = [existing ?? [], fromSynthetics]
                 .flat()
@@ -734,10 +734,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const label = game.i18n.format("PF2E.SpeedLabel", {
                 type: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
             });
-            const speed =
-                existing?.value === bestValue
-                    ? { ...existing, type: movementType, value: existing.value, label }
-                    : { type: movementType, label, value: bestValue };
+            const speed = { type: movementType, label, value: bestValue };
             const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, selectors);
             const stat = mergeObject(new StatisticModifier(movementType, modifiers, rollOptions), speed, {
