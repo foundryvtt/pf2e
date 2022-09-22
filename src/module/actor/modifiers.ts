@@ -442,6 +442,12 @@ class StatisticModifier {
         return this.label ?? this.slug;
     }
 
+    /**
+     * Do nothing
+     * @deprecated
+     */
+    set name(_value: string) {}
+
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly ModifierPF2e[] {
         return [...this._modifiers];
