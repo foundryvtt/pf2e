@@ -103,6 +103,9 @@ declare global {
         /** A singleton instance of the TooltipManger class */
         tooltip: TooltipManager;
 
+        /** A singleton instance of the Tours class */
+        tours: Tours;
+
         /** The global document index. */
         documentIndex: DocumentIndex;
 
