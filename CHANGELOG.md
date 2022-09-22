@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 4.1.2
+
+### Bugfixes
+* (stwlam) Fix issue causing old speed data to prevent some PC sheets from opening
+
+### Data Updates
+* (Tikael) Fix several NPC save values that were stored as strings
+
+
 ## Version 4.1.1
 
 ### Bugfixes
