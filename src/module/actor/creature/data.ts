@@ -170,9 +170,12 @@ interface CreatureSpeeds extends StatisticModifier {
 }
 
 type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
-interface LabeledSpeed extends LabeledNumber {
+interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: Exclude<MovementType, "land">;
+    source?: string;
 }
+
+type UnlabeledSpeed = Omit<LabeledSpeed, "label">;
 
 interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
@@ -261,6 +264,7 @@ export {
     SenseData,
     SkillAbbreviation,
     SkillData,
+    UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
 };

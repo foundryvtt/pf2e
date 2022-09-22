@@ -52,6 +52,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
             return {
                 type: this.selector,
                 value,
+                source: this.item.name,
             };
         };
     }
