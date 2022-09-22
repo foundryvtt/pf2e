@@ -21,7 +21,7 @@ export interface StatisticDifficultyClassData {
 /**
  * The base type for statistic data, which is used to build the actual statistic object.
  */
-export interface BaseStatisticData {
+export interface StatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
     ability?: AbilityString;
@@ -41,34 +41,27 @@ export interface BaseStatisticData {
     rollOptions?: string[];
 }
 
-export type StatisticDataWithCheck = BaseStatisticData & { check: StatisticCheckData };
-export type StatisticDataWithDC = BaseStatisticData & { dc: StatisticDifficultyClassData };
-/** The complete form of statistic data, able to do used to build a statistic for anything */
-export type StatisticData = StatisticDataWithCheck & StatisticDataWithDC;
-
 /** Defines view data for chat message and sheet rendering */
-export interface StatisticChatData<T extends BaseStatisticData = StatisticData> {
-    name: string;
-    check: T["check"] extends object
-        ? {
-              label: string;
-              mod: number;
-              breakdown: string;
-              map1: number;
-              map2: number;
-          }
-        : undefined;
-    dc: T["dc"] extends object
-        ? {
-              value: number;
-              breakdown: string;
-          }
-        : undefined;
+export interface StatisticChatData {
+    slug: string;
+    label: string;
+    check: {
+        label: string;
+        mod: number;
+        breakdown: string;
+        map1: number;
+        map2: number;
+    };
+    dc: {
+        value: number;
+        breakdown: string;
+    };
 }
 
-export interface StatisticCompatData {
+/** Data intended to be merged back into actor data (usually for token attribute/RE purposes) */
+export interface StatisticTraceData {
     slug: string;
-    name: string;
+    label: string;
     totalModifier: number;
     value: number;
     breakdown: string;

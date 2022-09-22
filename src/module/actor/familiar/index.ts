@@ -179,14 +179,13 @@ export class FamiliarPF2e extends CreaturePF2e {
                 check: {
                     type: "saving-throw",
                 },
-                dc: {},
             });
 
             return { ...partialSaves, [saveType]: stat };
         }, {} as Record<SaveType, Statistic>);
 
         this.system.saves = SAVE_TYPES.reduce(
-            (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getCompatData() }),
+            (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getTraceData() }),
             {} as CreatureSaves
         );
 

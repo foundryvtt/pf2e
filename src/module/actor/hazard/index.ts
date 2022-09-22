@@ -96,10 +96,9 @@ export class HazardPF2e extends ActorPF2e {
                 check: {
                     type: "saving-throw",
                 },
-                dc: {},
             });
 
-            mergeObject(this.system.saves[saveType], stat.getCompatData());
+            mergeObject(this.system.saves[saveType], stat.getTraceData());
 
             saves[saveType] = stat;
             return saves;

@@ -76,8 +76,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 label: skillName,
                 proficient: skill.visible,
                 domains,
-                check: { adjustments: skill.adjustments, type: "skill-check" },
-                dc: {},
+                check: { type: "skill-check" },
                 modifiers: [...skill.modifiers],
             });
 

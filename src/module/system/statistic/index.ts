@@ -22,14 +22,7 @@ import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
 import { isObject } from "@util";
-import {
-    BaseStatisticData,
-    StatisticChatData,
-    StatisticCompatData,
-    StatisticData,
-    StatisticDataWithCheck,
-    StatisticDataWithDC,
-} from "./data";
+import { StatisticChatData, StatisticTraceData, StatisticData } from "./data";
 
 export * from "./data";
 
@@ -62,13 +55,10 @@ interface RollOptionParameters {
     target?: ActorPF2e | null;
 }
 
-type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : null;
-type DCValue<T extends BaseStatisticData> = T["dc"] extends object ? StatisticDifficultyClass : null;
-
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
-export class Statistic<T extends BaseStatisticData = StatisticData> {
+export class Statistic {
     /** Source of truth of all statistic data and the params used to create it. Necessary for cloning. */
-    #data: T;
+    #data: StatisticData;
 
     ability: AbilityString | null = null;
 
@@ -84,7 +74,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     label: string;
 
-    constructor(public actor: ActorPF2e, data: T, public options?: RollOptionParameters) {
+    constructor(public actor: ActorPF2e, data: StatisticData, public options?: RollOptionParameters) {
         this.#data = data;
         this.slug = data.slug;
         this.ability = data.ability ?? null;
@@ -134,8 +124,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             slug,
             domains,
             label,
-            check: { adjustments: stat.adjustments, type },
-            dc: {},
+            check: { type },
             modifiers: [...stat.modifiers],
         });
     }
@@ -181,39 +170,23 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         return new Set(rollOptions);
     }
 
-    withRollOptions(options?: RollOptionParameters): Statistic<T> {
+    withRollOptions(options?: RollOptionParameters): Statistic {
         const newOptions = mergeObject(this.options ?? {}, options ?? {}, { inplace: false });
         return new Statistic(this.actor, deepClone(this.#data), newOptions);
     }
 
     /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
-    get check(): CheckValue<T> {
-        function hasCheck(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithCheck> {
-            return !!statistic.#data.check;
-        }
-
-        if (hasCheck(this)) {
-            return new StatisticCheck(this, this.#data, this.options) as CheckValue<T>;
-        }
-
-        return null as CheckValue<T>;
+    get check(): StatisticCheck {
+        return new StatisticCheck(this, this.#data, this.options);
     }
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
-    get dc(): DCValue<T> {
-        function hasDC(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithDC> {
-            return !!statistic.#data.dc;
-        }
-
-        if (hasDC(this)) {
-            return new StatisticDifficultyClass(this, this.#data, this.options) as DCValue<T>;
-        }
-
-        return null as DCValue<T>;
+    get dc(): StatisticDifficultyClass {
+        return new StatisticDifficultyClass(this, this.#data, this.options);
     }
 
     /** Creates view data for sheets and chat messages */
-    getChatData(options: RollOptionParameters = {}): StatisticChatData<T> {
+    getChatData(options: RollOptionParameters = {}): StatisticChatData {
         const { check, dc } = this.withRollOptions(options);
         const { map1, map2 } = options.item
             ? calculateMAPs(options.item, {
@@ -223,24 +196,23 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             : { map1: -5, map2: -10 };
 
         return {
-            name: this.slug,
-            check: check ? { mod: check.mod, breakdown: check.breakdown, label: check.label, map1, map2 } : undefined,
-            dc: dc
-                ? {
-                      value: dc.value,
-                      breakdown: dc.breakdown,
-                  }
-                : undefined,
-        } as StatisticChatData<T>;
+            slug: this.slug,
+            label: this.label,
+            check: { mod: check.mod, breakdown: check.breakdown, label: check.label, map1, map2 },
+            dc: {
+                value: dc.value,
+                breakdown: dc.breakdown,
+            },
+        };
     }
 
-    /** Chat output data for checks only that is compatible with the older sheet styles. */
-    getCompatData(this: Statistic<StatisticDataWithCheck>, options: RollOptionParameters = {}): StatisticCompatData {
+    /** Returns data intended to be merged back into actor data */
+    getTraceData(this: Statistic, options: RollOptionParameters = {}): StatisticTraceData {
         const { check } = this.withRollOptions(options);
 
         return {
             slug: this.slug,
-            name: this.slug,
+            label: this.label,
             value: check?.mod ?? 0,
             totalModifier: check?.mod ?? 0,
             breakdown: check?.breakdown ?? "",
@@ -258,24 +230,20 @@ class StatisticCheck {
 
     #stat: StatisticModifier;
 
-    constructor(
-        private parent: Statistic<StatisticDataWithCheck>,
-        data: StatisticDataWithCheck,
-        options?: RollOptionParameters
-    ) {
-        this.type = data.check.type;
+    constructor(private parent: Statistic, data: StatisticData, options?: RollOptionParameters) {
+        this.type = data.check?.type ?? "check";
         this.label = this.#calculateLabel(data);
-        this.domains = (data.domains ?? []).concat(data.check.domains ?? []);
-        this.modifiers = parent.modifiers.concat(data.check.modifiers ?? []);
+        this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
+        this.modifiers = parent.modifiers.concat(data.check?.modifiers ?? []);
 
         const rollOptions = parent.createRollOptions(this.domains, options);
         this.#stat = new StatisticModifier(this.label, this.modifiers, rollOptions);
         this.mod = this.#stat.totalModifier;
     }
 
-    #calculateLabel(data: StatisticDataWithCheck) {
+    #calculateLabel(data: StatisticData) {
         const parentLabel = this.parent.label;
-        if (data.check.label) return game.i18n.localize(data.check.label);
+        if (data.check?.label) return game.i18n.localize(data.check?.label);
 
         switch (this.type) {
             case "skill-check":
@@ -398,20 +366,16 @@ class StatisticDifficultyClass {
     value: number;
     modifiers: ModifierPF2e[];
 
-    constructor(
-        private parent: Statistic<StatisticDataWithDC>,
-        data: StatisticDataWithDC,
-        options: RollOptionParameters = {}
-    ) {
-        this.domains = (data.domains ?? []).concat(data.dc.domains ?? []);
+    constructor(private parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
+        this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
         const rollOptions = parent.createRollOptions(this.domains, options);
 
         // toggle modifiers based on the specified options
         this.modifiers = (parent.modifiers ?? [])
-            .concat(data.dc.modifiers ?? [])
+            .concat(data.dc?.modifiers ?? [])
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
-        this.value = (data.dc.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
+        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
     }
 
     createRollOptions(args: RollOptionParameters = {}): Set<string> {
