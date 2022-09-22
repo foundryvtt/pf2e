@@ -134,14 +134,14 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             const typedMatches = docMatches.filter((m) => m.metadata.type === compendiumTypeList.dataset.type);
             const listElements = typedMatches.map((match): HTMLLIElement => {
                 const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
-                const matchUUID = `Compendium.${match.metadata.id}.${match.id}`;
+                const matchUUID = `Compendium.${match.metadata.id}.${match.id}` as const;
                 li.dataset.uuid = matchUUID;
                 li.dataset.score = match.score.toString();
 
                 // Show a thumbnail if available
                 const thumbnail = li.querySelector<HTMLImageElement>("img")!;
                 if (typeof match.img === "string") {
-                    thumbnail.src = match.img;
+                    thumbnail.src = game.pf2e.system.moduleArt.map.get(matchUUID)?.actor ?? match.img;
                 } else if (compendiumTypeList.dataset.type === "JournalEntry") {
                     thumbnail.src = "icons/svg/book.svg";
                 }
