@@ -185,6 +185,7 @@ const config: Configuration = {
     },
     plugins: [
         new ForkTsCheckerWebpackPlugin({ typescript: { memoryLimit: 4096 } }),
+        new webpack.WatchIgnorePlugin({ paths: ["node_modules/", "packs/", "static/packs/"] }),
         new webpack.DefinePlugin({
             BUILD_MODE: JSON.stringify(buildMode),
         }),
