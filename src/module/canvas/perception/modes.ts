@@ -71,6 +71,8 @@ class HearingDetectionMode extends DetectionMode {
         _target: PlaceableObject,
         test: CanvasVisibilityTestPF2e
     ): boolean {
+        if (test.los.get(visionSource)) return true;
+
         test.loh ??= new Map();
         const hasLOH =
             test.loh.get(visionSource) ??
