@@ -70,6 +70,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         }
 
         this.object.updateSource(inputData);
+        this.object.reset();
 
         // If this wasn't a submit, only re-render and exit
         if (event.type !== "submit") {
@@ -103,7 +104,13 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
             const actualEntry = this.actor.spellcasting.get(this.object.id);
-            const system = pick(updateData.system, ["prepared", "tradition", "ability", "autoHeightenLevel"]);
+            const system = pick(updateData.system, [
+                "prepared",
+                "tradition",
+                "ability",
+                "proficiency",
+                "autoHeightenLevel",
+            ]);
             await actualEntry?.update({ system });
         }
 

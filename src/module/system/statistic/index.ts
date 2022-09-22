@@ -13,6 +13,7 @@ import { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
 import {
     extractDegreeOfSuccessAdjustments,
+    extractModifiers,
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
@@ -21,8 +22,8 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
-import { isObject } from "@util";
-import { StatisticChatData, StatisticTraceData, StatisticData } from "./data";
+import { isObject, Optional } from "@util";
+import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
 
 export * from "./data";
 
@@ -81,23 +82,26 @@ export class Statistic {
         this.label = game.i18n.localize(data.label);
 
         // Add some base modifiers depending on data values
-        this.modifiers = [data.modifiers ?? []].flat();
-
-        if (typeof data.rank === "number") {
-            this.rank = data.rank;
-            this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
-        } else if (data.rank === "untrained-level") {
-            this.rank = 0;
-            this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
-        }
-
-        // Check rank and data to assign proficient, but default to true
-        this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
+        const baseModifiers: ModifierPF2e[] = [];
 
         if (actor.isOfType("character") && this.ability) {
             this.abilityModifier = createAbilityModifier({ actor, ability: this.ability, domains: data.domains ?? [] });
-            this.modifiers.unshift(this.abilityModifier);
+            baseModifiers.push(this.abilityModifier);
         }
+
+        if (typeof data.rank === "number") {
+            this.rank = data.rank;
+            baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+        } else if (data.rank === "untrained-level") {
+            this.rank = 0;
+            baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
+        }
+
+        this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
+        if (data.domains) this.modifiers.push(...extractModifiers(this.actor.synthetics, data.domains));
+
+        // Check rank and data to assign proficient, but default to true
+        this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
 
         // Pre-test modifiers so that inspection outside of rolls (such as modifier popups) works correctly
         if (data.domains) {
@@ -175,6 +179,32 @@ export class Statistic {
         return new Statistic(this.actor, deepClone(this.#data), newOptions);
     }
 
+    /**
+     * Extend this statistic into a new cloned statistic with additional data.
+     * Combines all domains and modifier lists.
+     */
+    extend(
+        data: Omit<DeepPartial<StatisticData>, "check"> & { slug: string } & { check?: Partial<StatisticCheckData> }
+    ): Statistic {
+        function maybeMergeArrays<T>(arr1: Optional<T[]>, arr2: Optional<T[]>) {
+            if (!arr1 && !arr2) return undefined;
+            return [...new Set([arr1 ?? [], arr2 ?? []].flat())];
+        }
+
+        const result = mergeObject(deepClone(this.#data), data);
+        result.domains = maybeMergeArrays(this.#data.domains, data.domains);
+        result.modifiers = maybeMergeArrays(this.#data.modifiers, data.modifiers);
+        if (result.check && this.#data.check) {
+            result.check.domains = maybeMergeArrays(this.#data.check.domains, data.check?.domains);
+            result.check.modifiers = maybeMergeArrays(this.#data.check.modifiers, data.check?.modifiers);
+        }
+        if (result.dc && this.#data.dc) {
+            result.dc.domains = maybeMergeArrays(this.#data.dc.domains, data.dc?.domains);
+            result.dc.modifiers = maybeMergeArrays(this.#data.dc.modifiers, data.dc?.modifiers);
+        }
+        return new Statistic(this.actor, result, this.options);
+    }
+
     /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
     get check(): StatisticCheck {
         return new StatisticCheck(this, this.#data, this.options);
@@ -198,6 +228,7 @@ export class Statistic {
         return {
             slug: this.slug,
             label: this.label,
+            rank: this.rank,
             check: { mod: check.mod, breakdown: check.breakdown, label: check.label, map1, map2 },
             dc: {
                 value: dc.value,

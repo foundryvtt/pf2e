@@ -6,20 +6,22 @@ import { CheckType } from "@system/rolls";
 export interface StatisticCheckData {
     type: CheckType;
     label?: string;
-    modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];
+    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    modifiers?: ModifierPF2e[];
 }
 
 export interface StatisticDifficultyClassData {
     base?: number;
-    modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];
+    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    modifiers?: ModifierPF2e[];
 }
 
 /**
- * The base type for statistic data, which is used to build the actual statistic object.
+ * Used to build the actual statistic object.
  */
 export interface StatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
@@ -31,9 +33,10 @@ export interface StatisticData {
     proficient?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
-    modifiers?: ModifierPF2e[];
     /** Base domains for fetching actor roll options */
     domains?: string[];
+    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    modifiers?: ModifierPF2e[];
     /**
      * Any static roll options that should be added to the list of roll options.
      * This does not include actor, rank, or basic item roll options.
@@ -45,6 +48,7 @@ export interface StatisticData {
 export interface StatisticChatData {
     slug: string;
     label: string;
+    rank: number | null;
     check: {
         label: string;
         mod: number;
