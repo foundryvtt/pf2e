@@ -42,11 +42,15 @@ async function getArtMap(art: unknown): Promise<ModuleArtRecord | null> {
         // Instead of being in a module.json file, the art map is in a separate JSON file referenced by path
         try {
             const response = await fetch(art);
+            if (!response.ok) {
+                console.warn(`PF2e System | Failed loading art mapping file at ${art}`);
+                return null;
+            }
             const map = await response.json();
             return isModuleArt(map) ? map : null;
         } catch (error) {
             if (error instanceof Error) {
-                ui.notifications.error(error.message);
+                console.warn(`PF2e System | ${error.message}`);
             }
         }
     }
