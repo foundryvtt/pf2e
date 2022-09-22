@@ -6,7 +6,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { goesToEleven, OneToFour, OneToTen } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import { SpellCollection } from "./collection";
 import { SpellcastingAbilityData, SpellcastingEntry, SpellcastingEntryData, SpellcastingEntryListData } from "./data";
 
@@ -77,6 +77,15 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         super.prepareBaseData();
         // Spellcasting abilities are always at least trained
         this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
+
+        // assign a default "invalid" statistic (in case actor data preparation fails)
+        if (this.actor) {
+            this.statistic = new Statistic(this.actor, {
+                slug: sluggify(this.name),
+                label: "PF2E.Actor.Creature.Spellcasting.InvalidProficiency",
+                check: { type: "check" },
+            });
+        }
     }
 
     override prepareSiblingData(): void {
