@@ -798,11 +798,10 @@ class NPCPF2e extends CreaturePF2e {
                 check: {
                     type: "saving-throw",
                 },
-                dc: {},
             });
 
             saves[saveType] = stat;
-            mergeObject(this.system.saves[saveType], stat.getCompatData());
+            mergeObject(this.system.saves[saveType], stat.getTraceData());
             systemData.saves[saveType].base = base;
         }
 

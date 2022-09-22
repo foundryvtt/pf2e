@@ -7,7 +7,7 @@ import {
     BaseTraitsData,
 } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
-import { StatisticCompatData } from "@system/statistic";
+import { StatisticTraceData } from "@system/statistic";
 import { VehiclePF2e } from ".";
 import { VehicleTrait } from "./types";
 
@@ -60,7 +60,7 @@ interface VehicleSystemData extends ActorSystemData {
     traits: VehicleTraitsData;
 }
 
-interface VehicleFortitudeSaveData extends StatisticCompatData {
+interface VehicleFortitudeSaveData extends StatisticTraceData {
     saveDetail: string;
 }
 

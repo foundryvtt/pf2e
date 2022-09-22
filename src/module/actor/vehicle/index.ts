@@ -58,7 +58,7 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareDerivedData();
 
         this.saves = this.prepareSaves();
-        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, this.saves.fortitude.getCompatData());
+        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, this.saves.fortitude.getTraceData());
     }
 
     private prepareSaves(): { fortitude: Statistic } {
@@ -83,7 +83,6 @@ export class VehiclePF2e extends ActorPF2e {
             check: {
                 type: "saving-throw",
             },
-            dc: {},
         });
 
         return { fortitude };

@@ -18,7 +18,7 @@ import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
-import { Statistic, StatisticCompatData } from "@system/statistic";
+import { Statistic, StatisticTraceData } from "@system/statistic";
 import type { CreaturePF2e } from ".";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { Alignment, AlignmentTrait } from "./types";
@@ -129,7 +129,7 @@ interface CreatureTraitsData extends BaseTraitsData<CreatureTrait>, Omit<Creatur
 type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
 
 /** The full save data for a character; including its modifiers and other details */
-type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetail?: string };
+type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: string };
 
 type CreatureSaves = Record<SaveType, SaveData>;
 

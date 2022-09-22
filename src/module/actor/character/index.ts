@@ -948,11 +948,10 @@ class CharacterPF2e extends CreaturePF2e {
                 check: {
                     type: "saving-throw",
                 },
-                dc: {},
             });
 
             saves[saveType] = stat;
-            this.system.saves[saveType] = mergeObject(this.system.saves[saveType], stat.getCompatData());
+            this.system.saves[saveType] = mergeObject(this.system.saves[saveType], stat.getTraceData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
