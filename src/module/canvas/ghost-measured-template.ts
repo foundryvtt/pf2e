@@ -1,4 +1,6 @@
-export class GhostTemplate extends MeasuredTemplate {
+import { MeasuredTemplatePF2e } from "./measured-template";
+
+export class GhostTemplate extends MeasuredTemplatePF2e {
     moveTime = 0;
 
     private _onMouseMove = (event: PIXI.InteractionEvent) => {

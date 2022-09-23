@@ -15,6 +15,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
 import { extractDamageDice, extractModifiers } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
+import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms, DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamageType } from "@system/damage";
@@ -352,6 +353,7 @@ class SpellPF2e extends ItemPF2e {
         const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
             t: areaType,
             distance: (Number(area.value) / 5) * (canvas.dimensions?.distance ?? 0),
+            fillColor: game.user.color,
             flags: {
                 pf2e: {
                     origin: {
@@ -366,15 +368,12 @@ class SpellPF2e extends ItemPF2e {
         };
 
         if (areaType === "ray") {
-            templateData.width = canvas.dimensions?.distance ?? 0;
+            templateData.width = CONFIG.MeasuredTemplate.defaults.width;
         } else if (areaType === "cone") {
-            templateData.angle = 90;
+            templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
         }
 
-        templateData.user = game.user.id;
-        templateData.fillColor = game.user.color;
-
-        const templateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+        const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
         return new GhostTemplate(templateDoc);
     }
 

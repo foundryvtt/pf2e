@@ -7,6 +7,7 @@ import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { MeasuredTemplateDocumentPF2e } from "@scene";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -189,36 +190,28 @@ export const InlineRollLinks = {
         });
 
         $links.filter("[data-pf2-effect-area]").on("click", async (event) => {
-            const {
-                pf2EffectArea,
-                pf2Distance,
-                pf2TemplateData = "{}",
-                pf2Traits,
-                pf2Width,
-            } = event.currentTarget.dataset;
-            const templateConversion: Record<string, string> = {
+            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = event.currentTarget.dataset;
+            const templateConversion: Record<string, MeasuredTemplateType> = {
                 burst: "circle",
                 emanation: "circle",
                 line: "ray",
                 cone: "cone",
                 rect: "rect",
-            };
+            } as const;
 
             if (typeof pf2EffectArea === "string") {
-                const templateData = JSON.parse(pf2TemplateData);
-                templateData.t = templateConversion[pf2EffectArea];
-                templateData.user = game.user.id;
-
+                const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = JSON.parse(
+                    pf2TemplateData ?? "{}"
+                );
                 templateData.distance ||= Number(pf2Distance);
+                templateData.fillColor ||= game.user.color;
+                templateData.t = templateConversion[pf2EffectArea];
 
                 if (templateData.t === "ray") {
-                    templateData.width ||= pf2Width ? Number(pf2Width) : canvas.dimensions?.distance ?? 0;
+                    templateData.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width;
+                } else if (templateData.t === "cone") {
+                    templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
                 }
-                if (templateData.t === "cone") {
-                    templateData.angle ||= 90;
-                }
-
-                templateData.fillColor ||= game.user.color;
 
                 if (pf2Traits) {
                     templateData.flags = {
@@ -230,7 +223,7 @@ export const InlineRollLinks = {
                     };
                 }
 
-                const templateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
                 const ghostTemplate = new GhostTemplate(templateDoc);
                 await ghostTemplate.drawPreview();
             } else {
