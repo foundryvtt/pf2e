@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 4.1.3
+
+### Bugfixes
+* (stwlam) Fix issue causing migration failures on very old actors
+
+
 ## Version 4.1.2
 
 ### Bugfixes
