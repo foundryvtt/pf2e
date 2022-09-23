@@ -244,3 +244,13 @@ tags.pf2e-tagify, tags.tags.paizo-style {
         background: rgba(0, 0, 0, 0.05);
     }
 }
+
+// Ensure shadow fills the whole tag even if it wraps lines
+.tagify {
+    --tag-inset-shadow-size: 10em
+}
+
+// Ensure that remove button doesn't get covered up in when window is small
+.tagify__tag__removeBtn {
+    overflow: visible;
+}
