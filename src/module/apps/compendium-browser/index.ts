@@ -56,6 +56,9 @@ class PackLoader {
                         data = { pack, index };
                         this.loadedPacks[documentType][packId] = data;
                     } else {
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection })
+                        );
                         continue;
                     }
                 } else {
