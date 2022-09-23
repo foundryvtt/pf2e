@@ -26,6 +26,13 @@ export class HazardPF2e extends ActorPF2e {
         return this.itemTypes.melee.length > 0;
     }
 
+    override get emitsSound(): boolean {
+        const { emitsSound } = this.system.attributes;
+        return !this.isDead && typeof emitsSound === "boolean"
+            ? emitsSound
+            : !!game.combats.active?.started && game.combats.active.combatants.some((c) => c.actor === this);
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
