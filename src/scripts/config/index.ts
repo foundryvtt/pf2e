@@ -23,9 +23,9 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
-import { WEAPON_PROPERTY_RUNES } from "@item/runes";
+import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
-import { DamageCategory, DamageType } from "@system/damage/calculation";
+import { DamageCategory, DamageType } from "@system/damage/types";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
@@ -88,6 +88,7 @@ const senses: Record<SenseType, string> = {
     motionsense: "PF2E.Actor.Creature.Sense.Type.Motionsense",
     scent: "PF2E.Actor.Creature.Sense.Type.Scent",
     seeInvisibility: "PF2E.Actor.Creature.Sense.Type.SeeInvisibility",
+    spiritsense: "PF2E.Actor.Creature.Sense.Type.Spiritsense",
     tremorsense: "PF2E.Actor.Creature.Sense.Type.Tremorsense",
     wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
 };
@@ -99,13 +100,19 @@ const senseAcuity: Record<SenseAcuity, string> = {
     vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
 };
 
+const weaponPropertyRunes = {
+    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {} as Record<WeaponPropertyRuneType, string>),
+};
+
 const damageCategories: Record<DamageCategory, string> = {
     alignment: "PF2E.Alignment",
     adamantine: "PF2E.PreciousMaterialAdamantine",
     coldiron: "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
     energy: "PF2E.TraitEnergy",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
+    ghostTouch: weaponPropertyRunes.ghostTouch,
     mithral: "PF2E.PreciousMaterialMithral",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
     physical: "PF2E.TraitPhysical",
@@ -169,6 +176,7 @@ const tokenHUDConditions = {
     stunned: "PF2E.ConditionTypeStunned",
     stupefied: "PF2E.ConditionTypeStupefied",
     unconscious: "PF2E.ConditionTypeUnconscious",
+    undetected: "PF2E.ConditionTypeUndetected",
     wounded: "PF2E.ConditionTypeWounded",
 };
 
@@ -180,7 +188,6 @@ const conditionTypes: Record<ConditionSlug, string> = {
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
     observed: "PF2E.ConditionTypeObserved",
-    undetected: "PF2E.ConditionTypeUndetected",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
@@ -201,7 +208,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     disease: "PF2E.TraitDisease",
     emotion: "PF2E.TraitEmotion",
     "fear-effects": "PF2E.TraitFearEffects",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
+    ghostTouch: weaponPropertyRunes.ghostTouch,
     healing: "PF2E.TraitHealing",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
@@ -236,7 +243,7 @@ const weaknessTypes: Record<WeaknessType, string> = {
     "salt-water": "PF2E.TraitSaltWater",
     "splash-damage": "PF2E.TraitSplashDamage",
     "vampire-weaknesses": "PF2E.TraitVampireWeaknesses",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
+    vorpal: weaponPropertyRunes.vorpal,
     "vorpal-fear": "PF2E.TraitVorpalFear",
     "vulnerable-to-sunlight": "PF2E.TraitVulnerableToSunlight",
     unarmed: "PF2E.TraitUnarmed",
@@ -254,7 +261,7 @@ const resistanceTypes: Record<ResistanceType, string> = {
     "persistent-damage": "PF2E.ConditionTypePersistent",
     "protean anatomy": "PF2E.TraitProteanAnatomy",
     unarmed: "PF2E.TraitUnarmed",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
+    vorpal: weaponPropertyRunes.vorpal,
     weapons: "PF2E.TraitWeapons",
 };
 
@@ -693,12 +700,6 @@ const weaponGroups: Record<WeaponGroup, string> = {
     bow: "PF2E.WeaponGroupBow",
     firearm: "PF2E.WeaponGroupFirearm",
     sling: "PF2E.WeaponGroupSling",
-};
-
-const weaponPropertyRunes = {
-    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
-        return { ...accumulated, [slug]: rune.name };
-    }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
 // Creature and Equipment Sizes
@@ -1200,6 +1201,7 @@ export const PF2ECONFIG = {
         innate: "PF2E.PreparationTypeInnate",
         focus: "PF2E.SpellCategoryFocus",
         ritual: "PF2E.SpellCategoryRitual",
+        items: "PF2E.PreparationTypeItems",
     },
 
     areaTypes: {

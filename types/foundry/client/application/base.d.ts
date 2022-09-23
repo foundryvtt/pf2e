@@ -115,10 +115,11 @@ declare global {
          * Render the Application by evaluating it's HTML template against the object of data provided by the getData method
          * If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls
          *
-         * @param force     Add the rendered application to the DOM if it is not already present. If false, the
-         *                  Application will only be re-rendered if it is already present.
-         * @param options   Additional rendering options which are applied to customize the way that the Application
-         *                  is rendered in the DOM.
+         * @param force   Add the rendered application to the DOM if it is not already present. If false, the
+         *                Application will only be re-rendered if it is already present.
+         * @param options Additional rendering options which are applied to customize the way that the Application
+         *                is rendered in the DOM.
+         * @returns The rendered Application instance
          */
         render(force?: boolean, options?: RenderOptions): this | Promise<this>;
 
@@ -350,6 +351,16 @@ declare global {
     interface RenderOptions extends Partial<ApplicationOptions> {
         // Undocumented
         action?: UserAction;
+        /** The left positioning attribute */
+        left?: number;
+        /** The top positioning attribute */
+        top?: number;
+        /** The rendered width */
+        width?: number;
+        /** The rendered height */
+        height?: number;
+        /** The rendered transformation scale */
+        scale?: number;
         /** Apply focus to the application, maximizing it and bringing it to the top of the vertical stack. */
         focus?: boolean;
         /** A context-providing string which suggests what event triggered the render */

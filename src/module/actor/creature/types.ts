@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { SpellcastingEntryData } from "@item/data";
-import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
+import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
 import { ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/degree-of-success";
@@ -33,6 +33,7 @@ interface AttackTarget {
     actor: ActorPF2e;
     token: TokenDocumentPF2e;
     distance: number;
+    rangeIncrement: number | null;
 }
 
 /** Context for the attack or damage roll of a strike */
@@ -47,7 +48,9 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
 interface StrikeRollContextParams<T extends AttackItem> {
     item: T;
     /** Domains from which to draw roll options */
-    domains?: string[];
+    domains: string[];
+    /** Initial roll options for the strike */
+    options: Set<string>;
     /** Whether the request is for display in a sheet view. If so, targets are not considered */
     viewOnly?: boolean;
 }
@@ -88,7 +91,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     };
 }
 
-type SpellcastingSheetData = RawObject<SpellcastingEntryData> & SpellcastingEntryListData;
+type SpellcastingSheetData = RawObject<SpellcastingEntryData> & SpellcastingAbilityData;
 
 export {
     Alignment,

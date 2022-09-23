@@ -25,7 +25,7 @@ export class CheckModifiersDialog extends Application {
         resolve: (value: boolean) => void,
         context: CheckRollContext = { options: new Set() }
     ) {
-        super({ title: context?.title || check.name });
+        super({ title: context?.title || check.slug });
 
         this.check = check;
         this.resolve = resolve;

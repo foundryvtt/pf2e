@@ -4,7 +4,6 @@ import {
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
-    ModifierAdjustment,
     ModifierPF2e,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
@@ -13,13 +12,18 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneModifiers } from "@item/runes";
-import { WeaponDamage } from "@item/weapon/data";
-import { WeaponMaterialEffect } from "@item/weapon/types";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
+import { getPropertyRuneModifiers } from "@item/physical";
+import { WeaponDamage, WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item/weapon";
 import { RollNotePF2e } from "@module/notes";
-import { DeferredModifier, PotencySynthetic, StrikeAdjustment, StrikingSynthetic } from "@module/rules/synthetics";
-import { extractModifiers } from "@module/rules/util";
+import {
+    DamageDiceSynthetics,
+    ModifierAdjustmentSynthetics,
+    ModifierSynthetics,
+    PotencySynthetic,
+    StrikeAdjustment,
+    StrikingSynthetic,
+} from "@module/rules/synthetics";
+import { extractDamageDice, extractModifiers } from "@module/rules/util";
 import { PredicatePF2e } from "@system/predication";
 import { groupBy, setHasElement, sluggify } from "@util";
 import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
@@ -29,9 +33,9 @@ class WeaponDamagePF2e {
         attack: MeleePF2e,
         actor: NPCPF2e,
         traits: TraitViewData[] = [],
-        statisticsModifiers: Record<string, DeferredModifier[]>,
-        modifierAdjustments: Record<string, ModifierAdjustment[]>,
-        damageDice: Record<string, DamageDicePF2e[]>,
+        statisticsModifiers: ModifierSynthetics,
+        modifierAdjustments: ModifierAdjustmentSynthetics,
+        damageDice: DamageDiceSynthetics,
         proficiencyRank = 0,
         options: Set<string> = new Set(),
         rollNotes: Record<string, RollNotePF2e[]>,
@@ -44,14 +48,15 @@ class WeaponDamagePF2e {
             const { damageType } = instance;
             if (instance.dice > 0 && instance.die) {
                 damageDice.damage.push(
-                    new DamageDicePF2e({
-                        slug: "base",
-                        selector: "damage",
-                        name: "PF2E.Damage.Base",
-                        diceNumber: instance.dice,
-                        dieSize: instance.die,
-                        damageType: instance.damageType,
-                    })
+                    () =>
+                        new DamageDicePF2e({
+                            slug: "base",
+                            label: "PF2E.Damage.Base",
+                            selector: "damage",
+                            diceNumber: instance.dice,
+                            dieSize: instance.die,
+                            damageType: instance.damageType,
+                        })
                 );
             }
             // Amend numeric modifiers with any flat modifier
@@ -83,9 +88,9 @@ class WeaponDamagePF2e {
         weapon: WeaponPF2e | MeleePF2e,
         actor: CharacterPF2e | NPCPF2e,
         traits: TraitViewData[] = [],
-        statisticsModifiers: Record<string, DeferredModifier[]>,
-        modifierAdjustments: Record<string, ModifierAdjustment[]>,
-        damageDice: Record<string, DamageDicePF2e[]>,
+        statisticsModifiers: ModifierSynthetics,
+        modifierAdjustments: ModifierAdjustmentSynthetics,
+        damageDice: DamageDiceSynthetics,
         proficiencyRank = -1,
         options: Set<string> = new Set(),
         rollNotes: Record<string, RollNotePF2e[]>,
@@ -265,23 +270,9 @@ class WeaponDamagePF2e {
         const propertyRunes = weaponPotency?.property ?? [];
         diceModifiers.push(...getPropertyRuneModifiers(propertyRunes));
 
-        const runeNotes = propertyRunes.flatMap((r) => {
-            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
-            return data.map(
-                (d) =>
-                    new RollNotePF2e({
-                        selector: "strike-damage",
-                        text: d.text,
-                        predicate: d.predicate,
-                        outcome: d.outcome,
-                    })
-            );
-        });
-        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
-
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
-            diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
+            diceModifiers.push(new DiceModifierPF2e({ label: CONFIG.PF2E.weaponPropertyRunes.ghostTouch }));
         }
 
         // Backstabber trait
@@ -357,11 +348,15 @@ class WeaponDamagePF2e {
         const syntheticModifiers = extractModifiers(synthetics, selectors, { resolvables, injectables });
         numericModifiers.push(...new StatisticModifier("", syntheticModifiers, options).modifiers);
 
+        // Roll notes
+        const runeNotes = propertyRunes.flatMap((r) => {
+            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
+        });
+
+        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
         const notes = selectors.flatMap(
-            (s) =>
-                rollNotes[s]
-                    ?.map((note) => duplicate(note))
-                    .filter((note) => PredicatePF2e.test(note.predicate, options)) ?? []
+            (s) => rollNotes[s]?.map((n) => n.clone()).filter((n) => n.predicate.test(options)) ?? []
         );
 
         // Accumulate damage-affecting precious materials
@@ -400,36 +395,35 @@ class WeaponDamagePF2e {
         };
 
         // Damage dice from synthetics
-        for (const selector of selectors) {
-            const testedDice =
-                damageDice[selector]?.map((dice) => {
-                    dice.enabled = dice.predicate.test(options);
-                    dice.ignored = !dice.enabled;
-                    return dice;
-                }) ?? [];
-            diceModifiers.push(...testedDice);
-        }
+        diceModifiers.push(
+            ...extractDamageDice(damageDice, selectors, {
+                test: options,
+                resolvables: { weapon },
+                injectables: { weapon },
+            })
+        );
 
         // include dice number and size in damage tag
-        diceModifiers.forEach((d) => {
-            d.label = game.i18n.localize(d.label ?? d.slug);
-            if (d.diceNumber > 0 && d.dieSize) {
-                d.label += ` +${d.diceNumber}${d.dieSize}`;
-            } else if (d.diceNumber > 0) {
-                d.label += ` +${d.diceNumber}${damage.base.dieSize}`;
-            } else if (d.dieSize) {
-                d.label += ` ${d.dieSize}`;
+        for (const dice of diceModifiers) {
+            dice.label = game.i18n.localize(dice.label ?? dice.slug);
+            if (dice.diceNumber > 0 && dice.dieSize) {
+                dice.label += ` +${dice.diceNumber}${dice.dieSize}`;
+            } else if (dice.diceNumber > 0) {
+                dice.label += ` +${dice.diceNumber}${damage.base.dieSize}`;
+            } else if (dice.dieSize) {
+                dice.label += ` ${dice.dieSize}`;
             }
             if (
-                d.category &&
-                (d.diceNumber > 0 || d.dieSize) &&
-                (!d.damageType || (d.damageType === damage.base.damageType && d.category !== damage.base.category))
+                dice.category &&
+                (dice.diceNumber > 0 || dice.dieSize) &&
+                (!dice.damageType ||
+                    (dice.damageType === damage.base.damageType && dice.category !== damage.base.category))
             ) {
-                d.label += ` ${d.category}`;
+                dice.label += ` ${dice.category}`;
             }
-            d.enabled = new PredicatePF2e(d.predicate ?? {}).test(options);
-            d.ignored = !d.enabled;
-        });
+            dice.enabled = new PredicatePF2e(dice.predicate ?? {}).test(options);
+            dice.ignored = !dice.enabled;
+        }
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.excludeDamage({ actor, weapon: excludeFrom, modifiers: [...numericModifiers, ...diceModifiers], options });
@@ -465,7 +459,7 @@ class WeaponDamagePF2e {
             (dm): dm is DiceModifierPF2e & { override: DamageDiceOverride } => !!(dm.enabled && dm.override)
         );
         for (const override of damageOverrides) {
-            if ((critical && override.critical) || !override.critical) {
+            if ((critical && override.critical !== false) || (!critical && !override.critical)) {
                 base.dieSize = override.override.dieSize ?? base.dieSize;
                 base.damageType = override.override.damageType ?? base.damageType;
                 base.diceNumber = override.override.diceNumber ?? base.diceNumber;
@@ -575,7 +569,7 @@ class WeaponDamagePF2e {
     public static addDice(
         pool: DamagePool,
         damageType: string,
-        category: string | undefined,
+        category: string | null,
         dieSize: string,
         count: number
     ): DamagePool {

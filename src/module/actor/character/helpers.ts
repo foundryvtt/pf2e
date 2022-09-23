@@ -1,10 +1,10 @@
 import { WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
-import { objectHasKey, setHasElement } from "@util";
-import { DAMAGE_DIE_FACES } from "@system/damage";
+import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { DAMAGE_DIE_FACES } from "@system/damage/values";
 import { extractModifierAdjustments } from "@module/rules/util";
-import { CharacterPF2e } from ".";
+import { type CharacterPF2e } from ".";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class StrikeWeaponTraits {
@@ -36,7 +36,10 @@ class StrikeWeaponTraits {
         }
     }
 
-    static createAttackModifiers(weapon: Embedded<WeaponPF2e>, domains: string[]): ModifierPF2e[] {
+    static createAttackModifiers(weapon: WeaponPF2e, domains: string[]): ModifierPF2e[] {
+        const { actor } = weapon;
+        if (!actor) throw ErrorPF2e("The weapon must be embedded");
+
         const traitsAndTags = [weapon.system.traits.value, weapon.system.traits.otherTags].flat();
 
         const getLabel = (traitOrTag: string): string => {
@@ -108,7 +111,7 @@ class StrikeWeaponTraits {
                 }
             })
             .map((modifier) => {
-                const synthetics = weapon.actor.synthetics.modifierAdjustments;
+                const synthetics = actor.synthetics.modifierAdjustments;
                 modifier.adjustments = extractModifierAdjustments(synthetics, domains, modifier.slug);
                 return modifier;
             });

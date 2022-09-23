@@ -1368,7 +1368,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature can't remove the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition while infected</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> fatigued (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}, fatigued, and take [[/r {1d6}[persistent,bleed]]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage} every 1d20 minutes (1 day)</p>"
+                    "value": "<p>A creature can't remove the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition while infected</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:23]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> fatigued (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}, fatigued, and take [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every [[/br 1d20 #Minutes]] minutes (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1427,9 +1427,9 @@
                     "rarity": "common",
                     "value": [
                         "concentrate",
+                        "divine",
                         "polymorph",
-                        "transmutation",
-                        "divine"
+                        "transmutation"
                     ]
                 },
                 "trigger": {
@@ -1494,7 +1494,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Yshula torments a sleeping creature within 100 feet with visions of betrayals by loved ones and friends. The target must attempt a @Check[type:will|dc:25] save, with the effects of the nightmare spell.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Yshula torments a sleeping creature within 100 feet with visions of betrayals by loved ones and friends. The target must attempt a @Check[type:will|dc:25] save, with the effects of the <em>@UUID[Compendium.pf2e.spells-srd.Uqj344bezBq3ESdq]{Nightmare}</em> spell.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1746,12 +1746,6 @@
         }
     ],
     "name": "Yshula",
-    "prototypeToken": {
-        "name": "Yshula",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/mystery-man.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -1778,6 +1772,7 @@
                 "details": "",
                 "value": 26
             },
+            "adjustment": null,
             "allSaves": {
                 "value": ""
             },

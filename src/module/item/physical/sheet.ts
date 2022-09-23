@@ -1,15 +1,19 @@
-import { ItemSheetPF2e } from "../sheet/base";
-import { PhysicalItemPF2e } from "@item/physical";
-import { ItemSheetDataPF2e, MaterialSheetData, PhysicalItemSheetData } from "@item/sheet/data-types";
-import { BasePhysicalItemSource, ItemActivation } from "./data";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { createSheetTags } from "@module/sheet/helpers";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { MaterialGradeData, MaterialValuationData } from "./materials";
-import { PRECIOUS_MATERIAL_GRADES } from "./values";
 import { objectHasKey } from "@util";
-import { PreciousMaterialGrade } from "./types";
+import {
+    BasePhysicalItemSource,
+    CoinsPF2e,
+    ItemActivation,
+    MaterialGradeData,
+    MaterialValuationData,
+    PhysicalItemPF2e,
+    PreciousMaterialGrade,
+    PRECIOUS_MATERIAL_GRADES,
+} from ".";
+import { ItemSheetPF2e } from "../sheet/base";
 
-export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
+class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData: ItemSheetDataPF2e<TItem> = await super.getData(options);
@@ -123,10 +127,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         });
     }
 
-    protected prepareMaterials(valuationData: MaterialValuationData): {
-        value: string;
-        materials: Record<string, { label: string; grades: { [K in PreciousMaterialGrade]?: MaterialGradeData } }>;
-    } {
+    protected prepareMaterials(valuationData: MaterialValuationData): PreparedMaterials {
         const { material } = this.item;
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
         const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
@@ -204,3 +205,35 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         return super._updateObject(event, flattenObject(expanded));
     }
 }
+
+interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    isPhysical: true;
+    basePriceString: string;
+    priceString: string;
+    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
+    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
+    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
+    frequencies: ConfigPF2e["PF2E"]["frequencies"];
+    sizes: ConfigPF2e["PF2E"]["actorSizes"];
+    stackGroups: ConfigPF2e["PF2E"]["stackGroups"];
+    usage: ConfigPF2e["PF2E"]["usageTraits"];
+    bulkDisabled: boolean;
+    activations: { action: ItemActivation; id: string; base: string }[];
+}
+
+interface PreparedMaterials {
+    value: string;
+    materials: Record<string, { label: string; grades: { [K in PreciousMaterialGrade]?: MaterialGradeData } }>;
+}
+
+type MaterialSheetEntry = {
+    label: string;
+    grades: Partial<Record<PreciousMaterialGrade, MaterialGradeData>>;
+};
+
+type MaterialSheetData = {
+    value: string;
+    materials: Record<string, MaterialSheetEntry>;
+};
+
+export { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials };

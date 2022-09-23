@@ -9,8 +9,11 @@ async function preImportJSON<T extends ActorPF2e | ItemPF2e>(document: T, json: 
     const source: unknown = JSON.parse(json);
     if (!isObject<T["_source"] & { data?: unknown }>(source)) return null;
     if ("data" in source) {
-        const migrateToV10 = "items" in source ? ActorPF2e.migrateData : ItemPF2e.migrateData;
-        migrateToV10(source);
+        if ("items" in source) {
+            ActorPF2e.migrateData(source);
+        } else {
+            ItemPF2e.migrateData(source);
+        }
     }
     if (!isObject(source.system)) return null;
 

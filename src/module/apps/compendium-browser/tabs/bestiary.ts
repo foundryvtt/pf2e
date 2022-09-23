@@ -1,7 +1,7 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { BestiaryFilters } from "./data";
+import { BestiaryFilters, CompendiumBrowserIndexData } from "./data";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     protected index = [
@@ -14,6 +14,20 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
     override filterData!: BestiaryFilters;
     override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = [
+        "type",
+        "name",
+        "img",
+        "uuid",
+        "level",
+        "alignment",
+        "actorSize",
+        "traits",
+        "rarity",
+        "source",
+    ];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "bestiary");
@@ -25,7 +39,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
 
-        const bestiaryActors: CompendiumIndexData[] = [];
+        const bestiaryActors: CompendiumBrowserIndexData[] = [];
         const sources: Set<string> = new Set();
         const indexFields = [...this.index, "system.details.isComplex"];
 
@@ -51,11 +65,10 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     }
 
                     bestiaryActors.push({
-                        _id: actorData._id,
                         type: actorData.type,
                         name: actorData.name,
                         img: actorData.img,
-                        compendium: pack.collection,
+                        uuid: `Compendium.${pack.collection}.${actorData._id}`,
                         level: actorData.system.details.level.value,
                         alignment: actorData.system.details.alignment.value,
                         actorSize: actorData.system.traits.size.value,
@@ -81,15 +94,11 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading Bestiary actors");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, search, sliders } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, sliders } = this.filterData;
+
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Size
         if (checkboxes.sizes.selected.length) {
             if (!checkboxes.sizes.selected.includes(entry.actorSize)) return false;

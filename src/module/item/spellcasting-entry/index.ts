@@ -1,25 +1,17 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
-import { ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
-import { goesToEleven, OneToFour, OneToTen, ZeroToTen } from "@module/data";
+import { goesToEleven, OneToFour, OneToTen, ZeroToFour } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, groupBy } from "@util";
+import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
-import {
-    ActiveSpell,
-    SlotKey,
-    SpellcastingEntry,
-    SpellcastingEntryData,
-    SpellcastingEntryListData,
-    SpellcastingSlotLevel,
-    SpellPrepEntry,
-} from "./data";
+import { SpellcastingAbilityData, SpellcastingEntry, SpellcastingEntryData, SpellcastingEntryListData } from "./data";
 
 class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
-    spells!: SpellCollection;
+    spells!: SpellCollection | null;
 
     /** Spellcasting attack and dc data created during actor preparation */
     statistic!: Statistic;
@@ -28,28 +20,18 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this.system.ability.value || "int";
     }
 
-    /** This entry's magic tradition, defaulting to arcane if unset or invalid */
-    get tradition(): MagicTradition {
-        const tradition = this.system.tradition.value || "arcane";
-        return MAGIC_TRADITIONS.has(tradition) ? tradition : "arcane";
+    /** This entry's magic tradition, null if the spell's tradition should be used instead */
+    get tradition(): MagicTradition | null {
+        const defaultTradition = this.system.prepared.value === "items" ? null : "arcane";
+        const tradition = this.system.tradition.value;
+        return setHasElement(MAGIC_TRADITIONS, tradition) ? tradition : defaultTradition;
     }
 
     /**
      * Returns the proficiency used for calculations.
      * For innate spells, this is the highest spell proficiency (min trained)
      */
-    get rank(): OneToFour {
-        const actor = this.actor;
-        if (actor instanceof CharacterPF2e) {
-            const traditions = actor.system.proficiencies.traditions;
-            if (this.isInnate) {
-                const allRanks = Array.from(MAGIC_TRADITIONS).map((t) => traditions[t].rank);
-                return Math.max(1, this.system.proficiency.value ?? 1, ...allRanks) as OneToFour;
-            } else {
-                return Math.max(this.system.proficiency.value, traditions[this.tradition].rank) as OneToFour;
-            }
-        }
-
+    get rank(): ZeroToFour {
         return this.system.proficiency.value ?? 0;
     }
 
@@ -78,19 +60,29 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     get highestLevel(): number {
-        const highestSpell = Math.max(...this.spells.map((s) => s.level));
-        const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
-        return Math.min(10, Math.max(highestSpell, actorSpellLevel));
+        return this.spells?.highestLevel ?? 0;
     }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+        this.system.proficiency.slug ||= this.system.tradition.value;
         // Spellcasting abilities are always at least trained
         this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
+
+        // Assign a default "invalid" statistic in case something goes wrong
+        if (this.actor) {
+            this.statistic = new Statistic(this.actor, {
+                slug: this.slug ?? sluggify(this.name),
+                label: "PF2E.Actor.Creature.Spellcasting.InvalidProficiency",
+                check: { type: "check" },
+            });
+        }
     }
 
     override prepareSiblingData(): void {
-        if (this.actor) {
+        if (!this.actor || this.system.prepared.value === "items") {
+            this.spells = null;
+        } else {
             this.spells = new SpellCollection(this as Embedded<SpellcastingEntryPF2e>);
             const spells = this.actor.itemTypes.spell.filter((i) => i.system.location.value === this.id);
             for (const spell of spells) {
@@ -102,25 +94,39 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
-        // Upgrade the actor proficiency using the internal ones
         const actor = this.actor;
+
+        // Upgrade the actor proficiency using the internal ones
         // Innate spellcasting will always be elevated by other spellcasting proficiencies but never do
         // the elevating itself
-        if (actor instanceof CharacterPF2e && !this.isInnate) {
-            const { traditions } = actor.system.proficiencies;
-            const tradition = traditions[this.tradition];
+        const tradition = this.tradition;
+        if (actor.isOfType("character") && !this.isInnate && tradition) {
+            const proficiency = actor.system.proficiencies.traditions[tradition];
             const rank = this.system.proficiency.value;
-            tradition.rank = Math.max(rank, tradition.rank) as OneToFour;
+            proficiency.rank = Math.max(rank, proficiency.rank) as OneToFour;
         }
     }
 
     /** Returns if the spell is valid to cast by this spellcasting entry */
-    canCastSpell(spell: SpellPF2e): boolean {
-        if (spell.traditions.has(this.tradition)) {
-            return true;
+    canCastSpell(spell: SpellPF2e, options: { origin?: PhysicalItemPF2e } = {}): boolean {
+        // For certain collection-less modes, the spell must come from an item
+        if (this.system.prepared.value === "items") {
+            return !!options.origin;
         }
 
-        return this.collection.some((s) => s.slug === spell.slug);
+        // Only prepared/spontaneous casting count as a "spellcasting class feature"
+        // for the purpose of using the "Cast a Spell" activation component
+        const isSpellcastingFeature = this.isPrepared || this.isSpontaneous;
+        if (options.origin && !isSpellcastingFeature) {
+            return false;
+        }
+
+        // Past here, a spell collection is required
+        if (!this.spells) return false;
+
+        const matchesTradition = this.tradition && spell.traditions.has(this.tradition);
+        const isInSpellList = this.spells.some((s) => s.slug === spell.slug);
+        return matchesTradition || isInSpellList;
     }
 
     /** Casts the given spell as if it was part of this spellcasting entry */
@@ -162,7 +168,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
         const levelLabel = game.i18n.localize(CONFIG.PF2E.spellLevels[level as OneToTen]);
         const slotKey = goesToEleven(level) ? (`slot${level}` as const) : "slot0";
-        if (this.system.slots === null) {
+        if (this.system.slots === null || !this.spells) {
             return false;
         }
 
@@ -216,159 +222,35 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
      * or creating a new spell if its not.
      */
     async addSpell(spell: SpellPF2e, options?: { slotLevel?: number }): Promise<SpellPF2e | null> {
-        return this.spells.addSpell(spell, options);
+        return this.spells?.addSpell(spell, options) ?? null;
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e> {
-        return this.spells.prepareSpell(spell, slotLevel, spellSlot);
+    async prepareSpell(spell: SpellPF2e, slotLevel: number, spellSlot: number): Promise<SpellcastingEntryPF2e | null> {
+        return this.spells?.prepareSpell(spell, slotLevel, spellSlot) ?? null;
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(spellLevel: number, slotLevel: number): Promise<SpellcastingEntryPF2e> {
-        return this.spells.unprepareSpell(spellLevel, slotLevel);
+    async unprepareSpell(spellLevel: number, slotLevel: number): Promise<SpellcastingEntryPF2e | null> {
+        return this.spells?.unprepareSpell(spellLevel, slotLevel) ?? null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
-        return this.spells.setSlotExpendedState(slotLevel, spellSlot, isExpended);
+    async setSlotExpendedState(
+        slotLevel: number,
+        spellSlot: number,
+        isExpended: boolean
+    ): Promise<SpellcastingEntryPF2e | null> {
+        return this.spells?.setSlotExpendedState(slotLevel, spellSlot, isExpended) ?? null;
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
-    async getSpellData(): Promise<SpellcastingEntryListData> {
-        const { actor } = this;
-        if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
+    async getSpellData(): Promise<SpellcastingAbilityData | SpellcastingEntryListData> {
+        if (!this.actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        const results: SpellcastingSlotLevel[] = [];
-        const spells = this.spells.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
-        const signatureSpells = spells.filter((s) => s.system.location.signature);
-
-        if (this.isPrepared) {
-            // Prepared Spells. Active spells are what's been prepped.
-            for (let level = 0; level <= this.highestLevel; level++) {
-                const data = this.system.slots[`slot${level}` as SlotKey];
-
-                // Detect which spells are active. If flexible, it will be set later via signature spells
-                const active: (ActiveSpell | null)[] = [];
-                const showLevel = this.system.showSlotlessLevels.value || data.max > 0;
-                if (showLevel && (level === 0 || !this.isFlexible)) {
-                    const maxPrepared = Math.max(data.max, 0);
-                    active.push(...Array(maxPrepared).fill(null));
-                    for (const [key, value] of Object.entries(data.prepared)) {
-                        const spell = value.id ? this.spells.get(value.id) : null;
-                        if (spell) {
-                            active[Number(key)] = {
-                                spell,
-                                chatData: await spell.getChatData(),
-                                expended: !!value.expended,
-                            };
-                        }
-                    }
-                }
-
-                results.push({
-                    label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
-                    level: level as ZeroToTen,
-                    uses: {
-                        value: level > 0 && this.isFlexible ? data.value || 0 : undefined,
-                        max: data.max,
-                    },
-                    isCantrip: level === 0,
-                    active,
-                });
-            }
-        } else if (this.isFocusPool) {
-            // Focus Spells. All non-cantrips are grouped together as they're auto-scaled
-            const cantrips = spells.filter((spell) => spell.isCantrip);
-            const leveled = spells.filter((spell) => !spell.isCantrip);
-
-            if (cantrips.length) {
-                const active = await Promise.all(
-                    cantrips.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
-                );
-                results.push({
-                    label: "PF2E.Actor.Creature.Spellcasting.Cantrips",
-                    level: 0,
-                    isCantrip: true,
-                    active,
-                });
-            }
-
-            if (leveled.length) {
-                const active = await Promise.all(
-                    leveled.map(async (spell) => ({ spell, chatData: await spell.getChatData() }))
-                );
-                results.push({
-                    label: actor.isOfType("character") ? "PF2E.Focus.Spells" : "PF2E.Focus.Pool",
-                    level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
-                    isCantrip: false,
-                    uses: actor.system.resources.focus ?? { value: 0, max: 0 },
-                    active,
-                });
-            }
-        } else {
-            // Everything else (Innate/Spontaneous/Ritual)
-            const alwaysShowHeader = !this.isRitual;
-            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
-            for (let level = 0; level <= this.highestLevel; level++) {
-                const data = this.system.slots[`slot${level}` as SlotKey];
-                const spells = spellsByLevel.get(level) ?? [];
-                if (alwaysShowHeader || spells.length) {
-                    const uses = this.isSpontaneous && level !== 0 ? { value: data.value, max: data.max } : undefined;
-                    const active = await Promise.all(
-                        spells.map(async (spell) => ({
-                            spell,
-                            chatData: await spell.getChatData(),
-                            expended: this.isInnate && !spell.system.location.uses?.value,
-                            uses: this.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
-                        }))
-                    );
-
-                    // These entries hide if there are no active spells at that level, or if there are no spell slots
-                    const hideForSpontaneous = this.isSpontaneous && uses?.max === 0 && active.length === 0;
-                    const hideForInnate = this.isInnate && active.length === 0;
-                    if (!this.system.showSlotlessLevels.value && (hideForSpontaneous || hideForInnate)) continue;
-
-                    results.push({
-                        label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
-                        level: level as ZeroToTen,
-                        isCantrip: level === 0,
-                        uses,
-                        active,
-                    });
-                }
-            }
-        }
-
-        // Handle signature spells, we need to add signature spells to each spell level
-        if (this.isSpontaneous || this.isFlexible) {
-            for (const spell of signatureSpells) {
-                for (const result of results) {
-                    if (spell.baseLevel > result.level) continue;
-                    if (!this.system.showSlotlessLevels.value && result.uses?.max === 0) continue;
-
-                    const existing = result.active.find((a) => a?.spell.id === spell.id);
-                    if (existing) {
-                        existing.signature = true;
-                    } else {
-                        const chatData = await spell.getChatData({}, { castLevel: result.level });
-                        result.active.push({ spell, chatData, signature: true, virtual: true });
-                    }
-                }
-            }
-        }
-
-        // If flexible, the limit is the number of slots, we need to notify the user
-        const flexibleAvailable = (() => {
-            if (!this.isFlexible) return undefined;
-            const totalSlots = results
-                .filter((result) => !result.isCantrip)
-                .map((level) => level.uses?.max || 0)
-                .reduce((first, second) => first + second, 0);
-            return { value: signatureSpells.length, max: totalSlots };
-        })();
+        const spellCollectionData = await this.spells?.getSpellData();
 
         return {
             id: this.id,
@@ -382,27 +264,9 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             isInnate: this.isInnate,
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
-            flexibleAvailable,
-            levels: results,
-            spellPrepList: this.getSpellPrepList(spells),
+            hasCollection: !!this.spells,
+            ...(spellCollectionData ?? { levels: [] }),
         };
-    }
-
-    private getSpellPrepList(spells: Embedded<SpellPF2e>[]) {
-        if (!this.isPrepared) return {};
-
-        const spellPrepList: Record<number, SpellPrepEntry[]> = {};
-        const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.baseLevel));
-        for (let level = 0; level <= this.highestLevel; level++) {
-            // Build the prep list
-            spellPrepList[level] =
-                spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
-                    spell,
-                    signature: this.isFlexible && spell.system.location.signature,
-                })) ?? [];
-        }
-
-        return Object.values(spellPrepList).some((s) => !!s.length) ? spellPrepList : null;
     }
 
     override getRollOptions(prefix = this.type): string[] {

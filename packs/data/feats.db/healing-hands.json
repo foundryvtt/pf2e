@@ -28,7 +28,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": {
+                    "all": [
+                        "item:slug:heal"
+                    ]
+                },
+                "selector": "spell-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

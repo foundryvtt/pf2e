@@ -85,6 +85,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const options = [
             `${delimitedPrefix}id:${this.id}`,
             `${delimitedPrefix}${slug}`,
+            `${delimitedPrefix}slug:${slug}`,
             ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
         ];
 

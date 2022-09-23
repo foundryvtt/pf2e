@@ -65,7 +65,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (context.pf2e?.ready) {
             // Set module art if available
             if (context.pack && data._id) {
-                const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
+                const art = game.pf2e.system.moduleArt.map.get(`Compendium.${context.pack}.${data._id}`);
                 if (art) {
                     data.img = art.actor;
                     const tokenArt =
@@ -186,6 +186,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return false;
     }
 
+    get isDead(): boolean {
+        const deathIcon = game.settings.get("pf2e", "deathIcon");
+        if (this.token) return this.token.overlayEffect === deathIcon;
+        const tokens = this.getActiveTokens(true, true);
+        return tokens.length > 0 && tokens.every((t) => t.overlayEffect === deathIcon);
+    }
+
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
@@ -193,6 +200,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     get visionLevel(): VisionLevel {
         return VisionLevels.NORMAL;
+    }
+
+    /** Does this creature emit sound? False unless a subclass overrides it */
+    get emitsSound(): boolean {
+        return false;
     }
 
     get rollOptions(): RollOptionFlags {
@@ -459,6 +471,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.synthetics = {
             criticalSpecalizations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
+            degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
             modifierAdjustments: { all: [], damage: [] },
             movementTypes: {},

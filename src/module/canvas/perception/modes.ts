@@ -1,3 +1,4 @@
+import { pick } from "@util";
 import { TokenPF2e } from "../token";
 
 const darkvision = new VisionMode({
@@ -20,6 +21,24 @@ const darkvision = new VisionMode({
     },
 });
 
+class VisionDetectionMode extends DetectionModeBasicSight {
+    constructor() {
+        super({
+            id: "basicSight",
+            label: "DETECTION.BasicSight",
+            type: DetectionMode.DETECTION_TYPES.SIGHT,
+        });
+    }
+
+    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+        if (!super._canDetect(visionSource, target)) return false;
+        const targetIsUndetected =
+            target instanceof TokenPF2e &&
+            !!target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
+        return !targetIsUndetected;
+    }
+}
+
 class HearingDetectionMode extends DetectionMode {
     constructor() {
         super({
@@ -39,11 +58,41 @@ class HearingDetectionMode extends DetectionMode {
     }
 
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
-        const targetIsDetected = (): boolean =>
-            target instanceof TokenPF2e &&
-            !target.actor?.isOfType("loot") &&
-            !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
-        return !visionSource.object.actor?.hasCondition("deafened") && targetIsDetected();
+        if (!(target instanceof TokenPF2e && target.actor)) return false;
+
+        // Not if the target doesn't emit sound
+        if (!target.actor.emitsSound) {
+            return false;
+        }
+
+        // Not if the target is unnoticed or undetected
+        if (target.actor.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))) {
+            return false;
+        }
+
+        // Only if the subject can hear
+        return !visionSource.object.actor?.hasCondition("deafened");
+    }
+
+    protected override _testLOS(
+        visionSource: VisionSource<TokenPF2e>,
+        _mode: TokenDetectionMode,
+        _target: PlaceableObject,
+        test: CanvasVisibilityTestPF2e
+    ): boolean {
+        if (test.los.get(visionSource)) return true;
+
+        test.loh ??= new Map();
+        const hasLOH =
+            test.loh.get(visionSource) ??
+            !CONFIG.Canvas.losBackend.testCollision(pick(visionSource, ["x", "y"]), test.point, {
+                type: "sound",
+                mode: "any",
+                source: visionSource,
+            });
+        test.loh.set(visionSource, hasLOH);
+
+        return hasLOH;
     }
 }
 
@@ -52,9 +101,41 @@ declare namespace HearingDetectionMode {
     var _detectionFilter: OutlineOverlayFilter | undefined;
 }
 
+interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
+    loh?: Map<VisionSource<TokenPF2e>, boolean>;
+}
+
+class DetectionModeTremorPF2e extends DetectionModeTremor {
+    constructor() {
+        super({
+            id: "feelTremor",
+            label: "DETECTION.FeelTremor",
+            walls: false,
+            type: DetectionMode.DETECTION_TYPES.MOVE,
+        });
+    }
+
+    static override getDetectionFilter(): OutlineOverlayFilter {
+        const filter = super.getDetectionFilter();
+        filter.thickness = 1;
+        return filter;
+    }
+
+    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+        return (
+            super._canDetect(visionSource, target) &&
+            target instanceof TokenPF2e &&
+            !target.actor?.isOfType("loot") &&
+            !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))
+        );
+    }
+}
+
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
+    CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
+    CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }
 
 export { setPerceptionModes };

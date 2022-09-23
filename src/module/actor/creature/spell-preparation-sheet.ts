@@ -2,8 +2,8 @@ import { ActorPF2e } from "@actor";
 import { ItemSummaryRendererPF2e } from "@actor/sheet/item-summary-renderer";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
+import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
 import { SpellcastingEntryPF2e } from "../../item/spellcasting-entry";
-import { SpellcastingEntryListData } from "../../item/spellcasting-entry/data";
 
 /**
  * Sheet used to render the the spell list for prepared casting.
@@ -135,7 +135,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 
         const spell = this.actor.items.get(itemData._id);
         if (itemData.system.location.value !== this.item.id && spell?.isOfType("spell")) {
-            const addedSpell = await this.item.spells.addSpell(spell);
+            const addedSpell = await this.item.spells?.addSpell(spell);
             return [addedSpell ?? []].flat();
         }
 
@@ -153,7 +153,7 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
 interface SpellPreparationSheetData extends ActorSheetData<ActorPF2e> {
     actor: ActorPF2e;
     owner: boolean;
-    entry: SpellcastingEntryListData;
+    entry: SpellcastingAbilityData;
 }
 
 export { SpellPreparationSheet };

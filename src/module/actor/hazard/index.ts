@@ -4,7 +4,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemType } from "@item/data";
 import { Rarity } from "@module/data";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { HazardData } from "./data";
 
@@ -24,6 +24,13 @@ export class HazardPF2e extends ActorPF2e {
     /** Minimal check since the disabled status of a hazard isn't logged */
     override get canAttack(): boolean {
         return this.itemTypes.melee.length > 0;
+    }
+
+    override get emitsSound(): boolean {
+        const { emitsSound } = this.system.attributes;
+        return !this.isDead && typeof emitsSound === "boolean"
+            ? emitsSound
+            : !!game.combats.active?.started && game.combats.active.combatants.some((c) => c.actor === this);
     }
 
     override prepareBaseData(): void {
@@ -72,7 +79,6 @@ export class HazardPF2e extends ActorPF2e {
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
         const { system } = this;
-        const { rollNotes } = this.synthetics;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
@@ -89,7 +95,6 @@ export class HazardPF2e extends ActorPF2e {
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
@@ -98,10 +103,9 @@ export class HazardPF2e extends ActorPF2e {
                 check: {
                     type: "saving-throw",
                 },
-                dc: {},
             });
 
-            mergeObject(this.system.saves[saveType], stat.getCompatData());
+            mergeObject(this.system.saves[saveType], stat.getTraceData());
 
             saves[saveType] = stat;
             return saves;

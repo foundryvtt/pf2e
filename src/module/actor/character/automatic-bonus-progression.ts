@@ -78,13 +78,14 @@ export class AutomaticBonusProgression {
             }
 
             if (damage > 0) {
-                synthetics.damageDice["damage"] = (synthetics.damageDice["damage"] || []).concat(
-                    new DamageDicePF2e({
-                        slug: "devasting-attacks",
-                        label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
-                        selector: "damage",
-                        diceNumber: damage,
-                    })
+                synthetics.damageDice.damage.push(
+                    () =>
+                        new DamageDicePF2e({
+                            slug: "devasting-attacks",
+                            label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
+                            selector: "damage",
+                            diceNumber: damage,
+                        })
                 );
             }
         }

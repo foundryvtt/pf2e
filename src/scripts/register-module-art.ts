@@ -5,7 +5,9 @@ import { isObject } from "@util";
  * prototype tokens
  */
 async function registerModuleArt(): Promise<void> {
+    game.pf2e.system.moduleArt.map.clear();
     const activeModules = [...game.modules.entries()].filter(([_key, m]) => m.active);
+
     for (const [moduleKey, foundryModule] of activeModules) {
         const moduleArt = await getArtMap(foundryModule.flags?.[moduleKey]?.["pf2e-art"]);
         if (!moduleArt) continue;
@@ -25,7 +27,7 @@ async function registerModuleArt(): Promise<void> {
                 if (!record) continue;
 
                 record.img = paths.actor;
-                game.pf2e.system.moduleArt.set(`Compendium.pf2e.${packName}.${actorId}`, paths);
+                game.pf2e.system.moduleArt.map.set(`Compendium.pf2e.${packName}.${actorId}`, paths);
             }
         }
     }
@@ -40,11 +42,15 @@ async function getArtMap(art: unknown): Promise<ModuleArtRecord | null> {
         // Instead of being in a module.json file, the art map is in a separate JSON file referenced by path
         try {
             const response = await fetch(art);
+            if (!response.ok) {
+                console.warn(`PF2e System | Failed loading art mapping file at ${art}`);
+                return null;
+            }
             const map = await response.json();
             return isModuleArt(map) ? map : null;
         } catch (error) {
             if (error instanceof Error) {
-                ui.notifications.error(error.message);
+                console.warn(`PF2e System | ${error.message}`);
             }
         }
     }

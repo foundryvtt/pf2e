@@ -172,8 +172,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     override async getHTML(): Promise<JQuery> {
+        const { actor } = this;
+
+        // Enrich flavor, which is skipped by upstream
         if (this.isContentVisible) {
-            const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
+            const rollData = { ...actor?.getRollData(), ...(this.item?.getRollData() ?? { actor }) };
             this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
         }
 
@@ -187,6 +190,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         sender?.addEventListener("dblclick", this.onClickSender.bind(this));
 
         UserVisibilityPF2e.processMessageSender(this, html);
+        if (!actor && this.content) UserVisibilityPF2e.process(html, { document: this });
 
         return $html;
     }

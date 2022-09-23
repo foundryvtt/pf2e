@@ -1,4 +1,4 @@
-import { ItemPF2e, LorePF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
@@ -11,8 +11,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify } from "@util";
-import Tagify from "@yaireo/tagify";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify, htmlQueryAll } from "@util";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
 import { ItemSheetDataPF2e } from "./data-types";
@@ -148,17 +147,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         };
     }
 
-    protected onTagSelector(event: JQuery.TriggeredEvent): void {
-        event.preventDefault();
-        const $anchor = $(event.currentTarget);
-        const selectorType = $anchor.attr("data-tag-selector") ?? "";
+    protected onTagSelector(anchor: HTMLAnchorElement): void {
+        const selectorType = anchor.dataset.tagSelector ?? "";
         if (!(selectorType === "basic" && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
-        const propertyIsFlat = !!$anchor.attr("data-flat");
-        const objectProperty = $anchor.attr("data-property") ?? "";
-        const title = $anchor.attr("data-title");
-        const configTypes = ($anchor.attr("data-config-types") ?? "")
+        const propertyIsFlat = anchor.dataset.flat === "true";
+        const objectProperty = anchor.dataset.property ?? "";
+        const title = anchor.dataset.title;
+        const configTypes = (anchor.dataset.configTypes ?? "")
             .split(",")
             .map((type) => type.trim())
             .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
@@ -169,7 +166,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             flat: propertyIsFlat,
         };
 
-        const noCustom = $anchor.attr("data-no-custom") === "true";
+        const noCustom = anchor.dataset.noCustom === "true";
         if (noCustom) {
             selectorOptions.allowCustom = false;
         } else if (this.actor && configTypes.includes("attackEffects")) {
@@ -206,76 +203,54 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("li.trait-item input[type=checkbox]").on("click", (event) => {
-            if (event.originalEvent instanceof MouseEvent) {
-                this._onSubmit(event.originalEvent); // Trait Selector
-            }
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.tag-selector")) {
+            anchor.addEventListener("click", () => this.onTagSelector(anchor));
+        }
+
+        const ruleElementSelect = html.querySelector<HTMLSelectElement>("select[data-action=select-rule-element]");
+        ruleElementSelect?.addEventListener("change", () => {
+            this.selectedRuleElementType = ruleElementSelect.value;
         });
 
-        $html.find(".tag-selector").on("click", (ev) => this.onTagSelector(ev));
-
-        $html.find("[data-action=select-rule-element]").on("change", async (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            this.selectedRuleElementType = (event.target as HTMLSelectElement).value;
-        });
-
-        $html.find(".add-rule-element").on("click", async (event) => {
-            event.preventDefault();
-            if (event.originalEvent instanceof MouseEvent) {
-                await this._onSubmit(event.originalEvent); // submit any unsaved changes
-            }
-            const rulesData = this.item.toObject().system.rules;
-            const key = this.selectedRuleElementType ?? "NewRuleElement";
-            this.item.update({ "system.rules": rulesData.concat({ key }) });
-        });
-
-        $html.find(".edit-rule-element").on("click", async (event) => {
-            const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN") ?? null;
-            this.editingRuleElementIndex = index;
-            this.render(true);
-        });
-
-        $html.find(".rules .remove-rule-element").on("click", async (event) => {
-            event.preventDefault();
-            if (event.originalEvent instanceof MouseEvent) {
-                await this._onSubmit(event.originalEvent); // submit any unsaved changes
-            }
-            const rules = this.item.toObject().system.rules;
-            const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN");
-            if (rules && Number.isInteger(index) && rules.length > index) {
-                rules.splice(index, 1);
-                this.item.update({ "system.rules": rules });
-            }
-        });
-
-        $html.find(".add-skill-variant").on("click", (_event) => {
-            if (!(this.item instanceof LorePF2e)) return;
-            const variants = this.item.system.variants ?? {};
-            const index = Object.keys(variants).length;
-            this.item.update({
-                [`system.variants.${index}`]: { label: "+X in terrain", options: "" },
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.add-rule-element")) {
+            anchor.addEventListener("click", async (event) => {
+                await this._onSubmit(event); // submit any unsaved changes
+                const rulesData = this.item.toObject().system.rules;
+                const key = this.selectedRuleElementType ?? "NewRuleElement";
+                this.item.update({ "system.rules": rulesData.concat({ key }) });
             });
-        });
+        }
 
-        $html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
-            const index = event.currentTarget.dataset.skillVariantIndex;
-            this.item.update({ [`system.variants.-=${index}`]: null });
-        });
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.edit-rule-element")) {
+            anchor.addEventListener("click", async (event) => {
+                await this._onSubmit(event); // submit any unsaved changes
+                const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
+                this.editingRuleElementIndex = index;
+                this.render(true);
+            });
+        }
 
-        $html.find("[data-clipboard]").on("click", (event) => {
-            const clipText = $(event.target).closest("[data-clipboard]").attr("data-clipboard");
-            if (clipText) {
-                navigator.clipboard.writeText(clipText);
-                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
-            }
-        });
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, ".rules a.remove-rule-element")) {
+            anchor.addEventListener("click", async (event) => {
+                await this._onSubmit(event); // submit any unsaved changes
+                const rules = this.item.toObject().system.rules;
+                const index = Number(anchor.dataset.ruleIndex ?? "NaN");
+                if (rules && Number.isInteger(index) && rules.length > index) {
+                    rules.splice(index, 1);
+                    this.item.update({ "system.rules": rules });
+                }
+            });
+        }
 
-        const $prerequisites = $html.find<HTMLInputElement>('input[name="system.prerequisites.value"]');
-        if ($prerequisites[0]) {
-            new Tagify($prerequisites[0], {
-                editTags: 1,
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a[data-clipboard]")) {
+            anchor.addEventListener("click", () => {
+                const clipText = anchor.dataset.clipboard;
+                if (clipText) {
+                    navigator.clipboard.writeText(clipText);
+                    ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+                }
             });
         }
 
@@ -288,49 +263,49 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 extensions: [CodeMirror.basicSetup, CodeMirror.keybindings, CodeMirror.json(), CodeMirror.jsonLinter()],
             });
 
-            $html.find(".rule-editing .editor-placeholder").replaceWith(view.dom);
+            html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
 
-            // Prevent textarea changes from bubbling
-            $html.find(".rule-editing").on("change", "textarea", (event) => {
-                event.stopPropagation();
-            });
-
-            $html.find(".rule-editing [data-action=close]").on("click", (event) => {
-                event.preventDefault();
-                this.editingRuleElementIndex = null;
-                this.render(true);
-            });
-
-            $html.find(".rule-editing [data-action=apply]").on("click", (event) => {
-                event.preventDefault();
-                const value = view.state.doc.toString();
-
-                // Close early if the editing index is invalid
-                if (this.editingRuleElementIndex === null) {
+            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]")?.addEventListener(
+                "click",
+                (event) => {
+                    event.preventDefault();
                     this.editingRuleElementIndex = null;
-                    this.render(true);
-                    return;
+                    this.render();
                 }
+            );
 
-                try {
-                    const rules = this.item.toObject().system.rules;
-                    rules[this.editingRuleElementIndex] = JSON.parse(value as string);
-                    this.editingRuleElementIndex = null;
-                    this.item.update({ "system.rules": rules });
-                } catch (error) {
-                    if (error instanceof Error) {
-                        ui.notifications.error(
-                            game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
-                        );
-                        console.warn("Syntax error in rule element definition.", error.message, value);
-                        throw error;
+            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
+                "click",
+                (event) => {
+                    event.preventDefault();
+                    const value = view.state.doc.toString();
+
+                    // Close early if the editing index is invalid
+                    if (this.editingRuleElementIndex === null) {
+                        this.editingRuleElementIndex = null;
+                        this.render();
+                        return;
+                    }
+
+                    try {
+                        const rules = this.item.toObject().system.rules;
+                        rules[this.editingRuleElementIndex] = JSON.parse(value as string);
+                        this.editingRuleElementIndex = null;
+                        this.item.update({ "system.rules": rules });
+                    } catch (error) {
+                        if (error instanceof Error) {
+                            ui.notifications.error(
+                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                            );
+                            console.warn("Syntax error in rule element definition.", error.message, value);
+                            throw error;
+                        }
                     }
                 }
-            });
+            );
         }
 
         // Activate rule element sub forms
-        const html = $html.get(0)!;
         const ruleSections = html.querySelectorAll<HTMLElement>(".rules .rule-form");
         for (const ruleSection of Array.from(ruleSections)) {
             const idx = ruleSection.dataset.idx ? Number(ruleSection.dataset.idx) : NaN;

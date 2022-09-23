@@ -1,5 +1,78 @@
 # Changelog
 
+## Version 4.1.2
+
+### Bugfixes
+* (stwlam) Fix issue causing old speed data to prevent some PC sheets from opening
+
+### Data Updates
+* (Tikael) Fix several NPC save values that were stored as strings
+
+
+## Version 4.1.1
+
+### Bugfixes
+* (stwlam) Fix extraction of predicated damage dice
+* (stwlam) Fix localization of non-land speeds
+* (Supe) Fix detection of highest level for spell collection
+
+### Data Updates
+* (stwlam) Restore iconics' prototype tokens
+* (stwlam) Fix language known by Uthuls (bestiary 1)
+
+
+## Version 4.1.0
+
+### System Improvements
+* (In3luki) Update Compendium Browser text search to utilize `MiniSearch`
+* (sturteva) Add spiritsense to available creature sense types
+* (stwlam) Add limited support for DamageDice REs in spells (reflected in Healing/Harming Hands feats)
+* (stwlam) Add support for hearing through walls that don't block sound (thanks to dev8675309 for assistance!)
+* (stwlam) Incorporate V10 tremorsense detection mode
+* (stwlam) Add undetected condition to token HUD
+* (stwlam) Lower enforced PC ability score cap to 1 while in manual-entry mode
+* (Supe) Add structured form for editing FlatModifier rule elements
+
+### Bugfixes
+* (stwlam) Fix token mirroring when scale is locked
+* (stwlam) Fix issue causing secret text in journal entry text pages to become visible to players
+
+### Data Updates
+* (InfamousSky) Add Glass Skin feat
+* (InfamousSky) Add cauldron of flying
+* (itamarcu) Fix Blaze effect
+* (SpartanCPA) Add a rollable save to Dragon's Rage Breath
+* (SpartanCPA) Audit Age of Ashes book 1
+* (SpartanCPA) Audit Doblagub (Extinction Curse)
+* (SpartanCPA) Fix name of Legacy of the Hammer background
+* (stwlam) Add critical specialization to Ruffian class feature
+* (stwlam) Fix description of Fatal Aim trait
+* (stwlam) Fix predicate on Precise Strike's damage dice RE
+* (Supe) Add Scroll Trickster bonus to trick magic item
+
+
+## Version 4.0.6
+
+### System Improvements
+* (stwlam) Skip module nags for modules with no `esmodules` or `scripts`
+
+### Bugfixes
+* (In3luki) Fix Compendium Browser order-by values getting defaulted to name
+* (In3luki) Fix display of class features in the class item sheet details tab
+* (stwlam) Fix issue causing predicated new movement types to always be applied to a PC
+* (stwlam) Fix damage roll notes getting dropped from chat cards
+* (stwlam) Fix item-drop handling on kit sheets
+* (stwlam) Fix issue preventing JSON imports from V9 actors
+
+### Data Updates
+* (LebombJames) Brushup witch features and feats
+* (LebombJames) Correct "Feat/Feature" in Feat Sheet Header
+* (Shandyan) Automate tiefling feats
+* (Shandyan) Correct Crunch feat, Runelord Specialization and remove Form of the Fiend variants
+* (SkepticRobot) Add missing Dark Archive backgrounds
+* (Tikael) Fix Cover effect
+
+
 ## Version 4.0.5
 
 ### Bugfixes

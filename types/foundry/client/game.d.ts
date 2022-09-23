@@ -59,6 +59,8 @@ declare global {
             {
                 id: string;
                 active: boolean;
+                esmodules: Set<string>;
+                scripts: Set<string>;
                 flags: Record<string, Record<string, unknown>>;
                 title: string;
                 compatibility: {
@@ -100,6 +102,9 @@ declare global {
 
         /** A singleton instance of the TooltipManger class */
         tooltip: TooltipManager;
+
+        /** A singleton instance of the Tours class */
+        tours: Tours;
 
         /** The global document index. */
         documentIndex: DocumentIndex;

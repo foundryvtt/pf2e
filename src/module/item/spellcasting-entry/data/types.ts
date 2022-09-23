@@ -3,16 +3,16 @@ import { AbilityString } from "@actor/types";
 import { SpellPF2e } from "@item";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
 import { MagicTradition } from "@item/spell/types";
-import { OneToFour, OneToTen, ZeroToEleven } from "@module/data";
+import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { Statistic, StatisticChatData } from "@system/statistic";
+import { Statistic } from "@system/statistic";
 import { SpellcastingEntryPF2e } from "..";
 
 interface BaseSpellcastingEntry {
     id: string;
     actor: ActorPF2e | null;
     ability: AbilityString;
-    tradition: MagicTradition;
+    tradition: MagicTradition | null;
     statistic: Statistic;
     cast(spell: SpellPF2e, options: {}): Promise<void>;
 }
@@ -67,9 +67,7 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
     spelldc: {
         value: number;
         dc: number;
-        mod: number;
     };
-    statisticData?: StatisticChatData;
     tradition: {
         value: MagicTradition | "";
     };
@@ -81,7 +79,8 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
         value: boolean;
     };
     proficiency: {
-        value: OneToFour;
+        slug: string;
+        value: ZeroToFour;
     };
     slots: Record<SlotKey, SpellSlotData>;
     autoHeightenLevel: {

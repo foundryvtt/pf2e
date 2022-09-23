@@ -32,6 +32,31 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Trick Magic Item"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:trick-magic-item",
+                        "item:trait:scroll"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:trick-magic-item",
+                        "item:trait:scroll"
+                    ]
+                },
+                "selector": "skill-check"
             }
         ],
         "source": {

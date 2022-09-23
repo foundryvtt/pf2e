@@ -1,7 +1,7 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
 import { ItemType } from "@item/data";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { Statistic } from "@system/statistic";
@@ -58,7 +58,7 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareDerivedData();
 
         this.saves = this.prepareSaves();
-        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, this.saves.fortitude.getCompatData());
+        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, this.saves.fortitude.getTraceData());
     }
 
     private prepareSaves(): { fortitude: Statistic } {
@@ -78,13 +78,11 @@ export class VehiclePF2e extends ActorPF2e {
         const fortitude = new Statistic(this, {
             slug: "fortitude",
             label: CONFIG.PF2E.saves.fortitude,
-            notes: extractNotes(synthetics.rollNotes, domains),
             modifiers,
             domains,
             check: {
                 type: "saving-throw",
             },
-            dc: {},
         });
 
         return { fortitude };

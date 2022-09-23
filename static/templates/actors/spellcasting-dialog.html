@@ -22,12 +22,31 @@
                 <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
                 <select name="system.tradition.value">
                 {{#select data.tradition.value}}
-                {{#each magicTraditions as |label mode|}}
-                    <option value="{{mode}}">{{localize label}}</option>
-                {{/each}}
+                    {{#if (eq data.prepared.value "items")}}
+                        <option value="">{{localize "PF2E.MagicTraditionUseSpellLabel"}}</option>
+                    {{/if}}
+                    {{#each magicTraditions as |label mode|}}
+                        <option value="{{mode}}">{{localize label}}</option>
+                    {{/each}}
                 {{/select}}
                 </select>
             </div>
+            {{#if (eq actor.type "character")}}
+                <div class="form-group">
+                    <label>{{localize "PF2E.ProficiencyLabel"}}</label>
+                    <select name="system.proficiency.slug">
+                    {{#select data.proficiency.slug}}
+                        {{#if data.tradition.value}}
+                            <option value="">{{localize "PF2E.MagicTraditionLabel"}}</option>
+                        {{/if}}
+                        <option value="classDC">{{localize "PF2E.Actor.Character.ClassDC.Label"}}</option>
+                        {{#each actor.classDCs as |classDC|}}
+                            <option value="{{classDC.slug}}">{{classDC.label}}</option>
+                        {{/each}}
+                    {{/select}}
+                    </select>
+                </div>
+            {{/if}}
             <div class="form-group">
                 <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
                 <select name="system.ability.value">

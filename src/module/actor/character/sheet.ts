@@ -17,7 +17,7 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
+import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
@@ -97,9 +97,22 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.heroPoints
         );
 
-        // Update class DC label
-        sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
-        sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
+        // Class DCs
+        const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
+            .map((classDC): ClassDCSheetData => {
+                classDC.icon = this.getProficiencyIcon(classDC.rank);
+                classDC.hover = CONFIG.PF2E.proficiencyLevels[classDC.rank];
+                classDC.rankName = game.i18n.format(`PF2E.ProficiencyLevel${classDC.rank}`);
+                return classDC;
+            })
+            .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
+        const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
+
+        sheetData.classDCs = {
+            dcs: classDCs,
+            primary: primaryClassDC,
+            perDCDetails: classDCs.length > 1 || !primaryClassDC,
+        };
 
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
@@ -119,9 +132,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
             save.rankName = game.i18n.format(`PF2E.ProficiencyLevel${save.rank}`);
         }
-        sheetData.data.attributes.classDC.rankName = game.i18n.format(
-            `PF2E.ProficiencyLevel${sheetData.data.attributes.classDC.rank}`
-        );
 
         // limiting the amount of characters for the save labels
         for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
@@ -557,7 +567,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // SPELLCASTING
         const $castingTab = $html.find(".tab.spellcasting");
 
-        $castingTab.find(".focus-pool .pips").on("click contextmenu", (event) => {
+        $castingTab.find(".focus-pool").on("click contextmenu", (event) => {
             const change = event.type === "click" ? 1 : -1;
             const points = (this.actor.system.resources.focus?.value ?? 0) + change;
             this.actor.update({ "system.resources.focus.value": points });

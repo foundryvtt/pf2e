@@ -313,7 +313,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-edit]") ?? []) {
                 element.addEventListener("click", (event) => {
-                    const containerId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
+                    const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                     const entry = this.actor.spellcasting.get(containerId, { strict: true });
                     createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
                 });
@@ -321,7 +321,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-remove]") ?? []) {
                 element.addEventListener("click", (event) => {
-                    const itemId = htmlClosest(event.currentTarget, "[data-container-id]")?.dataset.itemId;
+                    const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                     const item = this.actor.items.get(itemId, { strict: true });
 
                     // Render confirmation modal dialog
@@ -398,9 +398,9 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         $html.find("button[data-action=cast-spell]").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");
             const { itemId, slotLevel, slotId, entryId } = $spellEl.data();
-            const entry = this.actor.spellcasting.get(entryId, { strict: true });
-            const spell = entry.spells.get(itemId, { strict: true });
-            entry.cast(spell, { slot: slotId, level: slotLevel });
+            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const spell = collection.get(itemId, { strict: true });
+            collection.entry.cast(spell, { slot: slotId, level: slotLevel });
         });
 
         // Regenerating spell slots and spell uses

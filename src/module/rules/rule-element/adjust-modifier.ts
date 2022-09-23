@@ -1,7 +1,8 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e } from "@item";
 import { ModifierAdjustment } from "@actor/modifiers";
-import { DamageType, DAMAGE_TYPES } from "@system/damage";
+import { ItemPF2e } from "@item";
+import { DamageType } from "@system/damage/types";
+import { DAMAGE_TYPES } from "@system/damage/values";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, setHasElement, tupleHasValue } from "@util";
 import { RuleElementOptions } from "./";

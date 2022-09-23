@@ -71,10 +71,7 @@ class GrantItemForm extends RuleElementForm<GrantItemSource> {
 const RULE_ELEMENT_FORMS: Partial<Record<string, ConstructorOf<RuleElementForm>>> = {
     Note: RollNoteForm,
     GrantItem: GrantItemForm,
+    FlatModifier: FlatModifierForm,
 };
-
-if (BUILD_MODE === "development") {
-    RULE_ELEMENT_FORMS.FlatModifier = FlatModifierForm;
-}
 
 export { RuleElementForm, RULE_ELEMENT_FORMS };
