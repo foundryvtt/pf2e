@@ -66,26 +66,29 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     protected override _contextMenu($html: JQuery): void {
         super._contextMenu($html);
 
-        ContextMenu.create(this, $html, "ol.doc-matches > li", [
+        ContextMenu.create(this, $html, "ol.document-matches > li", [
             {
                 name: "COMPENDIUM.ImportEntry",
                 icon: fontAwesomeIcon("download").outerHTML,
                 condition: ($li) => {
-                    const { dataset } = $li.get(0) ?? {};
-                    const collection = game.packs.get(dataset?.collection ?? "", { strict: true });
+                    const { uuid } = $li.get(0)?.dataset ?? {};
+                    if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
+                    const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
 
                     return documentClass.canUserCreate(game.user);
                 },
                 callback: ($li) => {
-                    const { dataset } = $li.get(0) ?? {};
-                    if (!(dataset?.collection && dataset.documentId)) return;
-                    const packCollection = game.packs.get(dataset.collection, { strict: true });
+                    const { uuid } = $li.get(0)?.dataset ?? {};
+                    if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
+                    const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const worldCollection = game.collections.get(packCollection.documentName, { strict: true });
+                    const indexData = fromUuidSync(uuid) ?? { _id: "" };
+                    if (!("_id" in indexData)) throw ErrorPF2e("Unexpected missing document _id");
 
                     return worldCollection.importFromCompendium(
                         packCollection,
-                        dataset.documentId,
+                        indexData._id,
                         {},
                         { renderSheet: true }
                     );
