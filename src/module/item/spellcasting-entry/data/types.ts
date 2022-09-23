@@ -12,7 +12,7 @@ interface BaseSpellcastingEntry {
     id: string;
     actor: ActorPF2e | null;
     ability: AbilityString;
-    tradition: MagicTradition;
+    tradition: MagicTradition | null;
     statistic: Statistic;
     cast(spell: SpellPF2e, options: {}): Promise<void>;
 }

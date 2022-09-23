@@ -26,7 +26,7 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
 
     canCastConsumable(item: ConsumablePF2e): boolean {
         const spell = item.embeddedSpell;
-        return !!spell && this.spellcastingFeatures.some((entry) => entry.canCastSpell(spell));
+        return !!spell && this.some((entry) => entry.canCastSpell(spell, { origin: item }));
     }
 
     refocus(options: { all?: boolean } = {}) {

@@ -59,14 +59,26 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
 
         // Unflatten the form data, so that we may make some modifications
         const inputData: DeepPartial<SpellcastingEntrySource> = expandObject(formData);
+        const system = inputData.system;
+
+        // We may disable certain form data, so reinject it
+        inputData.system = mergeObject(
+            inputData.system ?? {},
+            {
+                prepared: {
+                    value: this.object.system.prepared.value,
+                },
+            },
+            { overwrite: false }
+        );
 
         // When swapping to innate, convert to cha, but don't force it
-        if (inputData.system?.prepared?.value === "innate" && !wasInnate && inputData.system?.ability) {
-            inputData.system.ability.value = "cha";
+        if (system?.prepared?.value === "innate" && !wasInnate && system?.ability) {
+            system.ability.value = "cha";
         }
 
-        if (inputData.system?.autoHeightenLevel) {
-            inputData.system.autoHeightenLevel.value ||= null;
+        if (system?.autoHeightenLevel) {
+            system.autoHeightenLevel.value ||= null;
         }
 
         this.object.updateSource(inputData);
@@ -94,12 +106,17 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         }
 
         if (this.object.id === null) {
-            const preparationType =
-                game.i18n.localize(CONFIG.PF2E.preparationType[updateData.system.prepared.value]) ?? "";
-            const traditionSpells = game.i18n.localize(CONFIG.PF2E.magicTraditions[this.object.tradition]);
-            updateData.name = this.object.isRitual
-                ? preparationType
-                : game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
+            updateData.name = (() => {
+                const preparationType =
+                    game.i18n.localize(CONFIG.PF2E.preparationType[updateData.system.prepared.value]) ?? "";
+                const magicTraditions: Record<string, string> = CONFIG.PF2E.magicTraditions;
+                const traditionSpells = game.i18n.localize(magicTraditions[this.object.tradition ?? ""]);
+                if (this.object.isRitual || !traditionSpells) {
+                    return preparationType;
+                } else {
+                    return game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
+                }
+            })();
 
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
