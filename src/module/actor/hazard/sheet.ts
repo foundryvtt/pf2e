@@ -164,8 +164,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     /* -------------------------------------------- */
 
     override activateListeners($html: JQuery): void {
-        const html = $html[0]!;
         super.activateListeners($html);
+        const html = $html[0]!;
 
         // Tagify the traits selection
         const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
@@ -203,7 +203,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             }
         });
 
-        $html.find('[data-action="edit-section"]').on("click", (event) => {
+        $html.find("[data-action=edit-section]").on("click", (event) => {
             const $parent = $(event.target).closest(".section-container");
             const name = $parent.find("[data-edit]").attr("data-edit");
             if (name) {
@@ -236,6 +236,14 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 default:
                     throw new Error("Unknown action type");
             }
+        });
+
+        const $hint = $html.find(".emits-sound i.hint");
+        $hint.tooltipster({
+            maxWidth: 275,
+            position: "right",
+            theme: "crb-hover",
+            content: game.i18n.localize("PF2E.Actor.Hazard.EmitsSound.Hint"),
         });
 
         if (!this.options.editable) return;
@@ -314,5 +322,20 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 left: window.innerWidth - 710,
             },
         });
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Change emitsSound values of "true" and "false" to booleans
+        this.actor.system.attributes.emitsSound;
+        const emitsSound = formData["system.attributes.emitsSound"];
+        if (emitsSound !== "encounter") {
+            formData["system.attributes.emitsSound"] = emitsSound === "true";
+        }
+
+        return super._updateObject(event, formData);
     }
 }
