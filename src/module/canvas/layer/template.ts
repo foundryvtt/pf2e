@@ -53,11 +53,14 @@ export class TemplateLayerPF2e<
     protected override _onMouseWheel(event: WheelEvent): Promise<TTemplate["document"] | undefined> | void {
         // Abort if there's no hovered template
         const template = this.hover;
-        if (!template) return;
+        if (!(template && canvas.scene)) return;
 
         // Determine the incremental angle of rotation from event data
-        const snap = template.type === "cone" ? (event.shiftKey ? 45 : 15) : event.shiftKey ? 15 : 5;
+        const increment = event.shiftKey ? 15 : 5;
+        const coneMultiplier = Number(template.type === "cone") * (canvas.scene.hasHexGrid ? 2 : 3);
+        const snap = increment * coneMultiplier;
         const delta = snap * Math.sign(event.deltaY);
+
         return template.rotate(template.document.direction + delta, snap);
     }
 }

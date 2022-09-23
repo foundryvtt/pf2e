@@ -17,7 +17,11 @@ export const CanvasReady = {
             // Effect Panel singleton application
             game.pf2e.effectPanel.render(true);
 
-            if (game.ready) game.scenes.active?.reset();
+            if (canvas.scene) {
+                if (game.ready) canvas.scene.reset();
+                // Accomodate hex grid play with a usable default cone angle
+                CONFIG.MeasuredTemplate.defaults.angle = canvas.scene.hasHexGrid ? 60 : 90;
+            }
 
             Promise.resolve().then(async () => {
                 // Redraw tokens
