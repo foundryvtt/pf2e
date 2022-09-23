@@ -17,7 +17,7 @@
         color: white;
         display: flex;
         font-weight: 500;
-        height: 1.5em;
+        min-height: 1.5em;
         padding: 0 0.33em;
 
         &.edit-btn {
@@ -111,10 +111,14 @@ li.chat-message .tags .tag {
     padding: 0.05em;
     gap: 0;
 
+    select.tag {
+        height: 22px;
+    }
+
     tag, .tag, select.tag {
         border: 2px solid var(--color-border-trait);
         margin: 0;
-        height: 22px;
+        min-height: 22px;
 
         x {
             align-items: start;
@@ -239,4 +243,16 @@ tags.pf2e-tagify, tags.tags.paizo-style {
     &-modifier {
         background: rgba(0, 0, 0, 0.05);
     }
+}
+
+// Ensure shadow fills the whole tag even if it wraps lines
+// Default from tagify module is 1.1em
+.tagify {
+    --tag-inset-shadow-size: 10em
+}
+
+// Ensure that remove button doesn't get covered up when window is small
+// Default from tagify module is hidden
+.tagify__tag__removeBtn {
+    overflow: visible;
 }
