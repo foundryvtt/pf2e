@@ -192,6 +192,7 @@ declare global {
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
         readonly type: T["documentName"];
+        id: string;
         name: string;
         label: string;
         path: string;
