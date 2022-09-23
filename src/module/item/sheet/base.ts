@@ -210,11 +210,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         const ruleElementSelect = html.querySelector<HTMLSelectElement>("select[data-action=select-rule-element]");
-        if (ruleElementSelect) {
-            ruleElementSelect.addEventListener("change", () => {
-                this.selectedRuleElementType = ruleElementSelect.value;
-            });
-        }
+        ruleElementSelect?.addEventListener("change", () => {
+            this.selectedRuleElementType = ruleElementSelect.value;
+        });
 
         for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.add-rule-element")) {
             anchor.addEventListener("click", async (event) => {
