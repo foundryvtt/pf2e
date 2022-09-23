@@ -605,18 +605,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Removes a custom modifier by slug */
-    async removeCustomModifier(stat: string, modifier: number | string): Promise<void> {
+    async removeCustomModifier(stat: string, slug: string): Promise<void> {
         if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
 
         const customModifiers = this.toObject().system.customModifiers ?? {};
         const modifiers = customModifiers[stat] ?? [];
         if (modifiers.length === 0) return;
 
-        if (typeof modifier === "number" && modifiers.length > modifier) {
-            modifiers.splice(modifier, 1);
-            await this.update({ [`system.customModifiers.${stat}`]: modifiers });
-        } else if (typeof modifier === "string") {
-            const withRemoved = modifiers.filter((m) => m.label === modifier);
+        if (typeof slug === "string") {
+            const withRemoved = modifiers.filter((m) => m.slug !== slug);
             await this.update({ [`system.customModifiers.${stat}`]: withRemoved });
         } else {
             throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
