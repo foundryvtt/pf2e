@@ -239,14 +239,14 @@ export class Statistic {
 
     /** Returns data intended to be merged back into actor data */
     getTraceData(this: Statistic, options: RollOptionParameters = {}): StatisticTraceData {
-        const { check } = this.withRollOptions(options);
+        const { check, dc } = this.withRollOptions(options);
 
         return {
             slug: this.slug,
             label: this.label,
-            value: check?.mod ?? 0,
-            totalModifier: check?.mod ?? 0,
-            breakdown: check?.breakdown ?? "",
+            value: dc.value,
+            totalModifier: check.mod ?? 0,
+            breakdown: check.breakdown ?? "",
             _modifiers: check.modifiers.map((m) => m.toObject()),
         };
     }

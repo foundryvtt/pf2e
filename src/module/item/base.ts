@@ -132,7 +132,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
             speaker: ChatMessagePF2e.getSpeaker({
                 actor: this.actor,
-                token: this.actor.getActiveTokens()[0]?.document,
+                token: this.actor.getActiveTokens(false, true)[0] ?? null,
             }),
             flags: {
                 core: {
