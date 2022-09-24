@@ -3,6 +3,7 @@
     "img": "systems/pf2e/icons/spells/inspire-courage.webp",
     "name": "Spell Effect: Inspire Courage",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Inspire Courage]{Inspire Courage}</em></p>\n<p>You are inspired by words or tunes of encouragement. You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
         },
@@ -18,19 +19,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "selector": "damage",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Inspire Courage (vs fear)",
                 "predicate": {
                     "all": [
                         "fear"
@@ -45,6 +42,7 @@
             "value": "Pathfinder Core Rulebook"
         },
         "start": {
+            "initiative": null,
             "value": 0
         },
         "target": null,

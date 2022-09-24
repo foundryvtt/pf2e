@@ -3,6 +3,7 @@
     "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
     "name": "Spell Effect: Amplifying Touch",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Lay on Hands]{Lay on Hands}</em> if you have @Compendium[pf2e.feats-srd.Amplifying Touch]{Amplifying Touch}.</p>\n<p>If the target is one of your allies, they also gain a +2 status bonus to AC, a +1 status bonus to their attack rolls and deals 1 additional good damage on all their strikes until the end of their next turn.</p>"
         },
@@ -18,14 +19,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Lay on Hands",
                 "selector": "ac",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "Amplifying Touch",
                 "selector": "attack",
                 "type": "status",
                 "value": 1
@@ -33,7 +32,6 @@
             {
                 "damageType": "good",
                 "key": "FlatModifier",
-                "label": "Amplifying Touch",
                 "selector": "strike-damage",
                 "value": 1
             }

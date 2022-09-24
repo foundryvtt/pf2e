@@ -3,6 +3,7 @@
     "img": "systems/pf2e/icons/spells/heroism.webp",
     "name": "Spell Effect: Heroism",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Heroism]{Heroism}</em></p>\n<p>Tapping into your inner heroism, you get a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>"
         },
@@ -18,83 +19,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Heroism",
-                "selector": "attack",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 3,
-                            "value": 1
-                        },
-                        {
-                            "end": 8,
-                            "start": 6,
-                            "value": 2
-                        },
-                        {
-                            "start": 9,
-                            "value": 3
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Heroism",
-                "selector": "perception",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 3,
-                            "value": 1
-                        },
-                        {
-                            "end": 8,
-                            "start": 6,
-                            "value": 2
-                        },
-                        {
-                            "start": 9,
-                            "value": 3
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Heroism",
-                "selector": "saving-throw",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 3,
-                            "value": 1
-                        },
-                        {
-                            "end": 8,
-                            "start": 6,
-                            "value": 2
-                        },
-                        {
-                            "start": 9,
-                            "value": 3
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Heroism",
-                "selector": "skill-check",
+                "selector": [
+                    "attack",
+                    "saving-throw",
+                    "skill-check",
+                    "perception"
+                ],
                 "type": "status",
                 "value": {
                     "brackets": [
@@ -121,6 +51,7 @@
             "value": "Pathfinder Core Rulebook"
         },
         "start": {
+            "initiative": null,
             "value": 0
         },
         "target": null,
