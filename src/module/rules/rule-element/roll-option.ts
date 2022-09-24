@@ -134,7 +134,9 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = (domainRecord[option] = !!this.resolveValue(this.value));
+            const value = !!this.resolveValue(this.value);
+            if (value) domainRecord[option] = value;
+
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
             if (this.toggleable) {
