@@ -170,6 +170,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #183: The Ghouls Hunger © 2022, Paizo Inc.; Author: Leo Glass.
     *  Pathfinder Adventure Path #184: A Taste of Ashes © 2022, Paizo Inc.; Author: Brian Duckwitz.
     *  Pathfinder Adventure Path #185: Ghost King's Rage © 2022, Paizo Inc.; Author: Jessica Catalan.
+    *  Pathfinder Kingmaker Player's Guide © 2022, Paizo Inc.; Author: James Jacobs, with Jason Nelson and Victoria Jaczko.
 
 
 * Society
