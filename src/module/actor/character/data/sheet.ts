@@ -81,10 +81,11 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     feats: FeatCategorySheetData[];
 }
 
-interface ClassDCSheetData extends ClassDCData {
-    icon?: string;
-    hover?: string;
-    rankName?: string;
+interface ClassDCSheetData extends Pick<ClassDCData, "slug" | "label" | "value" | "primary"> {
+    icon: string;
+    hover: string;
+    rankSlug: string;
+    rankName: string;
 }
 
 interface FeatCategorySheetData {

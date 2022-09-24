@@ -11,7 +11,7 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, pick, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
@@ -22,6 +22,7 @@ import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { PROFICIENCY_RANKS } from "@module/data";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -99,12 +100,15 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Class DCs
         const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
-            .map((classDC): ClassDCSheetData => {
-                classDC.icon = this.getProficiencyIcon(classDC.rank);
-                classDC.hover = CONFIG.PF2E.proficiencyLevels[classDC.rank];
-                classDC.rankName = game.i18n.format(`PF2E.ProficiencyLevel${classDC.rank}`);
-                return classDC;
-            })
+            .map(
+                (classDC): ClassDCSheetData => ({
+                    ...pick(classDC, ["slug", "label", "value", "primary"]),
+                    icon: this.getProficiencyIcon(classDC.rank),
+                    hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
+                    rankSlug: PROFICIENCY_RANKS[classDC.rank],
+                    rankName: game.i18n.format(`PF2E.ProficiencyLevel${classDC.rank}`),
+                })
+            )
             .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
         const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
 
