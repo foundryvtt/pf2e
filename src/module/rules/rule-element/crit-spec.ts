@@ -15,7 +15,7 @@ class CritSpecRuleElement extends RuleElementPF2e {
     private text: string | null;
 
     constructor(data: CritSpecSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.predicate ??= {};
+        data.predicate ??= [];
         super(data, item, options);
 
         data.text ??= null;

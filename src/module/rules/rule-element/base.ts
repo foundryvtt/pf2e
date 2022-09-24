@@ -116,8 +116,8 @@ abstract class RuleElementPF2e {
 
     /** Test this rule element's predicate, if present */
     test(rollOptions?: string[] | Set<string>): boolean {
-        if (this.data.ignored) return false;
-        if (!this.data.predicate) return true;
+        if (this.ignored) return false;
+        if (this.predicate.length === 0) return true;
 
         const optionSet =
             rollOptions instanceof Set ? rollOptions : new Set(rollOptions ?? this.actor.getRollOptions());
