@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
-import type { ActorType } from "@actor/data";
-import { EffectPF2e, ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { ActorType } from "@actor/data";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
-import { TokenDocumentPF2e } from "@scene";
-import { PredicatePF2e } from "@system/predication";
-import { BracketedValue, RuleElementSource, RuleElementData, RuleValue } from "./data";
-import { isObject, sluggify, tupleHasValue } from "@util";
-import { CheckRoll } from "@system/check/roll";
+import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
+import { TokenDocumentPF2e } from "@scene";
+import { CheckRoll } from "@system/check/roll";
+import { PredicatePF2e } from "@system/predication";
+import { isObject, sluggify, tupleHasValue } from "@util";
+import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from "./data";
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -102,9 +102,6 @@ abstract class RuleElementPF2e {
         if (this.data.ignored) return true;
 
         const { item } = this;
-        if (game.settings.get("pf2e", "automation.effectExpiration") && item instanceof EffectPF2e && item.isExpired) {
-            return (this.data.ignored = true);
-        }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
 
         return (this.data.ignored =
