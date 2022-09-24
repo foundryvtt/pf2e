@@ -1,44 +1,46 @@
 .dice-checks {
     background: none;
     box-shadow: none;
+
     .window-header {
-        border-radius: 0;
+        @include inset-gold-border;
         background: linear-gradient(
             90deg,
             var(--secondary) 0%,
             lighten($secondary-color, 10) 50%,
             var(--secondary) 100%
         );
-        @include inset-gold-border;
+        border-radius: 0;
         margin-bottom: 2px;
-        font-size: 0.75rem;
+        font-size: var(--font-size-13);
     }
+
     .window-content {
         @include corner-boxes;
         padding-top: 0;
 
         button {
             @include button;
-            cursor: pointer;
-            font-family: var(--sans-serif);
             background-color: var(--alt);
             border-radius: 2px;
             color: white;
+            cursor: pointer;
+            font-family: var(--sans-serif);
+
             &:hover {
                 text-shadow: 0 0 2px var(--tertiary);
             }
         }
 
         .dialog-row {
-            display: grid;
-            grid:
-                'mod type value exclude' 1fr
-                / 1.5fr 1fr 36px 50px;
             align-items: center;
+            display: grid;
+            grid: "mod type value exclude" 1fr
+                  / 1.5fr 1fr 36px 50px;
             padding: 8px 0;
 
             &.header {
-                font-size: 0.8rem;
+                font-size: var(--font-size-13);
                 font-weight: 700;
                 padding-bottom: 0;
 
@@ -51,57 +53,55 @@
                 grid-area: type;
                 text-transform: capitalize;
             }
+
             .mod {
                 grid-area: mod;
             }
+
             .value {
                 grid-area: value;
                 justify-self: center;
             }
+
             .exclude {
                 grid-area: exclude;
                 justify-self: right;
 
                 &.toggle {
-                    width: 42px;
-                    height: 16px;
                     background: var(--secondary);
-                    cursor: pointer;
-                    margin: 4px auto;
-                    position: relative;
                     border-radius: 50px;
                     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
-                        0px 1px 0px rgba(255, 255, 255, 0.2);
-                    &::after {
-                        content: "OFF";
-                        color: #000;
-                        position: absolute;
-                        right: 5px;
-                        z-index: 0;
-                        text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
-                    }
+                                0px 1px 0px rgba(255, 255, 255, 0.2);
+                    cursor: pointer;
+                    height: 19px;
+                    margin: 4px auto;
+                    position: relative;
+                    width: 46px;
+
                     &::before {
-                        content: "ON";
                         color: white;
-                        position: absolute;
+                        content: "ON";
                         left: 6px;
+                        position: absolute;
                         z-index: 0;
                     }
-                    &::after,
-                    &::before {
+
+                    &::after {
+                        color: black;
+                        content: "OFF";
+                        position: absolute;
+                        right: 4px;
+                        text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+                        z-index: 0;
+                    }
+
+                    &::after, &::before {
                         @include micro;
                         top: 4px;
                     }
+
                     label {
-                        display: block;
-                        width: 18px;
-                        height: 14px;
-                        position: absolute;
-                        top: 1px;
-                        right: 1px;
-                        cursor: pointer;
                         background: #fcfff4;
-                        z-index: 1;
                         background: linear-gradient(
                             to bottom,
                             #fcfff4 0%,
@@ -110,9 +110,18 @@
                         );
                         border-radius: 50px;
                         box-shadow: 0 0 0 1px rgba(black, 0.2),
-                            0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                                    0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                        cursor: pointer;
+                        display: block;
+                        height: 16px;
+                        position: absolute;
+                        right: 1px;
+                        top: 1px;
                         transition: all 0.4s ease;
+                        width: 19px;
+                        z-index: 1;
                     }
+
                     input[type=checkbox] {
                         visibility: hidden;
                         &:not(:checked) + label {
@@ -135,27 +144,29 @@
                 }
 
                 .tag {
-                    font-family: var(--sans-serif);
-                    border-radius: 2px;
                     background-color: var(--sub);
-                    width: fit-content;
-                    padding: 4px 8px;
-                    font-size: 0.6rem;
-                    color: white;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
+                    border-radius: 2px;
                     box-shadow: inset 0 0 0 1px rgba(black, 0.25);
+                    color: white;
+                    font-family: var(--sans-serif);
+                    font-size: var(--font-size-10);
+                    letter-spacing: 0.5px;
+                    padding: 4px 8px;
+                    text-transform: uppercase;
+                    width: fit-content;
                 }
 
                 &.disabled {
                     text-decoration: line-through;
+
                     span {
                         filter: opacity(0.5);
                     }
+
                     .toggle {
-                        background: rgba(black, 0.5);
+                        background: rgba(black, 0.4);
                         input[type=checkbox] + label {
-                            right: 23px;
+                            right: 26px;
                         }
                     }
                 }
