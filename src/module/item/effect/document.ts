@@ -173,7 +173,9 @@ class EffectPF2e extends AbstractEffectPF2e {
     ): void {
         super._onCreate(data, options, userId);
 
-        this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
+        if (!this.flags.pf2e.aura || game.combat?.started) {
+            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
+        }
     }
 
     /** Show floaty text when this effect is deleted from an actor */
@@ -183,7 +185,9 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
         super._onDelete(options, userId);
 
-        this.actor?.getActiveTokens().shift()?.showFloatyText({ delete: this });
+        if (!this.flags.pf2e.aura || game.combat?.started) {
+            this.actor?.getActiveTokens().shift()?.showFloatyText({ delete: this });
+        }
     }
 }
 
