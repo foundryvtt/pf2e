@@ -29,7 +29,7 @@ export const RenderChatMessage = {
             CriticalHitAndFumbleCards.appendButtons(message, $html);
 
             ChatCards.listen($html);
-            InlineRollLinks.listen($html, message);
+            InlineRollLinks.listen($html[0], message);
             DegreeOfSuccessHighlights.listen(message, $html);
             if (canvas.ready) SetAsInitiative.listen($html);
 

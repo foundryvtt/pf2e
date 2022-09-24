@@ -51,8 +51,10 @@ class TextEditorPF2e extends TextEditor {
         const [_match, inlineType, paramString, buttonLabel] = data;
 
         switch (inlineType) {
-            case "Check":
-                return this.#createItemCheck(paramString, buttonLabel, item);
+            case "Check": {
+                const actor = options.rollData?.actor ?? item?.actor ?? null;
+                return this.#createCheck({ paramString, inlineLabel: buttonLabel, item, actor });
+            }
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
@@ -187,11 +189,17 @@ class TextEditorPF2e extends TextEditor {
         return null;
     }
 
-    static #createItemCheck(
-        paramString: string,
-        inlineLabel?: string,
-        item: ItemPF2e | null = null
-    ): HTMLSpanElement | null {
+    static #createCheck({
+        paramString,
+        inlineLabel,
+        item = null,
+        actor = item?.actor ?? null,
+    }: {
+        paramString: string;
+        inlineLabel?: string;
+        item?: ItemPF2e | null;
+        actor?: ActorPF2e | null;
+    }): HTMLSpanElement | null {
         // Parse the parameter string
         const parts = paramString.split("|");
         const params: { type: string; dc: string } & Record<string, string> = { type: "", dc: "" };
@@ -232,7 +240,7 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // Set origin actor traits.
-        const actorTraits = item?.actor?.getSelfRollOptions("origin");
+        const actorTraits = actor?.getSelfRollOptions("origin");
         if (actorTraits && params.overrideTraits !== "true") {
             traits.push(...actorTraits);
         }
@@ -302,7 +310,7 @@ class TextEditorPF2e extends TextEditor {
 
         if (params.type && params.dc) {
             // Let the inline roll function handle level base DCs
-            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC(name, params, item);
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
             html.setAttribute("data-pf2-dc", checkDC);
             const text = html.innerHTML;
             if (checkDC !== "@self.level") {
@@ -313,21 +321,27 @@ class TextEditorPF2e extends TextEditor {
     }
 }
 
-function getCheckDC(
-    name: string,
-    params: { type: string; dc: string } & Record<string, string | undefined>,
-    item: ItemPF2e | null = null
-): string {
+function getCheckDC({
+    name,
+    params,
+    item = null,
+    actor = item?.actor ?? null,
+}: {
+    name: string;
+    params: { type: string; dc: string } & Record<string, string | undefined>;
+    item?: ItemPF2e | null;
+    actor?: ActorPF2e | null;
+}): string {
     const { type } = params;
     const dc = params.dc;
     const base = (() => {
-        if (dc.startsWith("resolve") && item) {
+        if (dc.startsWith("resolve") && actor) {
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
                 try {
-                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor: item.actor!, item: item }));
+                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor, item: item ?? {} }));
                 } catch {
                     return 0;
                 }

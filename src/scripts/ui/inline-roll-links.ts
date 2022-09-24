@@ -45,14 +45,22 @@ export const InlineRollLinks = {
         InlineRollLinks.injectRepostElement(links, foundryDoc);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
-        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | null => {
+        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | JournalEntryPage | null => {
+            if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
+            if (
+                foundryDoc instanceof ActorPF2e ||
+                foundryDoc instanceof JournalEntry ||
+                foundryDoc instanceof JournalEntryPage
+            ) {
+                return foundryDoc;
+            }
+
             const sheet: { id?: string; document?: unknown; actor?: unknown; journalEntry?: unknown } | null =
                 ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)];
-            const sheetOrMessage =
-                sheet ?? game.messages.get(html.closest<HTMLElement>("li.chat-message")?.dataset.messageId ?? "") ?? {};
-            const document = sheetOrMessage.document ?? sheetOrMessage.actor ?? sheetOrMessage.journalEntry;
 
-            return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
+            return sheet.document instanceof ActorPF2e || sheet.document instanceof JournalEntry
+                ? sheet.document
+                : null;
         };
 
         $repostLinks.filter("i[data-pf2-repost]").on("click", (event) => {
@@ -232,7 +240,7 @@ export const InlineRollLinks = {
         });
     },
 
-    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | null = null): void => {
+    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | JournalEntryPage | null = null): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
