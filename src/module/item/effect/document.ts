@@ -1,5 +1,6 @@
 import { AbstractEffectPF2e } from "@item/abstract-effect";
 import { EffectBadge } from "@item/abstract-effect/data";
+import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { isObject, sluggify } from "@util";
 import { EffectData } from "./data";
@@ -67,6 +68,28 @@ class EffectPF2e extends AbstractEffectPF2e {
         return !!this.flags.pf2e.aura;
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        const { duration } = this.system;
+        if (["unlimited", "encounter"].includes(duration.unit)) {
+            duration.expiry = null;
+        } else {
+            duration.expiry ||= "turn-start";
+        }
+    }
+
+    /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */
+    override prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
+        const autoExpireEffects = game.settings.get("pf2e", "automation.effectExpiration");
+        if (autoExpireEffects && this.isExpired && this.actor?.items.has(this.id)) {
+            for (const rule of this.rules) {
+                rule.ignored = true;
+            }
+        }
+
+        return super.prepareRuleElements(options);
+    }
+
     /** Increases if this is a counter effect, otherwise ignored outright */
     async increase(): Promise<void> {
         if (this.system.badge?.type === "counter" && !this.isExpired) {
@@ -86,16 +109,6 @@ class EffectPF2e extends AbstractEffectPF2e {
         await this.update({ system: { badge: { value } } });
     }
 
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-        const { duration } = this.system;
-        if (["unlimited", "encounter"].includes(duration.unit)) {
-            duration.expiry = null;
-        } else {
-            duration.expiry ||= "turn-start";
-        }
-    }
-
     /** Include a trimmed version of the "slug" roll option (e.g., effect:rage instead of effect:effect-rage) */
     override getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
@@ -109,7 +122,7 @@ class EffectPF2e extends AbstractEffectPF2e {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     /** Set the start time and initiative roll of a newly created effect */
