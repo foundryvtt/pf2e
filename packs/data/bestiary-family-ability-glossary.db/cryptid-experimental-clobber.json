@@ -23,25 +23,21 @@
                 "domain": "damage-roll",
                 "key": "RollOption",
                 "option": "clobber",
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "self:level",
-                                5
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "clobber"
-                    ]
-                },
+                "predicate": [
+                    "clobber"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [

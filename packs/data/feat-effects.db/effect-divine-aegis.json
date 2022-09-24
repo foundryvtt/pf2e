@@ -19,14 +19,16 @@
             {
                 "key": "FlatModifier",
                 "label": "Divine Aegis (vs. non-divine magical effects)",
-                "predicate": {
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "occult",
+                            "primal"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -34,11 +36,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Divine Aegis (vs. divine effect)",
-                "predicate": {
-                    "all": [
-                        "divine"
-                    ]
-                },
+                "predicate": [
+                    "divine"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": -1

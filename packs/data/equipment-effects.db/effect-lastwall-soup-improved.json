@@ -19,12 +19,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "target:trait:undead",
-                        "origin:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:undead",
+                            "origin:trait:undead"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "item",
                 "value": 3

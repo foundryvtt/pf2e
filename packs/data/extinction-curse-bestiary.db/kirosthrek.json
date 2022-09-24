@@ -5694,15 +5694,17 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "text": "If Kirosthrek critically succeeds at the saving throw, she can use the Cast a Spell action on her next turn to cast the triggering spell at the same level without expending any spell slots.",
                         "title": "{item|name}",
@@ -5710,36 +5712,38 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ],
-                            "not": [
-                                "mental"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            },
+                            {
+                                "not": "mental"
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mental"
-                            ],
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            "mental",
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 4

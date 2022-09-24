@@ -19,12 +19,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2

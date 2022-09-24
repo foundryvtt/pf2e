@@ -169,14 +169,12 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "glowing"
-                            ],
-                            "not": [
-                                "go-dark"
-                            ]
-                        },
+                        "predicate": [
+                            "glowing",
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,

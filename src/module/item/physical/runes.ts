@@ -109,13 +109,11 @@ interface RuneNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "t
 export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropertyRuneData> = {
     anarchic: {
         damage: {
-            dice: [
-                { damageType: "chaotic", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:lawful"] } },
-            ],
+            dice: [{ damageType: "chaotic", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:lawful"] }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["target:trait:lawful"] },
+                    predicate: ["target:trait:lawful"],
                     title: "PF2E.WeaponPropertyRune.anarchic.Name",
                     text: "PF2E.WeaponPropertyRune.anarchic.Note.criticalSuccess",
                 },
@@ -155,13 +153,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     axiomatic: {
         damage: {
-            dice: [
-                { damageType: "lawful", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:chaotic"] } },
-            ],
+            dice: [{ damageType: "lawful", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:chaotic"] }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["target:trait:chaotic"] },
+                    predicate: ["target:trait:chaotic"],
                     title: "PF2E.WeaponPropertyRune.axiomatic.Name",
                     text: "PF2E.WeaponPropertyRune.axiomatic.Note.criticalSuccess",
                 },
@@ -211,12 +207,12 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
-                { damageType: "good", diceNumber: 1, dieSize: "d4", predicate: { all: ["target:trait:fiend"] } },
+                { damageType: "good", diceNumber: 1, dieSize: "d4", predicate: ["target:trait:fiend"] },
                 {
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
                 },
             ],
             notes: [
@@ -300,13 +296,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
                 },
@@ -400,7 +396,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             notes: [
                 {
-                    predicate: { all: ["target:trait:incorporeal"] },
+                    predicate: ["target:trait:incorporeal"],
                     title: "PF2E.WeaponPropertyRune.ghostTouch.Name",
                     text: "PF2E.WeaponPropertyRune.ghostTouch.Note",
                 },
@@ -447,12 +443,12 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
-                { damageType: "good", diceNumber: 1, dieSize: "d4", predicate: { all: ["target:trait:fiend"] } },
+                { damageType: "good", diceNumber: 1, dieSize: "d4", predicate: ["target:trait:fiend"] },
                 {
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
                 },
             ],
             notes: [
@@ -522,13 +518,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 2,
                     dieSize: "d6",
-                    predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
                     title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
                 },
@@ -697,79 +693,79 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:axe"] },
+                    predicate: ["weapon:group:axe"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Axe",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:brawling"] },
+                    predicate: ["weapon:group:brawling"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Brawling",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:club"] },
+                    predicate: ["weapon:group:club"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Club",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:dart"] },
+                    predicate: ["weapon:group:dart"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Dart",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:flail"] },
+                    predicate: ["weapon:group:flail"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Flail",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:hammer"] },
+                    predicate: ["weapon:group:hammer"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Hammer",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:knife"] },
+                    predicate: ["weapon:group:knife"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Knife",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:pick"] },
+                    predicate: ["weapon:group:pick"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Pick",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:polearm"] },
+                    predicate: ["weapon:group:polearm"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Polearm",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:shield"] },
+                    predicate: ["weapon:group:shield"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Shield",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:sling"] },
+                    predicate: ["weapon:group:sling"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Sling",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:spear"] },
+                    predicate: ["weapon:group:spear"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Spear",
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: { all: ["weapon:group:sword"] },
+                    predicate: ["weapon:group:sword"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Sword",
                 },
@@ -792,7 +788,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     holy: {
         damage: {
-            dice: [{ damageType: "good", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:evil"] } }],
+            dice: [{ damageType: "good", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:evil"] }],
         },
         level: 11,
         name: "PF2E.WeaponPropertyRune.holy.Name",
@@ -970,7 +966,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     unholy: {
         damage: {
-            dice: [{ damageType: "evil", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:good"] } }],
+            dice: [{ damageType: "evil", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:good"] }],
         },
         level: 11,
         name: "PF2E.WeaponPropertyRune.unholy.Name",

@@ -29,12 +29,10 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.MarkForDeath.SeekMark",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "marked-for-death"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
@@ -42,113 +40,107 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.MarkForDeath.DeceiveMark",
-                "predicate": {
-                    "all": [
-                        "action:feint",
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "action:feint",
+                    "marked-for-death"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 2
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:trait:deadly-d10"
-                    ],
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ]
-                },
+                "definition": [
+                    "weapon:trait:deadly-d10",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "marked-for-death"
+                ],
                 "property": "weapon-traits",
                 "value": "deadly-d12"
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:trait:deadly-d8"
-                    ],
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ]
-                },
+                "definition": [
+                    "weapon:trait:deadly-d8",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "marked-for-death"
+                ],
                 "property": "weapon-traits",
                 "value": "deadly-d10"
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:trait:deadly-d6"
-                    ],
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ]
-                },
+                "definition": [
+                    "weapon:trait:deadly-d6",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "marked-for-death"
+                ],
                 "property": "weapon-traits",
                 "value": "deadly-d8"
             },
             {
-                "definition": {
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ],
-                    "not": [
-                        "weapon:trait:deadly-d6",
-                        "weapon:trait:deadly-d8",
-                        "weapon:trait:deadly-d10",
-                        "weapon:trait:deadly-d12"
-                    ]
-                },
+                "definition": [
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    },
+                    {
+                        "nor": [
+                            "weapon:trait:deadly-d6",
+                            "weapon:trait:deadly-d8",
+                            "weapon:trait:deadly-d10",
+                            "weapon:trait:deadly-d12"
+                        ]
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "marked-for-death"
+                ],
                 "property": "weapon-traits",
                 "value": "deadly-d6"
             },
             {
-                "definition": {
-                    "any": [
-                        "weapon:trait:finesse",
-                        "weapon:trait:agile"
-                    ]
-                },
+                "definition": [
+                    {
+                        "or": [
+                            "weapon:trait:finesse",
+                            "weapon:trait:agile"
+                        ]
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "marked-for-death"
-                    ]
-                },
+                "predicate": [
+                    "marked-for-death"
+                ],
                 "property": "weapon-traits",
                 "value": "backstabber"
             }

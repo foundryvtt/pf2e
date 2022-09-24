@@ -125,11 +125,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Against emotion effects",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
@@ -139,11 +137,9 @@
                         "outcome": [
                             "success"
                         ],
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "text": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead.",
                         "title": "{item|name}"
@@ -153,11 +149,9 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "type": "save"
                     }
@@ -198,13 +192,11 @@
                     {
                         "key": "FlatModifier",
                         "label": "Whisper Elf (locate audible undetected within range)",
-                        "predicate": {
-                            "all": [
-                                "target:undetected",
-                                "target:within-30-feet",
-                                "target:audible"
-                            ]
-                        },
+                        "predicate": [
+                            "target:undetected",
+                            "target:within-30-feet",
+                            "target:audible"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -380,11 +372,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Rogue feature",
+                            "predicate": [
                                 "item:trait:rogue",
                                 "item:level:1"
-                            ],
-                            "label": "level 1 Rogue feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -465,24 +457,24 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:rogue",
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "class:rogue",
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -916,15 +908,13 @@
                     {
                         "ability": "dex",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "weapon:melee",
-                                "weapon:trait:finesse"
-                            ],
-                            "not": [
-                                "weapon:category:unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:melee",
+                            "weapon:trait:finesse",
+                            {
+                                "not": "weapon:category:unarmed"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "ability"
                     },
@@ -993,11 +983,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (to find traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -1019,11 +1007,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": {
@@ -1045,11 +1031,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": {
@@ -1860,11 +1844,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1895,11 +1877,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1912,11 +1892,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],

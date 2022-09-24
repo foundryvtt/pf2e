@@ -34,11 +34,9 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "target:trait:good"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:good"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "<strong>Unholy</strong> <strong>Activate</strong> <span class=\"pf2-icon\">R</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon</p>\n<hr />\n<p><strong>Effect</strong> The target takes @Localize[PF2E.PersistentDamage.Bleed1d8.success] per weapon damage die of the etched weapon."
             },
@@ -47,21 +45,21 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:trait:good"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:good"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

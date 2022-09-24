@@ -24,15 +24,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Eye of the Arclords (Seek undetected & hidden creatures)",
-                "predicate": {
-                    "all": [
-                        "action:seek"
-                    ],
-                    "any": [
-                        "target:hidden",
-                        "target:undetected"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    {
+                        "or": [
+                            "target:hidden",
+                            "target:undetected"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "status",
                 "value": 2

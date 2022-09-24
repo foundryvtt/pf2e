@@ -241,12 +241,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "shove",
-                                "trip"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "shove",
+                                    "trip"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2

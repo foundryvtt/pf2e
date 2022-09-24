@@ -182,24 +182,28 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "action:recall-knowledge",
-                                "action:decipher-writing"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:recall-knowledge",
+                                    "action:decipher-writing"
+                                ]
+                            }
+                        ],
                         "selector": "religion",
                         "text": "When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.",
                         "title": "{item|name}"
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "action:recall-knowledge",
-                                "your-faith"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:recall-knowledge",
+                                    "your-faith"
+                                ]
+                            }
+                        ],
                         "selector": "religion",
                         "text": "When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.",
                         "title": "{item|name}"
@@ -697,11 +701,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -732,11 +734,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -749,11 +749,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -3153,11 +3151,9 @@
                         "override": {
                             "dieSize": "d10"
                         },
-                        "predicate": {
-                            "all": [
-                                "item:slug:heal"
-                            ]
-                        },
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
                         "selector": "spell-damage"
                     }
                 ],
@@ -4517,12 +4513,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                            "predicate": [
                                 "item:type:feat",
                                 "item:level:1",
                                 "item:trait:general"
-                            ],
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
@@ -4646,7 +4642,7 @@
                 "rules": [
                     {
                         "allowedDrops": {
-                            "all": [
+                            "predicate": [
                                 "item:type:deity"
                             ]
                         },
@@ -4678,11 +4674,9 @@
                         "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
                         "key": "Strike",
                         "label": "PF2E.Weapon.Base.fist",
-                        "predicate": {
-                            "all": [
-                                "deity:primary:favored-weapon:fist"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ],
                         "range": null,
                         "slug": "fist",
                         "traits": [
@@ -4696,11 +4690,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "flags.pf2e.favoredWeaponRank",
-                        "predicate": {
-                            "all": [
-                                "class:cleric"
-                            ]
-                        },
+                        "predicate": [
+                            "class:cleric"
+                        ],
                         "value": 1
                     }
                 ],
@@ -4762,12 +4754,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Cleric class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:cleric",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Cleric class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -4988,20 +4980,16 @@
                 "rules": [
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:cloistered-cleric"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:cloistered-cleric"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.aiwxBj5MjnafCMyn"
                     },
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:warpriest"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:warpriest"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.xxkszluN9icAiTO4"
                     }
                 ],
@@ -5062,20 +5050,16 @@
                 "rules": [
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:cloistered-cleric"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:cloistered-cleric"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.sa7BWfnyCswAvBVa"
                     },
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:warpriest"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:warpriest"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.D34mPo29r1J3DPaX"
                     }
                 ],

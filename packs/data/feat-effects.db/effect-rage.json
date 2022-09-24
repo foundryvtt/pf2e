@@ -28,13 +28,15 @@
                 "mode": "upgrade",
                 "path": "flags.pf2e.rageTempHP",
                 "phase": "beforeDerived",
-                "predicate": {
-                    "not": [
-                        "self:type:familiar",
-                        "self:type:hazard",
-                        "self:type:vehicle"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:type:familiar",
+                            "self:type:hazard",
+                            "self:type:vehicle"
+                        ]
+                    }
+                ],
                 "value": "@actor.level + @actor.abilities.con.mod"
             },
             {

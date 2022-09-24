@@ -29,22 +29,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.resources.crafting.infusedReagents.max",
-                "predicate": {
-                    "all": [
-                        "class:alchemist"
-                    ]
-                },
+                "predicate": [
+                    "class:alchemist"
+                ],
                 "value": "@actor.level  + floor((@actor.abilities.int.value - 10) / 2)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.resources.crafting.infusedReagents.max",
-                "predicate": {
-                    "not": [
-                        "class:alchemist"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "class:alchemist"
+                    }
+                ],
                 "value": "@actor.level"
             }
         ],

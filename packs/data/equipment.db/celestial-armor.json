@@ -68,11 +68,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:fiend"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:fiend"
+                ],
                 "selector": [
                     "ac",
                     "saving-throw"
@@ -82,11 +80,11 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "target:trait:fiend"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "target:trait:fiend"
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "item",
                 "value": 2

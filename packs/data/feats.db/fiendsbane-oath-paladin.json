@@ -42,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Fiendsbane Oath",
-                "predicate": {
-                    "all": [
-                        "fiendsbane-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "fiendsbane-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "fiendsbane-not-master",
                 "value": 4
@@ -58,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Fiendsbane Oath",
-                "predicate": {
-                    "all": [
-                        "fiendsbane-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "fiendsbane-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "fiendsbane-master",
                 "value": 6

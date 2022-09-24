@@ -45,12 +45,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Lensatic Compass (Sense Direction or navigate)",
-                "predicate": {
-                    "any": [
-                        "action:sense-direction",
-                        "action:navigate"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:navigate"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "type": "item",
                 "value": 1

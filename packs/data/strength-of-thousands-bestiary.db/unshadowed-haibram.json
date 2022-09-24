@@ -4139,12 +4139,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "shadow",
-                                "acid"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "shadow",
+                                    "acid"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 4
@@ -4280,11 +4282,9 @@
                         "diceNumber": 2,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "wind-touch"
-                            ]
-                        },
+                        "predicate": [
+                            "wind-touch"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

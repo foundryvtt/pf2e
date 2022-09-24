@@ -403,11 +403,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -438,11 +436,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -455,11 +451,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2218,24 +2212,24 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:rogue",
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "class:rogue",
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -2480,15 +2474,13 @@
                     {
                         "ability": "dex",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "weapon:melee",
-                                "weapon:trait:finesse"
-                            ],
-                            "not": [
-                                "weapon:category:unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:melee",
+                            "weapon:trait:finesse",
+                            {
+                                "not": "weapon:category:unarmed"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "ability"
                     }

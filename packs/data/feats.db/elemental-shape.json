@@ -31,21 +31,23 @@
         "rules": [
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "spell-effect-wild-shape"
-                    ],
-                    "any": [
-                        "battle-form",
-                        "spell-effect-humanoid-form"
-                    ],
-                    "not": [
-                        "spell-effect-elemental-form-air",
-                        "spell-effect-elemental-form-earth",
-                        "spell-effect-elemental-form-fire",
-                        "spell-effect-elemental-form-water"
-                    ]
-                },
+                "predicate": [
+                    "spell-effect-wild-shape",
+                    {
+                        "or": [
+                            "battle-form",
+                            "spell-effect-humanoid-form"
+                        ]
+                    },
+                    {
+                        "nor": [
+                            "spell-effect-elemental-form-air",
+                            "spell-effect-elemental-form-earth",
+                            "spell-effect-elemental-form-fire",
+                            "spell-effect-elemental-form-water"
+                        ]
+                    }
+                ],
                 "type": "fire",
                 "value": 5
             }

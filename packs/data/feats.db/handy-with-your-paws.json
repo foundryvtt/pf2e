@@ -27,14 +27,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:repair"
-                    ],
-                    "not": [
-                        "target:trait:magical"
-                    ]
-                },
+                "predicate": [
+                    "action:repair",
+                    {
+                        "not": "target:trait:magical"
+                    }
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": 1

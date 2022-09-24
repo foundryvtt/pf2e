@@ -2056,15 +2056,15 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "ongoing"
-                            ],
-                            "any": [
-                                "disease",
-                                "poison"
-                            ]
-                        },
+                        "predicate": [
+                            "ongoing",
+                            {
+                                "or": [
+                                    "disease",
+                                    "poison"
+                                ]
+                            }
+                        ],
                         "selector": "Fortitude",
                         "text": "If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.",
                         "title": "{item|name}"
@@ -2131,12 +2131,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Natural Medicine (Treat Wounds with fresh ingredients)",
-                        "predicate": {
-                            "all": [
-                                "action:treat-wounds",
-                                "fresh-ingredients"
-                            ]
-                        },
+                        "predicate": [
+                            "action:treat-wounds",
+                            "fresh-ingredients"
+                        ],
                         "selector": "nature",
                         "type": "circumstance",
                         "value": 2
@@ -2299,29 +2297,27 @@
                         "choices": [
                             {
                                 "label": "PF2E.TraitElectricity",
-                                "predicate": {
-                                    "not": [
-                                        "self:heritage:frozen-wind-kitsune"
-                                    ]
-                                },
+                                "predicate": [
+                                    {
+                                        "not": "self:heritage:frozen-wind-kitsune"
+                                    }
+                                ],
                                 "value": "electricity"
                             },
                             {
                                 "label": "PF2E.TraitFire",
-                                "predicate": {
-                                    "not": [
-                                        "self:heritage:frozen-wind-kitsune"
-                                    ]
-                                },
+                                "predicate": [
+                                    {
+                                        "not": "self:heritage:frozen-wind-kitsune"
+                                    }
+                                ],
                                 "value": "fire"
                             },
                             {
                                 "label": "PF2E.TraitCold",
-                                "predicate": {
-                                    "all": [
-                                        "self:heritage:frozen-wind-kitsune"
-                                    ]
-                                },
+                                "predicate": [
+                                    "self:heritage:frozen-wind-kitsune"
+                                ],
                                 "value": "cold"
                             }
                         ],
@@ -2408,12 +2404,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Ranger class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:ranger",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Ranger class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -2612,25 +2608,21 @@
                 "rules": [
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            "hunted-prey"
+                        ],
                         "selector": "attack",
                         "value": -2
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
+                        "predicate": [
+                            "hunted-prey",
+                            {
+                                "not": "agile"
+                            }
+                        ],
                         "selector": "attack",
                         "value": -3
                     }
@@ -2691,12 +2683,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -2704,12 +2694,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
@@ -2718,11 +2706,9 @@
                         "domain": "ranged-attack-roll",
                         "key": "RollOption",
                         "option": "ignore-range-penalty:2",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        }
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     }
                 ],
                 "slug": "hunt-prey",

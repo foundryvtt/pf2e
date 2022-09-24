@@ -25,6 +25,8 @@ import { Migration788UpdateTanglefootBags } from "@module/migration/migrations/7
 import { Migration789UpdatePreciseStrike } from "@module/migration/migrations/789-update-precise-strike";
 import { Migration790MultipleClassDCs } from "@module/migration/migrations/790-multiple-class-dcs";
 import { Migration791RuffianHands } from "@module/migration/migrations/791-ruffian-hands";
+import { Migration793MakePredicatesArrays } from "@module/migration/migrations/793-make-predicates-arrays";
+
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -52,6 +54,7 @@ const migrations: MigrationBase[] = [
     new Migration789UpdatePreciseStrike(),
     new Migration790MultipleClassDCs(),
     new Migration791RuffianHands(),
+    new Migration793MakePredicatesArrays(),
 ];
 
 global.deepClone = <T>(original: T): T => {

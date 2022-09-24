@@ -27,46 +27,38 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "item:damage:fire"
-                    ]
-                },
+                "predicate": [
+                    "item:damage:fire"
+                ],
                 "selector": "spell-damage",
                 "text": "Your spells that deal fire damage gain a +1 status bonus to any @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} you deal.",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "weapon:trait:alchemical",
-                        "weapon:trait:fire"
-                    ]
-                },
+                "predicate": [
+                    "weapon:trait:alchemical",
+                    "weapon:trait:fire"
+                ],
                 "selector": "strike-damage",
                 "text": "Your alchemical items that deal fire damage gain a +1 status bonus to any @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} you deal.",
                 "title": "{item|name}"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "item:damage:fire"
-                    ]
-                },
+                "predicate": [
+                    "item:damage:fire"
+                ],
                 "selector": "spell-damage",
                 "type": "status",
                 "value": "max(floor(@spell.level/2), 1)"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "weapon:trait:alchemical",
-                        "weapon:trait:fire"
-                    ]
-                },
+                "predicate": [
+                    "weapon:trait:alchemical",
+                    "weapon:trait:fire"
+                ],
                 "selector": "strike-damage",
                 "type": "status",
                 "value": "max(floor(@weapon.level/4), 1)"

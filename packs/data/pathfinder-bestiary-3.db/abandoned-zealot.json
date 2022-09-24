@@ -555,12 +555,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "divine",
-                                "positive"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "divine",
+                                    "positive"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1

@@ -3142,15 +3142,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -3255,11 +3257,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "twisting-tail"
-                            ]
-                        },
+                        "predicate": [
+                            "twisting-tail"
+                        ],
                         "selector": "tail-attack",
                         "value": -2
                     }

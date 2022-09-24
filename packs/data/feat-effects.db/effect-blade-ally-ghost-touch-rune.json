@@ -31,20 +31,20 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "target:trait:incorporeal"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "PF2E.WeaponPropertyRune.ghostTouch.Note"
             }

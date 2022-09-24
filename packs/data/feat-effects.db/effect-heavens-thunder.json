@@ -20,12 +20,14 @@
             {
                 "damageType": "electricity",
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "unarmed",
-                        "monk"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "unarmed",
+                            "monk"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "heavens-thunder-electricity",
                 "value": "floor(@actor.level/2)"
@@ -33,12 +35,14 @@
             {
                 "damageType": "sonic",
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "unarmed",
-                        "monk"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "unarmed",
+                            "monk"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "heavens-thunder-sonic",
                 "value": "floor(@actor.level/2)"

@@ -288,30 +288,30 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "sway-judge-and-jury"
-                            ],
-                            "any": [
-                                "action:make-an-impression",
-                                "action:request"
-                            ]
-                        },
+                        "predicate": [
+                            "sway-judge-and-jury",
+                            {
+                                "or": [
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
                         "selector": "diplomacy",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "sway-judge-and-jury-perform"
-                            ],
-                            "any": [
-                                "action:make-an-impression",
-                                "action:request"
-                            ]
-                        },
+                        "predicate": [
+                            "sway-judge-and-jury-perform",
+                            {
+                                "or": [
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
                         "selector": "diplomacy",
                         "type": "circumstance",
                         "value": 4

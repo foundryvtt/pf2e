@@ -1129,11 +1129,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1164,11 +1162,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1181,11 +1177,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -1797,12 +1791,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Divine Grace (vs. spell)",
-                        "predicate": {
-                            "all": [
-                                "spell",
-                                "divine-grace"
-                            ]
-                        },
+                        "predicate": [
+                            "spell",
+                            "divine-grace"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -2645,7 +2637,7 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "predicate": [
                                 "item:type:deity"
                             ]
                         },
@@ -2666,60 +2658,48 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:champion",
                                 "item:type:feature"
-                            ],
-                            "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops"
+                            ]
                         },
                         "choices": [
                             {
-                                "predicate": {
-                                    "all": [
-                                        "deity:primary:alignment:follower:lg"
-                                    ]
-                                },
+                                "predicate": [
+                                    "deity:primary:alignment:follower:lg"
+                                ],
                                 "value": "Compendium.pf2e.classfeatures.peEXunfbSD8WcMFk"
                             },
                             {
-                                "predicate": {
-                                    "all": [
-                                        "deity:primary:alignment:follower:ng"
-                                    ]
-                                },
+                                "predicate": [
+                                    "deity:primary:alignment:follower:ng"
+                                ],
                                 "value": "Compendium.pf2e.classfeatures.UyuwFp0jQqYL2AdF"
                             },
                             {
-                                "predicate": {
-                                    "all": [
-                                        "deity:primary:alignment:follower:cg"
-                                    ]
-                                },
+                                "predicate": [
+                                    "deity:primary:alignment:follower:cg"
+                                ],
                                 "value": "Compendium.pf2e.classfeatures.FCoMFUsth4xB4veC"
                             },
                             {
-                                "predicate": {
-                                    "all": [
-                                        "deity:primary:alignment:follower:le"
-                                    ]
-                                },
+                                "predicate": [
+                                    "deity:primary:alignment:follower:le"
+                                ],
                                 "value": "Compendium.pf2e.classfeatures.HiIvez0TqESbleB5"
                             },
                             {
-                                "predicate": {
-                                    "all": [
-                                        "deity:primary:alignment:follower:ne"
-                                    ]
-                                },
+                                "predicate": [
+                                    "deity:primary:alignment:follower:ne"
+                                ],
                                 "value": "Compendium.pf2e.classfeatures.8YIA0jh64Ecz0TG6"
                             },
                             {
-                                "predicate": {
-                                    "all": [
-                                        "deity:primary:alignment:follower:ce"
-                                    ]
-                                },
+                                "predicate": [
+                                    "deity:primary:alignment:follower:ce"
+                                ],
                                 "value": "Compendium.pf2e.classfeatures.EQ6DVIQHAUXUhY6Y"
                             }
                         ],
@@ -2790,24 +2770,28 @@
                 "rules": [
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "any": [
-                                "class:champion:alignment:lg",
-                                "class:champion:alignment:ng",
-                                "class:champion:alignment:cg"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion:alignment:lg",
+                                    "class:champion:alignment:ng",
+                                    "class:champion:alignment:cg"
+                                ]
+                            }
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.nxZYP3KGfTSkaW6J"
                     },
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "any": [
-                                "class:champion:alignment:le",
-                                "class:champion:alignment:ne",
-                                "class:champion:alignment:ce"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion:alignment:le",
+                                    "class:champion:alignment:ne",
+                                    "class:champion:alignment:ce"
+                                ]
+                            }
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.JiY2ZB4FkK8RJm4T"
                     }
                 ],
@@ -2921,11 +2905,9 @@
                         "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
                         "key": "Strike",
                         "label": "PF2E.Weapon.Base.fist",
-                        "predicate": {
-                            "all": [
-                                "deity:primary:favored-weapon:fist"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ],
                         "range": null,
                         "slug": "fist",
                         "traits": [
@@ -2940,20 +2922,20 @@
                         "override": {
                             "upgrade": true
                         },
-                        "predicate": {
-                            "all": [
-                                "weapon:deity-favored"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                {
-                                    "and": [
-                                        "weapon:category:unarmed",
-                                        "weapon:damage:die:faces:4"
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:deity-favored",
+                            {
+                                "or": [
+                                    "weapon:category:simple",
+                                    {
+                                        "and": [
+                                            "weapon:category:unarmed",
+                                            "weapon:damage:die:faces:4"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -3187,13 +3169,15 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.martial.martial.rank",
-                        "predicate": {
-                            "any": [
-                                "class:champion",
-                                "class:investigator",
-                                "class:magus"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion",
+                                    "class:investigator",
+                                    "class:magus"
+                                ]
+                            }
+                        ],
                         "value": 2
                     }
                 ],

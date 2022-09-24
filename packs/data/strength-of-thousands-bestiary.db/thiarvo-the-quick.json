@@ -443,12 +443,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Thieves' Tools (Pick Lock & Disable Devices)",
-                        "predicate": {
-                            "any": [
-                                "action:disable-device",
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
                         "selector": "thievery",
                         "type": "item",
                         "value": 1
@@ -744,11 +746,9 @@
                         "diceNumber": 2,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "nonlethal"
-                            ]
-                        },
+                        "predicate": [
+                            "nonlethal"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

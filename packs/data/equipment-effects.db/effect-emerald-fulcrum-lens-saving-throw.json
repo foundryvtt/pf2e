@@ -19,15 +19,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "primal",
-                        "occult",
-                        "divine"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "primal",
+                            "occult",
+                            "divine"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 2

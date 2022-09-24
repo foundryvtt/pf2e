@@ -27,17 +27,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "leshy-superstition"
-                    ],
-                    "any": [
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult"
-                    ]
-                },
+                "predicate": [
+                    "leshy-superstition",
+                    {
+                        "or": [
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

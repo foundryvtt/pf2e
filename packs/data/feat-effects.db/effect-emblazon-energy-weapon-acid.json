@@ -32,11 +32,11 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Acid)",
-                "predicate": {
-                    "not": [
-                        "acid-domain"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "acid-domain"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponAcid}-damage"
             },
             {
@@ -45,11 +45,9 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Acid Domain)",
-                "predicate": {
-                    "all": [
-                        "acid-domain"
-                    ]
-                },
+                "predicate": [
+                    "acid-domain"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponAcid}-damage"
             }
         ],

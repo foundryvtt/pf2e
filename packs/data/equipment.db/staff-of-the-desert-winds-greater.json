@@ -88,13 +88,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:subsist",
-                        "action:track",
-                        "action:cover-tracks"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:subsist",
+                            "action:track",
+                            "action:cover-tracks"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 1

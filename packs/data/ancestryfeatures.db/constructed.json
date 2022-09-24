@@ -28,13 +28,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Constructed (vs. diseases, poisons, and radiation)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison",
-                        "radiation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "radiation"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

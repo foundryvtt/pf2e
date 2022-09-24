@@ -31,13 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "disease",
-                        "evil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "disease",
+                            "evil"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

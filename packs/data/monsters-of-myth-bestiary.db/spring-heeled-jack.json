@@ -1047,11 +1047,9 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "Malicious Stab (Flat-Footed)",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -1060,11 +1058,9 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "Malicious Stab (Frightened)",
-                        "predicate": {
-                            "all": [
-                                "target:condition:frightened"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:frightened"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1169,12 +1165,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:high-jump",
-                                "action:long-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }

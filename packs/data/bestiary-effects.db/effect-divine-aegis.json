@@ -19,13 +19,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "arcane",
-                        "primal",
-                        "occult"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "arcane",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "divine-aegis-1",
                 "type": "circumstance",
@@ -33,11 +35,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "divine"
-                    ]
-                },
+                "predicate": [
+                    "divine"
+                ],
                 "selector": "saving-throw",
                 "slug": "divine-aegis-2",
                 "type": "circumstance",

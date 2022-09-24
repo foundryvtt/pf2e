@@ -33,16 +33,18 @@
                 "damageType": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "any": [
-                        "finesse",
-                        "agile",
-                        "ranged"
-                    ],
-                    "not": [
-                        "target:condition:flat-footed"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "finesse",
+                            "agile",
+                            "ranged"
+                        ]
+                    },
+                    {
+                        "not": "target:condition:flat-footed"
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [

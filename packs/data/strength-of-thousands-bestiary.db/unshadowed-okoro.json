@@ -4684,12 +4684,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "shadow",
-                                "acid"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "shadow",
+                                    "acid"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 4

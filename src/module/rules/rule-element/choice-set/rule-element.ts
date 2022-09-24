@@ -24,7 +24,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     private allowNoSelection: boolean;
 
     /** A predicate to valide dropped item selections */
-    private allowedDrops: PredicatePF2e;
+    private allowedDrops: { label: string | null; predicate: PredicatePF2e };
 
     /** If the choice set contains UUIDs, the item slug can be recorded instead of the selected UUID */
     private recordSlug: boolean;
@@ -39,11 +39,23 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.prompt = typeof data.prompt === "string" ? data.prompt : "PF2E.UI.RuleElements.ChoiceSet.Prompt";
         this.adjustName = !!(data.adjustName ?? true);
         this.recordSlug = !!data.recordSlug;
-        this.allowedDrops = isObject(data.allowedDrops) ? new PredicatePF2e(data.allowedDrops) : new PredicatePF2e();
+
+        this.allowedDrops = ((): { label: string | null; predicate: PredicatePF2e } => {
+            if (!isObject<{ label: unknown; predicate: unknown }>(data.allowedDrops)) {
+                return { label: null, predicate: new PredicatePF2e() };
+            }
+            return {
+                label: typeof data.allowedDrops.label === "string" ? data.allowedDrops.label : null,
+                predicate: new PredicatePF2e(
+                    Array.isArray(data.allowedDrops.predicate) ? data.allowedDrops.predicate : []
+                ),
+            };
+        })();
+
         this.allowNoSelection = !!data.allowNoSelection;
         this.rollOption = typeof data.rollOption === "string" && data.rollOption ? data.rollOption : null;
         if (isObject(this.data.choices) && "predicate" in this.data.choices) {
-            this.data.choices.predicate = new PredicatePF2e(this.data.choices.predicate);
+            this.data.choices.predicate = new PredicatePF2e(this.data.choices.predicate ?? []);
         }
 
         const { selection } = this.data;
@@ -75,7 +87,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     override async preCreate({ ruleSource }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
         const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
 
-        const predicate = this.resolveInjectedProperties(this.data.predicate ?? new PredicatePF2e({}));
+        const predicate = this.resolveInjectedProperties(this.predicate);
         if (!predicate.test(rollOptions)) return;
 
         if (isObject(this.data.choices)) {

@@ -20,12 +20,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Brewer's Regret",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "negative"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "negative"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 2

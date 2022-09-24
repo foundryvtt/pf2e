@@ -32,11 +32,11 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Fire)",
-                "predicate": {
-                    "not": [
-                        "fire-domain"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "fire-domain"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponFire}-damage"
             },
             {
@@ -45,11 +45,9 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Fire Domain)",
-                "predicate": {
-                    "all": [
-                        "fire-domain"
-                    ]
-                },
+                "predicate": [
+                    "fire-domain"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponFire}-damage"
             }
         ],

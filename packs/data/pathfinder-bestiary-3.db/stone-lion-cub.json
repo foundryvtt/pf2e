@@ -428,11 +428,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "evil"
-                            ]
-                        },
+                        "predicate": [
+                            "evil"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -572,50 +570,42 @@
                     },
                     {
                         "key": "BaseSpeed",
-                        "predicate": {
-                            "not": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ],
                         "selector": "fly-speed",
                         "value": 25
                     },
                     {
                         "key": "BaseSpeed",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "selector": "land-speed",
                         "value": 20
                     },
                     {
                         "key": "Immunity",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "type": "healing"
                     },
                     {
                         "key": "Immunity",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "type": "nonlethal"
                     },
                     {
                         "except": "except bludgeoning",
                         "key": "Resistance",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "type": "physical",
                         "value": 3
                     }
@@ -665,11 +655,11 @@
                     {
                         "except": "except force, or ghost touch; double resistance vs. non-magical",
                         "key": "Resistance",
-                        "predicate": {
-                            "not": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ],
                         "type": "all",
                         "value": 3
                     }

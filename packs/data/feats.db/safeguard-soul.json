@@ -31,13 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "possession",
-                        "manipulate-soul"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "possession",
+                            "manipulate-soul"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2

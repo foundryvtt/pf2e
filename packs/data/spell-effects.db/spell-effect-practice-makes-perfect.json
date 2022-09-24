@@ -18,24 +18,28 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "status",
                 "value": 3

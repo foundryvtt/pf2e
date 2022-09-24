@@ -28,16 +28,18 @@
             {
                 "key": "FlatModifier",
                 "label": "Constructed (vs. disease, poisons, death effects, paralysis, drained, and sickened)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison",
-                        "death-effect",
-                        "paralyzed",
-                        "drained",
-                        "sickened"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death-effect",
+                            "paralyzed",
+                            "drained",
+                            "sickened"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

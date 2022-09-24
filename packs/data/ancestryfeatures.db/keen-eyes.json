@@ -27,16 +27,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "target:within-30-feet"
-                    ],
-                    "any": [
-                        "target:hidden",
-                        "target:undetected"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "target:within-30-feet",
+                    {
+                        "or": [
+                            "target:hidden",
+                            "target:undetected"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2

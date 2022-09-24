@@ -32,12 +32,14 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. unnatural weather or in blighted land (Survivor of Desolation)",
-                "predicate": {
-                    "any": [
-                        "unnatural-weather",
-                        "blighted-land"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "unnatural-weather",
+                            "blighted-land"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

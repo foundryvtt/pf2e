@@ -32,17 +32,17 @@
             {
                 "key": "FlatModifier",
                 "label": "Oddity Identification (identify magic with specific traits)",
-                "predicate": {
-                    "all": [
-                        "action:identify-magic"
-                    ],
-                    "any": [
-                        "mental",
-                        "possession",
-                        "prediction",
-                        "scrying"
-                    ]
-                },
+                "predicate": [
+                    "action:identify-magic",
+                    {
+                        "or": [
+                            "mental",
+                            "possession",
+                            "prediction",
+                            "scrying"
+                        ]
+                    }
+                ],
                 "selector": "occultism",
                 "type": "circumstance",
                 "value": 2

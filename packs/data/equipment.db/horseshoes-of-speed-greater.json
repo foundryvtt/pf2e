@@ -39,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Horseshoes of Speed (long & high jumps)",
-                "predicate": {
-                    "any": [
-                        "action:high-jump",
-                        "action:long-jump"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "item",
                 "value": 3

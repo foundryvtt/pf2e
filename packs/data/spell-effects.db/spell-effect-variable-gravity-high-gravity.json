@@ -18,13 +18,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "forcedMovement",
-                        "action:trip",
-                        "action:shove"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "forcedMovement",
+                            "action:trip",
+                            "action:shove"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2

@@ -108,12 +108,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                            "predicate": [
                                 "item:type:feat",
                                 "item:level:1",
                                 "item:trait:general"
-                            ],
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
@@ -355,11 +355,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Rogue feature",
+                            "predicate": [
                                 "item:trait:rogue",
                                 "item:level:1"
-                            ],
-                            "label": "level 1 Rogue feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -440,24 +440,24 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:rogue",
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "class:rogue",
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -890,15 +890,13 @@
                     {
                         "ability": "dex",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "weapon:melee",
-                                "weapon:trait:finesse"
-                            ],
-                            "not": [
-                                "weapon:category:unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:melee",
+                            "weapon:trait:finesse",
+                            {
+                                "not": "weapon:category:unarmed"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "ability"
                     },
@@ -1051,33 +1049,33 @@
                     },
                     {
                         "key": "CriticalSpecialization",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                {
-                                    "and": [
-                                        {
-                                            "or": [
-                                                "weapon:trait:agile",
-                                                "weapon:trait:finesse"
-                                            ]
-                                        },
-                                        {
-                                            "or": [
-                                                "weapon:category:simple",
-                                                "weapon:category:unarmed"
-                                            ]
-                                        }
-                                    ]
-                                },
-                                "weapon:base:rapier",
-                                "weapon:base:sap",
-                                "weapon:base:shortbow",
-                                "weapon:base:shortsword"
-                            ]
-                        }
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            {
+                                                "or": [
+                                                    "weapon:trait:agile",
+                                                    "weapon:trait:finesse"
+                                                ]
+                                            },
+                                            {
+                                                "or": [
+                                                    "weapon:category:simple",
+                                                    "weapon:category:unarmed"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "weapon:base:rapier",
+                                    "weapon:base:sap",
+                                    "weapon:base:shortbow",
+                                    "weapon:base:shortsword"
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "slug": "weapon-tricks",
@@ -1287,12 +1285,10 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:demoralize",
-                                "youre-next"
-                            ]
-                        },
+                        "predicate": [
+                            "action:demoralize",
+                            "youre-next"
+                        ],
                         "selector": "intimidation",
                         "type": "circumstance",
                         "value": 2
@@ -1408,11 +1404,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (to find traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -1434,11 +1428,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": {
@@ -1460,11 +1452,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": {
@@ -1897,14 +1887,12 @@
                     },
                     {
                         "key": "AdjustModifier",
-                        "predicate": {
-                            "all": [
-                                "substitute:assurance"
-                            ],
-                            "not": [
-                                "bonus:type:proficiency"
-                            ]
-                        },
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
                         "selector": "{item|flags.pf2e.rulesSelections.assurance}",
                         "suppress": true
                     }

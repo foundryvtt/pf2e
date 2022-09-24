@@ -36,34 +36,34 @@
                 "override": {
                     "upgrade": true
                 },
-                "predicate": {
-                    "all": [
-                        "dual-handed-assault",
-                        "weapon:hands-held:1"
-                    ],
-                    "not": [
-                        "two-hand-d6",
-                        "two-hand-d8",
-                        "two-hand-d10",
-                        "two-hand-d12"
-                    ]
-                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "weapon:hands-held:1",
+                    {
+                        "nor": [
+                            "two-hand-d6",
+                            "two-hand-d8",
+                            "two-hand-d10",
+                            "two-hand-d12"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "dual-handed-assault",
-                        "weapon:hands-held:1"
-                    ],
-                    "any": [
-                        "two-hand-d6",
-                        "two-hand-d8",
-                        "two-hand-d10",
-                        "two-hand-d12"
-                    ]
-                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "weapon:hands-held:1",
+                    {
+                        "or": [
+                            "two-hand-d6",
+                            "two-hand-d8",
+                            "two-hand-d10",
+                            "two-hand-d12"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": "1 + @weapon.system.runes.striking"
@@ -73,13 +73,11 @@
                 "override": {
                     "dieSize": "d6"
                 },
-                "predicate": {
-                    "all": [
-                        "dual-handed-assault",
-                        "weapon:hands-held:1",
-                        "weapon:trait:two-hand-d6"
-                    ]
-                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "weapon:hands-held:1",
+                    "weapon:trait:two-hand-d6"
+                ],
                 "selector": "strike-damage"
             },
             {
@@ -87,13 +85,11 @@
                 "override": {
                     "dieSize": "d8"
                 },
-                "predicate": {
-                    "all": [
-                        "dual-handed-assault",
-                        "weapon:hands-held:1",
-                        "weapon:trait:two-hand-d8"
-                    ]
-                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "weapon:hands-held:1",
+                    "weapon:trait:two-hand-d8"
+                ],
                 "selector": "strike-damage"
             },
             {
@@ -101,13 +97,11 @@
                 "override": {
                     "dieSize": "d10"
                 },
-                "predicate": {
-                    "all": [
-                        "dual-handed-assault",
-                        "weapon:hands-held:1",
-                        "weapon:trait:two-hand-d10"
-                    ]
-                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "weapon:hands-held:1",
+                    "weapon:trait:two-hand-d10"
+                ],
                 "selector": "strike-damage"
             },
             {
@@ -115,13 +109,11 @@
                 "override": {
                     "dieSize": "d12"
                 },
-                "predicate": {
-                    "all": [
-                        "dual-handed-assault",
-                        "weapon:hands-held:1",
-                        "weapon:trait:two-hand-d12"
-                    ]
-                },
+                "predicate": [
+                    "dual-handed-assault",
+                    "weapon:hands-held:1",
+                    "weapon:trait:two-hand-d12"
+                ],
                 "selector": "strike-damage"
             }
         ],

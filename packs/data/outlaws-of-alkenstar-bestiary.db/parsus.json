@@ -2772,12 +2772,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "mental",
-                                "disease"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "mental",
+                                    "disease"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2

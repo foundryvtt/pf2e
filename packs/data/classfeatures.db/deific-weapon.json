@@ -39,11 +39,9 @@
                 "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.fist",
-                "predicate": {
-                    "all": [
-                        "deity:primary:favored-weapon:fist"
-                    ]
-                },
+                "predicate": [
+                    "deity:primary:favored-weapon:fist"
+                ],
                 "range": null,
                 "slug": "fist",
                 "traits": [
@@ -58,20 +56,20 @@
                 "override": {
                     "upgrade": true
                 },
-                "predicate": {
-                    "all": [
-                        "weapon:deity-favored"
-                    ],
-                    "any": [
-                        "weapon:category:simple",
-                        {
-                            "and": [
-                                "weapon:category:unarmed",
-                                "weapon:damage:die:faces:4"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "weapon:deity-favored",
+                    {
+                        "or": [
+                            "weapon:category:simple",
+                            {
+                                "and": [
+                                    "weapon:category:unarmed",
+                                    "weapon:damage:die:faces:4"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             }
         ],

@@ -21,17 +21,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "resist-elf-magic"
-                    ],
-                    "any": [
-                        "magical",
-                        "divine",
-                        "primal",
-                        "occult"
-                    ]
-                },
+                "predicate": [
+                    "resist-elf-magic",
+                    {
+                        "or": [
+                            "magical",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "resist-elf-magic",
                 "type": "circumstance",
@@ -40,11 +40,9 @@
             {
                 "key": "AdjustModifier",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "arcane"
-                    ]
-                },
+                "predicate": [
+                    "arcane"
+                ],
                 "selector": "saving-throw",
                 "slug": "resist-elf-magic",
                 "value": 1

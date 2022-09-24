@@ -28,13 +28,13 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.Multitalented.AllowedDrops",
+                    "predicate": [
                         "item:level:2",
                         "item:trait:dedication",
                         "item:trait:multiclass",
                         "item:type:feat"
-                    ],
-                    "label": "PF2E.SpecificRule.Multitalented.AllowedDrops"
+                    ]
                 },
                 "choices": {
                     "query": "{\"system.featType.value\":\"archetype\",\"system.level.value\":2,\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"system.traits.value\":{\"$elemMatch\":\"multiclass\"}}],\"type\":\"feat\",\"$not\":{\"system.slug\":\"{actor|system.details.class.trait}-dedication\"}}"

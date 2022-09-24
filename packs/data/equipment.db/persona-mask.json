@@ -39,14 +39,16 @@
             {
                 "key": "FlatModifier",
                 "label": "Persona Mask (acting, orating, comedy, singing)",
-                "predicate": {
-                    "any": [
-                        "acting",
-                        "orating",
-                        "performing-comedy",
-                        "singing"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "acting",
+                            "orating",
+                            "performing-comedy",
+                            "singing"
+                        ]
+                    }
+                ],
                 "selector": "performance",
                 "type": "item",
                 "value": 1

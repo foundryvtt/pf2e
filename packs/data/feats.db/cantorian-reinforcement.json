@@ -27,12 +27,14 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.SpecificRule.Hobgoblin.CantorianReinforcement.Note",
                 "title": "{item|name}"

@@ -34,15 +34,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:physically-menaced"
-                    ],
-                    "any": [
-                        "action:coerce",
-                        "action:demoralize"
-                    ]
-                },
+                "predicate": [
+                    "target:physically-menaced",
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": {

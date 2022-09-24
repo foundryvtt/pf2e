@@ -138,12 +138,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level-0 dwarf weapon",
+                            "predicate": [
                                 "item:level:0",
                                 "item:trait:dwarf",
                                 "item:type:weapon"
-                            ],
-                            "label": "level-0 dwarf weapon"
+                            ]
                         },
                         "choices": [
                             {
@@ -165,21 +165,17 @@
                     },
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "clan-dagger"
-                            ]
-                        },
+                        "predicate": [
+                            "clan-dagger"
+                        ],
                         "uuid": "Compendium.pf2e.equipment-srd.kJJvKm80KwWXPukV"
                     },
                     {
                         "key": "GrantItem",
                         "nestFeat": false,
-                        "predicate": {
-                            "all": [
-                                "clan-pistol"
-                            ]
-                        },
+                        "predicate": [
+                            "clan-pistol"
+                        ],
                         "uuid": "Compendium.pf2e.feats-srd.LvVg83ZDj8mabcWF"
                     }
                 ],
@@ -356,11 +352,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "poison"
-                            ]
-                        },
+                        "predicate": [
+                            "poison"
+                        ],
                         "selector": "saving-throw",
                         "text": "Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).",
                         "title": "{item|name}"
@@ -427,12 +421,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Ranger class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:ranger",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Ranger class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -520,12 +514,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Seek hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -533,12 +525,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Track hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
@@ -547,11 +537,9 @@
                         "domain": "ranged-attack-roll",
                         "key": "RollOption",
                         "option": "ignore-range-penalty:2",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        }
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     },
                     {
                         "key": "GrantItem",
@@ -863,25 +851,21 @@
                 "rules": [
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            "hunted-prey"
+                        ],
                         "selector": "attack",
                         "value": -2
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
+                        "predicate": [
+                            "hunted-prey",
+                            {
+                                "not": "agile"
+                            }
+                        ],
                         "selector": "attack",
                         "value": -3
                     }
@@ -1054,11 +1038,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:subsist"
-                            ]
-                        },
+                        "predicate": [
+                            "action:subsist"
+                        ],
                         "selector": "survival",
                         "text": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.",
                         "title": "{item|name}"
@@ -1160,24 +1142,20 @@
                         "value": 1
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:trait:dwarf",
-                                "weapon:category:advanced"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:trait:dwarf",
+                            "weapon:category:advanced"
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.AdvancedDwarfWeapons",
                         "sameAs": "martial",
                         "slug": "advanced-dwarf-weapons"
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:trait:dwarf",
-                                "weapon:category:martial"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:trait:dwarf",
+                            "weapon:category:martial"
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.MartialDwarfWeapons",
                         "sameAs": "simple",
@@ -1241,12 +1219,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "crossbow-ace",
-                                "weapon:tag:crossbow"
-                            ]
-                        },
+                        "predicate": [
+                            "crossbow-ace",
+                            "weapon:tag:crossbow"
+                        ],
                         "selector": "strike-damage",
                         "type": "circumstance",
                         "value": 2
@@ -1257,13 +1233,11 @@
                         "override": {
                             "upgrade": true
                         },
-                        "predicate": {
-                            "all": [
-                                "crossbow-ace",
-                                "weapon:tag:crossbow",
-                                "weapon:category:simple"
-                            ]
-                        },
+                        "predicate": [
+                            "crossbow-ace",
+                            "weapon:tag:crossbow",
+                            "weapon:category:simple"
+                        ],
                         "selector": "strike-damage",
                         "slug": "crossbow-ace-dice-upgrade"
                     }
@@ -1798,11 +1772,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1833,11 +1805,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1850,11 +1820,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -3080,15 +3048,15 @@
                     },
                     {
                         "key": "CriticalSpecialization",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "any": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        }
+                        "predicate": [
+                            "hunted-prey",
+                            {
+                                "or": [
+                                    "weapon:category:simple",
+                                    "weapon:category:martial"
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "slug": "ranger-weapon-expertise",
@@ -3190,12 +3158,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Notice Unusual Stonework",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "terrain:unusual-stonework"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "terrain:unusual-stonework"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -3203,15 +3169,13 @@
                     {
                         "key": "FlatModifier",
                         "label": "GM: To Notice Unusual Stonework",
-                        "predicate": {
-                            "all": [
-                                "terrain:unusual-stonework",
-                                "secret"
-                            ],
-                            "not": [
-                                "action:seek"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:unusual-stonework",
+                            "secret",
+                            {
+                                "not": "action:seek"
+                            }
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": -2
@@ -3453,14 +3417,12 @@
                     },
                     {
                         "key": "AdjustModifier",
-                        "predicate": {
-                            "all": [
-                                "substitute:assurance"
-                            ],
-                            "not": [
-                                "bonus:type:proficiency"
-                            ]
-                        },
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
                         "selector": "{item|flags.pf2e.rulesSelections.assurance}",
                         "suppress": true
                     }
@@ -3646,16 +3608,16 @@
                     },
                     {
                         "key": "WeaponPotency",
-                        "predicate": {
-                            "all": [
-                                "doubling-rings"
-                            ],
-                            "not": [
-                                "ranged",
-                                "thrown",
-                                "unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "doubling-rings",
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "thrown",
+                                    "unarmed"
+                                ]
+                            }
+                        ],
                         "selector": "attack",
                         "value": 1
                     }

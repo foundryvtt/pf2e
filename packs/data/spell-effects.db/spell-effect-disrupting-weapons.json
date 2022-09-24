@@ -19,11 +19,9 @@
             {
                 "choices": {
                     "ownedItems": true,
-                    "predicate": {
-                        "all": [
-                            "item:equipped"
-                        ]
-                    },
+                    "predicate": [
+                        "item:equipped"
+                    ],
                     "types": [
                         "weapon"
                     ]
@@ -42,12 +40,14 @@
                 "damageType": "positive",
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "predicate": {
-                    "any": [
-                        "disrupting-weapons",
-                        "target:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disrupting-weapons",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.spellEffectDisruptingWeapons}-damage",
                 "value": {
                     "brackets": [

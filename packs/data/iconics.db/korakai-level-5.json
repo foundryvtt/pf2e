@@ -235,12 +235,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Oracle class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:oracle",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Oracle class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -829,19 +829,17 @@
                     {
                         "damageType": "electricity",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "item:spell-slot",
-                                "damaging-effect",
-                                "item:damage:physical",
-                                {
-                                    "or": [
-                                        "air",
-                                        "water"
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "item:spell-slot",
+                            "damaging-effect",
+                            "item:damage:physical",
+                            {
+                                "or": [
+                                    "air",
+                                    "water"
+                                ]
+                            }
+                        ],
                         "selector": "spell-damage",
                         "value": "@spell.level"
                     }
@@ -1014,16 +1012,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Seasoned (craft food, drink & potions)",
-                        "predicate": {
-                            "all": [
-                                "action:craft"
-                            ],
-                            "any": [
-                                "food",
-                                "drink",
-                                "potion"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft",
+                            {
+                                "or": [
+                                    "food",
+                                    "drink",
+                                    "potion"
+                                ]
+                            }
+                        ],
                         "selector": "crafting",
                         "type": "circumstance",
                         "value": {
@@ -2929,11 +2927,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -2964,11 +2960,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -2981,11 +2975,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -4248,11 +4240,9 @@
                 "rules": [
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "self:level:1"
-                            ]
-                        },
+                        "predicate": [
+                            "self:level:1"
+                        ],
                         "uuid": "Compendium.pf2e.equipment-srd.gwP3Uums2ApH6o9K"
                     }
                 ],
@@ -4311,11 +4301,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "action:balance"
-                            ]
-                        },
+                        "predicate": [
+                            "action:balance"
+                        ],
                         "selector": "acrobatics",
                         "text": "If you roll a success using the Balance action, you get a critical success instead.",
                         "title": "{item|name}"

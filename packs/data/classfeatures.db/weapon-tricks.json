@@ -63,33 +63,33 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed"
-                    ],
-                    "any": [
-                        {
-                            "and": [
-                                {
-                                    "or": [
-                                        "weapon:trait:agile",
-                                        "weapon:trait:finesse"
-                                    ]
-                                },
-                                {
-                                    "or": [
-                                        "weapon:category:simple",
-                                        "weapon:category:unarmed"
-                                    ]
-                                }
-                            ]
-                        },
-                        "weapon:base:rapier",
-                        "weapon:base:sap",
-                        "weapon:base:shortbow",
-                        "weapon:base:shortsword"
-                    ]
-                }
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "weapon:trait:agile",
+                                            "weapon:trait:finesse"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            "weapon:category:simple",
+                                            "weapon:category:unarmed"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "weapon:base:rapier",
+                            "weapon:base:sap",
+                            "weapon:base:shortbow",
+                            "weapon:base:shortsword"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

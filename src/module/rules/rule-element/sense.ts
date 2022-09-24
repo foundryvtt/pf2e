@@ -55,7 +55,7 @@ export class SenseRuleElement extends RuleElementPF2e {
             });
             this.actor.synthetics.senses.push({
                 sense: newSense,
-                predicate: this.data.predicate ?? null,
+                predicate: this.predicate,
                 force: this.data.force,
             });
         } else {

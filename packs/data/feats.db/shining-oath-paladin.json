@@ -42,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Shining Oath",
-                "predicate": {
-                    "all": [
-                        "shining-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "shining-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "shining-not-master",
                 "value": 4
@@ -58,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Shining Oath",
-                "predicate": {
-                    "all": [
-                        "shining-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "shining-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "shining-master",
                 "value": 6

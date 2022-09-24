@@ -37,11 +37,10 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
 
         const selector = String(this.resolveValue(this.selector));
 
-        let craftableItems = new PredicatePF2e(this.data.craftableItems || {});
+        const craftableItems = new PredicatePF2e(this.data.craftableItems ?? []);
 
         if (!craftableItems.isValid) {
             console.warn("PF2E | Crafting Entry RE craftableItems predicate does not have the correct format.");
-            craftableItems = new PredicatePF2e({});
         }
 
         const data: CraftingEntryData = {

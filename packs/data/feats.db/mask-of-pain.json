@@ -38,14 +38,12 @@
                     "criticalSuccess",
                     "success"
                 ],
-                "predicate": {
-                    "all": [
-                        "action:demoralize"
-                    ],
-                    "not": [
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "not": "proficiency:legendary"
+                    }
+                ],
                 "selector": "intimidation",
                 "text": "The creature you successfully Demoralized takes [[/r {2d6}[mental] #Mask of Pain]]{2d6 mental damage}, and is then temporarily immune to additional damage from Mask of Pain for 24 hours.",
                 "title": "{item|name}"
@@ -56,11 +54,9 @@
                     "criticalSuccess",
                     "success"
                 ],
-                "predicate": {
-                    "all": [
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "proficiency:legendary"
+                ],
                 "selector": "intimidation",
                 "text": "The creature you successfully Demoralized takes [[/r {4d6}[mental] #Mask of Pain]]{4d6 mental damage}, and is then temporarily immune to additional damage from Mask of Pain for 24 hours.",
                 "title": "{item|name}"

@@ -776,12 +776,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Grass or Undergrowth",
-                        "predicate": {
-                            "any": [
-                                "terrain:grass",
-                                "terrain:undergrowth"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:grass",
+                                    "terrain:undergrowth"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }

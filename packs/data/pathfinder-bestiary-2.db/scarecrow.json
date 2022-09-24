@@ -217,12 +217,14 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:frightened",
-                                "clawing-fear"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:frightened",
+                                    "clawing-fear"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

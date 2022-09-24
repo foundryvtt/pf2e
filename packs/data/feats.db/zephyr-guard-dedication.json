@@ -28,13 +28,15 @@
             {
                 "key": "FlatModifier",
                 "label": "to notice theft (Zephyr Guard)",
-                "predicate": {
-                    "any": [
-                        "action:steal",
-                        "action:conceal-an-object",
-                        "action:palm-an-object"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:steal",
+                            "action:conceal-an-object",
+                            "action:palm-an-object"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2

@@ -32,17 +32,19 @@
             {
                 "damageType": "precision",
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "agile",
-                        "finesse",
-                        "ranged",
-                        "takedown-expert"
-                    ],
-                    "not": [
-                        "devise-a-stratagem"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "agile",
+                            "finesse",
+                            "ranged",
+                            "takedown-expert"
+                        ]
+                    },
+                    {
+                        "not": "devise-a-stratagem"
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [

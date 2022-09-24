@@ -110,12 +110,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "death-effects",
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death-effects",
+                            "disease"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2

@@ -39,15 +39,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Astrolabe (identify celestial bodies)",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge",
-                        "identify"
-                    ],
-                    "any": [
-                        "celestial-body"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge",
+                    "identify",
+                    {
+                        "or": [
+                            "celestial-body"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "item",
                 "value": 1

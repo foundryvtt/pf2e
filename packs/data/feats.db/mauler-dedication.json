@@ -30,26 +30,24 @@
         },
         "rules": [
             {
-                "definition": {
-                    "all": [
-                        "weapon:melee",
-                        {
-                            "or": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        {
-                            "or": [
-                                "weapon:usage:hands:2",
-                                "weapon:trait:two-hand-d6",
-                                "weapon:trait:two-hand-d8",
-                                "weapon:trait:two-hand-d10",
-                                "weapon:trait:two-hand-d12"
-                            ]
-                        }
-                    ]
-                },
+                "definition": [
+                    "weapon:melee",
+                    {
+                        "or": [
+                            "weapon:category:simple",
+                            "weapon:category:martial"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:usage:hands:2",
+                            "weapon:trait:two-hand-d6",
+                            "weapon:trait:two-hand-d8",
+                            "weapon:trait:two-hand-d10",
+                            "weapon:trait:two-hand-d12"
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialTwoHandedMeleeWeapons",
                 "sameAs": "unarmed",
@@ -57,32 +55,30 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        {
-                            "or": [
-                                "weapon:category:simple",
-                                "weapon:category:martial"
-                            ]
-                        },
-                        {
-                            "or": [
-                                "weapon:usage:hands:2",
-                                "weapon:trait:two-hand-d6",
-                                "weapon:trait:two-hand-d8",
-                                "weapon:trait:two-hand-d10",
-                                "weapon:trait:two-hand-d12"
-                            ]
-                        },
-                        {
-                            "gte": [
-                                "weapon:proficiency:rank",
-                                2
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    "weapon:melee",
+                    {
+                        "or": [
+                            "weapon:category:simple",
+                            "weapon:category:martial"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:usage:hands:2",
+                            "weapon:trait:two-hand-d6",
+                            "weapon:trait:two-hand-d8",
+                            "weapon:trait:two-hand-d10",
+                            "weapon:trait:two-hand-d12"
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "weapon:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

@@ -19,17 +19,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mental"
-                    ],
-                    "any": [
-                        "inflicts:confused",
-                        "inflicts:controlled",
-                        "inflicts:frightened",
-                        "inflicts:stupefied"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1

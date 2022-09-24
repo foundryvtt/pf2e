@@ -292,15 +292,15 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "collaborative-thievery"
-                            ],
-                            "any": [
-                                "action:steal",
-                                "action:palm-an-object"
-                            ]
-                        },
+                        "predicate": [
+                            "collaborative-thievery",
+                            {
+                                "or": [
+                                    "action:steal",
+                                    "action:palm-an-object"
+                                ]
+                            }
+                        ],
                         "selector": "thievery",
                         "type": "circumstance",
                         "value": 1

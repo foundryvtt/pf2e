@@ -31,18 +31,16 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:command-an-animal",
-                        {
-                            "or": [
-                                "target:tag:reptile",
-                                "target:trait:dinosaur",
-                                "target:tag:non-sapient-dragon"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:command-an-animal",
+                    {
+                        "or": [
+                            "target:tag:reptile",
+                            "target:trait:dinosaur",
+                            "target:tag:non-sapient-dragon"
+                        ]
+                    }
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": 1

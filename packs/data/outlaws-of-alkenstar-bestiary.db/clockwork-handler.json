@@ -686,23 +686,23 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
-                        "predicate": {
-                            "any": [
-                                "action:grapple",
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "action:disarm"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
-                        "predicate": {
-                            "any": [
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            "action:disarm"
+                        ],
                         "selector": "reflex",
                         "value": 2
                     }

@@ -28,16 +28,16 @@
             {
                 "key": "FlatModifier",
                 "label": "Adrenaline Rush (Lift heavy objects, escape, force open)",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "any": [
-                        "action:escape",
-                        "action:force-open",
-                        "lift-heavy-object"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "or": [
+                            "action:escape",
+                            "action:force-open",
+                            "lift-heavy-object"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "status",
                 "value": 1

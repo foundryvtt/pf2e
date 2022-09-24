@@ -226,12 +226,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Climb or Swim",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "type": "untyped",
                         "value": 2

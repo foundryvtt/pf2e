@@ -173,24 +173,24 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:rogue",
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "class:rogue",
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -680,11 +680,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:subsist"
-                            ]
-                        },
+                        "predicate": [
+                            "action:subsist"
+                        ],
                         "selector": "survival",
                         "text": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.",
                         "title": "{item|name}"
@@ -743,17 +741,17 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "weapon:category:simple"
-                            ],
-                            "not": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            "weapon:category:simple",
+                            {
+                                "nor": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -909,11 +907,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nimble-dodge"
-                            ]
-                        },
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -999,12 +995,10 @@
                         "value": 1
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:trait:grippli",
-                                "weapon:category:martial"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:trait:grippli",
+                            "weapon:category:martial"
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.MartialGrippliWeapons",
                         "sameAs": "simple",

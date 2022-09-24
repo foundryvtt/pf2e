@@ -28,14 +28,12 @@
             {
                 "key": "FlatModifier",
                 "label": "Double Slice (non-agile second weapon)",
-                "predicate": {
-                    "all": [
-                        "double-slice-second"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "double-slice-second",
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -2
             }

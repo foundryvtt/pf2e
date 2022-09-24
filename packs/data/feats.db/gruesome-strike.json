@@ -42,15 +42,15 @@
                 "damageType": "negative",
                 "key": "FlatModifier",
                 "label": "Gruesome Strike",
-                "predicate": {
-                    "all": [
-                        "gruesome-strike"
-                    ],
-                    "any": [
-                        "iron-command-negative",
-                        "selfish-shield-negative"
-                    ]
-                },
+                "predicate": [
+                    "gruesome-strike",
+                    {
+                        "or": [
+                            "iron-command-negative",
+                            "selfish-shield-negative"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "gruesome-ic-neg",
                 "value": {
@@ -75,15 +75,15 @@
                 "damageType": "evil",
                 "key": "FlatModifier",
                 "label": "Gruesome Strike",
-                "predicate": {
-                    "all": [
-                        "gruesome-strike"
-                    ],
-                    "any": [
-                        "iron-command-evil",
-                        "selfish-shield-evil"
-                    ]
-                },
+                "predicate": [
+                    "gruesome-strike",
+                    {
+                        "or": [
+                            "iron-command-evil",
+                            "selfish-shield-evil"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "gruesome-ic-evil",
                 "value": {
@@ -108,12 +108,10 @@
                 "damageType": "negative",
                 "key": "FlatModifier",
                 "label": "Gruesome Strike",
-                "predicate": {
-                    "all": [
-                        "destructive-vengeance-negative",
-                        "gruesome-strike"
-                    ]
-                },
+                "predicate": [
+                    "destructive-vengeance-negative",
+                    "gruesome-strike"
+                ],
                 "selector": "strike-damage",
                 "slug": "gruesome-ds-neg",
                 "value": {
@@ -138,12 +136,10 @@
                 "damageType": "evil",
                 "key": "FlatModifier",
                 "label": "Gruesome Strike",
-                "predicate": {
-                    "all": [
-                        "destructive-vengeance-evil",
-                        "gruesome-strike"
-                    ]
-                },
+                "predicate": [
+                    "destructive-vengeance-evil",
+                    "gruesome-strike"
+                ],
                 "selector": "strike-damage",
                 "slug": "gruesome-ds-evil",
                 "value": {

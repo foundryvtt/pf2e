@@ -42,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Dragonslayer Oath",
-                "predicate": {
-                    "all": [
-                        "dragonslayer-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "dragonslayer-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dragonslayer-not-master",
                 "value": 4
@@ -58,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Dragonslayer Oath",
-                "predicate": {
-                    "all": [
-                        "dragonslayer-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "dragonslayer-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dragonslayer-master",
                 "value": 6

@@ -252,12 +252,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const rollOptions = this.getRollOptions();
             if (typeof flanking.flatFootable === "number") {
                 flanking.flatFootable = !PredicatePF2e.test(
-                    { any: [{ lte: ["origin:level", flanking.flatFootable] }] },
+                    [{ lte: ["origin:level", flanking.flatFootable] }],
                     rollOptions
                 );
             }
 
-            return flanking.flatFootable && PredicatePF2e.test({ all: ["origin:flanking"] }, rollOptions);
+            return flanking.flatFootable && PredicatePF2e.test(["origin:flanking"], rollOptions);
         }
 
         return false;
@@ -581,7 +581,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         label: string,
         value: number,
         type: string,
-        predicate: RawPredicate = {},
+        predicate: RawPredicate = [],
         damageType?: DamageType,
         damageCategory?: string
     ): Promise<void> {

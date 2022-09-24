@@ -171,12 +171,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Swashbuckler class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:swashbuckler",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Swashbuckler class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -374,31 +374,31 @@
                     {
                         "damageCategory": "precision",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "class:swashbuckler",
-                                "self:effect:panache",
-                                {
-                                    "or": [
-                                        "weapon:melee",
-                                        {
-                                            "and": [
-                                                "feat:flying-blade",
-                                                "weapon:thrown",
-                                                "target:range-increment:1"
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse"
-                            ],
-                            "not": [
-                                "finisher"
-                            ]
-                        },
+                        "predicate": [
+                            "class:swashbuckler",
+                            "self:effect:panache",
+                            {
+                                "or": [
+                                    "weapon:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "weapon:thrown",
+                                            "target:range-increment:1"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse"
+                                ]
+                            },
+                            {
+                                "not": "finisher"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "precise-strike",
                         "value": {
@@ -433,29 +433,29 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:swashbuckler",
-                                "self:effect:panache",
-                                "finisher",
-                                {
-                                    "or": [
-                                        "weapon:melee",
-                                        {
-                                            "and": [
-                                                "feat:flying-blade",
-                                                "weapon:thrown",
-                                                "target:range-increment:1"
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse"
-                            ]
-                        },
+                        "predicate": [
+                            "class:swashbuckler",
+                            "self:effect:panache",
+                            "finisher",
+                            {
+                                "or": [
+                                    "weapon:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "weapon:thrown",
+                                            "target:range-increment:1"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "finisher",
                         "value": {
@@ -818,15 +818,15 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "panache"
-                            ],
-                            "any": [
-                                "action:feint",
-                                "action:create-a-diversion"
-                            ]
-                        },
+                        "predicate": [
+                            "panache",
+                            {
+                                "or": [
+                                    "action:feint",
+                                    "action:create-a-diversion"
+                                ]
+                            }
+                        ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 1
@@ -835,11 +835,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.skills.dec.rank",
-                        "predicate": {
-                            "all": [
-                                "class:swashbuckler"
-                            ]
-                        },
+                        "predicate": [
+                            "class:swashbuckler"
+                        ],
                         "value": 1
                     }
                 ],
@@ -1671,11 +1669,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1706,11 +1702,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1723,11 +1717,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2980,11 +2972,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "swaggering-initiative"
-                            ]
-                        },
+                        "predicate": [
+                            "swaggering-initiative"
+                        ],
                         "selector": "initiative",
                         "type": "circumstance",
                         "value": 2
@@ -3376,11 +3366,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:panache"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:panache"
+                        ],
                         "selector": "speed",
                         "slug": "vivacious-full",
                         "type": "status",
@@ -3419,11 +3407,11 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "self:effect:panache"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "self:effect:panache"
+                            }
+                        ],
                         "selector": "speed",
                         "slug": "vivacious-half",
                         "type": "status",
@@ -3515,16 +3503,14 @@
                     },
                     {
                         "key": "CriticalSpecialization",
-                        "predicate": {
-                            "all": [
-                                {
-                                    "gte": [
-                                        "weapon:proficiency:rank",
-                                        2
-                                    ]
-                                }
-                            ]
-                        }
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "weapon:proficiency:rank",
+                                    2
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "slug": "weapon-expertise-swashbuckler",
@@ -3782,31 +3768,31 @@
                 "rules": [
                     {
                         "key": "WeaponPotency",
-                        "predicate": {
-                            "all": [
-                                "doubling-rings"
-                            ],
-                            "not": [
-                                "ranged",
-                                "thrown",
-                                "unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "doubling-rings",
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "thrown",
+                                    "unarmed"
+                                ]
+                            }
+                        ],
                         "selector": "attack",
                         "value": 1
                     },
                     {
                         "key": "Striking",
-                        "predicate": {
-                            "all": [
-                                "doubling-rings"
-                            ],
-                            "not": [
-                                "ranged",
-                                "thrown",
-                                "unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "doubling-rings",
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "thrown",
+                                    "unarmed"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": 1
                     },

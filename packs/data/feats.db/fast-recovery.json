@@ -31,15 +31,15 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "ongoing"
-                    ],
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    "ongoing",
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "Fortitude",
                 "text": "If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.",
                 "title": "{item|name}"

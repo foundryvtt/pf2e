@@ -32,11 +32,11 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Cold)",
-                "predicate": {
-                    "not": [
-                        "cold-domain"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "cold-domain"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponCold}-damage"
             },
             {
@@ -45,11 +45,9 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Cold Domain)",
-                "predicate": {
-                    "all": [
-                        "cold-domain"
-                    ]
-                },
+                "predicate": [
+                    "cold-domain"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponCold}-damage"
             }
         ],

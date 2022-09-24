@@ -35,12 +35,14 @@
             {
                 "key": "FlatModifier",
                 "label": "in dim light or darkness (Shadowdancer)",
-                "predicate": {
-                    "any": [
-                        "self:dimLight",
-                        "self:darkness"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:dimLight",
+                            "self:darkness"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
                 "value": 2

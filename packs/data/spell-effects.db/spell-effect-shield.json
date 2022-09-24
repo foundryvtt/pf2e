@@ -20,12 +20,14 @@
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.shield",
-                "predicate": {
-                    "any": [
-                        "self:type:character",
-                        "self:type:npc"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
                 "value": {
                     "ac": 1,
                     "broken": false,
@@ -45,12 +47,14 @@
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.shield.hardness",
-                "predicate": {
-                    "any": [
-                        "self:type:character",
-                        "self:type:npc"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
                 "value": {
                     "brackets": [
                         {
@@ -84,12 +88,14 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "self:shield:equipped",
-                "predicate": {
-                    "any": [
-                        "self:type:character",
-                        "self:type:npc"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

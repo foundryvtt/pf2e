@@ -2,8 +2,8 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e, WeaponSource } from "@item/data";
 import { RuleElementSource } from "@module/rules";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data";
-import { RawPredicate } from "@system/predication";
-import { sluggify } from "@util";
+import { PredicateStatement } from "@system/predication";
+import { isObject, sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Convert EffectTarget REs into ChoiceSets */
@@ -43,7 +43,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
                 all: ["item:equipped"],
                 any: ["item:base:club", "item:base:staff"],
             };
-        } else if (rule.predicate) {
+        } else if (isObject(rule.predicate)) {
             newRE.choices.predicate = deepClone(rule.predicate);
         }
 
@@ -79,6 +79,12 @@ interface OwnedWeaponChoiceSetSource extends ChoiceSetSource {
         ownedItems: true;
         types: ["weapon"];
         includeHandwraps?: true;
-        predicate?: RawPredicate;
+        predicate?: OldRawPredicate;
     };
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

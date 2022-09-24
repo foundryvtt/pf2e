@@ -1457,15 +1457,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1553,11 +1555,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "target:trait:evil"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:evil"
+                        ],
                         "selector": "strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"

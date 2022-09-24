@@ -1,4 +1,4 @@
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { RawPredicate } from "@system/predication";
 
 type RuleElementSource = {
     key?: unknown;
@@ -6,7 +6,7 @@ type RuleElementSource = {
     value?: unknown;
     label?: unknown;
     slug?: unknown;
-    predicate?: RawPredicate;
+    predicate?: unknown;
     /** The place in order of application (ascending), among an actor's list of rule elements */
     priority?: number;
     ignored?: unknown;
@@ -20,7 +20,7 @@ interface RuleElementData extends RuleElementSource {
     value?: RuleValue | BracketedValue;
     label: string;
     slug?: string | null;
-    predicate?: PredicatePF2e;
+    predicate?: RawPredicate;
     priority: number;
     ignored: boolean;
     removeUponCreate?: boolean;

@@ -718,12 +718,10 @@
                 "rules": [
                     {
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "melee",
-                                "power-attack"
-                            ]
-                        },
+                        "predicate": [
+                            "melee",
+                            "power-attack"
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -1382,11 +1380,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1417,11 +1413,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1434,11 +1428,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2334,23 +2326,19 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:climb",
-                                "natural-stone"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb",
+                            "natural-stone"
+                        ],
                         "selector": "athletics",
                         "text": "When you climb natural stone, you move at half your Speed on a success, and full speed on a critical success.",
                         "title": "{item|name}"
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:squeeze"
-                            ]
-                        },
+                        "predicate": [
+                            "action:squeeze"
+                        ],
                         "selector": "acrobatics",
                         "text": "When you roll a success to Squeeze, you get a critical success instead.",
                         "title": "{item|name}"

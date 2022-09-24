@@ -157,11 +157,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.sorcerer}.rank",
-                        "predicate": {
-                            "all": [
-                                "class:sorcerer"
-                            ]
-                        },
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
                         "value": {
                             "brackets": [
                                 {
@@ -190,12 +188,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 sorcerer class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:sorcerer",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 sorcerer class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -693,11 +691,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.resources.focus.max",
-                        "predicate": {
-                            "all": [
-                                "class:sorcerer"
-                            ]
-                        },
+                        "predicate": [
+                            "class:sorcerer"
+                        ],
                         "priority": 10,
                         "value": 1
                     },
@@ -948,14 +944,12 @@
                     },
                     {
                         "key": "AdjustModifier",
-                        "predicate": {
-                            "all": [
-                                "substitute:assurance"
-                            ],
-                            "not": [
-                                "bonus:type:proficiency"
-                            ]
-                        },
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
                         "selector": "{item|flags.pf2e.rulesSelections.assurance}",
                         "suppress": true
                     }
@@ -3527,14 +3521,12 @@
                     },
                     {
                         "key": "AdjustModifier",
-                        "predicate": {
-                            "all": [
-                                "substitute:assurance"
-                            ],
-                            "not": [
-                                "bonus:type:proficiency"
-                            ]
-                        },
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
                         "selector": "athletics",
                         "suppress": true
                     }

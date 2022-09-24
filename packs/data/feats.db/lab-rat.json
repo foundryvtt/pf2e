@@ -27,12 +27,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "elixir"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "elixir"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -42,23 +44,27 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "elixir"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "elixir"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "elixir"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "elixir"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "@Localize[PF2E.SpecificRule.Ratfolk.LabRat.Note]",
                 "title": "{item|name}"

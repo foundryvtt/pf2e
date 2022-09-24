@@ -26,12 +26,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "target:trait:undead",
-                        "target:imprisoned-soul"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:undead",
+                            "target:imprisoned-soul"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "type": "status",
                 "value": "1+@weapon.runes.striking"
@@ -39,17 +41,17 @@
             {
                 "key": "FlatModifier",
                 "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "item:spell-slot",
-                        "item:duration:0",
-                        "damaging-effect"
-                    ],
-                    "any": [
-                        "target:trait:undead",
-                        "target:imprisoned-soul"
-                    ]
-                },
+                "predicate": [
+                    "item:spell-slot",
+                    "item:duration:0",
+                    "damaging-effect",
+                    {
+                        "or": [
+                            "target:trait:undead",
+                            "target:imprisoned-soul"
+                        ]
+                    }
+                ],
                 "selector": "spell-damage",
                 "type": "status",
                 "value": "@spell.level"

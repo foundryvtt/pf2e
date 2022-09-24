@@ -32,23 +32,21 @@
                 "toggleable": true
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:melee",
-                        "weapon:usage:hands:2"
-                    ],
-                    "not": [
-                        "weapon:damage:die:faces:4",
-                        "weapon:trait:reach"
-                    ]
-                },
+                "definition": [
+                    "weapon:melee",
+                    "weapon:usage:hands:2",
+                    {
+                        "nor": [
+                            "weapon:damage:die:faces:4",
+                            "weapon:trait:reach"
+                        ]
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "grasping-reach"
-                    ]
-                },
+                "predicate": [
+                    "grasping-reach"
+                ],
                 "property": "weapon-traits",
                 "value": "reach"
             },
@@ -57,17 +55,17 @@
                 "override": {
                     "downgrade": true
                 },
-                "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        "weapon:usage:hands:2",
-                        "grasping-reach"
-                    ],
-                    "not": [
-                        "weapon:traits:reach",
-                        "weapon:damage:die:faces:4"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee",
+                    "weapon:usage:hands:2",
+                    "grasping-reach",
+                    {
+                        "nor": [
+                            "weapon:traits:reach",
+                            "weapon:damage:die:faces:4"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             }
         ],

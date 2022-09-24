@@ -27,23 +27,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "target:trait:devil",
-                        "origin:trait:devil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:devil",
+                            "origin:trait:devil"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:devil"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:devil"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

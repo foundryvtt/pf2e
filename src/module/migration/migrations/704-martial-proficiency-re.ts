@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { PredicateStatement } from "@system/predication";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
@@ -9,7 +9,9 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
     static override version = 0.704;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: MaybeLinkedProficiency[] = itemSource.system.rules.filter((r) => r.key === "LinkedProficiency");
+        const rules: MaybeLinkedProficiency[] = itemSource.system.rules.filter(
+            (r): r is MaybeLinkedProficiency => r.key === "LinkedProficiency"
+        );
         for (const rule of rules) {
             rule.key = "MartialProficiency";
             rule.definition = rule.predicate;
@@ -64,7 +66,14 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
     }
 }
 
-interface MaybeLinkedProficiency extends RuleElementSource {
-    definition?: RawPredicate;
+interface MaybeLinkedProficiency extends Omit<RuleElementSource, "predicate"> {
+    predicate?: OldRawPredicate;
+    definition?: OldRawPredicate;
     immutable?: boolean;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

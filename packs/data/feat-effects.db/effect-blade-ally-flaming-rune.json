@@ -46,12 +46,14 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

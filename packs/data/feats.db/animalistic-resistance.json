@@ -28,12 +28,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Animalistic Resistance (vs. disease and poison)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

@@ -114,14 +114,12 @@
             },
             {
                 "key": "AdjustModifier",
-                "predicate": {
-                    "all": [
-                        "substitute:assurance"
-                    ],
-                    "not": [
-                        "bonus:type:proficiency"
-                    ]
-                },
+                "predicate": [
+                    "substitute:assurance",
+                    {
+                        "not": "bonus:type:proficiency"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.assurance}",
                 "suppress": true
             }

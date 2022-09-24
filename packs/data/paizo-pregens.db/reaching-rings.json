@@ -231,11 +231,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Rogue feature",
+                            "predicate": [
                                 "item:trait:rogue",
                                 "item:level:1"
-                            ],
-                            "label": "level 1 Rogue feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -316,24 +316,24 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:rogue",
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "class:rogue",
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -767,15 +767,13 @@
                     {
                         "ability": "dex",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "weapon:melee",
-                                "weapon:trait:finesse"
-                            ],
-                            "not": [
-                                "weapon:category:unarmed"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:melee",
+                            "weapon:trait:finesse",
+                            {
+                                "not": "weapon:category:unarmed"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "ability"
                     },
@@ -902,11 +900,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "action:recall-knowledge"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge"
+                        ],
                         "selector": "skill-check",
                         "text": "When you fail (but don't critically fail) a Recall Knowledge check using any skill, you learn a bit of true knowledge and a bit of erroneous knowledge.",
                         "title": "{item|name}"
@@ -2194,22 +2190,18 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "text": "When you roll a success on a save against an emotion effect, you get a critical success instead.",
                         "title": "{item|name}"
@@ -2219,11 +2211,9 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "type": "save"
                     }
@@ -2286,11 +2276,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (to find traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -2312,11 +2300,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": {
@@ -2338,11 +2324,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": {
@@ -2632,12 +2616,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Critical success on Recognize Spell",
-                        "predicate": {
-                            "all": [
-                                "action:recognize-spell",
-                                "critical-success"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recognize-spell",
+                            "critical-success"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
@@ -2645,12 +2627,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Critical success on Recognize Spell",
-                        "predicate": {
-                            "all": [
-                                "action:recognize-spell",
-                                "critical-success"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recognize-spell",
+                            "critical-success"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 1

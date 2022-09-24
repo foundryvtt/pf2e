@@ -110,12 +110,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                            "predicate": [
                                 "item:type:feat",
                                 "item:level:1",
                                 "item:trait:general"
-                            ],
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
@@ -1405,11 +1405,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1440,11 +1438,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1457,11 +1453,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],

@@ -24,11 +24,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "emotion"
-                    ]
-                },
+                "predicate": [
+                    "emotion"
+                ],
                 "selector": "saving-throw",
                 "slug": "ki-form-emotion-penalty",
                 "type": "status",
@@ -36,14 +34,12 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mental"
-                    ],
-                    "not": [
-                        "emotion"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    {
+                        "not": "emotion"
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "ki-form-mental-bonus",
                 "type": "status",

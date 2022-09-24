@@ -1360,15 +1360,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ],
-                            "any": [
-                                "self:form:true",
-                                "self:form:spider"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb",
+                            {
+                                "or": [
+                                    "self:form:true",
+                                    "self:form:spider"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -1410,11 +1410,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Weave",
-                        "predicate": {
-                            "all": [
-                                "action:craft:weaving"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft:weaving"
+                        ],
                         "selector": "crafting",
                         "value": 4
                     }

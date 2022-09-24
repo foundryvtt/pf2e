@@ -27,14 +27,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "disease",
-                        "origin:trait:undead",
-                        "origin:trait:sakhil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "disease",
+                            "origin:trait:undead",
+                            "origin:trait:sakhil"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "ward-plus-one",
                 "type": "circumstance",
@@ -42,22 +44,20 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "disease",
-                                "death"
-                            ]
-                        },
-                        {
-                            "or": [
-                                "origin:trait:undead",
-                                "origin:trait:sakhil"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "death"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "origin:trait:undead",
+                            "origin:trait:sakhil"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "ward-plus-two",
                 "type": "circumstance",

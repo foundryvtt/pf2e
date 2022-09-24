@@ -658,12 +658,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -841,11 +843,9 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "label": "Pack Attack",
-                        "predicate": {
-                            "all": [
-                                "pack-attack"
-                            ]
-                        },
+                        "predicate": [
+                            "pack-attack"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

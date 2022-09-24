@@ -19,12 +19,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Soothe",
-                "predicate": {
-                    "any": [
-                        "negative",
-                        "death"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "negative",
+                            "death"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 4

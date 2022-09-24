@@ -28,30 +28,28 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "ac",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -74,16 +72,16 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    {
+                        "nor": [
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "rage-agile",
                 "value": {
@@ -107,16 +105,16 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dedication-instinct-rage",
                 "value": 2
@@ -124,16 +122,14 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    "instinct-ability",
+                    {
+                        "not": "ranged"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dedication-instinct-rage-agile",
                 "value": 1
@@ -149,20 +145,16 @@
                     "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"barbarian\"}}"
                 },
                 "key": "ChoiceSet",
-                "predicate": {
-                    "all": [
-                        "class:barbarian"
-                    ]
-                },
+                "predicate": [
+                    "class:barbarian"
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "class:barbarian"
-                    ]
-                },
+                "predicate": [
+                    "class:barbarian"
+                ],
                 "uuid": "{item|flags.pf2e.rulesSelections.furyInstinct}"
             }
         ],

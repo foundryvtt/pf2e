@@ -28,31 +28,29 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "ac",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "weapon:oversized"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "weapon:oversized",
+                    {
+                        "nor": [
+                            "ranged",
+                            "agile",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "oversized-rage",
                 "value": {
@@ -76,17 +74,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "weapon:oversized",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "weapon:oversized",
+                    "agile",
+                    {
+                        "nor": [
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "oversized-rage-agile",
                 "value": {
@@ -110,17 +108,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "weapon:oversized",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "nor": [
+                            "agile",
+                            "weapon:oversized",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage",
                 "value": 2
@@ -128,17 +126,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "weapon:oversized",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    {
+                        "nor": [
+                            "weapon:oversized",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage-agile",
                 "value": 1
@@ -146,17 +144,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "weapon:oversized",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "weapon:oversized",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "ranged",
+                            "agile"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "oversized-rage-dedication",
                 "value": 6
@@ -164,17 +162,15 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "weapon:oversized",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "weapon:oversized",
+                    "agile",
+                    "instinct-ability",
+                    {
+                        "not": "ranged"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "oversized-rage-dedication-agile",
                 "value": 3
@@ -182,17 +178,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "agile",
-                        "weapon:oversized",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "agile",
+                            "weapon:oversized",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage-dedication",
                 "value": 2
@@ -200,17 +196,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "weapon:oversized",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "weapon:oversized",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage-dedication-agile",
                 "value": 1

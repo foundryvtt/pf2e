@@ -23,17 +23,17 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:range-increment:1",
-                        "weapon:ranged"
-                    ],
-                    "not": [
-                        "weapon:trait:volley-20",
-                        "weapon:trait:volley-30",
-                        "weapon:trait:volley-50"
-                    ]
-                },
+                "predicate": [
+                    "target:range-increment:1",
+                    "weapon:ranged",
+                    {
+                        "nor": [
+                            "weapon:trait:volley-20",
+                            "weapon:trait:volley-30",
+                            "weapon:trait:volley-50"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": 2

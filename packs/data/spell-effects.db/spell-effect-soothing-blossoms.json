@@ -21,12 +21,14 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             }

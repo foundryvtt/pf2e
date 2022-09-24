@@ -455,14 +455,12 @@
                     {
                         "key": "FlatModifier",
                         "label": "Taken a swig of alcohol in past minute",
-                        "predicate": {
-                            "all": [
-                                "swig"
-                            ],
-                            "not": [
-                                "range"
-                            ]
-                        },
+                        "predicate": [
+                            "swig",
+                            {
+                                "not": "range"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "item",
                         "value": 2

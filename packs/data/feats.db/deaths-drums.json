@@ -27,12 +27,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "self:condition:persistent-damage",
-                        "self:condition:wounded"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:persistent-damage",
+                            "self:condition:wounded"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 2

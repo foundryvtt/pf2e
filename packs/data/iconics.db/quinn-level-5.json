@@ -156,12 +156,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 investigator class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:investigator",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 investigator class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -251,25 +251,25 @@
                     {
                         "ability": "int",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "class:investigator",
-                                "devise-a-stratagem"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                },
-                                "weapon:base:sap"
-                            ]
-                        },
+                        "predicate": [
+                            "class:investigator",
+                            "devise-a-stratagem",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    },
+                                    "weapon:base:sap"
+                                ]
+                            }
+                        ],
                         "selector": "attack-roll",
                         "type": "ability"
                     },
@@ -397,11 +397,9 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "devise-a-stratagem"
-                            ]
-                        },
+                        "predicate": [
+                            "devise-a-stratagem"
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -1031,11 +1029,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pursue a Lead",
-                        "predicate": {
-                            "all": [
-                                "pursue-a-lead"
-                            ]
-                        },
+                        "predicate": [
+                            "pursue-a-lead"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": {
@@ -1054,11 +1050,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pursue a Lead",
-                        "predicate": {
-                            "all": [
-                                "pursue-a-lead"
-                            ]
-                        },
+                        "predicate": [
+                            "pursue-a-lead"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -1377,12 +1371,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Known Weakness (critically succeeded on Recall Knowledge)",
-                        "predicate": {
-                            "all": [
-                                "devise-a-strategem",
-                                "known-weakness"
-                            ]
-                        },
+                        "predicate": [
+                            "devise-a-strategem",
+                            "known-weakness"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
@@ -1845,11 +1837,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1880,11 +1870,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1897,11 +1885,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2713,12 +2699,10 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:recall-knowledge",
-                                "skill:rank:0"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge",
+                            "skill:rank:0"
+                        ],
                         "selector": "skill-check",
                         "type": "proficiency",
                         "value": "@actor.level"
@@ -2836,13 +2820,15 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.martial.martial.rank",
-                        "predicate": {
-                            "any": [
-                                "class:champion",
-                                "class:investigator",
-                                "class:magus"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion",
+                                    "class:investigator",
+                                    "class:magus"
+                                ]
+                            }
+                        ],
                         "value": 2
                     }
                 ],
@@ -3216,12 +3202,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Eye for Number (decipher numerical writing)",
-                        "predicate": {
-                            "all": [
-                                "action:decipher-writing",
-                                "numerical"
-                            ]
-                        },
+                        "predicate": [
+                            "action:decipher-writing",
+                            "numerical"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": 2
@@ -3569,11 +3553,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Magnifying Glass (minute details)",
-                        "predicate": {
-                            "all": [
-                                "minute-details"
-                            ]
-                        },
+                        "predicate": [
+                            "minute-details"
+                        ],
                         "selector": "perception",
                         "type": "item",
                         "value": 1

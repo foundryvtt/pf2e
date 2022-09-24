@@ -34,21 +34,23 @@
                 "outcome": [
                     "success"
                 ],
-                "predicate": {
-                    "any": [
-                        "drug",
-                        "addiction",
-                        {
-                            "and": [
-                                "alchemical",
-                                "poison"
-                            ]
-                        }
-                    ],
-                    "not": [
-                        "virulent"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "drug",
+                            "addiction",
+                            {
+                                "and": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "virulent"
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "Each of your successful saving throws against against an alchemical poison, a drug, or an addiction reduces its stage by 2.",
                 "title": "{item|name}"
@@ -58,21 +60,21 @@
                 "outcome": [
                     "success"
                 ],
-                "predicate": {
-                    "all": [
-                        "virulent"
-                    ],
-                    "any": [
-                        "drug",
-                        "addiciton",
-                        {
-                            "all": [
-                                "alchemical",
-                                "poison"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "virulent",
+                    {
+                        "or": [
+                            "drug",
+                            "addiciton",
+                            {
+                                "all": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "Each of your successful saving throws against against a virulent alchemical poison, drug, or addiction reduces its stage by 1.",
                 "title": "{item|name}"
@@ -82,21 +84,23 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "any": [
-                        "drug",
-                        "addiciton",
-                        {
-                            "all": [
-                                "alchemical",
-                                "poison"
-                            ]
-                        }
-                    ],
-                    "not": [
-                        "virulent"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "drug",
+                            "addiciton",
+                            {
+                                "all": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "not": "virulent"
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "Each of your ciritcally successful saving throws against against an alchemical poison, a drug, or an addiction reduces its stage by 3.",
                 "title": "{item|name}"
@@ -106,21 +110,21 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "virulent"
-                    ],
-                    "any": [
-                        "drug",
-                        "addiciton",
-                        {
-                            "all": [
-                                "alchemical",
-                                "poison"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "virulent",
+                    {
+                        "or": [
+                            "drug",
+                            "addiciton",
+                            {
+                                "all": [
+                                    "alchemical",
+                                    "poison"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "Each of your critically successful saving throws against against a virulent alchemical poison, drug, or addiction reduces its stage by 2.",
                 "title": "{item|name}"

@@ -27,15 +27,15 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "terrain:aquatic"
-                    ],
-                    "any": [
-                        "action:sense-direction",
-                        "action:subsist"
-                    ]
-                },
+                "predicate": [
+                    "terrain:aquatic",
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:subsist"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "text": "When in an aquatic environment, if you roll a critical failure on a Survival skill check to Sense Direction or Subsist, you get a failure instead.",
                 "title": "{item|name}"
@@ -45,15 +45,15 @@
                     "criticalFailure": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "terrain:aquatic"
-                    ],
-                    "any": [
-                        "action:sense-direction",
-                        "action:subsist"
-                    ]
-                },
+                "predicate": [
+                    "terrain:aquatic",
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:subsist"
+                        ]
+                    }
+                ],
                 "selector": "survival"
             },
             {

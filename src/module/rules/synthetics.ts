@@ -73,7 +73,7 @@ interface RollTwiceSynthetic {
 
 interface SenseSynthetic {
     sense: CreatureSensePF2e;
-    predicate: PredicatePF2e | null;
+    predicate: PredicatePF2e;
     force: boolean;
 }
 
@@ -89,14 +89,14 @@ interface StrikeAdjustment {
 interface StrikingSynthetic {
     label: string;
     bonus: number;
-    predicate?: PredicatePF2e;
+    predicate: PredicatePF2e;
 }
 
 interface PotencySynthetic {
     label: string;
     bonus: number;
     type: "item" | "potency";
-    predicate?: PredicatePF2e;
+    predicate: PredicatePF2e;
     property?: WeaponPropertyRuneType[];
 }
 

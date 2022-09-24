@@ -168,11 +168,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Alchemist class feature",
+                            "predicate": [
                                 "feature:trait:alchemist",
                                 "feature:level:1"
-                            ],
-                            "label": "level 1 Alchemist class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -256,11 +256,9 @@
                         "isDailyPrep": true,
                         "key": "CraftingEntry",
                         "label": "PF2E.TraitAlchemist",
-                        "predicate": {
-                            "all": [
-                                "class:alchemist"
-                            ]
-                        },
+                        "predicate": [
+                            "class:alchemist"
+                        ],
                         "preparedFormulas": [
                             {
                                 "itemUUID": "Compendium.pf2e.equipment-srd.SgtqZxt26BdjUmEB",
@@ -286,12 +284,10 @@
                         "mode": "upgrade",
                         "path": "system.crafting.entries.alchemist.maxItemLevel",
                         "phase": "afterDerived",
-                        "predicate": {
-                            "all": [
-                                "class:alchemist",
-                                "crafting:entry:alchemist"
-                            ]
-                        },
+                        "predicate": [
+                            "class:alchemist",
+                            "crafting:entry:alchemist"
+                        ],
                         "value": "@actor.level"
                     }
                 ],
@@ -463,22 +459,20 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.resources.crafting.infusedReagents.max",
-                        "predicate": {
-                            "all": [
-                                "class:alchemist"
-                            ]
-                        },
+                        "predicate": [
+                            "class:alchemist"
+                        ],
                         "value": "@actor.level  + floor((@actor.abilities.int.value - 10) / 2)"
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.resources.crafting.infusedReagents.max",
-                        "predicate": {
-                            "not": [
-                                "class:alchemist"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "class:alchemist"
+                            }
+                        ],
                         "value": "@actor.level"
                     }
                 ],
@@ -876,13 +870,11 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "alchemical",
-                                "bomb",
-                                "splash"
-                            ]
-                        },
+                        "predicate": [
+                            "alchemical",
+                            "bomb",
+                            "splash"
+                        ],
                         "selector": "strike-damage",
                         "text": "You can deal splash damage to only your primary target instead of the usual splash area.",
                         "title": "{item|name}"
@@ -2392,24 +2384,20 @@
                         "value": 1
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:trait:goblin",
-                                "weapon:category:advanced"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:trait:goblin",
+                            "weapon:category:advanced"
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGoblinWeapons",
                         "sameAs": "martial",
                         "slug": "advanced-goblin-weapons"
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:trait:goblin",
-                                "weapon:category:martial"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:trait:goblin",
+                            "weapon:category:martial"
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.MartialGoblinWeapons",
                         "sameAs": "simple",
@@ -2513,11 +2501,9 @@
                 },
                 "rules": [
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:base:alchemical-bomb"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:base:alchemical-bomb"
+                        ],
                         "key": "AdjustStrike",
                         "mode": "upgrade",
                         "property": "range-increment",
@@ -2575,22 +2561,18 @@
                     {
                         "key": "FlatModifier",
                         "label": "Breath control (vs. inhaled)",
-                        "predicate": {
-                            "all": [
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            "inhaled"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            "inhaled"
+                        ],
                         "selector": "saving-throw",
                         "text": "If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.",
                         "title": "{item|name}"

@@ -38,14 +38,12 @@
             },
             {
                 "key": "AdjustModifier",
-                "predicate": {
-                    "all": [
-                        "substitute:assurance"
-                    ],
-                    "not": [
-                        "bonus:type:proficiency"
-                    ]
-                },
+                "predicate": [
+                    "substitute:assurance",
+                    {
+                        "not": "bonus:type:proficiency"
+                    }
+                ],
                 "selector": "survival",
                 "suppress": true
             }

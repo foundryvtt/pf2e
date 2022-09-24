@@ -32,12 +32,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "advanced-undead-disease-poison",
                 "type": "circumstance",
@@ -45,12 +47,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inflicts:paralyzed",
-                        "sleep"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:paralyzed",
+                            "sleep"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "advanced-undead-paralyzed-sleep",
                 "type": "circumstance",

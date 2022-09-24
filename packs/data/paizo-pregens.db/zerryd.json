@@ -516,24 +516,24 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "class:rogue",
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "class:rogue",
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -878,11 +878,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (to find traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -904,11 +902,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": {
@@ -930,11 +926,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Trap Finder (against traps)",
-                        "predicate": {
-                            "all": [
-                                "trap-finder"
-                            ]
-                        },
+                        "predicate": [
+                            "trap-finder"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": {
@@ -1223,11 +1217,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Wary Disarmament (vs. traps)",
-                        "predicate": {
-                            "all": [
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "trap"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -1235,11 +1227,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Wary Disarmament (vs. traps)",
-                        "predicate": {
-                            "all": [
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "trap"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2

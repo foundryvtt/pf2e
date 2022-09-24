@@ -34,27 +34,25 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:lie",
-                        "target:trait:humanoid"
-                    ]
-                },
+                "predicate": [
+                    "action:lie",
+                    "target:trait:humanoid"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:humanoid"
-                    ],
-                    "any": [
-                        "action:gather-information",
-                        "action:make-an-impression"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:humanoid",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1

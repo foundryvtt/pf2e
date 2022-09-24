@@ -18,19 +18,17 @@
         },
         "rules": [
             {
-                "definition": {
-                    "all": [
-                        {
-                            "lte": [
-                                "weapon:range-increment",
-                                10
-                            ]
-                        }
-                    ],
-                    "not": [
-                        "weapon:category:unarmed"
-                    ]
-                },
+                "definition": [
+                    {
+                        "lte": [
+                            "weapon:range-increment",
+                            10
+                        ]
+                    },
+                    {
+                        "not": "weapon:category:unarmed"
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "range-increment",

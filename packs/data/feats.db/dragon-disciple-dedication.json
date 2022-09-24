@@ -27,12 +27,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "sleep",
-                        "paralysis"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "sleep",
+                            "paralysis"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

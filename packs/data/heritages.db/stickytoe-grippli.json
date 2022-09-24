@@ -13,26 +13,30 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:disarm",
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:disarm",
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2
@@ -42,11 +46,9 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "action:climb"
-                    ]
-                },
+                "predicate": [
+                    "action:climb"
+                ],
                 "selector": "athletics",
                 "type": "skill"
             }

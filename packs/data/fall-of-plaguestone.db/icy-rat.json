@@ -224,12 +224,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ClimbOrSwim",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }

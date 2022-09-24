@@ -28,15 +28,13 @@
             {
                 "ability": "dex",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        "weapon:trait:finesse"
-                    ],
-                    "not": [
-                        "weapon:category:unarmed"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee",
+                    "weapon:trait:finesse",
+                    {
+                        "not": "weapon:category:unarmed"
+                    }
+                ],
                 "selector": "strike-damage",
                 "type": "ability"
             },

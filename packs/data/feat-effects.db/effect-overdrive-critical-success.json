@@ -19,50 +19,44 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "feature:expert-overdrive"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "feature:expert-overdrive"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "overdrive",
                 "value": "@actor.abilities.int.mod"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "feature:expert-overdrive"
-                    ],
-                    "not": [
-                        "feature:master-overdrive"
-                    ]
-                },
+                "predicate": [
+                    "feature:expert-overdrive",
+                    {
+                        "not": "feature:master-overdrive"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "overdrive-expert",
                 "value": "@actor.abilities.int.mod+1"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "feature:master-overdrive"
-                    ],
-                    "not": [
-                        "feature:legendary-overdrive"
-                    ]
-                },
+                "predicate": [
+                    "feature:master-overdrive",
+                    {
+                        "not": "feature:legendary-overdrive"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "overdrive-master",
                 "value": "@actor.abilities.int.mod+2"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "feature:legendary-overdrive"
-                    ]
-                },
+                "predicate": [
+                    "feature:legendary-overdrive"
+                ],
                 "selector": "strike-damage",
                 "slug": "overdrive-legendary",
                 "value": "@actor.abilities.int.mod+3"

@@ -128,16 +128,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Keen Eyes (Seek hidden or undetected within 30 feet)",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "target:within-30-feet"
-                            ],
-                            "any": [
-                                "target:hidden",
-                                "target:undetected"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "target:within-30-feet",
+                            {
+                                "or": [
+                                    "target:hidden",
+                                    "target:undetected"
+                                ]
+                            }
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -618,11 +618,9 @@
                         "override": {
                             "dieSize": "d10"
                         },
-                        "predicate": {
-                            "all": [
-                                "item:slug:heal"
-                            ]
-                        },
+                        "predicate": [
+                            "item:slug:heal"
+                        ],
                         "selector": "spell-damage"
                     }
                 ],
@@ -3332,11 +3330,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -3367,11 +3363,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -3384,11 +3378,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -5593,22 +5585,18 @@
                     {
                         "key": "FlatModifier",
                         "label": "Breath control (vs. inhaled)",
-                        "predicate": {
-                            "all": [
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            "inhaled"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            "inhaled"
+                        ],
                         "selector": "saving-throw",
                         "text": "If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.",
                         "title": "{item|name}"

@@ -31,33 +31,33 @@
         "rules": [
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    },
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "agile",
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "value": -1
             }

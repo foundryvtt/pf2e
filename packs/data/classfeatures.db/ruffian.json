@@ -30,26 +30,24 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "PF2E.SpecificRule.SneakAttack",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        "weapon:category:simple",
-                        {
-                            "nor": [
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                },
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "weapon:category:simple",
+                    {
+                        "nor": [
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -96,18 +94,16 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        "weapon:category:simple",
-                        {
-                            "lte": [
-                                "weapon:damage:die:faces",
-                                8
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "weapon:category:simple",
+                    {
+                        "lte": [
+                            "weapon:damage:die:faces",
+                            8
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

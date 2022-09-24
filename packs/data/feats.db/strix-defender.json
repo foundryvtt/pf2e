@@ -27,59 +27,51 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human"
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human"
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": -2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ],
-                    "any": [
-                        "weapon:melee",
-                        "weapon:ranged"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human",
+                    {
+                        "or": [
+                            "weapon:melee",
+                            "weapon:ranged"
+                        ]
+                    }
+                ],
                 "selector": "damage",
                 "type": "circumstance",
                 "value": 1

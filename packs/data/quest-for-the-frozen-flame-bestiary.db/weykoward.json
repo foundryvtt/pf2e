@@ -212,12 +212,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.JunkOrDebris",
-                        "predicate": {
-                            "any": [
-                                "terrain:junk",
-                                "terrain:debris"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:junk",
+                                    "terrain:debris"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 2
                     }

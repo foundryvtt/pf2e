@@ -1114,11 +1114,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Skeleton Key (Pick a Lock)",
-                        "predicate": {
-                            "all": [
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            "action:pick-a-lock"
+                        ],
                         "selector": "thievery",
                         "type": "item",
                         "value": 1
@@ -1368,23 +1366,23 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

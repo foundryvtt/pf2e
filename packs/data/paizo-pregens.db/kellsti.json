@@ -3535,11 +3535,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Ganzi resistance (+1 vs. controlled)",
-                        "predicate": {
-                            "any": [
-                                "controlled"
-                            ]
-                        },
+                        "predicate": [
+                            "controlled"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
@@ -3714,12 +3712,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:craft",
-                                "{item|flags.pf2e.rulesSelections.specialtyCrafting}"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft",
+                            "{item|flags.pf2e.rulesSelections.specialtyCrafting}"
+                        ],
                         "selector": "crafting",
                         "type": "circumstance",
                         "value": {
@@ -3797,7 +3793,7 @@
                 "rules": [
                     {
                         "allowedDrops": {
-                            "all": [
+                            "predicate": [
                                 "item:type:deity"
                             ]
                         },
@@ -3829,11 +3825,9 @@
                         "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
                         "key": "Strike",
                         "label": "PF2E.Weapon.Base.fist",
-                        "predicate": {
-                            "all": [
-                                "deity:primary:favored-weapon:fist"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:favored-weapon:fist"
+                        ],
                         "range": null,
                         "slug": "fist",
                         "traits": [
@@ -3847,11 +3841,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "flags.pf2e.favoredWeaponRank",
-                        "predicate": {
-                            "all": [
-                                "class:cleric"
-                            ]
-                        },
+                        "predicate": [
+                            "class:cleric"
+                        ],
                         "value": 1
                     }
                 ],
@@ -3913,12 +3905,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Cleric class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:cleric",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Cleric class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -4139,20 +4131,16 @@
                 "rules": [
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:cloistered-cleric"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:cloistered-cleric"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.aiwxBj5MjnafCMyn"
                     },
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:warpriest"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:warpriest"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.xxkszluN9icAiTO4"
                     }
                 ],
@@ -4213,20 +4201,16 @@
                 "rules": [
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:cloistered-cleric"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:cloistered-cleric"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.sa7BWfnyCswAvBVa"
                     },
                     {
                         "key": "GrantItem",
-                        "predicate": {
-                            "all": [
-                                "feature:warpriest"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:warpriest"
+                        ],
                         "uuid": "Compendium.pf2e.classfeatures.D34mPo29r1J3DPaX"
                     }
                 ],
@@ -4660,11 +4644,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "action:balance"
-                            ]
-                        },
+                        "predicate": [
+                            "action:balance"
+                        ],
                         "selector": "acrobatics",
                         "text": "If you roll a success using the Balance action, you get a critical success instead.",
                         "title": "{item|name}"
