@@ -106,17 +106,13 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     return null;
                 }
 
-                if (this.data.predicate) {
-                    this.data.predicate = this.resolveInjectedProperties(this.data.predicate);
-                }
-
                 const modifier = new ModifierPF2e({
                     slug,
                     label,
                     modifier: finalValue,
                     type: this.type,
                     ability: this.type === "ability" ? this.ability : null,
-                    predicate: this.data.predicate,
+                    predicate: this.resolveInjectedProperties(this.predicate),
                     force: this.force,
                     damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                     damageCategory: this.data.damageCategory || undefined,

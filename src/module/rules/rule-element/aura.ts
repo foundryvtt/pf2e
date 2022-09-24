@@ -64,7 +64,7 @@ export class AuraRuleElement extends RuleElementPF2e {
 
     #isValid(data: AuraRuleElementSource): data is AuraRuleElementData {
         const validations = {
-            predicate: PredicatePF2e.isValid(data.predicate),
+            predicate: PredicatePF2e.isValid(data.predicate ?? []),
             radius: ["number", "string"].includes(typeof data.radius),
             effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
             colors: data.colors === null || this.#isAuraColors(data.colors),

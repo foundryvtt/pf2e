@@ -25,7 +25,6 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
             data.mode = "override";
             data.value = 0;
         }
-        data.predicate ??= {};
         data.priority ??= 90;
 
         super({ ...data, phase: "beforeDerived" }, item, options);
@@ -54,7 +53,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
                 this.selectors.length > 0 &&
                 this.selectors.every((s) => typeof s === "string"),
             slug: typeof this.slug === "string" || this.slug === null,
-            predicate: this.predicate?.isValid ?? false,
+            predicate: this.predicate.isValid,
             mode: tupleHasValue(AELikeRuleElement.CHANGE_MODES, this.data.mode),
             value: ["string", "number"].includes(typeof this.value) || isObject(this.value),
         };
