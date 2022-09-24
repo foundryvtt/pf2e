@@ -28,23 +28,23 @@
             {
                 "hideIfDisabled": "true",
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:demoralize",
-                        "action:coerce"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:demoralize",
+                            "action:coerce"
+                        ]
+                    }
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    "fear"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

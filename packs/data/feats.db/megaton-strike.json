@@ -31,14 +31,12 @@
         "rules": [
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "megaton"
-                    ],
-                    "not": [
-                        "unstable-megaton"
-                    ]
-                },
+                "predicate": [
+                    "megaton",
+                    {
+                        "not": "unstable-megaton"
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -68,11 +66,9 @@
             {
                 "key": "DamageDice",
                 "label": "Unstable Megaton Strike",
-                "predicate": {
-                    "all": [
-                        "unstable-megaton"
-                    ]
-                },
+                "predicate": [
+                    "unstable-megaton"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [

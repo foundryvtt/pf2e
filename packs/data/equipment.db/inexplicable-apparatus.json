@@ -39,13 +39,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Inexplicable Apparatus (craft, earn income, repair",
-                "predicate": {
-                    "any": [
-                        "action:craft",
-                        "action:earn-income",
-                        "action:repair"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:earn-income",
+                            "action:repair"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "item",
                 "value": 3

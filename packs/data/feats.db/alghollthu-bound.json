@@ -28,15 +28,13 @@
             {
                 "key": "FlatModifier",
                 "label": "Alghollthu Bound (vs. mental effects that control from non-alghollthu)",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "controlled"
-                    ],
-                    "not": [
-                        "alghollthu"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "controlled",
+                    {
+                        "not": "alghollthu"
+                    }
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 2
@@ -44,23 +42,19 @@
             {
                 "key": "FlatModifier",
                 "label": "Alghollthu Bound (vs. mental effect from alghollthu)",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "alghollthu"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "alghollthu"
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": -2
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "mental"
-                    ]
-                },
+                "predicate": [
+                    "mental"
+                ],
                 "selector": "will",
                 "text": "When you roll a success on a save against an mental effect that would control you, you get a critical success instead. This benefit does not apply against effects originating from alghollthus.",
                 "title": "{item|name}"
@@ -70,15 +64,13 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "controlled"
-                    ],
-                    "not": [
-                        "alghollthu"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "controlled",
+                    {
+                        "not": "alghollthu"
+                    }
+                ],
                 "selector": "will"
             }
         ],

@@ -19,12 +19,14 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. disease or poison (Forest endemic herbs)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

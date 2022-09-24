@@ -26,15 +26,15 @@
         },
         "rules": [
             {
-                "definition": {
-                    "all": [
-                        "weapon:group:bow"
-                    ],
-                    "any": [
-                        "weapon:category:simple",
-                        "weapon:category:martial"
-                    ]
-                },
+                "definition": [
+                    "weapon:group:bow",
+                    {
+                        "or": [
+                            "weapon:category:simple",
+                            "weapon:category:martial"
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialBows",
                 "sameAs": "unarmed",
@@ -42,17 +42,15 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        "weapon:group:bow",
-                        {
-                            "gte": [
-                                "weapon:proficiency:rank",
-                                2
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    "weapon:group:bow",
+                    {
+                        "gte": [
+                            "weapon:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

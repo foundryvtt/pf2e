@@ -38,12 +38,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:seek",
-                        "action:sense-motive"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:sense-motive"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "item",
                 "value": 1

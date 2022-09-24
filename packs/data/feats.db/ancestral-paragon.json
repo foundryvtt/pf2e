@@ -28,11 +28,11 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops",
+                    "predicate": [
                         "item:feat-type:ancestry",
                         "item:level:1"
-                    ],
-                    "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops"
+                    ]
                 },
                 "choices": {
                     "query": "{\"system.featType.value\":\"ancestry\",\"system.level.value\":1,\"$or\":[{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.ancestry.trait}\"}},{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.heritage.trait}\"}}],\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"lineage\"}}}"

@@ -28,13 +28,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Against effects that would make you Immobilized, Paralyzed, or Slowed",
-                "predicate": {
-                    "any": [
-                        "effect:slowed",
-                        "effect:immobilized",
-                        "effect:paralyzed"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "effect:slowed",
+                            "effect:immobilized",
+                            "effect:paralyzed"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

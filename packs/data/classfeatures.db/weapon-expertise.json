@@ -41,13 +41,15 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.martial.rank",
-                "predicate": {
-                    "any": [
-                        "class:champion",
-                        "class:investigator",
-                        "class:magus"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion",
+                            "class:investigator",
+                            "class:magus"
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],

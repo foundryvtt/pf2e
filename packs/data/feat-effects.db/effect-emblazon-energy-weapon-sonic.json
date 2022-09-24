@@ -32,11 +32,11 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Sonic)",
-                "predicate": {
-                    "not": [
-                        "sonic-domain"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "sonic-domain"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponSonic}-damage"
             },
             {
@@ -45,11 +45,9 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Sonic Domain)",
-                "predicate": {
-                    "all": [
-                        "sonic-domain"
-                    ]
-                },
+                "predicate": [
+                    "sonic-domain"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponSonic}-damage"
             }
         ],

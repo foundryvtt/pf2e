@@ -28,15 +28,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Aquatic conversationalist (Make an Impression with amphibious or aquatic creatures)",
-                "predicate": {
-                    "all": [
-                        "action:make-an-impression"
-                    ],
-                    "any": [
-                        "target:trait:amphibious",
-                        "target:trait:aquatic"
-                    ]
-                },
+                "predicate": [
+                    "action:make-an-impression",
+                    {
+                        "or": [
+                            "target:trait:amphibious",
+                            "target:trait:aquatic"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1

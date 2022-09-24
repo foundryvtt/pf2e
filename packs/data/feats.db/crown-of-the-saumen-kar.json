@@ -51,22 +51,20 @@
             {
                 "key": "FlatModifier",
                 "label": "Sneak or Hide In Forest or Snow",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "action:sneak",
-                                "action:hide"
-                            ]
-                        },
-                        {
-                            "or": [
-                                "terrain:snow",
-                                "terrain:forest"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sneak",
+                            "action:hide"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "terrain:snow",
+                            "terrain:forest"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "value": 1
             },

@@ -43,25 +43,29 @@
             {
                 "key": "FlatModifier",
                 "label": "Reflective Ripple: Disarm, Swim, Trip",
-                "predicate": {
-                    "any": [
-                        "action:disarm",
-                        "action:swim",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:swim",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:trip",
-                        "action:disarm"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:trip",
+                            "action:disarm"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2

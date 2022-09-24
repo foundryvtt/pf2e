@@ -27,25 +27,21 @@
         "rules": [
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "agile",
+                    "hunted-prey"
+                ],
                 "selector": "attack",
                 "value": -2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -3
             }

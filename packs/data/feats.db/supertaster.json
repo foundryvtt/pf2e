@@ -32,15 +32,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Supertaster (recall knowledge or investigate via taste)",
-                "predicate": {
-                    "all": [
-                        "taste"
-                    ],
-                    "any": [
-                        "action:recall-knowledge",
-                        "action:investigate"
-                    ]
-                },
+                "predicate": [
+                    "taste",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:investigate"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 2

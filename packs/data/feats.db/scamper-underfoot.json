@@ -27,17 +27,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:tumble-through"
-                    ],
-                    "any": [
-                        "target:size:medium",
-                        "target:size:large",
-                        "target:size:huge",
-                        "target:size:gargantuan"
-                    ]
-                },
+                "predicate": [
+                    "action:tumble-through",
+                    {
+                        "or": [
+                            "target:size:medium",
+                            "target:size:large",
+                            "target:size:huge",
+                            "target:size:gargantuan"
+                        ]
+                    }
+                ],
                 "selector": "acrobatics",
                 "type": "circumstance",
                 "value": 1

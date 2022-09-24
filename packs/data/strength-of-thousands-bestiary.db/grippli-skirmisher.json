@@ -890,12 +890,14 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target-poisoned",
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target-poisoned",
+                                    "target:condition:flat-footed"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

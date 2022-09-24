@@ -19,12 +19,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Void Shroud",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": -2

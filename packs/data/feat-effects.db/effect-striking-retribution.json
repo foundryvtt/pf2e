@@ -19,12 +19,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Striking Retribution (vs. alghollthu and their servants) if alghollthu enchants ally",
-                "predicate": {
-                    "any": [
-                        "target:tag:alghollthu",
-                        "target:tag:alghollthu-servant"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:tag:alghollthu",
+                            "target:tag:alghollthu-servant"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": 4

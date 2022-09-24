@@ -34,16 +34,18 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "destructive-vengeance-negative",
-                        "destructive-vengeance-evil",
-                        "selfish-shield-negative",
-                        "selfish-shield-evil",
-                        "iron-command-negative",
-                        "iron-command-evil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "destructive-vengeance-negative",
+                            "destructive-vengeance-evil",
+                            "selfish-shield-negative",
+                            "selfish-shield-evil",
+                            "iron-command-negative",
+                            "iron-command-evil"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "Whenever you critically hit an enemy with the weapon inhabited by your blade ally while dealing extra damage from your champion's reaction, the target takes @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} equal to two of the weapon's damage dice.",
                 "title": "{item|name}"

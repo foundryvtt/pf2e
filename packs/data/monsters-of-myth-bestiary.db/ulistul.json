@@ -1792,11 +1792,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "origin:trait:construct"
-                            ]
-                        },
+                        "predicate": [
+                            "origin:trait:construct"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -1927,23 +1925,27 @@
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:trait:construct",
-                                "target:object"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:construct",
+                                    "target:object"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "untyped"
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "target:trait:construct",
-                                "target:object"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:construct",
+                                    "target:object"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "text": "Attacks against constructs and objects ignore up to 1- of the target's Hardness and resistances.",
                         "title": "{item|name}"

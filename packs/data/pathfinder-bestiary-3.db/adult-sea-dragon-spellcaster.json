@@ -3582,15 +3582,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -3778,21 +3780,17 @@
                     },
                     {
                         "key": "Resistance",
-                        "predicate": {
-                            "all": [
-                                "liquefy"
-                            ]
-                        },
+                        "predicate": [
+                            "liquefy"
+                        ],
                         "type": "fire",
                         "value": 20
                     },
                     {
                         "key": "Resistance",
-                        "predicate": {
-                            "all": [
-                                "liquefy"
-                            ]
-                        },
+                        "predicate": [
+                            "liquefy"
+                        ],
                         "type": "physical",
                         "value": 20
                     }

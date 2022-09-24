@@ -41,11 +41,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "{item|flags.pf2e.rulesSelections.resonance-choice}"
-                    ]
-                },
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.resonance-choice}"
+                ],
                 "selector": "attack",
                 "slug": "resonance-attack-1",
                 "type": "status",
@@ -53,11 +51,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "{item|flags.pf2e.rulesSelections.resonance-choice}"
-                    ]
-                },
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.resonance-choice}"
+                ],
                 "selector": "damage",
                 "slug": "resonance-damage-1",
                 "type": "status",
@@ -65,15 +61,13 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
-                        "self:trait:elemental"
-                    ],
-                    "not": [
-                        "{item|flags.pf2e.rulesSelections.resonance-choice}"
-                    ]
-                },
+                "predicate": [
+                    "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
+                    "self:trait:elemental",
+                    {
+                        "not": "{item|flags.pf2e.rulesSelections.resonance-choice}"
+                    }
+                ],
                 "selector": "attack",
                 "slug": "resonance-attack-2",
                 "type": "status",
@@ -81,15 +75,13 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
-                        "self:trait:elemental"
-                    ],
-                    "not": [
-                        "{item|flags.pf2e.rulesSelections.resonance-choice}"
-                    ]
-                },
+                "predicate": [
+                    "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
+                    "self:trait:elemental",
+                    {
+                        "not": "{item|flags.pf2e.rulesSelections.resonance-choice}"
+                    }
+                ],
                 "selector": "damage",
                 "slug": "resonance-damage-2",
                 "type": "status",

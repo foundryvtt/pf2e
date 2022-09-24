@@ -31,15 +31,15 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "dongun-ally"
-                    ],
-                    "any": [
-                        "action:gather-information",
-                        "action:make-an-impression"
-                    ]
-                },
+                "predicate": [
+                    "dongun-ally",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1

@@ -99,14 +99,16 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "any": [
-                        "self:hidden",
-                        "self:undetected",
-                        "self:unnoticed",
-                        "target:condition:blinded"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:hidden",
+                            "self:undetected",
+                            "self:unnoticed",
+                            "target:condition:blinded"
+                        ]
+                    }
+                ],
                 "selector": "{item|_id}-damage"
             }
         ],

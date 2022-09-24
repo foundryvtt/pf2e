@@ -40,30 +40,30 @@
             {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:effect:panache",
-                        {
-                            "or": [
-                                "weapon:melee",
-                                {
-                                    "and": [
-                                        "feat:flying-blade",
-                                        "weapon:thrown",
-                                        "target:range-increment:1"
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ],
-                    "not": [
-                        "finisher"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "weapon:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "weapon:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    },
+                    {
+                        "not": "finisher"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "finishing-precision",
                 "value": 1
@@ -73,28 +73,28 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "self:effect:panache",
-                        "finisher",
-                        {
-                            "or": [
-                                "weapon:melee",
-                                {
-                                    "and": [
-                                        "feat:flying-blade",
-                                        "weapon:thrown",
-                                        "target:range-increment:1"
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:panache",
+                    "finisher",
+                    {
+                        "or": [
+                            "weapon:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "weapon:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "finishing-precision"
             }

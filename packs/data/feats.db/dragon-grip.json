@@ -38,14 +38,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:make-an-impression"
-                    ],
-                    "any": [
-                        "target:trait:dragon"
-                    ]
-                },
+                "predicate": [
+                    "action:make-an-impression",
+                    {
+                        "or": [
+                            "target:trait:dragon"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 2

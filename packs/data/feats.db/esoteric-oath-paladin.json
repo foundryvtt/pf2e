@@ -42,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Esoteric Oath",
-                "predicate": {
-                    "all": [
-                        "esoteric-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "esoteric-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "esoteric-not-master",
                 "value": 4
@@ -58,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Esoteric Oath",
-                "predicate": {
-                    "all": [
-                        "esoteric-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "esoteric-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "esoteric-master",
                 "value": 6

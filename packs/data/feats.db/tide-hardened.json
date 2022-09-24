@@ -27,12 +27,14 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "cold",
-                        "water"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "cold",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "When you roll a success on a save against a cold or water effect, you get a critical success instead.",
                 "title": "{item|name}"
@@ -42,23 +44,27 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "cold",
-                        "water"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "cold",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "cold",
-                        "water"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "cold",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

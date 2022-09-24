@@ -186,22 +186,18 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "risky-surgery"
-                            ]
-                        },
+                        "predicate": [
+                            "risky-surgery"
+                        ],
                         "selector": "medicine",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "risky-surgery"
-                            ]
-                        },
+                        "predicate": [
+                            "risky-surgery"
+                        ],
                         "selector": "medicine",
                         "text": "When you @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat Wounds}, you can deal [[/r 1d8 #slashing]]{1d8 slashing damage} to your patient just before applying the effects of Treat Wounds. If you do, you gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead.",
                         "title": "{item|name}"
@@ -312,11 +308,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "weapon:tag:crossbow"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:tag:crossbow"
+                        ],
                         "selector": "bow-weapon-group-damage",
                         "type": "circumstance",
                         "value": 1
@@ -516,45 +510,45 @@
                 "perception": 2,
                 "rules": [
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:category:simple"
-                            ],
-                            "any": [
-                                "weapon:group:firearm",
-                                "weapon:tag:crossbow"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:category:simple",
+                            {
+                                "or": [
+                                    "weapon:group:firearm",
+                                    "weapon:tag:crossbow"
+                                ]
+                            }
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.SimpleFirearmsCrossbows",
                         "slug": "simple-firearms-crossbows",
                         "value": 2
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:category:martial"
-                            ],
-                            "any": [
-                                "weapon:group:firearm",
-                                "weapon:tag:crossbow"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:category:martial",
+                            {
+                                "or": [
+                                    "weapon:group:firearm",
+                                    "weapon:tag:crossbow"
+                                ]
+                            }
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.MartialFirearmsCrossbows",
                         "slug": "martial-firearms-crossbows",
                         "value": 2
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:category:advanced"
-                            ],
-                            "any": [
-                                "weapon:group:firearm",
-                                "weapon:tag:crossbow"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:category:advanced",
+                            {
+                                "or": [
+                                    "weapon:group:firearm",
+                                    "weapon:tag:crossbow"
+                                ]
+                            }
+                        ],
                         "key": "MartialProficiency",
                         "label": "PF2E.SpecificRule.MartialProficiency.AdvancedFirearmsCrossbows",
                         "slug": "advanced-firearms-crossbows",

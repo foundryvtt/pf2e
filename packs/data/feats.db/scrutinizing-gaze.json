@@ -27,12 +27,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:sense-motive",
-                        "target:trait:possessed"
-                    ]
-                },
+                "predicate": [
+                    "action:sense-motive",
+                    "target:trait:possessed"
+                ],
                 "selector": "perception",
                 "slug": "gaze-find-possessed",
                 "type": "circumstance",
@@ -40,12 +38,10 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:undead",
-                        "target:disguised"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:undead",
+                    "target:disguised"
+                ],
                 "selector": "perception",
                 "slug": "gaze-undead-disguise",
                 "type": "circumstance",
@@ -53,15 +49,15 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:seek"
-                    ],
-                    "any": [
-                        "haunt",
-                        "target:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    {
+                        "or": [
+                            "haunt",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "slug": "gaze-seek-undead-haunt",
                 "type": "circumstance",

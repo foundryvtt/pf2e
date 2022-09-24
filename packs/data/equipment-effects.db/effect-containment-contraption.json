@@ -19,12 +19,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inhaled",
-                        "olfactory"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inhaled",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "requireInvestment": false,
                 "selector": "saving-throw",
                 "type": "circumstance",

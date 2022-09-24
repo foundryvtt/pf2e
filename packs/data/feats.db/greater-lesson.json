@@ -34,13 +34,15 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "predicate": [
                         "item:trait:witch",
-                        "item:type:feature"
-                    ],
-                    "any": [
-                        "item:level:6",
-                        "item:level:2"
+                        "item:type:feature",
+                        {
+                            "or": [
+                                "item:level:6",
+                                "item:level:2"
+                            ]
+                        }
                     ]
                 },
                 "choices": [

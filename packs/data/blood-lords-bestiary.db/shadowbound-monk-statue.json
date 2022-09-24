@@ -169,17 +169,19 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "construct-armor",
-                                {
-                                    "lt": [
-                                        "hp-percent",
-                                        50
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "ac",
                         "value": -4
                     }

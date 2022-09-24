@@ -34,16 +34,16 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "finesse",
+                            "agile",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             },
             {

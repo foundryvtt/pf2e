@@ -30,27 +30,23 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "action:balance",
-                        {
-                            "or": [
-                                "terrain:stone",
-                                "terrain:earth"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:stone",
+                            "terrain:earth"
+                        ]
+                    }
+                ],
                 "selector": "acrobatics",
                 "type": "save"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "action:balance"
-                    ]
-                },
+                "predicate": [
+                    "action:balance"
+                ],
                 "selector": "acrobatics",
                 "text": "PF2E.SpecificRule.Dwarf.RockRunner.Note",
                 "title": "{item|name}"

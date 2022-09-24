@@ -1776,23 +1776,23 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.resources.focus.max",
-                        "predicate": {
-                            "not": [
-                                "feature:universalist"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:universalist"
+                            }
+                        ],
                         "priority": 9,
                         "value": 1
                     },
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Wizard class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:wizard",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 Wizard class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -1891,12 +1891,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Wizard class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:wizard",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 Wizard class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -3767,11 +3767,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -3802,11 +3800,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -3819,11 +3815,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -4284,14 +4278,12 @@
                     },
                     {
                         "key": "AdjustModifier",
-                        "predicate": {
-                            "all": [
-                                "substitute:assurance"
-                            ],
-                            "not": [
-                                "bonus:type:proficiency"
-                            ]
-                        },
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
                         "selector": "{item|flags.pf2e.rulesSelections.assurance}",
                         "suppress": true
                     }

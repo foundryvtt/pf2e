@@ -28,13 +28,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "darkness",
-                        "light",
-                        "shadow"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "darkness",
+                            "light",
+                            "shadow"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

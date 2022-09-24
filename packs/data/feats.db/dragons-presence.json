@@ -27,17 +27,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:demoralize",
-                        {
-                            "lt": [
-                                "target:level",
-                                "self:level"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "lt": [
+                            "target:level",
+                            "self:level"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
@@ -47,11 +45,9 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    "fear"
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
@@ -60,21 +56,17 @@
                     "failure": "one-degree-worse"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    "fear"
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    "fear"
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.SpecificRule.Kobold.DragonsPresence.Note",
                 "title": "{item|name}"

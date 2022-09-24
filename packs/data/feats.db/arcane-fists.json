@@ -39,12 +39,14 @@
                 "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 "key": "Strike",
                 "label": "PF2E.Strike.Fist.Label",
-                "predicate": {
-                    "not": [
-                        "feature:powerful-fist",
-                        "feat:martial-artist-dedication"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "nor": [
+                            "feature:powerful-fist",
+                            "feat:martial-artist-dedication"
+                        ]
+                    }
+                ],
                 "range": null,
                 "slug": "fist",
                 "traits": [
@@ -55,11 +57,9 @@
                 ]
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:trait:unarmed"
-                    ]
-                },
+                "definition": [
+                    "weapon:trait:unarmed"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "weapon-traits",

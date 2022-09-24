@@ -30,13 +30,15 @@
                 "override": {
                     "upgrade": true
                 },
-                "predicate": {
-                    "any": [
-                        "target:size:large",
-                        "target:size:huge",
-                        "target:size:gargantuan"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:size:large",
+                            "target:size:huge",
+                            "target:size:gargantuan"
+                        ]
+                    }
+                ],
                 "selector": "sling-weapon-group-damage"
             }
         ],

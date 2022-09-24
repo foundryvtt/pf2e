@@ -28,22 +28,18 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. mental effects (Called)",
-                "predicate": {
-                    "all": [
-                        "mental"
-                    ]
-                },
+                "predicate": [
+                    "mental"
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "mental"
-                    ]
-                },
+                "predicate": [
+                    "mental"
+                ],
                 "selector": "saving-throw",
                 "text": "When you roll a success on an saving throw against a mental effect that would make you controlled, you get a critical success instead.",
                 "title": "{item|name}"
@@ -53,12 +49,10 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "target:condition:controlled"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "target:condition:controlled"
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             }

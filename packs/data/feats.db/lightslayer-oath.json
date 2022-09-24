@@ -40,16 +40,16 @@
                 "damageType": "negative",
                 "key": "FlatModifier",
                 "label": "Lightslayer Oath",
-                "predicate": {
-                    "all": [
-                        "lightslayer-oath"
-                    ],
-                    "any": [
-                        "iron-command-negative",
-                        "selfish-shield-negative",
-                        "destructive-vengeance-negative"
-                    ]
-                },
+                "predicate": [
+                    "lightslayer-oath",
+                    {
+                        "or": [
+                            "iron-command-negative",
+                            "selfish-shield-negative",
+                            "destructive-vengeance-negative"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "lightslayer-neg",
                 "value": {
@@ -74,16 +74,16 @@
                 "damageType": "evil",
                 "key": "FlatModifier",
                 "label": "Lightslayer Oath",
-                "predicate": {
-                    "all": [
-                        "lightslayer-oath"
-                    ],
-                    "any": [
-                        "iron-command-evil",
-                        "selfish-shield-evil",
-                        "destructive-vengeance-evil"
-                    ]
-                },
+                "predicate": [
+                    "lightslayer-oath",
+                    {
+                        "or": [
+                            "iron-command-evil",
+                            "selfish-shield-evil",
+                            "destructive-vengeance-evil"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "lightslayer-evil",
                 "value": {

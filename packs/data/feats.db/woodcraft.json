@@ -31,35 +31,35 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "action:sense-direction",
-                                "action:subsist",
-                                "action:cover-tracks"
-                            ]
-                        },
-                        {
-                            "or": [
-                                "terrain:forest",
-                                "terrain:jungle"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:subsist",
+                            "action:cover-tracks"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "terrain:forest",
+                            "terrain:jungle"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "type": "skill"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "action:sense-direction",
-                        "action:subsist",
-                        "action:cover-tracks"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:subsist",
+                            "action:cover-tracks"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.SpecificRule.Elf.Woodcraft.Note",
                 "title": "{item|name}"

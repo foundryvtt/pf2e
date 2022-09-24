@@ -26,14 +26,12 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "gravity-weapon"
-                    ],
-                    "not": [
-                        "weapon:category:unarmed"
-                    ]
-                },
+                "predicate": [
+                    "gravity-weapon",
+                    {
+                        "not": "weapon:category:unarmed"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "gravity-weapon",
                 "type": "status",

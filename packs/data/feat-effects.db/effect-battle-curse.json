@@ -26,39 +26,35 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
                 "rollOption": "oracular-curse:stage"
             },
@@ -67,25 +63,29 @@
                 "key": "RollOption",
                 "label": "PF2E.OracleCurses.Battle.MadeAStrike",
                 "option": "battle-mystery",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ],
-                    "not": [
-                        "battle-mystery"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "battle-mystery"
+                    }
+                ],
                 "selector": "ac",
                 "slug": "battle-curse-ac",
                 "type": "status",
@@ -93,15 +93,17 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ],
-                    "not": [
-                        "battle-mystery"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "battle-mystery"
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "battle-curse-ac",
                 "type": "status",
@@ -109,18 +111,18 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "battle-mystery"
-                    ],
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ],
-                    "not": [
-                        "oracular-curse:stage:minor"
-                    ]
-                },
+                "predicate": [
+                    "battle-mystery",
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "oracular-curse:stage:minor"
+                    }
+                ],
                 "selector": "ac",
                 "slug": "battle-curse-ac-moderate",
                 "type": "status",
@@ -128,18 +130,18 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "battle-mystery"
-                    ],
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ],
-                    "not": [
-                        "oracular-curse:stage:minor"
-                    ]
-                },
+                "predicate": [
+                    "battle-mystery",
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    },
+                    {
+                        "not": "oracular-curse:stage:minor"
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "battle-curse-ac-moderate",
                 "type": "status",
@@ -147,13 +149,15 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate",
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "battle-curse-damage",
                 "type": "status",
@@ -161,22 +165,18 @@
             },
             {
                 "key": "FastHealing",
-                "predicate": {
-                    "all": [
-                        "encounter:non-trivial",
-                        "oracular-curse:stage:moderate"
-                    ]
-                },
+                "predicate": [
+                    "encounter:non-trivial",
+                    "oracular-curse:stage:moderate"
+                ],
                 "value": "floor(@actor.level/2)"
             },
             {
                 "key": "FastHealing",
-                "predicate": {
-                    "all": [
-                        "encounter:non-trivial",
-                        "oracular-curse:stage:major"
-                    ]
-                },
+                "predicate": [
+                    "encounter:non-trivial",
+                    "oracular-curse:stage:major"
+                ],
                 "value": "@actor.level"
             },
             {
@@ -184,24 +184,24 @@
                 "key": "RollOption",
                 "label": "PF2E.OracleCurses.Battle.NonTrivialEncounter",
                 "option": "encounter:non-trivial",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate",
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "key": "AdjustModifier",
                 "mode": "override",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:major",
+                    "oracular-curse:stage:extreme"
+                ],
                 "selectors": [
                     "strike-damage"
                 ],
@@ -210,12 +210,10 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:major",
+                    "oracular-curse:stage:extreme"
+                ],
                 "selector": "attack",
                 "slug": "battle-curse-attack",
                 "type": "status",

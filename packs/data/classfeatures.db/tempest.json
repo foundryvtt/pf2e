@@ -34,20 +34,18 @@
             {
                 "damageType": "electricity",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "class:oracle",
-                        "item:spell-slot",
-                        "damaging-effect",
-                        "item:damage:physical",
-                        {
-                            "or": [
-                                "air",
-                                "water"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "class:oracle",
+                    "item:spell-slot",
+                    "damaging-effect",
+                    "item:damage:physical",
+                    {
+                        "or": [
+                            "air",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "spell-damage",
                 "value": "@spell.level"
             }

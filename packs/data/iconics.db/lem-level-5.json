@@ -129,16 +129,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Keen Eyes (Seek hidden or undetected within 30 feet)",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "target:within-30-feet"
-                            ],
-                            "any": [
-                                "target:hidden",
-                                "target:undetected"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "target:within-30-feet",
+                            {
+                                "or": [
+                                    "target:hidden",
+                                    "target:undetected"
+                                ]
+                            }
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -185,11 +185,9 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "type": "skill"
                     }
@@ -250,12 +248,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Bard class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:bard",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Bard class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -4025,12 +4023,10 @@
                         "override": {
                             "upgrade": true
                         },
-                        "predicate": {
-                            "all": [
-                                "weapon:group:sling",
-                                "titan-mauler"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:group:sling",
+                            "titan-mauler"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -4196,22 +4192,18 @@
                     {
                         "key": "FlatModifier",
                         "label": "Breath control (vs. inhaled)",
-                        "predicate": {
-                            "all": [
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            "inhaled"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            "inhaled"
+                        ],
                         "selector": "saving-throw",
                         "text": "If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.",
                         "title": "{item|name}"
@@ -4271,11 +4263,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "wings"
-                            ]
-                        },
+                        "predicate": [
+                            "wings"
+                        ],
                         "selector": "performance",
                         "type": "circumstance",
                         "value": {

@@ -27,23 +27,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "illusion"
-                    ]
-                },
+                "predicate": [
+                    "illusion"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "illusion",
-                        "shadow"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "illusion",
+                            "shadow"
+                        ]
+                    }
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 1

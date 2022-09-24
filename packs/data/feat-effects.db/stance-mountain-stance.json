@@ -47,12 +47,14 @@
             },
             {
                 "key": "DexterityModifierCap",
-                "predicate": {
-                    "not": [
-                        "feat:mountain-stronghold",
-                        "feat:mountain-quake"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "nor": [
+                            "feat:mountain-stronghold",
+                            "feat:mountain-quake"
+                        ]
+                    }
+                ],
                 "value": 0
             },
             {
@@ -87,11 +89,9 @@
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:shove"
-                    ]
-                },
+                "predicate": [
+                    "action:shove"
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 2
@@ -99,11 +99,9 @@
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    "action:trip"
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2

@@ -21,14 +21,14 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "action:balance"
-                    ],
-                    "any": [
-                        "terrain:sand"
-                    ]
-                },
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:sand"
+                        ]
+                    }
+                ],
                 "selector": "acrobatics",
                 "type": "skill"
             }

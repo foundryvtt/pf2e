@@ -14,12 +14,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Rainfall Orc (Climb or Swim)",
-                "predicate": {
-                    "any": [
-                        "action:climb",
-                        "action:swim"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:climb",
+                            "action:swim"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 2
@@ -27,11 +29,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Rainfall Orc (vs. disease)",
-                "predicate": {
-                    "all": [
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    "disease"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

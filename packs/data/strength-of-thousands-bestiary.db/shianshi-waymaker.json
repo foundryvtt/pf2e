@@ -3505,13 +3505,15 @@
                         "diceNumber": 2,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:drained",
-                                "target:condition:frightened",
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:drained",
+                                    "target:condition:frightened",
+                                    "target:condition:flat-footed"
+                                ]
+                            }
+                        ],
                         "selector": "greatsword-damage"
                     }
                 ],

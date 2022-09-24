@@ -34,182 +34,176 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ModerateBattle",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ModerateSkillful",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ModerateSpellcasting",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate:spell"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MajorBattle",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MajorSkillful",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.MajorSpellcasting",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major:spell"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeBattle",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme:battle"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSkillful",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme:skill"
                     },
                     {
                         "label": "PF2E.OracleCurses.Ancestor.Label.ExtremeSpellcasting",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme:spell"
                     }
                 ],
                 "flag": "oracular-curse:stage",
                 "key": "ChoiceSet",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:minor:skill",
-                        "oracular-curse:stage:minor:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:minor:skill",
+                            "oracular-curse:stage:minor:spell"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:minor:battle",
-                        "oracular-curse:stage:minor:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:minor:battle",
+                            "oracular-curse:stage:minor:spell"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate:skill",
-                        "oracular-curse:stage:moderate:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate:skill",
+                            "oracular-curse:stage:moderate:spell"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate:battle",
-                        "oracular-curse:stage:moderate:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate:battle",
+                            "oracular-curse:stage:moderate:spell"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:major:skill",
-                        "oracular-curse:stage:major:spell",
-                        "oracular-curse:stage:extreme:skill",
-                        "oracular-curse:stage:extreme:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:skill",
+                            "oracular-curse:stage:major:spell",
+                            "oracular-curse:stage:extreme:skill",
+                            "oracular-curse:stage:extreme:spell"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:major:battle",
-                        "oracular-curse:stage:major:spell",
-                        "oracular-curse:stage:extreme:battle",
-                        "oracular-curse:stage:extreme:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:battle",
+                            "oracular-curse:stage:major:spell",
+                            "oracular-curse:stage:extreme:battle",
+                            "oracular-curse:stage:extreme:spell"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
                 "title": "{item|name}"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "item:spell-slot",
-                        "item:duration:0",
-                        "damaging-effect",
-                        "oracular-curse:stage:moderate:spell"
-                    ]
-                },
+                "predicate": [
+                    "item:spell-slot",
+                    "item:duration:0",
+                    "damaging-effect",
+                    "oracular-curse:stage:moderate:spell"
+                ],
                 "selector": "spell-damage",
                 "slug": "moderate-spell",
                 "type": "status",
@@ -217,17 +211,17 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "item:spell-slot",
-                        "item:duration:0",
-                        "damaging-effect"
-                    ],
-                    "any": [
-                        "oracular-curse:stage:major:spell",
-                        "oracular-curse:stage:extreme:spell"
-                    ]
-                },
+                "predicate": [
+                    "item:spell-slot",
+                    "item:duration:0",
+                    "damaging-effect",
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:spell",
+                            "oracular-curse:stage:extreme:spell"
+                        ]
+                    }
+                ],
                 "selector": "spell-damage",
                 "slug": "major-spell",
                 "type": "status",
@@ -235,24 +229,24 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate:battle",
-                        "oracular-curse:stage:major:battle",
-                        "oracular-curse:stage:extreme:battle"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate:battle",
+                            "oracular-curse:stage:major:battle",
+                            "oracular-curse:stage:extreme:battle"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:moderate:battle"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:moderate:battle"
+                ],
                 "selector": "strike-damage",
                 "slug": "curse-moderate-battle",
                 "type": "status",
@@ -260,12 +254,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:major:battle",
-                        "oracular-curse:stage:extreme:battle"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:battle",
+                            "oracular-curse:stage:extreme:battle"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "curse-major-battle",
                 "type": "status",
@@ -273,11 +269,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:moderate:skill"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:moderate:skill"
+                ],
                 "selector": "skill-check",
                 "slug": "curse-moderate-skill",
                 "type": "status",
@@ -285,11 +279,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:moderate:skill"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:moderate:skill"
+                ],
                 "selector": "perception",
                 "slug": "curse-moderate-perception",
                 "type": "status",
@@ -297,12 +289,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:major:skill",
-                        "oracular-curse:stage:extreme:skill"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:skill",
+                            "oracular-curse:stage:extreme:skill"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "slug": "curse-major-skill",
                 "type": "status",
@@ -310,12 +304,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:major:skill",
-                        "oracular-curse:stage:extreme:skill"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:skill",
+                            "oracular-curse:stage:extreme:skill"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "slug": "curse-major-perception",
                 "type": "status",

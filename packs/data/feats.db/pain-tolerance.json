@@ -31,13 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inflicts:clumsy",
-                        "inflicts:drained",
-                        "inflicts:enfeebled"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:clumsy",
+                            "inflicts:drained",
+                            "inflicts:enfeebled"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "value": 1
             },

@@ -91,11 +91,9 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "target:trait:animal"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:animal"
+                ],
                 "selector": "{item|_id}-damage",
                 "text": "On a critical hit against an animal, the boastful hunter also deals @Localize[PF2E.PersistentDamage.Bleed1d6.success].",
                 "title": "{item|name}"
@@ -103,23 +101,19 @@
             {
                 "diceNumber": 1,
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:trait:animal"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:animal"
+                ],
                 "selector": "{item|_id}-damage"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "bored-weapon"
-                    ],
-                    "not": [
-                        "target:trait:animal"
-                    ]
-                },
+                "predicate": [
+                    "bored-weapon",
+                    {
+                        "not": "target:trait:animal"
+                    }
+                ],
                 "selector": "{item|_id}-attack",
                 "type": "item",
                 "value": -1
@@ -140,55 +134,45 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "insulted-weapon"
-                    ]
-                },
+                "predicate": [
+                    "insulted-weapon"
+                ],
                 "selector": "intimidation",
                 "type": "item",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "insulted-weapon"
-                    ]
-                },
+                "predicate": [
+                    "insulted-weapon"
+                ],
                 "selector": "deception",
                 "type": "item",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "insulted-weapon"
-                    ]
-                },
+                "predicate": [
+                    "insulted-weapon"
+                ],
                 "selector": "diplomacy",
                 "type": "item",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "insulted-weapon"
-                    ]
-                },
+                "predicate": [
+                    "insulted-weapon"
+                ],
                 "selector": "{item|_id}-attack",
                 "type": "item",
                 "value": -1
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "insulted-weapon"
-                    ]
-                },
+                "predicate": [
+                    "insulted-weapon"
+                ],
                 "selector": "{item|_id}-attack",
                 "text": "All attacks with an insulted <em>boastful hunter</em> incur a @Check[type:flat|dc:5] check misfire chance until the weapon is appeased.",
                 "title": "{item|name}"

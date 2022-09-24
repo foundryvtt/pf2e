@@ -30,11 +30,9 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Magus.SparklingTarge.DefendingLabel",
                 "option": "defend-against-magic",
-                "predicate": {
-                    "all": [
-                        "self:effect:arcane-cascade"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:arcane-cascade"
+                ],
                 "toggleable": true
             },
             {
@@ -42,13 +40,11 @@
                 "mode": "add",
                 "path": "system.attributes.shield.hardness",
                 "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "defend-against-magic",
-                        "self:effect:arcane-cascade",
-                        "self:shield:raised"
-                    ]
-                },
+                "predicate": [
+                    "defend-against-magic",
+                    "self:effect:arcane-cascade",
+                    "self:shield:raised"
+                ],
                 "value": 1
             },
             {
@@ -56,14 +52,12 @@
                 "mode": "add",
                 "path": "system.attributes.shield.hardness",
                 "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "defend-against-magic",
-                        "self:effect:arcane-cascade",
-                        "self:shield:raised",
-                        "feature:weapon-specialization"
-                    ]
-                },
+                "predicate": [
+                    "defend-against-magic",
+                    "self:effect:arcane-cascade",
+                    "self:shield:raised",
+                    "feature:weapon-specialization"
+                ],
                 "value": 1
             },
             {
@@ -71,28 +65,26 @@
                 "mode": "add",
                 "path": "system.attributes.shield.hardness",
                 "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "defend-against-magic",
-                        "self:effect:arcane-cascade",
-                        "self:shield:raised",
-                        "feature:greater-weapon-specialization"
-                    ]
-                },
+                "predicate": [
+                    "defend-against-magic",
+                    "self:effect:arcane-cascade",
+                    "self:shield:raised",
+                    "feature:greater-weapon-specialization"
+                ],
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:shield:raised",
-                        "self:effect:arcane-cascade"
-                    ],
-                    "any": [
-                        "magical",
-                        "spell"
-                    ]
-                },
+                "predicate": [
+                    "self:shield:raised",
+                    "self:effect:arcane-cascade",
+                    {
+                        "or": [
+                            "magical",
+                            "spell"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": "@actor.system.attributes.shield.ac"

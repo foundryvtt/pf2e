@@ -31,28 +31,26 @@
                 "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:group:{item|flags.pf2e.rulesSelections.fighterWeaponMastery}"
-                    ],
-                    "any": [
-                        "weapon:category:unarmed",
-                        "weapon:category:simple",
-                        "weapon:category:martial"
-                    ]
-                },
+                "definition": [
+                    "weapon:group:{item|flags.pf2e.rulesSelections.fighterWeaponMastery}",
+                    {
+                        "or": [
+                            "weapon:category:unarmed",
+                            "weapon:category:simple",
+                            "weapon:category:martial"
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.SimpleMartial.{item|flags.pf2e.rulesSelections.fighterWeaponMastery}",
                 "slug": "weapon-mastery-simple-martial",
                 "value": 3
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:category:advanced",
-                        "weapon:group:{item|flags.pf2e.rulesSelections.fighterWeaponMastery}"
-                    ]
-                },
+                "definition": [
+                    "weapon:category:advanced",
+                    "weapon:group:{item|flags.pf2e.rulesSelections.fighterWeaponMastery}"
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Advanced.{item|flags.pf2e.rulesSelections.fighterWeaponMastery}",
                 "slug": "weapon-mastery-advanced",
@@ -60,16 +58,14 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "weapon:proficiency:rank",
-                                3
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    {
+                        "gte": [
+                            "weapon:proficiency:rank",
+                            3
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

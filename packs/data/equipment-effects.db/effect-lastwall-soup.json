@@ -20,12 +20,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Lastwall Soup (vs. undead)",
-                "predicate": {
-                    "any": [
-                        "target:trait:undead",
-                        "origin:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:undead",
+                            "origin:trait:undead"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "item",
                 "value": 2

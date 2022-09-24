@@ -45,15 +45,15 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "weapon:category:simple",
-                        "weapon:category:martial"
-                    ]
-                }
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "weapon:category:simple",
+                            "weapon:category:martial"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

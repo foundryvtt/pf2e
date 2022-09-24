@@ -28,12 +28,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Hazard Finder (to find traps and hazards)",
-                "predicate": {
-                    "any": [
-                        "trap",
-                        "hazard"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 1
@@ -41,12 +43,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Hazard Finder (vs. attacks from traps and hazards)",
-                "predicate": {
-                    "any": [
-                        "trap",
-                        "hazard"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 1
@@ -54,12 +58,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Hazard Finder (saves vs. traps and hazards)",
-                "predicate": {
-                    "any": [
-                        "trap",
-                        "hazard"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

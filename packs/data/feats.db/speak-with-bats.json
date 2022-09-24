@@ -31,15 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:tag:bat"
-                    ],
-                    "any": [
-                        "action:make-an-impression",
-                        "action:request"
-                    ]
-                },
+                "predicate": [
+                    "target:tag:bat",
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 2

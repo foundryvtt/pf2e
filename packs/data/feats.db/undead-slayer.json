@@ -27,14 +27,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:undead"
-                    ],
-                    "not": [
-                        "target:trait:vampire"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:undead",
+                    {
+                        "not": "target:trait:vampire"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "undead-slayer",
                 "type": "circumstance",
@@ -42,11 +40,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:trait:vampire"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:vampire"
+                ],
                 "selector": "strike-damage",
                 "slug": "undead-slayer-vampire",
                 "type": "circumstance",

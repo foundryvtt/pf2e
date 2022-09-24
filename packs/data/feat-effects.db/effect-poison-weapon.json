@@ -19,15 +19,15 @@
             {
                 "choices": {
                     "ownedItems": true,
-                    "predicate": {
-                        "all": [
-                            "item:equipped"
-                        ],
-                        "any": [
-                            "item:damage:type:slashing",
-                            "item:damage:type:piercing"
-                        ]
-                    },
+                    "predicate": [
+                        "item:equipped",
+                        {
+                            "or": [
+                                "item:damage:type:slashing",
+                                "item:damage:type:piercing"
+                            ]
+                        }
+                    ],
                     "types": [
                         "weapon"
                     ]

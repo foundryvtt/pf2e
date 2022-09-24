@@ -35,12 +35,10 @@
             {
                 "key": "FlatModifier",
                 "label": "Exhort the Faithful (Request members of your faith)",
-                "predicate": {
-                    "all": [
-                        "action:request",
-                        "member-of-your-faith"
-                    ]
-                },
+                "predicate": [
+                    "action:request",
+                    "member-of-your-faith"
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 2
@@ -48,12 +46,10 @@
             {
                 "key": "FlatModifier",
                 "label": "Exhort the Faithful (Coerce members of your faith)",
-                "predicate": {
-                    "all": [
-                        "action:coerce",
-                        "member-of-your-faith"
-                    ]
-                },
+                "predicate": [
+                    "action:coerce",
+                    "member-of-your-faith"
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 2
@@ -61,15 +57,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Exhort the Faithful (Request/Coerce members of your faith)",
-                "predicate": {
-                    "all": [
-                        "member-of-your-faith"
-                    ],
-                    "any": [
-                        "action:request",
-                        "action:coerce"
-                    ]
-                },
+                "predicate": [
+                    "member-of-your-faith",
+                    {
+                        "or": [
+                            "action:request",
+                            "action:coerce"
+                        ]
+                    }
+                ],
                 "selector": "religion",
                 "type": "circumstance",
                 "value": 2

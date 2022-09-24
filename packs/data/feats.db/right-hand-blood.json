@@ -28,16 +28,16 @@
             {
                 "fromEquipment": false,
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "right-hand-blood"
-                    ],
-                    "any": [
-                        "action:treat-wounds",
-                        "action:treat-disease",
-                        "action:administer-first-aid"
-                    ]
-                },
+                "predicate": [
+                    "right-hand-blood",
+                    {
+                        "or": [
+                            "action:treat-wounds",
+                            "action:treat-disease",
+                            "action:administer-first-aid"
+                        ]
+                    }
+                ],
                 "selector": "medicine",
                 "type": "item",
                 "value": 1

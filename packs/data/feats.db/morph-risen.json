@@ -31,11 +31,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "transmutation"
-                    ]
-                },
+                "predicate": [
+                    "transmutation"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -45,12 +43,14 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "item:trait:polymorph",
-                        "item:trait:morph"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:polymorph",
+                            "item:trait:morph"
+                        ]
+                    }
+                ],
                 "selector": "all",
                 "type": "save"
             }

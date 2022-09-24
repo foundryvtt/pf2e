@@ -27,15 +27,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:sense-motive"
-                    ],
-                    "any": [
-                        "target:trait:possessed",
-                        "target:trait:enchanted"
-                    ]
-                },
+                "predicate": [
+                    "action:sense-motive",
+                    {
+                        "or": [
+                            "target:trait:possessed",
+                            "target:trait:enchanted"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2

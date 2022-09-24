@@ -44,12 +44,10 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.BountyHunterDedication.GatherInfoHuntedPrey",
-                "predicate": {
-                    "all": [
-                        "action:gather-information",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:gather-information",
+                    "hunted-prey"
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 2
@@ -58,16 +56,14 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.sur.rank",
-                "predicate": {
-                    "all": [
-                        {
-                            "gt": [
-                                "grants-hunt-prey",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "gt": [
+                            "grants-hunt-prey",
+                            1
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],

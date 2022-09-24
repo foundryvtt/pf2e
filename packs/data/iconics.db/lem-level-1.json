@@ -129,16 +129,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Keen Eyes (Seek hidden or undetected within 30 feet)",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "target:within-30-feet"
-                            ],
-                            "any": [
-                                "target:hidden",
-                                "target:undetected"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "target:within-30-feet",
+                            {
+                                "or": [
+                                    "target:hidden",
+                                    "target:undetected"
+                                ]
+                            }
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -185,11 +185,9 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion"
+                        ],
                         "selector": "saving-throw",
                         "type": "skill"
                     }
@@ -250,12 +248,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "1st-level Bard class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:bard",
                                 "item:type:feature"
-                            ],
-                            "label": "1st-level Bard class feature"
+                            ]
                         },
                         "choices": [
                             {

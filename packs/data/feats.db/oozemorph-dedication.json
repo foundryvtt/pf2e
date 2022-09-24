@@ -27,11 +27,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:engulf"
-                    ]
-                },
+                "predicate": [
+                    "action:engulf"
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2
@@ -51,12 +49,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Oozemorph: vs. Animals or Humanoids",
-                "predicate": {
-                    "any": [
-                        "target:trait:animal",
-                        "target:trait:humanoid"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:animal",
+                            "target:trait:humanoid"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": "max(-1 * @actor.system.custom.modifiers.oozemorphDedicationCount, -4)"

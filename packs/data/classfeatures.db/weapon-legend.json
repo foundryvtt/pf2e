@@ -31,28 +31,26 @@
                 "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
-                    ],
-                    "any": [
-                        "weapon:category:unarmed",
-                        "weapon:category:simple",
-                        "weapon:category:martial"
-                    ]
-                },
+                "definition": [
+                    "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}",
+                    {
+                        "or": [
+                            "weapon:category:unarmed",
+                            "weapon:category:simple",
+                            "weapon:category:martial"
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.SimpleMartial.{item|flags.pf2e.rulesSelections.weaponLegend}",
                 "slug": "weapon-legend-simple-martial",
                 "value": 4
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:category:advanced",
-                        "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
-                    ]
-                },
+                "definition": [
+                    "weapon:category:advanced",
+                    "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Advanced.{item|flags.pf2e.rulesSelections.weaponLegend}",
                 "slug": "weapon-legend-advanced",

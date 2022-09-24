@@ -278,16 +278,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ImpersonateCloakSheetRay",
-                        "predicate": {
-                            "all": [
-                                "action:impersonate"
-                            ],
-                            "any": [
-                                "cloak",
-                                "sheet",
-                                "ray"
-                            ]
-                        },
+                        "predicate": [
+                            "action:impersonate",
+                            {
+                                "or": [
+                                    "cloak",
+                                    "sheet",
+                                    "ray"
+                                ]
+                            }
+                        ],
                         "selector": "deception",
                         "value": 2
                     }

@@ -25,12 +25,14 @@
                     },
                     {
                         "label": "PF2E.TraitLawful",
-                        "predicate": {
-                            "any": [
-                                "self:trait:lawful",
-                                "sacred-ki:lawful"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "self:trait:lawful",
+                                    "sacred-ki:lawful"
+                                ]
+                            }
+                        ],
                         "value": "lawful"
                     },
                     {
@@ -43,86 +45,80 @@
                     },
                     {
                         "label": "PF2E.TraitElectricity",
-                        "predicate": {
-                            "any": [
-                                "feat:elemental-fist",
-                                "entwined-energy-ki:electricity"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feat:elemental-fist",
+                                    "entwined-energy-ki:electricity"
+                                ]
+                            }
+                        ],
                         "value": "electricity"
                     },
                     {
                         "label": "PF2E.TraitBludgeoning",
-                        "predicate": {
-                            "all": [
-                                "feat:elemental-fist"
-                            ]
-                        },
+                        "predicate": [
+                            "feat:elemental-fist"
+                        ],
                         "value": "bludgeoning"
                     },
                     {
                         "label": "PF2E.TraitFire",
-                        "predicate": {
-                            "any": [
-                                "feat:elemental-fist",
-                                "entwined-energy-ki:fire"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feat:elemental-fist",
+                                    "entwined-energy-ki:fire"
+                                ]
+                            }
+                        ],
                         "value": "fire"
                     },
                     {
                         "label": "PF2E.TraitCold",
-                        "predicate": {
-                            "any": [
-                                "feat:elemental-fist",
-                                "entwined-energy-ki:cold"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feat:elemental-fist",
+                                    "entwined-energy-ki:cold"
+                                ]
+                            }
+                        ],
                         "value": "cold"
                     },
                     {
                         "label": "PF2E.TraitChaotic",
-                        "predicate": {
-                            "all": [
-                                "sacred-ki:chaos"
-                            ]
-                        },
+                        "predicate": [
+                            "sacred-ki:chaos"
+                        ],
                         "value": "chaotic"
                     },
                     {
                         "label": "PF2E.TraitEvil",
-                        "predicate": {
-                            "all": [
-                                "sacred-ki:evil"
-                            ]
-                        },
+                        "predicate": [
+                            "sacred-ki:evil"
+                        ],
                         "value": "evil"
                     },
                     {
                         "label": "PF2E.TraitGood",
-                        "predicate": {
-                            "all": [
-                                "sacred-ki:good"
-                            ]
-                        },
+                        "predicate": [
+                            "sacred-ki:good"
+                        ],
                         "value": "good"
                     },
                     {
                         "label": "PF2E.TraitAcid",
-                        "predicate": {
-                            "all": [
-                                "entwined-energy-ki:acid"
-                            ]
-                        },
+                        "predicate": [
+                            "entwined-energy-ki:acid"
+                        ],
                         "value": "acid"
                     },
                     {
                         "label": "PF2E.TraitSonic",
-                        "predicate": {
-                            "all": [
-                                "entwined-energy-ki:sonic"
-                            ]
-                        },
+                        "predicate": [
+                            "entwined-energy-ki:sonic"
+                        ],
                         "value": "sonic"
                     }
                 ],
@@ -175,33 +171,27 @@
             {
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "ki-strike:electricity"
-                    ]
-                },
+                "predicate": [
+                    "ki-strike:electricity"
+                ],
                 "property": "weapon-traits",
                 "value": "air"
             },
             {
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "ki-strike:bludgeoning"
-                    ]
-                },
+                "predicate": [
+                    "ki-strike:bludgeoning"
+                ],
                 "property": "weapon-traits",
                 "value": "earth"
             },
             {
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "ki-strike:cold"
-                    ]
-                },
+                "predicate": [
+                    "ki-strike:cold"
+                ],
                 "property": "weapon-traits",
                 "value": "water"
             }

@@ -1782,12 +1782,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "dream",
-                                "sleep"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "dream",
+                                    "sleep"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2

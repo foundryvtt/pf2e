@@ -69,12 +69,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Ghoul Hide (vs. disease & paralysis)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "paralysis"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "paralysis"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 1

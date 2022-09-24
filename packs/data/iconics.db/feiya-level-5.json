@@ -110,12 +110,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                            "predicate": [
                                 "item:type:feat",
                                 "item:level:1",
                                 "item:trait:general"
-                            ],
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
@@ -188,17 +188,17 @@
                     {
                         "key": "FlatModifier",
                         "label": "Oddity Identification (identify magic with specific traits)",
-                        "predicate": {
-                            "all": [
-                                "action:identify-magic"
-                            ],
-                            "any": [
-                                "mental",
-                                "possession",
-                                "prediction",
-                                "scrying"
-                            ]
-                        },
+                        "predicate": [
+                            "action:identify-magic",
+                            {
+                                "or": [
+                                    "mental",
+                                    "possession",
+                                    "prediction",
+                                    "scrying"
+                                ]
+                            }
+                        ],
                         "selector": "occultism",
                         "type": "circumstance",
                         "value": 2
@@ -264,11 +264,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.witch}.rank",
-                        "predicate": {
-                            "all": [
-                                "class:witch"
-                            ]
-                        },
+                        "predicate": [
+                            "class:witch"
+                        ],
                         "value": {
                             "brackets": [
                                 {
@@ -297,11 +295,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Witch feature",
+                            "predicate": [
                                 "item:trait:witch",
                                 "item:level:1"
-                            ],
-                            "label": "level 1 Witch feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -1519,11 +1517,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1554,11 +1550,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1571,11 +1565,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -5697,12 +5689,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                            "predicate": [
                                 "item:type:feat",
                                 "item:level:1",
                                 "item:trait:general"
-                            ],
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
@@ -5846,7 +5838,7 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "predicate": [
                                 "item:level:2",
                                 "item:trait:witch",
                                 "item:type:feature"
@@ -6043,12 +6035,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Critical success on Recognize Spell",
-                        "predicate": {
-                            "all": [
-                                "action:recognize-spell",
-                                "critical-success"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recognize-spell",
+                            "critical-success"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1
@@ -6056,12 +6046,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Critical success on Recognize Spell",
-                        "predicate": {
-                            "all": [
-                                "action:recognize-spell",
-                                "critical-success"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recognize-spell",
+                            "critical-success"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 1

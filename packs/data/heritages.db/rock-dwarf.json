@@ -15,12 +15,14 @@
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "label": "PF2E.SkillVariant.VsShoveOrTrip",
-                "predicate": {
-                    "any": [
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 2
@@ -29,12 +31,14 @@
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "label": "PF2E.SkillVariant.VsShoveOrTrip",
-                "predicate": {
-                    "any": [
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2
@@ -42,11 +46,9 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SkillVariant.VsProne",
-                "predicate": {
-                    "any": [
-                        "inflicts:prone"
-                    ]
-                },
+                "predicate": [
+                    "inflicts:prone"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2

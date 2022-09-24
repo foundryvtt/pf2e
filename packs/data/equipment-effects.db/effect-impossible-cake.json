@@ -20,12 +20,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Impossible Cake",
-                "predicate": {
-                    "any": [
-                        "action:Impersonate",
-                        "action:lie"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:Impersonate",
+                            "action:lie"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "item",
                 "value": 2

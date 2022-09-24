@@ -157,23 +157,23 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.resources.focus.max",
-                        "predicate": {
-                            "not": [
-                                "feature:universalist"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:universalist"
+                            }
+                        ],
                         "priority": 9,
                         "value": 1
                     },
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Wizard class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:wizard",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 Wizard class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -272,12 +272,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Wizard class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:wizard",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 Wizard class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -898,28 +898,28 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Wizard metamagic feat",
+                            "predicate": [
                                 "item:trait:wizard",
                                 "item:level:1",
                                 "item:trait:metamagic"
-                            ],
-                            "label": "level 1 Wizard metamagic feat"
+                            ]
                         },
                         "choices": [
                             {
-                                "predicate": {
-                                    "not": [
-                                        "feat:reach-spell"
-                                    ]
-                                },
+                                "predicate": [
+                                    {
+                                        "not": "feat:reach-spell"
+                                    }
+                                ],
                                 "value": "Compendium.pf2e.feats-srd.BWomK7EVY0WXxWgh"
                             },
                             {
-                                "predicate": {
-                                    "not": [
-                                        "feat:widen-spell"
-                                    ]
-                                },
+                                "predicate": [
+                                    {
+                                        "not": "feat:widen-spell"
+                                    }
+                                ],
                                 "value": "Compendium.pf2e.feats-srd.FoWO4RnHRwfEIC7Q"
                             }
                         ],
@@ -1741,11 +1741,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1776,11 +1774,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1793,11 +1789,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -4625,11 +4619,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops",
+                            "predicate": [
                                 "item:featType:ancestry",
                                 "item:level:1"
-                            ],
-                            "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.featType.value\":\"ancestry\",\"system.level.value\":1,\"$or\":[{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.ancestry.trait}\"}},{\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.heritage.trait}\"}}],\"$not\":{\"system.traits.value\":{\"$elemMatch\":\"lineage\"}}}"

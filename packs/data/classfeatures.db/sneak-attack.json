@@ -29,24 +29,24 @@
                 "category": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "class:rogue",
-                        "target:condition:flat-footed"
-                    ],
-                    "any": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse",
-                        {
-                            "and": [
-                                "weapon:ranged",
-                                {
-                                    "not": "weapon:thrown-melee"
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "class:rogue",
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse",
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [

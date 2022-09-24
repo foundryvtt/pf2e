@@ -51,16 +51,14 @@
             {
                 "except": "adamantine",
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        {
-                            "lt": [
-                                "hp-percent",
-                                50
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
                 "type": "physical",
                 "value": "@actor.system.abilities.con.mod"
             },
@@ -69,16 +67,14 @@
                 "override": {
                     "dieSize": "d10"
                 },
-                "predicate": {
-                    "all": [
-                        {
-                            "lt": [
-                                "hp-percent",
-                                50
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
                 "selector": "stone-fist-damage"
             }
         ],

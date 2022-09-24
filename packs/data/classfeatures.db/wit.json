@@ -27,14 +27,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ],
-                    "any": [
-                        "action:bon-mot"
-                    ]
-                },
+                "predicate": [
+                    "panache",
+                    {
+                        "or": [
+                            "action:bon-mot"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -43,20 +43,16 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.dip.rank",
-                "predicate": {
-                    "all": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "class:swashbuckler"
+                ],
                 "value": 1
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "class:swashbuckler"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Bon Mot"
             }
         ],

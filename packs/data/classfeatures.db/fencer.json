@@ -27,15 +27,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ],
-                    "any": [
-                        "action:feint",
-                        "action:create-a-diversion"
-                    ]
-                },
+                "predicate": [
+                    "panache",
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:create-a-diversion"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -44,11 +44,9 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.dec.rank",
-                "predicate": {
-                    "all": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "class:swashbuckler"
+                ],
                 "value": 1
             }
         ],

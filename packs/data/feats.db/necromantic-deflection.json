@@ -27,12 +27,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:effect:raise-a-shield",
-                        "necromancy"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:raise-a-shield",
+                    "necromancy"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": "@actor.attributes.shield.ac"

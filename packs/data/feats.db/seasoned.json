@@ -32,16 +32,16 @@
             {
                 "key": "FlatModifier",
                 "label": "Seasoned (craft food, drink & potions)",
-                "predicate": {
-                    "all": [
-                        "action:craft"
-                    ],
-                    "any": [
-                        "food",
-                        "drink",
-                        "potion"
-                    ]
-                },
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "food",
+                            "drink",
+                            "potion"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": {

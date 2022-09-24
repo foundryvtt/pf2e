@@ -34,17 +34,15 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "action:demoralize",
-                        {
-                            "gt": [
-                                "self:level",
-                                "target:level"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "gt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"

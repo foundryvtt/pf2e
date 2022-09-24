@@ -28,14 +28,16 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
-                        "item:type:deity"
-                    ],
-                    "any": [
-                        "item:category:deity",
-                        "item:category:pantheon"
-                    ],
-                    "label": "PF2E.SpecificRule.AllowedDrops.DeityOrPantheon"
+                    "label": "PF2E.SpecificRule.AllowedDrops.DeityOrPantheon",
+                    "predicate": [
+                        "item:type:deity",
+                        {
+                            "or": [
+                                "item:category:deity",
+                                "item:category:pantheon"
+                            ]
+                        }
+                    ]
                 },
                 "choices": {
                     "itemType": "deity",
@@ -53,60 +55,48 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops",
+                    "predicate": [
                         "item:level:1",
                         "item:trait:champion",
                         "item:type:feature"
-                    ],
-                    "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops"
+                    ]
                 },
                 "choices": [
                     {
-                        "predicate": {
-                            "all": [
-                                "deity:primary:alignment:follower:lg"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:alignment:follower:lg"
+                        ],
                         "value": "Compendium.pf2e.classfeatures.Paladin"
                     },
                     {
-                        "predicate": {
-                            "all": [
-                                "deity:primary:alignment:follower:ng"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:alignment:follower:ng"
+                        ],
                         "value": "Compendium.pf2e.classfeatures.Redeemer"
                     },
                     {
-                        "predicate": {
-                            "all": [
-                                "deity:primary:alignment:follower:cg"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:alignment:follower:cg"
+                        ],
                         "value": "Compendium.pf2e.classfeatures.Liberator"
                     },
                     {
-                        "predicate": {
-                            "all": [
-                                "deity:primary:alignment:follower:le"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:alignment:follower:le"
+                        ],
                         "value": "Compendium.pf2e.classfeatures.Tyrant"
                     },
                     {
-                        "predicate": {
-                            "all": [
-                                "deity:primary:alignment:follower:ne"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:alignment:follower:ne"
+                        ],
                         "value": "Compendium.pf2e.classfeatures.Desecrator"
                     },
                     {
-                        "predicate": {
-                            "all": [
-                                "deity:primary:alignment:follower:ce"
-                            ]
-                        },
+                        "predicate": [
+                            "deity:primary:alignment:follower:ce"
+                        ],
                         "value": "Compendium.pf2e.classfeatures.Antipaladin"
                     }
                 ],

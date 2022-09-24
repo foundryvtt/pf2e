@@ -26,26 +26,26 @@
         },
         "rules": [
             {
-                "definition": {
-                    "all": [
-                        "weapon:group:bow"
-                    ],
-                    "any": [
-                        "weapon:base:longbow",
-                        "weapon:base:shortbow",
-                        {
-                            "and": [
-                                "weapon:trait:monk",
-                                {
-                                    "or": [
-                                        "weapon:category:simple",
-                                        "weapon:category:martial"
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "definition": [
+                    "weapon:group:bow",
+                    {
+                        "or": [
+                            "weapon:base:longbow",
+                            "weapon:base:shortbow",
+                            {
+                                "and": [
+                                    "weapon:trait:monk",
+                                    {
+                                        "or": [
+                                            "weapon:category:simple",
+                                            "weapon:category:martial"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MonasticArchery",
                 "slug": "monastic-archery"
@@ -54,22 +54,18 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.monastic-archery.rank",
-                "predicate": {
-                    "all": [
-                        "feature:expert-strikes"
-                    ]
-                },
+                "predicate": [
+                    "feature:expert-strikes"
+                ],
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.monastic-archery.rank",
-                "predicate": {
-                    "all": [
-                        "feature:master-strikes"
-                    ]
-                },
+                "predicate": [
+                    "feature:master-strikes"
+                ],
                 "value": 3
             }
         ],

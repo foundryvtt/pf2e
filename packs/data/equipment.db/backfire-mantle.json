@@ -38,12 +38,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "target:self",
-                        "target:ally"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:self",
+                            "target:ally"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 1

@@ -27,26 +27,28 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:group:brawling",
-                        {
-                            "and": [
-                                "feat:monastic-weaponry",
-                                "weapon:trait:monk",
-                                {
-                                    "not": "weapon:category:unarmed"
-                                },
-                                {
-                                    "gte": [
-                                        "weapon:proficiency:rank",
-                                        1
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:group:brawling",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "weapon:trait:monk",
+                                    {
+                                        "not": "weapon:category:unarmed"
+                                    },
+                                    {
+                                        "gte": [
+                                            "weapon:proficiency:rank",
+                                            1
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

@@ -38,14 +38,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:treat-wounds",
-                        "action:administer-first-aid",
-                        "action:treat-disease",
-                        "action:treat-poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:treat-wounds",
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison"
+                        ]
+                    }
+                ],
                 "selector": "medicine",
                 "type": "item",
                 "value": 2

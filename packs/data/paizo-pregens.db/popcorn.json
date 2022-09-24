@@ -163,11 +163,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb"
+                        ],
                         "selector": "athletics",
                         "text": "When you roll a success to Climb, you get a critical success instead.",
                         "title": "{item|name}"
@@ -229,12 +227,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 barbarian class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:barbarian",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 barbarian class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -611,14 +609,12 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "not": [
-                                "barbarian-dedication"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            {
+                                "not": "barbarian-dedication"
+                            }
+                        ],
                         "selector": "ac",
                         "value": -1
                     },
@@ -626,21 +622,23 @@
                         "damageType": "fire",
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "ranged",
-                                "agile",
-                                "normal-rage",
-                                "barbarian-dedication"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "agile",
+                                    "normal-rage",
+                                    "barbarian-dedication"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -664,21 +662,23 @@
                         "damageType": "fire",
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "rage"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "ranged",
-                                "normal-rage",
-                                "barbarian-dedication"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            "rage",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "normal-rage",
+                                    "barbarian-dedication"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "rage-agile",
                         "value": {
@@ -702,21 +702,23 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage",
-                                "normal-rage"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "agile",
-                                "ranged",
-                                "barbarian-dedication"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            "normal-rage",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "agile",
+                                    "ranged",
+                                    "barbarian-dedication"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "normal-rage",
                         "value": 2
@@ -724,21 +726,23 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage",
-                                "agile",
-                                "normal-rage"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "ranged",
-                                "barbarian-dedication"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            "agile",
+                            "normal-rage",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "barbarian-dedication"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "normal-rage-agile",
                         "value": 1
@@ -754,22 +758,24 @@
                         "damageType": "fire",
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage",
-                                "barbarian-dedication",
-                                "instinct-ability"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "agile",
-                                "ranged",
-                                "normal-rage"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            "barbarian-dedication",
+                            "instinct-ability",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "agile",
+                                    "ranged",
+                                    "normal-rage"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "dedication-instinct-rage",
                         "value": 4
@@ -778,22 +784,24 @@
                         "damageType": "fire",
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage",
-                                "barbarian-dedication",
-                                "instinct-ability",
-                                "agile"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "ranged",
-                                "normal-rage"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            "barbarian-dedication",
+                            "instinct-ability",
+                            "agile",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "ranged",
+                                    "normal-rage"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "dedication-instinct-rage-agile",
                         "value": 2
@@ -801,22 +809,24 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage",
-                                "barbarian-dedication",
-                                "instinct-ability",
-                                "normal-rage"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "agile",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            "barbarian-dedication",
+                            "instinct-ability",
+                            "normal-rage",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "nor": [
+                                    "agile",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "dedication-instinct-rage-normal",
                         "value": 2
@@ -824,22 +834,22 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "rage",
-                                "barbarian-dedication",
-                                "instinct-ability",
-                                "agile",
-                                "normal-rage"
-                            ],
-                            "any": [
-                                "battle-form",
-                                "attack"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "rage",
+                            "barbarian-dedication",
+                            "instinct-ability",
+                            "agile",
+                            "normal-rage",
+                            {
+                                "or": [
+                                    "battle-form",
+                                    "attack"
+                                ]
+                            },
+                            {
+                                "not": "ranged"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "dedication-instinct-rage-agile-normal",
                         "value": 1
@@ -906,12 +916,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 barbarian class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:barbarian",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 barbarian class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -1071,16 +1081,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Seasoned (craft food, drink & potions)",
-                        "predicate": {
-                            "all": [
-                                "action:craft"
-                            ],
-                            "any": [
-                                "food",
-                                "drink",
-                                "potion"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft",
+                            {
+                                "or": [
+                                    "food",
+                                    "drink",
+                                    "potion"
+                                ]
+                            }
+                        ],
                         "selector": "crafting",
                         "type": "circumstance",
                         "value": {
@@ -2034,23 +2044,21 @@
                         "value": false
                     },
                     {
-                        "definition": {
-                            "all": [
-                                "weapon:melee",
-                                "weapon:usage:hands:2"
-                            ],
-                            "not": [
-                                "weapon:damage:die:faces:4",
-                                "weapon:trait:reach"
-                            ]
-                        },
+                        "definition": [
+                            "weapon:melee",
+                            "weapon:usage:hands:2",
+                            {
+                                "nor": [
+                                    "weapon:damage:die:faces:4",
+                                    "weapon:trait:reach"
+                                ]
+                            }
+                        ],
                         "key": "AdjustStrike",
                         "mode": "add",
-                        "predicate": {
-                            "all": [
-                                "grasping-reach"
-                            ]
-                        },
+                        "predicate": [
+                            "grasping-reach"
+                        ],
                         "property": "weapon-traits",
                         "value": "reach"
                     },
@@ -2059,17 +2067,17 @@
                         "override": {
                             "downgrade": true
                         },
-                        "predicate": {
-                            "all": [
-                                "weapon:melee",
-                                "weapon:usage:hands:2",
-                                "grasping-reach"
-                            ],
-                            "not": [
-                                "weapon:traits:reach",
-                                "weapon:damage:die:faces:4"
-                            ]
-                        },
+                        "predicate": [
+                            "weapon:melee",
+                            "weapon:usage:hands:2",
+                            "grasping-reach",
+                            {
+                                "nor": [
+                                    "weapon:traits:reach",
+                                    "weapon:damage:die:faces:4"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -2127,11 +2135,9 @@
                 "rules": [
                     {
                         "key": "Sense",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
                         "range": 30,
                         "selector": "scent"
                     }
@@ -2186,11 +2192,9 @@
                 "rules": [
                     {
                         "key": "Sense",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
                         "selector": "darkvision"
                     }
                 ],

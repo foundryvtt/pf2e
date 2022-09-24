@@ -26,88 +26,86 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
                 "rollOption": "oracular-curse:stage"
             },
             {
                 "key": "Resistance",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate",
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
                 "type": "fire",
                 "value": "max(5,floor(@actor.level/2))"
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate",
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
                 "type": "electricity",
                 "value": "max(5,floor(@actor.level/2))"
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:minor"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:minor"
+                ],
                 "type": "electricity",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "ranged"
-                    ],
-                    "any": [
-                        "oracular-curse:stage:moderate",
-                        "oracular-curse:stage:major",
-                        "oracular-curse:stage:extreme"
-                    ]
-                },
+                "predicate": [
+                    "ranged",
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "value": -2
             }

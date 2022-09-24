@@ -14,12 +14,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Great Gnoll",
-                "predicate": {
-                    "any": [
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 1

@@ -689,11 +689,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "action:recall-knowledge"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge"
+                        ],
                         "selector": "skill-check",
                         "text": "When you fail (but don't critically fail) a Recall Knowledge check using any skill, you learn a bit of true knowledge and a bit of erroneous knowledge.",
                         "title": "{item|name}"
@@ -1302,11 +1300,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1337,11 +1333,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1354,11 +1348,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -1622,15 +1614,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "Animal Staff (identify animals)",
-                        "predicate": {
-                            "all": [
-                                "action:recall-knowledge",
-                                "identify"
-                            ],
-                            "any": [
-                                "target:animal"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge",
+                            "identify",
+                            {
+                                "or": [
+                                    "target:animal"
+                                ]
+                            }
+                        ],
                         "selector": "nature",
                         "type": "circumstance",
                         "value": 2

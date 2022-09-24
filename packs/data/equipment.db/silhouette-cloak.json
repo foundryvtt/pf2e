@@ -39,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Silhouette Cloak while in Dim Light or Darkness",
-                "predicate": {
-                    "any": [
-                        "dim-light",
-                        "darkness"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "dim-light",
+                            "darkness"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "item",
                 "value": 3

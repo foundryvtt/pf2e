@@ -28,28 +28,28 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "level 1 Wizard metamagic feat",
+                    "predicate": [
                         "item:trait:wizard",
                         "item:level:1",
                         "item:trait:metamagic"
-                    ],
-                    "label": "level 1 Wizard metamagic feat"
+                    ]
                 },
                 "choices": [
                     {
-                        "predicate": {
-                            "not": [
-                                "feat:reach-spell"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feat:reach-spell"
+                            }
+                        ],
                         "value": "Compendium.pf2e.feats-srd.Reach Spell"
                     },
                     {
-                        "predicate": {
-                            "not": [
-                                "feat:widen-spell"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feat:widen-spell"
+                            }
+                        ],
                         "value": "Compendium.pf2e.feats-srd.Widen Spell"
                     }
                 ],

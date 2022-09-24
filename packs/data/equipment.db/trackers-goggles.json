@@ -39,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Tracker's Goggles (Sense Direction & Track)",
-                "predicate": {
-                    "any": [
-                        "action:sense-direction",
-                        "action:track"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:track"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "type": "item",
                 "value": 1

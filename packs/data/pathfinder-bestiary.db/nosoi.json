@@ -825,11 +825,9 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:trait:undead"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:undead"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -837,11 +835,11 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "target:trait:undead"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "target:trait:undead"
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

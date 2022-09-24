@@ -41,69 +41,59 @@
             },
             {
                 "key": "CreatureSize",
-                "predicate": {
-                    "all": [
-                        "vessels-form"
-                    ],
-                    "any": [
-                        "origin:size:medium",
-                        "origin:size:small",
-                        "origin:size:tiny"
-                    ]
-                },
+                "predicate": [
+                    "vessels-form",
+                    {
+                        "or": [
+                            "origin:size:medium",
+                            "origin:size:small",
+                            "origin:size:tiny"
+                        ]
+                    }
+                ],
                 "value": "large"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "vessels-form"
-                    ]
-                },
+                "predicate": [
+                    "vessels-form"
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "vessels-form"
-                    ]
-                },
+                "predicate": [
+                    "vessels-form"
+                ],
                 "selector": "damage",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "vessels-form",
-                        "item:type:spell"
-                    ]
-                },
+                "predicate": [
+                    "vessels-form",
+                    "item:type:spell"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "vessels-form"
-                    ]
-                },
+                "predicate": [
+                    "vessels-form"
+                ],
                 "selector": "fly-speed",
                 "value": "@actor.attributes.speed.value"
             },
             {
                 "key": "TempHP",
-                "predicate": {
-                    "all": [
-                        "vessels-form"
-                    ]
-                },
+                "predicate": [
+                    "vessels-form"
+                ],
                 "value": 40
             }
         ],

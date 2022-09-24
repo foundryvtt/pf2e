@@ -443,25 +443,25 @@
                     {
                         "ability": "int",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "class:investigator",
-                                "devise-a-stratagem"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                },
-                                "weapon:base:sap"
-                            ]
-                        },
+                        "predicate": [
+                            "class:investigator",
+                            "devise-a-stratagem",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    },
+                                    "weapon:base:sap"
+                                ]
+                            }
+                        ],
                         "selector": "attack-roll",
                         "type": "ability"
                     }
@@ -518,11 +518,9 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "devise-a-stratagem"
-                            ]
-                        },
+                        "predicate": [
+                            "devise-a-stratagem"
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -966,11 +964,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pursue a Lead",
-                        "predicate": {
-                            "all": [
-                                "pursue-a-lead"
-                            ]
-                        },
+                        "predicate": [
+                            "pursue-a-lead"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": {
@@ -989,11 +985,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pursue a Lead",
-                        "predicate": {
-                            "all": [
-                                "pursue-a-lead"
-                            ]
-                        },
+                        "predicate": [
+                            "pursue-a-lead"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -1182,11 +1176,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Keen Recollection (to Recall Knowledge)",
-                        "predicate": {
-                            "all": [
-                                "action:recall-knowledge"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge"
+                        ],
                         "selector": "skill-check",
                         "type": "proficiency",
                         "value": "@actor.level"
@@ -1391,33 +1383,33 @@
                     {
                         "ability": "int",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "class:investigator",
-                                "devise-a-stratagem",
-                                {
-                                    "or": [
-                                        "action:disarm",
-                                        "action:grapple",
-                                        "action:shove",
-                                        "action:trip"
-                                    ]
-                                }
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                },
-                                "weapon:base:sap"
-                            ]
-                        },
+                        "predicate": [
+                            "class:investigator",
+                            "devise-a-stratagem",
+                            {
+                                "or": [
+                                    "action:disarm",
+                                    "action:grapple",
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    },
+                                    "weapon:base:sap"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "type": "ability"
                     }
@@ -1476,11 +1468,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:sense-motive"
-                            ]
-                        },
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 1
@@ -1488,11 +1478,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
-                        "predicate": {
-                            "all": [
-                                "known-liar"
-                            ]
-                        },
+                        "predicate": [
+                            "known-liar"
+                        ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 1
@@ -1500,11 +1488,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
-                        "predicate": {
-                            "all": [
-                                "known-liar"
-                            ]
-                        },
+                        "predicate": [
+                            "known-liar"
+                        ],
                         "selector": "diplomacy",
                         "type": "circumstance",
                         "value": 1
@@ -1512,11 +1498,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
-                        "predicate": {
-                            "all": [
-                                "known-liar"
-                            ]
-                        },
+                        "predicate": [
+                            "known-liar"
+                        ],
                         "selector": "intimidation",
                         "type": "circumstance",
                         "value": 1
@@ -1524,11 +1508,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
-                        "predicate": {
-                            "all": [
-                                "known-liar"
-                            ]
-                        },
+                        "predicate": [
+                            "known-liar"
+                        ],
                         "selector": "performance",
                         "type": "circumstance",
                         "value": 1
@@ -1585,12 +1567,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Known Weakness (critically succeeded on Recall Knowledge)",
-                        "predicate": {
-                            "all": [
-                                "devise-a-strategem",
-                                "known-weakness"
-                            ]
-                        },
+                        "predicate": [
+                            "devise-a-strategem",
+                            "known-weakness"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
@@ -1650,15 +1630,15 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "ongoing"
-                            ],
-                            "any": [
-                                "disease",
-                                "poison"
-                            ]
-                        },
+                        "predicate": [
+                            "ongoing",
+                            {
+                                "or": [
+                                    "disease",
+                                    "poison"
+                                ]
+                            }
+                        ],
                         "selector": "Fortitude",
                         "text": "If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.",
                         "title": "{item|name}"
@@ -1886,11 +1866,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Wary Disarmament (vs. traps)",
-                        "predicate": {
-                            "all": [
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "trap"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -1898,11 +1876,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Wary Disarmament (vs. traps)",
-                        "predicate": {
-                            "all": [
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "trap"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -2324,11 +2300,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -2359,11 +2333,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -2376,11 +2348,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -3787,12 +3757,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Thieves' Tools (Pick Lock & Disable Devices)",
-                        "predicate": {
-                            "any": [
-                                "action:disable-device",
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
                         "selector": "thievery",
                         "type": "item",
                         "value": 1
@@ -4049,12 +4021,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Rainfall Orc (Climb or Swim)",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "type": "circumstance",
                         "value": 2
@@ -4062,11 +4036,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Rainfall Orc (vs. disease)",
-                        "predicate": {
-                            "all": [
-                                "disease"
-                            ]
-                        },
+                        "predicate": [
+                            "disease"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 1

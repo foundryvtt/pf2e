@@ -34,22 +34,24 @@
                 "mode": "upgrade",
                 "path": "system.martial.medium.rank",
                 "phase": "beforeDerived",
-                "predicate": {
-                    "any": [
-                        {
-                            "gte": [
-                                "defense:light:rank",
-                                2
-                            ]
-                        },
-                        {
-                            "gte": [
-                                "defense:unarmored:rank",
-                                2
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "defense:light:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "defense:unarmored:rank",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "value": 2
             },
             {
@@ -57,22 +59,24 @@
                 "mode": "upgrade",
                 "path": "system.martial.heavy.rank",
                 "phase": "beforeDerived",
-                "predicate": {
-                    "any": [
-                        {
-                            "gte": [
-                                "defense:light:rank",
-                                2
-                            ]
-                        },
-                        {
-                            "gte": [
-                                "defense:unarmored:rank",
-                                2
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "defense:light:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "defense:unarmored:rank",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],

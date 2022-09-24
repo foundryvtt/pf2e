@@ -22,25 +22,23 @@
                 "diceNumber": 3,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        {
-                            "or": [
-                                "weapon:trait:finesse",
-                                "weapon:trait:agile",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "weapon:trait:finesse",
+                            "weapon:trait:agile",
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             }
         ],

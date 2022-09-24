@@ -36,22 +36,26 @@
                 "critical": true,
                 "diceNumber": 1,
                 "key": "DamageDice",
-                "predicate": {
-                    "any": [
-                        "blade-justice",
-                        "retributive-strike"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "blade-justice",
+                            "retributive-strike"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "blade-justice",
-                        "retributive-strike"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "blade-justice",
+                            "retributive-strike"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, the target is slowed 1 on its next turn.",
                 "title": "{item|name}"

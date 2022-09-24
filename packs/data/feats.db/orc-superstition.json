@@ -34,18 +34,18 @@
             {
                 "key": "FlatModifier",
                 "label": "Orc Superstition",
-                "predicate": {
-                    "all": [
-                        "orc-superstition"
-                    ],
-                    "any": [
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult",
-                        "magical"
-                    ]
-                },
+                "predicate": [
+                    "orc-superstition",
+                    {
+                        "or": [
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult",
+                            "magical"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

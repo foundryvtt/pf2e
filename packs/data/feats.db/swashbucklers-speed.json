@@ -31,11 +31,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:effect:panache"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:panache"
+                ],
                 "selector": "all-speeds",
                 "slug": "swashbucklers-speed-panache",
                 "type": "status",
@@ -43,11 +41,11 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "self:effect:panache"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
                 "selector": "all-speeds",
                 "slug": "swashbucklers-speed-no-panache",
                 "type": "status",

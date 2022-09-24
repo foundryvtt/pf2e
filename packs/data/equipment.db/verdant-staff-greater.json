@@ -89,15 +89,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Verdant Staff (identify plants)",
-                "predicate": {
-                    "all": [
-                        "target:trait:plant"
-                    ],
-                    "any": [
-                        "action:recall-knowledge",
-                        "action:identify"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:plant",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:identify"
+                        ]
+                    }
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": 2

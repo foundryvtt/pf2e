@@ -28,29 +28,25 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "ac",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
                 "label": "Superstition Instinct (vs. magic)",
-                "predicate": {
-                    "all": [
-                        "magic",
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "magic",
+                    "rage",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "superstition-saves",
                 "type": "status",
@@ -66,17 +62,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "target:caster",
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "target:caster",
+                    "rage",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "caster-rage",
                 "value": {
@@ -100,17 +96,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "target:caster",
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "target:caster",
+                    "rage",
+                    "agile",
+                    {
+                        "nor": [
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "caster-rage-agile",
                 "value": {
@@ -134,17 +130,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "target:caster",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "nor": [
+                            "agile",
+                            "target:caster",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage",
                 "value": {
@@ -163,17 +159,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "target:caster",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    {
+                        "nor": [
+                            "target:caster",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage-agile",
                 "value": {
@@ -192,13 +188,11 @@
             {
                 "key": "FlatModifier",
                 "label": "Superstition Instinct (vs. magic)",
-                "predicate": {
-                    "all": [
-                        "magic",
-                        "rage",
-                        "instinct-ability"
-                    ]
-                },
+                "predicate": [
+                    "magic",
+                    "rage",
+                    "instinct-ability"
+                ],
                 "selector": "saving-throw",
                 "slug": "superstition-saves-dedication",
                 "type": "status",
@@ -207,17 +201,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "target:caster",
-                        "rage",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "target:caster",
+                    "rage",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "caster-rage-dedication",
                 "value": 4
@@ -225,17 +219,15 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "target:caster",
-                        "rage",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "target:caster",
+                    "rage",
+                    "agile",
+                    "instinct-ability",
+                    {
+                        "not": "ranged"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "caster-rage-dedication-agile",
                 "value": 2
@@ -243,17 +235,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "agile",
-                        "target:caster",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "agile",
+                            "target:caster",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage-dedication",
                 "value": 2
@@ -261,17 +253,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "target:caster",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "target:caster",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "normal-rage-dedication-agile",
                 "value": 1

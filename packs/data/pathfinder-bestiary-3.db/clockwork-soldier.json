@@ -302,11 +302,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "wind-up"
-                            ]
-                        },
+                        "predicate": [
+                            "wind-up"
+                        ],
                         "selector": "perception",
                         "value": -2
                     }
@@ -478,13 +476,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
-                        "predicate": {
-                            "any": [
-                                "action:disarm",
-                                "action:grapple",
-                                "avoid-disarm"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disarm",
+                                    "action:grapple",
+                                    "avoid-disarm"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }

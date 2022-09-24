@@ -406,12 +406,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.IceAndSnow",
-                        "predicate": {
-                            "any": [
-                                "terrain:ice",
-                                "terrain:snow"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:ice",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }

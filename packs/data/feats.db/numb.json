@@ -31,12 +31,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "emotion",
-                        "pain"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "pain"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "numb-base",
                 "type": "circumstance",
@@ -44,15 +46,15 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "zombie:deteriorated"
-                    ],
-                    "any": [
-                        "emotion",
-                        "pain"
-                    ]
-                },
+                "predicate": [
+                    "zombie:deteriorated",
+                    {
+                        "or": [
+                            "emotion",
+                            "pain"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "numb-deteriorated",
                 "type": "circumstance",
@@ -63,15 +65,15 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "zombie:deteriorated"
-                    ],
-                    "any": [
-                        "emotion",
-                        "pain"
-                    ]
-                },
+                "predicate": [
+                    "zombie:deteriorated",
+                    {
+                        "or": [
+                            "emotion",
+                            "pain"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "saves"
             },

@@ -150,11 +150,9 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -269,22 +267,18 @@
                         "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "system.abilities.int.value",
-                        "predicate": {
-                            "all": [
-                                "self:specialized"
-                            ]
-                        },
+                        "predicate": [
+                            "self:specialized"
+                        ],
                         "value": 4
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "system.abilities.dex.value",
-                        "predicate": {
-                            "all": [
-                                "self:specialized"
-                            ]
-                        },
+                        "predicate": [
+                            "self:specialized"
+                        ],
                         "value": 2
                     },
                     {

@@ -27,14 +27,12 @@
         "rules": [
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "unarmed"
-                    ],
-                    "not": [
-                        "suppress-mystic-strike"
-                    ]
-                },
+                "predicate": [
+                    "unarmed",
+                    {
+                        "not": "suppress-mystic-strike"
+                    }
+                ],
                 "selector": "strike-damage",
                 "traits": [
                     "magical"

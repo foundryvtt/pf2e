@@ -34,11 +34,9 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "target:trait:lawful"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:lawful"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "<strong>Anarchic</strong> When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
             },
@@ -47,21 +45,21 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:trait:lawful"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:lawful"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

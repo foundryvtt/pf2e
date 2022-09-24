@@ -36,16 +36,18 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal",
-                        "item:type:spell"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "divine",
+                            "occult",
+                            "primal",
+                            "item:type:spell"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

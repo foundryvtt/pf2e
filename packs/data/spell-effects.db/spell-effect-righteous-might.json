@@ -49,11 +49,9 @@
                     },
                     "tempHP": 10
                 },
-                "predicate": {
-                    "all": [
-                        "deity"
-                    ]
-                },
+                "predicate": [
+                    "deity"
+                ],
                 "value": {
                     "brackets": [
                         {
@@ -87,11 +85,9 @@
             {
                 "key": "AdjustModifier",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "weapon:melee"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee"
+                ],
                 "selector": "favored-weapon-damage",
                 "value": "ternary(gte(@item.level,8),3,2)"
             },
@@ -107,28 +103,24 @@
                 "override": {
                     "upgrade": true
                 },
-                "predicate": {
-                    "all": [
-                        "weapon:category:simple",
-                        {
-                            "or": [
-                                "weapon:damage:die:faces:4",
-                                "weapon:damage:die:faces:6"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "weapon:category:simple",
+                    {
+                        "or": [
+                            "weapon:damage:die:faces:4",
+                            "weapon:damage:die:faces:6"
+                        ]
+                    }
+                ],
                 "selector": "favored-weapon-damage"
             },
             {
                 "damageType": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "deity:alignment:n"
-                    ]
-                },
+                "predicate": [
+                    "deity:alignment:n"
+                ],
                 "selector": "favored-weapon-damage"
             }
         ],

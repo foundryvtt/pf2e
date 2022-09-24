@@ -31,12 +31,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "necromancy",
-                        "evil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "necromancy",
+                            "evil"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
@@ -50,11 +52,9 @@
             {
                 "damageType": "cold",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "ice-crafted"
-                    ]
-                },
+                "predicate": [
+                    "ice-crafted"
+                ],
                 "selector": "strike-damage",
                 "value": 1
             }

@@ -1361,11 +1361,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1396,11 +1394,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1413,11 +1409,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2529,12 +2523,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Tracker's Goggles (Sense Direction & Track)",
-                        "predicate": {
-                            "any": [
-                                "action:sense-direction",
-                                "action:track"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:sense-direction",
+                                    "action:track"
+                                ]
+                            }
+                        ],
                         "selector": "survival",
                         "type": "item",
                         "value": 1
@@ -5653,11 +5649,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:subsist"
-                            ]
-                        },
+                        "predicate": [
+                            "action:subsist"
+                        ],
                         "selector": "survival",
                         "text": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.",
                         "title": "{item|name}"
@@ -5719,12 +5713,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Natural Medicine (Treat Wounds with fresh ingredients)",
-                        "predicate": {
-                            "all": [
-                                "action:treat-wounds",
-                                "fresh-ingredients"
-                            ]
-                        },
+                        "predicate": [
+                            "action:treat-wounds",
+                            "fresh-ingredients"
+                        ],
                         "selector": "nature",
                         "type": "circumstance",
                         "value": 2

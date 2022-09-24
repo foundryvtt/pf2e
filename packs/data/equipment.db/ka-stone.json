@@ -37,12 +37,14 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. negative and death (Ka stone)",
-                "predicate": {
-                    "any": [
-                        "negative",
-                        "death-effects"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "negative",
+                            "death-effects"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": {

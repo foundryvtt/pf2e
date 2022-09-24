@@ -1882,11 +1882,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1917,11 +1915,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1934,11 +1930,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2572,11 +2566,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "stance:everstand"
-                            ]
-                        },
+                        "predicate": [
+                            "stance:everstand"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -2967,11 +2959,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "fear"
-                            ]
-                        },
+                        "predicate": [
+                            "fear"
+                        ],
                         "selector": "will",
                         "text": "When you roll a success at a Will save against a fear effect, you get a critical success instead.",
                         "title": "{item|name}"
@@ -3081,16 +3071,14 @@
                 "rules": [
                     {
                         "key": "CriticalSpecialization",
-                        "predicate": {
-                            "all": [
-                                {
-                                    "gte": [
-                                        "weapon:proficiency:rank",
-                                        3
-                                    ]
-                                }
-                            ]
-                        }
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "weapon:proficiency:rank",
+                                    3
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "slug": "fighter-weapon-mastery",

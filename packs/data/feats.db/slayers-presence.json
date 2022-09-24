@@ -34,18 +34,16 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "action:demoralize",
-                        "target:trait:undead",
-                        {
-                            "gt": [
-                                "self:level",
-                                "target:level"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:demoralize",
+                    "target:trait:undead",
+                    {
+                        "gt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "text": "@Localize[PF2E.SpecificRule.UndeadSlayer.SlayersPresence.Note",
                 "title": "{item|name}"

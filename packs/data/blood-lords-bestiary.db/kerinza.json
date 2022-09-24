@@ -2253,14 +2253,12 @@
                         "diceNumber": "2",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:slowed"
-                            ],
-                            "not": [
-                                "self:condition:slowed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:slowed",
+                            {
+                                "not": "self:condition:slowed"
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],

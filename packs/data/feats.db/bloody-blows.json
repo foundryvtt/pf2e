@@ -30,14 +30,12 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "unarmed"
-                    ],
-                    "not": [
-                        "nonlethal"
-                    ]
-                },
+                "predicate": [
+                    "unarmed",
+                    {
+                        "not": "nonlethal"
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "When you critically hit with a Strike using an unarmed attack that isn't nonlethal, the target takes @Localize[PF2E.PersistentDamage.Bleed1d4.success].",
                 "title": "{item|name}"

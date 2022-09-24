@@ -40,12 +40,10 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "proficiency:untrained",
-                        "feature:polymath"
-                    ]
-                },
+                "predicate": [
+                    "proficiency:untrained",
+                    "feature:polymath"
+                ],
                 "selector": "skill-check",
                 "slug": "inspiration-polymath",
                 "type": "status",
@@ -53,12 +51,10 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "composition",
-                        "feature:maestro"
-                    ]
-                },
+                "predicate": [
+                    "composition",
+                    "feature:maestro"
+                ],
                 "selector": "performance",
                 "slug": "inspiration-maestro",
                 "type": "status",
@@ -66,17 +62,17 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "feature:muse",
-                        "origin:trait:fey"
-                    ],
-                    "not": [
-                        "feature:enigma",
-                        "feature:maestro",
-                        "feature:polymath"
-                    ]
-                },
+                "predicate": [
+                    "feature:muse",
+                    "origin:trait:fey",
+                    {
+                        "nor": [
+                            "feature:enigma",
+                            "feature:maestro",
+                            "feature:polymath"
+                        ]
+                    }
+                ],
                 "selector": "will",
                 "slug": "inspiration-other",
                 "type": "status",

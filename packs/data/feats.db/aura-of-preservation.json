@@ -45,42 +45,42 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "morph",
-                        "polymorph"
-                    ],
-                    "not": [
-                        "origin:trait:aberration"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "morph",
+                            "polymorph"
+                        ]
+                    },
+                    {
+                        "not": "origin:trait:aberration"
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:aberration"
-                    ],
-                    "any": [
-                        "morph",
-                        "polymorph"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:aberration",
+                    {
+                        "or": [
+                            "morph",
+                            "polymorph"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "origin:trait:aberration"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "origin:trait:aberration"
+                ],
                 "selector": "will",
                 "type": "status",
                 "value": 2

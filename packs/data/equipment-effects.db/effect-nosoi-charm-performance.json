@@ -20,13 +20,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Nosoi Charm (Play an instrument, orate or sing)",
-                "predicate": {
-                    "any": [
-                        "action:play-an-instrument",
-                        "action:orate",
-                        "action:sing"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:play-an-instrument",
+                            "action:orate",
+                            "action:sing"
+                        ]
+                    }
+                ],
                 "selector": "performance",
                 "type": "item",
                 "value": 2

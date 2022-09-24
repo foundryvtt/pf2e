@@ -375,12 +375,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Ice and Snow",
-                        "predicate": {
-                            "any": [
-                                "terrain:icy",
-                                "terrain:snow"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:icy",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }

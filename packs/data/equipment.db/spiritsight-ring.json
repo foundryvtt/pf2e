@@ -38,16 +38,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "target:trait:incorporeal"
-                    ],
-                    "any": [
-                        "target:condition:hidden",
-                        "target:condition:undetected"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "target:trait:incorporeal",
+                    {
+                        "or": [
+                            "target:condition:hidden",
+                            "target:condition:undetected"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "item",
                 "value": 2
