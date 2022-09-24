@@ -3,7 +3,7 @@ import { MovementType } from "@actor/creature/data";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
 import { DeferredMovementType } from "../synthetics";
 
 /**
@@ -15,6 +15,8 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     static VALID_SELECTORS = ["burrow", "fly", "climb", "swim"] as const;
 
     private selector: BaseSpeedSelector = "fly";
+
+    private value: number | string | BracketedValue = 0;
 
     constructor(data: BaseSpeedSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -30,6 +32,12 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
         } else {
             this.selector = speedType;
         }
+
+        if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
+            this.value = data.value;
+        } else {
+            this.failValidation("A value must be a number, string, or bracketed value");
+        }
     }
 
     override beforePrepareData(): void {
@@ -43,17 +51,13 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
         return () => {
             if (!this.test()) return null;
 
-            const value = this.resolveValue(this.data.value);
-            if (!(typeof value === "number" && Number.isInteger(value) && value > 0)) {
-                this.failValidation("Base speed requires a positive value field");
+            const value = this.resolveValue(this.value);
+            if (!(typeof value === "number" && Number.isInteger(value))) {
+                this.failValidation("Failed to resolve a value");
                 return null;
             }
 
-            return {
-                type: this.selector,
-                value,
-                source: this.item.name,
-            };
+            return value > 0 ? { type: this.selector, value, source: this.item.name } : null;
         };
     }
 }
