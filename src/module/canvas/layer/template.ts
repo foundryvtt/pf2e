@@ -33,7 +33,7 @@ export class TemplateLayerPF2e<
             // Update the shape data
             if (["cone", "circle"].includes(template.type)) {
                 const direction = ray.angle;
-                const snapAngle = (canvas.scene.hasHexGrid ? (Math.PI * 1/6) : (Math.PI * 0.25));
+                const snapAngle = Math.PI / (canvas.scene.hasHexGrid ? 6 : 4);
                 template.document.direction = Math.toDegrees(
                     Math.floor((direction + Math.PI * 0.125) / snapAngle) * snapAngle
                 );
