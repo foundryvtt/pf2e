@@ -5,7 +5,7 @@ export class TemplateLayerPF2e<
 > extends TemplateLayer<TTemplate> {
     /** Originally by Furyspark for the PF1e system */
     protected override _onDragLeftMove(event: PlaceablesLayerEvent<TTemplate>): void {
-        if (!canvas.dimensions) return;
+        if (!canvas.scene || !canvas.dimensions) return;
 
         // From PlaceablesLayer#_onDragLeftMove
         const preview = event.data.preview;
@@ -33,8 +33,9 @@ export class TemplateLayerPF2e<
             // Update the shape data
             if (["cone", "circle"].includes(template.type)) {
                 const direction = ray.angle;
+                const snapAngle = Math.PI / (canvas.scene.hasHexGrid ? 6 : 4);
                 template.document.direction = Math.toDegrees(
-                    Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25)
+                    Math.floor((direction + Math.PI * 0.125) / snapAngle) * snapAngle
                 );
                 const distance = Math.max(ray.distance / ratio, canvas.dimensions.distance);
                 template.document.distance =
