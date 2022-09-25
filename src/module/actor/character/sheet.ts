@@ -11,7 +11,7 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, pick, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
@@ -102,7 +102,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
             .map(
                 (classDC): ClassDCSheetData => ({
-                    ...pick(classDC, ["slug", "label", "value", "primary"]),
+                    ...classDC,
                     icon: this.getProficiencyIcon(classDC.rank),
                     hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
                     rankSlug: PROFICIENCY_RANKS[classDC.rank],
