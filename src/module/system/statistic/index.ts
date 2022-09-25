@@ -244,8 +244,9 @@ export class Statistic {
         return {
             slug: this.slug,
             label: this.label,
-            value: dc.value,
+            value: check.mod,
             totalModifier: check.mod ?? 0,
+            dc: dc.value,
             breakdown: check.breakdown ?? "",
             _modifiers: check.modifiers.map((m) => m.toObject()),
         };
