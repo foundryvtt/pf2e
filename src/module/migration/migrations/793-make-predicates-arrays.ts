@@ -44,6 +44,7 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
 
     #isOldRawPredicate(predicate: unknown): predicate is OldRawPredicate {
         if (!predicate || Array.isArray(predicate)) return false;
+        if (isObject<{ predicate?: unknown }>(predicate) && Array.isArray(predicate["predicate"])) return false;
         return predicate instanceof Object;
     }
 
