@@ -13,6 +13,7 @@ import { encouragingWords } from "@scripts/macros/encouraging-words";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
 import { raiseAShield } from "@scripts/macros/raise-a-shield";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
+import { sacredDefense } from "@scripts/macros/sacred-defense";
 import { steelYourResolve } from "@scripts/macros/steel-your-resolve";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { treatWounds } from "@scripts/macros/treat-wounds";
@@ -35,6 +36,7 @@ export const SetGamePF2e = {
             raiseAShield,
             restForTheNight,
             earnIncome: showEarnIncomePopup,
+            sacredDefense,
             steelYourResolve,
             treatWounds,
             ...ActionMacros,

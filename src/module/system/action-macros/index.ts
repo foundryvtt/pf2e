@@ -21,18 +21,25 @@ import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
 import { impersonate } from "./deception/impersonate";
 import { lie } from "./deception/lie";
+import { revealMachinations } from "./deception/reveal-machinations";
 import { bonMot } from "./diplomacy/bon-mot";
+import { evangelize } from "./diplomacy/evangelize";
 import { gatherInformation } from "./diplomacy/gather-information";
 import { makeAnImpression } from "./diplomacy/make-an-impression";
+import { noCauseForAlarm } from "./diplomacy/no-cause-for-alarm";
 import { request } from "./diplomacy/request";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
+import { revealTrueName } from "./intimidation/reveal-true-name";
+import { scareToDeath } from "./intimidation/scare-to-death";
 import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
+import { disturbingKnowledge } from "./occultism/disturbing-knowledge";
+import { battlePrayer } from "./religion/battle-prayer";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
@@ -82,16 +89,21 @@ export const ActionMacros = {
     feint,
     impersonate,
     lie,
+    revealMachinations,
 
     // Diplomacy
     bonMot,
+    evangelize,
     gatherInformation,
     makeAnImpression,
+    noCauseForAlarm,
     request,
 
     // Intimidation
     coerce,
     demoralize,
+    revealTrueName,
+    scareToDeath,
 
     // Medicine
     treatDisease,
@@ -100,6 +112,12 @@ export const ActionMacros = {
     // Nature
     commandAnAnimal,
 
+    // Occultism
+    disturbingKnowledge,
+
+    //Religion
+    battlePrayer,
+    
     // Stealth
     hide,
     sneak,
