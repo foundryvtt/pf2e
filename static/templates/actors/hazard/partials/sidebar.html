@@ -89,7 +89,7 @@
             </div>
             <div class="tags">
                 {{#each immunities as |immunity slug|}}
-                    <span class="tag" data-slug="{{slug}}">{{localize immunity.label}}</span>
+                    <span class="tag" data-immunity="{{slug}}">{{localize immunity.label}}</span>
                 {{/each}}
             </div>
         </section>
@@ -101,7 +101,7 @@
             </div>
             <div class="tags">
                 {{#each data.traits.dv as |weakness|}}
-                    <span class="tag" data-slug="weakness.type">{{localize weakness.label}} {{weakness.value}}</span>
+                    <span class="tag" data-weakness="{{weakness.type}}">{{localize weakness.label}} {{weakness.value}}</span>
                 {{/each}}
             </div>
         </section>
@@ -113,7 +113,7 @@
             </div>
             <div class="tags">
                 {{#each data.traits.dr as |resistance|}}
-                    <span class="tag" data-slug="resistance.type">{{localize resistance.label}} {{resistance.value}}</span>
+                    <span class="tag" data-resistance="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</span>
                 {{/each}}
             </div>
         </section>

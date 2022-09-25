@@ -116,7 +116,7 @@
 
     <div class="side-bar-section-content">
         {{#each immunities as |immunity type|}}
-            <div class="tag-legacy immunity" data-weakness="{{type}}">{{immunity.label}}</div>
+            <div class="tag-legacy immunity" data-immunity="{{type}}">{{immunity.label}}</div>
         {{/each}}
     </div>
 </div>
@@ -152,7 +152,7 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dr as |resistance|}}
-            <div class="tag-legacy resistance" data-weakness="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
+            <div class="tag-legacy resistance" data-resistance="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
 </div>

@@ -330,7 +330,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Change emitsSound values of "true" and "false" to booleans
-        this.actor.system.attributes.emitsSound;
         const emitsSound = formData["system.attributes.emitsSound"];
         if (emitsSound !== "encounter") {
             formData["system.attributes.emitsSound"] = emitsSound === "true";
